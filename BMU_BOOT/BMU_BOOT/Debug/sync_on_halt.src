@@ -1,6 +1,6 @@
 	; Module start
 	.compiler_version	"TASKING VX-toolset for TriCore: C compiler v4.3r1 Build 759 SN 00641831"
-	.compiler_invocation	"ctc -f cc6524a -c99 --dep-file=.sync_on_halt.o.d -D__CPU__=tc1782 -D__CPU_TC1782__ --core=tc1.3.1 -F -ID:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_2.0\\BMU_BOOT -ID:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_2.0\\BMU_BOOT\\Communication_Files\\CanDrv -ID:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_2.0\\BMU_BOOT\\Communication_Files\\Com -ID:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_2.0\\BMU_BOOT\\Communication_Files\\Com\\Can_Input -ID:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_2.0\\BMU_BOOT\\Communication_Files\\Com\\Can_Output -ID:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_2.0\\BMU_BOOT\\Communication_Files\\Uds\\Dcm -ID:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_2.0\\BMU_BOOT\\Communication_Files\\Uds\\Dem -ID:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_2.0\\BMU_BOOT\\Communication_Files\\Uds\\Tp -ID:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_2.0\\BMU_BOOT\\Communication_Files\\Uds\\User -ID:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_2.0\\BMU_BOOT\\Complex_Files -ID:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_2.0\\BMU_BOOT\\Initiate_Files -ID:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_2.0\\BMU_BOOT\\Nvm_Files\\FlsDrv -ID:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_2.0\\BMU_BOOT\\Stand_Header -g2 --make-target=sync_on_halt.o -t4 --language=-gcc,-volatile,+strings --default-near-size=0 -O2 --default-a1-size=0 --default-a0-size=0 --source --align=0 --compact-max-size=200 --switch=auto -o sync_on_halt.src ..\\sync_on_halt.c"
+	.compiler_invocation	"ctc -f cc2848a -c99 --dep-file=.sync_on_halt.o.d -D__CPU__=tc1782 -D__CPU_TC1782__ --core=tc1.3.1 -F -ID:\\work\\Microvast\\OTA\\LiFan\\BMU_BOOT\\BMU_BOOT -ID:\\work\\Microvast\\OTA\\LiFan\\BMU_BOOT\\BMU_BOOT\\Communication_Files\\CanDrv -ID:\\work\\Microvast\\OTA\\LiFan\\BMU_BOOT\\BMU_BOOT\\Communication_Files\\Com -ID:\\work\\Microvast\\OTA\\LiFan\\BMU_BOOT\\BMU_BOOT\\Communication_Files\\Com\\Can_Input -ID:\\work\\Microvast\\OTA\\LiFan\\BMU_BOOT\\BMU_BOOT\\Communication_Files\\Com\\Can_Output -ID:\\work\\Microvast\\OTA\\LiFan\\BMU_BOOT\\BMU_BOOT\\Communication_Files\\Uds\\Dcm -ID:\\work\\Microvast\\OTA\\LiFan\\BMU_BOOT\\BMU_BOOT\\Communication_Files\\Uds\\Dem -ID:\\work\\Microvast\\OTA\\LiFan\\BMU_BOOT\\BMU_BOOT\\Communication_Files\\Uds\\Tp -ID:\\work\\Microvast\\OTA\\LiFan\\BMU_BOOT\\BMU_BOOT\\Communication_Files\\Uds\\User -ID:\\work\\Microvast\\OTA\\LiFan\\BMU_BOOT\\BMU_BOOT\\Complex_Files -ID:\\work\\Microvast\\OTA\\LiFan\\BMU_BOOT\\BMU_BOOT\\Initiate_Files -ID:\\work\\Microvast\\OTA\\LiFan\\BMU_BOOT\\BMU_BOOT\\Nvm_Files\\FlsDrv -ID:\\work\\Microvast\\OTA\\LiFan\\BMU_BOOT\\BMU_BOOT\\Stand_Header -g2 --make-target=sync_on_halt.o -t4 --language=-gcc,-volatile,+strings --default-near-size=0 -O2 --default-a1-size=0 --default-a0-size=0 --source --align=0 --compact-max-size=200 --switch=auto -o sync_on_halt.src ..\\sync_on_halt.c"
 	.compiler_name		"ctc"
 	.name	"sync_on_halt"
 
@@ -552,7 +552,7 @@ _sync_on_halt_ucx:	.type	object
 	.sdecl	'.debug_info',debug
 	.sect	'.debug_info'
 .L11:
-	.word	740
+	.word	737
 	.half	3
 	.word	.L12
 	.byte	4
@@ -560,30 +560,30 @@ _sync_on_halt_ucx:	.type	object
 	.byte	1
 	.byte	'..\\sync_on_halt.c',0
 	.byte	'TASKING VX-toolset for TriCore: C compiler',0
-	.byte	'D:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_2.0\\BMU_BOOT\\Debug\\',0,12,1
+	.byte	'D:\\work\\Microvast\\OTA\\LiFan\\BMU_BOOT\\BMU_BOOT\\Debug\\',0,12,1
 	.word	.L13
 	.byte	2
 	.byte	'__cacheiwi',0,1,1,1,1,3
 	.byte	'unsigned char',0,1,8
 .L30:
 	.byte	4
-	.word	151
+	.word	148
 	.byte	5
 	.byte	'p',0
-	.word	168
+	.word	165
 	.byte	0,2
 	.byte	'__mtcr',0,1,1,1,1,3
 	.byte	'int',0,4,5,6
-	.word	193
+	.word	190
 	.byte	6
-	.word	193
+	.word	190
 	.byte	0,7
-	.word	193
+	.word	190
 	.byte	8
 	.byte	'__mfcr',0
-	.word	211
+	.word	208
 	.byte	1,1,1,1,6
-	.word	193
+	.word	190
 	.byte	0,9
 	.byte	'__debug',0,1,1,1,1,9
 	.byte	'__nop',0,1,1,1,1,9
@@ -593,89 +593,89 @@ _sync_on_halt_ucx:	.type	object
 	.byte	3
 	.byte	'unsigned int',0,4,7,10
 	.byte	'void',0,4
-	.word	304
+	.word	301
 	.byte	11
 	.byte	'__prof_adm',0,1,1,1
-	.word	310
+	.word	307
 	.byte	12,1,4
-	.word	334
+	.word	331
 	.byte	11
 	.byte	'__codeptr',0,1,1,1
-	.word	336
+	.word	333
 	.byte	13,2,191,19,18,4,14,2,193,19,2,4,3
 	.byte	'unsigned int',0,4,7,15
 	.byte	'CNT1',0,4
-	.word	371
+	.word	368
 	.byte	12,20,2,35,0,16,4
-	.word	371
+	.word	368
 	.byte	2,18,2,35,0,15
 	.byte	'TOS',0,4
-	.word	371
+	.word	368
 	.byte	2,16,2,35,0,15
 	.byte	'SRPN',0,4
-	.word	371
+	.word	368
 	.byte	8,8,2,35,0,15
 	.byte	'CPPN',0,4
-	.word	371
+	.word	368
 	.byte	8,0,2,35,0,0,17
 	.byte	'B',0,4
-	.word	365
+	.word	362
 	.byte	2,35,0,17
 	.byte	'I',0,4
-	.word	193
+	.word	190
 	.byte	2,35,0,17
 	.byte	'U',0,4
-	.word	288
+	.word	285
 	.byte	2,35,0,0,7
-	.word	359
+	.word	356
 	.byte	11
 	.byte	'PCP_GPR6_type',0,2,204,19,3
-	.word	496
+	.word	493
 	.byte	13,2,206,19,18,4,14,2,208,19,2,4,15
 	.byte	'Z',0,4
-	.word	371
+	.word	368
 	.byte	1,31,2,35,0,15
 	.byte	'N',0,4
-	.word	371
+	.word	368
 	.byte	1,30,2,35,0,15
 	.byte	'C',0,4
-	.word	371
+	.word	368
 	.byte	1,29,2,35,0,15
 	.byte	'V',0,4
-	.word	371
+	.word	368
 	.byte	1,28,2,35,0,15
 	.byte	'CNZ',0,4
-	.word	371
+	.word	368
 	.byte	1,27,2,35,0,15
 	.byte	'IEN',0,4
-	.word	371
+	.word	368
 	.byte	1,26,2,35,0,15
 	.byte	'CEN',0,4
-	.word	371
+	.word	368
 	.byte	1,25,2,35,0,16,4
-	.word	371
+	.word	368
 	.byte	1,24,2,35,0,15
 	.byte	'DPTR',0,4
-	.word	371
+	.word	368
 	.byte	8,16,2,35,0,16,4
-	.word	371
+	.word	368
 	.byte	16,0,2,35,0,0,17
 	.byte	'B',0,4
-	.word	530
+	.word	527
 	.byte	2,35,0,17
 	.byte	'I',0,4
-	.word	193
+	.word	190
 	.byte	2,35,0,17
 	.byte	'U',0,4
-	.word	288
+	.word	285
 	.byte	2,35,0,0,7
-	.word	524
+	.word	521
 	.byte	11
 	.byte	'PCP_GPR7_type',0,2,224,19,3
-	.word	706
+	.word	703
 .L35:
 	.byte	18,64
-	.word	288
+	.word	285
 	.byte	19,15,0,0
 	.sdecl	'.debug_abbrev',debug
 	.sect	'.debug_abbrev'
@@ -702,13 +702,13 @@ _sync_on_halt_ucx:	.type	object
 	.sdecl	'.debug_info',debug,cluster('_sync_on_halt_end')
 	.sect	'.debug_info'
 .L14:
-	.word	188
+	.word	185
 	.half	3
 	.word	.L15
 	.byte	4,1
 	.byte	'..\\sync_on_halt.c',0
 	.byte	'TASKING VX-toolset for TriCore: C compiler',0
-	.byte	'D:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_2.0\\BMU_BOOT\\Debug\\',0,12,1
+	.byte	'D:\\work\\Microvast\\OTA\\LiFan\\BMU_BOOT\\BMU_BOOT\\Debug\\',0,12,1
 	.word	.L17,.L16
 	.byte	2
 	.word	.L10
@@ -751,13 +751,13 @@ _sync_on_halt_ucx:	.type	object
 	.sdecl	'.debug_info',debug,cluster('_sync_on_halt')
 	.sect	'.debug_info'
 .L19:
-	.word	255
+	.word	252
 	.half	3
 	.word	.L20
 	.byte	4,1
 	.byte	'..\\sync_on_halt.c',0
 	.byte	'TASKING VX-toolset for TriCore: C compiler',0
-	.byte	'D:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_2.0\\BMU_BOOT\\Debug\\',0,12,1
+	.byte	'D:\\work\\Microvast\\OTA\\LiFan\\BMU_BOOT\\BMU_BOOT\\Debug\\',0,12,1
 	.word	.L22,.L21
 	.byte	2
 	.word	.L10
@@ -861,13 +861,13 @@ _sync_on_halt_ucx:	.type	object
 	.sdecl	'.debug_info',debug,cluster('_sync_on_halt_lcx')
 	.sect	'.debug_info'
 .L24:
-	.word	166
+	.word	163
 	.half	3
 	.word	.L25
 	.byte	4,1
 	.byte	'..\\sync_on_halt.c',0
 	.byte	'TASKING VX-toolset for TriCore: C compiler',0
-	.byte	'D:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_2.0\\BMU_BOOT\\Debug\\',0,12,1,2
+	.byte	'D:\\work\\Microvast\\OTA\\LiFan\\BMU_BOOT\\BMU_BOOT\\Debug\\',0,12,1,2
 	.word	.L10
 	.byte	3
 	.byte	'_sync_on_halt_lcx',0,1,60,41
@@ -883,13 +883,13 @@ _sync_on_halt_ucx:	.type	object
 	.sdecl	'.debug_info',debug,cluster('_sync_on_halt_ucx')
 	.sect	'.debug_info'
 .L26:
-	.word	166
+	.word	163
 	.half	3
 	.word	.L27
 	.byte	4,1
 	.byte	'..\\sync_on_halt.c',0
 	.byte	'TASKING VX-toolset for TriCore: C compiler',0
-	.byte	'D:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_2.0\\BMU_BOOT\\Debug\\',0,12,1,2
+	.byte	'D:\\work\\Microvast\\OTA\\LiFan\\BMU_BOOT\\BMU_BOOT\\Debug\\',0,12,1,2
 	.word	.L10
 	.byte	3
 	.byte	'_sync_on_halt_ucx',0,1,61,41

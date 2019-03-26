@@ -1,15 +1,6 @@
 
 **** Build of configuration Debug for project BMU_BOOT ****
 
-"C:\\Program Files (x86)\\TASKING\\TriCore v4.3r1\\ctc\\bin\\amk" -j8 all 
-Compiling Uds_User_RoutineControlCallback.c
-Linking to BMU_BOOT.elf
-
-Time consumed: 3359 ms
-**** End of build ****
-
-**** Build of configuration Debug for project BMU_BOOT ****
-
 "C:\\Program Files (x86)\\TASKING\\TriCore v4.3r1\\ctc\\bin\\amk" -j8 all -a 
 Compiling CANbootloader.c
 Compiling cstart.c
@@ -46,10 +37,10 @@ ctc W549: ["..\Communication_Files\Uds\Dcm\Uds_Dcm_ECUReset.c" 62/89] condition 
 ctc W549: ["..\Communication_Files\Uds\Dcm\Uds_Dcm_ECUReset.c" 62/140] condition is always true
 0 errors, 2 warnings
 Compiling Uds_Dcm_TransferData.c
-ctc W549: ["..\Communication_Files\Uds\Dcm\Uds_Dcm_RequestDownload.c" 61/144] condition is always false
+ctc W549: ["..\Communication_Files\Uds\Dcm\Uds_Dcm_RequestTransferExit.c" 49/155] condition is always false
 0 errors, 1 warnings
 Compiling Uds_Dcm_WriteDataByIdentifier.c
-ctc W549: ["..\Communication_Files\Uds\Dcm\Uds_Dcm_RequestTransferExit.c" 49/155] condition is always false
+ctc W549: ["..\Communication_Files\Uds\Dcm\Uds_Dcm_RequestDownload.c" 61/144] condition is always false
 0 errors, 1 warnings
 Compiling Uds_Tp_Drv.c
 Compiling Uds_User_CommunicationControlCallback.c
@@ -85,14 +76,5 @@ ctc W544: ["..\Initiate_Files\MAIN.c" 563/3] unreachable code
 0 errors, 1 warnings
 Linking to BMU_BOOT.elf
 
-Time consumed: 14032 ms
-**** End of build ****
-
-**** Build of configuration Debug for project BMU_BOOT ****
-
-"C:\\Program Files (x86)\\TASKING\\TriCore v4.3r1\\ctc\\bin\\amk" -j8 all 
-Compiling Uds_Dcm_Drv.c
-Linking to BMU_BOOT.elf
-
-Time consumed: 3328 ms
+Time consumed: 12922 ms
 **** End of build ****

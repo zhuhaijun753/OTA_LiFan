@@ -1,6 +1,6 @@
 	; Module start
 	.compiler_version	"TASKING VX-toolset for TriCore: C compiler v4.3r1 Build 759 SN 00641831"
-	.compiler_invocation	"ctc -f cc1100a -c99 --dep-file=Communication_Files\\Uds\\User\\.Uds_User_SecurityAccessCallback.o.d -D__CPU__=tc1782 -D__CPU_TC1782__ --core=tc1.3.1 -F -ID:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_2.0\\BMU_BOOT -ID:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_2.0\\BMU_BOOT\\Communication_Files\\CanDrv -ID:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_2.0\\BMU_BOOT\\Communication_Files\\Com -ID:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_2.0\\BMU_BOOT\\Communication_Files\\Com\\Can_Input -ID:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_2.0\\BMU_BOOT\\Communication_Files\\Com\\Can_Output -ID:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_2.0\\BMU_BOOT\\Communication_Files\\Uds\\Dcm -ID:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_2.0\\BMU_BOOT\\Communication_Files\\Uds\\Dem -ID:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_2.0\\BMU_BOOT\\Communication_Files\\Uds\\Tp -ID:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_2.0\\BMU_BOOT\\Communication_Files\\Uds\\User -ID:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_2.0\\BMU_BOOT\\Complex_Files -ID:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_2.0\\BMU_BOOT\\Initiate_Files -ID:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_2.0\\BMU_BOOT\\Nvm_Files\\FlsDrv -ID:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_2.0\\BMU_BOOT\\Stand_Header -g2 --make-target=Communication_Files\\Uds\\User\\Uds_User_SecurityAccessCallback.o -t4 --language=-gcc,-volatile,+strings --default-near-size=0 -O2 --default-a1-size=0 --default-a0-size=0 --source --align=0 --compact-max-size=200 --switch=auto -o Communication_Files\\Uds\\User\\Uds_User_SecurityAccessCallback.src ..\\Communication_Files\\Uds\\User\\Uds_User_SecurityAccessCallback.c"
+	.compiler_invocation	"ctc -f cc8568a -c99 --dep-file=Communication_Files\\Uds\\User\\.Uds_User_SecurityAccessCallback.o.d -D__CPU__=tc1782 -D__CPU_TC1782__ --core=tc1.3.1 -F -ID:\\work\\Microvast\\OTA\\LiFan\\BMU_BOOT\\BMU_BOOT -ID:\\work\\Microvast\\OTA\\LiFan\\BMU_BOOT\\BMU_BOOT\\Communication_Files\\CanDrv -ID:\\work\\Microvast\\OTA\\LiFan\\BMU_BOOT\\BMU_BOOT\\Communication_Files\\Com -ID:\\work\\Microvast\\OTA\\LiFan\\BMU_BOOT\\BMU_BOOT\\Communication_Files\\Com\\Can_Input -ID:\\work\\Microvast\\OTA\\LiFan\\BMU_BOOT\\BMU_BOOT\\Communication_Files\\Com\\Can_Output -ID:\\work\\Microvast\\OTA\\LiFan\\BMU_BOOT\\BMU_BOOT\\Communication_Files\\Uds\\Dcm -ID:\\work\\Microvast\\OTA\\LiFan\\BMU_BOOT\\BMU_BOOT\\Communication_Files\\Uds\\Dem -ID:\\work\\Microvast\\OTA\\LiFan\\BMU_BOOT\\BMU_BOOT\\Communication_Files\\Uds\\Tp -ID:\\work\\Microvast\\OTA\\LiFan\\BMU_BOOT\\BMU_BOOT\\Communication_Files\\Uds\\User -ID:\\work\\Microvast\\OTA\\LiFan\\BMU_BOOT\\BMU_BOOT\\Complex_Files -ID:\\work\\Microvast\\OTA\\LiFan\\BMU_BOOT\\BMU_BOOT\\Initiate_Files -ID:\\work\\Microvast\\OTA\\LiFan\\BMU_BOOT\\BMU_BOOT\\Nvm_Files\\FlsDrv -ID:\\work\\Microvast\\OTA\\LiFan\\BMU_BOOT\\BMU_BOOT\\Stand_Header -g2 --make-target=Communication_Files\\Uds\\User\\Uds_User_SecurityAccessCallback.o -t4 --language=-gcc,-volatile,+strings --default-near-size=0 -O2 --default-a1-size=0 --default-a0-size=0 --source --align=0 --compact-max-size=200 --switch=auto -o Communication_Files\\Uds\\User\\Uds_User_SecurityAccessCallback.src ..\\Communication_Files\\Uds\\User\\Uds_User_SecurityAccessCallback.c"
 	.compiler_name		"ctc"
 	.name	"Uds_User_SecurityAccessCallback"
 
@@ -1174,7 +1174,7 @@ ui8_Uds_Seed:	.type	object
 	.sdecl	'.debug_info',debug
 	.sect	'.debug_info'
 .L44:
-	.word	832
+	.word	829
 	.half	3
 	.word	.L45
 	.byte	4
@@ -1182,107 +1182,107 @@ ui8_Uds_Seed:	.type	object
 	.byte	1
 	.byte	'..\\Communication_Files\\Uds\\User\\Uds_User_SecurityAccessCallback.c',0
 	.byte	'TASKING VX-toolset for TriCore: C compiler',0
-	.byte	'D:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_2.0\\BMU_BOOT\\Debug\\',0,12,1
+	.byte	'D:\\work\\Microvast\\OTA\\LiFan\\BMU_BOOT\\BMU_BOOT\\Debug\\',0,12,1
 	.word	.L46
 .L98:
 	.byte	2
 	.byte	'unsigned char',0,1,8
 .L100:
 	.byte	3
-	.word	183
+	.word	180
 	.byte	2
 	.byte	'unsigned short int',0,2,7
 .L103:
 	.byte	3
-	.word	205
+	.word	202
 .L106:
 	.byte	2
 	.byte	'unsigned long int',0,4,7,4
 	.byte	'void',0,3
-	.word	253
+	.word	250
 	.byte	5
 	.byte	'__prof_adm',0,1,1,1
-	.word	259
+	.word	256
 	.byte	6,1,3
-	.word	283
+	.word	280
 	.byte	5
 	.byte	'__codeptr',0,1,1,1
-	.word	285
+	.word	282
 	.byte	5
 	.byte	'ubyte',0,2,78,24
-	.word	183
+	.word	180
 	.byte	5
 	.byte	'ushort',0,2,80,24
-	.word	205
+	.word	202
 	.byte	2
 	.byte	'unsigned int',0,4,7,5
 	.byte	'uword',0,2,82,24
-	.word	337
+	.word	334
 	.byte	5
 	.byte	'uint8',0,3,87,29
-	.word	183
+	.word	180
 	.byte	5
 	.byte	'uint16',0,3,89,29
-	.word	205
+	.word	202
 	.byte	2
 	.byte	'long int',0,4,5,5
 	.byte	'sint32',0,3,90,29
-	.word	396
+	.word	393
 	.byte	5
 	.byte	'uint32',0,3,91,27
-	.word	232
+	.word	229
 	.byte	5
 	.byte	'boolean',0,3,102,29
-	.word	183
+	.word	180
 .L131:
 	.byte	7,4,5,9,8,8
 	.byte	'b_Security_Locked',0,1
-	.word	183
+	.word	180
 	.byte	2,35,0,8
 	.byte	'b_RequestSeedFlag',0,1
-	.word	183
+	.word	180
 	.byte	2,35,1,8
 	.byte	'SA_Counter',0,1
-	.word	183
+	.word	180
 	.byte	2,35,2,8
 	.byte	'SeedKeyFlag',0,1
-	.word	183
+	.word	180
 	.byte	2,35,3,8
 	.byte	'ui32_Boot_State255_Delay',0,4
-	.word	232
+	.word	229
 	.byte	2,35,4,0,5
 	.byte	'Struct_Uds_SID_SA_Info',0,4,20,2
-	.word	454
+	.word	451
 	.byte	7,5,91,9,28,8
 	.byte	'ui8_ResCode',0,1
-	.word	183
+	.word	180
 	.byte	2,35,0,8
 	.byte	'b_SuppressPosRspBit',0,1
-	.word	183
+	.word	180
 	.byte	2,35,1,8
 	.byte	'ui8_pMsgData',0,4
-	.word	200
+	.word	197
 	.byte	2,35,4,8
 	.byte	'ui16_pLength',0,4
-	.word	227
+	.word	224
 	.byte	2,35,8,9,8
-	.word	183
+	.word	180
 	.byte	10,7,0,8
 	.byte	'ui8_Neg78_Buf',0,8
-	.word	719
+	.word	716
 	.byte	2,35,12,8
 	.byte	'ui8_3E_Buf',0,8
-	.word	719
+	.word	716
 	.byte	2,35,20,0,5
 	.byte	'Struct_Uds_Response',0,5,99,2
-	.word	620
+	.word	617
 	.byte	11
 	.byte	'st_Uds_Response',0,5,126,29
-	.word	620
+	.word	617
 	.byte	1,1
 .L132:
 	.byte	9,4
-	.word	183
+	.word	180
 	.byte	10,3,0,0
 	.sdecl	'.debug_abbrev',debug
 	.sect	'.debug_abbrev'
@@ -1300,10 +1300,10 @@ ui8_Uds_Seed:	.type	object
 	.word	.L163-.L162
 .L162:
 	.byte	2,1,-4,9,10,0,1,1,1,1,0,0,0,1
-	.byte	'D:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_2.0\\BMU_BOOT\\Initiate_Files',0
-	.byte	'D:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_2.0\\BMU_BOOT\\Stand_Header',0
-	.byte	'D:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_2.0\\BMU_BOOT\\Communication_Files\\Uds\\User',0
-	.byte	'D:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_2.0\\BMU_BOOT\\Communication_Files\\Uds\\Dcm',0,0
+	.byte	'D:\\work\\Microvast\\OTA\\LiFan\\BMU_BOOT\\BMU_BOOT\\Initiate_Files',0
+	.byte	'D:\\work\\Microvast\\OTA\\LiFan\\BMU_BOOT\\BMU_BOOT\\Stand_Header',0
+	.byte	'D:\\work\\Microvast\\OTA\\LiFan\\BMU_BOOT\\BMU_BOOT\\Communication_Files\\Uds\\User',0
+	.byte	'D:\\work\\Microvast\\OTA\\LiFan\\BMU_BOOT\\BMU_BOOT\\Communication_Files\\Uds\\Dcm',0,0
 	.byte	'..\\Communication_Files\\Uds\\User\\Uds_User_SecurityAccessCallback.c',0,0,0,0
 	.byte	'MAIN.h',0,1,0,0
 	.byte	'Platform_Types.h',0,2,0,0
@@ -1314,13 +1314,13 @@ ui8_Uds_Seed:	.type	object
 	.sdecl	'.debug_info',debug,cluster('UdsFunc_SID_SA_SUBID_RSD1_Callback')
 	.sect	'.debug_info'
 .L47:
-	.word	356
+	.word	353
 	.half	3
 	.word	.L48
 	.byte	4,1
 	.byte	'..\\Communication_Files\\Uds\\User\\Uds_User_SecurityAccessCallback.c',0
 	.byte	'TASKING VX-toolset for TriCore: C compiler',0
-	.byte	'D:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_2.0\\BMU_BOOT\\Debug\\',0,12,1
+	.byte	'D:\\work\\Microvast\\OTA\\LiFan\\BMU_BOOT\\BMU_BOOT\\Debug\\',0,12,1
 	.word	.L50,.L49
 	.byte	2
 	.word	.L43
@@ -1404,13 +1404,13 @@ ui8_Uds_Seed:	.type	object
 	.sdecl	'.debug_info',debug,cluster('UdsFunc_SID_SA_SUBID_SK1_Callback')
 	.sect	'.debug_info'
 .L52:
-	.word	374
+	.word	371
 	.half	3
 	.word	.L53
 	.byte	4,1
 	.byte	'..\\Communication_Files\\Uds\\User\\Uds_User_SecurityAccessCallback.c',0
 	.byte	'TASKING VX-toolset for TriCore: C compiler',0
-	.byte	'D:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_2.0\\BMU_BOOT\\Debug\\',0,12,1
+	.byte	'D:\\work\\Microvast\\OTA\\LiFan\\BMU_BOOT\\BMU_BOOT\\Debug\\',0,12,1
 	.word	.L55,.L54
 	.byte	2
 	.word	.L43
@@ -1517,13 +1517,13 @@ ui8_Uds_Seed:	.type	object
 	.sdecl	'.debug_info',debug,cluster('UdsFunc_SID_SA_SUBID_RSD4_Callback')
 	.sect	'.debug_info'
 .L57:
-	.word	360
+	.word	357
 	.half	3
 	.word	.L58
 	.byte	4,1
 	.byte	'..\\Communication_Files\\Uds\\User\\Uds_User_SecurityAccessCallback.c',0
 	.byte	'TASKING VX-toolset for TriCore: C compiler',0
-	.byte	'D:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_2.0\\BMU_BOOT\\Debug\\',0,12,1
+	.byte	'D:\\work\\Microvast\\OTA\\LiFan\\BMU_BOOT\\BMU_BOOT\\Debug\\',0,12,1
 	.word	.L60,.L59
 	.byte	2
 	.word	.L43
@@ -1605,13 +1605,13 @@ ui8_Uds_Seed:	.type	object
 	.sdecl	'.debug_info',debug,cluster('UdsFunc_SID_SA_SUBID_SK4_Callback')
 	.sect	'.debug_info'
 .L62:
-	.word	374
+	.word	371
 	.half	3
 	.word	.L63
 	.byte	4,1
 	.byte	'..\\Communication_Files\\Uds\\User\\Uds_User_SecurityAccessCallback.c',0
 	.byte	'TASKING VX-toolset for TriCore: C compiler',0
-	.byte	'D:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_2.0\\BMU_BOOT\\Debug\\',0,12,1
+	.byte	'D:\\work\\Microvast\\OTA\\LiFan\\BMU_BOOT\\BMU_BOOT\\Debug\\',0,12,1
 	.word	.L65,.L64
 	.byte	2
 	.word	.L43
@@ -1730,13 +1730,13 @@ ui8_Uds_Seed:	.type	object
 	.sdecl	'.debug_info',debug,cluster('BitReplace')
 	.sect	'.debug_info'
 .L67:
-	.word	250
+	.word	247
 	.half	3
 	.word	.L68
 	.byte	4,1
 	.byte	'..\\Communication_Files\\Uds\\User\\Uds_User_SecurityAccessCallback.c',0
 	.byte	'TASKING VX-toolset for TriCore: C compiler',0
-	.byte	'D:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_2.0\\BMU_BOOT\\Debug\\',0,12,1
+	.byte	'D:\\work\\Microvast\\OTA\\LiFan\\BMU_BOOT\\BMU_BOOT\\Debug\\',0,12,1
 	.word	.L70,.L69
 	.byte	2
 	.word	.L43
@@ -1808,13 +1808,13 @@ ui8_Uds_Seed:	.type	object
 	.sdecl	'.debug_info',debug,cluster('saGetKey')
 	.sect	'.debug_info'
 .L72:
-	.word	249
+	.word	246
 	.half	3
 	.word	.L73
 	.byte	4,1
 	.byte	'..\\Communication_Files\\Uds\\User\\Uds_User_SecurityAccessCallback.c',0
 	.byte	'TASKING VX-toolset for TriCore: C compiler',0
-	.byte	'D:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_2.0\\BMU_BOOT\\Debug\\',0,12,1
+	.byte	'D:\\work\\Microvast\\OTA\\LiFan\\BMU_BOOT\\BMU_BOOT\\Debug\\',0,12,1
 	.word	.L75,.L74
 	.byte	2
 	.word	.L43
@@ -1928,13 +1928,13 @@ ui8_Uds_Seed:	.type	object
 	.sdecl	'.debug_info',debug,cluster('saGetKey1')
 	.sect	'.debug_info'
 .L77:
-	.word	252
+	.word	249
 	.half	3
 	.word	.L78
 	.byte	4,1
 	.byte	'..\\Communication_Files\\Uds\\User\\Uds_User_SecurityAccessCallback.c',0
 	.byte	'TASKING VX-toolset for TriCore: C compiler',0
-	.byte	'D:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_2.0\\BMU_BOOT\\Debug\\',0,12,1
+	.byte	'D:\\work\\Microvast\\OTA\\LiFan\\BMU_BOOT\\BMU_BOOT\\Debug\\',0,12,1
 	.word	.L80,.L79
 	.byte	2
 	.word	.L43
@@ -2028,13 +2028,13 @@ ui8_Uds_Seed:	.type	object
 	.sdecl	'.debug_info',debug,cluster('.cocofun_1')
 	.sect	'.debug_info'
 .L82:
-	.word	218
+	.word	215
 	.half	3
 	.word	.L83
 	.byte	4,1
 	.byte	'..\\Communication_Files\\Uds\\User\\Uds_User_SecurityAccessCallback.c',0
 	.byte	'TASKING VX-toolset for TriCore: C compiler',0
-	.byte	'D:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_2.0\\BMU_BOOT\\Debug\\',0,12,1
+	.byte	'D:\\work\\Microvast\\OTA\\LiFan\\BMU_BOOT\\BMU_BOOT\\Debug\\',0,12,1
 	.word	.L85,.L84
 	.byte	2
 	.word	.L43
@@ -2127,13 +2127,13 @@ ui8_Uds_Seed:	.type	object
 	.sdecl	'.debug_info',debug,cluster('.cocofun_2')
 	.sect	'.debug_info'
 .L87:
-	.word	218
+	.word	215
 	.half	3
 	.word	.L88
 	.byte	4,1
 	.byte	'..\\Communication_Files\\Uds\\User\\Uds_User_SecurityAccessCallback.c',0
 	.byte	'TASKING VX-toolset for TriCore: C compiler',0
-	.byte	'D:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_2.0\\BMU_BOOT\\Debug\\',0,12,1
+	.byte	'D:\\work\\Microvast\\OTA\\LiFan\\BMU_BOOT\\BMU_BOOT\\Debug\\',0,12,1
 	.word	.L90,.L89
 	.byte	2
 	.word	.L43
@@ -2196,13 +2196,13 @@ ui8_Uds_Seed:	.type	object
 	.sdecl	'.debug_info',debug,cluster('st_Uds_SID_SA_Info')
 	.sect	'.debug_info'
 .L92:
-	.word	215
+	.word	212
 	.half	3
 	.word	.L93
 	.byte	4,1
 	.byte	'..\\Communication_Files\\Uds\\User\\Uds_User_SecurityAccessCallback.c',0
 	.byte	'TASKING VX-toolset for TriCore: C compiler',0
-	.byte	'D:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_2.0\\BMU_BOOT\\Debug\\',0,12,1,2
+	.byte	'D:\\work\\Microvast\\OTA\\LiFan\\BMU_BOOT\\BMU_BOOT\\Debug\\',0,12,1,2
 	.word	.L43
 	.byte	3
 	.byte	'st_Uds_SID_SA_Info',0,1,4,24
@@ -2218,13 +2218,13 @@ ui8_Uds_Seed:	.type	object
 	.sdecl	'.debug_info',debug,cluster('AppKeyConst')
 	.sect	'.debug_info'
 .L94:
-	.word	208
+	.word	205
 	.half	3
 	.word	.L95
 	.byte	4,1
 	.byte	'..\\Communication_Files\\Uds\\User\\Uds_User_SecurityAccessCallback.c',0
 	.byte	'TASKING VX-toolset for TriCore: C compiler',0
-	.byte	'D:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_2.0\\BMU_BOOT\\Debug\\',0,12,1,2
+	.byte	'D:\\work\\Microvast\\OTA\\LiFan\\BMU_BOOT\\BMU_BOOT\\Debug\\',0,12,1,2
 	.word	.L43
 	.byte	3
 	.byte	'AppKeyConst',0,1,5,15
@@ -2240,13 +2240,13 @@ ui8_Uds_Seed:	.type	object
 	.sdecl	'.debug_info',debug,cluster('ui8_Uds_Seed')
 	.sect	'.debug_info'
 .L96:
-	.word	209
+	.word	206
 	.half	3
 	.word	.L97
 	.byte	4,1
 	.byte	'..\\Communication_Files\\Uds\\User\\Uds_User_SecurityAccessCallback.c',0
 	.byte	'TASKING VX-toolset for TriCore: C compiler',0
-	.byte	'D:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_2.0\\BMU_BOOT\\Debug\\',0,12,1,2
+	.byte	'D:\\work\\Microvast\\OTA\\LiFan\\BMU_BOOT\\BMU_BOOT\\Debug\\',0,12,1,2
 	.word	.L43
 	.byte	3
 	.byte	'ui8_Uds_Seed',0,1,6,15

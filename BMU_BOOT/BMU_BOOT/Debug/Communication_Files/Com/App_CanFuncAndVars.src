@@ -1,6 +1,6 @@
 	; Module start
 	.compiler_version	"TASKING VX-toolset for TriCore: C compiler v4.3r1 Build 759 SN 00641831"
-	.compiler_invocation	"ctc -f cc5552a -c99 --dep-file=Communication_Files\\Com\\.App_CanFuncAndVars.o.d -D__CPU__=tc1782 -D__CPU_TC1782__ --core=tc1.3.1 -F -ID:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_2.0\\BMU_BOOT -ID:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_2.0\\BMU_BOOT\\Communication_Files\\CanDrv -ID:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_2.0\\BMU_BOOT\\Communication_Files\\Com -ID:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_2.0\\BMU_BOOT\\Communication_Files\\Com\\Can_Input -ID:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_2.0\\BMU_BOOT\\Communication_Files\\Com\\Can_Output -ID:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_2.0\\BMU_BOOT\\Communication_Files\\Uds\\Dcm -ID:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_2.0\\BMU_BOOT\\Communication_Files\\Uds\\Dem -ID:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_2.0\\BMU_BOOT\\Communication_Files\\Uds\\Tp -ID:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_2.0\\BMU_BOOT\\Communication_Files\\Uds\\User -ID:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_2.0\\BMU_BOOT\\Complex_Files -ID:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_2.0\\BMU_BOOT\\Initiate_Files -ID:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_2.0\\BMU_BOOT\\Nvm_Files\\FlsDrv -ID:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_2.0\\BMU_BOOT\\Stand_Header -g2 --make-target=Communication_Files\\Com\\App_CanFuncAndVars.o -t4 --language=-gcc,-volatile,+strings --default-near-size=0 -O2 --default-a1-size=0 --default-a0-size=0 --source --align=0 --compact-max-size=200 --switch=auto -o Communication_Files\\Com\\App_CanFuncAndVars.src ..\\Communication_Files\\Com\\App_CanFuncAndVars.c"
+	.compiler_invocation	"ctc -f cc3604a -c99 --dep-file=Communication_Files\\Com\\.App_CanFuncAndVars.o.d -D__CPU__=tc1782 -D__CPU_TC1782__ --core=tc1.3.1 -F -ID:\\work\\Microvast\\OTA\\LiFan\\BMU_BOOT\\BMU_BOOT -ID:\\work\\Microvast\\OTA\\LiFan\\BMU_BOOT\\BMU_BOOT\\Communication_Files\\CanDrv -ID:\\work\\Microvast\\OTA\\LiFan\\BMU_BOOT\\BMU_BOOT\\Communication_Files\\Com -ID:\\work\\Microvast\\OTA\\LiFan\\BMU_BOOT\\BMU_BOOT\\Communication_Files\\Com\\Can_Input -ID:\\work\\Microvast\\OTA\\LiFan\\BMU_BOOT\\BMU_BOOT\\Communication_Files\\Com\\Can_Output -ID:\\work\\Microvast\\OTA\\LiFan\\BMU_BOOT\\BMU_BOOT\\Communication_Files\\Uds\\Dcm -ID:\\work\\Microvast\\OTA\\LiFan\\BMU_BOOT\\BMU_BOOT\\Communication_Files\\Uds\\Dem -ID:\\work\\Microvast\\OTA\\LiFan\\BMU_BOOT\\BMU_BOOT\\Communication_Files\\Uds\\Tp -ID:\\work\\Microvast\\OTA\\LiFan\\BMU_BOOT\\BMU_BOOT\\Communication_Files\\Uds\\User -ID:\\work\\Microvast\\OTA\\LiFan\\BMU_BOOT\\BMU_BOOT\\Complex_Files -ID:\\work\\Microvast\\OTA\\LiFan\\BMU_BOOT\\BMU_BOOT\\Initiate_Files -ID:\\work\\Microvast\\OTA\\LiFan\\BMU_BOOT\\BMU_BOOT\\Nvm_Files\\FlsDrv -ID:\\work\\Microvast\\OTA\\LiFan\\BMU_BOOT\\BMU_BOOT\\Stand_Header -g2 --make-target=Communication_Files\\Com\\App_CanFuncAndVars.o -t4 --language=-gcc,-volatile,+strings --default-near-size=0 -O2 --default-a1-size=0 --default-a0-size=0 --source --align=0 --compact-max-size=200 --switch=auto -o Communication_Files\\Com\\App_CanFuncAndVars.src ..\\Communication_Files\\Com\\App_CanFuncAndVars.c"
 	.compiler_name		"ctc"
 	.name	"App_CanFuncAndVars"
 
@@ -159,7 +159,7 @@ __CanOutputResOffset_function_end:
 	.sdecl	'.debug_info',debug
 	.sect	'.debug_info'
 .L15:
-	.word	587
+	.word	584
 	.half	3
 	.word	.L16
 	.byte	4
@@ -167,7 +167,7 @@ __CanOutputResOffset_function_end:
 	.byte	1
 	.byte	'..\\Communication_Files\\Com\\App_CanFuncAndVars.c',0
 	.byte	'TASKING VX-toolset for TriCore: C compiler',0
-	.byte	'D:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_2.0\\BMU_BOOT\\Debug\\',0,12,1
+	.byte	'D:\\work\\Microvast\\OTA\\LiFan\\BMU_BOOT\\BMU_BOOT\\Debug\\',0,12,1
 	.word	.L17
 .L38:
 	.byte	2
@@ -181,73 +181,73 @@ __CanOutputResOffset_function_end:
 .L53:
 	.byte	3,1,16,9,4,4
 	.byte	'_U32',0,4
-	.word	191
+	.word	188
 	.byte	2,35,0,2
 	.byte	'unsigned short int',0,2,7,5,4
-	.word	226
+	.word	223
 	.byte	6,1,0,4
 	.byte	'_U16',0,4
-	.word	248
+	.word	245
 	.byte	2,35,0,5,4
-	.word	165
+	.word	162
 	.byte	6,3,0,4
 	.byte	'_U8',0,4
-	.word	271
+	.word	268
 	.byte	2,35,0,7,1,20,5,4,4
 	.byte	'u18',0,1
-	.word	165
+	.word	162
 	.byte	2,35,0,4
 	.byte	'u28',0,1
-	.word	165
+	.word	162
 	.byte	2,35,1,4
 	.byte	'u38',0,1
-	.word	165
+	.word	162
 	.byte	2,35,2,4
 	.byte	'u48',0,1
-	.word	165
+	.word	162
 	.byte	2,35,3,0,4
 	.byte	'st',0,4
-	.word	293
+	.word	290
 	.byte	2,35,0,0,8
 	.byte	'void',0,9
-	.word	364
+	.word	361
 	.byte	10
 	.byte	'__prof_adm',0,2,1,1
-	.word	370
+	.word	367
 	.byte	11,1,9
-	.word	394
+	.word	391
 	.byte	10
 	.byte	'__codeptr',0,2,1,1
-	.word	396
+	.word	393
 	.byte	10
 	.byte	'ubyte',0,3,78,24
-	.word	165
+	.word	162
 	.byte	10
 	.byte	'ushort',0,3,80,24
-	.word	226
+	.word	223
 	.byte	10
 	.byte	'uword',0,3,82,24
-	.word	191
+	.word	188
 	.byte	10
 	.byte	'uint8',0,4,87,29
-	.word	165
+	.word	162
 	.byte	10
 	.byte	'uint16',0,4,89,29
-	.word	226
+	.word	223
 	.byte	2
 	.byte	'long int',0,4,5,10
 	.byte	'sint32',0,4,90,29
-	.word	491
+	.word	488
 	.byte	2
 	.byte	'unsigned long int',0,4,7,10
 	.byte	'uint32',0,4,91,27
-	.word	518
+	.word	515
 	.byte	10
 	.byte	'boolean',0,4,102,29
-	.word	165
+	.word	162
 	.byte	10
 	.byte	'CHG_8_16_32',0,1,26,2
-	.word	207
+	.word	204
 	.byte	0
 	.sdecl	'.debug_abbrev',debug
 	.sect	'.debug_abbrev'
@@ -264,9 +264,9 @@ __CanOutputResOffset_function_end:
 	.word	.L65-.L64
 .L64:
 	.byte	2,1,-4,9,10,0,1,1,1,1,0,0,0,1
-	.byte	'D:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_2.0\\BMU_BOOT\\Communication_Files\\Com',0
-	.byte	'D:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_2.0\\BMU_BOOT\\Initiate_Files',0
-	.byte	'D:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_2.0\\BMU_BOOT\\Stand_Header',0,0
+	.byte	'D:\\work\\Microvast\\OTA\\LiFan\\BMU_BOOT\\BMU_BOOT\\Communication_Files\\Com',0
+	.byte	'D:\\work\\Microvast\\OTA\\LiFan\\BMU_BOOT\\BMU_BOOT\\Initiate_Files',0
+	.byte	'D:\\work\\Microvast\\OTA\\LiFan\\BMU_BOOT\\BMU_BOOT\\Stand_Header',0,0
 	.byte	'App_CanFuncAndVars.h',0,1,0,0
 	.byte	'..\\Communication_Files\\Com\\App_CanFuncAndVars.c',0,0,0,0
 	.byte	'MAIN.h',0,2,0,0
@@ -276,13 +276,13 @@ __CanOutputResOffset_function_end:
 	.sdecl	'.debug_info',debug,cluster('CanInputByteShift')
 	.sect	'.debug_info'
 .L18:
-	.word	302
+	.word	299
 	.half	3
 	.word	.L19
 	.byte	4,1
 	.byte	'..\\Communication_Files\\Com\\App_CanFuncAndVars.c',0
 	.byte	'TASKING VX-toolset for TriCore: C compiler',0
-	.byte	'D:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_2.0\\BMU_BOOT\\Debug\\',0,12,1
+	.byte	'D:\\work\\Microvast\\OTA\\LiFan\\BMU_BOOT\\BMU_BOOT\\Debug\\',0,12,1
 	.word	.L21,.L20
 	.byte	2
 	.word	.L14
@@ -336,13 +336,13 @@ __CanOutputResOffset_function_end:
 	.sdecl	'.debug_info',debug,cluster('CanInputResOffset')
 	.sect	'.debug_info'
 .L23:
-	.word	294
+	.word	291
 	.half	3
 	.word	.L24
 	.byte	4,1
 	.byte	'..\\Communication_Files\\Com\\App_CanFuncAndVars.c',0
 	.byte	'TASKING VX-toolset for TriCore: C compiler',0
-	.byte	'D:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_2.0\\BMU_BOOT\\Debug\\',0,12,1
+	.byte	'D:\\work\\Microvast\\OTA\\LiFan\\BMU_BOOT\\BMU_BOOT\\Debug\\',0,12,1
 	.word	.L26,.L25
 	.byte	2
 	.word	.L14
@@ -396,13 +396,13 @@ __CanOutputResOffset_function_end:
 	.sdecl	'.debug_info',debug,cluster('CanOutputByteShift')
 	.sect	'.debug_info'
 .L28:
-	.word	302
+	.word	299
 	.half	3
 	.word	.L29
 	.byte	4,1
 	.byte	'..\\Communication_Files\\Com\\App_CanFuncAndVars.c',0
 	.byte	'TASKING VX-toolset for TriCore: C compiler',0
-	.byte	'D:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_2.0\\BMU_BOOT\\Debug\\',0,12,1
+	.byte	'D:\\work\\Microvast\\OTA\\LiFan\\BMU_BOOT\\BMU_BOOT\\Debug\\',0,12,1
 	.word	.L31,.L30
 	.byte	2
 	.word	.L14
@@ -458,13 +458,13 @@ __CanOutputResOffset_function_end:
 	.sdecl	'.debug_info',debug,cluster('CanOutputResOffset')
 	.sect	'.debug_info'
 .L33:
-	.word	307
+	.word	304
 	.half	3
 	.word	.L34
 	.byte	4,1
 	.byte	'..\\Communication_Files\\Com\\App_CanFuncAndVars.c',0
 	.byte	'TASKING VX-toolset for TriCore: C compiler',0
-	.byte	'D:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_2.0\\BMU_BOOT\\Debug\\',0,12,1
+	.byte	'D:\\work\\Microvast\\OTA\\LiFan\\BMU_BOOT\\BMU_BOOT\\Debug\\',0,12,1
 	.word	.L36,.L35
 	.byte	2
 	.word	.L14

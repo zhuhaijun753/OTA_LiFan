@@ -32,7 +32,7 @@ all : "BMU_BOOT.elf"
 	@"${PRODDIR}\bin\cctc" -f ".BMU_BOOT.elf.opt"
 
 ".BMU_BOOT.elf.opt" : .refresh
-	@argfile ".BMU_BOOT.elf.opt" -o "BMU_BOOT.elf" $(OBJ_FILES) $(EXT_LIBRARIES) $(PCP_FILES)  -Ctc1782 -t -I"D:\work\Microvast\OTA\Boot\BMU_BOOT_2.0\BMU_BOOT" -Wl-o"${PROJ}.hex":IHEX:4 --hex-format=s "../BMU_BOOT.lsl" -Wl-OtxycL --no-map-file -Wl--map-file="${PROJ}.mapxml":XML -Wl-mcrfiklSmNOduQ -Wl--error-limit=42 -g -Wl--dep-file=".BMU_BOOT.elf.d" -Wl--make-target="BMU_BOOT.elf"
+	@argfile ".BMU_BOOT.elf.opt" -o "BMU_BOOT.elf" $(OBJ_FILES) $(EXT_LIBRARIES) $(PCP_FILES)  -Ctc1782 -t -I"D:\work\Microvast\OTA\LiFan\BMU_BOOT\BMU_BOOT" -Wl-o"${PROJ}.hex":IHEX:4 --hex-format=s "../BMU_BOOT.lsl" -Wl-OtxycL --no-map-file -Wl--map-file="${PROJ}.mapxml":XML -Wl-mcrfiklSmNOduQ -Wl--error-limit=42 -g -Wl--dep-file=".BMU_BOOT.elf.d" -Wl--make-target="BMU_BOOT.elf"
 DEPENDENCY_FILES += ".BMU_BOOT.elf.d"
 -include $(DEPENDENCY_FILES)
 

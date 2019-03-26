@@ -1,6 +1,6 @@
 	; Module start
 	.compiler_version	"TASKING VX-toolset for TriCore: C compiler v4.3r1 Build 759 SN 00641831"
-	.compiler_invocation	"ctc -f cc11820a -c99 --dep-file=Communication_Files\\Uds\\User\\.Uds_User_DiagnosticSessionControlCallback.o.d -D__CPU__=tc1782 -D__CPU_TC1782__ --core=tc1.3.1 -F -ID:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_2.0\\BMU_BOOT -ID:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_2.0\\BMU_BOOT\\Communication_Files\\CanDrv -ID:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_2.0\\BMU_BOOT\\Communication_Files\\Com -ID:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_2.0\\BMU_BOOT\\Communication_Files\\Com\\Can_Input -ID:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_2.0\\BMU_BOOT\\Communication_Files\\Com\\Can_Output -ID:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_2.0\\BMU_BOOT\\Communication_Files\\Uds\\Dcm -ID:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_2.0\\BMU_BOOT\\Communication_Files\\Uds\\Dem -ID:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_2.0\\BMU_BOOT\\Communication_Files\\Uds\\Tp -ID:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_2.0\\BMU_BOOT\\Communication_Files\\Uds\\User -ID:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_2.0\\BMU_BOOT\\Complex_Files -ID:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_2.0\\BMU_BOOT\\Initiate_Files -ID:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_2.0\\BMU_BOOT\\Nvm_Files\\FlsDrv -ID:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_2.0\\BMU_BOOT\\Stand_Header -g2 --make-target=Communication_Files\\Uds\\User\\Uds_User_DiagnosticSessionControlCallback.o -t4 --language=-gcc,-volatile,+strings --default-near-size=0 -O2 --default-a1-size=0 --default-a0-size=0 --source --align=0 --compact-max-size=200 --switch=auto -o Communication_Files\\Uds\\User\\Uds_User_DiagnosticSessionControlCallback.src ..\\Communication_Files\\Uds\\User\\Uds_User_DiagnosticSessionControlCallback.c"
+	.compiler_invocation	"ctc -f cc3084a -c99 --dep-file=Communication_Files\\Uds\\User\\.Uds_User_DiagnosticSessionControlCallback.o.d -D__CPU__=tc1782 -D__CPU_TC1782__ --core=tc1.3.1 -F -ID:\\work\\Microvast\\OTA\\LiFan\\BMU_BOOT\\BMU_BOOT -ID:\\work\\Microvast\\OTA\\LiFan\\BMU_BOOT\\BMU_BOOT\\Communication_Files\\CanDrv -ID:\\work\\Microvast\\OTA\\LiFan\\BMU_BOOT\\BMU_BOOT\\Communication_Files\\Com -ID:\\work\\Microvast\\OTA\\LiFan\\BMU_BOOT\\BMU_BOOT\\Communication_Files\\Com\\Can_Input -ID:\\work\\Microvast\\OTA\\LiFan\\BMU_BOOT\\BMU_BOOT\\Communication_Files\\Com\\Can_Output -ID:\\work\\Microvast\\OTA\\LiFan\\BMU_BOOT\\BMU_BOOT\\Communication_Files\\Uds\\Dcm -ID:\\work\\Microvast\\OTA\\LiFan\\BMU_BOOT\\BMU_BOOT\\Communication_Files\\Uds\\Dem -ID:\\work\\Microvast\\OTA\\LiFan\\BMU_BOOT\\BMU_BOOT\\Communication_Files\\Uds\\Tp -ID:\\work\\Microvast\\OTA\\LiFan\\BMU_BOOT\\BMU_BOOT\\Communication_Files\\Uds\\User -ID:\\work\\Microvast\\OTA\\LiFan\\BMU_BOOT\\BMU_BOOT\\Complex_Files -ID:\\work\\Microvast\\OTA\\LiFan\\BMU_BOOT\\BMU_BOOT\\Initiate_Files -ID:\\work\\Microvast\\OTA\\LiFan\\BMU_BOOT\\BMU_BOOT\\Nvm_Files\\FlsDrv -ID:\\work\\Microvast\\OTA\\LiFan\\BMU_BOOT\\BMU_BOOT\\Stand_Header -g2 --make-target=Communication_Files\\Uds\\User\\Uds_User_DiagnosticSessionControlCallback.o -t4 --language=-gcc,-volatile,+strings --default-near-size=0 -O2 --default-a1-size=0 --default-a0-size=0 --source --align=0 --compact-max-size=200 --switch=auto -o Communication_Files\\Uds\\User\\Uds_User_DiagnosticSessionControlCallback.src ..\\Communication_Files\\Uds\\User\\Uds_User_DiagnosticSessionControlCallback.c"
 	.compiler_name		"ctc"
 	.name	"Uds_User_DiagnosticSessionControlCallback"
 
@@ -609,7 +609,7 @@ st_Uds_SID_DSC_Info:	.type	object
 	.sdecl	'.debug_info',debug
 	.sect	'.debug_info'
 .L14:
-	.word	1266
+	.word	1263
 	.half	3
 	.word	.L15
 	.byte	4
@@ -617,146 +617,146 @@ st_Uds_SID_DSC_Info:	.type	object
 	.byte	1
 	.byte	'..\\Communication_Files\\Uds\\User\\Uds_User_DiagnosticSessionControlCallback.c',0
 	.byte	'TASKING VX-toolset for TriCore: C compiler',0
-	.byte	'D:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_2.0\\BMU_BOOT\\Debug\\',0,12,1
+	.byte	'D:\\work\\Microvast\\OTA\\LiFan\\BMU_BOOT\\BMU_BOOT\\Debug\\',0,12,1
 	.word	.L16
 .L40:
 	.byte	2
 	.byte	'unsigned char',0,1,8
 .L42:
 	.byte	3
-	.word	193
+	.word	190
 	.byte	2
 	.byte	'unsigned short int',0,2,7
 .L44:
 	.byte	3
-	.word	215
+	.word	212
 	.byte	4
 	.byte	'void',0,3
-	.word	242
+	.word	239
 	.byte	5
 	.byte	'__prof_adm',0,1,1,1
-	.word	248
+	.word	245
 	.byte	6,1,3
-	.word	272
+	.word	269
 	.byte	5
 	.byte	'__codeptr',0,1,1,1
-	.word	274
+	.word	271
 	.byte	2
 	.byte	'unsigned long int',0,4,7,7
-	.word	297
+	.word	294
 	.byte	8
 	.byte	'ui32_KeepBSLState_Flag',0,2,39,31
-	.word	318
+	.word	315
 	.byte	1,1,5
 	.byte	'ubyte',0,2,78,24
-	.word	193
+	.word	190
 	.byte	5
 	.byte	'ushort',0,2,80,24
-	.word	215
+	.word	212
 	.byte	2
 	.byte	'unsigned int',0,4,7,5
 	.byte	'uword',0,2,82,24
-	.word	385
+	.word	382
 	.byte	5
 	.byte	'uint8',0,3,87,29
-	.word	193
+	.word	190
 	.byte	5
 	.byte	'uint16',0,3,89,29
-	.word	215
+	.word	212
 	.byte	2
 	.byte	'long int',0,4,5,5
 	.byte	'sint32',0,3,90,29
-	.word	444
+	.word	441
 	.byte	5
 	.byte	'uint32',0,3,91,27
-	.word	297
+	.word	294
 	.byte	5
 	.byte	'boolean',0,3,102,29
-	.word	193
+	.word	190
 .L52:
 	.byte	9,4,10,9,4,10
 	.byte	'ui8_Active_Session',0,1
-	.word	193
+	.word	190
 	.byte	2,35,0,10
 	.byte	'ui16_Write_EEROM_Delay',0,2
-	.word	215
+	.word	212
 	.byte	2,35,2,0,5
 	.byte	'Struct_Uds_SID_DSC_Info',0,4,14,2
-	.word	502
+	.word	499
 	.byte	9,5,5,9,2,10
 	.byte	'b_HardResetFlag',0,1
-	.word	193
+	.word	190
 	.byte	2,35,0,10
 	.byte	'b_SoftResetFlag',0,1
-	.word	193
+	.word	190
 	.byte	2,35,1,0,5
 	.byte	'Struct_Uds_SID_ER_Info',0,5,9,2
-	.word	600
+	.word	597
 	.byte	8
 	.byte	'st_Uds_SID_ER_Info',0,5,10,31
-	.word	600
+	.word	597
 	.byte	1,1,9,6,5,9,8,10
 	.byte	'b_Security_Locked',0,1
-	.word	193
+	.word	190
 	.byte	2,35,0,10
 	.byte	'b_RequestSeedFlag',0,1
-	.word	193
+	.word	190
 	.byte	2,35,1,10
 	.byte	'SA_Counter',0,1
-	.word	193
+	.word	190
 	.byte	2,35,2,10
 	.byte	'SeedKeyFlag',0,1
-	.word	193
+	.word	190
 	.byte	2,35,3,10
 	.byte	'ui32_Boot_State255_Delay',0,4
-	.word	297
+	.word	294
 	.byte	2,35,4,0,5
 	.byte	'Struct_Uds_SID_SA_Info',0,6,20,2
-	.word	716
+	.word	713
 	.byte	8
 	.byte	'st_Uds_SID_SA_Info',0,6,21,31
-	.word	716
+	.word	713
 	.byte	1,1,9,7,14,9,6,10
 	.byte	'ui8_CommuCtrlFlag',0,1
-	.word	193
+	.word	190
 	.byte	2,35,0,10
 	.byte	'ui8_NetCtrlFlag',0,1
-	.word	193
+	.word	190
 	.byte	2,35,1,10
 	.byte	'ui32_Boot_State255_Delay',0,4
-	.word	297
+	.word	294
 	.byte	2,35,2,0,5
 	.byte	'Struct_Uds_SID_CC_Info',0,7,19,2
-	.word	911
+	.word	908
 	.byte	8
 	.byte	'st_Uds_SID_CC_Info',0,7,20,31
-	.word	911
+	.word	908
 	.byte	1,1,9,8,91,9,28,10
 	.byte	'ui8_ResCode',0,1
-	.word	193
+	.word	190
 	.byte	2,35,0,10
 	.byte	'b_SuppressPosRspBit',0,1
-	.word	193
+	.word	190
 	.byte	2,35,1,10
 	.byte	'ui8_pMsgData',0,4
-	.word	210
+	.word	207
 	.byte	2,35,4,10
 	.byte	'ui16_pLength',0,4
-	.word	237
+	.word	234
 	.byte	2,35,8,11,8
-	.word	193
+	.word	190
 	.byte	12,7,0,10
 	.byte	'ui8_Neg78_Buf',0,8
-	.word	1162
+	.word	1159
 	.byte	2,35,12,10
 	.byte	'ui8_3E_Buf',0,8
-	.word	1162
+	.word	1159
 	.byte	2,35,20,0,5
 	.byte	'Struct_Uds_Response',0,8,99,2
-	.word	1063
+	.word	1060
 	.byte	8
 	.byte	'st_Uds_Response',0,8,126,29
-	.word	1063
+	.word	1060
 	.byte	1,1,0
 	.sdecl	'.debug_abbrev',debug
 	.sect	'.debug_abbrev'
@@ -774,10 +774,10 @@ st_Uds_SID_DSC_Info:	.type	object
 	.word	.L64-.L63
 .L63:
 	.byte	2,1,-4,9,10,0,1,1,1,1,0,0,0,1
-	.byte	'D:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_2.0\\BMU_BOOT\\Initiate_Files',0
-	.byte	'D:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_2.0\\BMU_BOOT\\Stand_Header',0
-	.byte	'D:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_2.0\\BMU_BOOT\\Communication_Files\\Uds\\User',0
-	.byte	'D:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_2.0\\BMU_BOOT\\Communication_Files\\Uds\\Dcm',0,0
+	.byte	'D:\\work\\Microvast\\OTA\\LiFan\\BMU_BOOT\\BMU_BOOT\\Initiate_Files',0
+	.byte	'D:\\work\\Microvast\\OTA\\LiFan\\BMU_BOOT\\BMU_BOOT\\Stand_Header',0
+	.byte	'D:\\work\\Microvast\\OTA\\LiFan\\BMU_BOOT\\BMU_BOOT\\Communication_Files\\Uds\\User',0
+	.byte	'D:\\work\\Microvast\\OTA\\LiFan\\BMU_BOOT\\BMU_BOOT\\Communication_Files\\Uds\\Dcm',0,0
 	.byte	'..\\Communication_Files\\Uds\\User\\Uds_User_DiagnosticSessionControlCallback.c',0,0,0,0
 	.byte	'MAIN.h',0,1,0,0
 	.byte	'Platform_Types.h',0,2,0,0
@@ -791,13 +791,13 @@ st_Uds_SID_DSC_Info:	.type	object
 	.sdecl	'.debug_info',debug,cluster('UdsFunc_ChangeSession_Init')
 	.sect	'.debug_info'
 .L17:
-	.word	255
+	.word	252
 	.half	3
 	.word	.L18
 	.byte	4,1
 	.byte	'..\\Communication_Files\\Uds\\User\\Uds_User_DiagnosticSessionControlCallback.c',0
 	.byte	'TASKING VX-toolset for TriCore: C compiler',0
-	.byte	'D:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_2.0\\BMU_BOOT\\Debug\\',0,12,1
+	.byte	'D:\\work\\Microvast\\OTA\\LiFan\\BMU_BOOT\\BMU_BOOT\\Debug\\',0,12,1
 	.word	.L20,.L19
 	.byte	2
 	.word	.L13
@@ -846,13 +846,13 @@ st_Uds_SID_DSC_Info:	.type	object
 	.sdecl	'.debug_info',debug,cluster('UdsFunc_SID_DSC_SUBID_DS_Callback')
 	.sect	'.debug_info'
 .L22:
-	.word	315
+	.word	312
 	.half	3
 	.word	.L23
 	.byte	4,1
 	.byte	'..\\Communication_Files\\Uds\\User\\Uds_User_DiagnosticSessionControlCallback.c',0
 	.byte	'TASKING VX-toolset for TriCore: C compiler',0
-	.byte	'D:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_2.0\\BMU_BOOT\\Debug\\',0,12,1
+	.byte	'D:\\work\\Microvast\\OTA\\LiFan\\BMU_BOOT\\BMU_BOOT\\Debug\\',0,12,1
 	.word	.L25,.L24
 	.byte	2
 	.word	.L13
@@ -921,13 +921,13 @@ st_Uds_SID_DSC_Info:	.type	object
 	.sdecl	'.debug_info',debug,cluster('UdsFunc_SID_DSC_SUBID_PRGS_Callback')
 	.sect	'.debug_info'
 .L27:
-	.word	317
+	.word	314
 	.half	3
 	.word	.L28
 	.byte	4,1
 	.byte	'..\\Communication_Files\\Uds\\User\\Uds_User_DiagnosticSessionControlCallback.c',0
 	.byte	'TASKING VX-toolset for TriCore: C compiler',0
-	.byte	'D:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_2.0\\BMU_BOOT\\Debug\\',0,12,1
+	.byte	'D:\\work\\Microvast\\OTA\\LiFan\\BMU_BOOT\\BMU_BOOT\\Debug\\',0,12,1
 	.word	.L30,.L29
 	.byte	2
 	.word	.L13
@@ -1006,13 +1006,13 @@ st_Uds_SID_DSC_Info:	.type	object
 	.sdecl	'.debug_info',debug,cluster('UdsFunc_SID_DSC_SUBID_EXTDS_Callback')
 	.sect	'.debug_info'
 .L32:
-	.word	318
+	.word	315
 	.half	3
 	.word	.L33
 	.byte	4,1
 	.byte	'..\\Communication_Files\\Uds\\User\\Uds_User_DiagnosticSessionControlCallback.c',0
 	.byte	'TASKING VX-toolset for TriCore: C compiler',0
-	.byte	'D:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_2.0\\BMU_BOOT\\Debug\\',0,12,1
+	.byte	'D:\\work\\Microvast\\OTA\\LiFan\\BMU_BOOT\\BMU_BOOT\\Debug\\',0,12,1
 	.word	.L35,.L34
 	.byte	2
 	.word	.L13
@@ -1081,13 +1081,13 @@ st_Uds_SID_DSC_Info:	.type	object
 	.sdecl	'.debug_info',debug,cluster('st_Uds_SID_DSC_Info')
 	.sect	'.debug_info'
 .L37:
-	.word	226
+	.word	223
 	.half	3
 	.word	.L38
 	.byte	4,1
 	.byte	'..\\Communication_Files\\Uds\\User\\Uds_User_DiagnosticSessionControlCallback.c',0
 	.byte	'TASKING VX-toolset for TriCore: C compiler',0
-	.byte	'D:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_2.0\\BMU_BOOT\\Debug\\',0,12,1,2
+	.byte	'D:\\work\\Microvast\\OTA\\LiFan\\BMU_BOOT\\BMU_BOOT\\Debug\\',0,12,1,2
 	.word	.L13
 	.byte	3
 	.byte	'st_Uds_SID_DSC_Info',0,1,4,25

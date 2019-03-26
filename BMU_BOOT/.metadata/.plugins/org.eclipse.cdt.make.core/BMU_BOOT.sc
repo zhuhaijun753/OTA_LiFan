@@ -2,7 +2,7 @@
 <?scdStore version="2"?><scannerInfo id="org.eclipse.cdt.make.core.discoveredScannerInfo">
 <instance id="com.tasking.config.ctc.abs.debug.1425826080;com.tasking.config.ctc.abs.debug.1425826080.">
 <collector id="org.eclipse.cdt.make.core.PerProjectSICollector">
-<includePath path="D:\work\Microvast\OTA\Boot\BMU_BOOT_2.0\BMU_BOOT"/>
+<includePath path="D:\work\Microvast\OTA\LiFan\BMU_BOOT\BMU_BOOT"/>
 <includePath path="C:\Program Files (x86)\TASKING\TriCore v4.3r1\ctc\include"/>
 <definedSymbol symbol="__TASKING__=1"/>
 <definedSymbol symbol="__CTC__=1"/>
@@ -33,7 +33,7 @@
 </instance>
 <instance id="com.tasking.config.ctc.abs.release.23685376;com.tasking.config.ctc.abs.release.23685376.">
 <collector id="org.eclipse.cdt.make.core.PerProjectSICollector">
-<includePath path="D:\work\Microvast\OTA\Boot\BMU_BOOT_2.0\BMU_BOOT"/>
+<includePath path="D:\work\Microvast\OTA\LiFan\BMU_BOOT\BMU_BOOT"/>
 <includePath path="C:\Program Files (x86)\TASKING\TriCore v4.3r1\ctc\include"/>
 <definedSymbol symbol="__TASKING__=1"/>
 <definedSymbol symbol="__CTC__=1"/>

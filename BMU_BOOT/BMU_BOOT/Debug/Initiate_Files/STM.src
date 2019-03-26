@@ -1,6 +1,6 @@
 	; Module start
 	.compiler_version	"TASKING VX-toolset for TriCore: C compiler v4.3r1 Build 759 SN 00641831"
-	.compiler_invocation	"ctc -f cc11476a -c99 --dep-file=Initiate_Files\\.STM.o.d -D__CPU__=tc1782 -D__CPU_TC1782__ --core=tc1.3.1 -F -ID:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_2.0\\BMU_BOOT -ID:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_2.0\\BMU_BOOT\\Communication_Files\\CanDrv -ID:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_2.0\\BMU_BOOT\\Communication_Files\\Com -ID:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_2.0\\BMU_BOOT\\Communication_Files\\Com\\Can_Input -ID:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_2.0\\BMU_BOOT\\Communication_Files\\Com\\Can_Output -ID:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_2.0\\BMU_BOOT\\Communication_Files\\Uds\\Dcm -ID:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_2.0\\BMU_BOOT\\Communication_Files\\Uds\\Dem -ID:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_2.0\\BMU_BOOT\\Communication_Files\\Uds\\Tp -ID:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_2.0\\BMU_BOOT\\Communication_Files\\Uds\\User -ID:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_2.0\\BMU_BOOT\\Complex_Files -ID:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_2.0\\BMU_BOOT\\Initiate_Files -ID:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_2.0\\BMU_BOOT\\Nvm_Files\\FlsDrv -ID:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_2.0\\BMU_BOOT\\Stand_Header -g2 --make-target=Initiate_Files\\STM.o -t4 --language=-gcc,-volatile,+strings --default-near-size=0 -O2 --default-a1-size=0 --default-a0-size=0 --source --align=0 --compact-max-size=200 --switch=auto -o Initiate_Files\\STM.src ..\\Initiate_Files\\STM.c"
+	.compiler_invocation	"ctc -f cc8056a -c99 --dep-file=Initiate_Files\\.STM.o.d -D__CPU__=tc1782 -D__CPU_TC1782__ --core=tc1.3.1 -F -ID:\\work\\Microvast\\OTA\\LiFan\\BMU_BOOT\\BMU_BOOT -ID:\\work\\Microvast\\OTA\\LiFan\\BMU_BOOT\\BMU_BOOT\\Communication_Files\\CanDrv -ID:\\work\\Microvast\\OTA\\LiFan\\BMU_BOOT\\BMU_BOOT\\Communication_Files\\Com -ID:\\work\\Microvast\\OTA\\LiFan\\BMU_BOOT\\BMU_BOOT\\Communication_Files\\Com\\Can_Input -ID:\\work\\Microvast\\OTA\\LiFan\\BMU_BOOT\\BMU_BOOT\\Communication_Files\\Com\\Can_Output -ID:\\work\\Microvast\\OTA\\LiFan\\BMU_BOOT\\BMU_BOOT\\Communication_Files\\Uds\\Dcm -ID:\\work\\Microvast\\OTA\\LiFan\\BMU_BOOT\\BMU_BOOT\\Communication_Files\\Uds\\Dem -ID:\\work\\Microvast\\OTA\\LiFan\\BMU_BOOT\\BMU_BOOT\\Communication_Files\\Uds\\Tp -ID:\\work\\Microvast\\OTA\\LiFan\\BMU_BOOT\\BMU_BOOT\\Communication_Files\\Uds\\User -ID:\\work\\Microvast\\OTA\\LiFan\\BMU_BOOT\\BMU_BOOT\\Complex_Files -ID:\\work\\Microvast\\OTA\\LiFan\\BMU_BOOT\\BMU_BOOT\\Initiate_Files -ID:\\work\\Microvast\\OTA\\LiFan\\BMU_BOOT\\BMU_BOOT\\Nvm_Files\\FlsDrv -ID:\\work\\Microvast\\OTA\\LiFan\\BMU_BOOT\\BMU_BOOT\\Stand_Header -g2 --make-target=Initiate_Files\\STM.o -t4 --language=-gcc,-volatile,+strings --default-near-size=0 -O2 --default-a1-size=0 --default-a0-size=0 --source --align=0 --compact-max-size=200 --switch=auto -o Initiate_Files\\STM.src ..\\Initiate_Files\\STM.c"
 	.compiler_name		"ctc"
 	.name	"STM"
 
@@ -468,7 +468,7 @@ Flag_1ms:	.type	object
 	.sdecl	'.debug_info',debug
 	.sect	'.debug_info'
 .L11:
-	.word	470
+	.word	467
 	.half	3
 	.word	.L12
 	.byte	4
@@ -476,58 +476,58 @@ Flag_1ms:	.type	object
 	.byte	1
 	.byte	'..\\Initiate_Files\\STM.c',0
 	.byte	'TASKING VX-toolset for TriCore: C compiler',0
-	.byte	'D:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_2.0\\BMU_BOOT\\Debug\\',0,12,1
+	.byte	'D:\\work\\Microvast\\OTA\\LiFan\\BMU_BOOT\\BMU_BOOT\\Debug\\',0,12,1
 	.word	.L13
 	.byte	2
 	.byte	'MAIN_vWriteWDTCON0',0,1,148,1,6,1,1,1,1,3
 	.byte	'unsigned int',0,4,7,4
 	.byte	'uwValue',0,1,148,1,31
-	.word	169
+	.word	166
 	.byte	0
 .L29:
 	.byte	5
-	.word	169
+	.word	166
 	.byte	6
 	.byte	'os_schedule',0,2,22,6,1,1,1,1,7
 	.byte	'void',0,8
-	.word	228
+	.word	225
 	.byte	9
 	.byte	'__prof_adm',0,3,1,1
-	.word	234
+	.word	231
 	.byte	10,1,8
-	.word	258
+	.word	255
 	.byte	9
 	.byte	'__codeptr',0,3,1,1
-	.word	260
+	.word	257
 .L32:
 	.byte	3
 	.byte	'unsigned char',0,1,8,9
 	.byte	'ubyte',0,1,78,24
-	.word	283
+	.word	280
 	.byte	3
 	.byte	'unsigned short int',0,2,7,9
 	.byte	'ushort',0,1,80,24
-	.word	314
+	.word	311
 	.byte	9
 	.byte	'uword',0,1,82,24
-	.word	169
+	.word	166
 	.byte	9
 	.byte	'uint8',0,4,87,29
-	.word	283
+	.word	280
 	.byte	9
 	.byte	'uint16',0,4,89,29
-	.word	314
+	.word	311
 	.byte	3
 	.byte	'long int',0,4,5,9
 	.byte	'sint32',0,4,90,29
-	.word	394
+	.word	391
 	.byte	3
 	.byte	'unsigned long int',0,4,7,9
 	.byte	'uint32',0,4,91,27
-	.word	421
+	.word	418
 	.byte	9
 	.byte	'boolean',0,4,102,29
-	.word	283
+	.word	280
 	.byte	0
 	.sdecl	'.debug_abbrev',debug
 	.sect	'.debug_abbrev'
@@ -545,8 +545,8 @@ Flag_1ms:	.type	object
 	.word	.L37-.L36
 .L36:
 	.byte	2,1,-4,9,10,0,1,1,1,1,0,0,0,1
-	.byte	'D:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_2.0\\BMU_BOOT\\Complex_Files',0
-	.byte	'D:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_2.0\\BMU_BOOT\\Stand_Header',0,0
+	.byte	'D:\\work\\Microvast\\OTA\\LiFan\\BMU_BOOT\\BMU_BOOT\\Complex_Files',0
+	.byte	'D:\\work\\Microvast\\OTA\\LiFan\\BMU_BOOT\\BMU_BOOT\\Stand_Header',0,0
 	.byte	'..\\Initiate_Files\\MAIN.h',0,0,0,0
 	.byte	'Operating_System.h',0,1,0,0
 	.byte	'..\\Initiate_Files\\STM.c',0,0,0,0
@@ -556,13 +556,13 @@ Flag_1ms:	.type	object
 	.sdecl	'.debug_info',debug,cluster('STM_vInit')
 	.sect	'.debug_info'
 .L14:
-	.word	206
+	.word	203
 	.half	3
 	.word	.L15
 	.byte	4,1
 	.byte	'..\\Initiate_Files\\STM.c',0
 	.byte	'TASKING VX-toolset for TriCore: C compiler',0
-	.byte	'D:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_2.0\\BMU_BOOT\\Debug\\',0,12,1
+	.byte	'D:\\work\\Microvast\\OTA\\LiFan\\BMU_BOOT\\BMU_BOOT\\Debug\\',0,12,1
 	.word	.L17,.L16
 	.byte	2
 	.word	.L10
@@ -628,13 +628,13 @@ Flag_1ms:	.type	object
 	.sdecl	'.debug_info',debug,cluster('STM_viSRN0')
 	.sect	'.debug_info'
 .L19:
-	.word	188
+	.word	185
 	.half	3
 	.word	.L20
 	.byte	4,1
 	.byte	'..\\Initiate_Files\\STM.c',0
 	.byte	'TASKING VX-toolset for TriCore: C compiler',0
-	.byte	'D:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_2.0\\BMU_BOOT\\Debug\\',0,12,1
+	.byte	'D:\\work\\Microvast\\OTA\\LiFan\\BMU_BOOT\\BMU_BOOT\\Debug\\',0,12,1
 	.word	.L22,.L21
 	.byte	2
 	.word	.L10
@@ -711,13 +711,13 @@ Flag_1ms:	.type	object
 	.sdecl	'.debug_info',debug,cluster('Flag_Add')
 	.sect	'.debug_info'
 .L24:
-	.word	164
+	.word	161
 	.half	3
 	.word	.L25
 	.byte	4,1
 	.byte	'..\\Initiate_Files\\STM.c',0
 	.byte	'TASKING VX-toolset for TriCore: C compiler',0
-	.byte	'D:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_2.0\\BMU_BOOT\\Debug\\',0,12,1,2
+	.byte	'D:\\work\\Microvast\\OTA\\LiFan\\BMU_BOOT\\BMU_BOOT\\Debug\\',0,12,1,2
 	.word	.L10
 	.byte	3
 	.byte	'Flag_Add',0,3,245,1,7
@@ -733,13 +733,13 @@ Flag_1ms:	.type	object
 	.sdecl	'.debug_info',debug,cluster('Flag_1ms')
 	.sect	'.debug_info'
 .L26:
-	.word	164
+	.word	161
 	.half	3
 	.word	.L27
 	.byte	4,1
 	.byte	'..\\Initiate_Files\\STM.c',0
 	.byte	'TASKING VX-toolset for TriCore: C compiler',0
-	.byte	'D:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_2.0\\BMU_BOOT\\Debug\\',0,12,1,2
+	.byte	'D:\\work\\Microvast\\OTA\\LiFan\\BMU_BOOT\\BMU_BOOT\\Debug\\',0,12,1,2
 	.word	.L10
 	.byte	3
 	.byte	'Flag_1ms',0,3,246,1,7

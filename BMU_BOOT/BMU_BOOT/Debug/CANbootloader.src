@@ -1,6 +1,6 @@
 	; Module start
 	.compiler_version	"TASKING VX-toolset for TriCore: C compiler v4.3r1 Build 759 SN 00641831"
-	.compiler_invocation	"ctc -f cc11020a -c99 --dep-file=.CANbootloader.o.d -D__CPU__=tc1782 -D__CPU_TC1782__ --core=tc1.3.1 -F -ID:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_2.0\\BMU_BOOT -ID:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_2.0\\BMU_BOOT\\Communication_Files\\CanDrv -ID:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_2.0\\BMU_BOOT\\Communication_Files\\Com -ID:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_2.0\\BMU_BOOT\\Communication_Files\\Com\\Can_Input -ID:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_2.0\\BMU_BOOT\\Communication_Files\\Com\\Can_Output -ID:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_2.0\\BMU_BOOT\\Communication_Files\\Uds\\Dcm -ID:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_2.0\\BMU_BOOT\\Communication_Files\\Uds\\Dem -ID:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_2.0\\BMU_BOOT\\Communication_Files\\Uds\\Tp -ID:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_2.0\\BMU_BOOT\\Communication_Files\\Uds\\User -ID:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_2.0\\BMU_BOOT\\Complex_Files -ID:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_2.0\\BMU_BOOT\\Initiate_Files -ID:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_2.0\\BMU_BOOT\\Nvm_Files\\FlsDrv -ID:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_2.0\\BMU_BOOT\\Stand_Header -g2 --make-target=CANbootloader.o -t4 --language=-gcc,-volatile,+strings --default-near-size=0 -O2 --default-a1-size=0 --default-a0-size=0 --source --align=0 --compact-max-size=200 --switch=auto -o CANbootloader.src ..\\CANbootloader.c"
+	.compiler_invocation	"ctc -f cc9444a -c99 --dep-file=.CANbootloader.o.d -D__CPU__=tc1782 -D__CPU_TC1782__ --core=tc1.3.1 -F -ID:\\work\\Microvast\\OTA\\LiFan\\BMU_BOOT\\BMU_BOOT -ID:\\work\\Microvast\\OTA\\LiFan\\BMU_BOOT\\BMU_BOOT\\Communication_Files\\CanDrv -ID:\\work\\Microvast\\OTA\\LiFan\\BMU_BOOT\\BMU_BOOT\\Communication_Files\\Com -ID:\\work\\Microvast\\OTA\\LiFan\\BMU_BOOT\\BMU_BOOT\\Communication_Files\\Com\\Can_Input -ID:\\work\\Microvast\\OTA\\LiFan\\BMU_BOOT\\BMU_BOOT\\Communication_Files\\Com\\Can_Output -ID:\\work\\Microvast\\OTA\\LiFan\\BMU_BOOT\\BMU_BOOT\\Communication_Files\\Uds\\Dcm -ID:\\work\\Microvast\\OTA\\LiFan\\BMU_BOOT\\BMU_BOOT\\Communication_Files\\Uds\\Dem -ID:\\work\\Microvast\\OTA\\LiFan\\BMU_BOOT\\BMU_BOOT\\Communication_Files\\Uds\\Tp -ID:\\work\\Microvast\\OTA\\LiFan\\BMU_BOOT\\BMU_BOOT\\Communication_Files\\Uds\\User -ID:\\work\\Microvast\\OTA\\LiFan\\BMU_BOOT\\BMU_BOOT\\Complex_Files -ID:\\work\\Microvast\\OTA\\LiFan\\BMU_BOOT\\BMU_BOOT\\Initiate_Files -ID:\\work\\Microvast\\OTA\\LiFan\\BMU_BOOT\\BMU_BOOT\\Nvm_Files\\FlsDrv -ID:\\work\\Microvast\\OTA\\LiFan\\BMU_BOOT\\BMU_BOOT\\Stand_Header -g2 --make-target=CANbootloader.o -t4 --language=-gcc,-volatile,+strings --default-near-size=0 -O2 --default-a1-size=0 --default-a0-size=0 --source --align=0 --compact-max-size=200 --switch=auto -o CANbootloader.src ..\\CANbootloader.c"
 	.compiler_name		"ctc"
 	.name	"CANbootloader"
 
@@ -2118,7 +2118,7 @@ crc32_Data:	.type	object
 	.sdecl	'.debug_info',debug
 	.sect	'.debug_info'
 .L95:
-	.word	792
+	.word	789
 	.half	3
 	.word	.L96
 	.byte	4
@@ -2126,24 +2126,24 @@ crc32_Data:	.type	object
 	.byte	1
 	.byte	'..\\CANbootloader.c',0
 	.byte	'TASKING VX-toolset for TriCore: C compiler',0
-	.byte	'D:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_2.0\\BMU_BOOT\\Debug\\',0,12,1
+	.byte	'D:\\work\\Microvast\\OTA\\LiFan\\BMU_BOOT\\BMU_BOOT\\Debug\\',0,12,1
 	.word	.L97
 .L210:
 	.byte	2
 	.byte	'unsigned long int',0,4,7,3
 	.byte	'crc32',0,1,14,22
-	.word	136
+	.word	133
 	.byte	1,1,1,1,4
 	.byte	'void',0,5
-	.word	175
+	.word	172
 	.byte	6
 	.byte	'input',0,1,14,34
-	.word	181
+	.word	178
 .L247:
 	.byte	2
 	.byte	'int',0,4,5,6
 	.byte	'len',0,1,14,45
-	.word	200
+	.word	197
 	.byte	0,7
 	.byte	'RunUserCode',0,2,109,6,1,1,1,1
 .L199:
@@ -2154,13 +2154,13 @@ crc32_Data:	.type	object
 	.byte	'unsigned int',0,4,7
 .L203:
 	.byte	5
-	.word	136
+	.word	133
 	.byte	3
 	.byte	'CAN_ubRequestMsgObj',0,3,186,2,14
-	.word	240
+	.word	237
 	.byte	1,1,1,1,6
 	.byte	'ubObjNr',0,3,186,2,40
-	.word	240
+	.word	237
 	.byte	0
 .L233:
 	.byte	2
@@ -2168,94 +2168,94 @@ crc32_Data:	.type	object
 	.byte	'unsigned long long int',0,8,7
 .L241:
 	.byte	5
-	.word	338
+	.word	335
 	.byte	8
 	.byte	'__prof_adm',0,4,1,1
-	.word	181
+	.word	178
 	.byte	9,1,5
-	.word	388
+	.word	385
 	.byte	8
 	.byte	'__codeptr',0,4,1,1
-	.word	390
+	.word	387
 	.byte	10,128,2
-	.word	240
+	.word	237
 	.byte	11,255,1,0,12
 	.byte	'Boot_Flag',0,5,43,22
-	.word	413
+	.word	410
 	.byte	1,1,8
 	.byte	'ubyte',0,5,78,24
-	.word	240
+	.word	237
 	.byte	2
 	.byte	'unsigned short int',0,2,7,8
 	.byte	'ushort',0,5,80,24
-	.word	458
+	.word	455
 	.byte	8
 	.byte	'uword',0,5,82,24
-	.word	257
+	.word	254
 	.byte	8
 	.byte	'uint8',0,6,87,29
-	.word	240
+	.word	237
 	.byte	8
 	.byte	'uint16',0,6,89,29
-	.word	458
+	.word	455
 	.byte	2
 	.byte	'long int',0,4,5,8
 	.byte	'sint32',0,6,90,29
-	.word	538
+	.word	535
 	.byte	8
 	.byte	'uint32',0,6,91,27
-	.word	136
+	.word	133
 	.byte	8
 	.byte	'boolean',0,6,102,29
-	.word	240
+	.word	237
 	.byte	12
 	.byte	'crc',0,1,11,22
-	.word	136
+	.word	133
 	.byte	1,1,8
 	.byte	'BYTE',0,2,12,28
-	.word	240
+	.word	237
 	.byte	8
 	.byte	'DWORD',0,2,15,28
-	.word	136
+	.word	133
 .L263:
 	.byte	13,2,17,9,20,14
 	.byte	'usMOCfg',0,2
-	.word	458
+	.word	455
 	.byte	2,35,0,14
 	.byte	'uwID',0,4
-	.word	257
+	.word	254
 	.byte	2,35,2,14
 	.byte	'uwMask',0,4
-	.word	257
+	.word	254
 	.byte	2,35,6,10,8
-	.word	240
+	.word	237
 	.byte	11,7,0,14
 	.byte	'ubData',0,8
-	.word	689
+	.word	686
 	.byte	2,35,10,14
 	.byte	'usCounter',0,2
-	.word	458
+	.word	455
 	.byte	2,35,18,0,8
 	.byte	'CAN_SWObj',0,2,24,4
-	.word	637
+	.word	634
 .L262:
 	.byte	10,8
-	.word	240
+	.word	237
 	.byte	11,7,0
 .L264:
 	.byte	5
-	.word	637
+	.word	634
 .L265:
 	.byte	10,144,2
-	.word	240
+	.word	237
 	.byte	11,143,2,0
 .L266:
 	.byte	10,72
-	.word	136
+	.word	133
 	.byte	11,17,0
 .L267:
 	.byte	10,18
-	.word	240
+	.word	237
 	.byte	11,17,0,0
 	.sdecl	'.debug_abbrev',debug
 	.sect	'.debug_abbrev'
@@ -2274,11 +2274,11 @@ crc32_Data:	.type	object
 	.word	.L318-.L317
 .L317:
 	.byte	2,1,-4,9,10,0,1,1,1,1,0,0,0,1
-	.byte	'D:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_2.0\\BMU_BOOT\\Complex_Files',0
-	.byte	'D:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_2.0\\BMU_BOOT',0
-	.byte	'D:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_2.0\\BMU_BOOT\\Communication_Files\\CanDrv',0
-	.byte	'D:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_2.0\\BMU_BOOT\\Initiate_Files',0
-	.byte	'D:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_2.0\\BMU_BOOT\\Stand_Header',0,0
+	.byte	'D:\\work\\Microvast\\OTA\\LiFan\\BMU_BOOT\\BMU_BOOT\\Complex_Files',0
+	.byte	'D:\\work\\Microvast\\OTA\\LiFan\\BMU_BOOT\\BMU_BOOT',0
+	.byte	'D:\\work\\Microvast\\OTA\\LiFan\\BMU_BOOT\\BMU_BOOT\\Communication_Files\\CanDrv',0
+	.byte	'D:\\work\\Microvast\\OTA\\LiFan\\BMU_BOOT\\BMU_BOOT\\Initiate_Files',0
+	.byte	'D:\\work\\Microvast\\OTA\\LiFan\\BMU_BOOT\\BMU_BOOT\\Stand_Header',0,0
 	.byte	'Crc_Algorithm.h',0,1,0,0
 	.byte	'CANbootloader.h',0,2,0,0
 	.byte	'CanDrv_TC1782.h',0,3,0,0
@@ -2290,13 +2290,13 @@ crc32_Data:	.type	object
 	.sdecl	'.debug_info',debug,cluster('ReadFlag')
 	.sect	'.debug_info'
 .L98:
-	.word	267
+	.word	264
 	.half	3
 	.word	.L99
 	.byte	4,1
 	.byte	'..\\CANbootloader.c',0
 	.byte	'TASKING VX-toolset for TriCore: C compiler',0
-	.byte	'D:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_2.0\\BMU_BOOT\\Debug\\',0,12,1
+	.byte	'D:\\work\\Microvast\\OTA\\LiFan\\BMU_BOOT\\BMU_BOOT\\Debug\\',0,12,1
 	.word	.L101,.L100
 	.byte	2
 	.word	.L94
@@ -2378,13 +2378,13 @@ crc32_Data:	.type	object
 	.sdecl	'.debug_info',debug,cluster('CAN_ACK')
 	.sect	'.debug_info'
 .L103:
-	.word	215
+	.word	212
 	.half	3
 	.word	.L104
 	.byte	4,1
 	.byte	'..\\CANbootloader.c',0
 	.byte	'TASKING VX-toolset for TriCore: C compiler',0
-	.byte	'D:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_2.0\\BMU_BOOT\\Debug\\',0,12,1
+	.byte	'D:\\work\\Microvast\\OTA\\LiFan\\BMU_BOOT\\BMU_BOOT\\Debug\\',0,12,1
 	.word	.L106,.L105
 	.byte	2
 	.word	.L94
@@ -2457,13 +2457,13 @@ crc32_Data:	.type	object
 	.sdecl	'.debug_info',debug,cluster('process_command')
 	.sect	'.debug_info'
 .L108:
-	.word	213
+	.word	210
 	.half	3
 	.word	.L109
 	.byte	4,1
 	.byte	'..\\CANbootloader.c',0
 	.byte	'TASKING VX-toolset for TriCore: C compiler',0
-	.byte	'D:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_2.0\\BMU_BOOT\\Debug\\',0,12,1
+	.byte	'D:\\work\\Microvast\\OTA\\LiFan\\BMU_BOOT\\BMU_BOOT\\Debug\\',0,12,1
 	.word	.L111,.L110
 	.byte	2
 	.word	.L94
@@ -2645,13 +2645,13 @@ crc32_Data:	.type	object
 	.sdecl	'.debug_info',debug,cluster('transmitback_data')
 	.sect	'.debug_info'
 .L113:
-	.word	189
+	.word	186
 	.half	3
 	.word	.L114
 	.byte	4,1
 	.byte	'..\\CANbootloader.c',0
 	.byte	'TASKING VX-toolset for TriCore: C compiler',0
-	.byte	'D:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_2.0\\BMU_BOOT\\Debug\\',0,12,1
+	.byte	'D:\\work\\Microvast\\OTA\\LiFan\\BMU_BOOT\\BMU_BOOT\\Debug\\',0,12,1
 	.word	.L116,.L115
 	.byte	2
 	.word	.L94
@@ -2756,13 +2756,13 @@ crc32_Data:	.type	object
 	.sdecl	'.debug_info',debug,cluster('ProgramBootFlag')
 	.sect	'.debug_info'
 .L118:
-	.word	206
+	.word	203
 	.half	3
 	.word	.L119
 	.byte	4,1
 	.byte	'..\\CANbootloader.c',0
 	.byte	'TASKING VX-toolset for TriCore: C compiler',0
-	.byte	'D:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_2.0\\BMU_BOOT\\Debug\\',0,12,1
+	.byte	'D:\\work\\Microvast\\OTA\\LiFan\\BMU_BOOT\\BMU_BOOT\\Debug\\',0,12,1
 	.word	.L121,.L120
 	.byte	2
 	.word	.L94
@@ -2842,13 +2842,13 @@ crc32_Data:	.type	object
 	.sdecl	'.debug_info',debug,cluster('EraseSector')
 	.sect	'.debug_info'
 .L123:
-	.word	300
+	.word	297
 	.half	3
 	.word	.L124
 	.byte	4,1
 	.byte	'..\\CANbootloader.c',0
 	.byte	'TASKING VX-toolset for TriCore: C compiler',0
-	.byte	'D:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_2.0\\BMU_BOOT\\Debug\\',0,12,1
+	.byte	'D:\\work\\Microvast\\OTA\\LiFan\\BMU_BOOT\\BMU_BOOT\\Debug\\',0,12,1
 	.word	.L126,.L125
 	.byte	2
 	.word	.L94
@@ -2958,13 +2958,13 @@ crc32_Data:	.type	object
 	.sdecl	'.debug_info',debug,cluster('SendBlock')
 	.sect	'.debug_info'
 .L128:
-	.word	196
+	.word	193
 	.half	3
 	.word	.L129
 	.byte	4,1
 	.byte	'..\\CANbootloader.c',0
 	.byte	'TASKING VX-toolset for TriCore: C compiler',0
-	.byte	'D:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_2.0\\BMU_BOOT\\Debug\\',0,12,1
+	.byte	'D:\\work\\Microvast\\OTA\\LiFan\\BMU_BOOT\\BMU_BOOT\\Debug\\',0,12,1
 	.word	.L131,.L130
 	.byte	2
 	.word	.L94
@@ -3078,13 +3078,13 @@ crc32_Data:	.type	object
 	.sdecl	'.debug_info',debug,cluster('SendFlag')
 	.sect	'.debug_info'
 .L133:
-	.word	179
+	.word	176
 	.half	3
 	.word	.L134
 	.byte	4,1
 	.byte	'..\\CANbootloader.c',0
 	.byte	'TASKING VX-toolset for TriCore: C compiler',0
-	.byte	'D:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_2.0\\BMU_BOOT\\Debug\\',0,12,1
+	.byte	'D:\\work\\Microvast\\OTA\\LiFan\\BMU_BOOT\\BMU_BOOT\\Debug\\',0,12,1
 	.word	.L136,.L135
 	.byte	2
 	.word	.L94
@@ -3187,13 +3187,13 @@ crc32_Data:	.type	object
 	.sdecl	'.debug_info',debug,cluster('clearDataBlock')
 	.sect	'.debug_info'
 .L138:
-	.word	202
+	.word	199
 	.half	3
 	.word	.L139
 	.byte	4,1
 	.byte	'..\\CANbootloader.c',0
 	.byte	'TASKING VX-toolset for TriCore: C compiler',0
-	.byte	'D:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_2.0\\BMU_BOOT\\Debug\\',0,12,1
+	.byte	'D:\\work\\Microvast\\OTA\\LiFan\\BMU_BOOT\\BMU_BOOT\\Debug\\',0,12,1
 	.word	.L141,.L140
 	.byte	2
 	.word	.L94
@@ -3243,13 +3243,13 @@ crc32_Data:	.type	object
 	.sdecl	'.debug_info',debug,cluster('ReceiveDataBlock')
 	.sect	'.debug_info'
 .L143:
-	.word	205
+	.word	202
 	.half	3
 	.word	.L144
 	.byte	4,1
 	.byte	'..\\CANbootloader.c',0
 	.byte	'TASKING VX-toolset for TriCore: C compiler',0
-	.byte	'D:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_2.0\\BMU_BOOT\\Debug\\',0,12,1
+	.byte	'D:\\work\\Microvast\\OTA\\LiFan\\BMU_BOOT\\BMU_BOOT\\Debug\\',0,12,1
 	.word	.L146,.L145
 	.byte	2
 	.word	.L94
@@ -3361,13 +3361,13 @@ crc32_Data:	.type	object
 	.sdecl	'.debug_info',debug,cluster('ProgramFlashPage')
 	.sect	'.debug_info'
 .L148:
-	.word	353
+	.word	350
 	.half	3
 	.word	.L149
 	.byte	4,1
 	.byte	'..\\CANbootloader.c',0
 	.byte	'TASKING VX-toolset for TriCore: C compiler',0
-	.byte	'D:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_2.0\\BMU_BOOT\\Debug\\',0,12,1
+	.byte	'D:\\work\\Microvast\\OTA\\LiFan\\BMU_BOOT\\BMU_BOOT\\Debug\\',0,12,1
 	.word	.L151,.L150
 	.byte	2
 	.word	.L94
@@ -3521,13 +3521,13 @@ crc32_Data:	.type	object
 	.sdecl	'.debug_info',debug,cluster('SectorStartAddressCheck')
 	.sect	'.debug_info'
 .L153:
-	.word	226
+	.word	223
 	.half	3
 	.word	.L154
 	.byte	4,1
 	.byte	'..\\CANbootloader.c',0
 	.byte	'TASKING VX-toolset for TriCore: C compiler',0
-	.byte	'D:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_2.0\\BMU_BOOT\\Debug\\',0,12,1
+	.byte	'D:\\work\\Microvast\\OTA\\LiFan\\BMU_BOOT\\BMU_BOOT\\Debug\\',0,12,1
 	.word	.L156,.L155
 	.byte	2
 	.word	.L94
@@ -3675,13 +3675,13 @@ crc32_Data:	.type	object
 	.sdecl	'.debug_info',debug,cluster('EraseSelectedSector')
 	.sect	'.debug_info'
 .L158:
-	.word	211
+	.word	208
 	.half	3
 	.word	.L159
 	.byte	4,1
 	.byte	'..\\CANbootloader.c',0
 	.byte	'TASKING VX-toolset for TriCore: C compiler',0
-	.byte	'D:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_2.0\\BMU_BOOT\\Debug\\',0,12,1
+	.byte	'D:\\work\\Microvast\\OTA\\LiFan\\BMU_BOOT\\BMU_BOOT\\Debug\\',0,12,1
 	.word	.L161,.L160
 	.byte	2
 	.word	.L94
@@ -3755,13 +3755,13 @@ crc32_Data:	.type	object
 	.sdecl	'.debug_info',debug,cluster('ReadBlock2')
 	.sect	'.debug_info'
 .L163:
-	.word	293
+	.word	290
 	.half	3
 	.word	.L164
 	.byte	4,1
 	.byte	'..\\CANbootloader.c',0
 	.byte	'TASKING VX-toolset for TriCore: C compiler',0
-	.byte	'D:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_2.0\\BMU_BOOT\\Debug\\',0,12,1
+	.byte	'D:\\work\\Microvast\\OTA\\LiFan\\BMU_BOOT\\BMU_BOOT\\Debug\\',0,12,1
 	.word	.L166,.L165
 	.byte	2
 	.word	.L94
@@ -3840,13 +3840,13 @@ crc32_Data:	.type	object
 	.sdecl	'.debug_info',debug,cluster('Can_PackTrsmtAddr')
 	.sect	'.debug_info'
 .L168:
-	.word	227
+	.word	224
 	.half	3
 	.word	.L169
 	.byte	4,1
 	.byte	'..\\CANbootloader.c',0
 	.byte	'TASKING VX-toolset for TriCore: C compiler',0
-	.byte	'D:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_2.0\\BMU_BOOT\\Debug\\',0,12,1
+	.byte	'D:\\work\\Microvast\\OTA\\LiFan\\BMU_BOOT\\BMU_BOOT\\Debug\\',0,12,1
 	.word	.L171,.L170
 	.byte	2
 	.word	.L94
@@ -3903,13 +3903,13 @@ crc32_Data:	.type	object
 	.sdecl	'.debug_info',debug,cluster('ubAddrPrgm')
 	.sect	'.debug_info'
 .L173:
-	.word	160
+	.word	157
 	.half	3
 	.word	.L174
 	.byte	4,1
 	.byte	'..\\CANbootloader.c',0
 	.byte	'TASKING VX-toolset for TriCore: C compiler',0
-	.byte	'D:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_2.0\\BMU_BOOT\\Debug\\',0,12,1,2
+	.byte	'D:\\work\\Microvast\\OTA\\LiFan\\BMU_BOOT\\BMU_BOOT\\Debug\\',0,12,1,2
 	.word	.L94
 	.byte	3
 	.byte	'ubAddrPrgm',0,4,36,6
@@ -3925,13 +3925,13 @@ crc32_Data:	.type	object
 	.sdecl	'.debug_info',debug,cluster('ubgCommand')
 	.sect	'.debug_info'
 .L175:
-	.word	160
+	.word	157
 	.half	3
 	.word	.L176
 	.byte	4,1
 	.byte	'..\\CANbootloader.c',0
 	.byte	'TASKING VX-toolset for TriCore: C compiler',0
-	.byte	'D:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_2.0\\BMU_BOOT\\Debug\\',0,12,1,2
+	.byte	'D:\\work\\Microvast\\OTA\\LiFan\\BMU_BOOT\\BMU_BOOT\\Debug\\',0,12,1,2
 	.word	.L94
 	.byte	3
 	.byte	'ubgCommand',0,4,37,6
@@ -3947,13 +3947,13 @@ crc32_Data:	.type	object
 	.sdecl	'.debug_info',debug,cluster('ubgCommand1')
 	.sect	'.debug_info'
 .L177:
-	.word	161
+	.word	158
 	.half	3
 	.word	.L178
 	.byte	4,1
 	.byte	'..\\CANbootloader.c',0
 	.byte	'TASKING VX-toolset for TriCore: C compiler',0
-	.byte	'D:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_2.0\\BMU_BOOT\\Debug\\',0,12,1,2
+	.byte	'D:\\work\\Microvast\\OTA\\LiFan\\BMU_BOOT\\BMU_BOOT\\Debug\\',0,12,1,2
 	.word	.L94
 	.byte	3
 	.byte	'ubgCommand1',0,4,38,6
@@ -3969,13 +3969,13 @@ crc32_Data:	.type	object
 	.sdecl	'.debug_info',debug,cluster('ubgCommand2')
 	.sect	'.debug_info'
 .L179:
-	.word	161
+	.word	158
 	.half	3
 	.word	.L180
 	.byte	4,1
 	.byte	'..\\CANbootloader.c',0
 	.byte	'TASKING VX-toolset for TriCore: C compiler',0
-	.byte	'D:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_2.0\\BMU_BOOT\\Debug\\',0,12,1,2
+	.byte	'D:\\work\\Microvast\\OTA\\LiFan\\BMU_BOOT\\BMU_BOOT\\Debug\\',0,12,1,2
 	.word	.L94
 	.byte	3
 	.byte	'ubgCommand2',0,4,39,6
@@ -3991,13 +3991,13 @@ crc32_Data:	.type	object
 	.sdecl	'.debug_info',debug,cluster('ubgCommand3')
 	.sect	'.debug_info'
 .L181:
-	.word	161
+	.word	158
 	.half	3
 	.word	.L182
 	.byte	4,1
 	.byte	'..\\CANbootloader.c',0
 	.byte	'TASKING VX-toolset for TriCore: C compiler',0
-	.byte	'D:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_2.0\\BMU_BOOT\\Debug\\',0,12,1,2
+	.byte	'D:\\work\\Microvast\\OTA\\LiFan\\BMU_BOOT\\BMU_BOOT\\Debug\\',0,12,1,2
 	.word	.L94
 	.byte	3
 	.byte	'ubgCommand3',0,4,40,6
@@ -4013,13 +4013,13 @@ crc32_Data:	.type	object
 	.sdecl	'.debug_info',debug,cluster('Handflag')
 	.sect	'.debug_info'
 .L183:
-	.word	158
+	.word	155
 	.half	3
 	.word	.L184
 	.byte	4,1
 	.byte	'..\\CANbootloader.c',0
 	.byte	'TASKING VX-toolset for TriCore: C compiler',0
-	.byte	'D:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_2.0\\BMU_BOOT\\Debug\\',0,12,1,2
+	.byte	'D:\\work\\Microvast\\OTA\\LiFan\\BMU_BOOT\\BMU_BOOT\\Debug\\',0,12,1,2
 	.word	.L94
 	.byte	3
 	.byte	'Handflag',0,4,13,14
@@ -4035,13 +4035,13 @@ crc32_Data:	.type	object
 	.sdecl	'.debug_info',debug,cluster('stCANRecObj')
 	.sect	'.debug_info'
 .L185:
-	.word	161
+	.word	158
 	.half	3
 	.word	.L186
 	.byte	4,1
 	.byte	'..\\CANbootloader.c',0
 	.byte	'TASKING VX-toolset for TriCore: C compiler',0
-	.byte	'D:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_2.0\\BMU_BOOT\\Debug\\',0,12,1,2
+	.byte	'D:\\work\\Microvast\\OTA\\LiFan\\BMU_BOOT\\BMU_BOOT\\Debug\\',0,12,1,2
 	.word	.L94
 	.byte	3
 	.byte	'stCANRecObj',0,4,9,11
@@ -4057,13 +4057,13 @@ crc32_Data:	.type	object
 	.sdecl	'.debug_info',debug,cluster('pstCANRecObj')
 	.sect	'.debug_info'
 .L187:
-	.word	162
+	.word	159
 	.half	3
 	.word	.L188
 	.byte	4,1
 	.byte	'..\\CANbootloader.c',0
 	.byte	'TASKING VX-toolset for TriCore: C compiler',0
-	.byte	'D:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_2.0\\BMU_BOOT\\Debug\\',0,12,1,2
+	.byte	'D:\\work\\Microvast\\OTA\\LiFan\\BMU_BOOT\\BMU_BOOT\\Debug\\',0,12,1,2
 	.word	.L94
 	.byte	3
 	.byte	'pstCANRecObj',0,4,10,12
@@ -4079,13 +4079,13 @@ crc32_Data:	.type	object
 	.sdecl	'.debug_info',debug,cluster('DataBlock')
 	.sect	'.debug_info'
 .L189:
-	.word	159
+	.word	156
 	.half	3
 	.word	.L190
 	.byte	4,1
 	.byte	'..\\CANbootloader.c',0
 	.byte	'TASKING VX-toolset for TriCore: C compiler',0
-	.byte	'D:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_2.0\\BMU_BOOT\\Debug\\',0,12,1,2
+	.byte	'D:\\work\\Microvast\\OTA\\LiFan\\BMU_BOOT\\BMU_BOOT\\Debug\\',0,12,1,2
 	.word	.L94
 	.byte	3
 	.byte	'DataBlock',0,4,11,6
@@ -4101,13 +4101,13 @@ crc32_Data:	.type	object
 	.sdecl	'.debug_info',debug,cluster('SectorAddressValid')
 	.sect	'.debug_info'
 .L191:
-	.word	168
+	.word	165
 	.half	3
 	.word	.L192
 	.byte	4,1
 	.byte	'..\\CANbootloader.c',0
 	.byte	'TASKING VX-toolset for TriCore: C compiler',0
-	.byte	'D:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_2.0\\BMU_BOOT\\Debug\\',0,12,1,2
+	.byte	'D:\\work\\Microvast\\OTA\\LiFan\\BMU_BOOT\\BMU_BOOT\\Debug\\',0,12,1,2
 	.word	.L94
 	.byte	3
 	.byte	'SectorAddressValid',0,4,12,6
@@ -4123,13 +4123,13 @@ crc32_Data:	.type	object
 	.sdecl	'.debug_info',debug,cluster('SectorStartAddress')
 	.sect	'.debug_info'
 .L193:
-	.word	168
+	.word	165
 	.half	3
 	.word	.L194
 	.byte	4,1
 	.byte	'..\\CANbootloader.c',0
 	.byte	'TASKING VX-toolset for TriCore: C compiler',0
-	.byte	'D:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_2.0\\BMU_BOOT\\Debug\\',0,12,1,2
+	.byte	'D:\\work\\Microvast\\OTA\\LiFan\\BMU_BOOT\\BMU_BOOT\\Debug\\',0,12,1,2
 	.word	.L94
 	.byte	3
 	.byte	'SectorStartAddress',0,4,14,7
@@ -4145,13 +4145,13 @@ crc32_Data:	.type	object
 	.sdecl	'.debug_info',debug,cluster('SectorEraseFlag')
 	.sect	'.debug_info'
 .L195:
-	.word	165
+	.word	162
 	.half	3
 	.word	.L196
 	.byte	4,1
 	.byte	'..\\CANbootloader.c',0
 	.byte	'TASKING VX-toolset for TriCore: C compiler',0
-	.byte	'D:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_2.0\\BMU_BOOT\\Debug\\',0,12,1,2
+	.byte	'D:\\work\\Microvast\\OTA\\LiFan\\BMU_BOOT\\BMU_BOOT\\Debug\\',0,12,1,2
 	.word	.L94
 	.byte	3
 	.byte	'SectorEraseFlag',0,4,19,6
@@ -4167,13 +4167,13 @@ crc32_Data:	.type	object
 	.sdecl	'.debug_info',debug,cluster('crc32_Data')
 	.sect	'.debug_info'
 .L197:
-	.word	160
+	.word	157
 	.half	3
 	.word	.L198
 	.byte	4,1
 	.byte	'..\\CANbootloader.c',0
 	.byte	'TASKING VX-toolset for TriCore: C compiler',0
-	.byte	'D:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_2.0\\BMU_BOOT\\Debug\\',0,12,1,2
+	.byte	'D:\\work\\Microvast\\OTA\\LiFan\\BMU_BOOT\\BMU_BOOT\\Debug\\',0,12,1,2
 	.word	.L94
 	.byte	3
 	.byte	'crc32_Data',0,4,41,15

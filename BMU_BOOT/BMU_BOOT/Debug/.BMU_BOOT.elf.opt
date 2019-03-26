@@ -48,7 +48,7 @@
 "Nvm_Files\FlsDrv\Flash_TC1782_Driver.o"
 "-Ctc1782"
 "-t"
-"-ID:\work\Microvast\OTA\Boot\BMU_BOOT_2.0\BMU_BOOT"
+"-ID:\work\Microvast\OTA\LiFan\BMU_BOOT\BMU_BOOT"
 "-Wl-oBMU_BOOT.hex:IHEX:4"
 "--hex-format=s"
 "../BMU_BOOT.lsl"

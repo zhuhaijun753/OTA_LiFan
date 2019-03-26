@@ -1,6 +1,6 @@
 	; Module start
 	.compiler_version	"TASKING VX-toolset for TriCore: C compiler v4.3r1 Build 759 SN 00641831"
-	.compiler_invocation	"ctc -f cc11756a -c99 --dep-file=Communication_Files\\Uds\\User\\.Uds_User_ControlDTCSettingCallback.o.d -D__CPU__=tc1782 -D__CPU_TC1782__ --core=tc1.3.1 -F -ID:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_2.0\\BMU_BOOT -ID:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_2.0\\BMU_BOOT\\Communication_Files\\CanDrv -ID:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_2.0\\BMU_BOOT\\Communication_Files\\Com -ID:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_2.0\\BMU_BOOT\\Communication_Files\\Com\\Can_Input -ID:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_2.0\\BMU_BOOT\\Communication_Files\\Com\\Can_Output -ID:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_2.0\\BMU_BOOT\\Communication_Files\\Uds\\Dcm -ID:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_2.0\\BMU_BOOT\\Communication_Files\\Uds\\Dem -ID:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_2.0\\BMU_BOOT\\Communication_Files\\Uds\\Tp -ID:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_2.0\\BMU_BOOT\\Communication_Files\\Uds\\User -ID:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_2.0\\BMU_BOOT\\Complex_Files -ID:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_2.0\\BMU_BOOT\\Initiate_Files -ID:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_2.0\\BMU_BOOT\\Nvm_Files\\FlsDrv -ID:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_2.0\\BMU_BOOT\\Stand_Header -g2 --make-target=Communication_Files\\Uds\\User\\Uds_User_ControlDTCSettingCallback.o -t4 --language=-gcc,-volatile,+strings --default-near-size=0 -O2 --default-a1-size=0 --default-a0-size=0 --source --align=0 --compact-max-size=200 --switch=auto -o Communication_Files\\Uds\\User\\Uds_User_ControlDTCSettingCallback.src ..\\Communication_Files\\Uds\\User\\Uds_User_ControlDTCSettingCallback.c"
+	.compiler_invocation	"ctc -f cc3096a -c99 --dep-file=Communication_Files\\Uds\\User\\.Uds_User_ControlDTCSettingCallback.o.d -D__CPU__=tc1782 -D__CPU_TC1782__ --core=tc1.3.1 -F -ID:\\work\\Microvast\\OTA\\LiFan\\BMU_BOOT\\BMU_BOOT -ID:\\work\\Microvast\\OTA\\LiFan\\BMU_BOOT\\BMU_BOOT\\Communication_Files\\CanDrv -ID:\\work\\Microvast\\OTA\\LiFan\\BMU_BOOT\\BMU_BOOT\\Communication_Files\\Com -ID:\\work\\Microvast\\OTA\\LiFan\\BMU_BOOT\\BMU_BOOT\\Communication_Files\\Com\\Can_Input -ID:\\work\\Microvast\\OTA\\LiFan\\BMU_BOOT\\BMU_BOOT\\Communication_Files\\Com\\Can_Output -ID:\\work\\Microvast\\OTA\\LiFan\\BMU_BOOT\\BMU_BOOT\\Communication_Files\\Uds\\Dcm -ID:\\work\\Microvast\\OTA\\LiFan\\BMU_BOOT\\BMU_BOOT\\Communication_Files\\Uds\\Dem -ID:\\work\\Microvast\\OTA\\LiFan\\BMU_BOOT\\BMU_BOOT\\Communication_Files\\Uds\\Tp -ID:\\work\\Microvast\\OTA\\LiFan\\BMU_BOOT\\BMU_BOOT\\Communication_Files\\Uds\\User -ID:\\work\\Microvast\\OTA\\LiFan\\BMU_BOOT\\BMU_BOOT\\Complex_Files -ID:\\work\\Microvast\\OTA\\LiFan\\BMU_BOOT\\BMU_BOOT\\Initiate_Files -ID:\\work\\Microvast\\OTA\\LiFan\\BMU_BOOT\\BMU_BOOT\\Nvm_Files\\FlsDrv -ID:\\work\\Microvast\\OTA\\LiFan\\BMU_BOOT\\BMU_BOOT\\Stand_Header -g2 --make-target=Communication_Files\\Uds\\User\\Uds_User_ControlDTCSettingCallback.o -t4 --language=-gcc,-volatile,+strings --default-near-size=0 -O2 --default-a1-size=0 --default-a0-size=0 --source --align=0 --compact-max-size=200 --switch=auto -o Communication_Files\\Uds\\User\\Uds_User_ControlDTCSettingCallback.src ..\\Communication_Files\\Uds\\User\\Uds_User_ControlDTCSettingCallback.c"
 	.compiler_name		"ctc"
 	.name	"Uds_User_ControlDTCSettingCallback"
 
@@ -221,7 +221,7 @@ st_Uds_SID_CDTCS_Info:	.type	object
 	.sdecl	'.debug_info',debug
 	.sect	'.debug_info'
 .L9:
-	.word	728
+	.word	725
 	.half	3
 	.word	.L10
 	.byte	4
@@ -229,90 +229,90 @@ st_Uds_SID_CDTCS_Info:	.type	object
 	.byte	1
 	.byte	'..\\Communication_Files\\Uds\\User\\Uds_User_ControlDTCSettingCallback.c',0
 	.byte	'TASKING VX-toolset for TriCore: C compiler',0
-	.byte	'D:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_2.0\\BMU_BOOT\\Debug\\',0,12,1
+	.byte	'D:\\work\\Microvast\\OTA\\LiFan\\BMU_BOOT\\BMU_BOOT\\Debug\\',0,12,1
 	.word	.L11
 .L24:
 	.byte	2
 	.byte	'unsigned char',0,1,8
 .L26:
 	.byte	3
-	.word	186
+	.word	183
 	.byte	2
 	.byte	'unsigned short int',0,2,7
 .L28:
 	.byte	3
-	.word	208
+	.word	205
 	.byte	4
 	.byte	'void',0,3
-	.word	235
+	.word	232
 	.byte	5
 	.byte	'__prof_adm',0,1,1,1
-	.word	241
+	.word	238
 	.byte	6,1,3
-	.word	265
+	.word	262
 	.byte	5
 	.byte	'__codeptr',0,1,1,1
-	.word	267
+	.word	264
 	.byte	5
 	.byte	'ubyte',0,2,78,24
-	.word	186
+	.word	183
 	.byte	5
 	.byte	'ushort',0,2,80,24
-	.word	208
+	.word	205
 	.byte	2
 	.byte	'unsigned int',0,4,7,5
 	.byte	'uword',0,2,82,24
-	.word	319
+	.word	316
 	.byte	5
 	.byte	'uint8',0,3,87,29
-	.word	186
+	.word	183
 	.byte	5
 	.byte	'uint16',0,3,89,29
-	.word	208
+	.word	205
 	.byte	2
 	.byte	'long int',0,4,5,5
 	.byte	'sint32',0,3,90,29
-	.word	378
+	.word	375
 	.byte	2
 	.byte	'unsigned long int',0,4,7,5
 	.byte	'uint32',0,3,91,27
-	.word	405
+	.word	402
 	.byte	5
 	.byte	'boolean',0,3,102,29
-	.word	186
+	.word	183
 .L33:
 	.byte	7,4,8,9,1,8
 	.byte	'ui8_DTCSettingType',0,1
-	.word	186
+	.word	183
 	.byte	2,35,0,0,5
 	.byte	'Struct_Uds_SID_CDTCS_Info',0,4,11,2
-	.word	457
+	.word	454
 	.byte	7,5,91,9,28,8
 	.byte	'ui8_ResCode',0,1
-	.word	186
+	.word	183
 	.byte	2,35,0,8
 	.byte	'b_SuppressPosRspBit',0,1
-	.word	186
+	.word	183
 	.byte	2,35,1,8
 	.byte	'ui8_pMsgData',0,4
-	.word	203
+	.word	200
 	.byte	2,35,4,8
 	.byte	'ui16_pLength',0,4
-	.word	230
+	.word	227
 	.byte	2,35,8,9,8
-	.word	186
+	.word	183
 	.byte	10,7,0,8
 	.byte	'ui8_Neg78_Buf',0,8
-	.word	624
+	.word	621
 	.byte	2,35,12,8
 	.byte	'ui8_3E_Buf',0,8
-	.word	624
+	.word	621
 	.byte	2,35,20,0,5
 	.byte	'Struct_Uds_Response',0,5,99,2
-	.word	525
+	.word	522
 	.byte	11
 	.byte	'st_Uds_Response',0,5,126,29
-	.word	525
+	.word	522
 	.byte	1,1,0
 	.sdecl	'.debug_abbrev',debug
 	.sect	'.debug_abbrev'
@@ -330,10 +330,10 @@ st_Uds_SID_CDTCS_Info:	.type	object
 	.word	.L37-.L36
 .L36:
 	.byte	2,1,-4,9,10,0,1,1,1,1,0,0,0,1
-	.byte	'D:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_2.0\\BMU_BOOT\\Initiate_Files',0
-	.byte	'D:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_2.0\\BMU_BOOT\\Stand_Header',0
-	.byte	'D:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_2.0\\BMU_BOOT\\Communication_Files\\Uds\\User',0
-	.byte	'D:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_2.0\\BMU_BOOT\\Communication_Files\\Uds\\Dcm',0,0
+	.byte	'D:\\work\\Microvast\\OTA\\LiFan\\BMU_BOOT\\BMU_BOOT\\Initiate_Files',0
+	.byte	'D:\\work\\Microvast\\OTA\\LiFan\\BMU_BOOT\\BMU_BOOT\\Stand_Header',0
+	.byte	'D:\\work\\Microvast\\OTA\\LiFan\\BMU_BOOT\\BMU_BOOT\\Communication_Files\\Uds\\User',0
+	.byte	'D:\\work\\Microvast\\OTA\\LiFan\\BMU_BOOT\\BMU_BOOT\\Communication_Files\\Uds\\Dcm',0,0
 	.byte	'..\\Communication_Files\\Uds\\User\\Uds_User_ControlDTCSettingCallback.c',0,0,0,0
 	.byte	'MAIN.h',0,1,0,0
 	.byte	'Platform_Types.h',0,2,0,0
@@ -344,13 +344,13 @@ st_Uds_SID_CDTCS_Info:	.type	object
 	.sdecl	'.debug_info',debug,cluster('UdsFunc_SID_CDTCS_SUBID_ON_Callback')
 	.sect	'.debug_info'
 .L12:
-	.word	307
+	.word	304
 	.half	3
 	.word	.L13
 	.byte	4,1
 	.byte	'..\\Communication_Files\\Uds\\User\\Uds_User_ControlDTCSettingCallback.c',0
 	.byte	'TASKING VX-toolset for TriCore: C compiler',0
-	.byte	'D:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_2.0\\BMU_BOOT\\Debug\\',0,12,1
+	.byte	'D:\\work\\Microvast\\OTA\\LiFan\\BMU_BOOT\\BMU_BOOT\\Debug\\',0,12,1
 	.word	.L15,.L14
 	.byte	2
 	.word	.L8
@@ -411,13 +411,13 @@ st_Uds_SID_CDTCS_Info:	.type	object
 	.sdecl	'.debug_info',debug,cluster('UdsFunc_SID_CDTCS_SUBID_OFF_Callback')
 	.sect	'.debug_info'
 .L17:
-	.word	308
+	.word	305
 	.half	3
 	.word	.L18
 	.byte	4,1
 	.byte	'..\\Communication_Files\\Uds\\User\\Uds_User_ControlDTCSettingCallback.c',0
 	.byte	'TASKING VX-toolset for TriCore: C compiler',0
-	.byte	'D:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_2.0\\BMU_BOOT\\Debug\\',0,12,1
+	.byte	'D:\\work\\Microvast\\OTA\\LiFan\\BMU_BOOT\\BMU_BOOT\\Debug\\',0,12,1
 	.word	.L20,.L19
 	.byte	2
 	.word	.L8
@@ -478,13 +478,13 @@ st_Uds_SID_CDTCS_Info:	.type	object
 	.sdecl	'.debug_info',debug,cluster('st_Uds_SID_CDTCS_Info')
 	.sect	'.debug_info'
 .L22:
-	.word	221
+	.word	218
 	.half	3
 	.word	.L23
 	.byte	4,1
 	.byte	'..\\Communication_Files\\Uds\\User\\Uds_User_ControlDTCSettingCallback.c',0
 	.byte	'TASKING VX-toolset for TriCore: C compiler',0
-	.byte	'D:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_2.0\\BMU_BOOT\\Debug\\',0,12,1,2
+	.byte	'D:\\work\\Microvast\\OTA\\LiFan\\BMU_BOOT\\BMU_BOOT\\Debug\\',0,12,1,2
 	.word	.L8
 	.byte	3
 	.byte	'st_Uds_SID_CDTCS_Info',0,1,4,27

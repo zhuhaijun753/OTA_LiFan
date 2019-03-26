@@ -1,6 +1,6 @@
 	; Module start
 	.compiler_version	"TASKING VX-toolset for TriCore: C compiler v4.3r1 Build 759 SN 00641831"
-	.compiler_invocation	"ctc -f cc5744a -c99 --dep-file=Communication_Files\\Com\\Can_Input\\.CanInputCtrl.o.d -D__CPU__=tc1782 -D__CPU_TC1782__ --core=tc1.3.1 -F -ID:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_2.0\\BMU_BOOT -ID:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_2.0\\BMU_BOOT\\Communication_Files\\CanDrv -ID:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_2.0\\BMU_BOOT\\Communication_Files\\Com -ID:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_2.0\\BMU_BOOT\\Communication_Files\\Com\\Can_Input -ID:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_2.0\\BMU_BOOT\\Communication_Files\\Com\\Can_Output -ID:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_2.0\\BMU_BOOT\\Communication_Files\\Uds\\Dcm -ID:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_2.0\\BMU_BOOT\\Communication_Files\\Uds\\Dem -ID:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_2.0\\BMU_BOOT\\Communication_Files\\Uds\\Tp -ID:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_2.0\\BMU_BOOT\\Communication_Files\\Uds\\User -ID:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_2.0\\BMU_BOOT\\Complex_Files -ID:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_2.0\\BMU_BOOT\\Initiate_Files -ID:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_2.0\\BMU_BOOT\\Nvm_Files\\FlsDrv -ID:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_2.0\\BMU_BOOT\\Stand_Header -g2 --make-target=Communication_Files\\Com\\Can_Input\\CanInputCtrl.o -t4 --language=-gcc,-volatile,+strings --default-near-size=0 -O2 --default-a1-size=0 --default-a0-size=0 --source --align=0 --compact-max-size=200 --switch=auto -o Communication_Files\\Com\\Can_Input\\CanInputCtrl.src ..\\Communication_Files\\Com\\Can_Input\\CanInputCtrl.c"
+	.compiler_invocation	"ctc -f cc3760a -c99 --dep-file=Communication_Files\\Com\\Can_Input\\.CanInputCtrl.o.d -D__CPU__=tc1782 -D__CPU_TC1782__ --core=tc1.3.1 -F -ID:\\work\\Microvast\\OTA\\LiFan\\BMU_BOOT\\BMU_BOOT -ID:\\work\\Microvast\\OTA\\LiFan\\BMU_BOOT\\BMU_BOOT\\Communication_Files\\CanDrv -ID:\\work\\Microvast\\OTA\\LiFan\\BMU_BOOT\\BMU_BOOT\\Communication_Files\\Com -ID:\\work\\Microvast\\OTA\\LiFan\\BMU_BOOT\\BMU_BOOT\\Communication_Files\\Com\\Can_Input -ID:\\work\\Microvast\\OTA\\LiFan\\BMU_BOOT\\BMU_BOOT\\Communication_Files\\Com\\Can_Output -ID:\\work\\Microvast\\OTA\\LiFan\\BMU_BOOT\\BMU_BOOT\\Communication_Files\\Uds\\Dcm -ID:\\work\\Microvast\\OTA\\LiFan\\BMU_BOOT\\BMU_BOOT\\Communication_Files\\Uds\\Dem -ID:\\work\\Microvast\\OTA\\LiFan\\BMU_BOOT\\BMU_BOOT\\Communication_Files\\Uds\\Tp -ID:\\work\\Microvast\\OTA\\LiFan\\BMU_BOOT\\BMU_BOOT\\Communication_Files\\Uds\\User -ID:\\work\\Microvast\\OTA\\LiFan\\BMU_BOOT\\BMU_BOOT\\Complex_Files -ID:\\work\\Microvast\\OTA\\LiFan\\BMU_BOOT\\BMU_BOOT\\Initiate_Files -ID:\\work\\Microvast\\OTA\\LiFan\\BMU_BOOT\\BMU_BOOT\\Nvm_Files\\FlsDrv -ID:\\work\\Microvast\\OTA\\LiFan\\BMU_BOOT\\BMU_BOOT\\Stand_Header -g2 --make-target=Communication_Files\\Com\\Can_Input\\CanInputCtrl.o -t4 --language=-gcc,-volatile,+strings --default-near-size=0 -O2 --default-a1-size=0 --default-a0-size=0 --source --align=0 --compact-max-size=200 --switch=auto -o Communication_Files\\Com\\Can_Input\\CanInputCtrl.src ..\\Communication_Files\\Com\\Can_Input\\CanInputCtrl.c"
 	.compiler_name		"ctc"
 	.name	"CanInputCtrl"
 
@@ -305,7 +305,7 @@ __F_Input_Control_function_end:
 	.sdecl	'.debug_info',debug
 	.sect	'.debug_info'
 .L23:
-	.word	452
+	.word	449
 	.half	3
 	.word	.L24
 	.byte	4
@@ -313,53 +313,53 @@ __F_Input_Control_function_end:
 	.byte	1
 	.byte	'..\\Communication_Files\\Com\\Can_Input\\CanInputCtrl.c',0
 	.byte	'TASKING VX-toolset for TriCore: C compiler',0
-	.byte	'D:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_2.0\\BMU_BOOT\\Debug\\',0,12,1
+	.byte	'D:\\work\\Microvast\\OTA\\LiFan\\BMU_BOOT\\BMU_BOOT\\Debug\\',0,12,1
 	.word	.L25
 	.byte	2
 	.byte	'void',0,3
-	.word	169
+	.word	166
 	.byte	4
 	.byte	'__prof_adm',0,1,1,1
-	.word	175
+	.word	172
 	.byte	5,1,3
-	.word	199
+	.word	196
 	.byte	4
 	.byte	'__codeptr',0,1,1,1
-	.word	201
+	.word	198
 	.byte	6
 	.byte	'unsigned char',0,1,8,7
-	.word	224
+	.word	221
 	.byte	8
 	.byte	'uc_Cnt5ms',0,2,41,31
-	.word	241
+	.word	238
 	.byte	1,1,4
 	.byte	'ubyte',0,2,78,24
-	.word	224
+	.word	221
 	.byte	6
 	.byte	'unsigned short int',0,2,7,4
 	.byte	'ushort',0,2,80,24
-	.word	280
+	.word	277
 	.byte	6
 	.byte	'unsigned int',0,4,7,4
 	.byte	'uword',0,2,82,24
-	.word	317
+	.word	314
 	.byte	4
 	.byte	'uint8',0,3,87,29
-	.word	224
+	.word	221
 	.byte	4
 	.byte	'uint16',0,3,89,29
-	.word	280
+	.word	277
 	.byte	6
 	.byte	'long int',0,4,5,4
 	.byte	'sint32',0,3,90,29
-	.word	376
+	.word	373
 	.byte	6
 	.byte	'unsigned long int',0,4,7,4
 	.byte	'uint32',0,3,91,27
-	.word	403
+	.word	400
 	.byte	4
 	.byte	'boolean',0,3,102,29
-	.word	224
+	.word	221
 	.byte	0
 	.sdecl	'.debug_abbrev',debug
 	.sect	'.debug_abbrev'
@@ -376,8 +376,8 @@ __F_Input_Control_function_end:
 	.word	.L71-.L70
 .L70:
 	.byte	2,1,-4,9,10,0,1,1,1,1,0,0,0,1
-	.byte	'D:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_2.0\\BMU_BOOT\\Initiate_Files',0
-	.byte	'D:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_2.0\\BMU_BOOT\\Stand_Header',0,0
+	.byte	'D:\\work\\Microvast\\OTA\\LiFan\\BMU_BOOT\\BMU_BOOT\\Initiate_Files',0
+	.byte	'D:\\work\\Microvast\\OTA\\LiFan\\BMU_BOOT\\BMU_BOOT\\Stand_Header',0,0
 	.byte	'..\\Communication_Files\\Com\\Can_Input\\CanInputCtrl.c',0,0,0,0
 	.byte	'MAIN.h',0,1,0,0
 	.byte	'Platform_Types.h',0,2,0,0,0
@@ -386,13 +386,13 @@ __F_Input_Control_function_end:
 	.sdecl	'.debug_info',debug,cluster('F_Input_Control')
 	.sect	'.debug_info'
 .L26:
-	.word	220
+	.word	217
 	.half	3
 	.word	.L27
 	.byte	4,1
 	.byte	'..\\Communication_Files\\Com\\Can_Input\\CanInputCtrl.c',0
 	.byte	'TASKING VX-toolset for TriCore: C compiler',0
-	.byte	'D:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_2.0\\BMU_BOOT\\Debug\\',0,12,1
+	.byte	'D:\\work\\Microvast\\OTA\\LiFan\\BMU_BOOT\\BMU_BOOT\\Debug\\',0,12,1
 	.word	.L29,.L28
 	.byte	2
 	.word	.L22
@@ -481,13 +481,13 @@ __F_Input_Control_function_end:
 	.sdecl	'.debug_info',debug,cluster('CanInput_10ms')
 	.sect	'.debug_info'
 .L31:
-	.word	218
+	.word	215
 	.half	3
 	.word	.L32
 	.byte	4,1
 	.byte	'..\\Communication_Files\\Com\\Can_Input\\CanInputCtrl.c',0
 	.byte	'TASKING VX-toolset for TriCore: C compiler',0
-	.byte	'D:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_2.0\\BMU_BOOT\\Debug\\',0,12,1
+	.byte	'D:\\work\\Microvast\\OTA\\LiFan\\BMU_BOOT\\BMU_BOOT\\Debug\\',0,12,1
 	.word	.L34,.L33
 	.byte	2
 	.word	.L22
@@ -526,13 +526,13 @@ __F_Input_Control_function_end:
 	.sdecl	'.debug_info',debug,cluster('CanInput_20ms')
 	.sect	'.debug_info'
 .L36:
-	.word	218
+	.word	215
 	.half	3
 	.word	.L37
 	.byte	4,1
 	.byte	'..\\Communication_Files\\Com\\Can_Input\\CanInputCtrl.c',0
 	.byte	'TASKING VX-toolset for TriCore: C compiler',0
-	.byte	'D:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_2.0\\BMU_BOOT\\Debug\\',0,12,1
+	.byte	'D:\\work\\Microvast\\OTA\\LiFan\\BMU_BOOT\\BMU_BOOT\\Debug\\',0,12,1
 	.word	.L39,.L38
 	.byte	2
 	.word	.L22
@@ -571,13 +571,13 @@ __F_Input_Control_function_end:
 	.sdecl	'.debug_info',debug,cluster('CanInput_50ms')
 	.sect	'.debug_info'
 .L41:
-	.word	218
+	.word	215
 	.half	3
 	.word	.L42
 	.byte	4,1
 	.byte	'..\\Communication_Files\\Com\\Can_Input\\CanInputCtrl.c',0
 	.byte	'TASKING VX-toolset for TriCore: C compiler',0
-	.byte	'D:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_2.0\\BMU_BOOT\\Debug\\',0,12,1
+	.byte	'D:\\work\\Microvast\\OTA\\LiFan\\BMU_BOOT\\BMU_BOOT\\Debug\\',0,12,1
 	.word	.L44,.L43
 	.byte	2
 	.word	.L22
@@ -616,13 +616,13 @@ __F_Input_Control_function_end:
 	.sdecl	'.debug_info',debug,cluster('CanInput_100ms')
 	.sect	'.debug_info'
 .L46:
-	.word	219
+	.word	216
 	.half	3
 	.word	.L47
 	.byte	4,1
 	.byte	'..\\Communication_Files\\Com\\Can_Input\\CanInputCtrl.c',0
 	.byte	'TASKING VX-toolset for TriCore: C compiler',0
-	.byte	'D:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_2.0\\BMU_BOOT\\Debug\\',0,12,1
+	.byte	'D:\\work\\Microvast\\OTA\\LiFan\\BMU_BOOT\\BMU_BOOT\\Debug\\',0,12,1
 	.word	.L49,.L48
 	.byte	2
 	.word	.L22
@@ -661,13 +661,13 @@ __F_Input_Control_function_end:
 	.sdecl	'.debug_info',debug,cluster('CanInput_500ms')
 	.sect	'.debug_info'
 .L51:
-	.word	219
+	.word	216
 	.half	3
 	.word	.L52
 	.byte	4,1
 	.byte	'..\\Communication_Files\\Com\\Can_Input\\CanInputCtrl.c',0
 	.byte	'TASKING VX-toolset for TriCore: C compiler',0
-	.byte	'D:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_2.0\\BMU_BOOT\\Debug\\',0,12,1
+	.byte	'D:\\work\\Microvast\\OTA\\LiFan\\BMU_BOOT\\BMU_BOOT\\Debug\\',0,12,1
 	.word	.L54,.L53
 	.byte	2
 	.word	.L22
@@ -706,13 +706,13 @@ __F_Input_Control_function_end:
 	.sdecl	'.debug_info',debug,cluster('CanInput_1000ms')
 	.sect	'.debug_info'
 .L56:
-	.word	220
+	.word	217
 	.half	3
 	.word	.L57
 	.byte	4,1
 	.byte	'..\\Communication_Files\\Com\\Can_Input\\CanInputCtrl.c',0
 	.byte	'TASKING VX-toolset for TriCore: C compiler',0
-	.byte	'D:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_2.0\\BMU_BOOT\\Debug\\',0,12,1
+	.byte	'D:\\work\\Microvast\\OTA\\LiFan\\BMU_BOOT\\BMU_BOOT\\Debug\\',0,12,1
 	.word	.L59,.L58
 	.byte	2
 	.word	.L22

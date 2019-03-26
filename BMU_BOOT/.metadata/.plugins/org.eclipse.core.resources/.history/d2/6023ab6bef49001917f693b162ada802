@@ -1,0 +1,572 @@
+/*
+ * CAN_message.c
+ *
+ *  Created on: 2017-8-28
+ *      Author: HSNE_LP22E
+ */
+
+#include "MAIN.h"
+CAN_SWObj stCANRecObj;
+CAN_SWObj *pstCANRecObj = &stCANRecObj;
+BYTE DataBlock[PAGE_SIZE+16]={0};
+BYTE SectorAddressValid;
+unsigned int Handflag = 1;
+DWORD SectorStartAddress[18] = {Sector0_Start_Address,Sector1_Start_Address,Sector2_Start_Address,Sector3_Start_Address,
+		Sector4_Start_Address,Sector5_Start_Address,Sector6_Start_Address,Sector7_Start_Address,
+		Sector8_Start_Address,Sector9_Start_Address,Sector10_Start_Address,Sector11_Start_Address,
+		Sector12_Start_Address,Sector13_Start_Address,Sector14_Start_Address,Sector15_Start_Address,
+		Sector16_Start_Address,Sector17_Start_Address};
+BYTE SectorEraseFlag[18] = {0};
+void CAN_ACK(BYTE ubACK,BYTE ubTmp)
+{
+	/*如未发送成功，不发送*/
+	if(CAN_ubRequestMsgObj(125) == 0)
+	{
+		return;
+	}
+	CAN_HWOBJ[125].uwMOCTR = 0x00080000;       // set NEWDAT
+
+	CAN_HWOBJ[125].ubData[0] = ubACK;
+	CAN_HWOBJ[125].ubData[1] = ubTmp;
+
+	CAN_HWOBJ[125].uwMOCTR = 0x00200040;       // reset RTSEL, set MSGVAL
+	CAN_HWOBJ[125].uwMOCTR = 0x07000000;  	// set TXRQ,TXEN0,TXEN1
+}
+
+BYTE ubAddrPrgm[8];
+BYTE ubgCommand;
+BYTE ubgCommand1;
+BYTE ubgCommand2;
+BYTE ubgCommand3;
+unsigned long crc32_Data = 0;
+void transmitback_data(void)
+{
+	UINT i;
+//***********************transmit the address date*************************//
+
+#if 0
+	  while(!CAN_ubRequestMsgObj(126));
+	  CAN_HWOBJ[126].uwMOCTR = 0x00080000;       // set NEWDAT
+
+	  CAN_HWOBJ[126].ubData[0] = ubAddrPrgm[0];
+	  CAN_HWOBJ[126].ubData[1] = ubAddrPrgm[1];
+	  CAN_HWOBJ[126].ubData[2] = ubAddrPrgm[2];
+	  CAN_HWOBJ[126].ubData[3] = ubAddrPrgm[3];
+	  CAN_HWOBJ[126].ubData[4] = ubAddrPrgm[4];
+	  CAN_HWOBJ[126].ubData[5] = 2;
+	  CAN_HWOBJ[126].ubData[6] = 3;
+	  CAN_HWOBJ[126].ubData[7] = 4;
+
+	  CAN_HWOBJ[126].uwMOCTR = 0x00200040;       // reset RTSEL, set MSGVAL
+	  CAN_HWOBJ[126].uwMOCTR = 0x07000000;
+
+	  //*********************transmit the flash date******************************//
+	    for(i=0; i < (8*32);i+=8){
+
+	  	while(!CAN_ubRequestMsgObj(126));
+	    CAN_HWOBJ[126].uwMOCTR = 0x00080000;       // set NEWDAT
+	  	CAN_HWOBJ[126].ubData[0] = DataBlock[i+0];
+	  	CAN_HWOBJ[126].ubData[1] = DataBlock[i+1];
+	  	CAN_HWOBJ[126].ubData[2] = DataBlock[i+2];
+	  	CAN_HWOBJ[126].ubData[3] = DataBlock[i+3];
+	  	CAN_HWOBJ[126].ubData[4] = DataBlock[i+4];
+	  	CAN_HWOBJ[126].ubData[5] = DataBlock[i+5];
+	  	CAN_HWOBJ[126].ubData[6] = DataBlock[i+6];
+	  	CAN_HWOBJ[126].ubData[7] = DataBlock[i+7];
+
+	  	CAN_HWOBJ[126].uwMOCTR = 0x00200040;       // reset RTSEL, set MSGVAL
+	  	CAN_HWOBJ[126].uwMOCTR = 0x07000000;  	// set TXRQ,TXEN0,TXEN1
+	    }
+#else
+	  	while(!CAN_ubRequestMsgObj(126));
+	    CAN_HWOBJ[126].uwMOCTR = 0x00080000;       // set NEWDAT
+	  	CAN_HWOBJ[126].ubData[0] = ubAddrPrgm[1];
+	  	CAN_HWOBJ[126].ubData[1] = ubAddrPrgm[2];
+	  	CAN_HWOBJ[126].ubData[2] = ubAddrPrgm[3];
+	  	CAN_HWOBJ[126].ubData[3] = ubAddrPrgm[4];
+	  	CAN_HWOBJ[126].ubData[4] = (unsigned char)(crc32_Data>>24);
+	  	CAN_HWOBJ[126].ubData[5] = (unsigned char)(crc32_Data>>16);
+	  	CAN_HWOBJ[126].ubData[6] = (unsigned char)(crc32_Data>>8);
+	  	CAN_HWOBJ[126].ubData[7] = (unsigned char)(crc32_Data);
+
+	  	CAN_HWOBJ[126].uwMOCTR = 0x00200040;       // reset RTSEL, set MSGVAL
+	  	CAN_HWOBJ[126].uwMOCTR = 0x07000000;  	// set TXRQ,TXEN0,TXEN1
+#endif
+
+}
+void SendBlock(void)
+{
+	UINT i;
+	  //*********************transmit the flash date******************************//
+	    for(i=0; i < (8*32);i+=8){
+
+	  	while(!CAN_ubRequestMsgObj(126));
+	    CAN_HWOBJ[126].uwMOCTR = 0x00080000;       // set NEWDAT
+	  	CAN_HWOBJ[126].ubData[0] = DataBlock[i+0];
+	  	CAN_HWOBJ[126].ubData[1] = DataBlock[i+1];
+	  	CAN_HWOBJ[126].ubData[2] = DataBlock[i+2];
+	  	CAN_HWOBJ[126].ubData[3] = DataBlock[i+3];
+	  	CAN_HWOBJ[126].ubData[4] = DataBlock[i+4];
+	  	CAN_HWOBJ[126].ubData[5] = DataBlock[i+5];
+	  	CAN_HWOBJ[126].ubData[6] = DataBlock[i+6];
+	  	CAN_HWOBJ[126].ubData[7] = DataBlock[i+7];
+
+	  	CAN_HWOBJ[126].uwMOCTR = 0x00200040;       // reset RTSEL, set MSGVAL
+	  	CAN_HWOBJ[126].uwMOCTR = 0x07000000;  	// set TXRQ,TXEN0,TXEN1
+	    }
+}
+void SendFlag()
+{
+	while(!CAN_ubRequestMsgObj(126));
+		    CAN_HWOBJ[126].uwMOCTR = 0x00080000;       // set NEWDAT
+		  	CAN_HWOBJ[126].ubData[0] = DataBlock[0];
+		  	CAN_HWOBJ[126].ubData[1] = DataBlock[1];
+		  	CAN_HWOBJ[126].ubData[2] = DataBlock[2];
+		  	CAN_HWOBJ[126].ubData[3] = DataBlock[3];
+		  	CAN_HWOBJ[126].ubData[4] = DataBlock[4];
+		  	CAN_HWOBJ[126].ubData[5] = DataBlock[5];
+		  	CAN_HWOBJ[126].ubData[6] = DataBlock[6];
+		  	CAN_HWOBJ[126].ubData[7] = DataBlock[7];
+
+		  	CAN_HWOBJ[126].uwMOCTR = 0x00200040;       // reset RTSEL, set MSGVAL
+		  	CAN_HWOBJ[126].uwMOCTR = 0x07000000;  	// set TXRQ,TXEN0,TXEN1
+}
+void clearDataBlock()
+{
+	UINT i;
+	for(i=0; i < (8*32);i++){
+		  DataBlock[i] = 0x00;
+	}
+}
+
+void ReceiveDataBlock(void)
+{
+	UINT i;
+	for (i = 0; i < (32*8); i+=8)   // 256 bytes, 64 words
+	  {
+	    while (!(CAN_MOCTR124 & 0x08)); // wait until NEWDAT
+	    {
+	      // store the Datas from the CAN Messages
+	    	DataBlock[i+0] = CAN_HWOBJ[124].ubData[0];
+	    	DataBlock[i+1] = CAN_HWOBJ[124].ubData[1];
+	    	DataBlock[i+2] = CAN_HWOBJ[124].ubData[2];
+	    	DataBlock[i+3] = CAN_HWOBJ[124].ubData[3];
+	    	DataBlock[i+4] = CAN_HWOBJ[124].ubData[4];
+	    	DataBlock[i+5] = CAN_HWOBJ[124].ubData[5];
+	    	DataBlock[i+6] = CAN_HWOBJ[124].ubData[6];
+	    	DataBlock[i+7] = CAN_HWOBJ[124].ubData[7];
+//	    	CAN_ACK(4,8);
+	    }
+	    CAN_HWOBJ[124].uwMOCTR = CAN_MOSTAT0_NEWDAT;                     // clear NEWDAT
+	  }
+}
+
+//****************************************************************************
+// Function      _Bool ProgramFlashPage(DWORD dwPageAddr)
+//
+//----------------------------------------------------------------------------
+// Description   Program one page of FLASH
+//
+//----------------------------------------------------------------------------
+// Return value  1 : SUCCESS
+//               0 : FAILED
+//----------------------------------------------------------------------------
+// Parameters    dwPageAddr : start address of one page in FLASH
+//
+//----------------------------------------------------------------------------
+// Date          2011-7-4
+//
+//****************************************************************************
+_Bool ProgramFlashPage(DWORD dwPageAddr)
+{
+	DWORD dwFlashBaseAddr;
+	UINT ui;
+	volatile DWORD* pdwFsr;
+
+	dwFlashBaseAddr=dwPageAddr & PFLASH_BASE_MASK;
+
+	// prepare magic pointers
+	DWORD* pdwAddr5554=(DWORD*)(dwFlashBaseAddr+0x5554);
+	DWORD* pdwAddrAAA8=(DWORD*)(dwFlashBaseAddr+0xAAA8);
+	QWORD* pqwAddr55F0=(QWORD*)(dwFlashBaseAddr+0x55F0);
+
+		// clear status register
+		*pdwAddr5554=0x000000F5;
+
+		// enter page mode
+		*pdwAddr5554=0x00000050;  // program FLASH
+
+		// load assembly buffer
+		for(ui = 0; ui < PAGE_SIZE; ui+=8)
+		{
+			QWORD qw =  (QWORD)(DataBlock[0+ui] & 0xFF);
+			qw      += ((QWORD)(DataBlock[1+ui] & 0xFF) << 8);
+			qw      += ((QWORD)(DataBlock[2+ui] & 0xFF) << 16);
+			qw      += ((QWORD)(DataBlock[3+ui] & 0xFF) << 24);
+			qw      += ((QWORD)(DataBlock[4+ui] & 0xFF) << 32);
+			qw      += ((QWORD)(DataBlock[5+ui] & 0xFF) << 40);
+			qw      += ((QWORD)(DataBlock[6+ui] & 0xFF) << 48);
+			qw      += ((QWORD)(DataBlock[7+ui] & 0xFF) << 56);
+			*pqwAddr55F0=qw;
+		}
+
+		// write page
+		*pdwAddr5554 = 0x000000AA;
+		*pdwAddrAAA8 = 0x00000055;
+		*pdwAddr5554 = 0x000000A0;
+		*((DWORD*)dwPageAddr) = 0x000000AA;
+
+		//poll status register
+		if((dwPageAddr>=0xA0200000))
+		{
+			pdwFsr=(DWORD*)PFLASH1_FSR;
+		}
+		else
+		{
+			pdwFsr=(DWORD*)PFLASH0_FSR;
+		}
+		//while(*pdwFsr & FLASH_MASK_BUSY) {}
+
+        return 1;
+}
+
+void ProgramBootFlag(BYTE flag)
+{
+	//第一遍写入读取判断
+	DataBlock[0] = flag;
+	DataBlock[1] = Boot_Flag[1];
+	ProgramFlashPage(0xa0010000);
+	ReadFlag();
+	if(DataBlock[0] != flag){
+		//第二遍写入读取判断
+		DataBlock[0] = flag;
+		ProgramFlashPage(0xa0010000);
+		ReadFlag();
+		if(DataBlock[0] != flag){
+			//第三遍写入读取判断（如不正确，直接跳出）
+			DataBlock[0] = flag;
+			ProgramFlashPage(0xa0010000);
+			ReadFlag();
+			if(DataBlock[0] != flag){
+				return;
+			}
+		}
+	}
+}
+
+
+
+BYTE ReadFlag(void)
+{
+	DWORD ulBaseAddr = 0xA0010000;
+	UINT i;
+		DWORD *PageAddr = ulBaseAddr;
+
+		DWORD *dwPageAddr=PageAddr;
+		UINT volatile  * pflash = (UINT volatile  *)ulBaseAddr;		//!!!!!!!
+		for(i=0;i<256;i+=4)
+		{
+			DWORD* p=(DWORD*)(dwPageAddr);
+			DWORD FlashDW=*p;
+			DataBlock [i]=    FlashDW & 0xff;
+			DataBlock [i+1]= (FlashDW & 0xff00)  	>> 8;
+			DataBlock [i+2]= (FlashDW & 0xff0000)	>> 16;
+			DataBlock [i+3]= (FlashDW & 0xff000000)	>> 24;
+
+			dwPageAddr ++ ;
+//			CAN_ACK(2,4);
+		}
+//		Flag_Band = DataBlock[1];
+		return DataBlock[0];
+}
+
+int SectorStartAddressCheck(DWORD dwSectorAddr)
+{
+	if(dwSectorAddr>=Sector8_Start_Address&&dwSectorAddr<Sector8_End_Address)
+		return 8;
+	else if(dwSectorAddr>=Sector9_Start_Address&&dwSectorAddr<Sector9_End_Address)
+		return 9;
+	else if(dwSectorAddr>=Sector10_Start_Address&&dwSectorAddr<Sector10_End_Address)
+		return 10;
+	else if(dwSectorAddr>=Sector11_Start_Address&&dwSectorAddr<Sector11_End_Address)
+		return 11;
+	else if(dwSectorAddr>=Sector12_Start_Address&&dwSectorAddr<Sector12_End_Address)
+		return 12;
+	else if(dwSectorAddr>=Sector13_Start_Address&&dwSectorAddr<Sector13_End_Address)
+		return 13;
+	else if(dwSectorAddr>=Sector14_Start_Address&&dwSectorAddr<Sector14_End_Address)
+		return 14;
+	else if(dwSectorAddr>=Sector15_Start_Address&&dwSectorAddr<Sector15_End_Address)
+		return 15;
+	else if(dwSectorAddr>=Sector16_Start_Address&&dwSectorAddr<Sector16_End_Address)
+		return 16;
+	else if(dwSectorAddr>=Sector17_Start_Address&&dwSectorAddr<Sector17_End_Address)
+		return 17;
+	else
+		return 20;
+}
+
+void EraseSelectedSector(int Index)
+{
+	if(Index>=8&&Index<=17)
+	{
+		if(0==SectorEraseFlag[Index])
+		{
+			EraseSector(SectorStartAddress[Index]);////????
+			SectorEraseFlag[Index] = 1;
+		}
+	}
+	else if(Index == 18)
+	{
+		EraseSector(0xAFE00000);
+	}
+	else if(Index == 19)
+	{
+		EraseSector(0xAFE10000);
+	}
+}
+//******************************************************************************
+// Function      void EraseSector(DWORD dwSectorAddr, DWORD dwSize)
+//
+//------------------------------------------------------------------------------
+// Description   This function will erase one sector of PFLASH
+//
+//------------------------------------------------------------------------------
+// Return value  None
+//
+//------------------------------------------------------------------------------
+// Parameters    dwSectorAddr: the start address of the sector in PFLASH
+//               dwSize :  the size of sector
+//------------------------------------------------------------------------------
+// Date          2011-7-4
+//
+//******************************************************************************
+void EraseSector(DWORD dwSectorAddr)
+{
+
+	DWORD dwAddr = dwSectorAddr;
+	if((dwAddr == 0xAFE00000) || (dwAddr == 0xAFE10000))
+	{
+		dwAddr = dwSectorAddr & DFLASH_BASE_MASK;
+	}
+	else
+	{
+		dwAddr = dwSectorAddr & PFLASH_BASE_MASK;
+	}
+
+
+	DWORD* pdwAddr5554=(DWORD*)(dwAddr+0x5554);
+	DWORD* pdwAddrAAA8=(DWORD*)(dwAddr+0xAAA8);
+
+	// clear status register
+	*pdwAddr5554=0x000000F5; //	ClearStatus(dwFlashBaseAddr);
+
+	// erase physical sector
+	*pdwAddr5554=0x000000AA;
+	*pdwAddrAAA8=0x00000055;
+	*pdwAddr5554=0x00000080;
+	*pdwAddr5554=0x000000AA;
+	*pdwAddrAAA8=0x00000055;
+
+	if((dwAddr == 0xAFE00000) || (dwAddr == 0xAFE10000))
+	{
+		*((DWORD*)dwSectorAddr)=0x00000040;   // erase logical sector
+	}
+	else
+	{
+		*((DWORD*)dwSectorAddr)=0x00000030;   // erase logical sector
+	}
+
+	volatile DWORD* pdwFsr;
+	pdwFsr=(DWORD*)PFLASH1_FSR;
+
+	//while(*pdwFsr & FLASH_MASK_BUSY) {};
+}
+//读内存,并放入DataBlock
+void ReadBlock2(DWORD ulBaseAddr)
+{
+	UINT i;
+	DWORD *PageAddr = ulBaseAddr;
+	DWORD *dwPageAddr=PageAddr;
+	for(i=0;i<256;i+=4)
+	{
+		DWORD* p=(DWORD*)(dwPageAddr);
+		DWORD FlashDW=*p;
+		DataBlock [i]=    FlashDW & 0xff;
+		DataBlock [i+1]= (FlashDW & 0xff00)  	>> 8;
+		DataBlock [i+2]= (FlashDW & 0xff0000)	>> 16;
+		DataBlock [i+3]= (FlashDW & 0xff000000)	>> 24;
+
+		dwPageAddr ++ ;
+	}
+
+}
+//解析地址
+void Can_PackTrsmtAddr(BYTE cmd,DWORD uladdr)
+{
+	ubAddrPrgm[0] =  cmd;
+	ubAddrPrgm[1] =  uladdr & 0xff;
+	ubAddrPrgm[2] = (uladdr >> 8)  & 0xff;
+	ubAddrPrgm[3] = (uladdr >> 16) & 0xff;
+	ubAddrPrgm[4] = (uladdr >> 24) & 0xff;
+}
+//运行用户代码,用户代码起始地址为0xa0020000
+//void RunUserCode(void)
+//{
+//
+//    __asm("movh.a a15,#0xa002\n"			//load flash
+//    	"\tlea a15,[a15]0x0000\n"			//base address
+//    	"\tji a15");						//au revoir!
+//
+//}
+//static unsigned long table[256];
+
+
+//位逆转
+//static unsigned long bitrev(unsigned long input, int bw)
+//{
+//    int i;
+//    unsigned long var;
+//    var = 0;
+//    for(i=0;i<bw;i++)
+//    {
+//        if(input & 0x01)
+//        {
+//            var |= 1<<(bw-1-i);
+//        }
+//        input>>=1;
+//    }
+//    return var;
+//}
+
+//码表生成
+//如:X32+X26+...X1+1,poly=(1<<26)|...|(1<<1)|(1<<0)
+//void crc32_init(unsigned long poly)
+//{
+//    int i;
+//    int j;
+//    unsigned long c;
+//
+//    poly=bitrev(poly,32);
+//    for(i=0; i<256; i++)
+//    {
+//        c = i;
+//        for (j=0; j<8; j++)
+//        {
+//            if(c&1)
+//            {
+//                c=poly^(c>>1);
+//            }
+//            else
+//            {
+//                c=c>>1;
+//            }
+//        }
+//        table[i] = c;
+//    }
+//}
+
+//    unsigned long crc32(unsigned long crc, void* input, int len)
+//    {
+//        int i;
+//        unsigned char index;
+//        unsigned char* pch;
+//        pch = (unsigned char*)input;
+//        for(i=0;i<len;i++)
+//        {
+//            index = (unsigned char)(crc^*pch);
+//            crc = (crc>>8)^table[index];
+//            pch++;
+//        }
+//        return crc;
+//    }
+void process_command(void)
+{
+
+	UINT ulBaseAddr;
+
+	switch(ubgCommand)
+	{
+	case 0x01:
+		if(ubgCommand1==0x02)
+		{
+			if(ubgCommand2==0x03)
+			{
+				if(ubgCommand3==0x04)
+				{		//解析地址
+						ulBaseAddr = (CAN_HWOBJ[124].ubData[4]);//upper bits
+						ulBaseAddr = (ulBaseAddr<<8)|CAN_HWOBJ[124].ubData[3];//middle bits
+						ulBaseAddr = (ulBaseAddr<<8)|CAN_HWOBJ[124].ubData[2];//middle bits
+						ulBaseAddr = (ulBaseAddr<<8)|CAN_HWOBJ[124].ubData[1];//middle bits
+
+						ReceiveDataBlock();
+						/*******以下三句不太懂****************/
+//						EraseSelectedSector(SectorStartAddressCheck(ulBaseAddr));
+						ProgramFlashPage(ulBaseAddr);
+						ReadBlock2(ulBaseAddr);
+
+						crc32_Data = crc32(DataBlock, 256U);
+						//crc32_Data = crc32_Data ^ 0xFFFFFFFF;
+
+						CAN_ACK(0,0);
+						Can_PackTrsmtAddr(0x01,ulBaseAddr);		//load command and data
+						transmitback_data();					//send the data to pc
+						clearDataBlock();
+						Handflag = 1;
+						break;
+				}
+				else
+					break;
+			}
+			else
+				break;
+		}
+		else
+			break;
+	case 0x81:				//not in use
+
+		if(ubgCommand1==0x30)
+		{
+			if(ubgCommand2==0x40)
+			{
+				Handflag = 1;
+				EraseSelectedSector(ubgCommand3);
+				CAN_ACK(0x81,ubgCommand3);
+			}
+		}
+
+		break;
+	case 0x21://not is use
+		//ProgramBootFlag(0x01);		//bootflag 1
+		ReadFlag();
+		SendFlag();
+		break;
+	case 0x20:
+		if(ubgCommand1==0x30)
+		{
+			if(ubgCommand2==0x40)
+			{
+				if(ubgCommand3==0x50)
+				{
+		          ProgramBootFlag(0xfe);		    //bootflag 0xfe
+		          RunUserCode();
+		          break;
+				}
+				else
+					break;
+			}
+			else
+				break;
+		}
+		else
+			break;
+	default:
+		break;
+	}
+
+	ubgCommand = 0x00;
+	ubgCommand1 = 0x00;
+	ubgCommand2 = 0x00;
+	ubgCommand3 = 0x00;
+}
+

@@ -1,0 +1,555 @@
+	; Module start
+	.compiler_version	"TASKING VX-toolset for TriCore: C compiler v4.3r1 Build 759 SN 00641831"
+	.compiler_invocation	"ctc -f cc10272a -c99 --dep-file=Initiate_Files\\.SCU.o.d -D__CPU__=tc1782 -D__CPU_TC1782__ --core=tc1.3.1 -F -ID:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_1.9\\BMU_BOOT -ID:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_1.9\\BMU_BOOT\\Communication_Files\\CanDrv -ID:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_1.9\\BMU_BOOT\\Communication_Files\\Com -ID:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_1.9\\BMU_BOOT\\Communication_Files\\Com\\Can_Input -ID:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_1.9\\BMU_BOOT\\Communication_Files\\Com\\Can_Output -ID:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_1.9\\BMU_BOOT\\Communication_Files\\Uds\\Dcm -ID:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_1.9\\BMU_BOOT\\Communication_Files\\Uds\\Dem -ID:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_1.9\\BMU_BOOT\\Communication_Files\\Uds\\Tp -ID:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_1.9\\BMU_BOOT\\Communication_Files\\Uds\\User -ID:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_1.9\\BMU_BOOT\\Complex_Files -ID:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_1.9\\BMU_BOOT\\Initiate_Files -ID:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_1.9\\BMU_BOOT\\Nvm_Files\\FlsDrv -ID:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_1.9\\BMU_BOOT\\Stand_Header -g2 --make-target=Initiate_Files\\SCU.o -t4 --language=-gcc,-volatile,+strings --default-near-size=0 -O2 --default-a1-size=0 --default-a0-size=0 --source --align=0 --compact-max-size=200 --switch=auto -o Initiate_Files\\SCU.src ..\\Initiate_Files\\SCU.c"
+	.compiler_name		"ctc"
+	.name	"SCU"
+
+	
+$TC131
+	
+	.sdecl	'.text.SCU.SCU_vInit',code,cluster('SCU_vInit')
+	.sect	'.text.SCU.SCU_vInit'
+	.align	2
+	
+	.global	SCU_vInit
+
+; ..\Initiate_Files\SCU.c	     1  //****************************************************************************
+; ..\Initiate_Files\SCU.c	     2  // @Module        System Control Unit (SCU)
+; ..\Initiate_Files\SCU.c	     3  // @Filename      SCU.c
+; ..\Initiate_Files\SCU.c	     4  // @Project       HBCU_0926.dav
+; ..\Initiate_Files\SCU.c	     5  //----------------------------------------------------------------------------
+; ..\Initiate_Files\SCU.c	     6  // @Controller    Infineon TC1782
+; ..\Initiate_Files\SCU.c	     7  //
+; ..\Initiate_Files\SCU.c	     8  // @Compiler      Tasking 3.5r1
+; ..\Initiate_Files\SCU.c	     9  //
+; ..\Initiate_Files\SCU.c	    10  // @Codegenerator 1.0
+; ..\Initiate_Files\SCU.c	    11  //
+; ..\Initiate_Files\SCU.c	    12  // @Description   This file contains functions that use the SCU module.
+; ..\Initiate_Files\SCU.c	    13  //
+; ..\Initiate_Files\SCU.c	    14  //----------------------------------------------------------------------------
+; ..\Initiate_Files\SCU.c	    15  // @Date          2019-1-11 17:50:19
+; ..\Initiate_Files\SCU.c	    16  //
+; ..\Initiate_Files\SCU.c	    17  //****************************************************************************
+; ..\Initiate_Files\SCU.c	    18  
+; ..\Initiate_Files\SCU.c	    19  // USER CODE BEGIN (SCU_General,1)
+; ..\Initiate_Files\SCU.c	    20  
+; ..\Initiate_Files\SCU.c	    21  // USER CODE END
+; ..\Initiate_Files\SCU.c	    22  
+; ..\Initiate_Files\SCU.c	    23  
+; ..\Initiate_Files\SCU.c	    24  
+; ..\Initiate_Files\SCU.c	    25  //****************************************************************************
+; ..\Initiate_Files\SCU.c	    26  // @Project Includes
+; ..\Initiate_Files\SCU.c	    27  //****************************************************************************
+; ..\Initiate_Files\SCU.c	    28  
+; ..\Initiate_Files\SCU.c	    29  #include "MAIN.h"
+; ..\Initiate_Files\SCU.c	    30  
+; ..\Initiate_Files\SCU.c	    31  // USER CODE BEGIN (SCU_General,2)
+; ..\Initiate_Files\SCU.c	    32  
+; ..\Initiate_Files\SCU.c	    33  // USER CODE END
+; ..\Initiate_Files\SCU.c	    34  
+; ..\Initiate_Files\SCU.c	    35  
+; ..\Initiate_Files\SCU.c	    36  //****************************************************************************
+; ..\Initiate_Files\SCU.c	    37  // @Macros
+; ..\Initiate_Files\SCU.c	    38  //****************************************************************************
+; ..\Initiate_Files\SCU.c	    39  
+; ..\Initiate_Files\SCU.c	    40  // USER CODE BEGIN (SCU_General,3)
+; ..\Initiate_Files\SCU.c	    41  
+; ..\Initiate_Files\SCU.c	    42  // USER CODE END
+; ..\Initiate_Files\SCU.c	    43  
+; ..\Initiate_Files\SCU.c	    44  
+; ..\Initiate_Files\SCU.c	    45  //****************************************************************************
+; ..\Initiate_Files\SCU.c	    46  // @Defines
+; ..\Initiate_Files\SCU.c	    47  //****************************************************************************
+; ..\Initiate_Files\SCU.c	    48  
+; ..\Initiate_Files\SCU.c	    49  // USER CODE BEGIN (SCU_General,4)
+; ..\Initiate_Files\SCU.c	    50  
+; ..\Initiate_Files\SCU.c	    51  // USER CODE END
+; ..\Initiate_Files\SCU.c	    52  
+; ..\Initiate_Files\SCU.c	    53  
+; ..\Initiate_Files\SCU.c	    54  //****************************************************************************
+; ..\Initiate_Files\SCU.c	    55  // @Typedefs
+; ..\Initiate_Files\SCU.c	    56  //****************************************************************************
+; ..\Initiate_Files\SCU.c	    57  
+; ..\Initiate_Files\SCU.c	    58  // USER CODE BEGIN (SCU_General,5)
+; ..\Initiate_Files\SCU.c	    59  
+; ..\Initiate_Files\SCU.c	    60  // USER CODE END
+; ..\Initiate_Files\SCU.c	    61  
+; ..\Initiate_Files\SCU.c	    62  
+; ..\Initiate_Files\SCU.c	    63  //****************************************************************************
+; ..\Initiate_Files\SCU.c	    64  // @Imported Global Variables
+; ..\Initiate_Files\SCU.c	    65  //****************************************************************************
+; ..\Initiate_Files\SCU.c	    66  
+; ..\Initiate_Files\SCU.c	    67  // USER CODE BEGIN (SCU_General,6)
+; ..\Initiate_Files\SCU.c	    68  
+; ..\Initiate_Files\SCU.c	    69  // USER CODE END
+; ..\Initiate_Files\SCU.c	    70  
+; ..\Initiate_Files\SCU.c	    71  
+; ..\Initiate_Files\SCU.c	    72  //****************************************************************************
+; ..\Initiate_Files\SCU.c	    73  // @Global Variables
+; ..\Initiate_Files\SCU.c	    74  //****************************************************************************
+; ..\Initiate_Files\SCU.c	    75  
+; ..\Initiate_Files\SCU.c	    76  // USER CODE BEGIN (SCU_General,7)
+; ..\Initiate_Files\SCU.c	    77  
+; ..\Initiate_Files\SCU.c	    78  // USER CODE END
+; ..\Initiate_Files\SCU.c	    79  
+; ..\Initiate_Files\SCU.c	    80  
+; ..\Initiate_Files\SCU.c	    81  //****************************************************************************
+; ..\Initiate_Files\SCU.c	    82  // @External Prototypes
+; ..\Initiate_Files\SCU.c	    83  //****************************************************************************
+; ..\Initiate_Files\SCU.c	    84  
+; ..\Initiate_Files\SCU.c	    85  // USER CODE BEGIN (SCU_General,8)
+; ..\Initiate_Files\SCU.c	    86  
+; ..\Initiate_Files\SCU.c	    87  // USER CODE END
+; ..\Initiate_Files\SCU.c	    88  
+; ..\Initiate_Files\SCU.c	    89  
+; ..\Initiate_Files\SCU.c	    90  //****************************************************************************
+; ..\Initiate_Files\SCU.c	    91  // @Prototypes Of Local Functions
+; ..\Initiate_Files\SCU.c	    92  //****************************************************************************
+; ..\Initiate_Files\SCU.c	    93  
+; ..\Initiate_Files\SCU.c	    94  // USER CODE BEGIN (SCU_General,9)
+; ..\Initiate_Files\SCU.c	    95  
+; ..\Initiate_Files\SCU.c	    96  // USER CODE END
+; ..\Initiate_Files\SCU.c	    97  
+; ..\Initiate_Files\SCU.c	    98  
+; ..\Initiate_Files\SCU.c	    99  //****************************************************************************
+; ..\Initiate_Files\SCU.c	   100  // @Function      void SCU_vInit(void) 
+; ..\Initiate_Files\SCU.c	   101  //
+; ..\Initiate_Files\SCU.c	   102  //----------------------------------------------------------------------------
+; ..\Initiate_Files\SCU.c	   103  // @Description   This is the initialization function of the SCU function 
+; ..\Initiate_Files\SCU.c	   104  //                library. It is assumed that the SFRs used by this library 
+; ..\Initiate_Files\SCU.c	   105  //                are in their reset state. 
+; ..\Initiate_Files\SCU.c	   106  //
+; ..\Initiate_Files\SCU.c	   107  //----------------------------------------------------------------------------
+; ..\Initiate_Files\SCU.c	   108  // @Returnvalue   None
+; ..\Initiate_Files\SCU.c	   109  //
+; ..\Initiate_Files\SCU.c	   110  //----------------------------------------------------------------------------
+; ..\Initiate_Files\SCU.c	   111  // @Parameters    None
+; ..\Initiate_Files\SCU.c	   112  //
+; ..\Initiate_Files\SCU.c	   113  //----------------------------------------------------------------------------
+; ..\Initiate_Files\SCU.c	   114  // @Date          2019-1-11
+; ..\Initiate_Files\SCU.c	   115  //
+; ..\Initiate_Files\SCU.c	   116  //****************************************************************************
+; ..\Initiate_Files\SCU.c	   117  
+; ..\Initiate_Files\SCU.c	   118  // USER CODE BEGIN (Init,1)
+; ..\Initiate_Files\SCU.c	   119  
+; ..\Initiate_Files\SCU.c	   120  // USER CODE END
+; ..\Initiate_Files\SCU.c	   121  
+; ..\Initiate_Files\SCU.c	   122  void SCU_vInit(void)
+; Function SCU_vInit
+.L6:
+SCU_vInit:	.type	func
+
+; ..\Initiate_Files\SCU.c	   123  {
+; ..\Initiate_Files\SCU.c	   124    // USER CODE BEGIN (Init,2)
+; ..\Initiate_Files\SCU.c	   125  
+; ..\Initiate_Files\SCU.c	   126    // USER CODE END
+; ..\Initiate_Files\SCU.c	   127  
+; ..\Initiate_Files\SCU.c	   128    ///  -----------------------------------------------------------------------
+; ..\Initiate_Files\SCU.c	   129    ///  Settings for the Watchdog Timer:
+; ..\Initiate_Files\SCU.c	   130    ///  -----------------------------------------------------------------------
+; ..\Initiate_Files\SCU.c	   131    ///  - the watchdog timer is disabled
+; ..\Initiate_Files\SCU.c	   132    ///  - the input frequency is fFPI / 16384
+; ..\Initiate_Files\SCU.c	   133    ///  - period in normal watchdog mode =  157.29 ms
+; ..\Initiate_Files\SCU.c	   134    ///  - period in time-out mode =  1.64 ms
+; ..\Initiate_Files\SCU.c	   135  
+; ..\Initiate_Files\SCU.c	   136    MAIN_vWriteWDTCON0(0xFE800000);
+	movh	d4,#65152
+	call	MAIN_vWriteWDTCON0
+.L25:
+
+; ..\Initiate_Files\SCU.c	   137    WDT_CON1       =  0x00000008;  // load watchdog control register 1
+	mov	d15,#8
+	st.w	0xf00005f4,d15
+.L26:
+
+; ..\Initiate_Files\SCU.c	   138    MAIN_vSetENDINIT();
+	lea	a15,0xf00005f0
+	ld.w	d15,[a15]
+	or	d4,d15,#1
+	call	MAIN_vWriteWDTCON0
+.L27:
+
+; ..\Initiate_Files\SCU.c	   139  
+; ..\Initiate_Files\SCU.c	   140    ///  -----------------------------------------------------------------------
+; ..\Initiate_Files\SCU.c	   141    ///  Softare Reset Configuration:
+; ..\Initiate_Files\SCU.c	   142    ///  -----------------------------------------------------------------------
+; ..\Initiate_Files\SCU.c	   143    ///  A System reset is generated for a trigger of software reset
+; ..\Initiate_Files\SCU.c	   144    ///  use the following programmed software configuration for booting after 
+; ..\Initiate_Files\SCU.c	   145    ///  software reset:
+; ..\Initiate_Files\SCU.c	   146    ///  - internal start from Flash. (CFG[15:8] = 11xxxxxx)
+; ..\Initiate_Files\SCU.c	   147    ///  - HWCFG is not updated with SWCFG upon on Application Reset
+; ..\Initiate_Files\SCU.c	   148    ///  -----------------------------------------------------------------------
+; ..\Initiate_Files\SCU.c	   149    ///  ESRx Configuration:
+; ..\Initiate_Files\SCU.c	   150    ///  -----------------------------------------------------------------------
+; ..\Initiate_Files\SCU.c	   151    ///  ESR0
+; ..\Initiate_Files\SCU.c	   152    ///  - ESR0 module is not enabled
+; ..\Initiate_Files\SCU.c	   153    ///  ESR1
+; ..\Initiate_Files\SCU.c	   154    ///  - ESR1 module is not enabled
+; ..\Initiate_Files\SCU.c	   155    MAIN_vResetENDINIT();
+	ld.w	d15,[a15]
+	insert	d4,d15,#0,#0,#1
+	call	MAIN_vWriteWDTCON0
+	lea	a12,0xf00005f0
+.L2:
+	ld.bu	d15,[a12]
+	jnz.t	d15:0,.L2				; predicted taken
+.L28:
+
+; ..\Initiate_Files\SCU.c	   156    SCU_ESRCFG0    =  0x00000000;  // ESR0 confgiuration register
+	mov	d15,#0
+	st.w	0xf0000570,d15
+.L29:
+
+; ..\Initiate_Files\SCU.c	   157    SCU_ESRCFG1    =  0x00000000;  // ESR1 confgiuration register
+	st.w	0xf0000574,d15
+.L30:
+
+; ..\Initiate_Files\SCU.c	   158    SCU_TRAPDIS    =  0x000003FB;  // Trap disable register configuration
+	mov	d15,#1019
+	st.w	0xf0000630,d15
+.L31:
+
+; ..\Initiate_Files\SCU.c	   159    SCU_RSTCON     =  0x00000180;  // Reset configuration register
+	mov	d15,#384
+	st.w	0xf0000558,d15
+.L32:
+
+; ..\Initiate_Files\SCU.c	   160    MAIN_vSetENDINIT();
+	ld.w	d15,[a15]
+	or	d4,d15,#1
+	call	MAIN_vWriteWDTCON0
+.L33:
+
+; ..\Initiate_Files\SCU.c	   161  
+; ..\Initiate_Files\SCU.c	   162    SCU_IOCR       =  0x00000000;  // load input/output control register
+	mov	d0,#0
+	st.w	0xf00005a0,d0
+.L34:
+
+; ..\Initiate_Files\SCU.c	   163  
+; ..\Initiate_Files\SCU.c	   164  
+; ..\Initiate_Files\SCU.c	   165    ///  -----------------------------------------------------------------------
+; ..\Initiate_Files\SCU.c	   166    ///  External Request Unit:
+; ..\Initiate_Files\SCU.c	   167    ///  -----------------------------------------------------------------------
+; ..\Initiate_Files\SCU.c	   168    ///  REQLINE0 configuration:
+; ..\Initiate_Files\SCU.c	   169    ///  - use signal REQ0 (= none) as input
+; ..\Initiate_Files\SCU.c	   170  
+; ..\Initiate_Files\SCU.c	   171    ///  REQLINE1 configuration:
+; ..\Initiate_Files\SCU.c	   172    ///  - use signal REQ1 (= none) as input
+; ..\Initiate_Files\SCU.c	   173  
+; ..\Initiate_Files\SCU.c	   174    ///  REQLINE2 configuration:
+; ..\Initiate_Files\SCU.c	   175    ///  - use signal REQ2 (= none) as input
+; ..\Initiate_Files\SCU.c	   176  
+; ..\Initiate_Files\SCU.c	   177    ///  REQLINE3 configuration:
+; ..\Initiate_Files\SCU.c	   178    ///  - use signal REQ3 (= none) as input
+; ..\Initiate_Files\SCU.c	   179  
+; ..\Initiate_Files\SCU.c	   180    ///  Output channel 0 configuration:
+; ..\Initiate_Files\SCU.c	   181    ///  - the detected pattern is not taken into account; an activation of 
+; ..\Initiate_Files\SCU.c	   182    ///    IOUT0 is always possible due to a trigger event
+; ..\Initiate_Files\SCU.c	   183  
+; ..\Initiate_Files\SCU.c	   184    ///  Output channel 1 configuration:
+; ..\Initiate_Files\SCU.c	   185    ///  - the detected pattern is not taken into account; an activation of 
+; ..\Initiate_Files\SCU.c	   186    ///    IOUT1 is always possible due to a trigger event
+; ..\Initiate_Files\SCU.c	   187  
+; ..\Initiate_Files\SCU.c	   188    ///  Output channel 2 configuration:
+; ..\Initiate_Files\SCU.c	   189    ///  - the detected pattern is not taken into account; an activation of 
+; ..\Initiate_Files\SCU.c	   190    ///    IOUT2 is always possible due to a trigger event
+; ..\Initiate_Files\SCU.c	   191  
+; ..\Initiate_Files\SCU.c	   192    ///  Output channel 3 configuration:
+; ..\Initiate_Files\SCU.c	   193    ///  - the detected pattern is not taken into account; an activation of 
+; ..\Initiate_Files\SCU.c	   194    ///    IOUT3 is always possible due to a trigger event
+; ..\Initiate_Files\SCU.c	   195  
+; ..\Initiate_Files\SCU.c	   196    SCU_EICR0      =  0x00000000;  // external input channel 0 register
+	st.w	0xf0000580,d0
+.L35:
+
+; ..\Initiate_Files\SCU.c	   197    SCU_EICR1      =  0x00000000;  // external input channel 1 register
+	st.w	0xf0000584,d0
+.L36:
+
+; ..\Initiate_Files\SCU.c	   198    SCU_IGCR0      =  0x00000000;  // interrupt gating 0 register
+	st.w	0xf0000594,d0
+.L37:
+
+; ..\Initiate_Files\SCU.c	   199    SCU_IGCR1      =  0x00000000;  // interrupt gating 1 register
+	st.w	0xf0000598,d0
+.L38:
+
+; ..\Initiate_Files\SCU.c	   200    SCU_INTDIS     =  0x000000BF;  // interrupt disable register
+	mov	d15,#191
+	st.w	0xf000061c,d15
+.L39:
+
+; ..\Initiate_Files\SCU.c	   201    SCU_INTNP      =  0x00000000;  // interrupt node pointer register
+	st.w	0xf0000620,d0
+.L40:
+
+; ..\Initiate_Files\SCU.c	   202  
+; ..\Initiate_Files\SCU.c	   203    ///  -----------------------------------------------------------------------
+; ..\Initiate_Files\SCU.c	   204    ///  Configuration of the used ERU Port Pins:
+; ..\Initiate_Files\SCU.c	   205    ///  -----------------------------------------------------------------------
+; ..\Initiate_Files\SCU.c	   206    ///  -----------------------------------------------------------------------
+; ..\Initiate_Files\SCU.c	   207    ///  Configuration of EXTCLK Output (both 0 and 1): 
+; ..\Initiate_Files\SCU.c	   208    ///  -----------------------------------------------------------------------
+; ..\Initiate_Files\SCU.c	   209    ///  - the EXTCLK1 output is disabled
+; ..\Initiate_Files\SCU.c	   210    ///  - the EXTCLK0 output is disabled
+; ..\Initiate_Files\SCU.c	   211  
+; ..\Initiate_Files\SCU.c	   212    MAIN_vResetENDINIT();
+	ld.w	d15,[a15]
+	insert	d4,d15,#0,#0,#1
+	call	MAIN_vWriteWDTCON0
+.L3:
+	ld.bu	d15,[a12]
+	jnz.t	d15:0,.L3				; predicted taken
+.L41:
+
+; ..\Initiate_Files\SCU.c	   213    SCU_FDR        =  0x000003FF;  // load fractional divider register
+	mov	d15,#1023
+	st.w	0xf0000538,d15
+.L42:
+
+; ..\Initiate_Files\SCU.c	   214    MAIN_vSetENDINIT();
+	ld.w	d15,[a15]
+	or	d4,d15,#1
+	call	MAIN_vWriteWDTCON0
+.L43:
+
+; ..\Initiate_Files\SCU.c	   215  
+; ..\Initiate_Files\SCU.c	   216  
+; ..\Initiate_Files\SCU.c	   217    ///  -----------------------------------------------------------------------
+; ..\Initiate_Files\SCU.c	   218    ///  Configuration of Emergency Stop:
+; ..\Initiate_Files\SCU.c	   219    ///  -----------------------------------------------------------------------
+; ..\Initiate_Files\SCU.c	   220    ///  - the clocked path with the emergency stop flag (EMSF) is selected
+; ..\Initiate_Files\SCU.c	   221  
+; ..\Initiate_Files\SCU.c	   222    MAIN_vResetENDINIT();
+	ld.w	d15,[a15]
+	insert	d4,d15,#0,#0,#1
+	call	MAIN_vWriteWDTCON0
+.L4:
+	ld.bu	d15,[a12]
+	jnz.t	d15:0,.L4				; predicted taken
+.L44:
+
+; ..\Initiate_Files\SCU.c	   223    SCU_EMSR       =  0x00000000;  // emergency stop register
+	mov	d15,#0
+	st.w	0xf0000600,d15
+.L45:
+
+; ..\Initiate_Files\SCU.c	   224    MAIN_vSetENDINIT();
+	ld.w	d15,[a15]
+	or	d4,d15,#1
+	j	MAIN_vWriteWDTCON0
+.L16:
+	
+__SCU_vInit_function_end:
+	.size	SCU_vInit,__SCU_vInit_function_end-SCU_vInit
+.L15:
+	; End of function
+	
+	.calls	'SCU_vInit','MAIN_vWriteWDTCON0'
+	.extern	MAIN_vWriteWDTCON0
+	.calls	'SCU_vInit','',0
+	.sdecl	'.debug_info',debug
+	.sect	'.debug_info'
+.L8:
+	.word	445
+	.half	3
+	.word	.L9
+	.byte	4
+.L7:
+	.byte	1
+	.byte	'..\\Initiate_Files\\SCU.c',0
+	.byte	'TASKING VX-toolset for TriCore: C compiler',0
+	.byte	'D:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_1.9\\BMU_BOOT\\Debug\\',0,12,1
+	.word	.L10
+	.byte	2
+	.byte	'MAIN_vWriteWDTCON0',0,1,148,1,6,1,1,1,1,3
+	.byte	'unsigned int',0,4,7,4
+	.byte	'uwValue',0,1,148,1,31
+	.word	169
+	.byte	0,5
+	.byte	'void',0,6
+	.word	203
+	.byte	7
+	.byte	'__prof_adm',0,2,1,1
+	.word	209
+	.byte	8,1,6
+	.word	233
+	.byte	7
+	.byte	'__codeptr',0,2,1,1
+	.word	235
+	.byte	3
+	.byte	'unsigned char',0,1,8,7
+	.byte	'ubyte',0,1,78,24
+	.word	258
+	.byte	3
+	.byte	'unsigned short int',0,2,7,7
+	.byte	'ushort',0,1,80,24
+	.word	289
+	.byte	7
+	.byte	'uword',0,1,82,24
+	.word	169
+	.byte	7
+	.byte	'uint8',0,3,87,29
+	.word	258
+	.byte	7
+	.byte	'uint16',0,3,89,29
+	.word	289
+	.byte	3
+	.byte	'long int',0,4,5,7
+	.byte	'sint32',0,3,90,29
+	.word	369
+	.byte	3
+	.byte	'unsigned long int',0,4,7,7
+	.byte	'uint32',0,3,91,27
+	.word	396
+	.byte	7
+	.byte	'boolean',0,3,102,29
+	.word	258
+	.byte	0
+	.sdecl	'.debug_abbrev',debug
+	.sect	'.debug_abbrev'
+.L9:
+	.byte	1,17,1,3,8,37,8,27,8,19,15,128,70,12,16,6,0,0,2,46,1,3,8,58,15,59,15,57,15,54,15,39,12,63,12,60,12,0,0
+	.byte	3,36,0,3,8,11,15,62,15,0,0,4,5,0,3,8,58,15,59,15,57,15,73,19,0,0,5,59,0,3,8,0,0,6,15,0,73,19,0,0,7,22
+	.byte	0,3,8,58,15,59,15,57,15,73,19,0,0,8,21,0,54,15,0,0,0
+	.sdecl	'.debug_line',debug
+	.sect	'.debug_line'
+.L10:
+	.word	.L18-.L17
+.L17:
+	.half	3
+	.word	.L20-.L19
+.L19:
+	.byte	2,1,-4,9,10,0,1,1,1,1,0,0,0,1
+	.byte	'D:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_1.9\\BMU_BOOT\\Stand_Header',0,0
+	.byte	'..\\Initiate_Files\\MAIN.h',0,0,0,0
+	.byte	'..\\Initiate_Files\\SCU.c',0,0,0,0
+	.byte	'Platform_Types.h',0,1,0,0,0
+.L20:
+.L18:
+	.sdecl	'.debug_info',debug,cluster('SCU_vInit')
+	.sect	'.debug_info'
+.L11:
+	.word	186
+	.half	3
+	.word	.L12
+	.byte	4,1
+	.byte	'..\\Initiate_Files\\SCU.c',0
+	.byte	'TASKING VX-toolset for TriCore: C compiler',0
+	.byte	'D:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_1.9\\BMU_BOOT\\Debug\\',0,12,1
+	.word	.L14,.L13
+	.byte	2
+	.word	.L7
+	.byte	3
+	.byte	'SCU_vInit',0,1,122,6,1,1,1
+	.word	.L6,.L16,.L5
+	.byte	4
+	.word	.L6,.L16
+	.byte	0,0
+	.sdecl	'.debug_abbrev',debug,cluster('SCU_vInit')
+	.sect	'.debug_abbrev'
+.L12:
+	.byte	1,17,1,3,8,37,8,27,8,19,15,128,70,12,85,6,16,6,0,0,2,61,0,24,16,0,0,3,46,1,3,8,58,15,59,15,57,15,54,15
+	.byte	39,12,63,12,17,1,18,1,64,6,0,0,4,11,0,17,1,18,1,0,0,0
+	.sdecl	'.debug_line',debug,cluster('SCU_vInit')
+	.sect	'.debug_line'
+.L13:
+	.word	.L22-.L21
+.L21:
+	.half	3
+	.word	.L24-.L23
+.L23:
+	.byte	2,1,-4,9,10,0,1,1,1,1,0,0,0,1,0
+	.byte	'..\\Initiate_Files\\SCU.c',0,0,0,0,0
+.L24:
+	.byte	5,22,7,0,5,2
+	.word	.L6
+	.byte	3,135,1,1,5,21,9
+	.half	.L25-.L6
+	.byte	3,1,1,5,18,1,5,3,9
+	.half	.L26-.L25
+	.byte	3,1,1,9
+	.half	.L27-.L26
+	.byte	3,17,1,5,21,9
+	.half	.L28-.L27
+	.byte	3,1,1,5,18,1,9
+	.half	.L29-.L28
+	.byte	3,1,1,5,21,9
+	.half	.L30-.L29
+	.byte	3,1,1,5,18,1,5,21,9
+	.half	.L31-.L30
+	.byte	3,1,1,5,18,1,5,3,9
+	.half	.L32-.L31
+	.byte	3,1,1,5,21,9
+	.half	.L33-.L32
+	.byte	3,2,1,5,18,1,9
+	.half	.L34-.L33
+	.byte	3,34,1,9
+	.half	.L35-.L34
+	.byte	3,1,1,9
+	.half	.L36-.L35
+	.byte	3,1,1,9
+	.half	.L37-.L36
+	.byte	3,1,1,5,21,9
+	.half	.L38-.L37
+	.byte	3,1,1,5,18,1,9
+	.half	.L39-.L38
+	.byte	3,1,1,5,3,9
+	.half	.L40-.L39
+	.byte	3,11,1,5,21,9
+	.half	.L41-.L40
+	.byte	3,1,1,5,18,1,5,3,9
+	.half	.L42-.L41
+	.byte	3,1,1,9
+	.half	.L43-.L42
+	.byte	3,8,1,5,21,9
+	.half	.L44-.L43
+	.byte	3,1,1,5,18,1,5,3,9
+	.half	.L45-.L44
+	.byte	3,1,1,5,1,9
+	.half	.L15-.L45
+	.byte	3,10,0,1,1
+.L22:
+	.sdecl	'.debug_ranges',debug,cluster('SCU_vInit')
+	.sect	'.debug_ranges'
+.L14:
+	.word	-1,.L6,0,.L15-.L6,0,0
+	.sdecl	'.debug_loc',debug,cluster('SCU_vInit')
+	.sect	'.debug_loc'
+.L5:
+	.word	-1,.L6,0,.L16-.L6
+	.half	2
+	.byte	138,0
+	.word	0,0
+	.sdecl	'.debug_frame',debug
+	.sect	'.debug_frame'
+.L46:
+	.word	48
+	.word	-1
+	.byte	3,0,2,1,27,12,26,0,8,26,8,27,8,30,8,29,8,28,8,16,8,17,8,24,8,25,8,31,8,32,8,33,8,34,8,35,8,36,8,37,8,38
+	.byte	8,39
+	.sdecl	'.debug_frame',debug,cluster('SCU_vInit')
+	.sect	'.debug_frame'
+	.word	12
+	.word	.L46,.L6,.L16-.L6
+
+; ..\Initiate_Files\SCU.c	   225  
+; ..\Initiate_Files\SCU.c	   226    ///  -----------------------------------------------------------------------
+; ..\Initiate_Files\SCU.c	   227    ///  Configuration of SCU Service Request Nodes 0 to 3 :
+; ..\Initiate_Files\SCU.c	   228    ///  -----------------------------------------------------------------------
+; ..\Initiate_Files\SCU.c	   229  
+; ..\Initiate_Files\SCU.c	   230    // USER CODE BEGIN (Init,3)
+; ..\Initiate_Files\SCU.c	   231  
+; ..\Initiate_Files\SCU.c	   232    // USER CODE END
+; ..\Initiate_Files\SCU.c	   233  
+; ..\Initiate_Files\SCU.c	   234  } //  End of function SCU_vInit
+; ..\Initiate_Files\SCU.c	   235  
+; ..\Initiate_Files\SCU.c	   236  
+; ..\Initiate_Files\SCU.c	   237  
+; ..\Initiate_Files\SCU.c	   238  // USER CODE BEGIN (SCU_General,10)
+; ..\Initiate_Files\SCU.c	   239  
+; ..\Initiate_Files\SCU.c	   240  // USER CODE END
+; ..\Initiate_Files\SCU.c	   241  
+
+	; Module end

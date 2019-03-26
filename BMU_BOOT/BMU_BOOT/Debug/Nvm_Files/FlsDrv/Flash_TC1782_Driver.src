@@ -1,0 +1,3289 @@
+	; Module start
+	.compiler_version	"TASKING VX-toolset for TriCore: C compiler v4.3r1 Build 759 SN 00641831"
+	.compiler_invocation	"ctc -f cc8644a -c99 --dep-file=Nvm_Files\\FlsDrv\\.Flash_TC1782_Driver.o.d -D__CPU__=tc1782 -D__CPU_TC1782__ --core=tc1.3.1 -F -ID:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_1.9\\BMU_BOOT -ID:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_1.9\\BMU_BOOT\\Communication_Files\\CanDrv -ID:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_1.9\\BMU_BOOT\\Communication_Files\\Com -ID:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_1.9\\BMU_BOOT\\Communication_Files\\Com\\Can_Input -ID:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_1.9\\BMU_BOOT\\Communication_Files\\Com\\Can_Output -ID:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_1.9\\BMU_BOOT\\Communication_Files\\Uds\\Dcm -ID:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_1.9\\BMU_BOOT\\Communication_Files\\Uds\\Dem -ID:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_1.9\\BMU_BOOT\\Communication_Files\\Uds\\Tp -ID:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_1.9\\BMU_BOOT\\Communication_Files\\Uds\\User -ID:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_1.9\\BMU_BOOT\\Complex_Files -ID:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_1.9\\BMU_BOOT\\Initiate_Files -ID:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_1.9\\BMU_BOOT\\Nvm_Files\\FlsDrv -ID:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_1.9\\BMU_BOOT\\Stand_Header -g2 --make-target=Nvm_Files\\FlsDrv\\Flash_TC1782_Driver.o -t4 --language=-gcc,-volatile,+strings --default-near-size=0 -O2 --default-a1-size=0 --default-a0-size=0 --source --align=0 --compact-max-size=200 --switch=auto -o Nvm_Files\\FlsDrv\\Flash_TC1782_Driver.src ..\\Nvm_Files\\FlsDrv\\Flash_TC1782_Driver.c"
+	.compiler_name		"ctc"
+	.name	"Flash_TC1782_Driver"
+
+	
+$TC131
+	
+	.sdecl	'.text.Flash_TC1782_Driver.Fls_EraseSectorStart',code,cluster('Fls_EraseSectorStart')
+	.sect	'.text.Flash_TC1782_Driver.Fls_EraseSectorStart'
+	.align	2
+	
+	.global	Fls_EraseSectorStart
+
+; ..\Nvm_Files\FlsDrv\Flash_TC1782_Driver.c	     1  /*----------------------------------------------------------------------------------------------------*/
+; ..\Nvm_Files\FlsDrv\Flash_TC1782_Driver.c	     2  /*
+; ..\Nvm_Files\FlsDrv\Flash_TC1782_Driver.c	     3  File Name：  	Flash_1782_Driver.c
+; ..\Nvm_Files\FlsDrv\Flash_TC1782_Driver.c	     4  Author：        	任智强
+; ..\Nvm_Files\FlsDrv\Flash_TC1782_Driver.c	     5  Version：      	V1.01.0001
+; ..\Nvm_Files\FlsDrv\Flash_TC1782_Driver.c	     6  Comment：  	Flash驱动
+; ..\Nvm_Files\FlsDrv\Flash_TC1782_Driver.c	     7  History：
+; ..\Nvm_Files\FlsDrv\Flash_TC1782_Driver.c	     8  			V1.01.0001			20150731		调整FLS_TIMING_ERASE和FLS_TIMING_WRITE时间参数，避免擦写FLASH时间不够
+; ..\Nvm_Files\FlsDrv\Flash_TC1782_Driver.c	     9  			V1.01.0000			20150206		FLS擦除和写函数调整成异步操作
+; ..\Nvm_Files\FlsDrv\Flash_TC1782_Driver.c	    10  			V1.00.0006			20140722		修改擦除，读，写接口函数
+; ..\Nvm_Files\FlsDrv\Flash_TC1782_Driver.c	    11  			V1.00.0005			20140621		修改接口函数注释
+; ..\Nvm_Files\FlsDrv\Flash_TC1782_Driver.c	    12  			V1.00.0004			20140612		驱动增加判断读写buffer指针是否为空，调整写函数长度判断
+; ..\Nvm_Files\FlsDrv\Flash_TC1782_Driver.c	    13  			V1.00.0003			20131028		改写驱动，并添加详细注释
+; ..\Nvm_Files\FlsDrv\Flash_TC1782_Driver.c	    14  			V1.00.0002			20130305		修改成TC1782的FLASH驱动
+; ..\Nvm_Files\FlsDrv\Flash_TC1782_Driver.c	    15  			V1.00.0001			20121207		L51，L63删除(dwSectorAddr>=0xA0020000)判断
+; ..\Nvm_Files\FlsDrv\Flash_TC1782_Driver.c	    16  			V1.00.0000
+; ..\Nvm_Files\FlsDrv\Flash_TC1782_Driver.c	    17  
+; ..\Nvm_Files\FlsDrv\Flash_TC1782_Driver.c	    18  */
+; ..\Nvm_Files\FlsDrv\Flash_TC1782_Driver.c	    19  
+; ..\Nvm_Files\FlsDrv\Flash_TC1782_Driver.c	    20  #include "MAIN.h"
+; ..\Nvm_Files\FlsDrv\Flash_TC1782_Driver.c	    21  
+; ..\Nvm_Files\FlsDrv\Flash_TC1782_Driver.c	    22  uint32 ui32_Fls_SectorBaseAddr[FLS_SECTOR_NUMBER] =
+; ..\Nvm_Files\FlsDrv\Flash_TC1782_Driver.c	    23  {
+; ..\Nvm_Files\FlsDrv\Flash_TC1782_Driver.c	    24  	0xA0000000U,	//S0
+; ..\Nvm_Files\FlsDrv\Flash_TC1782_Driver.c	    25  	0xA0004000U,	//S1
+; ..\Nvm_Files\FlsDrv\Flash_TC1782_Driver.c	    26  	0xA0008000U,	//S2
+; ..\Nvm_Files\FlsDrv\Flash_TC1782_Driver.c	    27  	0xA000C000U,	//S3
+; ..\Nvm_Files\FlsDrv\Flash_TC1782_Driver.c	    28  	0xA0010000U,	//S4
+; ..\Nvm_Files\FlsDrv\Flash_TC1782_Driver.c	    29  	0xA0014000U,	//S5
+; ..\Nvm_Files\FlsDrv\Flash_TC1782_Driver.c	    30  	0xA0018000U,	//S6
+; ..\Nvm_Files\FlsDrv\Flash_TC1782_Driver.c	    31  	0xA001C000U,	//S7
+; ..\Nvm_Files\FlsDrv\Flash_TC1782_Driver.c	    32  	0xA0020000U,	//S8
+; ..\Nvm_Files\FlsDrv\Flash_TC1782_Driver.c	    33  	0xA0040000U,	//S9
+; ..\Nvm_Files\FlsDrv\Flash_TC1782_Driver.c	    34  	0xA0080000U,	//S10
+; ..\Nvm_Files\FlsDrv\Flash_TC1782_Driver.c	    35  	0xA00C0000U,	//S11
+; ..\Nvm_Files\FlsDrv\Flash_TC1782_Driver.c	    36  	0xA0100000U,	//S12
+; ..\Nvm_Files\FlsDrv\Flash_TC1782_Driver.c	    37  	0xA0140000U,	//S13
+; ..\Nvm_Files\FlsDrv\Flash_TC1782_Driver.c	    38  	0xA0180000U,	//S14
+; ..\Nvm_Files\FlsDrv\Flash_TC1782_Driver.c	    39  	0xA01C0000U,	//S15
+; ..\Nvm_Files\FlsDrv\Flash_TC1782_Driver.c	    40  	0xA0200000U,	//S16
+; ..\Nvm_Files\FlsDrv\Flash_TC1782_Driver.c	    41  	0xA0240000U,	//S17
+; ..\Nvm_Files\FlsDrv\Flash_TC1782_Driver.c	    42  	0xAFE00000U,	//DS0
+; ..\Nvm_Files\FlsDrv\Flash_TC1782_Driver.c	    43  	0xAFE10000U,	//DS1
+; ..\Nvm_Files\FlsDrv\Flash_TC1782_Driver.c	    44  };
+; ..\Nvm_Files\FlsDrv\Flash_TC1782_Driver.c	    45  
+; ..\Nvm_Files\FlsDrv\Flash_TC1782_Driver.c	    46  Struct_Fls_Info	st_Fls_Info;			/*Fls信息*/
+; ..\Nvm_Files\FlsDrv\Flash_TC1782_Driver.c	    47  
+; ..\Nvm_Files\FlsDrv\Flash_TC1782_Driver.c	    48  /*----------------------------------------------------------------------------------------------------*/
+; ..\Nvm_Files\FlsDrv\Flash_TC1782_Driver.c	    49  /*
+; ..\Nvm_Files\FlsDrv\Flash_TC1782_Driver.c	    50  Function:		void Fls_EraseSectorStart(void)
+; ..\Nvm_Files\FlsDrv\Flash_TC1782_Driver.c	    51  Description:	flash sector擦除函数
+; ..\Nvm_Files\FlsDrv\Flash_TC1782_Driver.c	    52  Input:			void
+; ..\Nvm_Files\FlsDrv\Flash_TC1782_Driver.c	    53  Output:  		void
+; ..\Nvm_Files\FlsDrv\Flash_TC1782_Driver.c	    54  Return:			void
+; ..\Nvm_Files\FlsDrv\Flash_TC1782_Driver.c	    55  Time:
+; ..\Nvm_Files\FlsDrv\Flash_TC1782_Driver.c	    56  Others:
+; ..\Nvm_Files\FlsDrv\Flash_TC1782_Driver.c	    57  Physical Test：
+; ..\Nvm_Files\FlsDrv\Flash_TC1782_Driver.c	    58  
+; ..\Nvm_Files\FlsDrv\Flash_TC1782_Driver.c	    59  */
+; ..\Nvm_Files\FlsDrv\Flash_TC1782_Driver.c	    60  void Fls_EraseSectorStart(void)
+; Function Fls_EraseSectorStart
+.L78:
+Fls_EraseSectorStart:	.type	func
+
+; ..\Nvm_Files\FlsDrv\Flash_TC1782_Driver.c	    61  {
+; ..\Nvm_Files\FlsDrv\Flash_TC1782_Driver.c	    62  	uint32 dwAddr = st_Fls_Info.ui32_Erase_TA;
+; ..\Nvm_Files\FlsDrv\Flash_TC1782_Driver.c	    63  	//**************************************************************
+; ..\Nvm_Files\FlsDrv\Flash_TC1782_Driver.c	    64  
+; ..\Nvm_Files\FlsDrv\Flash_TC1782_Driver.c	    65  	if(st_Fls_Info.ui8_Type == FLS_TYPE_PFLASH)
+; ..\Nvm_Files\FlsDrv\Flash_TC1782_Driver.c	    66  	{
+; ..\Nvm_Files\FlsDrv\Flash_TC1782_Driver.c	    67  		dwAddr = st_Fls_Info.ui32_Erase_TA & PFLS_BASE_MASK;		/*获取Pflash基地址0x80000000*/
+	movh.a	a15,#@his(st_Fls_Info)
+	lea	a15,[a15]@los(st_Fls_Info)
+.L415:
+	mov.aa	a2,a15
+	ld.w	d0,[+a2]4
+.L416:
+	ld.bu	d15,[+a15]2
+.L417:
+	jne	d15,#1,.L2				; prediction unknown
+.L418:
+	insert	d15,d0,#0,#0,#22
+.L216:
+	j	.L3
+.L2:
+
+; ..\Nvm_Files\FlsDrv\Flash_TC1782_Driver.c	    68  	}
+; ..\Nvm_Files\FlsDrv\Flash_TC1782_Driver.c	    69  	else
+; ..\Nvm_Files\FlsDrv\Flash_TC1782_Driver.c	    70  	{
+; ..\Nvm_Files\FlsDrv\Flash_TC1782_Driver.c	    71  		dwAddr = st_Fls_Info.ui32_Erase_TA & DFLS_BASE_MASK;		/*获取Dflash基地址0x8FE00000或0x8FE10000*/
+	insert	d15,d0,#0,#0,#20
+.L3:
+
+; ..\Nvm_Files\FlsDrv\Flash_TC1782_Driver.c	    72  	}
+; ..\Nvm_Files\FlsDrv\Flash_TC1782_Driver.c	    73  
+; ..\Nvm_Files\FlsDrv\Flash_TC1782_Driver.c	    74  	/*prepare magic pointers，参考手册Pg5-30*/
+; ..\Nvm_Files\FlsDrv\Flash_TC1782_Driver.c	    75  	uint32* pdwAddr5554=(uint32*)(dwAddr+0x5554);
+	addi	d0,d15,#21844
+.L218:
+	mov.a	a4,d0
+.L220:
+
+; ..\Nvm_Files\FlsDrv\Flash_TC1782_Driver.c	    76  	uint32* pdwAddrAAA8=(uint32*)(dwAddr+0xAAA8);
+	mov.u	d0,#43688
+.L219:
+	add	d15,d0
+.L217:
+	mov.a	a5,d15
+.L222:
+
+; ..\Nvm_Files\FlsDrv\Flash_TC1782_Driver.c	    77  
+; ..\Nvm_Files\FlsDrv\Flash_TC1782_Driver.c	    78  
+; ..\Nvm_Files\FlsDrv\Flash_TC1782_Driver.c	    79  	/*擦除状态寄存器*/
+; ..\Nvm_Files\FlsDrv\Flash_TC1782_Driver.c	    80  	*pdwAddr5554=0x000000F5;
+	mov	d15,#245
+	st.w	[a4],d15
+.L221:
+
+; ..\Nvm_Files\FlsDrv\Flash_TC1782_Driver.c	    81  
+; ..\Nvm_Files\FlsDrv\Flash_TC1782_Driver.c	    82  	/*erase physical sector*/
+; ..\Nvm_Files\FlsDrv\Flash_TC1782_Driver.c	    83  	*pdwAddr5554=0x000000AA;
+	mov	d0,#170
+	st.w	[a4],d0
+.L419:
+
+; ..\Nvm_Files\FlsDrv\Flash_TC1782_Driver.c	    84  	*pdwAddrAAA8=0x00000055;
+	mov	d1,#85
+	st.w	[a5],d1
+.L420:
+
+; ..\Nvm_Files\FlsDrv\Flash_TC1782_Driver.c	    85  	*pdwAddr5554=0x00000080;
+	mov	d15,#128
+	st.w	[a4],d15
+.L421:
+
+; ..\Nvm_Files\FlsDrv\Flash_TC1782_Driver.c	    86  	*pdwAddr5554=0x000000AA;
+	st.w	[a4],d0
+.L422:
+
+; ..\Nvm_Files\FlsDrv\Flash_TC1782_Driver.c	    87  	*pdwAddrAAA8=0x00000055;
+	st.w	[a5],d1
+.L423:
+
+; ..\Nvm_Files\FlsDrv\Flash_TC1782_Driver.c	    88  
+; ..\Nvm_Files\FlsDrv\Flash_TC1782_Driver.c	    89  	if(st_Fls_Info.ui8_Type == FLS_TYPE_PFLASH)
+; ..\Nvm_Files\FlsDrv\Flash_TC1782_Driver.c	    90  	{
+; ..\Nvm_Files\FlsDrv\Flash_TC1782_Driver.c	    91  		*((uint32*)st_Fls_Info.ui32_Erase_TA)=0x00000030;   /*erase logical sector*/
+	ld.w	d15,[a2]
+.L424:
+	mov.a	a2,d15
+.L425:
+	ld.bu	d15,[a15]
+	ne	d15,d15,#1
+.L426:
+	sh	d15,#4
+.L427:
+	add	d15,d15,#48
+	st.w	[a2],d15
+.L428:
+
+; ..\Nvm_Files\FlsDrv\Flash_TC1782_Driver.c	    92  	}
+; ..\Nvm_Files\FlsDrv\Flash_TC1782_Driver.c	    93  	else
+; ..\Nvm_Files\FlsDrv\Flash_TC1782_Driver.c	    94  	{
+; ..\Nvm_Files\FlsDrv\Flash_TC1782_Driver.c	    95  		*((uint32*)st_Fls_Info.ui32_Erase_TA)=0x00000040;   /*erase physical sector 只能擦除DS0，DS1，PS0，PS4*/
+; ..\Nvm_Files\FlsDrv\Flash_TC1782_Driver.c	    96  	}
+; ..\Nvm_Files\FlsDrv\Flash_TC1782_Driver.c	    97  }
+	ret
+.L196:
+	
+__Fls_EraseSectorStart_function_end:
+	.size	Fls_EraseSectorStart,__Fls_EraseSectorStart_function_end-Fls_EraseSectorStart
+.L147:
+	; End of function
+	
+	.sdecl	'.text.Flash_TC1782_Driver.Fls_ProgramPageStart',code,cluster('Fls_ProgramPageStart')
+	.sect	'.text.Flash_TC1782_Driver.Fls_ProgramPageStart'
+	.align	2
+	
+	.global	Fls_ProgramPageStart
+
+; ..\Nvm_Files\FlsDrv\Flash_TC1782_Driver.c	    98  
+; ..\Nvm_Files\FlsDrv\Flash_TC1782_Driver.c	    99  /*----------------------------------------------------------------------------------------------------*/
+; ..\Nvm_Files\FlsDrv\Flash_TC1782_Driver.c	   100  /*
+; ..\Nvm_Files\FlsDrv\Flash_TC1782_Driver.c	   101  Function:		void Fls_ProgramPageStart(void)
+; ..\Nvm_Files\FlsDrv\Flash_TC1782_Driver.c	   102  Description:	flash编程函数
+; ..\Nvm_Files\FlsDrv\Flash_TC1782_Driver.c	   103  Input:			void
+; ..\Nvm_Files\FlsDrv\Flash_TC1782_Driver.c	   104  Output:  		void
+; ..\Nvm_Files\FlsDrv\Flash_TC1782_Driver.c	   105  Return:			void
+; ..\Nvm_Files\FlsDrv\Flash_TC1782_Driver.c	   106  Time:
+; ..\Nvm_Files\FlsDrv\Flash_TC1782_Driver.c	   107  Others:
+; ..\Nvm_Files\FlsDrv\Flash_TC1782_Driver.c	   108  Physical Test：
+; ..\Nvm_Files\FlsDrv\Flash_TC1782_Driver.c	   109  
+; ..\Nvm_Files\FlsDrv\Flash_TC1782_Driver.c	   110  */
+; ..\Nvm_Files\FlsDrv\Flash_TC1782_Driver.c	   111  void Fls_ProgramPageStart(void)
+; Function Fls_ProgramPageStart
+.L80:
+Fls_ProgramPageStart:	.type	func
+
+; ..\Nvm_Files\FlsDrv\Flash_TC1782_Driver.c	   112  {
+; ..\Nvm_Files\FlsDrv\Flash_TC1782_Driver.c	   113  	uint16	ui16_Loop_1;		/*循环计数器*/
+; ..\Nvm_Files\FlsDrv\Flash_TC1782_Driver.c	   114  	uint32 	dwFlashBaseAddr;	/*FLS基址*/
+; ..\Nvm_Files\FlsDrv\Flash_TC1782_Driver.c	   115  	uint16	ui16_PageSize;
+; ..\Nvm_Files\FlsDrv\Flash_TC1782_Driver.c	   116  
+; ..\Nvm_Files\FlsDrv\Flash_TC1782_Driver.c	   117  	if(st_Fls_Info.ui8_Type == FLS_TYPE_PFLASH)
+; ..\Nvm_Files\FlsDrv\Flash_TC1782_Driver.c	   118  	{
+; ..\Nvm_Files\FlsDrv\Flash_TC1782_Driver.c	   119  		dwFlashBaseAddr = st_Fls_Info.ui32_Write_TA & PFLS_BASE_MASK;	/*获取Pflash基地址0xA0000000*/
+	movh.a	a2,#@his(st_Fls_Info)
+	lea	a2,[a2]@los(st_Fls_Info)
+.L433:
+	lea	a7,[a2]10
+	ld.w	d0,[a7]
+.L434:
+	mov.aa	a15,a2
+	ld.bu	d15,[+a15]2
+.L435:
+	jne	d15,#1,.L4				; prediction unknown
+.L436:
+	insert	d15,d0,#0,#0,#22
+.L223:
+
+; ..\Nvm_Files\FlsDrv\Flash_TC1782_Driver.c	   120  		ui16_PageSize = PFLS_PAGE_SIZE;
+	mov	d1,#256
+.L224:
+	j	.L5
+.L4:
+
+; ..\Nvm_Files\FlsDrv\Flash_TC1782_Driver.c	   121  	}
+; ..\Nvm_Files\FlsDrv\Flash_TC1782_Driver.c	   122  	else
+; ..\Nvm_Files\FlsDrv\Flash_TC1782_Driver.c	   123  	{
+; ..\Nvm_Files\FlsDrv\Flash_TC1782_Driver.c	   124  		dwFlashBaseAddr=st_Fls_Info.ui32_Write_TA & DFLS_BASE_MASK;	/*获取Dflash基地址0xAFE00000或0xAFE10000*/
+	insert	d15,d0,#0,#0,#20
+.L225:
+
+; ..\Nvm_Files\FlsDrv\Flash_TC1782_Driver.c	   125  		ui16_PageSize = DFLS_PAGE_SIZE;
+	mov	d1,#128
+.L5:
+
+; ..\Nvm_Files\FlsDrv\Flash_TC1782_Driver.c	   126  	}
+; ..\Nvm_Files\FlsDrv\Flash_TC1782_Driver.c	   127  
+; ..\Nvm_Files\FlsDrv\Flash_TC1782_Driver.c	   128  	/* prepare magic pointers，参考手册Pg5-30*/
+; ..\Nvm_Files\FlsDrv\Flash_TC1782_Driver.c	   129  	uint32* pdwAddr5554 = (uint32*)(dwFlashBaseAddr+0x5554);
+	addi	d0,d15,#21844
+.L227:
+	mov.a	a4,d0
+.L229:
+
+; ..\Nvm_Files\FlsDrv\Flash_TC1782_Driver.c	   130  	uint32* pdwAddrAAA8 = (uint32*)(dwFlashBaseAddr+0xAAA8);
+	mov.u	d0,#43688
+.L228:
+	add	d0,d15
+.L437:
+	mov.a	a5,d0
+.L231:
+
+; ..\Nvm_Files\FlsDrv\Flash_TC1782_Driver.c	   131  	QWORD* pqwAddr55F0 = (QWORD*)(dwFlashBaseAddr+0x55F0);
+	addi	d0,d15,#22000
+.L230:
+	mov.a	a6,d0
+.L233:
+
+; ..\Nvm_Files\FlsDrv\Flash_TC1782_Driver.c	   132  
+; ..\Nvm_Files\FlsDrv\Flash_TC1782_Driver.c	   133  	/* clear status register*/
+; ..\Nvm_Files\FlsDrv\Flash_TC1782_Driver.c	   134  	*pdwAddr5554 = 0x000000F5;
+	mov	d15,#245
+	st.w	[a4],d15
+.L226:
+
+; ..\Nvm_Files\FlsDrv\Flash_TC1782_Driver.c	   135  
+; ..\Nvm_Files\FlsDrv\Flash_TC1782_Driver.c	   136  	/* enter page mode*/
+; ..\Nvm_Files\FlsDrv\Flash_TC1782_Driver.c	   137  	if(st_Fls_Info.ui8_Type == FLS_TYPE_PFLASH)
+	ld.bu	d15,[a15]
+.L438:
+	jne	d15,#1,.L6				; prediction unknown
+.L439:
+
+; ..\Nvm_Files\FlsDrv\Flash_TC1782_Driver.c	   138  	{
+; ..\Nvm_Files\FlsDrv\Flash_TC1782_Driver.c	   139  		*pdwAddr5554 = 0x00000050;  /* program FLASH*/
+	mov	d15,#80
+.L440:
+	j	.L7
+.L6:
+
+; ..\Nvm_Files\FlsDrv\Flash_TC1782_Driver.c	   140  	}
+; ..\Nvm_Files\FlsDrv\Flash_TC1782_Driver.c	   141  	else
+; ..\Nvm_Files\FlsDrv\Flash_TC1782_Driver.c	   142  	{
+; ..\Nvm_Files\FlsDrv\Flash_TC1782_Driver.c	   143  		*pdwAddr5554 = 0x0000005D;  /* data FLASH*/
+	mov	d15,#93
+.L7:
+	st.w	[a4],d15
+.L441:
+
+; ..\Nvm_Files\FlsDrv\Flash_TC1782_Driver.c	   144  	}
+; ..\Nvm_Files\FlsDrv\Flash_TC1782_Driver.c	   145  
+; ..\Nvm_Files\FlsDrv\Flash_TC1782_Driver.c	   146  	/* load assembly buffer*/
+; ..\Nvm_Files\FlsDrv\Flash_TC1782_Driver.c	   147  	for(ui16_Loop_1 = 0U; ui16_Loop_1 < ui16_PageSize; ui16_Loop_1 += 8U)			/*Pflash装载256字节*/
+; ..\Nvm_Files\FlsDrv\Flash_TC1782_Driver.c	   148  	{
+; ..\Nvm_Files\FlsDrv\Flash_TC1782_Driver.c	   149  		QWORD qw = (QWORD)(st_Fls_Info.ui8_p_Write_SA[ui16_Loop_1] & 0xFFU);
+; ..\Nvm_Files\FlsDrv\Flash_TC1782_Driver.c	   150  		qw      += ((QWORD)(st_Fls_Info.ui8_p_Write_SA[1U + ui16_Loop_1] & 0xFFU) << 8U);
+; ..\Nvm_Files\FlsDrv\Flash_TC1782_Driver.c	   151  		qw      += ((QWORD)(st_Fls_Info.ui8_p_Write_SA[2U + ui16_Loop_1] & 0xFFU) << 16U);
+; ..\Nvm_Files\FlsDrv\Flash_TC1782_Driver.c	   152  		qw      += ((QWORD)(st_Fls_Info.ui8_p_Write_SA[3U + ui16_Loop_1] & 0xFFU) << 24U);
+; ..\Nvm_Files\FlsDrv\Flash_TC1782_Driver.c	   153  
+; ..\Nvm_Files\FlsDrv\Flash_TC1782_Driver.c	   154  		qw      += ((QWORD)(st_Fls_Info.ui8_p_Write_SA[4U + ui16_Loop_1] & 0xFFU) << 32U);
+; ..\Nvm_Files\FlsDrv\Flash_TC1782_Driver.c	   155  		qw      += ((QWORD)(st_Fls_Info.ui8_p_Write_SA[5U + ui16_Loop_1] & 0xFFU) << 40U);
+; ..\Nvm_Files\FlsDrv\Flash_TC1782_Driver.c	   156  		qw      += ((QWORD)(st_Fls_Info.ui8_p_Write_SA[6U + ui16_Loop_1] & 0xFFU) << 48U);
+; ..\Nvm_Files\FlsDrv\Flash_TC1782_Driver.c	   157  		qw      += ((QWORD)(st_Fls_Info.ui8_p_Write_SA[7U + ui16_Loop_1] & 0xFFU) << 56U);
+	mov	d6,#0
+	lea	a12,[a2]16
+.L8:
+	ld.a	a15,[a12]
+	addsc.a	a15,a15,d6,#0
+.L442:
+	mov	d5,#0
+	ld.bu	d4,[a15]1
+.L443:
+	dextr	d5,d5,d4,#8
+	ld.bu	d2,[a15]
+.L444:
+	sh	d4,d4,#8
+	ld.bu	d15,[a15]5
+.L445:
+	addx	d2,d2,d4
+	ld.bu	d4,[a15]2
+.L446:
+	mov	d3,#0
+.L447:
+	addc	d3,d3,d5
+.L448:
+	mov	d5,#0
+.L449:
+	dextr	d5,d5,d4,#16
+	sh	d4,d4,#16
+.L450:
+	addx	d2,d2,d4
+	ld.bu	d4,[a15]3
+.L451:
+	addc	d3,d3,d5
+.L452:
+	mov	d5,#0
+.L453:
+	dextr	d5,d5,d4,#24
+	sh	d4,d4,#24
+.L454:
+	addx	d2,d2,d4
+.L455:
+	addc	d3,d3,d5
+	ld.bu	d5,[a15]4
+.L456:
+	addx	d2,d2,#0
+	addc	d3,d3,d5
+.L457:
+	addx	d2,d2,#0
+.L458:
+	sh	d5,d15,#8
+	ld.bu	d15,[a15]6
+.L459:
+	addc	d3,d3,d5
+.L460:
+	addx	d2,d2,#0
+.L461:
+	sh	d5,d15,#16
+	ld.bu	d15,[a15]7
+.L462:
+	addc	d3,d3,d5
+.L463:
+	addx	d2,d2,#0
+.L464:
+	sh	d5,d15,#24
+.L210:
+	add	d15,d6,#8
+	extr.u	d6,d15,#0,#16
+.L211:
+
+; ..\Nvm_Files\FlsDrv\Flash_TC1782_Driver.c	   158  
+; ..\Nvm_Files\FlsDrv\Flash_TC1782_Driver.c	   159  		*pqwAddr55F0 = qw;
+	addc	d3,d3,d5
+	st.d	[a6]0,e2
+.L212:
+	jlt.u	d6,d1,.L8				; predicted taken
+.L465:
+
+; ..\Nvm_Files\FlsDrv\Flash_TC1782_Driver.c	   160  	}
+; ..\Nvm_Files\FlsDrv\Flash_TC1782_Driver.c	   161  
+; ..\Nvm_Files\FlsDrv\Flash_TC1782_Driver.c	   162  	// write page
+; ..\Nvm_Files\FlsDrv\Flash_TC1782_Driver.c	   163  	*pdwAddr5554 = 0x000000AA;
+	mov	d0,#170
+	st.w	[a4],d0
+.L232:
+
+; ..\Nvm_Files\FlsDrv\Flash_TC1782_Driver.c	   164  	*pdwAddrAAA8 = 0x00000055;
+	mov	d15,#85
+	st.w	[a5],d15
+.L466:
+
+; ..\Nvm_Files\FlsDrv\Flash_TC1782_Driver.c	   165  	*pdwAddr5554 = 0x000000A0;
+	mov	d15,#160
+	st.w	[a4],d15
+.L467:
+
+; ..\Nvm_Files\FlsDrv\Flash_TC1782_Driver.c	   166  	*((uint32*)st_Fls_Info.ui32_Write_TA) = 0x000000AA;
+	ld.w	d15,[a7]
+.L468:
+	mov.a	a15,d15
+.L469:
+	st.w	[a15],d0
+.L470:
+
+; ..\Nvm_Files\FlsDrv\Flash_TC1782_Driver.c	   167  
+; ..\Nvm_Files\FlsDrv\Flash_TC1782_Driver.c	   168  	if(st_Fls_Info.ui32_Write_Len >= ui16_PageSize)
+	lea	a15,[a2]20
+	ld.w	d15,[a15]
+.L471:
+	jlt.u	d15,d1,.L9				; predicted not taken
+.L472:
+
+; ..\Nvm_Files\FlsDrv\Flash_TC1782_Driver.c	   169  	{
+; ..\Nvm_Files\FlsDrv\Flash_TC1782_Driver.c	   170  		st_Fls_Info.ui32_Write_Len -= ui16_PageSize;
+	sub	d15,d1
+.L473:
+	j	.L10
+.L9:
+
+; ..\Nvm_Files\FlsDrv\Flash_TC1782_Driver.c	   171  	}
+; ..\Nvm_Files\FlsDrv\Flash_TC1782_Driver.c	   172  	else
+; ..\Nvm_Files\FlsDrv\Flash_TC1782_Driver.c	   173  	{
+; ..\Nvm_Files\FlsDrv\Flash_TC1782_Driver.c	   174  		st_Fls_Info.ui32_Write_Len = 0U;
+	mov	d15,#0
+.L10:
+
+; ..\Nvm_Files\FlsDrv\Flash_TC1782_Driver.c	   175  	}
+; ..\Nvm_Files\FlsDrv\Flash_TC1782_Driver.c	   176  
+; ..\Nvm_Files\FlsDrv\Flash_TC1782_Driver.c	   177  	if(st_Fls_Info.ui32_Write_Len != 0U)
+	jeq	d15,#0,.L11				; predicted taken
+.L474:
+
+; ..\Nvm_Files\FlsDrv\Flash_TC1782_Driver.c	   178  	{
+; ..\Nvm_Files\FlsDrv\Flash_TC1782_Driver.c	   179  		st_Fls_Info.ui32_Write_TA += ui16_PageSize;	/*目标地址加一页*/
+	ld.w	d0,[a7]
+.L475:
+	add	d0,d1
+	st.w	[a7],d0
+.L476:
+
+; ..\Nvm_Files\FlsDrv\Flash_TC1782_Driver.c	   180  		st_Fls_Info.ui8_p_Write_SA += ui16_PageSize;	/*源地址指针加一页*/
+	ld.a	a2,[a12]
+.L477:
+	addsc.a	a2,a2,d1,#0
+	st.a	[a12],a2
+.L11:
+
+; ..\Nvm_Files\FlsDrv\Flash_TC1782_Driver.c	   181  	}
+; ..\Nvm_Files\FlsDrv\Flash_TC1782_Driver.c	   182  }
+	st.w	[a15],d15
+	ret
+.L200:
+	
+__Fls_ProgramPageStart_function_end:
+	.size	Fls_ProgramPageStart,__Fls_ProgramPageStart_function_end-Fls_ProgramPageStart
+.L152:
+	; End of function
+	
+	.sdecl	'.text.Flash_TC1782_Driver.Fls_OperateWait',code,cluster('Fls_OperateWait')
+	.sect	'.text.Flash_TC1782_Driver.Fls_OperateWait'
+	.align	2
+	
+	.global	Fls_OperateWait
+
+; ..\Nvm_Files\FlsDrv\Flash_TC1782_Driver.c	   183  
+; ..\Nvm_Files\FlsDrv\Flash_TC1782_Driver.c	   184  /*----------------------------------------------------------------------------------------------------*/
+; ..\Nvm_Files\FlsDrv\Flash_TC1782_Driver.c	   185  /*
+; ..\Nvm_Files\FlsDrv\Flash_TC1782_Driver.c	   186  Function:		boolean Fls_OperateWait(void)
+; ..\Nvm_Files\FlsDrv\Flash_TC1782_Driver.c	   187  Description:	flash操作等待函数
+; ..\Nvm_Files\FlsDrv\Flash_TC1782_Driver.c	   188  Input:			void
+; ..\Nvm_Files\FlsDrv\Flash_TC1782_Driver.c	   189  Output:  		void
+; ..\Nvm_Files\FlsDrv\Flash_TC1782_Driver.c	   190  Return:			boolean
+; ..\Nvm_Files\FlsDrv\Flash_TC1782_Driver.c	   191  Time:
+; ..\Nvm_Files\FlsDrv\Flash_TC1782_Driver.c	   192  Others:
+; ..\Nvm_Files\FlsDrv\Flash_TC1782_Driver.c	   193  Physical Test：
+; ..\Nvm_Files\FlsDrv\Flash_TC1782_Driver.c	   194  
+; ..\Nvm_Files\FlsDrv\Flash_TC1782_Driver.c	   195  */
+; ..\Nvm_Files\FlsDrv\Flash_TC1782_Driver.c	   196  boolean Fls_OperateWait(void)
+; Function Fls_OperateWait
+.L82:
+Fls_OperateWait:	.type	func
+
+; ..\Nvm_Files\FlsDrv\Flash_TC1782_Driver.c	   197  {
+; ..\Nvm_Files\FlsDrv\Flash_TC1782_Driver.c	   198  	boolean	b_Return;
+; ..\Nvm_Files\FlsDrv\Flash_TC1782_Driver.c	   199  
+; ..\Nvm_Files\FlsDrv\Flash_TC1782_Driver.c	   200  	/*poll status register*/
+; ..\Nvm_Files\FlsDrv\Flash_TC1782_Driver.c	   201  	volatile uint32* pdwFsr;
+; ..\Nvm_Files\FlsDrv\Flash_TC1782_Driver.c	   202  
+; ..\Nvm_Files\FlsDrv\Flash_TC1782_Driver.c	   203  	pdwFsr=(uint32*)PFLS_FSR;			/*TC1782只有一个控制器*/
+; ..\Nvm_Files\FlsDrv\Flash_TC1782_Driver.c	   204  
+; ..\Nvm_Files\FlsDrv\Flash_TC1782_Driver.c	   205  	if((*pdwFsr & FLS_BUSY_MASK) == 0U)	/*判断FLS是否操作完成,参考手册Pg5-46*/
+	movh.a	a15,#63488
+	ld.w	d15,[a15]@los(0xf8002010)
+.L482:
+	and	d15,#13
+	ne	d2,d15,#0
+.L483:
+
+; ..\Nvm_Files\FlsDrv\Flash_TC1782_Driver.c	   206  	{
+; ..\Nvm_Files\FlsDrv\Flash_TC1782_Driver.c	   207  		b_Return = E_OK;
+; ..\Nvm_Files\FlsDrv\Flash_TC1782_Driver.c	   208  	}
+; ..\Nvm_Files\FlsDrv\Flash_TC1782_Driver.c	   209  	else
+; ..\Nvm_Files\FlsDrv\Flash_TC1782_Driver.c	   210  	{
+; ..\Nvm_Files\FlsDrv\Flash_TC1782_Driver.c	   211  		b_Return = E_NOT_OK;
+; ..\Nvm_Files\FlsDrv\Flash_TC1782_Driver.c	   212  	}
+; ..\Nvm_Files\FlsDrv\Flash_TC1782_Driver.c	   213  	return	b_Return;
+; ..\Nvm_Files\FlsDrv\Flash_TC1782_Driver.c	   214  }
+	ret
+.L213:
+	
+__Fls_OperateWait_function_end:
+	.size	Fls_OperateWait,__Fls_OperateWait_function_end-Fls_OperateWait
+.L157:
+	; End of function
+	
+	.sdecl	'.text.Flash_TC1782_Driver.Fls_Init',code,cluster('Fls_Init')
+	.sect	'.text.Flash_TC1782_Driver.Fls_Init'
+	.align	2
+	
+	.global	Fls_Init
+
+; ..\Nvm_Files\FlsDrv\Flash_TC1782_Driver.c	   215  
+; ..\Nvm_Files\FlsDrv\Flash_TC1782_Driver.c	   216  /*************************************************************************/
+; ..\Nvm_Files\FlsDrv\Flash_TC1782_Driver.c	   217  /*
+; ..\Nvm_Files\FlsDrv\Flash_TC1782_Driver.c	   218  Function:		void Fls_Init(void)
+; ..\Nvm_Files\FlsDrv\Flash_TC1782_Driver.c	   219  
+; ..\Nvm_Files\FlsDrv\Flash_TC1782_Driver.c	   220  Description: 	FLASH初始化函数
+; ..\Nvm_Files\FlsDrv\Flash_TC1782_Driver.c	   221  
+; ..\Nvm_Files\FlsDrv\Flash_TC1782_Driver.c	   222  Parameters: 	void
+; ..\Nvm_Files\FlsDrv\Flash_TC1782_Driver.c	   223  
+; ..\Nvm_Files\FlsDrv\Flash_TC1782_Driver.c	   224  Return:       	void
+; ..\Nvm_Files\FlsDrv\Flash_TC1782_Driver.c	   225  
+; ..\Nvm_Files\FlsDrv\Flash_TC1782_Driver.c	   226  Return Values:
+; ..\Nvm_Files\FlsDrv\Flash_TC1782_Driver.c	   227  
+; ..\Nvm_Files\FlsDrv\Flash_TC1782_Driver.c	   228  Remarks:		用户在初始化时调用此函数。
+; ..\Nvm_Files\FlsDrv\Flash_TC1782_Driver.c	   229  
+; ..\Nvm_Files\FlsDrv\Flash_TC1782_Driver.c	   230  Example:		初始化时调用：
+; ..\Nvm_Files\FlsDrv\Flash_TC1782_Driver.c	   231  				Fls_Init();
+; ..\Nvm_Files\FlsDrv\Flash_TC1782_Driver.c	   232  */
+; ..\Nvm_Files\FlsDrv\Flash_TC1782_Driver.c	   233  void Fls_Init(void)
+; Function Fls_Init
+.L84:
+Fls_Init:	.type	func
+
+; ..\Nvm_Files\FlsDrv\Flash_TC1782_Driver.c	   234  {
+; ..\Nvm_Files\FlsDrv\Flash_TC1782_Driver.c	   235  	st_Fls_Info.ui8_Job_Status = FLS_JOB_OK;		/*FLS任务状态初始化完成*/
+	movh.a	a15,#@his(st_Fls_Info)
+	lea	a15,[a15]@los(st_Fls_Info)
+.L255:
+	mov	d15,#0
+	st.b	[a15],d15
+.L256:
+
+; ..\Nvm_Files\FlsDrv\Flash_TC1782_Driver.c	   236  	st_Fls_Info.ui8_Task_FSM = FLS_TASK_IDLE_STATE;	/*FLS状态机初始化空闲状态*/
+	st.b	[a15]1,d15
+.L257:
+
+; ..\Nvm_Files\FlsDrv\Flash_TC1782_Driver.c	   237  }
+	ret
+.L162:
+	
+__Fls_Init_function_end:
+	.size	Fls_Init,__Fls_Init_function_end-Fls_Init
+.L107:
+	; End of function
+	
+	.sdecl	'.text.Flash_TC1782_Driver.Fls_Erase',code,cluster('Fls_Erase')
+	.sect	'.text.Flash_TC1782_Driver.Fls_Erase'
+	.align	2
+	
+	.global	Fls_Erase
+
+; ..\Nvm_Files\FlsDrv\Flash_TC1782_Driver.c	   238  
+; ..\Nvm_Files\FlsDrv\Flash_TC1782_Driver.c	   239  /*************************************************************************/
+; ..\Nvm_Files\FlsDrv\Flash_TC1782_Driver.c	   240  /*
+; ..\Nvm_Files\FlsDrv\Flash_TC1782_Driver.c	   241  Function:		boolean Fls_Erase(uint32 ui32_TargetAddr)
+; ..\Nvm_Files\FlsDrv\Flash_TC1782_Driver.c	   242  
+; ..\Nvm_Files\FlsDrv\Flash_TC1782_Driver.c	   243  Description: 	擦除指定Flash Sector（异步）
+; ..\Nvm_Files\FlsDrv\Flash_TC1782_Driver.c	   244  
+; ..\Nvm_Files\FlsDrv\Flash_TC1782_Driver.c	   245  Parameters: 	ui32_TargetAddr	flash的Sector首地址，(FLASH地址参考TC1782用户手册)
+; ..\Nvm_Files\FlsDrv\Flash_TC1782_Driver.c	   246  
+; ..\Nvm_Files\FlsDrv\Flash_TC1782_Driver.c	   247  Return:       	boolean			用户可根据返回值判断FLASH是否擦除成功
+; ..\Nvm_Files\FlsDrv\Flash_TC1782_Driver.c	   248  
+; ..\Nvm_Files\FlsDrv\Flash_TC1782_Driver.c	   249  Return Values:  E_OK			接受擦除命令
+; ..\Nvm_Files\FlsDrv\Flash_TC1782_Driver.c	   250  				E_NOT_OK		拒绝擦除命令
+; ..\Nvm_Files\FlsDrv\Flash_TC1782_Driver.c	   251  
+; ..\Nvm_Files\FlsDrv\Flash_TC1782_Driver.c	   252  Remarks:		用户在中间层需要擦除FLASH时调用此函数。
+; ..\Nvm_Files\FlsDrv\Flash_TC1782_Driver.c	   253  
+; ..\Nvm_Files\FlsDrv\Flash_TC1782_Driver.c	   254  Example:		擦除DFLASH 0xAFE00000地址64k FLASH
+; ..\Nvm_Files\FlsDrv\Flash_TC1782_Driver.c	   255  				ret_val = Fls_Erase(0xAFE00000U);
+; ..\Nvm_Files\FlsDrv\Flash_TC1782_Driver.c	   256  */
+; ..\Nvm_Files\FlsDrv\Flash_TC1782_Driver.c	   257  boolean Fls_Erase(uint32 ui32_TargetAddr)
+; Function Fls_Erase
+.L86:
+Fls_Erase:	.type	func
+
+; ..\Nvm_Files\FlsDrv\Flash_TC1782_Driver.c	   258  {
+; ..\Nvm_Files\FlsDrv\Flash_TC1782_Driver.c	   259  	uint8 	ui8_Loop_1;			/*循环计数器*/
+; ..\Nvm_Files\FlsDrv\Flash_TC1782_Driver.c	   260  	boolean	b_Return;
+; ..\Nvm_Files\FlsDrv\Flash_TC1782_Driver.c	   261  
+; ..\Nvm_Files\FlsDrv\Flash_TC1782_Driver.c	   262  	if(st_Fls_Info.ui8_Task_FSM == FLS_TASK_IDLE_STATE)		/*判断FLS状态是否空闲*/
+; ..\Nvm_Files\FlsDrv\Flash_TC1782_Driver.c	   263  	{
+; ..\Nvm_Files\FlsDrv\Flash_TC1782_Driver.c	   264  		if(ui32_TargetAddr < 0xA0000000U)	/*cached地址转换成non-cached地址,flash操作只能在non-cached*/
+; ..\Nvm_Files\FlsDrv\Flash_TC1782_Driver.c	   265  		{
+; ..\Nvm_Files\FlsDrv\Flash_TC1782_Driver.c	   266  			ui32_TargetAddr += 0x20000000U;
+; ..\Nvm_Files\FlsDrv\Flash_TC1782_Driver.c	   267  		}
+; ..\Nvm_Files\FlsDrv\Flash_TC1782_Driver.c	   268  
+; ..\Nvm_Files\FlsDrv\Flash_TC1782_Driver.c	   269  		if((ui32_TargetAddr >= PFLS_ADDR_START) && (ui32_TargetAddr <= PFLS_ADDR_END)) /*地址属于PFlash，参考手册Pg5-27*/
+; ..\Nvm_Files\FlsDrv\Flash_TC1782_Driver.c	   270  		{
+; ..\Nvm_Files\FlsDrv\Flash_TC1782_Driver.c	   271  			st_Fls_Info.ui8_Type = FLS_TYPE_PFLASH;	/*FLS类型为PFLASH*/
+	movh.a	a15,#@his(st_Fls_Info)
+	lea	a15,[a15]@los(st_Fls_Info)
+.L262:
+	mov.aa	a2,a15
+	ld.bu	d0,[+a2]2
+.L263:
+	mov.aa	a4,a15
+	ld.bu	d15,[+a4]1
+.L264:
+	jne	d15,#0,.L13				; prediction unknown
+.L265:
+	movh	d0,#40960
+.L266:
+	lt.u	d15,d4,d0
+	sh	d15,d15,#29
+.L235:
+	add	d15,d4
+.L234:
+	sub	d0,d15,d0
+.L267:
+	mov.u	d1,#65535
+	addih	d1,d1,#39
+.L268:
+	jlt.u	d1,d0,.L14				; unsupported prediction taken forward branch
+.L269:
+	mov	d0,#1
+.L270:
+	j	.L15
+.L14:
+
+; ..\Nvm_Files\FlsDrv\Flash_TC1782_Driver.c	   272  		}
+; ..\Nvm_Files\FlsDrv\Flash_TC1782_Driver.c	   273  		else if((ui32_TargetAddr == DFLS0_ADDR_START) || (ui32_TargetAddr == DFLS1_ADDR_START)) /*地址属于DFlash，参考手册Pg5-27*/
+	movh	d0,#45024
+.L271:
+	jeq	d15,d0,.L16				; predicted not taken
+.L272:
+	movh	d0,#45025
+.L273:
+	jne	d15,d0,.L17				; prediction unknown
+.L16:
+
+; ..\Nvm_Files\FlsDrv\Flash_TC1782_Driver.c	   274  		{
+; ..\Nvm_Files\FlsDrv\Flash_TC1782_Driver.c	   275  			st_Fls_Info.ui8_Type = FLS_TYPE_DFLASH;	/*FLS类型为DFLASH*/
+	mov	d0,#2
+.L274:
+	j	.L18
+.L17:
+
+; ..\Nvm_Files\FlsDrv\Flash_TC1782_Driver.c	   276  		}
+; ..\Nvm_Files\FlsDrv\Flash_TC1782_Driver.c	   277  		else
+; ..\Nvm_Files\FlsDrv\Flash_TC1782_Driver.c	   278  		{
+; ..\Nvm_Files\FlsDrv\Flash_TC1782_Driver.c	   279  			st_Fls_Info.ui8_Type = FLS_TYPE_INVALID;/*FLS类型为无效*/
+	mov	d0,#0
+.L18:
+.L15:
+
+; ..\Nvm_Files\FlsDrv\Flash_TC1782_Driver.c	   280  		}
+; ..\Nvm_Files\FlsDrv\Flash_TC1782_Driver.c	   281  
+; ..\Nvm_Files\FlsDrv\Flash_TC1782_Driver.c	   282  		if(st_Fls_Info.ui8_Type != FLS_TYPE_INVALID)	/*判断FLS类型是否有效*/
+	jeq	d0,#0,.L19				; predicted not taken
+.L275:
+
+; ..\Nvm_Files\FlsDrv\Flash_TC1782_Driver.c	   283  		{
+; ..\Nvm_Files\FlsDrv\Flash_TC1782_Driver.c	   284  			for(ui8_Loop_1 = 0U; ui8_Loop_1 < FLS_SECTOR_NUMBER; ui8_Loop_1++)	/*检查擦除地址是否有效*/
+; ..\Nvm_Files\FlsDrv\Flash_TC1782_Driver.c	   285  			{
+; ..\Nvm_Files\FlsDrv\Flash_TC1782_Driver.c	   286  				if(ui32_TargetAddr == ui32_Fls_SectorBaseAddr[ui8_Loop_1])
+	mov	d1,#0
+	movh.a	a5,#@his(ui32_Fls_SectorBaseAddr)
+.L237:
+	lea	a5,[a5]@los(ui32_Fls_SectorBaseAddr)
+.L276:
+	lea	a6,19
+.L20:
+	ld.w	d2,[a5]
+.L277:
+	jeq	d15,d2,.L21				; predicted not taken
+.L278:
+	add	d1,#1
+	add.a	a5,#4
+.L279:
+	loop	a6,.L20				; predicted taken
+
+; ..\Nvm_Files\FlsDrv\Flash_TC1782_Driver.c	   287  				{
+; ..\Nvm_Files\FlsDrv\Flash_TC1782_Driver.c	   288  					break;
+; ..\Nvm_Files\FlsDrv\Flash_TC1782_Driver.c	   289  				}
+; ..\Nvm_Files\FlsDrv\Flash_TC1782_Driver.c	   290  			}
+; ..\Nvm_Files\FlsDrv\Flash_TC1782_Driver.c	   291  
+; ..\Nvm_Files\FlsDrv\Flash_TC1782_Driver.c	   292  			if(ui8_Loop_1 < FLS_SECTOR_NUMBER)	/*地址有效*/
+.L21:
+	mov	d2,#20
+.L280:
+	jge.u	d1,d2,.L22				; prediction unknown
+.L281:
+
+; ..\Nvm_Files\FlsDrv\Flash_TC1782_Driver.c	   293  			{
+; ..\Nvm_Files\FlsDrv\Flash_TC1782_Driver.c	   294  				st_Fls_Info.ui32_Erase_TA = ui32_TargetAddr;
+	st.w	[a15]4,d15
+.L282:
+
+; ..\Nvm_Files\FlsDrv\Flash_TC1782_Driver.c	   295  				st_Fls_Info.ui8_Job_Status = FLS_JOB_PENDING;		/*任务挂起*/
+	mov	d15,#2
+	st.b	[a15],d15
+.L236:
+
+; ..\Nvm_Files\FlsDrv\Flash_TC1782_Driver.c	   296  				st_Fls_Info.ui8_Task_FSM = FLS_TASK_ERASE_START_STATE;	/*FLS状态机进入擦除启动状态*/
+	mov	d15,#1
+	st.b	[a4],d15
+.L283:
+
+; ..\Nvm_Files\FlsDrv\Flash_TC1782_Driver.c	   297  				b_Return = E_OK;
+	mov	d2,#0
+.L238:
+	j	.L23
+.L22:
+.L19:
+.L13:
+
+; ..\Nvm_Files\FlsDrv\Flash_TC1782_Driver.c	   298  			}
+; ..\Nvm_Files\FlsDrv\Flash_TC1782_Driver.c	   299  			else
+; ..\Nvm_Files\FlsDrv\Flash_TC1782_Driver.c	   300  			{
+; ..\Nvm_Files\FlsDrv\Flash_TC1782_Driver.c	   301  				b_Return = E_NOT_OK;
+; ..\Nvm_Files\FlsDrv\Flash_TC1782_Driver.c	   302  			}
+; ..\Nvm_Files\FlsDrv\Flash_TC1782_Driver.c	   303  		}
+; ..\Nvm_Files\FlsDrv\Flash_TC1782_Driver.c	   304  		else
+; ..\Nvm_Files\FlsDrv\Flash_TC1782_Driver.c	   305  		{
+; ..\Nvm_Files\FlsDrv\Flash_TC1782_Driver.c	   306  			b_Return = E_NOT_OK;
+; ..\Nvm_Files\FlsDrv\Flash_TC1782_Driver.c	   307  		}
+; ..\Nvm_Files\FlsDrv\Flash_TC1782_Driver.c	   308  	}
+; ..\Nvm_Files\FlsDrv\Flash_TC1782_Driver.c	   309  	else
+; ..\Nvm_Files\FlsDrv\Flash_TC1782_Driver.c	   310  	{
+; ..\Nvm_Files\FlsDrv\Flash_TC1782_Driver.c	   311  		b_Return = E_NOT_OK;
+	mov	d2,#1
+.L23:
+
+; ..\Nvm_Files\FlsDrv\Flash_TC1782_Driver.c	   312  	}
+; ..\Nvm_Files\FlsDrv\Flash_TC1782_Driver.c	   313  
+; ..\Nvm_Files\FlsDrv\Flash_TC1782_Driver.c	   314  	return b_Return;
+	st.b	[a2],d0
+.L284:
+
+; ..\Nvm_Files\FlsDrv\Flash_TC1782_Driver.c	   315  }
+	ret
+.L164:
+	
+__Fls_Erase_function_end:
+	.size	Fls_Erase,__Fls_Erase_function_end-Fls_Erase
+.L112:
+	; End of function
+	
+	.sdecl	'.text.Flash_TC1782_Driver.Fls_Write',code,cluster('Fls_Write')
+	.sect	'.text.Flash_TC1782_Driver.Fls_Write'
+	.align	2
+	
+	.global	Fls_Write
+
+; ..\Nvm_Files\FlsDrv\Flash_TC1782_Driver.c	   316  
+; ..\Nvm_Files\FlsDrv\Flash_TC1782_Driver.c	   317  /*************************************************************************/
+; ..\Nvm_Files\FlsDrv\Flash_TC1782_Driver.c	   318  /*
+; ..\Nvm_Files\FlsDrv\Flash_TC1782_Driver.c	   319  Function:		boolean Fls_Write(uint32 ui32_TA, uint8 *p_ui8_SA, uint32 ui32_Len)
+; ..\Nvm_Files\FlsDrv\Flash_TC1782_Driver.c	   320  
+; ..\Nvm_Files\FlsDrv\Flash_TC1782_Driver.c	   321  Description: 	向FLASH内指定地址写入指定长度的数据(异步)
+; ..\Nvm_Files\FlsDrv\Flash_TC1782_Driver.c	   322  
+; ..\Nvm_Files\FlsDrv\Flash_TC1782_Driver.c	   323  Parameters: 	ui32_TA				写入flash的目标地址，PFLASH以256字节align,
+; ..\Nvm_Files\FlsDrv\Flash_TC1782_Driver.c	   324  									DFLASH以128字节align(FLASH地址参考TC1782用户手册)。
+; ..\Nvm_Files\FlsDrv\Flash_TC1782_Driver.c	   325  				p_ui8_SA			指针数据(指向的数组长度不小于Length)。
+; ..\Nvm_Files\FlsDrv\Flash_TC1782_Driver.c	   326  				ui32_Len				被写入的数据的字节数，PFLASH以256（PAGE_SIZE）字节为单位写入，
+; ..\Nvm_Files\FlsDrv\Flash_TC1782_Driver.c	   327  									DFLASH以128（DFLS_PAGE_SIZE）字节为单位写入。
+; ..\Nvm_Files\FlsDrv\Flash_TC1782_Driver.c	   328  
+; ..\Nvm_Files\FlsDrv\Flash_TC1782_Driver.c	   329  Return:       	boolean				用户可根据返回值判断FLASH是否写成功
+; ..\Nvm_Files\FlsDrv\Flash_TC1782_Driver.c	   330  
+; ..\Nvm_Files\FlsDrv\Flash_TC1782_Driver.c	   331  Return Values:  E_OK				接受写命令
+; ..\Nvm_Files\FlsDrv\Flash_TC1782_Driver.c	   332  				E_NOT_OK			拒绝写命令
+; ..\Nvm_Files\FlsDrv\Flash_TC1782_Driver.c	   333  
+; ..\Nvm_Files\FlsDrv\Flash_TC1782_Driver.c	   334  Remarks:		用户在中间层需要写FLASH时调用此函数。
+; ..\Nvm_Files\FlsDrv\Flash_TC1782_Driver.c	   335  				写DFLASH(128字节耗时5ms)，写PFLASH(256字节耗时5ms)。
+; ..\Nvm_Files\FlsDrv\Flash_TC1782_Driver.c	   336  
+; ..\Nvm_Files\FlsDrv\Flash_TC1782_Driver.c	   337  Example:		将buffer数组128字节写入DFLASH 0xAFE00000地址中
+; ..\Nvm_Files\FlsDrv\Flash_TC1782_Driver.c	   338  				ret_val = Fls_Write(0xAFE00000U, &buffer[0U], 128U);
+; ..\Nvm_Files\FlsDrv\Flash_TC1782_Driver.c	   339  */
+; ..\Nvm_Files\FlsDrv\Flash_TC1782_Driver.c	   340  boolean Fls_Write(uint32 ui32_TA, uint8 *p_ui8_SA, uint32 ui32_Len)
+; Function Fls_Write
+.L88:
+Fls_Write:	.type	func
+
+; ..\Nvm_Files\FlsDrv\Flash_TC1782_Driver.c	   341  {
+; ..\Nvm_Files\FlsDrv\Flash_TC1782_Driver.c	   342  	boolean	b_Return;
+; ..\Nvm_Files\FlsDrv\Flash_TC1782_Driver.c	   343  
+; ..\Nvm_Files\FlsDrv\Flash_TC1782_Driver.c	   344  	if(st_Fls_Info.ui8_Task_FSM == FLS_TASK_IDLE_STATE)		/*判断FLS状态是否空闲*/
+; ..\Nvm_Files\FlsDrv\Flash_TC1782_Driver.c	   345  	{
+; ..\Nvm_Files\FlsDrv\Flash_TC1782_Driver.c	   346  		if((p_ui8_SA != ((void *)0)) && (ui32_Len != 0U))	/*判断源地址指针和长度是否有效*/
+; ..\Nvm_Files\FlsDrv\Flash_TC1782_Driver.c	   347  		{
+; ..\Nvm_Files\FlsDrv\Flash_TC1782_Driver.c	   348  			if(ui32_TA < 0xA0000000U)	/*cached地址转换成non-cached地址,flash操作只能在non-cached*/
+; ..\Nvm_Files\FlsDrv\Flash_TC1782_Driver.c	   349  			{
+; ..\Nvm_Files\FlsDrv\Flash_TC1782_Driver.c	   350  				ui32_TA += 0x20000000U;
+; ..\Nvm_Files\FlsDrv\Flash_TC1782_Driver.c	   351  			}
+; ..\Nvm_Files\FlsDrv\Flash_TC1782_Driver.c	   352  
+; ..\Nvm_Files\FlsDrv\Flash_TC1782_Driver.c	   353  			st_Fls_Info.ui8_Type = FLS_TYPE_INVALID;	/*写类型无效*/
+	movh.a	a15,#@his(st_Fls_Info)
+	lea	a15,[a15]@los(st_Fls_Info)
+.L289:
+	mov.aa	a2,a15
+	ld.bu	d2,[+a2]2
+.L290:
+	mov.aa	a5,a15
+	ld.bu	d0,[+a5]1
+.L291:
+	jne	d0,#0,.L25				; predicted not taken
+.L292:
+	jz.a	a4,.L26				; predicted not taken
+.L293:
+	jeq	d5,#0,.L27				; prediction unknown
+.L294:
+	movh	d0,#40960
+.L295:
+	lt.u	d1,d4,d0
+	sh	d1,d1,#29
+.L296:
+	add	d4,d1
+.L297:
+	mov	d2,#0
+.L298:
+
+; ..\Nvm_Files\FlsDrv\Flash_TC1782_Driver.c	   354  			if((ui32_TA >= PFLS_ADDR_START) && ((ui32_TA + ui32_Len - 1U) <= PFLS_ADDR_END)) /*地址属于PFlash，参考手册Pg5-27*/
+	jlt.u	d4,d0,.L28				; prediction unknown
+.L299:
+	add	d15,d4,d5
+.L300:
+	add	d0,d15,#-1
+.L301:
+	mov.u	d1,#65535
+	addih	d1,d1,#40999
+.L302:
+	jlt.u	d1,d0,.L29				; prediction unknown
+.L303:
+
+; ..\Nvm_Files\FlsDrv\Flash_TC1782_Driver.c	   355  			{
+; ..\Nvm_Files\FlsDrv\Flash_TC1782_Driver.c	   356  				if((ui32_Len & PFLS_PAGE_ALIGN_MASK)== 0U)			/*长度为256字节的倍数，参考手册Pg5-14*/
+	and	d15,d5,#255
+.L304:
+	jne	d15,#0,.L30				; predicted taken
+.L305:
+
+; ..\Nvm_Files\FlsDrv\Flash_TC1782_Driver.c	   357  				{
+; ..\Nvm_Files\FlsDrv\Flash_TC1782_Driver.c	   358  					st_Fls_Info.ui8_Type = FLS_TYPE_PFLASH;	/*写类型为PFLASH*/
+	mov	d2,#1
+.L306:
+	j	.L31
+.L29:
+.L28:
+
+; ..\Nvm_Files\FlsDrv\Flash_TC1782_Driver.c	   359  				}
+; ..\Nvm_Files\FlsDrv\Flash_TC1782_Driver.c	   360  			}
+; ..\Nvm_Files\FlsDrv\Flash_TC1782_Driver.c	   361  			else if((ui32_TA >= DFLS0_ADDR_START) && ((ui32_TA + ui32_Len - 1U) <= DFLS0_ADDR_END)) /*地址属于DFlash0，参考手册Pg5-27*/
+	movh	d0,#45024
+.L307:
+	jlt.u	d4,d0,.L32				; prediction unknown
+.L308:
+	add	d15,d4,d5
+.L309:
+	add	d0,d15,#-1
+.L310:
+	mov.u	d1,#65535
+	addih	d1,d1,#45024
+.L311:
+	jge.u	d1,d0,.L33				; prediction unknown
+.L32:
+
+; ..\Nvm_Files\FlsDrv\Flash_TC1782_Driver.c	   362  			{
+; ..\Nvm_Files\FlsDrv\Flash_TC1782_Driver.c	   363  				if((ui32_Len & DFLS_PAGE_ALIGN_MASK) == 0U)	/*长度为128字节的倍数，参考手册Pg5-14*/
+; ..\Nvm_Files\FlsDrv\Flash_TC1782_Driver.c	   364  				{
+; ..\Nvm_Files\FlsDrv\Flash_TC1782_Driver.c	   365  					st_Fls_Info.ui8_Type = FLS_TYPE_DFLASH;	/*写类型为PFLASH*/
+; ..\Nvm_Files\FlsDrv\Flash_TC1782_Driver.c	   366  				}
+; ..\Nvm_Files\FlsDrv\Flash_TC1782_Driver.c	   367  			}
+; ..\Nvm_Files\FlsDrv\Flash_TC1782_Driver.c	   368  			else if((ui32_TA >= DFLS1_ADDR_START) && ((ui32_TA + ui32_Len - 1U) <= DFLS1_ADDR_END)) /*地址属于DFlash1，参考手册Pg5-27*/
+	movh	d0,#45025
+.L312:
+	jlt.u	d4,d0,.L34				; predicted not taken
+.L313:
+	add	d15,d4,d5
+.L314:
+	add	d0,d15,#-1
+.L315:
+	mov.u	d1,#65535
+	addih	d1,d1,#45025
+.L316:
+	jlt.u	d1,d0,.L35				; predicted not taken
+.L33:
+
+; ..\Nvm_Files\FlsDrv\Flash_TC1782_Driver.c	   369  			{
+; ..\Nvm_Files\FlsDrv\Flash_TC1782_Driver.c	   370  				if((ui32_Len & DFLS_PAGE_ALIGN_MASK) == 0U)	/*长度为128字节的倍数，参考手册Pg5-14*/
+	and	d15,d5,#127
+.L317:
+
+; ..\Nvm_Files\FlsDrv\Flash_TC1782_Driver.c	   371  				{
+; ..\Nvm_Files\FlsDrv\Flash_TC1782_Driver.c	   372  					st_Fls_Info.ui8_Type = FLS_TYPE_DFLASH;	/*写类型为DFLASH*/
+	cmovn	d2,d15,#2
+.L35:
+.L34:
+.L31:
+.L30:
+
+; ..\Nvm_Files\FlsDrv\Flash_TC1782_Driver.c	   373  				}
+; ..\Nvm_Files\FlsDrv\Flash_TC1782_Driver.c	   374  			}
+; ..\Nvm_Files\FlsDrv\Flash_TC1782_Driver.c	   375  
+; ..\Nvm_Files\FlsDrv\Flash_TC1782_Driver.c	   376  			if(st_Fls_Info.ui8_Type != FLS_TYPE_INVALID)	/*判断地址长度是否有效*/
+	jeq	d2,#0,.L37				; prediction unknown
+.L318:
+
+; ..\Nvm_Files\FlsDrv\Flash_TC1782_Driver.c	   377  			{
+; ..\Nvm_Files\FlsDrv\Flash_TC1782_Driver.c	   378  				st_Fls_Info.ui32_Write_TA = ui32_TA;				/*写目标地址*/
+	st.w	[a15]10,d4
+.L319:
+
+; ..\Nvm_Files\FlsDrv\Flash_TC1782_Driver.c	   379  				st_Fls_Info.ui8_p_Write_SA = p_ui8_SA;				/*写源地址*/
+	st.a	[a15]16,a4
+.L320:
+
+; ..\Nvm_Files\FlsDrv\Flash_TC1782_Driver.c	   380  				st_Fls_Info.ui32_Write_Len = ui32_Len;				/*写长度*/
+	st.w	[a15]20,d5
+.L321:
+
+; ..\Nvm_Files\FlsDrv\Flash_TC1782_Driver.c	   381  				st_Fls_Info.ui8_Job_Status = FLS_JOB_PENDING;		/*任务挂起*/
+	mov	d15,#2
+	st.b	[a15],d15
+.L322:
+
+; ..\Nvm_Files\FlsDrv\Flash_TC1782_Driver.c	   382  				st_Fls_Info.ui8_Task_FSM = FLS_TASK_WRITE_START_STATE;	/*FLS状态机进入写启动状态*/
+	mov	d15,#3
+	st.b	[a5],d15
+.L323:
+
+; ..\Nvm_Files\FlsDrv\Flash_TC1782_Driver.c	   383  				b_Return = E_OK;
+	mov	d15,#0
+.L239:
+	j	.L38
+.L37:
+.L27:
+.L26:
+.L25:
+
+; ..\Nvm_Files\FlsDrv\Flash_TC1782_Driver.c	   384  			}
+; ..\Nvm_Files\FlsDrv\Flash_TC1782_Driver.c	   385  			else
+; ..\Nvm_Files\FlsDrv\Flash_TC1782_Driver.c	   386  			{
+; ..\Nvm_Files\FlsDrv\Flash_TC1782_Driver.c	   387  				b_Return = E_NOT_OK;
+; ..\Nvm_Files\FlsDrv\Flash_TC1782_Driver.c	   388  			}
+; ..\Nvm_Files\FlsDrv\Flash_TC1782_Driver.c	   389  		}
+; ..\Nvm_Files\FlsDrv\Flash_TC1782_Driver.c	   390  		else
+; ..\Nvm_Files\FlsDrv\Flash_TC1782_Driver.c	   391  		{
+; ..\Nvm_Files\FlsDrv\Flash_TC1782_Driver.c	   392  			b_Return = E_NOT_OK;
+; ..\Nvm_Files\FlsDrv\Flash_TC1782_Driver.c	   393  		}
+; ..\Nvm_Files\FlsDrv\Flash_TC1782_Driver.c	   394  	}
+; ..\Nvm_Files\FlsDrv\Flash_TC1782_Driver.c	   395  	else
+; ..\Nvm_Files\FlsDrv\Flash_TC1782_Driver.c	   396  	{
+; ..\Nvm_Files\FlsDrv\Flash_TC1782_Driver.c	   397  		b_Return = E_NOT_OK;
+	mov	d15,#1
+.L38:
+
+; ..\Nvm_Files\FlsDrv\Flash_TC1782_Driver.c	   398  	}
+; ..\Nvm_Files\FlsDrv\Flash_TC1782_Driver.c	   399  
+; ..\Nvm_Files\FlsDrv\Flash_TC1782_Driver.c	   400  	return b_Return;
+	st.b	[a2],d2
+	mov	d2,d15
+.L240:
+
+; ..\Nvm_Files\FlsDrv\Flash_TC1782_Driver.c	   401  }
+	ret
+.L169:
+	
+__Fls_Write_function_end:
+	.size	Fls_Write,__Fls_Write_function_end-Fls_Write
+.L117:
+	; End of function
+	
+	.sdecl	'.text.Flash_TC1782_Driver.Fls_Read',code,cluster('Fls_Read')
+	.sect	'.text.Flash_TC1782_Driver.Fls_Read'
+	.align	2
+	
+	.global	Fls_Read
+
+; ..\Nvm_Files\FlsDrv\Flash_TC1782_Driver.c	   402  
+; ..\Nvm_Files\FlsDrv\Flash_TC1782_Driver.c	   403  /*************************************************************************/
+; ..\Nvm_Files\FlsDrv\Flash_TC1782_Driver.c	   404  /*
+; ..\Nvm_Files\FlsDrv\Flash_TC1782_Driver.c	   405  Function:		boolean Fls_Read( uint32 ui32_SA, uint8 *ui8_p_TA, uint32 ui32_Len)
+; ..\Nvm_Files\FlsDrv\Flash_TC1782_Driver.c	   406  
+; ..\Nvm_Files\FlsDrv\Flash_TC1782_Driver.c	   407  Description: 	从FLASH内指定地址读取指定长度的数据到RAM中(同步)
+; ..\Nvm_Files\FlsDrv\Flash_TC1782_Driver.c	   408  
+; ..\Nvm_Files\FlsDrv\Flash_TC1782_Driver.c	   409  Parameters: 	ui32_SA		读取数据在flash的目标地址(FLASH地址参考TC1782用户手册)。
+; ..\Nvm_Files\FlsDrv\Flash_TC1782_Driver.c	   410  				ui8_p_TA	数据存放指针(指向的数组长度不小于ui32_Len)。
+; ..\Nvm_Files\FlsDrv\Flash_TC1782_Driver.c	   411  				ui32_Len	被读取数据的字节数(大于0并且读取范围不超过FLASH硬件限制)
+; ..\Nvm_Files\FlsDrv\Flash_TC1782_Driver.c	   412  
+; ..\Nvm_Files\FlsDrv\Flash_TC1782_Driver.c	   413  Return:       	boolean				用户可根据返回值判断FLASH是否读取成功
+; ..\Nvm_Files\FlsDrv\Flash_TC1782_Driver.c	   414  
+; ..\Nvm_Files\FlsDrv\Flash_TC1782_Driver.c	   415  Return Values:  E_OK				读取成功
+; ..\Nvm_Files\FlsDrv\Flash_TC1782_Driver.c	   416  				E_NOT_OK			读取失败
+; ..\Nvm_Files\FlsDrv\Flash_TC1782_Driver.c	   417  
+; ..\Nvm_Files\FlsDrv\Flash_TC1782_Driver.c	   418  Remarks:		用户在中间层需要读取FLASH时调用此函数。
+; ..\Nvm_Files\FlsDrv\Flash_TC1782_Driver.c	   419  				读取DFLASH(128字节耗时10us)，读取PFLASH(256字节耗时13us)。
+; ..\Nvm_Files\FlsDrv\Flash_TC1782_Driver.c	   420  
+; ..\Nvm_Files\FlsDrv\Flash_TC1782_Driver.c	   421  Example:		读取DFLASH 0xAFE00000地址128字节数据到buffer数组
+; ..\Nvm_Files\FlsDrv\Flash_TC1782_Driver.c	   422  				ret_val = Fls_Read(0xAFE00000U, &buffer[0U], 128U);
+; ..\Nvm_Files\FlsDrv\Flash_TC1782_Driver.c	   423  */
+; ..\Nvm_Files\FlsDrv\Flash_TC1782_Driver.c	   424  boolean Fls_Read( uint32 ui32_SA, uint8 *ui8_p_TA, uint32 ui32_Len)
+; Function Fls_Read
+.L90:
+Fls_Read:	.type	func
+
+; ..\Nvm_Files\FlsDrv\Flash_TC1782_Driver.c	   425  {
+; ..\Nvm_Files\FlsDrv\Flash_TC1782_Driver.c	   426  	uint32 	ui32_Loop_1;
+; ..\Nvm_Files\FlsDrv\Flash_TC1782_Driver.c	   427  	boolean	b_Return;
+; ..\Nvm_Files\FlsDrv\Flash_TC1782_Driver.c	   428  
+; ..\Nvm_Files\FlsDrv\Flash_TC1782_Driver.c	   429  	b_Return = E_NOT_OK;
+; ..\Nvm_Files\FlsDrv\Flash_TC1782_Driver.c	   430  
+; ..\Nvm_Files\FlsDrv\Flash_TC1782_Driver.c	   431  	if(st_Fls_Info.ui8_Task_FSM == FLS_TASK_IDLE_STATE)		/*判断FLS状态是否空闲*/
+	mov	d2,#1
+	movh.a	a15,#@his(st_Fls_Info)
+.L241:
+	lea	a15,[a15]@los(st_Fls_Info)
+.L328:
+	ld.bu	d15,[a15]1
+.L329:
+	jne	d15,#0,.L40				; prediction unknown
+.L330:
+
+; ..\Nvm_Files\FlsDrv\Flash_TC1782_Driver.c	   432  	{
+; ..\Nvm_Files\FlsDrv\Flash_TC1782_Driver.c	   433  		if((ui8_p_TA != ((void *)0)) && (ui32_Len != 0U))	/*判断目标地址指针和长度是否有效*/
+	jz.a	a4,.L41				; predicted not taken
+.L331:
+	jeq	d5,#0,.L42				; predicted taken
+.L332:
+
+; ..\Nvm_Files\FlsDrv\Flash_TC1782_Driver.c	   434  		{
+; ..\Nvm_Files\FlsDrv\Flash_TC1782_Driver.c	   435  			if(ui32_SA < 0xA0000000U)	//cached地址转换成non-cached地址,flash操作只能在non-cached
+	movh	d0,#40960
+.L333:
+	lt.u	d1,d4,d0
+	sh	d1,d1,#29
+.L334:
+
+; ..\Nvm_Files\FlsDrv\Flash_TC1782_Driver.c	   436  			{
+; ..\Nvm_Files\FlsDrv\Flash_TC1782_Driver.c	   437  				ui32_SA += 0x20000000U;
+	add	d4,d1
+.L335:
+
+; ..\Nvm_Files\FlsDrv\Flash_TC1782_Driver.c	   438  			}
+; ..\Nvm_Files\FlsDrv\Flash_TC1782_Driver.c	   439  
+; ..\Nvm_Files\FlsDrv\Flash_TC1782_Driver.c	   440  			if((ui32_SA >= PFLS_ADDR_START) && ((ui32_SA + ui32_Len - 1U) <= PFLS_ADDR_END)) /*地址属于PFlash，参考手册Pg5-27*/
+	jlt.u	d4,d0,.L43				; prediction unknown
+.L336:
+	add	d15,d4,d5
+.L337:
+	add	d0,d15,#-1
+.L338:
+	mov.u	d1,#65535
+	addih	d1,d1,#40999
+.L339:
+	jlt.u	d1,d0,.L44				; unsupported prediction taken forward branch
+.L340:
+
+; ..\Nvm_Files\FlsDrv\Flash_TC1782_Driver.c	   441  			{
+; ..\Nvm_Files\FlsDrv\Flash_TC1782_Driver.c	   442  				st_Fls_Info.ui8_Type = FLS_TYPE_PFLASH;	/*FLS类型为PFLASH*/
+	mov	d15,d2
+.L341:
+	j	.L45
+.L44:
+.L43:
+
+; ..\Nvm_Files\FlsDrv\Flash_TC1782_Driver.c	   443  			}
+; ..\Nvm_Files\FlsDrv\Flash_TC1782_Driver.c	   444  			else if((ui32_SA >= DFLS0_ADDR_START) && ((ui32_SA + ui32_Len - 1U) <= DFLS0_ADDR_END)) /*地址属于DFlash0，参考手册Pg5-27*/
+	movh	d0,#45024
+.L342:
+	jlt.u	d4,d0,.L46				; prediction unknown
+.L343:
+	add	d15,d4,d5
+.L344:
+	add	d0,d15,#-1
+.L345:
+	mov.u	d1,#65535
+	addih	d1,d1,#45024
+.L346:
+	jge.u	d1,d0,.L47				; predicted not taken
+.L46:
+
+; ..\Nvm_Files\FlsDrv\Flash_TC1782_Driver.c	   445  			{
+; ..\Nvm_Files\FlsDrv\Flash_TC1782_Driver.c	   446  				st_Fls_Info.ui8_Type = FLS_TYPE_DFLASH;	/*FLS类型为DFLASH*/
+; ..\Nvm_Files\FlsDrv\Flash_TC1782_Driver.c	   447  			}
+; ..\Nvm_Files\FlsDrv\Flash_TC1782_Driver.c	   448  			else if((ui32_SA >= DFLS1_ADDR_START) && ((ui32_SA + ui32_Len - 1U) <= DFLS1_ADDR_END)) /*地址属于DFlash1，参考手册Pg5-27*/
+	movh	d15,#45025
+.L347:
+	jlt.u	d4,d15,.L48				; predicted not taken
+.L348:
+	add	d15,d4,d5
+.L349:
+	add	d15,#-1
+.L350:
+	mov.u	d0,#65535
+	addih	d0,d0,#45025
+.L351:
+	jlt.u	d0,d15,.L49				; prediction unknown
+.L47:
+
+; ..\Nvm_Files\FlsDrv\Flash_TC1782_Driver.c	   449  			{
+; ..\Nvm_Files\FlsDrv\Flash_TC1782_Driver.c	   450  				st_Fls_Info.ui8_Type = FLS_TYPE_DFLASH;	/*FLS类型为DFLASH*/
+	mov	d15,#2
+.L352:
+	j	.L50
+.L49:
+.L48:
+
+; ..\Nvm_Files\FlsDrv\Flash_TC1782_Driver.c	   451  			}
+; ..\Nvm_Files\FlsDrv\Flash_TC1782_Driver.c	   452  			else
+; ..\Nvm_Files\FlsDrv\Flash_TC1782_Driver.c	   453  			{
+; ..\Nvm_Files\FlsDrv\Flash_TC1782_Driver.c	   454  				st_Fls_Info.ui8_Type = FLS_TYPE_INVALID;/*FLS类型为无效*/
+	mov	d15,#0
+.L50:
+.L45:
+
+; ..\Nvm_Files\FlsDrv\Flash_TC1782_Driver.c	   455  			}
+; ..\Nvm_Files\FlsDrv\Flash_TC1782_Driver.c	   456  
+; ..\Nvm_Files\FlsDrv\Flash_TC1782_Driver.c	   457  			if(st_Fls_Info.ui8_Type != FLS_TYPE_INVALID)	/*判断FLS类型是否有效*/
+	st.b	[+a15]2,d15
+	jeq	d15,#0,.L51				; predicted not taken
+.L181:
+
+; ..\Nvm_Files\FlsDrv\Flash_TC1782_Driver.c	   458  			{
+; ..\Nvm_Files\FlsDrv\Flash_TC1782_Driver.c	   459  				uint8* ui8_Memory_Point = (uint8*)(ui32_SA);	/*指向被读取的地址*/
+	mov.a	a15,d4
+.L242:
+
+; ..\Nvm_Files\FlsDrv\Flash_TC1782_Driver.c	   460  				/*读取数据至目标Buffer*/
+; ..\Nvm_Files\FlsDrv\Flash_TC1782_Driver.c	   461  				for(ui32_Loop_1 = 0U; ui32_Loop_1 < ui32_Len; ui32_Loop_1++)
+	mov	d15,#0
+.L52:
+
+; ..\Nvm_Files\FlsDrv\Flash_TC1782_Driver.c	   462  				{
+; ..\Nvm_Files\FlsDrv\Flash_TC1782_Driver.c	   463  					*(ui8_p_TA + ui32_Loop_1) = *ui8_Memory_Point;
+	add	d15,#1
+	ld.bu	d0,[a15+]
+.L353:
+	st.b	[a4+],d0
+.L354:
+	jlt.u	d15,d5,.L52				; predicted taken
+.L355:
+
+; ..\Nvm_Files\FlsDrv\Flash_TC1782_Driver.c	   464  					ui8_Memory_Point++;
+; ..\Nvm_Files\FlsDrv\Flash_TC1782_Driver.c	   465  				}
+; ..\Nvm_Files\FlsDrv\Flash_TC1782_Driver.c	   466  				b_Return = E_OK;
+	mov	d2,#0
+.L51:
+.L42:
+.L41:
+.L40:
+
+; ..\Nvm_Files\FlsDrv\Flash_TC1782_Driver.c	   467  			}
+; ..\Nvm_Files\FlsDrv\Flash_TC1782_Driver.c	   468  		}
+; ..\Nvm_Files\FlsDrv\Flash_TC1782_Driver.c	   469  	}
+; ..\Nvm_Files\FlsDrv\Flash_TC1782_Driver.c	   470  	return b_Return;
+; ..\Nvm_Files\FlsDrv\Flash_TC1782_Driver.c	   471  }
+	ret
+.L175:
+	
+__Fls_Read_function_end:
+	.size	Fls_Read,__Fls_Read_function_end-Fls_Read
+.L122:
+	; End of function
+	
+	.sdecl	'.text.Flash_TC1782_Driver.Fls_GetStatus',code,cluster('Fls_GetStatus')
+	.sect	'.text.Flash_TC1782_Driver.Fls_GetStatus'
+	.align	2
+	
+	.global	Fls_GetStatus
+
+; ..\Nvm_Files\FlsDrv\Flash_TC1782_Driver.c	   472  
+; ..\Nvm_Files\FlsDrv\Flash_TC1782_Driver.c	   473  /*************************************************************************/
+; ..\Nvm_Files\FlsDrv\Flash_TC1782_Driver.c	   474  /*
+; ..\Nvm_Files\FlsDrv\Flash_TC1782_Driver.c	   475  Function:		uint8 Fls_GetStatus(void)
+; ..\Nvm_Files\FlsDrv\Flash_TC1782_Driver.c	   476  
+; ..\Nvm_Files\FlsDrv\Flash_TC1782_Driver.c	   477  Description: 	FLASH获取状态函数
+; ..\Nvm_Files\FlsDrv\Flash_TC1782_Driver.c	   478  
+; ..\Nvm_Files\FlsDrv\Flash_TC1782_Driver.c	   479  Parameters: 	void
+; ..\Nvm_Files\FlsDrv\Flash_TC1782_Driver.c	   480  
+; ..\Nvm_Files\FlsDrv\Flash_TC1782_Driver.c	   481  Return:       	uint8
+; ..\Nvm_Files\FlsDrv\Flash_TC1782_Driver.c	   482  
+; ..\Nvm_Files\FlsDrv\Flash_TC1782_Driver.c	   483  Return Values:
+; ..\Nvm_Files\FlsDrv\Flash_TC1782_Driver.c	   484  
+; ..\Nvm_Files\FlsDrv\Flash_TC1782_Driver.c	   485  Remarks:		用户在中间层需要获取FLS状态时调用此函数。
+; ..\Nvm_Files\FlsDrv\Flash_TC1782_Driver.c	   486  
+; ..\Nvm_Files\FlsDrv\Flash_TC1782_Driver.c	   487  Example:		获取FLS状态时调用：
+; ..\Nvm_Files\FlsDrv\Flash_TC1782_Driver.c	   488  				ret_val = Fls_GetStatus();
+; ..\Nvm_Files\FlsDrv\Flash_TC1782_Driver.c	   489  */
+; ..\Nvm_Files\FlsDrv\Flash_TC1782_Driver.c	   490  uint8 Fls_GetStatus(void)
+; Function Fls_GetStatus
+.L92:
+Fls_GetStatus:	.type	func
+
+; ..\Nvm_Files\FlsDrv\Flash_TC1782_Driver.c	   491  {
+; ..\Nvm_Files\FlsDrv\Flash_TC1782_Driver.c	   492  	return st_Fls_Info.ui8_Task_FSM;
+	movh.a	a15,#@his(st_Fls_Info)
+	lea	a15,[a15]@los(st_Fls_Info)
+.L360:
+	ld.bu	d2,[a15]1
+.L361:
+
+; ..\Nvm_Files\FlsDrv\Flash_TC1782_Driver.c	   493  }
+	ret
+.L183:
+	
+__Fls_GetStatus_function_end:
+	.size	Fls_GetStatus,__Fls_GetStatus_function_end-Fls_GetStatus
+.L127:
+	; End of function
+	
+	.sdecl	'.text.Flash_TC1782_Driver.Fls_GetJobResult',code,cluster('Fls_GetJobResult')
+	.sect	'.text.Flash_TC1782_Driver.Fls_GetJobResult'
+	.align	2
+	
+	.global	Fls_GetJobResult
+
+; ..\Nvm_Files\FlsDrv\Flash_TC1782_Driver.c	   494  
+; ..\Nvm_Files\FlsDrv\Flash_TC1782_Driver.c	   495  /*************************************************************************/
+; ..\Nvm_Files\FlsDrv\Flash_TC1782_Driver.c	   496  /*
+; ..\Nvm_Files\FlsDrv\Flash_TC1782_Driver.c	   497  Function:		uint8 Fls_GetJobResult(void)
+; ..\Nvm_Files\FlsDrv\Flash_TC1782_Driver.c	   498  
+; ..\Nvm_Files\FlsDrv\Flash_TC1782_Driver.c	   499  Description: 	FLASH获取结果函数
+; ..\Nvm_Files\FlsDrv\Flash_TC1782_Driver.c	   500  
+; ..\Nvm_Files\FlsDrv\Flash_TC1782_Driver.c	   501  Parameters: 	void
+; ..\Nvm_Files\FlsDrv\Flash_TC1782_Driver.c	   502  
+; ..\Nvm_Files\FlsDrv\Flash_TC1782_Driver.c	   503  Return:       	uint8
+; ..\Nvm_Files\FlsDrv\Flash_TC1782_Driver.c	   504  
+; ..\Nvm_Files\FlsDrv\Flash_TC1782_Driver.c	   505  Return Values:
+; ..\Nvm_Files\FlsDrv\Flash_TC1782_Driver.c	   506  
+; ..\Nvm_Files\FlsDrv\Flash_TC1782_Driver.c	   507  Remarks:		用户在中间层需要获取FLS操作结果时调用此函数。
+; ..\Nvm_Files\FlsDrv\Flash_TC1782_Driver.c	   508  
+; ..\Nvm_Files\FlsDrv\Flash_TC1782_Driver.c	   509  Example:		获取FLS结果时调用：
+; ..\Nvm_Files\FlsDrv\Flash_TC1782_Driver.c	   510  				ret_val = Fls_GetJobResult();
+; ..\Nvm_Files\FlsDrv\Flash_TC1782_Driver.c	   511  */
+; ..\Nvm_Files\FlsDrv\Flash_TC1782_Driver.c	   512  uint8 Fls_GetJobResult(void)
+; Function Fls_GetJobResult
+.L94:
+Fls_GetJobResult:	.type	func
+
+; ..\Nvm_Files\FlsDrv\Flash_TC1782_Driver.c	   513  {
+; ..\Nvm_Files\FlsDrv\Flash_TC1782_Driver.c	   514  	return st_Fls_Info.ui8_Job_Status;
+	movh.a	a15,#@his(st_Fls_Info)
+	lea	a15,[a15]@los(st_Fls_Info)
+.L366:
+	ld.bu	d2,[a15]
+.L367:
+
+; ..\Nvm_Files\FlsDrv\Flash_TC1782_Driver.c	   515  }
+	ret
+.L184:
+	
+__Fls_GetJobResult_function_end:
+	.size	Fls_GetJobResult,__Fls_GetJobResult_function_end-Fls_GetJobResult
+.L132:
+	; End of function
+	
+	.sdecl	'.text.Flash_TC1782_Driver.Fls_MainFunction',code,cluster('Fls_MainFunction')
+	.sect	'.text.Flash_TC1782_Driver.Fls_MainFunction'
+	.align	2
+	
+	.global	Fls_MainFunction
+
+; ..\Nvm_Files\FlsDrv\Flash_TC1782_Driver.c	   516  
+; ..\Nvm_Files\FlsDrv\Flash_TC1782_Driver.c	   517  /*************************************************************************/
+; ..\Nvm_Files\FlsDrv\Flash_TC1782_Driver.c	   518  /*
+; ..\Nvm_Files\FlsDrv\Flash_TC1782_Driver.c	   519  Function:		void Fls_MainFunction(void)
+; ..\Nvm_Files\FlsDrv\Flash_TC1782_Driver.c	   520  
+; ..\Nvm_Files\FlsDrv\Flash_TC1782_Driver.c	   521  Description: 	FLASH操作循环周期函数
+; ..\Nvm_Files\FlsDrv\Flash_TC1782_Driver.c	   522  
+; ..\Nvm_Files\FlsDrv\Flash_TC1782_Driver.c	   523  Parameters: 	void
+; ..\Nvm_Files\FlsDrv\Flash_TC1782_Driver.c	   524  
+; ..\Nvm_Files\FlsDrv\Flash_TC1782_Driver.c	   525  Return:       	void
+; ..\Nvm_Files\FlsDrv\Flash_TC1782_Driver.c	   526  
+; ..\Nvm_Files\FlsDrv\Flash_TC1782_Driver.c	   527  Return Values:
+; ..\Nvm_Files\FlsDrv\Flash_TC1782_Driver.c	   528  
+; ..\Nvm_Files\FlsDrv\Flash_TC1782_Driver.c	   529  Remarks:		用户在固定任务周期中调用此函数。
+; ..\Nvm_Files\FlsDrv\Flash_TC1782_Driver.c	   530  
+; ..\Nvm_Files\FlsDrv\Flash_TC1782_Driver.c	   531  Example:		10ms任务周期调用：
+; ..\Nvm_Files\FlsDrv\Flash_TC1782_Driver.c	   532  				Fls_MainFunction();
+; ..\Nvm_Files\FlsDrv\Flash_TC1782_Driver.c	   533  */
+; ..\Nvm_Files\FlsDrv\Flash_TC1782_Driver.c	   534  void Fls_MainFunction(void)
+; Function Fls_MainFunction
+.L96:
+Fls_MainFunction:	.type	func
+
+; ..\Nvm_Files\FlsDrv\Flash_TC1782_Driver.c	   535  {
+; ..\Nvm_Files\FlsDrv\Flash_TC1782_Driver.c	   536  	boolean	b_Return;
+; ..\Nvm_Files\FlsDrv\Flash_TC1782_Driver.c	   537  
+; ..\Nvm_Files\FlsDrv\Flash_TC1782_Driver.c	   538  	switch(st_Fls_Info.ui8_Task_FSM)
+	movh.a	a15,#@his(st_Fls_Info)
+	lea	a15,[a15]@los(st_Fls_Info)
+.L372:
+	mov.aa	a12,a15
+	ld.bu	d15,[+a12]1
+.L373:
+
+; ..\Nvm_Files\FlsDrv\Flash_TC1782_Driver.c	   539  	{
+; ..\Nvm_Files\FlsDrv\Flash_TC1782_Driver.c	   540  		case FLS_TASK_IDLE_STATE:	/*空闲状态*/
+	jeq	d15,#0,.L56				; prediction unknown
+.L374:
+
+; ..\Nvm_Files\FlsDrv\Flash_TC1782_Driver.c	   541  		{
+; ..\Nvm_Files\FlsDrv\Flash_TC1782_Driver.c	   542  			break;
+; ..\Nvm_Files\FlsDrv\Flash_TC1782_Driver.c	   543  		}
+; ..\Nvm_Files\FlsDrv\Flash_TC1782_Driver.c	   544  
+; ..\Nvm_Files\FlsDrv\Flash_TC1782_Driver.c	   545  		case FLS_TASK_ERASE_START_STATE:	/*擦除启动状态*/
+	jeq	d15,#1,.L57				; prediction unknown
+.L375:
+
+; ..\Nvm_Files\FlsDrv\Flash_TC1782_Driver.c	   546  		{
+; ..\Nvm_Files\FlsDrv\Flash_TC1782_Driver.c	   547  			Fls_EraseSectorStart();	/*启动sector擦除*/
+; ..\Nvm_Files\FlsDrv\Flash_TC1782_Driver.c	   548  			st_Fls_Info.ui8_Timing_Erase = FLS_TIMING_ERASE;		/*初始化擦除Timing计数器*/
+; ..\Nvm_Files\FlsDrv\Flash_TC1782_Driver.c	   549  			st_Fls_Info.ui8_Task_FSM = FLS_TASK_ERASE_WAIT_STATE;	/*FLS状态机进入擦除等待状态*/
+; ..\Nvm_Files\FlsDrv\Flash_TC1782_Driver.c	   550  
+; ..\Nvm_Files\FlsDrv\Flash_TC1782_Driver.c	   551  			break;
+; ..\Nvm_Files\FlsDrv\Flash_TC1782_Driver.c	   552  		}
+; ..\Nvm_Files\FlsDrv\Flash_TC1782_Driver.c	   553  
+; ..\Nvm_Files\FlsDrv\Flash_TC1782_Driver.c	   554  		case FLS_TASK_ERASE_WAIT_STATE:		/*擦除等待状态*/
+	jeq	d15,#2,.L58				; prediction unknown
+.L376:
+
+; ..\Nvm_Files\FlsDrv\Flash_TC1782_Driver.c	   555  		{
+; ..\Nvm_Files\FlsDrv\Flash_TC1782_Driver.c	   556  			b_Return = Fls_OperateWait();	/*擦除等待完成*/
+; ..\Nvm_Files\FlsDrv\Flash_TC1782_Driver.c	   557  
+; ..\Nvm_Files\FlsDrv\Flash_TC1782_Driver.c	   558  			if(b_Return == E_OK)
+; ..\Nvm_Files\FlsDrv\Flash_TC1782_Driver.c	   559  			{
+; ..\Nvm_Files\FlsDrv\Flash_TC1782_Driver.c	   560  				st_Fls_Info.ui8_Job_Status = FLS_JOB_OK;			/*任务完成*/
+; ..\Nvm_Files\FlsDrv\Flash_TC1782_Driver.c	   561  				st_Fls_Info.ui8_Task_FSM = FLS_TASK_IDLE_STATE;		/*FLS状态机进入空闲状态*/
+; ..\Nvm_Files\FlsDrv\Flash_TC1782_Driver.c	   562  			}
+; ..\Nvm_Files\FlsDrv\Flash_TC1782_Driver.c	   563  			else
+; ..\Nvm_Files\FlsDrv\Flash_TC1782_Driver.c	   564  			{
+; ..\Nvm_Files\FlsDrv\Flash_TC1782_Driver.c	   565  				/*超时处理*/
+; ..\Nvm_Files\FlsDrv\Flash_TC1782_Driver.c	   566  				if(st_Fls_Info.ui8_Timing_Erase != 0U)
+; ..\Nvm_Files\FlsDrv\Flash_TC1782_Driver.c	   567  				{
+; ..\Nvm_Files\FlsDrv\Flash_TC1782_Driver.c	   568  					st_Fls_Info.ui8_Timing_Erase--;
+; ..\Nvm_Files\FlsDrv\Flash_TC1782_Driver.c	   569  				}
+; ..\Nvm_Files\FlsDrv\Flash_TC1782_Driver.c	   570  
+; ..\Nvm_Files\FlsDrv\Flash_TC1782_Driver.c	   571  				if(st_Fls_Info.ui8_Timing_Erase == 0U)	/*Timing超时*/
+; ..\Nvm_Files\FlsDrv\Flash_TC1782_Driver.c	   572  				{
+; ..\Nvm_Files\FlsDrv\Flash_TC1782_Driver.c	   573  					st_Fls_Info.ui8_Job_Status = FLS_JOB_FAILED;	/*任务失败*/
+; ..\Nvm_Files\FlsDrv\Flash_TC1782_Driver.c	   574  					st_Fls_Info.ui8_Task_FSM = FLS_TASK_IDLE_STATE;	/*FLS状态机进入空闲状态*/
+; ..\Nvm_Files\FlsDrv\Flash_TC1782_Driver.c	   575  				}
+; ..\Nvm_Files\FlsDrv\Flash_TC1782_Driver.c	   576  			}
+; ..\Nvm_Files\FlsDrv\Flash_TC1782_Driver.c	   577  
+; ..\Nvm_Files\FlsDrv\Flash_TC1782_Driver.c	   578  			break;
+; ..\Nvm_Files\FlsDrv\Flash_TC1782_Driver.c	   579  		}
+; ..\Nvm_Files\FlsDrv\Flash_TC1782_Driver.c	   580  
+; ..\Nvm_Files\FlsDrv\Flash_TC1782_Driver.c	   581  		case FLS_TASK_WRITE_START_STATE:	/*写启动状态*/
+	jeq	d15,#3,.L59				; prediction unknown
+.L377:
+
+; ..\Nvm_Files\FlsDrv\Flash_TC1782_Driver.c	   582  		{
+; ..\Nvm_Files\FlsDrv\Flash_TC1782_Driver.c	   583  			Fls_ProgramPageStart();	/*启动写*/
+; ..\Nvm_Files\FlsDrv\Flash_TC1782_Driver.c	   584  			st_Fls_Info.ui8_Timing_Write = FLS_TIMING_WRITE;		/*初始化写Timing计数器*/
+; ..\Nvm_Files\FlsDrv\Flash_TC1782_Driver.c	   585  			st_Fls_Info.ui8_Task_FSM = FLS_TASK_WRITE_WAIT_STATE;	/*FLS状态机进入写等待状态*/
+; ..\Nvm_Files\FlsDrv\Flash_TC1782_Driver.c	   586  			break;
+; ..\Nvm_Files\FlsDrv\Flash_TC1782_Driver.c	   587  		}
+; ..\Nvm_Files\FlsDrv\Flash_TC1782_Driver.c	   588  
+; ..\Nvm_Files\FlsDrv\Flash_TC1782_Driver.c	   589  		case FLS_TASK_WRITE_WAIT_STATE:
+	jeq	d15,#4,.L60				; prediction unknown
+.L378:
+	j	.L61
+.L57:
+	call	Fls_EraseSectorStart
+.L379:
+	mov	d15,#400
+	st.h	[a15]8,d15
+.L380:
+	mov	d15,#2
+.L381:
+	j	.L62
+.L58:
+	call	Fls_OperateWait
+.L243:
+	jeq	d2,#0,.L63				; prediction unknown
+.L382:
+	lea	a2,[a15]8
+	ld.hu	d15,[a15]8
+.L383:
+	jeq	d15,#0,.L64				; predicted not taken
+.L384:
+	add	d15,#-1
+	st.h	[a2],d15
+.L64:
+	ld.hu	d15,[a15]8
+.L385:
+	jne	d15,#0,.L65				; prediction unknown
+.L386:
+	j	.L66
+.L59:
+	call	Fls_ProgramPageStart
+.L387:
+	mov	d15,#10
+	st.h	[a15]24,d15
+.L388:
+	mov	d15,#4
+.L389:
+	j	.L67
+.L60:
+
+; ..\Nvm_Files\FlsDrv\Flash_TC1782_Driver.c	   590  		{
+; ..\Nvm_Files\FlsDrv\Flash_TC1782_Driver.c	   591  			b_Return = Fls_OperateWait();	/*写等待完成*/
+	call	Fls_OperateWait
+.L244:
+
+; ..\Nvm_Files\FlsDrv\Flash_TC1782_Driver.c	   592  			if(b_Return == E_OK)
+	jne	d2,#0,.L68				; predicted not taken
+.L390:
+
+; ..\Nvm_Files\FlsDrv\Flash_TC1782_Driver.c	   593  			{
+; ..\Nvm_Files\FlsDrv\Flash_TC1782_Driver.c	   594  				if(st_Fls_Info.ui32_Write_Len != 0U)
+	ld.w	d15,[a15]20
+.L391:
+	jeq	d15,#0,.L69				; predicted taken
+.L392:
+
+; ..\Nvm_Files\FlsDrv\Flash_TC1782_Driver.c	   595  				{
+; ..\Nvm_Files\FlsDrv\Flash_TC1782_Driver.c	   596  					st_Fls_Info.ui8_Task_FSM = FLS_TASK_WRITE_START_STATE;	/*FLS状态机进入写启动状态*/
+	mov	d15,#3
+.L393:
+	j	.L70
+.L68:
+
+; ..\Nvm_Files\FlsDrv\Flash_TC1782_Driver.c	   597  				}
+; ..\Nvm_Files\FlsDrv\Flash_TC1782_Driver.c	   598  				else
+; ..\Nvm_Files\FlsDrv\Flash_TC1782_Driver.c	   599  				{
+; ..\Nvm_Files\FlsDrv\Flash_TC1782_Driver.c	   600  					st_Fls_Info.ui8_Job_Status = FLS_JOB_OK;			/*任务完成*/
+; ..\Nvm_Files\FlsDrv\Flash_TC1782_Driver.c	   601  					st_Fls_Info.ui8_Task_FSM = FLS_TASK_IDLE_STATE;		/*FLS状态机进入空闲状态*/
+; ..\Nvm_Files\FlsDrv\Flash_TC1782_Driver.c	   602  				}
+; ..\Nvm_Files\FlsDrv\Flash_TC1782_Driver.c	   603  			}
+; ..\Nvm_Files\FlsDrv\Flash_TC1782_Driver.c	   604  			else
+; ..\Nvm_Files\FlsDrv\Flash_TC1782_Driver.c	   605  			{
+; ..\Nvm_Files\FlsDrv\Flash_TC1782_Driver.c	   606  				/*超时处理*/
+; ..\Nvm_Files\FlsDrv\Flash_TC1782_Driver.c	   607  				if(st_Fls_Info.ui8_Timing_Write != 0U)
+	lea	a2,[a15]24
+	ld.hu	d15,[a15]24
+.L394:
+	jeq	d15,#0,.L71				; predicted not taken
+.L395:
+
+; ..\Nvm_Files\FlsDrv\Flash_TC1782_Driver.c	   608  				{
+; ..\Nvm_Files\FlsDrv\Flash_TC1782_Driver.c	   609  					st_Fls_Info.ui8_Timing_Write--;
+	add	d15,#-1
+	st.h	[a2],d15
+.L71:
+
+; ..\Nvm_Files\FlsDrv\Flash_TC1782_Driver.c	   610  				}
+; ..\Nvm_Files\FlsDrv\Flash_TC1782_Driver.c	   611  
+; ..\Nvm_Files\FlsDrv\Flash_TC1782_Driver.c	   612  				if(st_Fls_Info.ui8_Timing_Write == 0U)	/*Timing超时*/
+	ld.hu	d15,[a15]24
+.L396:
+	jne	d15,#0,.L72				; predicted taken
+
+; ..\Nvm_Files\FlsDrv\Flash_TC1782_Driver.c	   613  				{
+; ..\Nvm_Files\FlsDrv\Flash_TC1782_Driver.c	   614  					st_Fls_Info.ui8_Job_Status = FLS_JOB_FAILED;	/*任务失败*/
+; ..\Nvm_Files\FlsDrv\Flash_TC1782_Driver.c	   615  					st_Fls_Info.ui8_Task_FSM = FLS_TASK_IDLE_STATE;	/*FLS状态机进入空闲状态*/
+; ..\Nvm_Files\FlsDrv\Flash_TC1782_Driver.c	   616  				}
+; ..\Nvm_Files\FlsDrv\Flash_TC1782_Driver.c	   617  			}
+; ..\Nvm_Files\FlsDrv\Flash_TC1782_Driver.c	   618  			break;
+; ..\Nvm_Files\FlsDrv\Flash_TC1782_Driver.c	   619  		}
+; ..\Nvm_Files\FlsDrv\Flash_TC1782_Driver.c	   620  
+; ..\Nvm_Files\FlsDrv\Flash_TC1782_Driver.c	   621  		default:
+; ..\Nvm_Files\FlsDrv\Flash_TC1782_Driver.c	   622  		{
+; ..\Nvm_Files\FlsDrv\Flash_TC1782_Driver.c	   623  			st_Fls_Info.ui8_Job_Status = FLS_JOB_OK;			/*任务完成*/
+; ..\Nvm_Files\FlsDrv\Flash_TC1782_Driver.c	   624  			st_Fls_Info.ui8_Task_FSM = FLS_TASK_IDLE_STATE;		/*FLS状态机进入空闲状态*/
+; ..\Nvm_Files\FlsDrv\Flash_TC1782_Driver.c	   625  			break;
+; ..\Nvm_Files\FlsDrv\Flash_TC1782_Driver.c	   626  		}
+; ..\Nvm_Files\FlsDrv\Flash_TC1782_Driver.c	   627  	}
+; ..\Nvm_Files\FlsDrv\Flash_TC1782_Driver.c	   628  }
+.L66:
+	mov	d15,#1
+.L397:
+	j	.L73
+.L69:
+.L63:
+.L61:
+	mov	d15,#0
+.L73:
+	st.b	[a15],d15
+.L398:
+	mov	d15,#0
+.L62:
+.L67:
+.L70:
+	st.b	[a12],d15
+.L72:
+.L65:
+.L56:
+	ret
+.L185:
+	
+__Fls_MainFunction_function_end:
+	.size	Fls_MainFunction,__Fls_MainFunction_function_end-Fls_MainFunction
+.L137:
+	; End of function
+	
+	.sdecl	'.text.Flash_TC1782_Driver.ProgramSPRAMPage',code,cluster('ProgramSPRAMPage')
+	.sect	'.text.Flash_TC1782_Driver.ProgramSPRAMPage'
+	.align	2
+	
+	.global	ProgramSPRAMPage
+
+; ..\Nvm_Files\FlsDrv\Flash_TC1782_Driver.c	   629  
+; ..\Nvm_Files\FlsDrv\Flash_TC1782_Driver.c	   630  
+; ..\Nvm_Files\FlsDrv\Flash_TC1782_Driver.c	   631  //******************************************************************************
+; ..\Nvm_Files\FlsDrv\Flash_TC1782_Driver.c	   632  // Function      void ProgramSPRAMPage(DWORD dwPageAddr)
+; ..\Nvm_Files\FlsDrv\Flash_TC1782_Driver.c	   633  //
+; ..\Nvm_Files\FlsDrv\Flash_TC1782_Driver.c	   634  //------------------------------------------------------------------------------
+; ..\Nvm_Files\FlsDrv\Flash_TC1782_Driver.c	   635  // Description   This function will program SPRAM
+; ..\Nvm_Files\FlsDrv\Flash_TC1782_Driver.c	   636  //
+; ..\Nvm_Files\FlsDrv\Flash_TC1782_Driver.c	   637  //------------------------------------------------------------------------------
+; ..\Nvm_Files\FlsDrv\Flash_TC1782_Driver.c	   638  // Return value  None
+; ..\Nvm_Files\FlsDrv\Flash_TC1782_Driver.c	   639  //
+; ..\Nvm_Files\FlsDrv\Flash_TC1782_Driver.c	   640  //------------------------------------------------------------------------------
+; ..\Nvm_Files\FlsDrv\Flash_TC1782_Driver.c	   641  // Parameters    dwPageAddr :  the start address to be programmed
+; ..\Nvm_Files\FlsDrv\Flash_TC1782_Driver.c	   642  //
+; ..\Nvm_Files\FlsDrv\Flash_TC1782_Driver.c	   643  //------------------------------------------------------------------------------
+; ..\Nvm_Files\FlsDrv\Flash_TC1782_Driver.c	   644  // Date          2011-7-4
+; ..\Nvm_Files\FlsDrv\Flash_TC1782_Driver.c	   645  //
+; ..\Nvm_Files\FlsDrv\Flash_TC1782_Driver.c	   646  //******************************************************************************
+; ..\Nvm_Files\FlsDrv\Flash_TC1782_Driver.c	   647  void ProgramSPRAMPage(uint32 ui32_TA, uint8 *p_ui8_SA, uint32 ui32_Len)
+; Function ProgramSPRAMPage
+.L98:
+ProgramSPRAMPage:	.type	func
+
+; ..\Nvm_Files\FlsDrv\Flash_TC1782_Driver.c	   648  {
+; ..\Nvm_Files\FlsDrv\Flash_TC1782_Driver.c	   649  	//4 byte aligned address?
+; ..\Nvm_Files\FlsDrv\Flash_TC1782_Driver.c	   650  	if (ui32_TA & 0x03)
+	and	d15,d4,#3
+.L403:
+	jne	d15,#0,.L74				; predicted not taken
+.L191:
+
+; ..\Nvm_Files\FlsDrv\Flash_TC1782_Driver.c	   651  	{
+; ..\Nvm_Files\FlsDrv\Flash_TC1782_Driver.c	   652  		return;
+; ..\Nvm_Files\FlsDrv\Flash_TC1782_Driver.c	   653  	}
+; ..\Nvm_Files\FlsDrv\Flash_TC1782_Driver.c	   654  
+; ..\Nvm_Files\FlsDrv\Flash_TC1782_Driver.c	   655  	uint32 *dest_ptr = (uint32 *) (ui32_TA);
+	mov.a	a2,d4
+.L245:
+
+; ..\Nvm_Files\FlsDrv\Flash_TC1782_Driver.c	   656  	uint32 ui;
+; ..\Nvm_Files\FlsDrv\Flash_TC1782_Driver.c	   657  
+; ..\Nvm_Files\FlsDrv\Flash_TC1782_Driver.c	   658  	for (ui=0; ui<ui32_Len; ui+=4)
+	mov	d1,#0
+.L246:
+	j	.L75
+.L76:
+
+; ..\Nvm_Files\FlsDrv\Flash_TC1782_Driver.c	   659  	{
+; ..\Nvm_Files\FlsDrv\Flash_TC1782_Driver.c	   660  		uint32 dw = (uint32)(p_ui8_SA[0+ui] & 0xFF);
+; ..\Nvm_Files\FlsDrv\Flash_TC1782_Driver.c	   661  		dw      += ((uint32)(p_ui8_SA[1+ui] & 0xFF) << 8);
+; ..\Nvm_Files\FlsDrv\Flash_TC1782_Driver.c	   662  		dw      += ((uint32)(p_ui8_SA[2+ui] & 0xFF) << 16);
+; ..\Nvm_Files\FlsDrv\Flash_TC1782_Driver.c	   663  		dw      += ((uint32)(p_ui8_SA[3+ui] & 0xFF) << 24);
+	addsc.a	a15,a4,d1,#0
+.L404:
+	ld.bu	d15,[a15]1
+.L405:
+	sh	d15,d15,#8
+	ld.bu	d0,[a15]
+.L406:
+	add	d0,d15
+	ld.bu	d15,[a15]2
+.L407:
+	sh	d15,d15,#16
+.L408:
+	add	d0,d15
+	ld.bu	d15,[a15]3
+.L409:
+	sh	d15,d15,#24
+.L410:
+
+; ..\Nvm_Files\FlsDrv\Flash_TC1782_Driver.c	   664  		*dest_ptr++ = dw;
+	add	d0,d15
+	st.w	[a2+],d0
+.L195:
+	add	d1,#4
+.L75:
+	jlt.u	d1,d5,.L76				; predicted taken
+
+; ..\Nvm_Files\FlsDrv\Flash_TC1782_Driver.c	   665  	}
+; ..\Nvm_Files\FlsDrv\Flash_TC1782_Driver.c	   666  }
+.L74:
+	ret
+.L187:
+	
+__ProgramSPRAMPage_function_end:
+	.size	ProgramSPRAMPage,__ProgramSPRAMPage_function_end-ProgramSPRAMPage
+.L142:
+	; End of function
+	
+	.sdecl	'.data.Flash_TC1782_Driver.ui32_Fls_SectorBaseAddr',data,cluster('ui32_Fls_SectorBaseAddr')
+	.sect	'.data.Flash_TC1782_Driver.ui32_Fls_SectorBaseAddr'
+	.global	ui32_Fls_SectorBaseAddr
+	.align	2
+ui32_Fls_SectorBaseAddr:	.type	object
+	.size	ui32_Fls_SectorBaseAddr,80
+	.word	-1610612736,-1610596352,-1610579968,-1610563584,-1610547200,-1610530816,-1610514432,-1610498048
+	.word	-1610481664,-1610350592,-1610088448,-1609826304,-1609564160,-1609302016,-1609039872,-1608777728
+	.word	-1608515584,-1608253440,-1344274432,-1344208896
+	.sdecl	'.bss.Flash_TC1782_Driver.st_Fls_Info',data,cluster('st_Fls_Info')
+	.sect	'.bss.Flash_TC1782_Driver.st_Fls_Info'
+	.global	st_Fls_Info
+	.align	4
+st_Fls_Info:	.type	object
+	.size	st_Fls_Info,28
+	.space	28
+	.calls	'Fls_MainFunction','Fls_EraseSectorStart'
+	.calls	'Fls_MainFunction','Fls_OperateWait'
+	.calls	'Fls_MainFunction','Fls_ProgramPageStart'
+	.calls	'Fls_EraseSectorStart','',0
+	.calls	'Fls_ProgramPageStart','',0
+	.calls	'Fls_OperateWait','',0
+	.calls	'Fls_Init','',0
+	.calls	'Fls_Erase','',0
+	.calls	'Fls_Write','',0
+	.calls	'Fls_Read','',0
+	.calls	'Fls_GetStatus','',0
+	.calls	'Fls_GetJobResult','',0
+	.calls	'Fls_MainFunction','',0
+	.calls	'ProgramSPRAMPage','',0
+	.sdecl	'.debug_info',debug
+	.sect	'.debug_info'
+.L100:
+	.word	707
+	.half	3
+	.word	.L101
+	.byte	4
+.L99:
+	.byte	1
+	.byte	'..\\Nvm_Files\\FlsDrv\\Flash_TC1782_Driver.c',0
+	.byte	'TASKING VX-toolset for TriCore: C compiler',0
+	.byte	'D:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_1.9\\BMU_BOOT\\Debug\\',0,12,1
+	.word	.L102
+.L163:
+	.byte	2
+	.byte	'unsigned char',0,1,8
+.L165:
+	.byte	2
+	.byte	'unsigned long int',0,4,7
+.L171:
+	.byte	3
+	.word	159
+.L192:
+	.byte	3
+	.word	176
+.L201:
+	.byte	2
+	.byte	'unsigned short int',0,2,7,2
+	.byte	'unsigned long long int',0,8,7
+.L207:
+	.byte	3
+	.word	229
+	.byte	4
+	.byte	'void',0,3
+	.word	260
+	.byte	5
+	.byte	'__prof_adm',0,1,1,1
+	.word	266
+	.byte	6,1,3
+	.word	290
+	.byte	5
+	.byte	'__codeptr',0,1,1,1
+	.word	292
+	.byte	5
+	.byte	'ubyte',0,2,78,24
+	.word	159
+	.byte	5
+	.byte	'ushort',0,2,80,24
+	.word	207
+	.byte	2
+	.byte	'unsigned int',0,4,7,5
+	.byte	'uword',0,2,82,24
+	.word	344
+	.byte	5
+	.byte	'uint8',0,3,87,29
+	.word	159
+	.byte	5
+	.byte	'uint16',0,3,89,29
+	.word	207
+	.byte	2
+	.byte	'long int',0,4,5,5
+	.byte	'sint32',0,3,90,29
+	.word	403
+	.byte	5
+	.byte	'uint32',0,3,91,27
+	.word	176
+	.byte	5
+	.byte	'boolean',0,3,102,29
+	.word	159
+.L214:
+	.byte	7,4,70,9,28,8
+	.byte	'ui8_Job_Status',0,1
+	.word	159
+	.byte	2,35,0,8
+	.byte	'ui8_Task_FSM',0,1
+	.word	159
+	.byte	2,35,1,8
+	.byte	'ui8_Type',0,1
+	.word	159
+	.byte	2,35,2,8
+	.byte	'ui32_Erase_TA',0,4
+	.word	176
+	.byte	2,35,4,8
+	.byte	'ui8_Timing_Erase',0,2
+	.word	207
+	.byte	2,35,8,8
+	.byte	'ui32_Write_TA',0,4
+	.word	176
+	.byte	2,35,10,8
+	.byte	'ui8_p_Write_SA',0,4
+	.word	197
+	.byte	2,35,16,8
+	.byte	'ui32_Write_Len',0,4
+	.word	176
+	.byte	2,35,20,8
+	.byte	'ui8_Timing_Write',0,2
+	.word	207
+	.byte	2,35,24,0,5
+	.byte	'Struct_Fls_Info',0,4,85,2
+	.word	461
+.L215:
+	.byte	9,80
+	.word	176
+	.byte	10,19,0,0
+	.sdecl	'.debug_abbrev',debug
+	.sect	'.debug_abbrev'
+.L101:
+	.byte	1,17,1,3,8,37,8,27,8,19,15,128,70,12,16,6,0,0,2,36,0,3,8,11,15,62,15,0,0,3,15,0,73,19,0,0,4,59,0,3,8,0
+	.byte	0,5,22,0,3,8,58,15,59,15,57,15,73,19,0,0,6,21,0,54,15,0,0,7,19,1,58,15,59,15,57,15,11,15,0,0,8,13,0,3
+	.byte	8,11,15,73,19,56,9,0,0,9,1,1,11,15,73,19,0,0,10,33,0,47,15,0,0,0
+	.sdecl	'.debug_line',debug
+	.sect	'.debug_line'
+.L102:
+	.word	.L248-.L247
+.L247:
+	.half	3
+	.word	.L250-.L249
+.L249:
+	.byte	2,1,-4,9,10,0,1,1,1,1,0,0,0,1
+	.byte	'D:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_1.9\\BMU_BOOT\\Initiate_Files',0
+	.byte	'D:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_1.9\\BMU_BOOT\\Stand_Header',0
+	.byte	'D:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_1.9\\BMU_BOOT\\Nvm_Files\\FlsDrv',0,0
+	.byte	'..\\Nvm_Files\\FlsDrv\\Flash_TC1782_Driver.c',0,0,0,0
+	.byte	'MAIN.h',0,1,0,0
+	.byte	'Platform_Types.h',0,2,0,0
+	.byte	'Flash_TC1782_Driver.h',0,3,0,0,0
+.L250:
+.L248:
+	.sdecl	'.debug_info',debug,cluster('Fls_Init')
+	.sect	'.debug_info'
+.L103:
+	.word	204
+	.half	3
+	.word	.L104
+	.byte	4,1
+	.byte	'..\\Nvm_Files\\FlsDrv\\Flash_TC1782_Driver.c',0
+	.byte	'TASKING VX-toolset for TriCore: C compiler',0
+	.byte	'D:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_1.9\\BMU_BOOT\\Debug\\',0,12,1
+	.word	.L106,.L105
+	.byte	2
+	.word	.L99
+	.byte	3
+	.byte	'Fls_Init',0,1,233,1,6,1,1,1
+	.word	.L84,.L162,.L83
+	.byte	4
+	.word	.L84,.L162
+	.byte	0,0
+	.sdecl	'.debug_abbrev',debug,cluster('Fls_Init')
+	.sect	'.debug_abbrev'
+.L104:
+	.byte	1,17,1,3,8,37,8,27,8,19,15,128,70,12,85,6,16,6,0,0,2,61,0,24,16,0,0,3,46,1,3,8,58,15,59,15,57,15,54,15
+	.byte	39,12,63,12,17,1,18,1,64,6,0,0,4,11,0,17,1,18,1,0,0,0
+	.sdecl	'.debug_line',debug,cluster('Fls_Init')
+	.sect	'.debug_line'
+.L105:
+	.word	.L252-.L251
+.L251:
+	.half	3
+	.word	.L254-.L253
+.L253:
+	.byte	2,1,-4,9,10,0,1,1,1,1,0,0,0,1,0
+	.byte	'..\\Nvm_Files\\FlsDrv\\Flash_TC1782_Driver.c',0,0,0,0,0
+.L254:
+	.byte	5,2,7,0,5,2
+	.word	.L84
+	.byte	3,234,1,1,5,31,9
+	.half	.L255-.L84
+	.byte	1,5,29,1,5,27,9
+	.half	.L256-.L255
+	.byte	3,1,1,5,1,9
+	.half	.L257-.L256
+	.byte	3,1,1,7,9
+	.half	.L107-.L257
+	.byte	0,1,1
+.L252:
+	.sdecl	'.debug_ranges',debug,cluster('Fls_Init')
+	.sect	'.debug_ranges'
+.L106:
+	.word	-1,.L84,0,.L107-.L84,0,0
+	.sdecl	'.debug_info',debug,cluster('Fls_Erase')
+	.sect	'.debug_info'
+.L108:
+	.word	285
+	.half	3
+	.word	.L109
+	.byte	4,1
+	.byte	'..\\Nvm_Files\\FlsDrv\\Flash_TC1782_Driver.c',0
+	.byte	'TASKING VX-toolset for TriCore: C compiler',0
+	.byte	'D:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_1.9\\BMU_BOOT\\Debug\\',0,12,1
+	.word	.L111,.L110
+	.byte	2
+	.word	.L99
+	.byte	3
+	.byte	'Fls_Erase',0,1,129,2,9
+	.word	.L163
+	.byte	1,1,1
+	.word	.L86,.L164,.L85
+	.byte	4
+	.byte	'ui32_TargetAddr',0,1,129,2,26
+	.word	.L165,.L166
+	.byte	5
+	.word	.L86,.L164
+	.byte	6
+	.byte	'ui8_Loop_1',0,1,131,2,9
+	.word	.L163,.L167
+	.byte	6
+	.byte	'b_Return',0,1,132,2,10
+	.word	.L163,.L168
+	.byte	0,0,0
+	.sdecl	'.debug_abbrev',debug,cluster('Fls_Erase')
+	.sect	'.debug_abbrev'
+.L109:
+	.byte	1,17,1,3,8,37,8,27,8,19,15,128,70,12,85,6,16,6,0,0,2,61,0,24,16,0,0,3,46,1,3,8,58,15,59,15,57,15,73,16
+	.byte	54,15,39,12,63,12,17,1,18,1,64,6,0,0,4,5,0,3,8,58,15,59,15,57,15,73,16,2,6,0,0,5,11,1,17,1,18,1,0,0,6
+	.byte	52,0,3,8,58,15,59,15,57,15,73,16,2,6,0,0,0
+	.sdecl	'.debug_line',debug,cluster('Fls_Erase')
+	.sect	'.debug_line'
+.L110:
+	.word	.L259-.L258
+.L258:
+	.half	3
+	.word	.L261-.L260
+.L260:
+	.byte	2,1,-4,9,10,0,1,1,1,1,0,0,0,1,0
+	.byte	'..\\Nvm_Files\\FlsDrv\\Flash_TC1782_Driver.c',0,0,0,0,0
+.L261:
+	.byte	5,4,7,0,5,2
+	.word	.L86
+	.byte	3,142,2,1,5,15,9
+	.half	.L262-.L86
+	.byte	1,5,16,9
+	.half	.L263-.L262
+	.byte	3,119,1,5,2,9
+	.half	.L264-.L263
+	.byte	1,5,24,7,9
+	.half	.L265-.L264
+	.byte	3,2,1,5,22,9
+	.half	.L266-.L265
+	.byte	1,5,20,9
+	.half	.L235-.L266
+	.byte	3,2,1,5,47,9
+	.half	.L234-.L235
+	.byte	3,3,1,5,66,9
+	.half	.L267-.L234
+	.byte	1,5,63,9
+	.half	.L268-.L267
+	.byte	1,5,25,7,9
+	.half	.L269-.L268
+	.byte	3,2,1,5,42,9
+	.half	.L270-.L269
+	.byte	1,5,31,9
+	.half	.L14-.L270
+	.byte	3,2,1,5,11,9
+	.half	.L271-.L14
+	.byte	1,5,72,7,9
+	.half	.L272-.L271
+	.byte	1,5,69,9
+	.half	.L273-.L272
+	.byte	1,5,25,7,9
+	.half	.L16-.L273
+	.byte	3,2,1,5,42,9
+	.half	.L274-.L16
+	.byte	1,5,25,9
+	.half	.L17-.L274
+	.byte	3,4,1,5,3,9
+	.half	.L15-.L17
+	.byte	3,3,1,5,19,7,9
+	.half	.L275-.L15
+	.byte	3,2,1,5,27,3,2,1,5,55,9
+	.half	.L276-.L275
+	.byte	3,126,1,5,50,9
+	.half	.L20-.L276
+	.byte	3,2,1,5,5,9
+	.half	.L277-.L20
+	.byte	1,5,67,7,9
+	.half	.L278-.L277
+	.byte	3,126,1,5,55,9
+	.half	.L279-.L278
+	.byte	1,5,20,7,9
+	.half	.L21-.L279
+	.byte	3,8,1,5,4,9
+	.half	.L280-.L21
+	.byte	1,5,31,7,9
+	.half	.L281-.L280
+	.byte	3,2,1,5,34,9
+	.half	.L282-.L281
+	.byte	3,1,1,5,32,1,9
+	.half	.L236-.L282
+	.byte	3,1,1,5,30,1,5,14,9
+	.half	.L283-.L236
+	.byte	3,1,1,5,48,9
+	.half	.L238-.L283
+	.byte	3,125,1,5,12,9
+	.half	.L13-.L238
+	.byte	3,17,1,5,2,9
+	.half	.L23-.L13
+	.byte	3,3,1,5,1,9
+	.half	.L284-.L23
+	.byte	3,1,1,7,9
+	.half	.L112-.L284
+	.byte	0,1,1
+.L259:
+	.sdecl	'.debug_ranges',debug,cluster('Fls_Erase')
+	.sect	'.debug_ranges'
+.L111:
+	.word	-1,.L86,0,.L112-.L86,0,0
+	.sdecl	'.debug_info',debug,cluster('Fls_Write')
+	.sect	'.debug_info'
+.L113:
+	.word	297
+	.half	3
+	.word	.L114
+	.byte	4,1
+	.byte	'..\\Nvm_Files\\FlsDrv\\Flash_TC1782_Driver.c',0
+	.byte	'TASKING VX-toolset for TriCore: C compiler',0
+	.byte	'D:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_1.9\\BMU_BOOT\\Debug\\',0,12,1
+	.word	.L116,.L115
+	.byte	2
+	.word	.L99
+	.byte	3
+	.byte	'Fls_Write',0,1,212,2,9
+	.word	.L163
+	.byte	1,1,1
+	.word	.L88,.L169,.L87
+	.byte	4
+	.byte	'ui32_TA',0,1,212,2,26
+	.word	.L165,.L170
+	.byte	4
+	.byte	'p_ui8_SA',0,1,212,2,42
+	.word	.L171,.L172
+	.byte	4
+	.byte	'ui32_Len',0,1,212,2,59
+	.word	.L165,.L173
+	.byte	5
+	.word	.L88,.L169
+	.byte	6
+	.byte	'b_Return',0,1,214,2,10
+	.word	.L163,.L174
+	.byte	0,0,0
+	.sdecl	'.debug_abbrev',debug,cluster('Fls_Write')
+	.sect	'.debug_abbrev'
+.L114:
+	.byte	1,17,1,3,8,37,8,27,8,19,15,128,70,12,85,6,16,6,0,0,2,61,0,24,16,0,0,3,46,1,3,8,58,15,59,15,57,15,73,16
+	.byte	54,15,39,12,63,12,17,1,18,1,64,6,0,0,4,5,0,3,8,58,15,59,15,57,15,73,16,2,6,0,0,5,11,1,17,1,18,1,0,0,6
+	.byte	52,0,3,8,58,15,59,15,57,15,73,16,2,6,0,0,0
+	.sdecl	'.debug_line',debug,cluster('Fls_Write')
+	.sect	'.debug_line'
+.L115:
+	.word	.L286-.L285
+.L285:
+	.half	3
+	.word	.L288-.L287
+.L287:
+	.byte	2,1,-4,9,10,0,1,1,1,1,0,0,0,1,0
+	.byte	'..\\Nvm_Files\\FlsDrv\\Flash_TC1782_Driver.c',0,0,0,0,0
+.L288:
+	.byte	5,4,7,0,5,2
+	.word	.L88
+	.byte	3,224,2,1,5,15,9
+	.half	.L289-.L88
+	.byte	1,5,16,9
+	.half	.L290-.L289
+	.byte	3,119,1,5,2,9
+	.half	.L291-.L290
+	.byte	1,5,6,7,9
+	.half	.L292-.L291
+	.byte	3,2,1,5,45,7,9
+	.half	.L293-.L292
+	.byte	1,5,17,7,9
+	.half	.L294-.L293
+	.byte	3,2,1,5,15,9
+	.half	.L295-.L294
+	.byte	1,5,13,9
+	.half	.L296-.L295
+	.byte	3,2,1,5,25,9
+	.half	.L297-.L296
+	.byte	3,3,1,5,7,9
+	.half	.L298-.L297
+	.byte	3,1,1,5,49,7,9
+	.half	.L299-.L298
+	.byte	1,5,60,9
+	.half	.L300-.L299
+	.byte	1,5,69,9
+	.half	.L301-.L300
+	.byte	1,5,66,9
+	.half	.L302-.L301
+	.byte	1,5,18,7,9
+	.half	.L303-.L302
+	.byte	3,2,1,5,5,9
+	.half	.L304-.L303
+	.byte	1,5,27,7,9
+	.half	.L305-.L304
+	.byte	3,2,1,5,5,9
+	.half	.L306-.L305
+	.byte	3,126,1,5,24,9
+	.half	.L28-.L306
+	.byte	3,5,1,5,12,9
+	.half	.L307-.L28
+	.byte	1,5,55,7,9
+	.half	.L308-.L307
+	.byte	1,5,66,9
+	.half	.L309-.L308
+	.byte	1,5,75,9
+	.half	.L310-.L309
+	.byte	1,5,72,9
+	.half	.L311-.L310
+	.byte	1,5,24,7,9
+	.half	.L32-.L311
+	.byte	3,7,1,5,12,9
+	.half	.L312-.L32
+	.byte	1,5,55,7,9
+	.half	.L313-.L312
+	.byte	1,5,66,9
+	.half	.L314-.L313
+	.byte	1,5,75,9
+	.half	.L315-.L314
+	.byte	1,5,72,9
+	.half	.L316-.L315
+	.byte	1,5,18,7,9
+	.half	.L33-.L316
+	.byte	3,2,1,5,27,9
+	.half	.L317-.L33
+	.byte	3,2,1,5,4,9
+	.half	.L30-.L317
+	.byte	3,4,1,5,31,7,9
+	.half	.L318-.L30
+	.byte	3,2,1,5,32,9
+	.half	.L319-.L318
+	.byte	3,1,1,9
+	.half	.L320-.L319
+	.byte	3,1,1,5,34,9
+	.half	.L321-.L320
+	.byte	3,1,1,5,32,1,9
+	.half	.L322-.L321
+	.byte	3,1,1,5,30,1,5,14,9
+	.half	.L323-.L322
+	.byte	3,1,1,5,40,9
+	.half	.L239-.L323
+	.byte	3,123,1,5,12,9
+	.half	.L25-.L239
+	.byte	3,19,1,5,2,9
+	.half	.L38-.L25
+	.byte	3,3,1,5,1,9
+	.half	.L240-.L38
+	.byte	3,1,1,7,9
+	.half	.L117-.L240
+	.byte	0,1,1
+.L286:
+	.sdecl	'.debug_ranges',debug,cluster('Fls_Write')
+	.sect	'.debug_ranges'
+.L116:
+	.word	-1,.L88,0,.L117-.L88,0,0
+	.sdecl	'.debug_info',debug,cluster('Fls_Read')
+	.sect	'.debug_info'
+.L118:
+	.word	361
+	.half	3
+	.word	.L119
+	.byte	4,1
+	.byte	'..\\Nvm_Files\\FlsDrv\\Flash_TC1782_Driver.c',0
+	.byte	'TASKING VX-toolset for TriCore: C compiler',0
+	.byte	'D:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_1.9\\BMU_BOOT\\Debug\\',0,12,1
+	.word	.L121,.L120
+	.byte	2
+	.word	.L99
+	.byte	3
+	.byte	'Fls_Read',0,1,168,3,9
+	.word	.L163
+	.byte	1,1,1
+	.word	.L90,.L175,.L89
+	.byte	4
+	.byte	'ui32_SA',0,1,168,3,26
+	.word	.L165,.L176
+	.byte	4
+	.byte	'ui8_p_TA',0,1,168,3,42
+	.word	.L171,.L177
+	.byte	4
+	.byte	'ui32_Len',0,1,168,3,59
+	.word	.L165,.L178
+	.byte	5
+	.word	.L90,.L175
+	.byte	6
+	.byte	'ui32_Loop_1',0,1,170,3,10
+	.word	.L165,.L179
+	.byte	6
+	.byte	'b_Return',0,1,171,3,10
+	.word	.L163,.L180
+	.byte	5
+	.word	.L181,.L40
+	.byte	6
+	.byte	'ui8_Memory_Point',0,1,203,3,12
+	.word	.L171,.L182
+	.byte	0,0,0,0
+	.sdecl	'.debug_abbrev',debug,cluster('Fls_Read')
+	.sect	'.debug_abbrev'
+.L119:
+	.byte	1,17,1,3,8,37,8,27,8,19,15,128,70,12,85,6,16,6,0,0,2,61,0,24,16,0,0,3,46,1,3,8,58,15,59,15,57,15,73,16
+	.byte	54,15,39,12,63,12,17,1,18,1,64,6,0,0,4,5,0,3,8,58,15,59,15,57,15,73,16,2,6,0,0,5,11,1,17,1,18,1,0,0,6
+	.byte	52,0,3,8,58,15,59,15,57,15,73,16,2,6,0,0,0
+	.sdecl	'.debug_line',debug,cluster('Fls_Read')
+	.sect	'.debug_line'
+.L120:
+	.word	.L325-.L324
+.L324:
+	.half	3
+	.word	.L327-.L326
+.L326:
+	.byte	2,1,-4,9,10,0,1,1,1,1,0,0,0,1,0
+	.byte	'..\\Nvm_Files\\FlsDrv\\Flash_TC1782_Driver.c',0,0,0,0,0
+.L327:
+	.byte	5,11,7,0,5,2
+	.word	.L90
+	.byte	3,172,3,1,5,5,3,2,1,5,16,9
+	.half	.L328-.L90
+	.byte	1,5,2,9
+	.half	.L329-.L328
+	.byte	1,5,6,7,9
+	.half	.L330-.L329
+	.byte	3,2,1,5,45,7,9
+	.half	.L331-.L330
+	.byte	1,5,17,7,9
+	.half	.L332-.L331
+	.byte	3,2,1,5,15,9
+	.half	.L333-.L332
+	.byte	1,5,13,9
+	.half	.L334-.L333
+	.byte	3,2,1,5,7,9
+	.half	.L335-.L334
+	.byte	3,3,1,5,49,7,9
+	.half	.L336-.L335
+	.byte	1,5,60,9
+	.half	.L337-.L336
+	.byte	1,5,69,9
+	.half	.L338-.L337
+	.byte	1,5,66,9
+	.half	.L339-.L338
+	.byte	1,5,26,7,9
+	.half	.L340-.L339
+	.byte	3,2,1,5,43,9
+	.half	.L341-.L340
+	.byte	1,5,24,9
+	.half	.L43-.L341
+	.byte	3,2,1,5,12,9
+	.half	.L342-.L43
+	.byte	1,5,55,7,9
+	.half	.L343-.L342
+	.byte	1,5,66,9
+	.half	.L344-.L343
+	.byte	1,5,75,9
+	.half	.L345-.L344
+	.byte	1,5,72,9
+	.half	.L346-.L345
+	.byte	1,5,24,7,9
+	.half	.L46-.L346
+	.byte	3,4,1,5,12,9
+	.half	.L347-.L46
+	.byte	1,5,55,7,9
+	.half	.L348-.L347
+	.byte	1,5,66,9
+	.half	.L349-.L348
+	.byte	1,5,75,9
+	.half	.L350-.L349
+	.byte	1,5,72,9
+	.half	.L351-.L350
+	.byte	1,5,26,7,9
+	.half	.L47-.L351
+	.byte	3,2,1,5,43,9
+	.half	.L352-.L47
+	.byte	1,5,26,9
+	.half	.L48-.L352
+	.byte	3,4,1,5,4,9
+	.half	.L45-.L48
+	.byte	3,3,1,5,29,9
+	.half	.L181-.L45
+	.byte	3,2,1,5,21,9
+	.half	.L242-.L181
+	.byte	3,2,1,5,62,9
+	.half	.L52-.L242
+	.byte	1,5,34,3,2,1,5,32,9
+	.half	.L353-.L52
+	.byte	1,5,49,9
+	.half	.L354-.L353
+	.byte	3,126,1,5,14,7,9
+	.half	.L355-.L354
+	.byte	3,5,1,5,1,9
+	.half	.L40-.L355
+	.byte	3,5,1,7,9
+	.half	.L122-.L40
+	.byte	0,1,1
+.L325:
+	.sdecl	'.debug_ranges',debug,cluster('Fls_Read')
+	.sect	'.debug_ranges'
+.L121:
+	.word	-1,.L90,0,.L122-.L90,0,0
+	.sdecl	'.debug_info',debug,cluster('Fls_GetStatus')
+	.sect	'.debug_info'
+.L123:
+	.word	213
+	.half	3
+	.word	.L124
+	.byte	4,1
+	.byte	'..\\Nvm_Files\\FlsDrv\\Flash_TC1782_Driver.c',0
+	.byte	'TASKING VX-toolset for TriCore: C compiler',0
+	.byte	'D:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_1.9\\BMU_BOOT\\Debug\\',0,12,1
+	.word	.L126,.L125
+	.byte	2
+	.word	.L99
+	.byte	3
+	.byte	'Fls_GetStatus',0,1,234,3,7
+	.word	.L163
+	.byte	1,1,1
+	.word	.L92,.L183,.L91
+	.byte	4
+	.word	.L92,.L183
+	.byte	0,0
+	.sdecl	'.debug_abbrev',debug,cluster('Fls_GetStatus')
+	.sect	'.debug_abbrev'
+.L124:
+	.byte	1,17,1,3,8,37,8,27,8,19,15,128,70,12,85,6,16,6,0,0,2,61,0,24,16,0,0,3,46,1,3,8,58,15,59,15,57,15,73,16
+	.byte	54,15,39,12,63,12,17,1,18,1,64,6,0,0,4,11,0,17,1,18,1,0,0,0
+	.sdecl	'.debug_line',debug,cluster('Fls_GetStatus')
+	.sect	'.debug_line'
+.L125:
+	.word	.L357-.L356
+.L356:
+	.half	3
+	.word	.L359-.L358
+.L358:
+	.byte	2,1,-4,9,10,0,1,1,1,1,0,0,0,1,0
+	.byte	'..\\Nvm_Files\\FlsDrv\\Flash_TC1782_Driver.c',0,0,0,0,0
+.L359:
+	.byte	5,9,7,0,5,2
+	.word	.L92
+	.byte	3,235,3,1,5,20,9
+	.half	.L360-.L92
+	.byte	1,5,1,9
+	.half	.L361-.L360
+	.byte	3,1,1,7,9
+	.half	.L127-.L361
+	.byte	0,1,1
+.L357:
+	.sdecl	'.debug_ranges',debug,cluster('Fls_GetStatus')
+	.sect	'.debug_ranges'
+.L126:
+	.word	-1,.L92,0,.L127-.L92,0,0
+	.sdecl	'.debug_info',debug,cluster('Fls_GetJobResult')
+	.sect	'.debug_info'
+.L128:
+	.word	216
+	.half	3
+	.word	.L129
+	.byte	4,1
+	.byte	'..\\Nvm_Files\\FlsDrv\\Flash_TC1782_Driver.c',0
+	.byte	'TASKING VX-toolset for TriCore: C compiler',0
+	.byte	'D:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_1.9\\BMU_BOOT\\Debug\\',0,12,1
+	.word	.L131,.L130
+	.byte	2
+	.word	.L99
+	.byte	3
+	.byte	'Fls_GetJobResult',0,1,128,4,7
+	.word	.L163
+	.byte	1,1,1
+	.word	.L94,.L184,.L93
+	.byte	4
+	.word	.L94,.L184
+	.byte	0,0
+	.sdecl	'.debug_abbrev',debug,cluster('Fls_GetJobResult')
+	.sect	'.debug_abbrev'
+.L129:
+	.byte	1,17,1,3,8,37,8,27,8,19,15,128,70,12,85,6,16,6,0,0,2,61,0,24,16,0,0,3,46,1,3,8,58,15,59,15,57,15,73,16
+	.byte	54,15,39,12,63,12,17,1,18,1,64,6,0,0,4,11,0,17,1,18,1,0,0,0
+	.sdecl	'.debug_line',debug,cluster('Fls_GetJobResult')
+	.sect	'.debug_line'
+.L130:
+	.word	.L363-.L362
+.L362:
+	.half	3
+	.word	.L365-.L364
+.L364:
+	.byte	2,1,-4,9,10,0,1,1,1,1,0,0,0,1,0
+	.byte	'..\\Nvm_Files\\FlsDrv\\Flash_TC1782_Driver.c',0,0,0,0,0
+.L365:
+	.byte	5,9,7,0,5,2
+	.word	.L94
+	.byte	3,129,4,1,5,20,9
+	.half	.L366-.L94
+	.byte	1,5,1,9
+	.half	.L367-.L366
+	.byte	3,1,1,7,9
+	.half	.L132-.L367
+	.byte	0,1,1
+.L363:
+	.sdecl	'.debug_ranges',debug,cluster('Fls_GetJobResult')
+	.sect	'.debug_ranges'
+.L131:
+	.word	-1,.L94,0,.L132-.L94,0,0
+	.sdecl	'.debug_info',debug,cluster('Fls_MainFunction')
+	.sect	'.debug_info'
+.L133:
+	.word	235
+	.half	3
+	.word	.L134
+	.byte	4,1
+	.byte	'..\\Nvm_Files\\FlsDrv\\Flash_TC1782_Driver.c',0
+	.byte	'TASKING VX-toolset for TriCore: C compiler',0
+	.byte	'D:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_1.9\\BMU_BOOT\\Debug\\',0,12,1
+	.word	.L136,.L135
+	.byte	2
+	.word	.L99
+	.byte	3
+	.byte	'Fls_MainFunction',0,1,150,4,6,1,1,1
+	.word	.L96,.L185,.L95
+	.byte	4
+	.word	.L96,.L185
+	.byte	5
+	.byte	'b_Return',0,1,152,4,10
+	.word	.L163,.L186
+	.byte	0,0,0
+	.sdecl	'.debug_abbrev',debug,cluster('Fls_MainFunction')
+	.sect	'.debug_abbrev'
+.L134:
+	.byte	1,17,1,3,8,37,8,27,8,19,15,128,70,12,85,6,16,6,0,0,2,61,0,24,16,0,0,3,46,1,3,8,58,15,59,15,57,15,54,15
+	.byte	39,12,63,12,17,1,18,1,64,6,0,0,4,11,1,17,1,18,1,0,0,5,52,0,3,8,58,15,59,15,57,15,73,16,2,6,0,0,0
+	.sdecl	'.debug_line',debug,cluster('Fls_MainFunction')
+	.sect	'.debug_line'
+.L135:
+	.word	.L369-.L368
+.L368:
+	.half	3
+	.word	.L371-.L370
+.L370:
+	.byte	2,1,-4,9,10,0,1,1,1,1,0,0,0,1,0
+	.byte	'..\\Nvm_Files\\FlsDrv\\Flash_TC1782_Driver.c',0,0,0,0,0
+.L371:
+	.byte	5,9,7,0,5,2
+	.word	.L96
+	.byte	3,153,4,1,5,20,9
+	.half	.L372-.L96
+	.byte	1,5,8,9
+	.half	.L373-.L372
+	.byte	3,2,1,7,9
+	.half	.L374-.L373
+	.byte	3,5,1,7,9
+	.half	.L375-.L374
+	.byte	3,9,1,7,9
+	.half	.L376-.L375
+	.byte	3,27,1,7,9
+	.half	.L377-.L376
+	.byte	3,8,1,7,9
+	.half	.L378-.L377
+	.byte	1,5,24,9
+	.half	.L57-.L378
+	.byte	3,86,1,5,35,9
+	.half	.L379-.L57
+	.byte	3,1,1,5,33,1,5,31,9
+	.half	.L380-.L379
+	.byte	3,1,1,5,4,9
+	.half	.L381-.L380
+	.byte	3,2,1,5,30,9
+	.half	.L58-.L381
+	.byte	3,5,1,5,4,9
+	.half	.L243-.L58
+	.byte	3,2,1,5,19,7,9
+	.half	.L382-.L243
+	.byte	3,8,1,5,5,9
+	.half	.L383-.L382
+	.byte	1,5,34,7,9
+	.half	.L384-.L383
+	.byte	3,2,1,5,19,9
+	.half	.L64-.L384
+	.byte	3,3,1,5,5,9
+	.half	.L385-.L64
+	.byte	1,5,4,7,9
+	.half	.L386-.L385
+	.byte	3,7,1,5,24,9
+	.half	.L59-.L386
+	.byte	3,5,1,5,35,9
+	.half	.L387-.L59
+	.byte	3,1,1,5,33,1,5,31,9
+	.half	.L388-.L387
+	.byte	3,1,1,5,4,9
+	.half	.L389-.L388
+	.byte	3,1,1,5,30,9
+	.half	.L60-.L389
+	.byte	3,5,1,5,4,9
+	.half	.L244-.L60
+	.byte	3,1,1,5,19,7,9
+	.half	.L390-.L244
+	.byte	3,2,1,5,5,9
+	.half	.L391-.L390
+	.byte	1,5,33,7,9
+	.half	.L392-.L391
+	.byte	3,2,1,5,59,9
+	.half	.L393-.L392
+	.byte	1,5,19,9
+	.half	.L68-.L393
+	.byte	3,11,1,5,5,9
+	.half	.L394-.L68
+	.byte	1,5,34,7,9
+	.half	.L395-.L394
+	.byte	3,2,1,5,19,9
+	.half	.L71-.L395
+	.byte	3,3,1,5,5,9
+	.half	.L396-.L71
+	.byte	1,5,35,7,9
+	.half	.L66-.L396
+	.byte	3,2,1,5,4,9
+	.half	.L397-.L66
+	.byte	3,4,1,5,33,9
+	.half	.L61-.L397
+	.byte	3,5,1,5,31,9
+	.half	.L73-.L61
+	.byte	1,9
+	.half	.L398-.L73
+	.byte	3,1,1,5,29,9
+	.half	.L70-.L398
+	.byte	1,5,1,9
+	.half	.L56-.L70
+	.byte	3,4,1,7,9
+	.half	.L137-.L56
+	.byte	0,1,1
+.L369:
+	.sdecl	'.debug_ranges',debug,cluster('Fls_MainFunction')
+	.sect	'.debug_ranges'
+.L136:
+	.word	-1,.L96,0,.L137-.L96,0,0
+	.sdecl	'.debug_info',debug,cluster('ProgramSPRAMPage')
+	.sect	'.debug_info'
+.L138:
+	.word	335
+	.half	3
+	.word	.L139
+	.byte	4,1
+	.byte	'..\\Nvm_Files\\FlsDrv\\Flash_TC1782_Driver.c',0
+	.byte	'TASKING VX-toolset for TriCore: C compiler',0
+	.byte	'D:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_1.9\\BMU_BOOT\\Debug\\',0,12,1
+	.word	.L141,.L140
+	.byte	2
+	.word	.L99
+	.byte	3
+	.byte	'ProgramSPRAMPage',0,1,135,5,6,1,1,1
+	.word	.L98,.L187,.L97
+	.byte	4
+	.byte	'ui32_TA',0,1,135,5,30
+	.word	.L165,.L188
+	.byte	4
+	.byte	'p_ui8_SA',0,1,135,5,46
+	.word	.L171,.L189
+	.byte	4
+	.byte	'ui32_Len',0,1,135,5,63
+	.word	.L165,.L190
+	.byte	5
+	.word	.L98,.L187
+	.byte	5
+	.word	.L191,.L187
+	.byte	6
+	.byte	'dest_ptr',0,1,143,5,10
+	.word	.L192,.L193
+	.byte	6
+	.byte	'ui',0,1,144,5,9
+	.word	.L165,.L194
+	.byte	7
+	.word	.L76,.L195
+	.byte	0,0,0,0
+	.sdecl	'.debug_abbrev',debug,cluster('ProgramSPRAMPage')
+	.sect	'.debug_abbrev'
+.L139:
+	.byte	1,17,1,3,8,37,8,27,8,19,15,128,70,12,85,6,16,6,0,0,2,61,0,24,16,0,0,3,46,1,3,8,58,15,59,15,57,15,54,15
+	.byte	39,12,63,12,17,1,18,1,64,6,0,0,4,5,0,3,8,58,15,59,15,57,15,73,16,2,6,0,0,5,11,1,17,1,18,1,0,0,6,52,0,3
+	.byte	8,58,15,59,15,57,15,73,16,2,6,0,0,7,11,0,17,1,18,1,0,0,0
+	.sdecl	'.debug_line',debug,cluster('ProgramSPRAMPage')
+	.sect	'.debug_line'
+.L140:
+	.word	.L400-.L399
+.L399:
+	.half	3
+	.word	.L402-.L401
+.L401:
+	.byte	2,1,-4,9,10,0,1,1,1,1,0,0,0,1,0
+	.byte	'..\\Nvm_Files\\FlsDrv\\Flash_TC1782_Driver.c',0,0,0,0,0
+.L402:
+	.byte	5,14,7,0,5,2
+	.word	.L98
+	.byte	3,137,5,1,5,2,9
+	.half	.L403-.L98
+	.byte	1,5,19,7,9
+	.half	.L191-.L403
+	.byte	3,5,1,5,9,9
+	.half	.L245-.L191
+	.byte	3,3,1,5,24,9
+	.half	.L246-.L245
+	.byte	1,5,32,9
+	.half	.L76-.L246
+	.byte	3,5,1,9
+	.half	.L404-.L76
+	.byte	3,126,1,5,47,9
+	.half	.L405-.L404
+	.byte	1,5,32,3,127,1,5,11,9
+	.half	.L406-.L405
+	.byte	3,1,1,5,32,3,1,1,5,47,9
+	.half	.L407-.L406
+	.byte	1,5,11,9
+	.half	.L408-.L407
+	.byte	1,5,32,3,1,1,5,47,9
+	.half	.L409-.L408
+	.byte	1,5,11,9
+	.half	.L410-.L409
+	.byte	1,5,15,3,1,1,5,28,9
+	.half	.L195-.L410
+	.byte	3,122,1,5,24,9
+	.half	.L75-.L195
+	.byte	1,5,1,7,9
+	.half	.L74-.L75
+	.byte	3,8,1,7,9
+	.half	.L142-.L74
+	.byte	0,1,1
+.L400:
+	.sdecl	'.debug_ranges',debug,cluster('ProgramSPRAMPage')
+	.sect	'.debug_ranges'
+.L141:
+	.word	-1,.L98,0,.L142-.L98,0,0
+	.sdecl	'.debug_info',debug,cluster('Fls_EraseSectorStart')
+	.sect	'.debug_info'
+.L143:
+	.word	293
+	.half	3
+	.word	.L144
+	.byte	4,1
+	.byte	'..\\Nvm_Files\\FlsDrv\\Flash_TC1782_Driver.c',0
+	.byte	'TASKING VX-toolset for TriCore: C compiler',0
+	.byte	'D:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_1.9\\BMU_BOOT\\Debug\\',0,12,1
+	.word	.L146,.L145
+	.byte	2
+	.word	.L99
+	.byte	3
+	.byte	'Fls_EraseSectorStart',0,1,60,6,1,1,1
+	.word	.L78,.L196,.L77
+	.byte	4
+	.word	.L78,.L196
+	.byte	5
+	.byte	'dwAddr',0,1,62,9
+	.word	.L165,.L197
+	.byte	4
+	.word	.L3,.L196
+	.byte	5
+	.byte	'pdwAddr5554',0,1,75,10
+	.word	.L192,.L198
+	.byte	5
+	.byte	'pdwAddrAAA8',0,1,76,10
+	.word	.L192,.L199
+	.byte	0,0,0,0
+	.sdecl	'.debug_abbrev',debug,cluster('Fls_EraseSectorStart')
+	.sect	'.debug_abbrev'
+.L144:
+	.byte	1,17,1,3,8,37,8,27,8,19,15,128,70,12,85,6,16,6,0,0,2,61,0,24,16,0,0,3,46,1,3,8,58,15,59,15,57,15,54,15
+	.byte	39,12,63,12,17,1,18,1,64,6,0,0,4,11,1,17,1,18,1,0,0,5,52,0,3,8,58,15,59,15,57,15,73,16,2,6,0,0,0
+	.sdecl	'.debug_line',debug,cluster('Fls_EraseSectorStart')
+	.sect	'.debug_line'
+.L145:
+	.word	.L412-.L411
+.L411:
+	.half	3
+	.word	.L414-.L413
+.L413:
+	.byte	2,1,-4,9,10,0,1,1,1,1,0,0,0,1,0
+	.byte	'..\\Nvm_Files\\FlsDrv\\Flash_TC1782_Driver.c',0,0,0,0,0
+.L414:
+	.byte	5,12,7,0,5,2
+	.word	.L78
+	.byte	3,194,0,1,5,23,9
+	.half	.L415-.L78
+	.byte	1,5,16,9
+	.half	.L416-.L415
+	.byte	3,126,1,5,2,9
+	.half	.L417-.L416
+	.byte	1,5,38,7,9
+	.half	.L418-.L417
+	.byte	3,2,1,5,54,9
+	.half	.L216-.L418
+	.byte	1,5,38,9
+	.half	.L2-.L216
+	.byte	3,4,1,9
+	.half	.L3-.L2
+	.byte	3,4,1,5,21,9
+	.half	.L218-.L3
+	.byte	1,5,39,9
+	.half	.L220-.L218
+	.byte	3,1,1,5,38,9
+	.half	.L219-.L220
+	.byte	1,5,21,9
+	.half	.L217-.L219
+	.byte	1,5,15,9
+	.half	.L222-.L217
+	.byte	3,4,1,5,14,1,5,15,9
+	.half	.L221-.L222
+	.byte	3,3,1,5,14,1,5,15,9
+	.half	.L419-.L221
+	.byte	3,1,1,5,14,1,5,15,9
+	.half	.L420-.L419
+	.byte	3,1,1,5,14,1,9
+	.half	.L421-.L420
+	.byte	3,1,1,9
+	.half	.L422-.L421
+	.byte	3,1,1,5,25,9
+	.half	.L423-.L422
+	.byte	3,4,1,5,5,9
+	.half	.L424-.L423
+	.byte	1,5,16,9
+	.half	.L425-.L424
+	.byte	3,126,1,5,26,9
+	.half	.L426-.L425
+	.byte	1,5,41,9
+	.half	.L427-.L426
+	.byte	3,2,1,5,40,1,5,1,9
+	.half	.L428-.L427
+	.byte	3,6,1,7,9
+	.half	.L147-.L428
+	.byte	0,1,1
+.L412:
+	.sdecl	'.debug_ranges',debug,cluster('Fls_EraseSectorStart')
+	.sect	'.debug_ranges'
+.L146:
+	.word	-1,.L78,0,.L147-.L78,0,0
+	.sdecl	'.debug_info',debug,cluster('Fls_ProgramPageStart')
+	.sect	'.debug_info'
+.L148:
+	.word	384
+	.half	3
+	.word	.L149
+	.byte	4,1
+	.byte	'..\\Nvm_Files\\FlsDrv\\Flash_TC1782_Driver.c',0
+	.byte	'TASKING VX-toolset for TriCore: C compiler',0
+	.byte	'D:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_1.9\\BMU_BOOT\\Debug\\',0,12,1
+	.word	.L151,.L150
+	.byte	2
+	.word	.L99
+	.byte	3
+	.byte	'Fls_ProgramPageStart',0,1,111,6,1,1,1
+	.word	.L80,.L200,.L79
+	.byte	4
+	.word	.L80,.L200
+	.byte	5
+	.byte	'ui16_Loop_1',0,1,113,9
+	.word	.L201,.L202
+	.byte	5
+	.byte	'dwFlashBaseAddr',0,1,114,10
+	.word	.L165,.L203
+	.byte	5
+	.byte	'ui16_PageSize',0,1,115,9
+	.word	.L201,.L204
+	.byte	4
+	.word	.L5,.L200
+	.byte	5
+	.byte	'pdwAddr5554',0,1,129,1,10
+	.word	.L192,.L205
+	.byte	5
+	.byte	'pdwAddrAAA8',0,1,130,1,10
+	.word	.L192,.L206
+	.byte	5
+	.byte	'pqwAddr55F0',0,1,131,1,9
+	.word	.L207,.L208
+	.byte	6
+	.word	.L209
+	.byte	0,0,0,0
+	.sdecl	'.debug_abbrev',debug,cluster('Fls_ProgramPageStart')
+	.sect	'.debug_abbrev'
+.L149:
+	.byte	1,17,1,3,8,37,8,27,8,19,15,128,70,12,85,6,16,6,0,0,2,61,0,24,16,0,0,3,46,1,3,8,58,15,59,15,57,15,54,15
+	.byte	39,12,63,12,17,1,18,1,64,6,0,0,4,11,1,17,1,18,1,0,0,5,52,0,3,8,58,15,59,15,57,15,73,16,2,6,0,0,6,11,0
+	.byte	85,6,0,0,0
+	.sdecl	'.debug_line',debug,cluster('Fls_ProgramPageStart')
+	.sect	'.debug_line'
+.L150:
+	.word	.L430-.L429
+.L429:
+	.half	3
+	.word	.L432-.L431
+.L431:
+	.byte	2,1,-4,9,10,0,1,1,1,1,0,0,0,1,0
+	.byte	'..\\Nvm_Files\\FlsDrv\\Flash_TC1782_Driver.c',0,0,0,0,0
+.L432:
+	.byte	5,21,7,0,5,2
+	.word	.L80
+	.byte	3,246,0,1,5,32,9
+	.half	.L433-.L80
+	.byte	1,5,16,9
+	.half	.L434-.L433
+	.byte	3,126,1,5,2,9
+	.half	.L435-.L434
+	.byte	1,5,47,7,9
+	.half	.L436-.L435
+	.byte	3,2,1,5,17,9
+	.half	.L223-.L436
+	.byte	3,1,1,5,63,9
+	.half	.L224-.L223
+	.byte	3,127,1,5,45,9
+	.half	.L4-.L224
+	.byte	3,5,1,5,17,9
+	.half	.L225-.L4
+	.byte	3,1,1,5,49,9
+	.half	.L5-.L225
+	.byte	3,4,1,5,22,9
+	.half	.L227-.L5
+	.byte	1,5,50,9
+	.half	.L229-.L227
+	.byte	3,1,1,5,49,9
+	.half	.L228-.L229
+	.byte	1,5,22,9
+	.half	.L437-.L228
+	.byte	1,5,47,9
+	.half	.L231-.L437
+	.byte	3,1,1,5,21,9
+	.half	.L230-.L231
+	.byte	1,5,17,9
+	.half	.L233-.L230
+	.byte	3,3,1,5,15,1,5,16,9
+	.half	.L226-.L233
+	.byte	3,3,1,5,2,9
+	.half	.L438-.L226
+	.byte	1,5,18,7,9
+	.half	.L439-.L438
+	.byte	3,2,1,5,28,9
+	.half	.L440-.L439
+	.byte	1,5,18,9
+	.half	.L6-.L440
+	.byte	3,4,1,5,16,9
+	.half	.L7-.L6
+	.byte	1,5,18,9
+	.half	.L441-.L7
+	.byte	3,4,1,5,34,3,10,1,5,15,9
+	.half	.L442-.L441
+	.byte	3,121,1,5,49,1,5,77,9
+	.half	.L443-.L442
+	.byte	1,5,48,3,127,1,5,77,9
+	.half	.L444-.L443
+	.byte	3,1,1,5,49,3,5,1,5,11,9
+	.half	.L445-.L444
+	.byte	3,123,1,5,49,3,1,1,5,14,9
+	.half	.L446-.L445
+	.byte	3,126,1,5,11,9
+	.half	.L447-.L446
+	.byte	3,1,1,5,15,9
+	.half	.L448-.L447
+	.byte	3,1,1,5,77,9
+	.half	.L449-.L448
+	.byte	1,5,11,9
+	.half	.L450-.L449
+	.byte	1,5,49,3,1,1,5,11,9
+	.half	.L451-.L450
+	.byte	3,127,1,5,15,9
+	.half	.L452-.L451
+	.byte	3,1,1,5,77,9
+	.half	.L453-.L452
+	.byte	1,5,11,9
+	.half	.L454-.L453
+	.byte	1,5,49,9
+	.half	.L455-.L454
+	.byte	3,2,1,5,11,9
+	.half	.L456-.L455
+	.byte	1,9
+	.half	.L457-.L456
+	.byte	3,1,1,5,77,9
+	.half	.L458-.L457
+	.byte	1,5,49,3,1,1,5,11,9
+	.half	.L459-.L458
+	.byte	3,127,1,9
+	.half	.L460-.L459
+	.byte	3,1,1,5,77,9
+	.half	.L461-.L460
+	.byte	1,5,49,3,1,1,5,11,9
+	.half	.L462-.L461
+	.byte	3,127,1,9
+	.half	.L463-.L462
+	.byte	3,1,1,5,77,9
+	.half	.L464-.L463
+	.byte	1,5,65,9
+	.half	.L210-.L464
+	.byte	3,118,1,5,11,9
+	.half	.L211-.L210
+	.byte	3,10,1,5,16,3,2,1,5,51,9
+	.half	.L212-.L211
+	.byte	3,116,1,5,17,7,9
+	.half	.L465-.L212
+	.byte	3,16,1,5,15,1,5,17,9
+	.half	.L232-.L465
+	.byte	3,1,1,5,15,1,5,17,9
+	.half	.L466-.L232
+	.byte	3,1,1,5,15,1,5,24,9
+	.half	.L467-.L466
+	.byte	3,1,1,5,4,9
+	.half	.L468-.L467
+	.byte	1,5,40,9
+	.half	.L469-.L468
+	.byte	1,5,16,9
+	.half	.L470-.L469
+	.byte	3,2,1,5,2,9
+	.half	.L471-.L470
+	.byte	1,5,30,7,9
+	.half	.L472-.L471
+	.byte	3,2,1,5,46,9
+	.half	.L473-.L472
+	.byte	1,5,30,9
+	.half	.L9-.L473
+	.byte	3,4,1,5,2,9
+	.half	.L10-.L9
+	.byte	3,3,1,5,14,7,9
+	.half	.L474-.L10
+	.byte	3,2,1,5,29,9
+	.half	.L475-.L474
+	.byte	1,5,14,9
+	.half	.L476-.L475
+	.byte	3,1,1,5,30,9
+	.half	.L477-.L476
+	.byte	1,5,1,9
+	.half	.L11-.L477
+	.byte	3,2,1,9
+	.half	.L152-.L11
+	.byte	0,1,1
+.L430:
+	.sdecl	'.debug_ranges',debug,cluster('Fls_ProgramPageStart')
+	.sect	'.debug_ranges'
+.L151:
+	.word	-1,.L80,0,.L152-.L80,0,0
+.L209:
+	.word	-1,.L80,.L8-.L80,.L210-.L80,.L211-.L80,.L212-.L80,0,0
+	.sdecl	'.debug_info',debug,cluster('Fls_OperateWait')
+	.sect	'.debug_info'
+.L153:
+	.word	215
+	.half	3
+	.word	.L154
+	.byte	4,1
+	.byte	'..\\Nvm_Files\\FlsDrv\\Flash_TC1782_Driver.c',0
+	.byte	'TASKING VX-toolset for TriCore: C compiler',0
+	.byte	'D:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_1.9\\BMU_BOOT\\Debug\\',0,12,1
+	.word	.L156,.L155
+	.byte	2
+	.word	.L99
+	.byte	3
+	.byte	'Fls_OperateWait',0,1,196,1,9
+	.word	.L163
+	.byte	1,1,1
+	.word	.L82,.L213,.L81
+	.byte	4
+	.word	.L82,.L213
+	.byte	0,0
+	.sdecl	'.debug_abbrev',debug,cluster('Fls_OperateWait')
+	.sect	'.debug_abbrev'
+.L154:
+	.byte	1,17,1,3,8,37,8,27,8,19,15,128,70,12,85,6,16,6,0,0,2,61,0,24,16,0,0,3,46,1,3,8,58,15,59,15,57,15,73,16
+	.byte	54,15,39,12,63,12,17,1,18,1,64,6,0,0,4,11,0,17,1,18,1,0,0,0
+	.sdecl	'.debug_line',debug,cluster('Fls_OperateWait')
+	.sect	'.debug_line'
+.L155:
+	.word	.L479-.L478
+.L478:
+	.half	3
+	.word	.L481-.L480
+.L480:
+	.byte	2,1,-4,9,10,0,1,1,1,1,0,0,0,1,0
+	.byte	'..\\Nvm_Files\\FlsDrv\\Flash_TC1782_Driver.c',0,0,0,0,0
+.L481:
+	.byte	5,6,7,0,5,2
+	.word	.L82
+	.byte	3,204,1,1,5,14,9
+	.half	.L482-.L82
+	.byte	1,5,1,9
+	.half	.L483-.L482
+	.byte	3,9,1,7,9
+	.half	.L157-.L483
+	.byte	0,1,1
+.L479:
+	.sdecl	'.debug_ranges',debug,cluster('Fls_OperateWait')
+	.sect	'.debug_ranges'
+.L156:
+	.word	-1,.L82,0,.L157-.L82,0,0
+	.sdecl	'.debug_info',debug,cluster('st_Fls_Info')
+	.sect	'.debug_info'
+.L158:
+	.word	184
+	.half	3
+	.word	.L159
+	.byte	4,1
+	.byte	'..\\Nvm_Files\\FlsDrv\\Flash_TC1782_Driver.c',0
+	.byte	'TASKING VX-toolset for TriCore: C compiler',0
+	.byte	'D:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_1.9\\BMU_BOOT\\Debug\\',0,12,1,2
+	.word	.L99
+	.byte	3
+	.byte	'st_Fls_Info',0,1,46,17
+	.word	.L214
+	.byte	1,5,3
+	.word	st_Fls_Info
+	.byte	0
+	.sdecl	'.debug_abbrev',debug,cluster('st_Fls_Info')
+	.sect	'.debug_abbrev'
+.L159:
+	.byte	1,17,1,3,8,37,8,27,8,19,15,128,70,12,0,0,2,61,0,24,16,0,0,3,52,0,3,8,58,15,59,15,57,15,73,16,63,12,2,9
+	.byte	0,0,0
+	.sdecl	'.debug_info',debug,cluster('ui32_Fls_SectorBaseAddr')
+	.sect	'.debug_info'
+.L160:
+	.word	196
+	.half	3
+	.word	.L161
+	.byte	4,1
+	.byte	'..\\Nvm_Files\\FlsDrv\\Flash_TC1782_Driver.c',0
+	.byte	'TASKING VX-toolset for TriCore: C compiler',0
+	.byte	'D:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_1.9\\BMU_BOOT\\Debug\\',0,12,1,2
+	.word	.L99
+	.byte	3
+	.byte	'ui32_Fls_SectorBaseAddr',0,1,22,8
+	.word	.L215
+	.byte	1,5,3
+	.word	ui32_Fls_SectorBaseAddr
+	.byte	0
+	.sdecl	'.debug_abbrev',debug,cluster('ui32_Fls_SectorBaseAddr')
+	.sect	'.debug_abbrev'
+.L161:
+	.byte	1,17,1,3,8,37,8,27,8,19,15,128,70,12,0,0,2,61,0,24,16,0,0,3,52,0,3,8,58,15,59,15,57,15,73,16,63,12,2,9
+	.byte	0,0,0
+	.sdecl	'.debug_loc',debug,cluster('Fls_Erase')
+	.sect	'.debug_loc'
+.L85:
+	.word	-1,.L86,0,.L164-.L86
+	.half	2
+	.byte	138,0
+	.word	0,0
+.L168:
+	.word	-1,.L86,.L238-.L86,.L13-.L86
+	.half	5
+	.byte	144,33,157,32,0
+	.word	.L23-.L86,.L164-.L86
+	.half	5
+	.byte	144,33,157,32,0
+	.word	0,0
+.L166:
+	.word	-1,.L86,0,.L234-.L86
+	.half	5
+	.byte	144,34,157,32,0
+	.word	.L235-.L86,.L236-.L86
+	.half	5
+	.byte	144,39,157,32,32
+	.word	0,0
+.L167:
+	.word	-1,.L86,.L237-.L86,.L13-.L86
+	.half	5
+	.byte	144,32,157,32,32
+	.word	0,0
+	.sdecl	'.debug_loc',debug,cluster('Fls_EraseSectorStart')
+	.sect	'.debug_loc'
+.L77:
+	.word	-1,.L78,0,.L196-.L78
+	.half	2
+	.byte	138,0
+	.word	0,0
+.L197:
+	.word	-1,.L78,.L216-.L78,.L2-.L78
+	.half	5
+	.byte	144,39,157,32,32
+	.word	.L3-.L78,.L217-.L78
+	.half	5
+	.byte	144,39,157,32,32
+	.word	0,0
+.L198:
+	.word	-1,.L78,.L218-.L78,.L219-.L78
+	.half	5
+	.byte	144,32,157,32,0
+	.word	.L220-.L78,.L196-.L78
+	.half	1
+	.byte	100
+	.word	0,0
+.L199:
+	.word	-1,.L78,.L219-.L78,.L221-.L78
+	.half	5
+	.byte	144,39,157,32,32
+	.word	.L222-.L78,.L196-.L78
+	.half	1
+	.byte	101
+	.word	0,0
+	.sdecl	'.debug_loc',debug,cluster('Fls_GetJobResult')
+	.sect	'.debug_loc'
+.L93:
+	.word	-1,.L94,0,.L184-.L94
+	.half	2
+	.byte	138,0
+	.word	0,0
+	.sdecl	'.debug_loc',debug,cluster('Fls_GetStatus')
+	.sect	'.debug_loc'
+.L91:
+	.word	-1,.L92,0,.L183-.L92
+	.half	2
+	.byte	138,0
+	.word	0,0
+	.sdecl	'.debug_loc',debug,cluster('Fls_Init')
+	.sect	'.debug_loc'
+.L83:
+	.word	-1,.L84,0,.L162-.L84
+	.half	2
+	.byte	138,0
+	.word	0,0
+	.sdecl	'.debug_loc',debug,cluster('Fls_MainFunction')
+	.sect	'.debug_loc'
+.L95:
+	.word	-1,.L96,0,.L185-.L96
+	.half	2
+	.byte	138,0
+	.word	0,0
+.L186:
+	.word	-1,.L96,.L243-.L96,.L59-.L96
+	.half	5
+	.byte	144,33,157,32,0
+	.word	.L244-.L96,.L66-.L96
+	.half	5
+	.byte	144,33,157,32,0
+	.word	0,0
+	.sdecl	'.debug_loc',debug,cluster('Fls_OperateWait')
+	.sect	'.debug_loc'
+.L81:
+	.word	-1,.L82,0,.L213-.L82
+	.half	2
+	.byte	138,0
+	.word	0,0
+	.sdecl	'.debug_loc',debug,cluster('Fls_ProgramPageStart')
+	.sect	'.debug_loc'
+.L79:
+	.word	-1,.L80,0,.L200-.L80
+	.half	2
+	.byte	138,0
+	.word	0,0
+.L203:
+	.word	-1,.L80,.L223-.L80,.L4-.L80
+	.half	5
+	.byte	144,39,157,32,32
+	.word	.L225-.L80,.L226-.L80
+	.half	5
+	.byte	144,39,157,32,32
+	.word	0,0
+.L205:
+	.word	-1,.L80,.L227-.L80,.L228-.L80
+	.half	5
+	.byte	144,32,157,32,0
+	.word	.L229-.L80,.L200-.L80
+	.half	1
+	.byte	100
+	.word	0,0
+.L206:
+	.word	-1,.L80,.L228-.L80,.L230-.L80
+	.half	5
+	.byte	144,32,157,32,0
+	.word	.L231-.L80,.L200-.L80
+	.half	1
+	.byte	101
+	.word	0,0
+.L208:
+	.word	-1,.L80,.L230-.L80,.L232-.L80
+	.half	5
+	.byte	144,32,157,32,0
+	.word	.L233-.L80,.L200-.L80
+	.half	1
+	.byte	102
+	.word	0,0
+.L202:
+	.word	-1,.L80,.L8-.L80,.L200-.L80
+	.half	5
+	.byte	144,35,157,32,0
+	.word	0,0
+.L204:
+	.word	-1,.L80,.L224-.L80,.L4-.L80
+	.half	5
+	.byte	144,32,157,32,32
+	.word	.L5-.L80,.L200-.L80
+	.half	5
+	.byte	144,32,157,32,32
+	.word	0,0
+	.sdecl	'.debug_loc',debug,cluster('Fls_Read')
+	.sect	'.debug_loc'
+.L89:
+	.word	-1,.L90,0,.L175-.L90
+	.half	2
+	.byte	138,0
+	.word	0,0
+.L180:
+	.word	-1,.L90,.L241-.L90,.L175-.L90
+	.half	5
+	.byte	144,33,157,32,0
+	.word	0,0
+.L178:
+	.word	-1,.L90,0,.L175-.L90
+	.half	5
+	.byte	144,34,157,32,32
+	.word	0,0
+.L179:
+	.word	-1,.L90,.L52-.L90,.L40-.L90
+	.half	5
+	.byte	144,39,157,32,32
+	.word	0,0
+.L176:
+	.word	-1,.L90,0,.L40-.L90
+	.half	5
+	.byte	144,34,157,32,0
+	.word	0,0
+.L182:
+	.word	-1,.L90,.L242-.L90,.L40-.L90
+	.half	1
+	.byte	111
+	.word	0,0
+.L177:
+	.word	-1,.L90,0,.L175-.L90
+	.half	1
+	.byte	100
+	.word	0,0
+	.sdecl	'.debug_loc',debug,cluster('Fls_Write')
+	.sect	'.debug_loc'
+.L87:
+	.word	-1,.L88,0,.L169-.L88
+	.half	2
+	.byte	138,0
+	.word	0,0
+.L174:
+	.word	-1,.L88,.L239-.L88,.L25-.L88
+	.half	5
+	.byte	144,39,157,32,32
+	.word	.L38-.L88,.L169-.L88
+	.half	5
+	.byte	144,39,157,32,32
+	.word	.L240-.L88,.L169-.L88
+	.half	5
+	.byte	144,33,157,32,0
+	.word	0,0
+.L172:
+	.word	-1,.L88,0,.L169-.L88
+	.half	1
+	.byte	100
+	.word	0,0
+.L173:
+	.word	-1,.L88,0,.L169-.L88
+	.half	5
+	.byte	144,34,157,32,32
+	.word	0,0
+.L170:
+	.word	-1,.L88,0,.L25-.L88
+	.half	5
+	.byte	144,34,157,32,0
+	.word	0,0
+	.sdecl	'.debug_loc',debug,cluster('ProgramSPRAMPage')
+	.sect	'.debug_loc'
+.L97:
+	.word	-1,.L98,0,.L187-.L98
+	.half	2
+	.byte	138,0
+	.word	0,0
+.L193:
+	.word	-1,.L98,.L245-.L98,.L74-.L98
+	.half	1
+	.byte	98
+	.word	0,0
+.L189:
+	.word	-1,.L98,0,.L187-.L98
+	.half	1
+	.byte	100
+	.word	0,0
+.L194:
+	.word	-1,.L98,.L246-.L98,.L74-.L98
+	.half	5
+	.byte	144,32,157,32,32
+	.word	0,0
+.L190:
+	.word	-1,.L98,0,.L187-.L98
+	.half	5
+	.byte	144,34,157,32,32
+	.word	0,0
+.L188:
+	.word	-1,.L98,0,.L187-.L98
+	.half	5
+	.byte	144,34,157,32,0
+	.word	0,0
+	.sdecl	'.debug_frame',debug
+	.sect	'.debug_frame'
+.L484:
+	.word	48
+	.word	-1
+	.byte	3,0,2,1,27,12,26,0,8,26,8,27,8,30,8,29,8,28,8,16,8,17,8,24,8,25,8,31,8,32,8,33,8,34,8,35,8,36,8,37,8,38
+	.byte	8,39
+	.sdecl	'.debug_frame',debug,cluster('Fls_EraseSectorStart')
+	.sect	'.debug_frame'
+	.word	20
+	.word	.L484,.L78,.L196-.L78
+	.byte	8,19,8,22,8,23,0,0
+	.sdecl	'.debug_frame',debug,cluster('Fls_ProgramPageStart')
+	.sect	'.debug_frame'
+	.word	16
+	.word	.L484,.L80,.L200-.L80
+	.byte	8,19,0,0
+	.sdecl	'.debug_frame',debug,cluster('Fls_OperateWait')
+	.sect	'.debug_frame'
+	.word	24
+	.word	.L484,.L82,.L213-.L82
+	.byte	8,18,8,19,8,20,8,21,8,22,8,23
+	.sdecl	'.debug_frame',debug,cluster('Fls_Init')
+	.sect	'.debug_frame'
+	.word	24
+	.word	.L484,.L84,.L162-.L84
+	.byte	8,18,8,19,8,20,8,21,8,22,8,23
+	.sdecl	'.debug_frame',debug,cluster('Fls_Erase')
+	.sect	'.debug_frame'
+	.word	16
+	.word	.L484,.L86,.L164-.L86
+	.byte	8,19,8,23
+	.sdecl	'.debug_frame',debug,cluster('Fls_Write')
+	.sect	'.debug_frame'
+	.word	20
+	.word	.L484,.L88,.L169-.L88
+	.byte	8,19,8,22,8,23,0,0
+	.sdecl	'.debug_frame',debug,cluster('Fls_Read')
+	.sect	'.debug_frame'
+	.word	24
+	.word	.L484,.L90,.L175-.L90
+	.byte	8,18,8,19,8,21,8,22,8,23,0,0
+	.sdecl	'.debug_frame',debug,cluster('Fls_GetStatus')
+	.sect	'.debug_frame'
+	.word	24
+	.word	.L484,.L92,.L183-.L92
+	.byte	8,18,8,19,8,20,8,21,8,22,8,23
+	.sdecl	'.debug_frame',debug,cluster('Fls_GetJobResult')
+	.sect	'.debug_frame'
+	.word	24
+	.word	.L484,.L94,.L184-.L94
+	.byte	8,18,8,19,8,20,8,21,8,22,8,23
+	.sdecl	'.debug_frame',debug,cluster('Fls_MainFunction')
+	.sect	'.debug_frame'
+	.word	12
+	.word	.L484,.L96,.L185-.L96
+	.sdecl	'.debug_frame',debug,cluster('ProgramSPRAMPage')
+	.sect	'.debug_frame'
+	.word	20
+	.word	.L484,.L98,.L187-.L98
+	.byte	8,19,8,21,8,22,8,23
+
+
+	; Module end

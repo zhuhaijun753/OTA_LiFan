@@ -1,0 +1,636 @@
+	; Module start
+	.compiler_version	"TASKING VX-toolset for TriCore: C compiler v4.3r1 Build 759 SN 00641831"
+	.compiler_invocation	"ctc -f cc2172a -c99 --dep-file=Communication_Files\\Uds\\Dcm\\.Uds_Dcm_TransferData.o.d -D__CPU__=tc1782 -D__CPU_TC1782__ --core=tc1.3.1 -F -ID:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_1.9\\BMU_BOOT -ID:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_1.9\\BMU_BOOT\\Communication_Files\\CanDrv -ID:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_1.9\\BMU_BOOT\\Communication_Files\\Com -ID:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_1.9\\BMU_BOOT\\Communication_Files\\Com\\Can_Input -ID:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_1.9\\BMU_BOOT\\Communication_Files\\Com\\Can_Output -ID:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_1.9\\BMU_BOOT\\Communication_Files\\Uds\\Dcm -ID:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_1.9\\BMU_BOOT\\Communication_Files\\Uds\\Dem -ID:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_1.9\\BMU_BOOT\\Communication_Files\\Uds\\Tp -ID:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_1.9\\BMU_BOOT\\Communication_Files\\Uds\\User -ID:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_1.9\\BMU_BOOT\\Complex_Files -ID:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_1.9\\BMU_BOOT\\Initiate_Files -ID:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_1.9\\BMU_BOOT\\Nvm_Files\\FlsDrv -ID:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_1.9\\BMU_BOOT\\Stand_Header -g2 --make-target=Communication_Files\\Uds\\Dcm\\Uds_Dcm_TransferData.o -t4 --language=-gcc,-volatile,+strings --default-near-size=0 -O2 --default-a1-size=0 --default-a0-size=0 --source --align=0 --compact-max-size=200 --switch=auto -o Communication_Files\\Uds\\Dcm\\Uds_Dcm_TransferData.src ..\\Communication_Files\\Uds\\Dcm\\Uds_Dcm_TransferData.c"
+	.compiler_name		"ctc"
+	.name	"Uds_Dcm_TransferData"
+
+	
+$TC131
+	
+	.sdecl	'.text.Uds_Dcm_TransferData.UdsFunc_SID_TRADATA_Analysis',code,cluster('UdsFunc_SID_TRADATA_Analysis')
+	.sect	'.text.Uds_Dcm_TransferData.UdsFunc_SID_TRADATA_Analysis'
+	.align	2
+	
+	.global	UdsFunc_SID_TRADATA_Analysis
+
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_TransferData.c	     1  
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_TransferData.c	     2  #include "MAIN.h"
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_TransferData.c	     3  
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_TransferData.c	     4  /*SID CDTCI服务*/
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_TransferData.c	     5  const	Struct_Uds_SID_TRADATA	st_Uds_SID_TRADATA[UDS_SID_TRADATA_BLOCKSEQ_NUMBER] =
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_TransferData.c	     6  {
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_TransferData.c	     7  		{
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_TransferData.c	     8  			0x02U,								/*支持的session*/
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_TransferData.c	     9  												/*Default 		Bit0—— 1:支持  0:不支持*/
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_TransferData.c	    10  												/*Programming 	Bit1—— 1:支持  0:不支持*/
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_TransferData.c	    11  												/*Extended 		Bit2—— 1:支持  0:不支持*/
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_TransferData.c	    12  												/*Coding        bit3—— 1:支持  0:不支持*/
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_TransferData.c	    13  			0x08U,								/*是否需要解密钥*/
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_TransferData.c	    14  												/*leve1 		Bit0—— 1:需要  0:不需要*/
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_TransferData.c	    15  												/*leve2 		Bit1—— 1:需要  0:不需要*/
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_TransferData.c	    16  												/*leve3 		Bit2—— 1:需要  0:不需要*/
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_TransferData.c	    17  												/*leve4         bit3—— 1:需要  0:不需要*/
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_TransferData.c	    18  			UdsFunc_SID_TRADATA_Callback	/*回调函数*/
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_TransferData.c	    19  		},
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_TransferData.c	    20  };
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_TransferData.c	    21  
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_TransferData.c	    22  /*************************************************************************/
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_TransferData.c	    23  /*
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_TransferData.c	    24  Function:		void UdsFunc_SID_TRADATA_Analysis(uint8 *ui8_pInd, uint16 ui16_IndLen)
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_TransferData.c	    25  
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_TransferData.c	    26  Description: 	此函数用于解析SID_TRADATA服务
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_TransferData.c	    27  
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_TransferData.c	    28  Parameters: 	ui8_pInd(不含SID)
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_TransferData.c	    29  				ui16_IndLen(不含SID)
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_TransferData.c	    30  
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_TransferData.c	    31  Return:       	void
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_TransferData.c	    32  
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_TransferData.c	    33  Return Values:  无
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_TransferData.c	    34  
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_TransferData.c	    35  Remarks:
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_TransferData.c	    36  
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_TransferData.c	    37  Example:
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_TransferData.c	    38  */
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_TransferData.c	    39  void UdsFunc_SID_TRADATA_Analysis(uint8 *ui8_pInd, uint16 ui16_IndLen)
+; Function UdsFunc_SID_TRADATA_Analysis
+.L8:
+UdsFunc_SID_TRADATA_Analysis:	.type	func
+
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_TransferData.c	    40  {
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_TransferData.c	    41  	uint8	ui8_Loop_1;	/*循环计数器*/
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_TransferData.c	    42  
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_TransferData.c	    43  	ui8_Loop_1 = 0U;	/*无子功能*/
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_TransferData.c	    44  
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_TransferData.c	    45  	/*判断Session是否支持*/
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_TransferData.c	    46  	if((st_Uds_SID_DSC_Info.ui8_Active_Session & st_Uds_SID_TRADATA[ui8_Loop_1].ui8_Session_Support) != 0U)
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_TransferData.c	    47  	{
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_TransferData.c	    48  		/*判断服务无需密钥，或密钥已解锁*/
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_TransferData.c	    49  		if(((st_Uds_SID_TRADATA[ui8_Loop_1].b_Security_En & st_Uds_SID_SA_Info.b_Security_Locked) != 0U) || (st_Uds_SID_TRADATA[ui8_Loop_1].b_Security_En == 0U))
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_TransferData.c	    50  		{
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_TransferData.c	    51  			st_Uds_Dcm_Info.ui8_Cur_Task = UDS_TASK_SID_TRADATA;	/*当前为 ClearDiagnosticInformation任务*/
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_TransferData.c	    52  		}
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_TransferData.c	    53  		else
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_TransferData.c	    54  		{
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_TransferData.c	    55  			st_Uds_Response.ui8_ResCode = UDS_RES_CODE_SAD;	/*服务密钥未解锁响应*/
+	movh.a	a2,#@his(st_Uds_Response)
+	lea	a2,[a2]@los(st_Uds_Response)
+.L48:
+	ld.bu	d0,[a2]
+.L49:
+	movh.a	a15,#@his(st_Uds_SID_DSC_Info)
+	lea	a15,[a15]@los(st_Uds_SID_DSC_Info)
+.L50:
+	ld.bu	d15,[a15]
+.L51:
+	jz.t	d15:1,.L2				; predicted not taken
+.L52:
+	movh.a	a15,#@his(st_Uds_SID_SA_Info)
+	lea	a15,[a15]@los(st_Uds_SID_SA_Info)
+.L53:
+	ld.bu	d15,[a15]
+.L54:
+	jnz.t	d15:3,.L3				; prediction unknown
+.L55:
+	mov	d0,#51
+.L56:
+	j	.L4
+.L3:
+	movh.a	a15,#@his(st_Uds_Dcm_Info)
+	lea	a15,[a15]@los(st_Uds_Dcm_Info)
+.L57:
+	mov	d15,#14
+	st.b	[a15]4,d15
+.L58:
+	j	.L5
+.L2:
+
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_TransferData.c	    56  		}
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_TransferData.c	    57  	}
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_TransferData.c	    58  	else
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_TransferData.c	    59  	{
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_TransferData.c	    60  		st_Uds_Response.ui8_ResCode = UDS_RES_CODE_SNSIAS;	/*服务在工作Session下不支持响应*/
+	mov	d0,#127
+.L5:
+.L4:
+
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_TransferData.c	    61  	}
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_TransferData.c	    62  }
+	st.b	[a2],d0
+	ret
+.L27:
+	
+__UdsFunc_SID_TRADATA_Analysis_function_end:
+	.size	UdsFunc_SID_TRADATA_Analysis,__UdsFunc_SID_TRADATA_Analysis_function_end-UdsFunc_SID_TRADATA_Analysis
+.L19:
+	; End of function
+	
+	.sdecl	'.text.Uds_Dcm_TransferData.UdsFunc_SID_TRADATA_Appl_Deal',code,cluster('UdsFunc_SID_TRADATA_Appl_Deal')
+	.sect	'.text.Uds_Dcm_TransferData.UdsFunc_SID_TRADATA_Appl_Deal'
+	.align	2
+	
+	.global	UdsFunc_SID_TRADATA_Appl_Deal
+
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_TransferData.c	    63  
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_TransferData.c	    64  /*************************************************************************/
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_TransferData.c	    65  /*
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_TransferData.c	    66  Function:		boolean UdsFunc_SID_TRADATA_Appl_Deal
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_TransferData.c	    67  				(uint8 *ui8_pInd, uint8 *ui8_pRes, uint16 *ui16_pResLen)
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_TransferData.c	    68  
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_TransferData.c	    69  Description: 	此函数用于处理SID_TRADATA应用层任务
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_TransferData.c	    70  
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_TransferData.c	    71  Parameters: 	ui8_pInd(不含SID)
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_TransferData.c	    72  				ui8_pRes(不含SID)
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_TransferData.c	    73  				ui16_pResLen
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_TransferData.c	    74  
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_TransferData.c	    75  Return:       	boolean
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_TransferData.c	    76  
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_TransferData.c	    77  Return Values:  E_OK		任务完成
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_TransferData.c	    78  				E_NOT_OK	任务未完成
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_TransferData.c	    79  
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_TransferData.c	    80  Remarks:
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_TransferData.c	    81  
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_TransferData.c	    82  Example:
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_TransferData.c	    83  */
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_TransferData.c	    84  boolean UdsFunc_SID_TRADATA_Appl_Deal(uint8 *ui8_pInd, uint8 *ui8_pRes, uint16 *ui16_pResLen)
+; Function UdsFunc_SID_TRADATA_Appl_Deal
+.L10:
+UdsFunc_SID_TRADATA_Appl_Deal:	.type	func
+
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_TransferData.c	    85  {
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_TransferData.c	    86  	uint8	ui8_Loop_1;	/*循环计数器*/
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_TransferData.c	    87  	boolean	b_Return;
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_TransferData.c	    88  
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_TransferData.c	    89  	ui8_Loop_1 = 0U;	/*无子功能*/
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_TransferData.c	    90  
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_TransferData.c	    91  	b_Return = st_Uds_SID_TRADATA[ui8_Loop_1].pFunc(&ui8_pInd[1U], &ui8_pRes[0U], &ui16_pResLen[0U]);	/*执行子功能任务*/
+	add.a	a4,#1
+.L63:
+	j	UdsFunc_SID_TRADATA_Callback
+.L33:
+	
+__UdsFunc_SID_TRADATA_Appl_Deal_function_end:
+	.size	UdsFunc_SID_TRADATA_Appl_Deal,__UdsFunc_SID_TRADATA_Appl_Deal_function_end-UdsFunc_SID_TRADATA_Appl_Deal
+.L24:
+	; End of function
+	
+	.sdecl	'.rodata.Uds_Dcm_TransferData.st_Uds_SID_TRADATA',data,rom,cluster('st_Uds_SID_TRADATA')
+	.sect	'.rodata.Uds_Dcm_TransferData.st_Uds_SID_TRADATA'
+	.global	st_Uds_SID_TRADATA
+	.align	4
+st_Uds_SID_TRADATA:	.type	object
+	.size	st_Uds_SID_TRADATA,8
+	.byte	2,8
+	.space	2
+	.word	UdsFunc_SID_TRADATA_Callback
+	.calls	'__INDIRECT__','UdsFunc_SID_TRADATA_Callback'
+	.calls	'UdsFunc_SID_TRADATA_Appl_Deal','UdsFunc_SID_TRADATA_Callback'
+	.calls	'UdsFunc_SID_TRADATA_Analysis','',0
+	.extern	st_Uds_SID_DSC_Info
+	.extern	st_Uds_SID_SA_Info
+	.extern	UdsFunc_SID_TRADATA_Callback
+	.extern	st_Uds_Dcm_Info
+	.extern	st_Uds_Response
+	.extern	__INDIRECT__
+	.calls	'UdsFunc_SID_TRADATA_Appl_Deal','',0
+	.sdecl	'.debug_info',debug
+	.sect	'.debug_info'
+.L12:
+	.word	1372
+	.half	3
+	.word	.L13
+	.byte	4
+.L11:
+	.byte	1
+	.byte	'..\\Communication_Files\\Uds\\Dcm\\Uds_Dcm_TransferData.c',0
+	.byte	'TASKING VX-toolset for TriCore: C compiler',0
+	.byte	'D:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_1.9\\BMU_BOOT\\Debug\\',0,12,1
+	.word	.L14
+.L32:
+	.byte	2
+	.byte	'unsigned char',0,1,8
+.L28:
+	.byte	3
+	.word	171
+.L30:
+	.byte	2
+	.byte	'unsigned short int',0,2,7
+.L36:
+	.byte	3
+	.word	193
+	.byte	4
+	.byte	'UdsFunc_SID_TRADATA_Callback',0,1,23,16
+	.word	171
+	.byte	1,1,1,1,5
+	.byte	'ui8_pInd',0,1,24,10
+	.word	188
+	.byte	5
+	.byte	'ui8_pRes',0,1,24,27
+	.word	188
+	.byte	5
+	.byte	'ui16_pResLen',0,1,24,45
+	.word	215
+	.byte	0,6
+	.byte	'__INDIRECT__',0,2,1,1,1,1,1,7
+	.byte	'void',0,3
+	.word	337
+	.byte	8
+	.byte	'__prof_adm',0,2,1,1
+	.word	343
+	.byte	9,1,3
+	.word	367
+	.byte	8
+	.byte	'__codeptr',0,2,1,1
+	.word	369
+	.byte	8
+	.byte	'ubyte',0,3,78,24
+	.word	171
+	.byte	8
+	.byte	'ushort',0,3,80,24
+	.word	193
+	.byte	2
+	.byte	'unsigned int',0,4,7,8
+	.byte	'uword',0,3,82,24
+	.word	421
+	.byte	8
+	.byte	'uint8',0,4,87,29
+	.word	171
+	.byte	8
+	.byte	'uint16',0,4,89,29
+	.word	193
+	.byte	2
+	.byte	'long int',0,4,5,8
+	.byte	'sint32',0,4,90,29
+	.word	480
+	.byte	2
+	.byte	'unsigned long int',0,4,7,8
+	.byte	'uint32',0,4,91,27
+	.word	507
+	.byte	8
+	.byte	'boolean',0,4,102,29
+	.word	171
+	.byte	10,5,10,9,4,11
+	.byte	'ui8_Active_Session',0,1
+	.word	171
+	.byte	2,35,0,11
+	.byte	'ui16_Write_EEROM_Delay',0,2
+	.word	193
+	.byte	2,35,2,0,8
+	.byte	'Struct_Uds_SID_DSC_Info',0,5,14,2
+	.word	559
+	.byte	12
+	.byte	'st_Uds_SID_DSC_Info',0,5,15,32
+	.word	559
+	.byte	1,1,10,6,5,9,8,11
+	.byte	'b_Security_Locked',0,1
+	.word	171
+	.byte	2,35,0,11
+	.byte	'b_RequestSeedFlag',0,1
+	.word	171
+	.byte	2,35,1,11
+	.byte	'SA_Counter',0,1
+	.word	171
+	.byte	2,35,2,11
+	.byte	'SeedKeyFlag',0,1
+	.word	171
+	.byte	2,35,3,11
+	.byte	'ui32_Boot_State255_Delay',0,4
+	.word	507
+	.byte	2,35,4,0,8
+	.byte	'Struct_Uds_SID_SA_Info',0,6,20,2
+	.word	687
+	.byte	12
+	.byte	'st_Uds_SID_SA_Info',0,6,21,31
+	.word	687
+	.byte	1,1,10,7,6,9,8,11
+	.byte	'ui8_Session_Support',0,1
+	.word	171
+	.byte	2,35,0,11
+	.byte	'b_Security_En',0,1
+	.word	171
+	.byte	2,35,1,13
+	.word	171
+	.byte	1,1,3
+	.word	171
+	.byte	14
+	.word	946
+	.byte	14
+	.word	946
+	.byte	3
+	.word	193
+	.byte	14
+	.word	961
+	.byte	0,3
+	.word	939
+	.byte	11
+	.byte	'pFunc',0,4
+	.word	972
+	.byte	2,35,4,0,8
+	.byte	'Struct_Uds_SID_TRADATA',0,7,19,2
+	.word	882
+	.byte	10,8,75,9,6,11
+	.byte	'b_Service_Enable',0,1
+	.word	171
+	.byte	2,35,0,11
+	.byte	'ui16_S3_Timer',0,2
+	.word	193
+	.byte	2,35,2,11
+	.byte	'ui8_Cur_Task',0,1
+	.word	171
+	.byte	2,35,4,0,8
+	.byte	'Struct_Uds_Dcm_Info',0,8,80,2
+	.word	1024
+	.byte	10,8,91,9,28,11
+	.byte	'ui8_ResCode',0,1
+	.word	171
+	.byte	2,35,0,11
+	.byte	'b_SuppressPosRspBit',0,1
+	.word	171
+	.byte	2,35,1,11
+	.byte	'ui8_pMsgData',0,4
+	.word	188
+	.byte	2,35,4,11
+	.byte	'ui16_pLength',0,4
+	.word	215
+	.byte	2,35,8,15,8
+	.word	171
+	.byte	16,7,0,11
+	.byte	'ui8_Neg78_Buf',0,8
+	.word	1228
+	.byte	2,35,12,11
+	.byte	'ui8_3E_Buf',0,8
+	.word	1228
+	.byte	2,35,20,0,8
+	.byte	'Struct_Uds_Response',0,8,99,2
+	.word	1129
+	.byte	12
+	.byte	'st_Uds_Dcm_Info',0,8,124,29
+	.word	1024
+	.byte	1,1,12
+	.byte	'st_Uds_Response',0,8,126,29
+	.word	1129
+	.byte	1,1,15,8
+	.word	882
+	.byte	16,0,0
+.L39:
+	.byte	17
+	.word	1361
+	.byte	0
+	.sdecl	'.debug_abbrev',debug
+	.sect	'.debug_abbrev'
+.L13:
+	.byte	1,17,1,3,8,37,8,27,8,19,15,128,70,12,16,6,0,0,2,36,0,3,8,11,15,62,15,0,0,3,15,0,73,19,0,0,4,46,1,3,8,58
+	.byte	15,59,15,57,15,73,19,54,15,39,12,63,12,60,12,0,0,5,5,0,3,8,58,15,59,15,57,15,73,19,0,0,6,46,0,3,8,58,15
+	.byte	59,15,57,15,54,15,63,12,60,12,0,0,7,59,0,3,8,0,0,8,22,0,3,8,58,15,59,15,57,15,73,19,0,0,9,21,0,54,15,0
+	.byte	0,10,19,1,58,15,59,15,57,15,11,15,0,0,11,13,0,3,8,11,15,73,19,56,9,0,0,12,52,0,3,8,58,15,59,15,57,15,73
+	.byte	19,63,12,60,12,0,0,13,21,1,73,19,54,15,39,12,0,0,14,5,0,73,19,0,0,15,1,1,11,15,73,19,0,0,16,33,0,47,15
+	.byte	0,0,17,38,0,73,19,0,0,0
+	.sdecl	'.debug_line',debug
+	.sect	'.debug_line'
+.L14:
+	.word	.L41-.L40
+.L40:
+	.half	3
+	.word	.L43-.L42
+.L42:
+	.byte	2,1,-4,9,10,0,1,1,1,1,0,0,0,1
+	.byte	'D:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_1.9\\BMU_BOOT\\Communication_Files\\Uds\\User',0
+	.byte	'D:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_1.9\\BMU_BOOT\\Initiate_Files',0
+	.byte	'D:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_1.9\\BMU_BOOT\\Stand_Header',0
+	.byte	'D:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_1.9\\BMU_BOOT\\Communication_Files\\Uds\\Dcm',0,0
+	.byte	'Uds_User_TransferDataCallback.h',0,1,0,0
+	.byte	'..\\Communication_Files\\Uds\\Dcm\\Uds_Dcm_TransferData.c',0,0,0,0
+	.byte	'MAIN.h',0,2,0,0
+	.byte	'Platform_Types.h',0,3,0,0
+	.byte	'Uds_User_DiagnosticSessionControlCallback.h',0,1,0,0
+	.byte	'Uds_User_SecurityAccessCallback.h',0,1,0,0
+	.byte	'Uds_Dcm_TransferData.h',0,4,0,0
+	.byte	'Uds_Dcm_Drv.h',0,4,0,0,0
+.L43:
+.L41:
+	.sdecl	'.debug_info',debug,cluster('UdsFunc_SID_TRADATA_Analysis')
+	.sect	'.debug_info'
+.L15:
+	.word	280
+	.half	3
+	.word	.L16
+	.byte	4,1
+	.byte	'..\\Communication_Files\\Uds\\Dcm\\Uds_Dcm_TransferData.c',0
+	.byte	'TASKING VX-toolset for TriCore: C compiler',0
+	.byte	'D:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_1.9\\BMU_BOOT\\Debug\\',0,12,1
+	.word	.L18,.L17
+	.byte	2
+	.word	.L11
+	.byte	3
+	.byte	'UdsFunc_SID_TRADATA_Analysis',0,1,39,6,1,1,1
+	.word	.L8,.L27,.L7
+	.byte	4
+	.byte	'ui8_pInd',0,1,39,42
+	.word	.L28,.L29
+	.byte	4
+	.byte	'ui16_IndLen',0,1,39,59
+	.word	.L30,.L31
+	.byte	5
+	.word	.L8,.L27
+	.byte	0,0
+	.sdecl	'.debug_abbrev',debug,cluster('UdsFunc_SID_TRADATA_Analysis')
+	.sect	'.debug_abbrev'
+.L16:
+	.byte	1,17,1,3,8,37,8,27,8,19,15,128,70,12,85,6,16,6,0,0,2,61,0,24,16,0,0,3,46,1,3,8,58,15,59,15,57,15,54,15
+	.byte	39,12,63,12,17,1,18,1,64,6,0,0,4,5,0,3,8,58,15,59,15,57,15,73,16,2,6,0,0,5,11,0,17,1,18,1,0,0,0
+	.sdecl	'.debug_line',debug,cluster('UdsFunc_SID_TRADATA_Analysis')
+	.sect	'.debug_line'
+.L17:
+	.word	.L45-.L44
+.L44:
+	.half	3
+	.word	.L47-.L46
+.L46:
+	.byte	2,1,-4,9,10,0,1,1,1,1,0,0,0,1,0
+	.byte	'..\\Communication_Files\\Uds\\Dcm\\Uds_Dcm_TransferData.c',0,0,0,0,0
+.L47:
+	.byte	5,4,7,0,5,2
+	.word	.L8
+	.byte	3,54,1,5,19,9
+	.half	.L48-.L8
+	.byte	1,5,6,9
+	.half	.L49-.L48
+	.byte	3,119,1,5,25,9
+	.half	.L50-.L49
+	.byte	1,5,2,9
+	.half	.L51-.L50
+	.byte	1,5,55,7,9
+	.half	.L52-.L51
+	.byte	3,3,1,5,73,9
+	.half	.L53-.L52
+	.byte	1,5,6,9
+	.half	.L54-.L53
+	.byte	1,5,32,7,9
+	.half	.L55-.L54
+	.byte	3,6,1,5,3,9
+	.half	.L56-.L55
+	.byte	3,126,1,5,4,9
+	.half	.L3-.L56
+	.byte	3,126,1,5,35,9
+	.half	.L57-.L3
+	.byte	1,5,33,1,5,55,9
+	.half	.L58-.L57
+	.byte	1,5,31,9
+	.half	.L2-.L58
+	.byte	3,9,1,5,1,9
+	.half	.L4-.L2
+	.byte	3,2,1,9
+	.half	.L19-.L4
+	.byte	0,1,1
+.L45:
+	.sdecl	'.debug_ranges',debug,cluster('UdsFunc_SID_TRADATA_Analysis')
+	.sect	'.debug_ranges'
+.L18:
+	.word	-1,.L8,0,.L19-.L8,0,0
+	.sdecl	'.debug_info',debug,cluster('UdsFunc_SID_TRADATA_Appl_Deal')
+	.sect	'.debug_info'
+.L20:
+	.word	329
+	.half	3
+	.word	.L21
+	.byte	4,1
+	.byte	'..\\Communication_Files\\Uds\\Dcm\\Uds_Dcm_TransferData.c',0
+	.byte	'TASKING VX-toolset for TriCore: C compiler',0
+	.byte	'D:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_1.9\\BMU_BOOT\\Debug\\',0,12,1
+	.word	.L23,.L22
+	.byte	2
+	.word	.L11
+	.byte	3
+	.byte	'UdsFunc_SID_TRADATA_Appl_Deal',0,1,84,9
+	.word	.L32
+	.byte	1,1,1
+	.word	.L10,.L33,.L9
+	.byte	4
+	.byte	'ui8_pInd',0,1,84,46
+	.word	.L28,.L34
+	.byte	4
+	.byte	'ui8_pRes',0,1,84,63
+	.word	.L28,.L35
+	.byte	4
+	.byte	'ui16_pResLen',0,1,84,81
+	.word	.L36,.L37
+	.byte	5
+	.word	.L10,.L33
+	.byte	6
+	.byte	'b_Return',0,1,87,10
+	.word	.L32,.L38
+	.byte	0,0,0
+	.sdecl	'.debug_abbrev',debug,cluster('UdsFunc_SID_TRADATA_Appl_Deal')
+	.sect	'.debug_abbrev'
+.L21:
+	.byte	1,17,1,3,8,37,8,27,8,19,15,128,70,12,85,6,16,6,0,0,2,61,0,24,16,0,0,3,46,1,3,8,58,15,59,15,57,15,73,16
+	.byte	54,15,39,12,63,12,17,1,18,1,64,6,0,0,4,5,0,3,8,58,15,59,15,57,15,73,16,2,6,0,0,5,11,1,17,1,18,1,0,0,6
+	.byte	52,0,3,8,58,15,59,15,57,15,73,16,2,6,0,0,0
+	.sdecl	'.debug_line',debug,cluster('UdsFunc_SID_TRADATA_Appl_Deal')
+	.sect	'.debug_line'
+.L22:
+	.word	.L60-.L59
+.L59:
+	.half	3
+	.word	.L62-.L61
+.L61:
+	.byte	2,1,-4,9,10,0,1,1,1,1,0,0,0,1,0
+	.byte	'..\\Communication_Files\\Uds\\Dcm\\Uds_Dcm_TransferData.c',0,0,0,0,0
+.L62:
+	.byte	5,59,7,0,5,2
+	.word	.L10
+	.byte	3,218,0,1,5,81,9
+	.half	.L63-.L10
+	.byte	1,5,1,7,9
+	.half	.L24-.L63
+	.byte	3,3,0,1,1
+.L60:
+	.sdecl	'.debug_ranges',debug,cluster('UdsFunc_SID_TRADATA_Appl_Deal')
+	.sect	'.debug_ranges'
+.L23:
+	.word	-1,.L10,0,.L24-.L10,0,0
+	.sdecl	'.debug_info',debug,cluster('st_Uds_SID_TRADATA')
+	.sect	'.debug_info'
+.L25:
+	.word	203
+	.half	3
+	.word	.L26
+	.byte	4,1
+	.byte	'..\\Communication_Files\\Uds\\Dcm\\Uds_Dcm_TransferData.c',0
+	.byte	'TASKING VX-toolset for TriCore: C compiler',0
+	.byte	'D:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_1.9\\BMU_BOOT\\Debug\\',0,12,1,2
+	.word	.L11
+	.byte	3
+	.byte	'st_Uds_SID_TRADATA',0,2,5,30
+	.word	.L39
+	.byte	1,5,3
+	.word	st_Uds_SID_TRADATA
+	.byte	0
+	.sdecl	'.debug_abbrev',debug,cluster('st_Uds_SID_TRADATA')
+	.sect	'.debug_abbrev'
+.L26:
+	.byte	1,17,1,3,8,37,8,27,8,19,15,128,70,12,0,0,2,61,0,24,16,0,0,3,52,0,3,8,58,15,59,15,57,15,73,16,63,12,2,9
+	.byte	0,0,0
+	.sdecl	'.debug_loc',debug,cluster('UdsFunc_SID_TRADATA_Analysis')
+	.sect	'.debug_loc'
+.L7:
+	.word	-1,.L8,0,.L27-.L8
+	.half	2
+	.byte	138,0
+	.word	0,0
+.L31:
+	.word	-1,.L8,0,.L27-.L8
+	.half	5
+	.byte	144,34,157,32,0
+	.word	0,0
+.L29:
+	.word	-1,.L8,0,.L27-.L8
+	.half	1
+	.byte	100
+	.word	0,0
+	.sdecl	'.debug_loc',debug,cluster('UdsFunc_SID_TRADATA_Appl_Deal')
+	.sect	'.debug_loc'
+.L9:
+	.word	-1,.L10,0,.L33-.L10
+	.half	2
+	.byte	138,0
+	.word	0,0
+.L38:
+	.word	0,0
+.L37:
+	.word	-1,.L10,0,.L33-.L10
+	.half	1
+	.byte	102
+	.word	0,0
+.L34:
+	.word	-1,.L10,0,.L33-.L10
+	.half	1
+	.byte	100
+	.word	0,0
+.L35:
+	.word	-1,.L10,0,.L33-.L10
+	.half	1
+	.byte	101
+	.word	0,0
+	.sdecl	'.debug_frame',debug
+	.sect	'.debug_frame'
+.L64:
+	.word	48
+	.word	-1
+	.byte	3,0,2,1,27,12,26,0,8,26,8,27,8,30,8,29,8,28,8,16,8,17,8,24,8,25,8,31,8,32,8,33,8,34,8,35,8,36,8,37,8,38
+	.byte	8,39
+	.sdecl	'.debug_frame',debug,cluster('UdsFunc_SID_TRADATA_Analysis')
+	.sect	'.debug_frame'
+	.word	24
+	.word	.L64,.L8,.L27-.L8
+	.byte	8,19,8,20,8,21,8,22,8,23,0,0
+	.sdecl	'.debug_frame',debug,cluster('UdsFunc_SID_TRADATA_Appl_Deal')
+	.sect	'.debug_frame'
+	.word	12
+	.word	.L64,.L10,.L33-.L10
+
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_TransferData.c	    92  
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_TransferData.c	    93  	return b_Return;
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_TransferData.c	    94  }
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_TransferData.c	    95  
+
+	; Module end

@@ -1,0 +1,10 @@
+
+**** Build of configuration Debug for project BMU_BOOT2 ****
+
+"C:\\Program Files\\TASKING\\TriCore v4.3r1\\ctc\\bin\\amk" -j1 all 
+Compiling Uds_User_RoutineControlCallback.c
+Compiling Operating_System.c
+Linking to BMU_BOOT2.elf
+
+Time consumed: 19765 ms
+**** End of build ****

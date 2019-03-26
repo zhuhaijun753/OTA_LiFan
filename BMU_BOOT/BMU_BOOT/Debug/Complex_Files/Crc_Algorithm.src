@@ -1,0 +1,1051 @@
+	; Module start
+	.compiler_version	"TASKING VX-toolset for TriCore: C compiler v4.3r1 Build 759 SN 00641831"
+	.compiler_invocation	"ctc -f cc11224a -c99 --dep-file=Complex_Files\\.Crc_Algorithm.o.d -D__CPU__=tc1782 -D__CPU_TC1782__ --core=tc1.3.1 -F -ID:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_1.9\\BMU_BOOT -ID:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_1.9\\BMU_BOOT\\Communication_Files\\CanDrv -ID:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_1.9\\BMU_BOOT\\Communication_Files\\Com -ID:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_1.9\\BMU_BOOT\\Communication_Files\\Com\\Can_Input -ID:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_1.9\\BMU_BOOT\\Communication_Files\\Com\\Can_Output -ID:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_1.9\\BMU_BOOT\\Communication_Files\\Uds\\Dcm -ID:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_1.9\\BMU_BOOT\\Communication_Files\\Uds\\Dem -ID:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_1.9\\BMU_BOOT\\Communication_Files\\Uds\\Tp -ID:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_1.9\\BMU_BOOT\\Communication_Files\\Uds\\User -ID:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_1.9\\BMU_BOOT\\Complex_Files -ID:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_1.9\\BMU_BOOT\\Initiate_Files -ID:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_1.9\\BMU_BOOT\\Nvm_Files\\FlsDrv -ID:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_1.9\\BMU_BOOT\\Stand_Header -g2 --make-target=Complex_Files\\Crc_Algorithm.o -t4 --language=-gcc,-volatile,+strings --default-near-size=0 -O2 --default-a1-size=0 --default-a0-size=0 --source --align=0 --compact-max-size=200 --switch=auto -o Complex_Files\\Crc_Algorithm.src ..\\Complex_Files\\Crc_Algorithm.c"
+	.compiler_name		"ctc"
+	.name	"Crc_Algorithm"
+
+	
+$TC131
+	
+	.sdecl	'.text.Crc_Algorithm.bitrev',code,cluster('bitrev')
+	.sect	'.text.Crc_Algorithm.bitrev'
+	.align	2
+	
+
+; ..\Complex_Files\Crc_Algorithm.c	     1  /*
+; ..\Complex_Files\Crc_Algorithm.c	     2   * Crc_Algorithm.c
+; ..\Complex_Files\Crc_Algorithm.c	     3   *
+; ..\Complex_Files\Crc_Algorithm.c	     4   *  Created on: 2018-6-15
+; ..\Complex_Files\Crc_Algorithm.c	     5   *      Author: Administrator
+; ..\Complex_Files\Crc_Algorithm.c	     6   */
+; ..\Complex_Files\Crc_Algorithm.c	     7  #include "MAIN.h"
+; ..\Complex_Files\Crc_Algorithm.c	     8  
+; ..\Complex_Files\Crc_Algorithm.c	     9  //CRC32
+; ..\Complex_Files\Crc_Algorithm.c	    10  /*
+; ..\Complex_Files\Crc_Algorithm.c	    11   * CRC校验算法,查表法
+; ..\Complex_Files\Crc_Algorithm.c	    12   * <kerndev@foxmail.com>
+; ..\Complex_Files\Crc_Algorithm.c	    13   */
+; ..\Complex_Files\Crc_Algorithm.c	    14  
+; ..\Complex_Files\Crc_Algorithm.c	    15  
+; ..\Complex_Files\Crc_Algorithm.c	    16  static unsigned long table[256];
+; ..\Complex_Files\Crc_Algorithm.c	    17  
+; ..\Complex_Files\Crc_Algorithm.c	    18  //位逆转
+; ..\Complex_Files\Crc_Algorithm.c	    19  static unsigned long bitrev(unsigned long input, int bw)
+; Function bitrev
+.L21:
+bitrev:	.type	func
+
+; ..\Complex_Files\Crc_Algorithm.c	    20  {
+; ..\Complex_Files\Crc_Algorithm.c	    21      int i;
+; ..\Complex_Files\Crc_Algorithm.c	    22      unsigned long var;
+; ..\Complex_Files\Crc_Algorithm.c	    23      var = 0;
+	mov	d2,#0
+.L86:
+
+; ..\Complex_Files\Crc_Algorithm.c	    24      for(i=0;i<bw;i++)
+	mov	d0,d2
+	lea	a15,31
+.L2:
+
+; ..\Complex_Files\Crc_Algorithm.c	    25      {
+; ..\Complex_Files\Crc_Algorithm.c	    26          if(input & 0x01)
+	jz.t	d4:0,.L3				; unsupported prediction taken forward branch
+.L147:
+
+; ..\Complex_Files\Crc_Algorithm.c	    27          {
+; ..\Complex_Files\Crc_Algorithm.c	    28              var |= 1<<(bw-1-i);
+	mov	d15,#1
+.L148:
+	rsub	d1,d0,#31
+.L149:
+	sha	d15,d15,d1
+.L150:
+	or	d2,d15
+.L3:
+
+; ..\Complex_Files\Crc_Algorithm.c	    29          }
+; ..\Complex_Files\Crc_Algorithm.c	    30          input>>=1;
+	sh	d4,#-1
+.L151:
+	add	d0,#1
+.L152:
+	loop	a15,.L2				; predicted taken
+.L153:
+
+; ..\Complex_Files\Crc_Algorithm.c	    31      }
+; ..\Complex_Files\Crc_Algorithm.c	    32      return var;
+; ..\Complex_Files\Crc_Algorithm.c	    33  }
+	ret
+.L80:
+	
+__bitrev_function_end:
+	.size	bitrev,__bitrev_function_end-bitrev
+.L51:
+	; End of function
+	
+	.sdecl	'.text.Crc_Algorithm.crc32_init',code,cluster('crc32_init')
+	.sect	'.text.Crc_Algorithm.crc32_init'
+	.align	2
+	
+	.global	crc32_init
+
+; ..\Complex_Files\Crc_Algorithm.c	    34  
+; ..\Complex_Files\Crc_Algorithm.c	    35  //码表生成
+; ..\Complex_Files\Crc_Algorithm.c	    36  //如:X32+X26+...X1+1,poly=(1<<26)|...|(1<<1)|(1<<0)
+; ..\Complex_Files\Crc_Algorithm.c	    37  void crc32_init(void)
+; Function crc32_init
+.L23:
+crc32_init:	.type	func
+
+; ..\Complex_Files\Crc_Algorithm.c	    38  {
+; ..\Complex_Files\Crc_Algorithm.c	    39      int i;
+; ..\Complex_Files\Crc_Algorithm.c	    40      int j;
+; ..\Complex_Files\Crc_Algorithm.c	    41      unsigned long c;
+; ..\Complex_Files\Crc_Algorithm.c	    42      unsigned long poly;
+; ..\Complex_Files\Crc_Algorithm.c	    43  
+; ..\Complex_Files\Crc_Algorithm.c	    44      poly = 0x4C11DB7;			/*IEEE802.3*/
+; ..\Complex_Files\Crc_Algorithm.c	    45  
+; ..\Complex_Files\Crc_Algorithm.c	    46      poly=bitrev(poly,32);
+	mov	d4,#7607
+	addih	d4,d4,#1217
+.L107:
+	mov	d5,#32
+	call	bitrev
+.L87:
+
+; ..\Complex_Files\Crc_Algorithm.c	    47      for(i=0; i<256; i++)
+; ..\Complex_Files\Crc_Algorithm.c	    48      {
+; ..\Complex_Files\Crc_Algorithm.c	    49          c = i;
+; ..\Complex_Files\Crc_Algorithm.c	    50          for (j=0; j<8; j++)
+; ..\Complex_Files\Crc_Algorithm.c	    51          {
+; ..\Complex_Files\Crc_Algorithm.c	    52              if(c&1)
+; ..\Complex_Files\Crc_Algorithm.c	    53              {
+; ..\Complex_Files\Crc_Algorithm.c	    54                  c=poly^(c>>1);
+; ..\Complex_Files\Crc_Algorithm.c	    55              }
+; ..\Complex_Files\Crc_Algorithm.c	    56              else
+; ..\Complex_Files\Crc_Algorithm.c	    57              {
+; ..\Complex_Files\Crc_Algorithm.c	    58                  c=c>>1;
+; ..\Complex_Files\Crc_Algorithm.c	    59              }
+; ..\Complex_Files\Crc_Algorithm.c	    60          }
+; ..\Complex_Files\Crc_Algorithm.c	    61          table[i] = c;
+	mov	d0,#0
+	movh.a	a15,#@his(table)
+.L88:
+	lea	a15,[a15]@los(table)
+.L108:
+	lea	a2,255
+.L5:
+	mov	d15,d0
+	mov.a	a4,#7
+.L6:
+	sh	d1,d15,#-1
+.L109:
+	jz.t	d15:0,.L7				; prediction unknown
+.L110:
+	xor	d15,d2,d1
+.L111:
+	j	.L8
+.L7:
+	mov	d15,d1
+.L8:
+	loop	a4,.L6				; predicted taken
+.L112:
+	add	d0,#1
+	st.w	[a15+],d15
+.L113:
+	loop	a2,.L5				; predicted taken
+.L114:
+
+; ..\Complex_Files\Crc_Algorithm.c	    62  
+; ..\Complex_Files\Crc_Algorithm.c	    63      }
+; ..\Complex_Files\Crc_Algorithm.c	    64  }
+	ret
+.L56:
+	
+__crc32_init_function_end:
+	.size	crc32_init,__crc32_init_function_end-crc32_init
+.L36:
+	; End of function
+	
+	.sdecl	'.text.Crc_Algorithm.crc32',code,cluster('crc32')
+	.sect	'.text.Crc_Algorithm.crc32'
+	.align	2
+	
+	.global	crc32
+
+; ..\Complex_Files\Crc_Algorithm.c	    65  
+; ..\Complex_Files\Crc_Algorithm.c	    66  
+; ..\Complex_Files\Crc_Algorithm.c	    67  //CRC32调用此函数
+; ..\Complex_Files\Crc_Algorithm.c	    68  unsigned long crc = 0xFFFFFFFF;
+; ..\Complex_Files\Crc_Algorithm.c	    69  unsigned long crc32(void* input, int len)
+; Function crc32
+.L25:
+crc32:	.type	func
+
+; ..\Complex_Files\Crc_Algorithm.c	    70  {
+; ..\Complex_Files\Crc_Algorithm.c	    71      int i;
+; ..\Complex_Files\Crc_Algorithm.c	    72      unsigned char index;
+; ..\Complex_Files\Crc_Algorithm.c	    73      unsigned char* pch;
+; ..\Complex_Files\Crc_Algorithm.c	    74  
+; ..\Complex_Files\Crc_Algorithm.c	    75      pch = (unsigned char*)input;
+; ..\Complex_Files\Crc_Algorithm.c	    76      for(i=0;i<len;i++)
+; ..\Complex_Files\Crc_Algorithm.c	    77      {
+; ..\Complex_Files\Crc_Algorithm.c	    78          index = (unsigned char)(crc^*pch);
+	mov	d15,#0
+	movh.a	a15,#@his(crc)
+.L89:
+	lea	a15,[a15]@los(crc)
+.L133:
+	j	.L9
+.L10:
+	ld.w	d1,[a15]
+.L134:
+
+; ..\Complex_Files\Crc_Algorithm.c	    79          crc = (crc>>8)^table[index];
+	sh	d0,d1,#-8
+	movh.a	a2,#@his(table)
+.L135:
+	extr.u	d1,d1,#0,#8
+	ld.bu	d2,[a4+]
+.L136:
+	xor	d1,d2
+	lea	a2,[a2]@los(table)
+.L137:
+	addsc.a	a2,a2,d1,#2
+	ld.w	d1,[a2]
+.L138:
+	xor	d0,d1
+	st.w	[a15],d0
+.L139:
+	add	d15,#1
+.L9:
+	jlt	d15,d4,.L10				; predicted taken
+.L140:
+	movh.a	a15,#@his(crc)
+.L141:
+
+; ..\Complex_Files\Crc_Algorithm.c	    80          pch++;
+; ..\Complex_Files\Crc_Algorithm.c	    81      }
+; ..\Complex_Files\Crc_Algorithm.c	    82  //   crc^= 0xFFFFFFFF;
+; ..\Complex_Files\Crc_Algorithm.c	    83      return crc;
+	ld.w	d2,[a15]@los(crc)
+.L142:
+
+; ..\Complex_Files\Crc_Algorithm.c	    84  }
+	ret
+.L74:
+	
+__crc32_function_end:
+	.size	crc32,__crc32_function_end-crc32
+.L46:
+	; End of function
+	
+	.sdecl	'.text.Crc_Algorithm.crc8',code,cluster('crc8')
+	.sect	'.text.Crc_Algorithm.crc8'
+	.align	2
+	
+	.global	crc8
+
+; ..\Complex_Files\Crc_Algorithm.c	    85  
+; ..\Complex_Files\Crc_Algorithm.c	    86  //CRC8调用此函数
+; ..\Complex_Files\Crc_Algorithm.c	    87  unsigned char crc8(unsigned char *data, unsigned char len)
+; Function crc8
+.L27:
+crc8:	.type	func
+
+; ..\Complex_Files\Crc_Algorithm.c	    88  {
+; ..\Complex_Files\Crc_Algorithm.c	    89  	unsigned char result;
+; ..\Complex_Files\Crc_Algorithm.c	    90  	unsigned char i;
+; ..\Complex_Files\Crc_Algorithm.c	    91  	unsigned char mask;
+; ..\Complex_Files\Crc_Algorithm.c	    92  	unsigned char j;
+; ..\Complex_Files\Crc_Algorithm.c	    93  	unsigned char temp;
+; ..\Complex_Files\Crc_Algorithm.c	    94  	unsigned char poly;
+; ..\Complex_Files\Crc_Algorithm.c	    95  
+; ..\Complex_Files\Crc_Algorithm.c	    96  	result=0xFF;
+	mov	d15,#255
+.L90:
+
+; ..\Complex_Files\Crc_Algorithm.c	    97  	for(i=0; i<len; i++)
+	mov	d0,#0
+.L92:
+	j	.L12
+.L13:
+
+; ..\Complex_Files\Crc_Algorithm.c	    98  	{
+; ..\Complex_Files\Crc_Algorithm.c	    99  		mask=0x80;
+; ..\Complex_Files\Crc_Algorithm.c	   100  		temp=data[i];
+	mov	d1,#128
+	ld.bu	d2,[a4+]
+.L94:
+
+; ..\Complex_Files\Crc_Algorithm.c	   101  		for(j=0; j<8; j++)
+	mov.a	a15,#7
+.L14:
+
+; ..\Complex_Files\Crc_Algorithm.c	   102  		{
+; ..\Complex_Files\Crc_Algorithm.c	   103  			if(temp & mask)	  //bit is 1
+	and	d3,d2,d1
+.L119:
+	jeq	d3,#0,.L15				; prediction unknown
+.L120:
+
+; ..\Complex_Files\Crc_Algorithm.c	   104  			{
+; ..\Complex_Files\Crc_Algorithm.c	   105  				poly=0x1c;
+	mov	d3,#28
+.L95:
+
+; ..\Complex_Files\Crc_Algorithm.c	   106  				if(result & 0x80)
+	jz.t	d15:7,.L16				; predicted taken
+.L121:
+
+; ..\Complex_Files\Crc_Algorithm.c	   107  				{
+; ..\Complex_Files\Crc_Algorithm.c	   108  					poly=1;
+	mov	d3,#1
+.L16:
+
+; ..\Complex_Files\Crc_Algorithm.c	   109  				}
+; ..\Complex_Files\Crc_Algorithm.c	   110  				result= ((result<<1) | 0x01) ^ poly;
+	sha	d15,#1
+.L91:
+	extr.u	d15,d15,#0,#8
+.L122:
+	or	d15,#1
+.L123:
+	j	.L17
+.L15:
+
+; ..\Complex_Files\Crc_Algorithm.c	   111  
+; ..\Complex_Files\Crc_Algorithm.c	   112  			}else
+; ..\Complex_Files\Crc_Algorithm.c	   113  			{
+; ..\Complex_Files\Crc_Algorithm.c	   114  			 	poly=0;
+	mov	d3,#0
+.L97:
+
+; ..\Complex_Files\Crc_Algorithm.c	   115  				if(result & 0x80)
+	jz.t	d15:7,.L18				; predicted taken
+.L124:
+
+; ..\Complex_Files\Crc_Algorithm.c	   116  				{
+; ..\Complex_Files\Crc_Algorithm.c	   117  					poly=0x1D;
+	mov	d3,#29
+.L18:
+
+; ..\Complex_Files\Crc_Algorithm.c	   118  				}
+; ..\Complex_Files\Crc_Algorithm.c	   119  				result= ((result<<1)) ^ poly;
+	sha	d15,#1
+.L96:
+	extr.u	d15,d15,#0,#8
+.L17:
+	xor	d15,d3
+.L98:
+
+; ..\Complex_Files\Crc_Algorithm.c	   120  
+; ..\Complex_Files\Crc_Algorithm.c	   121  			}
+; ..\Complex_Files\Crc_Algorithm.c	   122  			mask=mask>>1;
+	sha	d1,#-1
+.L125:
+	loop	a15,.L14				; predicted taken
+.L126:
+	add	d0,#1
+.L93:
+	extr.u	d0,d0,#0,#8
+.L12:
+	jlt.u	d0,d4,.L13				; predicted taken
+.L127:
+
+; ..\Complex_Files\Crc_Algorithm.c	   123  		}
+; ..\Complex_Files\Crc_Algorithm.c	   124  	}
+; ..\Complex_Files\Crc_Algorithm.c	   125  	return ~result;
+	xor	d2,d15,#255
+.L128:
+
+; ..\Complex_Files\Crc_Algorithm.c	   126  }
+	ret
+.L64:
+	
+__crc8_function_end:
+	.size	crc8,__crc8_function_end-crc8
+.L41:
+	; End of function
+	
+	.sdecl	'.bss.Crc_Algorithm.table',data,cluster('table')
+	.sect	'.bss.Crc_Algorithm.table'
+	.align	2
+table:	.type	object
+	.size	table,1024
+	.space	1024
+	.sdecl	'.data.Crc_Algorithm.crc',data,cluster('crc')
+	.sect	'.data.Crc_Algorithm.crc'
+	.global	crc
+	.align	2
+crc:	.type	object
+	.size	crc,4
+	.word	-1
+	.calls	'crc32_init','bitrev'
+	.calls	'bitrev','',0
+	.calls	'crc32_init','',0
+	.calls	'crc32','',0
+	.calls	'crc8','',0
+	.sdecl	'.debug_info',debug
+	.sect	'.debug_info'
+.L29:
+	.word	431
+	.half	3
+	.word	.L30
+	.byte	4
+.L28:
+	.byte	1
+	.byte	'..\\Complex_Files\\Crc_Algorithm.c',0
+	.byte	'TASKING VX-toolset for TriCore: C compiler',0
+	.byte	'D:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_1.9\\BMU_BOOT\\Debug\\',0,12,1
+	.word	.L31
+.L57:
+	.byte	2
+	.byte	'int',0,4,5
+.L60:
+	.byte	2
+	.byte	'unsigned long int',0,4,7
+.L63:
+	.byte	2
+	.byte	'unsigned char',0,1,8
+.L65:
+	.byte	3
+	.word	178
+	.byte	4
+	.byte	'void',0
+.L75:
+	.byte	3
+	.word	200
+	.byte	5
+	.byte	'__prof_adm',0,1,1,1
+	.word	206
+	.byte	6,1,3
+	.word	230
+	.byte	5
+	.byte	'__codeptr',0,1,1,1
+	.word	232
+	.byte	5
+	.byte	'ubyte',0,2,78,24
+	.word	178
+	.byte	2
+	.byte	'unsigned short int',0,2,7,5
+	.byte	'ushort',0,2,80,24
+	.word	269
+	.byte	2
+	.byte	'unsigned int',0,4,7,5
+	.byte	'uword',0,2,82,24
+	.word	306
+	.byte	5
+	.byte	'uint8',0,3,87,29
+	.word	178
+	.byte	5
+	.byte	'uint16',0,3,89,29
+	.word	269
+	.byte	2
+	.byte	'long int',0,4,5,5
+	.byte	'sint32',0,3,90,29
+	.word	365
+	.byte	5
+	.byte	'uint32',0,3,91,27
+	.word	157
+	.byte	5
+	.byte	'boolean',0,3,102,29
+	.word	178
+.L85:
+	.byte	7,128,8
+	.word	157
+	.byte	8,255,1,0,0
+	.sdecl	'.debug_abbrev',debug
+	.sect	'.debug_abbrev'
+.L30:
+	.byte	1,17,1,3,8,37,8,27,8,19,15,128,70,12,16,6,0,0,2,36,0,3,8,11,15,62,15,0,0,3,15,0,73,19,0,0,4,59,0,3,8,0
+	.byte	0,5,22,0,3,8,58,15,59,15,57,15,73,19,0,0,6,21,0,54,15,0,0,7,1,1,11,15,73,19,0,0,8,33,0,47,15,0,0,0
+	.sdecl	'.debug_line',debug
+	.sect	'.debug_line'
+.L31:
+	.word	.L100-.L99
+.L99:
+	.half	3
+	.word	.L102-.L101
+.L101:
+	.byte	2,1,-4,9,10,0,1,1,1,1,0,0,0,1
+	.byte	'D:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_1.9\\BMU_BOOT\\Initiate_Files',0
+	.byte	'D:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_1.9\\BMU_BOOT\\Stand_Header',0,0
+	.byte	'..\\Complex_Files\\Crc_Algorithm.c',0,0,0,0
+	.byte	'MAIN.h',0,1,0,0
+	.byte	'Platform_Types.h',0,2,0,0,0
+.L102:
+.L100:
+	.sdecl	'.debug_info',debug,cluster('crc32_init')
+	.sect	'.debug_info'
+.L32:
+	.word	256
+	.half	3
+	.word	.L33
+	.byte	4,1
+	.byte	'..\\Complex_Files\\Crc_Algorithm.c',0
+	.byte	'TASKING VX-toolset for TriCore: C compiler',0
+	.byte	'D:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_1.9\\BMU_BOOT\\Debug\\',0,12,1
+	.word	.L35,.L34
+	.byte	2
+	.word	.L28
+	.byte	3
+	.byte	'crc32_init',0,1,37,6,1,1,1
+	.word	.L23,.L56,.L22
+	.byte	4
+	.word	.L23,.L56
+	.byte	5
+	.byte	'i',0,1,39,9
+	.word	.L57,.L58
+	.byte	5
+	.byte	'j',0,1,40,9
+	.word	.L57,.L59
+	.byte	5
+	.byte	'c',0,1,41,19
+	.word	.L60,.L61
+	.byte	5
+	.byte	'poly',0,1,42,19
+	.word	.L60,.L62
+	.byte	0,0,0
+	.sdecl	'.debug_abbrev',debug,cluster('crc32_init')
+	.sect	'.debug_abbrev'
+.L33:
+	.byte	1,17,1,3,8,37,8,27,8,19,15,128,70,12,85,6,16,6,0,0,2,61,0,24,16,0,0,3,46,1,3,8,58,15,59,15,57,15,54,15
+	.byte	39,12,63,12,17,1,18,1,64,6,0,0,4,11,1,17,1,18,1,0,0,5,52,0,3,8,58,15,59,15,57,15,73,16,2,6,0,0,0
+	.sdecl	'.debug_line',debug,cluster('crc32_init')
+	.sect	'.debug_line'
+.L34:
+	.word	.L104-.L103
+.L103:
+	.half	3
+	.word	.L106-.L105
+.L105:
+	.byte	2,1,-4,9,10,0,1,1,1,1,0,0,0,1,0
+	.byte	'..\\Complex_Files\\Crc_Algorithm.c',0,0,0,0,0
+.L106:
+	.byte	5,17,7,0,5,2
+	.word	.L23
+	.byte	3,45,1,5,22,9
+	.half	.L107-.L23
+	.byte	1,5,10,9
+	.half	.L87-.L107
+	.byte	3,1,1,5,9,3,14,1,5,19,9
+	.half	.L108-.L87
+	.byte	3,114,1,5,11,9
+	.half	.L5-.L108
+	.byte	3,2,1,5,22,3,1,1,5,26,9
+	.half	.L6-.L5
+	.byte	3,4,1,5,13,9
+	.half	.L109-.L6
+	.byte	3,126,1,5,23,7,9
+	.half	.L110-.L109
+	.byte	3,2,1,5,30,9
+	.half	.L111-.L110
+	.byte	1,5,18,9
+	.half	.L7-.L111
+	.byte	3,4,1,5,22,9
+	.half	.L8-.L7
+	.byte	3,120,1,7,9
+	.half	.L112-.L8
+	.byte	3,125,1,5,18,3,14,1,5,19,9
+	.half	.L113-.L112
+	.byte	3,114,1,5,1,7,9
+	.half	.L114-.L113
+	.byte	3,17,1,7,9
+	.half	.L36-.L114
+	.byte	0,1,1
+.L104:
+	.sdecl	'.debug_ranges',debug,cluster('crc32_init')
+	.sect	'.debug_ranges'
+.L35:
+	.word	-1,.L23,0,.L36-.L23,0,0
+	.sdecl	'.debug_info',debug,cluster('crc8')
+	.sect	'.debug_info'
+.L37:
+	.word	326
+	.half	3
+	.word	.L38
+	.byte	4,1
+	.byte	'..\\Complex_Files\\Crc_Algorithm.c',0
+	.byte	'TASKING VX-toolset for TriCore: C compiler',0
+	.byte	'D:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_1.9\\BMU_BOOT\\Debug\\',0,12,1
+	.word	.L40,.L39
+	.byte	2
+	.word	.L28
+	.byte	3
+	.byte	'crc8',0,1,87,15
+	.word	.L63
+	.byte	1,1,1
+	.word	.L27,.L64,.L26
+	.byte	4
+	.byte	'data',0,1,87,35
+	.word	.L65,.L66
+	.byte	4
+	.byte	'len',0,1,87,55
+	.word	.L63,.L67
+	.byte	5
+	.word	.L27,.L64
+	.byte	6
+	.byte	'result',0,1,89,16
+	.word	.L63,.L68
+	.byte	6
+	.byte	'i',0,1,90,16
+	.word	.L63,.L69
+	.byte	6
+	.byte	'mask',0,1,91,16
+	.word	.L63,.L70
+	.byte	6
+	.byte	'j',0,1,92,16
+	.word	.L63,.L71
+	.byte	6
+	.byte	'temp',0,1,93,16
+	.word	.L63,.L72
+	.byte	6
+	.byte	'poly',0,1,94,16
+	.word	.L63,.L73
+	.byte	0,0,0
+	.sdecl	'.debug_abbrev',debug,cluster('crc8')
+	.sect	'.debug_abbrev'
+.L38:
+	.byte	1,17,1,3,8,37,8,27,8,19,15,128,70,12,85,6,16,6,0,0,2,61,0,24,16,0,0,3,46,1,3,8,58,15,59,15,57,15,73,16
+	.byte	54,15,39,12,63,12,17,1,18,1,64,6,0,0,4,5,0,3,8,58,15,59,15,57,15,73,16,2,6,0,0,5,11,1,17,1,18,1,0,0,6
+	.byte	52,0,3,8,58,15,59,15,57,15,73,16,2,6,0,0,0
+	.sdecl	'.debug_line',debug,cluster('crc8')
+	.sect	'.debug_line'
+.L39:
+	.word	.L116-.L115
+.L115:
+	.half	3
+	.word	.L118-.L117
+.L117:
+	.byte	2,1,-4,9,10,0,1,1,1,1,0,0,0,1,0
+	.byte	'..\\Complex_Files\\Crc_Algorithm.c',0,0,0,0,0
+.L118:
+	.byte	5,8,7,0,5,2
+	.word	.L27
+	.byte	3,223,0,1,5,7,9
+	.half	.L90-.L27
+	.byte	3,1,1,5,16,9
+	.half	.L92-.L90
+	.byte	1,5,7,9
+	.half	.L13-.L92
+	.byte	3,2,1,5,12,3,1,1,5,15,9
+	.half	.L94-.L13
+	.byte	3,1,1,5,12,9
+	.half	.L14-.L94
+	.byte	3,2,1,5,4,9
+	.half	.L119-.L14
+	.byte	1,5,9,7,9
+	.half	.L120-.L119
+	.byte	3,2,1,5,5,9
+	.half	.L95-.L120
+	.byte	3,1,1,5,10,7,9
+	.half	.L121-.L95
+	.byte	3,2,1,5,21,9
+	.half	.L16-.L121
+	.byte	3,2,1,5,26,9
+	.half	.L122-.L16
+	.byte	1,5,40,9
+	.half	.L123-.L122
+	.byte	1,5,10,9
+	.half	.L15-.L123
+	.byte	3,4,1,5,5,9
+	.half	.L97-.L15
+	.byte	3,1,1,5,10,7,9
+	.half	.L124-.L97
+	.byte	3,2,1,5,21,9
+	.half	.L18-.L124
+	.byte	3,2,1,5,27,9
+	.half	.L17-.L18
+	.byte	1,5,13,9
+	.half	.L98-.L17
+	.byte	3,3,1,5,15,9
+	.half	.L125-.L98
+	.byte	3,107,1,5,19,7,9
+	.half	.L126-.L125
+	.byte	3,124,1,5,16,9
+	.half	.L12-.L126
+	.byte	1,5,9,7,9
+	.half	.L127-.L12
+	.byte	3,28,1,5,1,9
+	.half	.L128-.L127
+	.byte	3,1,1,7,9
+	.half	.L41-.L128
+	.byte	0,1,1
+.L116:
+	.sdecl	'.debug_ranges',debug,cluster('crc8')
+	.sect	'.debug_ranges'
+.L40:
+	.word	-1,.L27,0,.L41-.L27,0,0
+	.sdecl	'.debug_info',debug,cluster('crc32')
+	.sect	'.debug_info'
+.L42:
+	.word	260
+	.half	3
+	.word	.L43
+	.byte	4,1
+	.byte	'..\\Complex_Files\\Crc_Algorithm.c',0
+	.byte	'TASKING VX-toolset for TriCore: C compiler',0
+	.byte	'D:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_1.9\\BMU_BOOT\\Debug\\',0,12,1
+	.word	.L45,.L44
+	.byte	2
+	.word	.L28
+	.byte	3
+	.byte	'crc32',0,1,69,15
+	.word	.L60
+	.byte	1,1,1
+	.word	.L25,.L74,.L24
+	.byte	4
+	.byte	'input',0,1,69,27
+	.word	.L75,.L76
+	.byte	4
+	.byte	'len',0,1,69,38
+	.word	.L57,.L77
+	.byte	5
+	.word	.L25,.L74
+	.byte	6
+	.byte	'i',0,1,71,9
+	.word	.L57,.L78
+	.byte	6
+	.byte	'pch',0,1,73,20
+	.word	.L65,.L79
+	.byte	0,0,0
+	.sdecl	'.debug_abbrev',debug,cluster('crc32')
+	.sect	'.debug_abbrev'
+.L43:
+	.byte	1,17,1,3,8,37,8,27,8,19,15,128,70,12,85,6,16,6,0,0,2,61,0,24,16,0,0,3,46,1,3,8,58,15,59,15,57,15,73,16
+	.byte	54,15,39,12,63,12,17,1,18,1,64,6,0,0,4,5,0,3,8,58,15,59,15,57,15,73,16,2,6,0,0,5,11,1,17,1,18,1,0,0,6
+	.byte	52,0,3,8,58,15,59,15,57,15,73,16,2,6,0,0,0
+	.sdecl	'.debug_line',debug,cluster('crc32')
+	.sect	'.debug_line'
+.L44:
+	.word	.L130-.L129
+.L129:
+	.half	3
+	.word	.L132-.L131
+.L131:
+	.byte	2,1,-4,9,10,0,1,1,1,1,0,0,0,1,0
+	.byte	'..\\Complex_Files\\Crc_Algorithm.c',0,0,0,0,0
+.L132:
+	.byte	5,10,7,0,5,2
+	.word	.L25
+	.byte	3,203,0,1,5,33,3,2,1,5,18,9
+	.half	.L133-.L25
+	.byte	3,126,1,5,33,9
+	.half	.L10-.L133
+	.byte	3,2,1,5,19,9
+	.half	.L134-.L10
+	.byte	3,1,1,5,24,1,5,33,9
+	.half	.L135-.L134
+	.byte	3,127,1,5,37,1,5,36,9
+	.half	.L136-.L135
+	.byte	1,5,24,3,1,1,5,29,9
+	.half	.L137-.L136
+	.byte	1,5,23,9
+	.half	.L138-.L137
+	.byte	1,5,13,1,5,20,9
+	.half	.L139-.L138
+	.byte	3,125,1,5,18,9
+	.half	.L9-.L139
+	.byte	1,5,33,7,9
+	.half	.L140-.L9
+	.byte	3,2,1,5,12,9
+	.half	.L141-.L140
+	.byte	3,5,1,5,1,9
+	.half	.L142-.L141
+	.byte	3,1,1,7,9
+	.half	.L46-.L142
+	.byte	0,1,1
+.L130:
+	.sdecl	'.debug_ranges',debug,cluster('crc32')
+	.sect	'.debug_ranges'
+.L45:
+	.word	-1,.L25,0,.L46-.L25,0,0
+	.sdecl	'.debug_info',debug,cluster('bitrev')
+	.sect	'.debug_info'
+.L47:
+	.word	259
+	.half	3
+	.word	.L48
+	.byte	4,1
+	.byte	'..\\Complex_Files\\Crc_Algorithm.c',0
+	.byte	'TASKING VX-toolset for TriCore: C compiler',0
+	.byte	'D:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_1.9\\BMU_BOOT\\Debug\\',0,12,1
+	.word	.L50,.L49
+	.byte	2
+	.word	.L28
+	.byte	3
+	.byte	'bitrev',0,1,19,22
+	.word	.L60
+	.byte	1,1
+	.word	.L21,.L80,.L20
+	.byte	4
+	.byte	'input',0,1,19,43
+	.word	.L60,.L81
+	.byte	4
+	.byte	'bw',0,1,19,54
+	.word	.L57,.L82
+	.byte	5
+	.word	.L21,.L80
+	.byte	6
+	.byte	'i',0,1,21,9
+	.word	.L57,.L83
+	.byte	6
+	.byte	'var',0,1,22,19
+	.word	.L60,.L84
+	.byte	0,0,0
+	.sdecl	'.debug_abbrev',debug,cluster('bitrev')
+	.sect	'.debug_abbrev'
+.L48:
+	.byte	1,17,1,3,8,37,8,27,8,19,15,128,70,12,85,6,16,6,0,0,2,61,0,24,16,0,0,3,46,1,3,8,58,15,59,15,57,15,73,16
+	.byte	54,15,39,12,17,1,18,1,64,6,0,0,4,5,0,3,8,58,15,59,15,57,15,73,16,2,6,0,0,5,11,1,17,1,18,1,0,0,6,52,0,3
+	.byte	8,58,15,59,15,57,15,73,16,2,6,0,0,0
+	.sdecl	'.debug_line',debug,cluster('bitrev')
+	.sect	'.debug_line'
+.L49:
+	.word	.L144-.L143
+.L143:
+	.half	3
+	.word	.L146-.L145
+.L145:
+	.byte	2,1,-4,9,10,0,1,1,1,1,0,0,0,1,0
+	.byte	'..\\Complex_Files\\Crc_Algorithm.c',0,0,0,0,0
+.L146:
+	.byte	5,9,7,0,5,2
+	.word	.L21
+	.byte	3,22,1,5,10,9
+	.half	.L86-.L21
+	.byte	3,1,1,5,17,1,5,9,9
+	.half	.L2-.L86
+	.byte	3,2,1,5,20,7,9
+	.half	.L147-.L2
+	.byte	3,2,1,5,26,9
+	.half	.L148-.L147
+	.byte	1,5,21,9
+	.half	.L149-.L148
+	.byte	1,5,17,9
+	.half	.L150-.L149
+	.byte	1,5,14,9
+	.half	.L3-.L150
+	.byte	3,2,1,5,19,9
+	.half	.L151-.L3
+	.byte	3,122,1,5,17,9
+	.half	.L152-.L151
+	.byte	1,5,1,7,9
+	.half	.L153-.L152
+	.byte	3,9,1,7,9
+	.half	.L51-.L153
+	.byte	0,1,1
+.L144:
+	.sdecl	'.debug_ranges',debug,cluster('bitrev')
+	.sect	'.debug_ranges'
+.L50:
+	.word	-1,.L21,0,.L51-.L21,0,0
+	.sdecl	'.debug_info',debug,cluster('crc')
+	.sect	'.debug_info'
+.L52:
+	.word	167
+	.half	3
+	.word	.L53
+	.byte	4,1
+	.byte	'..\\Complex_Files\\Crc_Algorithm.c',0
+	.byte	'TASKING VX-toolset for TriCore: C compiler',0
+	.byte	'D:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_1.9\\BMU_BOOT\\Debug\\',0,12,1,2
+	.word	.L28
+	.byte	3
+	.byte	'crc',0,1,68,15
+	.word	.L60
+	.byte	1,5,3
+	.word	crc
+	.byte	0
+	.sdecl	'.debug_abbrev',debug,cluster('crc')
+	.sect	'.debug_abbrev'
+.L53:
+	.byte	1,17,1,3,8,37,8,27,8,19,15,128,70,12,0,0,2,61,0,24,16,0,0,3,52,0,3,8,58,15,59,15,57,15,73,16,63,12,2,9
+	.byte	0,0,0
+	.sdecl	'.debug_info',debug,cluster('table')
+	.sect	'.debug_info'
+.L54:
+	.word	168
+	.half	3
+	.word	.L55
+	.byte	4,1
+	.byte	'..\\Complex_Files\\Crc_Algorithm.c',0
+	.byte	'TASKING VX-toolset for TriCore: C compiler',0
+	.byte	'D:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_1.9\\BMU_BOOT\\Debug\\',0,12,1,2
+	.word	.L28
+	.byte	3
+	.byte	'table',0,1,16,22
+	.word	.L85
+	.byte	5,3
+	.word	table
+	.byte	0
+	.sdecl	'.debug_abbrev',debug,cluster('table')
+	.sect	'.debug_abbrev'
+.L55:
+	.byte	1,17,1,3,8,37,8,27,8,19,15,128,70,12,0,0,2,61,0,24,16,0,0,3,52,0,3,8,58,15,59,15,57,15,73,16,2,9,0,0,0
+	.sdecl	'.debug_loc',debug,cluster('bitrev')
+	.sect	'.debug_loc'
+.L20:
+	.word	-1,.L21,0,.L80-.L21
+	.half	2
+	.byte	138,0
+	.word	0,0
+.L82:
+	.word	-1,.L21,0,.L80-.L21
+	.half	5
+	.byte	144,34,157,32,32
+	.word	0,0
+.L83:
+	.word	-1,.L21,.L2-.L21,.L80-.L21
+	.half	5
+	.byte	144,32,157,32,0
+	.word	0,0
+.L81:
+	.word	-1,.L21,0,.L80-.L21
+	.half	5
+	.byte	144,34,157,32,0
+	.word	0,0
+.L84:
+	.word	-1,.L21,.L86-.L21,.L80-.L21
+	.half	5
+	.byte	144,33,157,32,0
+	.word	0,0
+	.sdecl	'.debug_loc',debug,cluster('crc32')
+	.sect	'.debug_loc'
+.L24:
+	.word	-1,.L25,0,.L74-.L25
+	.half	2
+	.byte	138,0
+	.word	0,0
+.L78:
+	.word	-1,.L25,.L89-.L25,.L74-.L25
+	.half	5
+	.byte	144,39,157,32,32
+	.word	0,0
+.L76:
+	.word	-1,.L25,0,.L74-.L25
+	.half	1
+	.byte	100
+	.word	0,0
+.L77:
+	.word	-1,.L25,0,.L74-.L25
+	.half	5
+	.byte	144,34,157,32,0
+	.word	0,0
+.L79:
+	.word	-1,.L25,0,.L74-.L25
+	.half	1
+	.byte	100
+	.word	0,0
+	.sdecl	'.debug_loc',debug,cluster('crc32_init')
+	.sect	'.debug_loc'
+.L61:
+	.word	-1,.L23,.L6-.L23,.L56-.L23
+	.half	5
+	.byte	144,39,157,32,32
+	.word	0,0
+.L22:
+	.word	-1,.L23,0,.L56-.L23
+	.half	2
+	.byte	138,0
+	.word	0,0
+.L58:
+	.word	-1,.L23,.L88-.L23,.L56-.L23
+	.half	5
+	.byte	144,32,157,32,0
+	.word	0,0
+.L59:
+	.word	0,0
+.L62:
+	.word	-1,.L23,.L87-.L23,.L56-.L23
+	.half	5
+	.byte	144,33,157,32,0
+	.word	0,0
+	.sdecl	'.debug_loc',debug,cluster('crc8')
+	.sect	'.debug_loc'
+.L26:
+	.word	-1,.L27,0,.L64-.L27
+	.half	2
+	.byte	138,0
+	.word	0,0
+.L66:
+	.word	-1,.L27,0,.L64-.L27
+	.half	1
+	.byte	100
+	.word	0,0
+.L69:
+	.word	-1,.L27,.L92-.L27,.L93-.L27
+	.half	5
+	.byte	144,32,157,32,0
+	.word	.L12-.L27,.L64-.L27
+	.half	5
+	.byte	144,32,157,32,0
+	.word	0,0
+.L71:
+	.word	0,0
+.L67:
+	.word	-1,.L27,0,.L64-.L27
+	.half	5
+	.byte	144,34,157,32,0
+	.word	0,0
+.L70:
+	.word	-1,.L27,.L94-.L27,.L12-.L27
+	.half	5
+	.byte	144,32,157,32,32
+	.word	0,0
+.L73:
+	.word	-1,.L27,.L95-.L27,.L15-.L27
+	.half	5
+	.byte	144,33,157,32,32
+	.word	.L97-.L27,.L98-.L27
+	.half	5
+	.byte	144,33,157,32,32
+	.word	0,0
+.L68:
+	.word	-1,.L27,.L90-.L27,.L91-.L27
+	.half	5
+	.byte	144,39,157,32,32
+	.word	.L15-.L27,.L96-.L27
+	.half	5
+	.byte	144,39,157,32,32
+	.word	.L17-.L27,.L64-.L27
+	.half	5
+	.byte	144,39,157,32,32
+	.word	0,0
+.L72:
+	.word	-1,.L27,.L94-.L27,.L12-.L27
+	.half	5
+	.byte	144,33,157,32,0
+	.word	0,0
+	.sdecl	'.debug_frame',debug
+	.sect	'.debug_frame'
+.L154:
+	.word	48
+	.word	-1
+	.byte	3,0,2,1,27,12,26,0,8,26,8,27,8,30,8,29,8,28,8,16,8,17,8,24,8,25,8,31,8,32,8,33,8,34,8,35,8,36,8,37,8,38
+	.byte	8,39
+	.sdecl	'.debug_frame',debug,cluster('bitrev')
+	.sect	'.debug_frame'
+	.word	24
+	.word	.L154,.L21,.L80-.L21
+	.byte	8,18,8,19,8,20,8,21,8,22,8,23
+	.sdecl	'.debug_frame',debug,cluster('crc32_init')
+	.sect	'.debug_frame'
+	.word	12
+	.word	.L154,.L23,.L56-.L23
+	.sdecl	'.debug_frame',debug,cluster('crc32')
+	.sect	'.debug_frame'
+	.word	20
+	.word	.L154,.L25,.L74-.L25
+	.byte	8,19,8,21,8,22,8,23
+	.sdecl	'.debug_frame',debug,cluster('crc8')
+	.sect	'.debug_frame'
+	.word	24
+	.word	.L154,.L27,.L64-.L27
+	.byte	8,18,8,19,8,21,8,22,8,23,0,0
+
+; ..\Complex_Files\Crc_Algorithm.c	   127  
+; ..\Complex_Files\Crc_Algorithm.c	   128  
+
+	; Module end

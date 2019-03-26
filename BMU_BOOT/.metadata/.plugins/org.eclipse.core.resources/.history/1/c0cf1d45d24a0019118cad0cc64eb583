@@ -1,0 +1,487 @@
+
+#include "MAIN.h"
+
+Struct_Uds_SID_SA_Info	st_Uds_SID_SA_Info;	/*UDS SID_SA信息*/
+unsigned char AppKeyConst[4] = {0x8F, 0xC5, 0xCC, 0x0A};
+unsigned char ui8_Uds_Seed[4];
+
+//wxc20180620
+//uint32 saGetKey(uint8* wSeed)
+//{
+////    uint8 Seed[4];
+////    uint8 Const[4];
+////    uint8 Seed2[4];
+////    uint8 Key1[4];
+////    uint8 Key2[4];
+////    uint8 Key[4];
+////    uint8 i;
+////    uint8 j = 3;
+////    uint32 wKey;
+////
+////    Seed[0] = (uint8)((wSeed & 0xff000000) >> 24);
+////    Seed[1] = (uint8)((wSeed & 0x00ff0000) >> 16);
+////    Seed[2] = (uint8)((wSeed & 0x0000ff00) >> 8);
+////    Seed[3] = (uint8)(wSeed & 0x000000ff);
+////
+////    Const[3] = (uint8)((wConst & 0xff000000) >> 24);
+////    Const[2] = (uint8)((wConst & 0x00ff0000) >> 16);
+////    Const[1] = (uint8)((wConst & 0x0000ff00) >> 8);
+////    Const[0] = (uint8)(wConst & 0x000000ff);
+////
+////
+////
+////    for (i = 0; i < 4; i++)
+////    {
+////        Key1[i] = Seed [i] ^ Const[i];
+////        Seed2[i] = Seed [j];
+////        Key2[i] = Seed2[i] ^ Const[i];
+////        Key[i] = (uint8)(Key1[i] + Key2[i]+0x05);
+////        j--;
+////    }
+////
+////    wKey = ((((uint32)Key[3])& 0x000000ff)
+////            + (((uint32)(Key[2]) << 8) & 0x0000ff00)
+////            + (((uint32)(Key[1]) << 16) & 0x00ff0000)
+////            + (((uint32)(Key[0]) << 24) & 0xff000000));
+//
+//	return((((wSeed >> 4) ^ wSeed) << 3) ^ wSeed);
+//}
+
+/*观致算法
+uint32 saGetKey(uint8 *wSeed)
+{
+	uint8 *ui8_temp;
+	uint8 data[8];
+	uint8 ui8_data0;
+	uint8 ui8_data1;
+	uint8 ui8_data2;
+	uint8 ui8_data3;
+
+	uint8 ui8_crc1;
+	uint8 ui8_crc2;
+	uint8 ui8_crc3;
+	uint8 ui8_crc4;
+	uint8 ui8_crc5;
+
+	ui8_data0 = wSeed[0];
+	ui8_data1 = wSeed[1];
+	ui8_data2 = wSeed[2];
+	ui8_data3 = wSeed[3];
+
+	ui8_temp = wSeed;
+	ui8_crc1 = crc(ui8_temp, 4);
+
+	ui8_temp = wSeed;
+	ui8_temp[0] = ui8_crc1;
+	ui8_crc2 = crc(ui8_temp, 4);
+	ui8_temp[0] = ui8_data0;
+
+	ui8_temp = wSeed;
+	ui8_temp[1] = ui8_crc2;
+	ui8_crc3 = crc(ui8_temp, 4);
+	ui8_temp[1] = ui8_data1;
+
+	ui8_temp = wSeed;
+	ui8_temp[2] = ui8_crc3;
+	ui8_crc4 = crc(ui8_temp, 4);
+	ui8_temp[2] = ui8_data2;
+
+	ui8_temp = wSeed;
+	ui8_temp[3] = ui8_crc4;
+	ui8_crc5 = crc(ui8_temp, 4);
+	ui8_temp[3] = ui8_data3;
+
+	data[0] = ui8_crc2;
+	data[1] = ui8_crc3;
+	data[2] = ui8_crc4;
+	data[3] = ui8_crc5;
+
+	return ((ui8_crc2 * 0x100U * 0x100U * 0x100U
+			+ ui8_crc3 * 0x100U * 0x100U
+			+ ui8_crc4 * 0x100U
+			+ ui8_crc5));
+
+}*/
+/*微宏算法*/
+unsigned char BitReplace(unsigned char seed)
+{
+    seed = ((seed & 0x55) << 1) | ((seed >> 1) & 0x55);
+    seed = ((seed & 0x33) << 2) | ((seed >> 2) & 0x33);
+    seed = ((seed & 0x0F) << 4) | ((seed >> 4) & 0x0F);
+    return seed;
+}
+
+
+uint32 saGetKey(uint8 *wSeed)
+{
+	unsigned char seed2[4];
+	unsigned char key1[4];
+	unsigned char key2[4];
+//	unsigned char key[4];
+
+	unsigned int key1_temp = 0;
+	unsigned int key2_temp = 0;
+	unsigned int key_temp = 0;
+
+	key1[0] = wSeed[0]^AppKeyConst[0];
+    key1[1] = wSeed[1]^AppKeyConst[1];
+    key1[2] = wSeed[2]^AppKeyConst[2];
+    key1[3] = wSeed[3]^AppKeyConst[3];
+
+    key1_temp = key1[0] * 256U * 256U *256U + key1[1] * 256U * 256U + key1[2] * 256U + key1[3];
+
+    seed2[0] = BitReplace(wSeed[3]);
+	seed2[1] = BitReplace(wSeed[2]);
+    seed2[2] = BitReplace(wSeed[1]);
+    seed2[3] = BitReplace(wSeed[0]);
+
+    key2[0] = (seed2[0] + AppKeyConst[3])^AppKeyConst[0];
+    key2[1] = (seed2[1] + AppKeyConst[2])^AppKeyConst[1];
+    key2[2] = (seed2[2] + AppKeyConst[1])^AppKeyConst[2];
+    key2[3] = (seed2[3] + AppKeyConst[0])^AppKeyConst[3];
+
+    key2_temp = (unsigned int)(key2[0] * 256U * 256U *256U + key2[1] * 256U *256U + key2[2] * 256U + key2[3]);
+    key_temp = (unsigned int)(key1_temp + key2_temp);
+
+//    key[0] = (unsigned char)(key_temp>>24);
+//    key[1] = (unsigned char)(key_temp>>16);
+//    key[2] = (unsigned char)(key_temp>>8);
+//    key[3] = (unsigned char)(key_temp);
+
+    return (key_temp);
+}
+
+uint32 saGetKey1(uint8 *wSeed)
+{
+	unsigned char seed2[4];
+	unsigned char key1[4];
+	unsigned char key2[4];
+//	unsigned char key[4];
+
+	unsigned int key1_temp = 0;
+	unsigned int key2_temp = 0;
+	unsigned int key_temp = 0;
+
+	key1[0] = wSeed[0]^AppKeyConst[0];
+    key1[1] = wSeed[1]^AppKeyConst[1];
+    key1[2] = wSeed[2]^AppKeyConst[2];
+    key1[3] = wSeed[3]^AppKeyConst[3];
+
+    key[0] = (key1[2]&0x0F)|(key1[2]&0xF0);
+    key[1] = ((key1[0]&0x0F)<<4)|((key1[1]&0xF0)>>4);
+    key[2] = (key1[1]&0xF0)|((key1[3]&0xF0)>>4);
+    key[3] = ((key1[0]&0x0F)<<4)|(key1[3]&0x0F);
+
+    key2_temp = (unsigned int)(key[0] * 256U * 256U *256U + key[1] * 256U *256U + key[2] * 256U + key[3]);
+
+//    key[0] = (unsigned char)(key_temp>>24);
+//    key[1] = (unsigned char)(key_temp>>16);
+//    key[2] = (unsigned char)(key_temp>>8);
+//    key[3] = (unsigned char)(key_temp);
+
+    return (key2_temp);
+}
+
+/*************************************************************************/
+/*
+Function:		void UdsFunc_SID_SA_SUBID_RSD4_Callback
+				(uint8 *ui8_pInd, uint8 *ui8_pRes, uint16 *ui16_pResLen)
+
+Description: 	此函数用于SID_SA_SUBID_RSD服务回调
+
+Parameters: 	ui8_pInd(不含SID和SubID)
+				ui8_pRes(不含SID和SubID)
+				ui16_pResLen
+
+Return:       	boolean
+
+Return Values:  E_OK		任务完成
+				E_NOT_OK	任务未完成
+
+Remarks:
+
+Example:
+*/
+boolean UdsFunc_SID_SA_SUBID_RSD1_Callback
+	(uint8 *ui8_pInd, uint8 *ui8_pRes, uint16 *ui16_pResLen)
+{
+	boolean	b_Return;
+	uint32 	ui32_Cur_STM_TIM0;	/*当前STM_TIM0值*/
+
+	ui32_Cur_STM_TIM0 = STM_TIM0;	/*取STM_TIM0值*/
+
+	//ULOCK状态下Seed返回0x00，否则返回STM_TIM0值
+	if(st_Uds_SID_SA_Info.b_Security_Locked == 0x01)
+	{
+		ui8_Uds_Seed[0U] = 0x00U;
+		ui8_Uds_Seed[1U] = 0x00U;
+		ui8_Uds_Seed[2U] = 0x00U;
+		ui8_Uds_Seed[3U] = 0x00U;
+	}
+	else
+	{
+		ui8_Uds_Seed[0U] = (uint8)(ui32_Cur_STM_TIM0 / 0x100U / 0x100U / 0x100U);
+		ui8_Uds_Seed[1U] = (uint8)(ui32_Cur_STM_TIM0 / 0x100U / 0x100U);
+		ui8_Uds_Seed[2U] = (uint8)(ui32_Cur_STM_TIM0 / 0x100U);
+		ui8_Uds_Seed[3U] = (uint8)(ui32_Cur_STM_TIM0);
+	}
+
+	st_Uds_SID_SA_Info.b_RequestSeedFlag = 0x01;	/*request seed标志完成*/
+
+	/*回应数据*/
+	ui16_pResLen[0U] = 4U;
+	ui8_pRes[0U] = ui8_Uds_Seed[0U];
+	ui8_pRes[1U] = ui8_Uds_Seed[1U];
+	ui8_pRes[2U] = ui8_Uds_Seed[2U];
+	ui8_pRes[3U] = ui8_Uds_Seed[3U];
+	st_Uds_Response.ui8_ResCode = UDS_RES_CODE_PR;	/*正响应*/
+
+	b_Return = E_OK;	/*回调函数执行完毕*/
+
+	return	b_Return;
+}
+
+/*************************************************************************/
+/*
+Function:		void UdsFunc_SID_SA_SUBID_SK4_Callback
+				(uint8 *ui8_pInd, uint8 *ui8_pRes, uint16 *ui16_pResLen)
+
+Description: 	此函数用于SID_SA_SUBID_SK服务回调
+
+Parameters: 	ui8_pInd(不含SID和SubID)
+				ui8_pRes(不含SID和SubID)
+				ui16_pResLen
+
+Return:       	boolean
+
+Return Values:  E_OK		任务完成
+				E_NOT_OK	任务未完成
+
+Remarks:
+
+Example:
+*/
+boolean UdsFunc_SID_SA_SUBID_SK1_Callback
+	(uint8 *ui8_pInd, uint8 *ui8_pRes, uint16 *ui16_pResLen)
+{
+	boolean	b_Return;
+	uint8	ui8_Loop_1;	/*循环计数器*/
+//	uint32	ui32_Seed;
+	uint32	ui32_Key;
+
+	if(st_Uds_SID_SA_Info.b_RequestSeedFlag == 0x01)
+	{
+//		for(ui8_Loop_1 = 0U; ui8_Loop_1 < 4U; ui8_Loop_1++)
+//		{
+//			ui8_Aes_Data_Array[ui8_Loop_1 * 4U + 0U] = ui8_Uds_Seed[0U];
+//			ui8_Aes_Data_Array[ui8_Loop_1 * 4U + 1U] = ui8_Uds_Seed[1U];
+//			ui8_Aes_Data_Array[ui8_Loop_1 * 4U + 2U] = ui8_Uds_Seed[2U];
+//			ui8_Aes_Data_Array[ui8_Loop_1 * 4U + 3U] = ui8_Uds_Seed[3U];
+//		}
+//
+//		Aes_Key_Input();
+//		Aes_Encrypt_Deal();		//AES计算
+//
+//		ui8_Uds_Seed[0U] = ui8_Aes_Data_Array[0U];
+//		ui8_Uds_Seed[1U] = ui8_Aes_Data_Array[1U];
+//		ui8_Uds_Seed[2U] = ui8_Aes_Data_Array[2U];
+//		ui8_Uds_Seed[3U] = ui8_Aes_Data_Array[3U];
+
+//		ui32_Seed = ui8_Uds_Seed[0U] * 0x100U * 0x100U * 0x100U
+//					+ ui8_Uds_Seed[1U] * 0x100U * 0x100U
+//					+ ui8_Uds_Seed[2U] * 0x100U
+//					+ui8_Uds_Seed[3U];
+
+		ui32_Key = saGetKey(&ui8_Uds_Seed[0U]);
+
+		ui8_Uds_Seed[0U] = (uint8)(ui32_Key / 0x100U / 0x100U / 0x100U);
+		ui8_Uds_Seed[1U] = (uint8)(ui32_Key / 0x100U / 0x100U);
+		ui8_Uds_Seed[2U] = (uint8)(ui32_Key / 0x100U);
+		ui8_Uds_Seed[3U] = (uint8)ui32_Key;
+
+
+
+		for(ui8_Loop_1 = 0U; ui8_Loop_1 < 4U; ui8_Loop_1++)
+		{
+			if(ui8_pInd[ui8_Loop_1] != ui8_Uds_Seed[ui8_Loop_1])
+			{
+				break;
+			}
+		}
+//		ui8_Loop_1 = 4U;
+		if(ui8_Loop_1 < 4U)
+		{
+			st_Uds_Response.ui8_ResCode = UDS_RES_CODE_IK;	/*密钥错误响应*/
+		}
+		else
+		{
+			st_Uds_SID_SA_Info.b_RequestSeedFlag = 0x00;	/*request seed标志清除*/
+			st_Uds_SID_SA_Info.b_Security_Locked = 0x08;	/*密钥解除锁定*/
+
+			/*回应数据*/
+			ui16_pResLen[0U] = 0U;
+			st_Uds_Response.ui8_ResCode = UDS_RES_CODE_PR;	/*正响应*/
+		}
+	}
+	else
+	{
+		st_Uds_Response.ui8_ResCode = UDS_RES_CODE_RSE;	/*请求顺序错误响应*/
+	}
+
+	b_Return = E_OK;	/*回调函数执行完毕*/
+
+	return	b_Return;
+}
+
+/*************************************************************************/
+/*
+Function:		void UdsFunc_SID_SA_SUBID_RSD4_Callback
+				(uint8 *ui8_pInd, uint8 *ui8_pRes, uint16 *ui16_pResLen)
+
+Description: 	此函数用于SID_SA_SUBID_RSD服务回调
+
+Parameters: 	ui8_pInd(不含SID和SubID)
+				ui8_pRes(不含SID和SubID)
+				ui16_pResLen
+
+Return:       	boolean
+
+Return Values:  E_OK		任务完成
+				E_NOT_OK	任务未完成
+
+Remarks:
+
+Example:
+*/
+boolean UdsFunc_SID_SA_SUBID_RSD4_Callback
+	(uint8 *ui8_pInd, uint8 *ui8_pRes, uint16 *ui16_pResLen)
+{
+	boolean	b_Return;
+	uint32 	ui32_Cur_STM_TIM0;	/*当前STM_TIM0值*/
+
+	ui32_Cur_STM_TIM0 = STM_TIM0;	/*取STM_TIM0值*/
+
+	//ULOCK状态下Seed返回0x00，否则返回STM_TIM0值
+	if(st_Uds_SID_SA_Info.b_Security_Locked == 0x08)
+	{
+		ui8_Uds_Seed[0U] = 0x00U;
+		ui8_Uds_Seed[1U] = 0x00U;
+		ui8_Uds_Seed[2U] = 0x00U;
+		ui8_Uds_Seed[3U] = 0x00U;
+	}
+	else
+	{
+		ui8_Uds_Seed[0U] = (uint8)(ui32_Cur_STM_TIM0 / 0x100U / 0x100U / 0x100U);
+		ui8_Uds_Seed[1U] = (uint8)(ui32_Cur_STM_TIM0 / 0x100U / 0x100U);
+		ui8_Uds_Seed[2U] = (uint8)(ui32_Cur_STM_TIM0 / 0x100U);
+		ui8_Uds_Seed[3U] = (uint8)(ui32_Cur_STM_TIM0);
+	}
+
+	st_Uds_SID_SA_Info.b_RequestSeedFlag = 0x08;	/*request seed标志完成*/
+
+	/*回应数据*/
+	ui16_pResLen[0U] = 4U;
+	ui8_pRes[0U] = ui8_Uds_Seed[0U];
+	ui8_pRes[1U] = ui8_Uds_Seed[1U];
+	ui8_pRes[2U] = ui8_Uds_Seed[2U];
+	ui8_pRes[3U] = ui8_Uds_Seed[3U];
+	st_Uds_Response.ui8_ResCode = UDS_RES_CODE_PR;	/*正响应*/
+
+	b_Return = E_OK;	/*回调函数执行完毕*/
+
+	return	b_Return;
+}
+
+/*************************************************************************/
+/*
+Function:		void UdsFunc_SID_SA_SUBID_SK4_Callback
+				(uint8 *ui8_pInd, uint8 *ui8_pRes, uint16 *ui16_pResLen)
+
+Description: 	此函数用于SID_SA_SUBID_SK服务回调
+
+Parameters: 	ui8_pInd(不含SID和SubID)
+				ui8_pRes(不含SID和SubID)
+				ui16_pResLen
+
+Return:       	boolean
+
+Return Values:  E_OK		任务完成
+				E_NOT_OK	任务未完成
+
+Remarks:
+
+Example:
+*/
+boolean UdsFunc_SID_SA_SUBID_SK4_Callback
+	(uint8 *ui8_pInd, uint8 *ui8_pRes, uint16 *ui16_pResLen)
+{
+	boolean	b_Return;
+	uint8	ui8_Loop_1;	/*循环计数器*/
+//	uint32	ui32_Seed;
+	uint32	ui32_Key;
+
+	if(st_Uds_SID_SA_Info.b_RequestSeedFlag == 0x08)
+	{
+//		for(ui8_Loop_1 = 0U; ui8_Loop_1 < 4U; ui8_Loop_1++)
+//		{
+//			ui8_Aes_Data_Array[ui8_Loop_1 * 4U + 0U] = ui8_Uds_Seed[0U];
+//			ui8_Aes_Data_Array[ui8_Loop_1 * 4U + 1U] = ui8_Uds_Seed[1U];
+//			ui8_Aes_Data_Array[ui8_Loop_1 * 4U + 2U] = ui8_Uds_Seed[2U];
+//			ui8_Aes_Data_Array[ui8_Loop_1 * 4U + 3U] = ui8_Uds_Seed[3U];
+//		}
+//
+//		Aes_Key_Input();
+//		Aes_Encrypt_Deal();		//AES计算
+//
+//		ui8_Uds_Seed[0U] = ui8_Aes_Data_Array[0U];
+//		ui8_Uds_Seed[1U] = ui8_Aes_Data_Array[1U];
+//		ui8_Uds_Seed[2U] = ui8_Aes_Data_Array[2U];
+//		ui8_Uds_Seed[3U] = ui8_Aes_Data_Array[3U];
+
+//		ui32_Seed = ui8_Uds_Seed[0U] * 0x100U * 0x100U * 0x100U
+//					+ ui8_Uds_Seed[1U] * 0x100U * 0x100U
+//					+ ui8_Uds_Seed[2U] * 0x100U
+//					+ui8_Uds_Seed[3U];
+
+		ui32_Key = saGetKey(&ui8_Uds_Seed[0U]);
+
+		ui8_Uds_Seed[0U] = (uint8)(ui32_Key / 0x100U / 0x100U / 0x100U);
+		ui8_Uds_Seed[1U] = (uint8)(ui32_Key / 0x100U / 0x100U);
+		ui8_Uds_Seed[2U] = (uint8)(ui32_Key / 0x100U);
+		ui8_Uds_Seed[3U] = (uint8)ui32_Key;
+
+
+
+		for(ui8_Loop_1 = 0U; ui8_Loop_1 < 4U; ui8_Loop_1++)
+		{
+			if(ui8_pInd[ui8_Loop_1] != ui8_Uds_Seed[ui8_Loop_1])
+			{
+				break;
+			}
+		}
+//		ui8_Loop_1 = 4U;
+		if(ui8_Loop_1 < 4U)
+		{
+			st_Uds_Response.ui8_ResCode = UDS_RES_CODE_IK;	/*密钥错误响应*/
+		}
+		else
+		{
+			st_Uds_SID_SA_Info.b_RequestSeedFlag = 0x00;	/*request seed标志清除*/
+			st_Uds_SID_SA_Info.b_Security_Locked = 0x08;	/*密钥解除锁定*/
+
+			/*回应数据*/
+			ui16_pResLen[0U] = 0U;
+			st_Uds_Response.ui8_ResCode = UDS_RES_CODE_PR;	/*正响应*/
+		}
+	}
+	else
+	{
+		st_Uds_Response.ui8_ResCode = UDS_RES_CODE_RSE;	/*请求顺序错误响应*/
+	}
+
+	b_Return = E_OK;	/*回调函数执行完毕*/
+
+	return	b_Return;
+}
+
+

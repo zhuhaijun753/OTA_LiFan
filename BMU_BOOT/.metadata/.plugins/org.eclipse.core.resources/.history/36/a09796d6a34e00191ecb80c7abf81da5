@@ -1,0 +1,844 @@
+
+#include "MAIN.h"
+
+Struct_Uds_SID_RC_Info	st_Uds_SID_RC_Info;	/*UDS SID_RC信息*/
+
+#if ECU_TYPE == ECU_VCU
+boolean UdsFunc_SID_RC_SUBID_STR_Callback
+	(uint8 *ui8_pInd, uint8 *ui8_pRes, uint16 *ui16_pResLen)
+{
+	boolean	b_Return;
+	uint16	ui16_DID;
+
+	ui16_DID = (uint16)ui8_pInd[0U] * 0x100U + ui8_pInd[1U];	/*从TP层取服务数据ID*/
+
+	b_Return = E_NOT_OK;
+
+	switch(ui16_DID)
+	{
+		case SID_RC_DID_0203:
+		{
+			st_Uds_SID_RC_Info.b_PreProgrammingFlag = TRUE;	/*预刷新请求*/
+
+//        	if((Boot_7DF_flg == 1)&&(Boot_7C2_flg == 0))
+//        	{
+//        		Boot_7C2_flg = 1;
+//        		VINP_DIAG_BootReq_flg = 1;
+//        	}
+
+			/*回应数据*/
+			ui16_pResLen[0U] = 2U;
+			ui8_pRes[0U] = (uint8)(ui16_DID / 0x100U);
+			ui8_pRes[1U] = (uint8)(ui16_DID);
+			st_Uds_Response.ui8_ResCode = UDS_RES_CODE_PR;	/*正响应*/
+
+			b_Return = E_OK;	/*回调函数执行完毕*/
+			break;
+		}
+		case SID_RC_DID_FF00:
+		{
+
+			/*回应数据*/
+			ui16_pResLen[0U] = 2U;
+			ui8_pRes[0U] = (uint8)(ui16_DID / 0x100U);
+			ui8_pRes[1U] = (uint8)(ui16_DID);
+			st_Uds_Response.ui8_ResCode = UDS_RES_CODE_PR;	/*正响应*/
+			break;
+		}
+		case SID_RC_DID_FF01:
+		{
+			/*回应数据*/
+			ui16_pResLen[0U] = 2U;
+			ui8_pRes[0U] = (uint8)(ui16_DID / 0x100U);
+			ui8_pRes[1U] = (uint8)(ui16_DID);
+			st_Uds_Response.ui8_ResCode = UDS_RES_CODE_PR;	/*正响应*/
+
+			b_Return = E_OK;	/*回调函数执行完毕*/
+			break;
+		}
+		case SID_RC_DID_0202:
+		{
+			/*回应数据*/
+			ui16_pResLen[0U] = 2U;
+			ui8_pRes[0U] = (uint8)(ui16_DID / 0x100U);
+			ui8_pRes[1U] = (uint8)(ui16_DID);
+			st_Uds_Response.ui8_ResCode = UDS_RES_CODE_PR;	/*正响应*/
+
+			b_Return = E_OK;	/*回调函数执行完毕*/
+			break;
+		}
+		default:
+		{
+			st_Uds_Response.ui8_ResCode = UDS_RES_CODE_ROOR;	/*数据越界错误响应*/
+			break;
+		}
+	}
+
+	return	b_Return;
+}
+#elif ECU_TYPE == ECU_VBU
+boolean UdsFunc_SID_RC_SUBID_STR_Callback
+	(uint8 *ui8_pInd, uint8 *ui8_pRes, uint16 *ui16_pResLen)
+{
+	boolean	b_Return;
+	uint16	ui16_DID;
+
+	ui16_DID = (uint16)ui8_pInd[0U] * 0x100U + ui8_pInd[1U];	/*从TP层取服务数据ID*/
+
+	b_Return = E_NOT_OK;
+
+	switch(ui16_DID)
+	{
+		case SID_RC_DID_0203:
+		{
+			st_Uds_SID_RC_Info.b_PreProgrammingFlag = TRUE;	/*预刷新请求*/
+
+//        	if((Boot_7DF_flg == 1)&&(Boot_7C2_flg == 0))
+//        	{
+//        		Boot_7C2_flg = 1;
+//        		VINP_DIAG_BootReq_flg = 1;
+//        	}
+
+			/*回应数据*/
+			ui16_pResLen[0U] = 2U;
+			ui8_pRes[0U] = (uint8)(ui16_DID / 0x100U);
+			ui8_pRes[1U] = (uint8)(ui16_DID);
+			st_Uds_Response.ui8_ResCode = UDS_RES_CODE_PR;	/*正响应*/
+
+			b_Return = E_OK;	/*回调函数执行完毕*/
+			break;
+		}
+		case SID_RC_DID_FF00:
+		{
+
+			/*回应数据*/
+			ui16_pResLen[0U] = 2U;
+			ui8_pRes[0U] = (uint8)(ui16_DID / 0x100U);
+			ui8_pRes[1U] = (uint8)(ui16_DID);
+			st_Uds_Response.ui8_ResCode = UDS_RES_CODE_PR;	/*正响应*/
+			break;
+		}
+		case SID_RC_DID_FF01:
+		{
+			/*回应数据*/
+			ui16_pResLen[0U] = 2U;
+			ui8_pRes[0U] = (uint8)(ui16_DID / 0x100U);
+			ui8_pRes[1U] = (uint8)(ui16_DID);
+			st_Uds_Response.ui8_ResCode = UDS_RES_CODE_PR;	/*正响应*/
+
+			b_Return = E_OK;	/*回调函数执行完毕*/
+			break;
+		}
+		case SID_RC_DID_0202:
+		{
+			/*回应数据*/
+			ui16_pResLen[0U] = 2U;
+			ui8_pRes[0U] = (uint8)(ui16_DID / 0x100U);
+			ui8_pRes[1U] = (uint8)(ui16_DID);
+			st_Uds_Response.ui8_ResCode = UDS_RES_CODE_PR;	/*正响应*/
+
+			b_Return = E_OK;	/*回调函数执行完毕*/
+			break;
+		}
+		default:
+		{
+			st_Uds_Response.ui8_ResCode = UDS_RES_CODE_ROOR;	/*数据越界错误响应*/
+			break;
+		}
+	}
+
+	return	b_Return;
+}
+
+#elif ECU_TYPE == ECU_BMS
+uint8 ui8_Flag = 1;
+uint8 ui8_PageFlag = 0;
+uint32 ui32_Count = 0;
+sint32 si32_EraseSize = 0;
+uint32 ui32_EraseStar = 0;
+uint32 ui32_BackupStar = 0;
+boolean UdsFunc_SID_RC_SUBID_STR_Callback
+	(uint8 *ui8_pInd, uint8 *ui8_pRes, uint16 *ui16_pResLen)
+{
+	boolean	b_Return;
+	uint16	ui16_DID;
+
+	ui16_DID = (uint16)ui8_pInd[0U] * 0x100U + ui8_pInd[1U];	/*从TP层取服务数据ID*/
+
+	b_Return = E_NOT_OK;
+
+	switch(ui16_DID)
+	{
+		case SID_RC_DID_0203:
+		{
+			/*判断Session是否支持*/
+			if((st_Uds_SID_DSC_Info.ui8_Active_Session & 0x06) != 0U)
+			{
+				/*判断服务无需密钥，或密钥已解锁*/
+				if((st_Uds_SID_SA_Info.b_Security_Locked & 0x01) != 0U)
+				{
+//					st_Uds_SID_RC_Info.b_PreProgrammingFlag = TRUE;	/*预刷新请求*/
+
+					/*回应数据*/
+					ui16_pResLen[0U] = 2U;
+					ui8_pRes[0U] = (uint8)(ui16_DID / 0x100U);
+					ui8_pRes[1U] = (uint8)(ui16_DID);
+					ui8_pRes[2U] = 0x00;
+					st_Uds_Response.ui8_ResCode = UDS_RES_CODE_PR;	/*正响应*/
+
+//					b_Return = E_OK;	/*回调函数执行完毕*/
+				}
+				else
+				{
+					st_Uds_Response.ui8_ResCode = UDS_RES_CODE_SAD;	/*服务密钥未解锁响应*/
+				}
+			}
+			else
+			{
+				st_Uds_Response.ui8_ResCode = UDS_RES_CODE_SNSIAS;	/*服务在工作Session下不支持响应*/
+			}
+			b_Return = E_OK;	/*回调函数执行完毕*/
+			break;
+		}
+		case SID_RC_DID_DFE0:
+		{
+			/*判断Session是否支持*/
+			if((st_Uds_SID_DSC_Info.ui8_Active_Session & 0x06) != 0U)
+			{
+				/*判断服务无需密钥，或密钥已解锁*/
+				if((st_Uds_SID_SA_Info.b_Security_Locked & 0x01) != 0U)
+				{
+
+					/*回应数据*/
+					ui16_pResLen[0U] = 2U;
+					ui8_pRes[0U] = (uint8)(ui16_DID / 0x100U);
+					ui8_pRes[1U] = (uint8)(ui16_DID);
+					ui8_pRes[2U] = 0x00;
+					st_Uds_Response.ui8_ResCode = UDS_RES_CODE_PR;	/*正响应*/
+
+//					b_Return = E_OK;	/*回调函数执行完毕*/
+				}
+				else
+				{
+					st_Uds_Response.ui8_ResCode = UDS_RES_CODE_SAD;	/*服务密钥未解锁响应*/
+				}
+			}
+			else
+			{
+				st_Uds_Response.ui8_ResCode = UDS_RES_CODE_SNSIAS;	/*服务在工作Session下不支持响应*/
+			}
+			b_Return = E_OK;	/*回调函数执行完毕*/
+			break;
+		}
+		case SID_RC_DID_FF00:
+		{
+			/*判断Session是否支持*/
+			if((st_Uds_SID_DSC_Info.ui8_Active_Session & 0x06) != 0U)
+			{
+				/*判断服务无需密钥，或密钥已解锁*/
+				if((st_Uds_SID_SA_Info.b_Security_Locked & 0x08) != 0U) //!=0
+				{
+					/*判断是否空闲*/
+					if((Fls_GetStatus() == FLS_TASK_IDLE_STATE) && (ui8_Flag == 0))
+					{
+						ui32_Count++;
+						if(ui32_Count == 140)
+						{
+							/*回应数据*/
+							ui16_pResLen[0U] = 3U;
+							ui8_pRes[0U] = (uint8)(ui16_DID / 0x100U);
+							ui8_pRes[1U] = (uint8)(ui16_DID);
+							ui8_pRes[2U] = 0x00U;
+							st_Uds_Response.ui8_ResCode = UDS_RES_CODE_PR;	/*正响应*/
+
+							ui32_Count = 0;
+							ui8_Flag = 1;
+							b_Return = E_OK;	/*回调函数执行完毕*/
+						}
+					}
+					else if((Fls_GetStatus() == FLS_TASK_IDLE_STATE) && (ui8_Flag == 1))	/*接收首地址，以及大小*/
+					{
+						ui32_EraseStar = (uint32)ui8_pInd[3U]*256*256*256 + ui8_pInd[4U]*256*256 + ui8_pInd[5U]*256 + ui8_pInd[6U];		/*地址计算*/
+						si32_EraseSize = (uint32)ui8_pInd[7U]*256*256*256 + ui8_pInd[8U]*256*256 + ui8_pInd[9U]*256 + ui8_pInd[10U];	/*大小计算*/
+
+						if(ui32_KeepBSLState_Flag == SYS_KEEP_BSL_STATE)				/*备份应用层*/
+						{
+							Fls_Erase(0xA0010000);										/*擦除标志位*/
+							ui32_BackupStar = 0xA01C0000;
+							ui8_Flag = 2;//5;
+							st_Uds_Response.ui8_ResCode = UDS_RES_CODE_RCRRP;	/*78*/
+						}
+						else
+						{
+							if((ui32_EraseStar == 0xA0020000) && (si32_EraseSize == 0xD2101))	/*地址正确，再执行擦写，否则返回错误*/
+							{
+								ui8_Flag = 5;
+								st_Uds_Response.ui8_ResCode = UDS_RES_CODE_RCRRP;	/*78*/
+							}
+							else
+							{
+								ui32_EraseStar = 0;
+								ui8_Flag = 1;
+								ui32_Count = 0;
+
+								/*回应数据*/
+								ui16_pResLen[0U] = 3U;
+								ui8_pRes[0U] = (uint8)(ui16_DID / 0x100U);
+								ui8_pRes[1U] = (uint8)(ui16_DID);
+								ui8_pRes[2U] = 0x01U;
+								st_Uds_Response.ui8_ResCode = UDS_RES_CODE_PR;	/*正响应*/
+
+								b_Return = E_OK;	/*回调函数执行完毕*/
+							}
+
+						}
+					}
+					else if((Fls_GetStatus() == FLS_TASK_IDLE_STATE) && (ui8_Flag == 2))	/*擦除0xA01C0000,0xA0200000,0xA0240000*/
+					{
+						switch(ui32_BackupStar)
+						{
+						case 0xA01C0000:
+							Fls_Erase(ui32_BackupStar);
+							ui32_BackupStar = 0xA0200000;
+							ui8_Flag = 2;
+							break;
+						case 0xA0200000:
+							Fls_Erase(ui32_BackupStar);
+							ui32_BackupStar = 0xA0240000;
+							ui8_Flag = 2;
+							break;
+						case 0xA0240000:
+							Fls_Erase(ui32_BackupStar);
+							ui8_Flag = 3;
+							ui32_Count = 0;
+							ui32_BackupStar = STD_RC_BACKUPSTAR;							/*数据存储首地址*/
+							break;
+						}
+						st_Uds_Response.ui8_ResCode = UDS_RES_CODE_RCRRP;	/*78*/
+					}
+					else if((Fls_GetStatus() == FLS_TASK_IDLE_STATE) && (ui8_Flag == 3))		/*读取数据到备份模块*/
+					{
+						memset(Boot_Flash, 0U, 256U);
+						Fls_Read(ui32_BackupStar, &Boot_Flash[0], 256U);
+						if(ui32_BackupStar >= 0xA00C0000)
+						{
+							Fls_Write(ui32_BackupStar + 0x180000, &Boot_Flash[0], 256U);
+						}
+						else
+						{
+							Fls_Write(ui32_BackupStar + 0x1A0000, &Boot_Flash[0], 256U);
+						}
+						ui32_Count++;
+						if(ui32_Count == 500)
+						{
+							st_Uds_Response.ui8_ResCode = UDS_RES_CODE_RCRRP;	/*78*/
+							ui32_Count = 0;
+						}
+						ui8_Flag = 4;
+					}
+					else if((Fls_GetStatus() == FLS_TASK_IDLE_STATE) && (ui8_Flag == 4))		/*备份完成，进入下一页备份*/
+					{
+						if(ui32_BackupStar == STD_RC_BACKUPSTOP)								/*第一块备份完成*/
+						{
+							ui32_BackupStar = STD_RC_INTERRSTAR;
+							ui8_Flag = 3;
+//							st_Uds_Response.ui8_ResCode = UDS_RES_CODE_RCRRP;	/*78*/
+						}
+						else if(ui32_BackupStar == STD_RC_INTERRSTOP)							/*第二块备份完成*/
+						{
+							st_Uds_SID_RC_Info.b_BackUpFlag = TRUE;
+							if((ui32_EraseStar == 0xA0020000) && (si32_EraseSize == 0xD2101))	/*地址正确，再执行擦写，否则返回错误*/
+							{
+								ui8_Flag = 5;
+								st_Uds_Response.ui8_ResCode = UDS_RES_CODE_RCRRP;	/*78*/
+							}
+							else
+							{
+								ui32_EraseStar = 0;
+								ui8_Flag = 0;
+								ui32_Count = 0;
+
+								/*回应数据*/
+								ui16_pResLen[0U] = 3U;
+								ui8_pRes[0U] = (uint8)(ui16_DID / 0x100U);
+								ui8_pRes[1U] = (uint8)(ui16_DID);
+								ui8_pRes[2U] = 0x01U;
+								st_Uds_Response.ui8_ResCode = UDS_RES_CODE_PR;	/*正响应*/
+
+//								b_Return = E_OK;	/*回调函数执行完毕*/
+							}
+						}
+						else
+						{
+							ui32_BackupStar = ui32_BackupStar + 256;
+							ui8_Flag = 3;
+							ui32_Count++;
+							if(ui32_Count == 500)
+							{
+								st_Uds_Response.ui8_ResCode = UDS_RES_CODE_RCRRP;	/*78*/
+								ui32_Count = 0;
+							}
+						}
+
+					}
+					else if((Fls_GetStatus() == FLS_TASK_IDLE_STATE) && (ui8_Flag == 5))
+					{
+						Fls_Erase(ui32_EraseStar);
+						if(si32_EraseSize == 0)			/*擦除完成*/
+						{
+							ui32_EraseStar = 0;
+							ui8_Flag = 0;
+							ui32_Count = 0;
+
+//							b_Return = E_OK;	/*回调函数执行完毕*/
+						}
+						else
+						{
+	//						Fls_Erase(ui32_EraseStar);
+							ui8_Flag = 6;
+						}
+					}
+					else if((Fls_GetStatus() == FLS_TASK_IDLE_STATE) && (ui8_Flag == 6))
+					{
+						if(ui32_EraseStar < 0xA0000000U)
+						{
+							ui32_EraseStar += 0x20000000U;
+						}
+
+						switch (ui32_EraseStar)
+						{
+							case 0xA0020000:
+								ui32_EraseStar = ui32_EraseStar + 0x20000; /*基地址增加*/
+								si32_EraseSize = si32_EraseSize - 0x20000; /*大小减少*/
+								st_Uds_Response.ui8_ResCode = UDS_RES_CODE_RCRRP;	/*78*/
+								break;
+							case 0xA0040000:
+								ui32_EraseStar = ui32_EraseStar + 0x40000; /*基地址增加*/
+								si32_EraseSize = si32_EraseSize - 0x40000; /*大小减少*/
+								st_Uds_Response.ui8_ResCode = UDS_RES_CODE_RCRRP;	/*78*/
+								break;
+							case 0xA0080000:
+								ui32_EraseStar = ui32_EraseStar + 0x40000; /*基地址增加*/
+								si32_EraseSize = si32_EraseSize - 0x40000; /*大小减少*/
+								st_Uds_Response.ui8_ResCode = UDS_RES_CODE_RCRRP;	/*78*/
+								break;
+							case 0xA00C0000:
+								ui32_EraseStar = ui32_EraseStar + 0x40000; /*基地址增加*/
+								si32_EraseSize = si32_EraseSize - 0x40000; /*大小减少*/
+								st_Uds_Response.ui8_ResCode = UDS_RES_CODE_RCRRP;	/*78*/
+								break;
+							case 0xA0100000:
+								ui32_EraseStar = ui32_EraseStar + 0x40000; /*基地址增加*/
+								si32_EraseSize = si32_EraseSize - 0x40000; /*大小减少*/
+								st_Uds_Response.ui8_ResCode = UDS_RES_CODE_RCRRP;	/*78*/
+								break;
+							case 0xA0140000:
+								ui32_EraseStar = ui32_EraseStar + 0x40000; /*基地址增加*/
+								si32_EraseSize = si32_EraseSize - 0x40000; /*大小减少*/
+								st_Uds_Response.ui8_ResCode = UDS_RES_CODE_RCRRP;	/*78*/
+								break;
+							case 0xA0180000:
+								ui32_EraseStar = ui32_EraseStar + 0x40000; /*基地址增加*/
+								si32_EraseSize = si32_EraseSize - 0x40000; /*大小减少*/
+								st_Uds_Response.ui8_ResCode = UDS_RES_CODE_RCRRP;	/*78*/
+								break;
+							case 0xA01C0000:
+								ui32_EraseStar = ui32_EraseStar + 0x40000; /*基地址增加*/
+								si32_EraseSize = si32_EraseSize - 0x40000; /*大小减少*/
+								st_Uds_Response.ui8_ResCode = UDS_RES_CODE_RCRRP;	/*78*/
+								break;
+							case 0xA0200000:
+								ui32_EraseStar = ui32_EraseStar + 0x40000; /*基地址增加*/
+								si32_EraseSize = si32_EraseSize - 0x40000; /*大小减少*/
+								st_Uds_Response.ui8_ResCode = UDS_RES_CODE_RCRRP;	/*78*/
+								break;
+							case 0xA0240000:
+								ui32_EraseStar = ui32_EraseStar + 0x40000; /*基地址增加*/
+								si32_EraseSize = si32_EraseSize - 0x40000; /*大小减少*/
+								st_Uds_Response.ui8_ResCode = UDS_RES_CODE_RCRRP;	/*78*/
+								break;
+						}
+						if(si32_EraseSize < 0)
+						{
+							si32_EraseSize = 0;
+						}
+
+						ui8_Flag = 5;
+					}
+				}
+				else
+				{
+					st_Uds_Response.ui8_ResCode = UDS_RES_CODE_SAD;	/*服务密钥未解锁响应*/
+					b_Return = E_OK;	/*回调函数执行完毕*/
+				}
+			}
+			else
+			{
+				st_Uds_Response.ui8_ResCode = UDS_RES_CODE_SNSIAS;	/*服务在工作Session下不支持响应*/
+				b_Return = E_OK;	/*回调函数执行完毕*/
+			}
+			break;
+		}
+		case SID_RC_DID_FF01:
+		{
+			/*判断Session是否支持*/
+			if((st_Uds_SID_DSC_Info.ui8_Active_Session & 0x06) != 0U)
+			{
+				/*判断服务无需密钥，或密钥已解锁*/
+				if((st_Uds_SID_SA_Info.b_Security_Locked & 0x08) != 0U)
+				{
+					if(st_Uds_SID_RDD_Info.ui8_ErrFlag == 1)	/*0202执行操作，且无错误*/
+					{
+						Boot_Flag[0] = 0xFE;
+						Fls_Write(0xA0010000, &Boot_Flag[0], 256U);
+						ui32_KeepBSLState_Flag = SYS_POWER_ON_RESET;			/*刷写完成，更新标志位*/
+
+						/*回应数据*/
+						ui16_pResLen[0U] = 2U;
+						ui8_pRes[0U] = (uint8)(ui16_DID / 0x100U);
+						ui8_pRes[1U] = (uint8)(ui16_DID);
+						ui8_pRes[2U] = 0x00;
+						st_Uds_Response.ui8_ResCode = UDS_RES_CODE_PR;	/*正响应*/
+					}
+					else
+					{
+						/*回应数据*/
+						ui16_pResLen[0U] = 2U;
+						ui8_pRes[0U] = (uint8)(ui16_DID / 0x100U);
+						ui8_pRes[1U] = (uint8)(ui16_DID);
+						ui8_pRes[2U] = 0x01;
+						st_Uds_Response.ui8_ResCode = UDS_RES_CODE_PR;	/*正响应*/
+					}
+
+//					b_Return = E_OK;	/*回调函数执行完毕*/
+				}
+				else
+				{
+					st_Uds_Response.ui8_ResCode = UDS_RES_CODE_SAD;	/*服务密钥未解锁响应*/
+				}
+			}
+			else
+			{
+				st_Uds_Response.ui8_ResCode = UDS_RES_CODE_SNSIAS;	/*服务在工作Session下不支持响应*/
+			}
+			b_Return = E_OK;	/*回调函数执行完毕*/
+			break;
+		}
+		case SID_RC_DID_0202:		/*calculate checksum*/
+		{
+			/*判断Session是否支持*/
+			if((st_Uds_SID_DSC_Info.ui8_Active_Session & 0x06) != 0U)
+			{
+				/*判断服务无需密钥，或密钥已解锁*/
+				if((st_Uds_SID_SA_Info.b_Security_Locked & 0x08) != 0U)
+				{
+					if((Fls_GetStatus() == FLS_TASK_IDLE_STATE) && (ui8_Flag == 0))
+					{
+						ui32_Count++;
+						if(ui32_Count == 50)
+						{
+							ui32_Count = 0;
+							ui8_Flag = 1;
+							ui16_pResLen[0U] = 3U;
+							st_Uds_Response.ui8_ResCode = UDS_RES_CODE_PR;	/*正响应*/
+							b_Return = E_OK;	/*回调函数执行完毕*/
+						}
+					}
+					else if((Fls_GetStatus() == FLS_TASK_IDLE_STATE) && (ui8_Flag == 1))
+					{
+						st_Uds_SID_RDD_Info.ui8_ErrFlag = 0;
+						st_Uds_SID_RDD_Info.ui32_Check = (uint32)(ui8_pInd[2] * 256U * 256U * 256U + ui8_pInd[3] * 256U * 256U + ui8_pInd[4] * 256U + ui8_pInd[5]);
+
+						ui32_EraseStar = st_Uds_SID_RDD_Info.ui32_memoryAddress;
+						si32_EraseSize = st_Uds_SID_RDD_Info.si32_memorySize;
+						if((ui32_EraseStar >= 0xA0020000) && (si32_EraseSize > 0))
+						{
+							/*大小小于5页，无需发78*/
+							if(si32_EraseSize >= 0x200)
+							{
+								ui8_PageFlag = 1;
+								st_Uds_Response.ui8_ResCode = UDS_RES_CODE_RCRRP;	/*78*/
+							}
+							crc = 0xFFFFFFFF;
+							ui8_Flag = 2;
+						}
+						else
+						{
+							st_Uds_SID_RDD_Info.ui8_ErrFlag = 0;
+ 							ui8_Flag = 1;
+							ui32_EraseStar = 0;
+							si32_EraseSize = 0;
+							/*回应数据*/
+							ui16_pResLen[0U] = 3U;
+							ui8_pRes[0U] = (uint8)(ui16_DID / 0x100U);
+							ui8_pRes[1U] = (uint8)(ui16_DID);
+							ui8_pRes[2U] = 0x01U;							/*错误回应*/
+							st_Uds_Response.ui8_ResCode = UDS_RES_CODE_PR;	/*正响应*/
+							b_Return = E_OK;	/*回调函数执行完毕*/
+						}
+
+					}
+					else if((Fls_GetStatus() == FLS_TASK_IDLE_STATE) && (ui8_Flag == 2))
+					{
+						Fls_Read(ui32_EraseStar, Boot_Flash, 256U);
+
+						if(si32_EraseSize == 0)
+						{
+							ui32_EraseStar = 0;
+							si32_EraseSize = 0;
+							crc^= 0xFFFFFFFF;
+							ui8_Flag = 0;
+							if(ui8_PageFlag == 1)
+							{
+								ui32_Count = 0;
+							}
+							if(st_Uds_SID_RDD_Info.ui32_Check == crc)
+							{
+								st_Uds_SID_RDD_Info.ui8_ErrFlag = 1;
+								/*回应数据*/
+								ui16_pResLen[0U] = 3U;
+								ui8_pRes[0U] = (uint8)(ui16_DID / 0x100U);
+								ui8_pRes[1U] = (uint8)(ui16_DID);
+								ui8_pRes[2U] = 0x00U;
+								st_Uds_Response.ui8_ResCode = UDS_RES_CODE_PR;	/*正响应*/
+							}
+							else
+							{
+								/*回应数据*/
+								st_Uds_SID_RDD_Info.ui8_ErrFlag = 0;
+								ui16_pResLen[0U] = 3U;
+								ui8_pRes[0U] = (uint8)(ui16_DID / 0x100U);
+								ui8_pRes[1U] = (uint8)(ui16_DID);
+								ui8_pRes[2U] = 0x01U;							/*错误回应*/
+								st_Uds_Response.ui8_ResCode = UDS_RES_CODE_PR;	/*正响应*/
+							}
+							b_Return = E_OK;	/*回调函数执行完毕*/
+						}
+						else
+						{
+							crc32(Boot_Flash, 256U);
+							memset(Boot_Flash, 0, 256U);
+							ui8_Flag = 3;
+							//st_Uds_Response.ui8_ResCode = UDS_RES_CODE_RCRRP;	/*78*/
+						}
+
+					}
+					else if((ui8_Flag == 3))
+					{
+						ui32_EraseStar = ui32_EraseStar + 256;
+						si32_EraseSize = si32_EraseSize - 256;
+						ui8_Flag = 2;
+						ui32_Count++;
+//						if(ui32_Count == 20)
+//						{
+//							st_Uds_Response.ui8_ResCode = UDS_RES_CODE_RCRRP;	/*78*/
+//						}
+						if(ui32_Count == 1000)
+						{
+							ui32_Count = 0;
+							st_Uds_Response.ui8_ResCode = UDS_RES_CODE_RCRRP;	/*78*/
+						}
+
+					}
+				}
+				else
+				{
+					st_Uds_Response.ui8_ResCode = UDS_RES_CODE_SAD;	/*服务密钥未解锁响应*/
+					b_Return = E_OK;	/*回调函数执行完毕*/
+				}
+			}
+			else
+			{
+				st_Uds_Response.ui8_ResCode = UDS_RES_CODE_SNSIAS;	/*服务在工作Session下不支持响应*/
+				b_Return = E_OK;	/*回调函数执行完毕*/
+			}
+			break;
+		}
+		case SID_RC_DID_0200:
+		{
+			/*判断Session是否支持*/
+			if((st_Uds_SID_DSC_Info.ui8_Active_Session & 0x08) != 0U)
+			{
+				/*判断服务无需密钥，或密钥已解锁*/
+				if((st_Uds_SID_SA_Info.b_Security_Locked & 0x08) != 0U)
+				{
+					/*回应数据*/
+					ui16_pResLen[0U] = 3U;
+					ui8_pRes[0U] = (uint8)(ui16_DID / 0x100U);
+					ui8_pRes[1U] = (uint8)(ui16_DID);
+					st_Uds_Response.ui8_ResCode = UDS_RES_CODE_PR;	/*正响应*/
+
+//					b_Return = E_OK;	/*回调函数执行完毕*/
+				}
+				else
+				{
+					st_Uds_Response.ui8_ResCode = UDS_RES_CODE_SAD;	/*服务密钥未解锁响应*/
+				}
+			}
+			else
+			{
+				st_Uds_Response.ui8_ResCode = UDS_RES_CODE_SNSIAS;	/*服务在工作Session下不支持响应*/
+			}
+			b_Return = E_OK;	/*回调函数执行完毕*/
+			break;
+		}
+		default:
+		{
+			st_Uds_Response.ui8_ResCode = UDS_RES_CODE_ROOR;	/*数据越界错误响应*/
+			b_Return = E_OK;	/*回调函数执行完毕*/
+			break;
+		}
+	}
+
+	return	b_Return;
+}
+
+#elif ECU_TYPE == ECU_MCU
+boolean UdsFunc_SID_RC_SUBID_STR_Callback
+	(uint8 *ui8_pInd, uint8 *ui8_pRes, uint16 *ui16_pResLen)
+{
+	boolean	b_Return;
+	uint16	ui16_DID;
+
+	ui16_DID = (uint16)ui8_pInd[0U] * 0x100U + ui8_pInd[1U];	/*从TP层取服务数据ID*/
+
+	b_Return = E_NOT_OK;
+
+	switch(ui16_DID)
+	{
+		case SID_RC_DID_0203:
+		{
+			st_Uds_SID_RC_Info.b_PreProgrammingFlag = TRUE;	/*预刷新请求*/
+
+//        	if((Boot_7DF_flg == 1)&&(Boot_7C2_flg == 0))
+//        	{
+//        		Boot_7C2_flg = 1;
+//        		VINP_DIAG_BootReq_flg = 1;
+//        	}
+
+			/*回应数据*/
+			ui16_pResLen[0U] = 2U;
+			ui8_pRes[0U] = (uint8)(ui16_DID / 0x100U);
+			ui8_pRes[1U] = (uint8)(ui16_DID);
+			st_Uds_Response.ui8_ResCode = UDS_RES_CODE_PR;	/*正响应*/
+
+			b_Return = E_OK;	/*回调函数执行完毕*/
+			break;
+		}
+		case SID_RC_DID_FF00:
+		{
+
+			/*回应数据*/
+			ui16_pResLen[0U] = 2U;
+			ui8_pRes[0U] = (uint8)(ui16_DID / 0x100U);
+			ui8_pRes[1U] = (uint8)(ui16_DID);
+			st_Uds_Response.ui8_ResCode = UDS_RES_CODE_PR;	/*正响应*/
+			break;
+		}
+		case SID_RC_DID_FF01:
+		{
+			/*回应数据*/
+			ui16_pResLen[0U] = 2U;
+			ui8_pRes[0U] = (uint8)(ui16_DID / 0x100U);
+			ui8_pRes[1U] = (uint8)(ui16_DID);
+			st_Uds_Response.ui8_ResCode = UDS_RES_CODE_PR;	/*正响应*/
+
+			b_Return = E_OK;	/*回调函数执行完毕*/
+			break;
+		}
+		case SID_RC_DID_0202:
+		{
+			/*回应数据*/
+			ui16_pResLen[0U] = 2U;
+			ui8_pRes[0U] = (uint8)(ui16_DID / 0x100U);
+			ui8_pRes[1U] = (uint8)(ui16_DID);
+			st_Uds_Response.ui8_ResCode = UDS_RES_CODE_PR;	/*正响应*/
+
+			b_Return = E_OK;	/*回调函数执行完毕*/
+			break;
+		}
+		default:
+		{
+			st_Uds_Response.ui8_ResCode = UDS_RES_CODE_ROOR;	/*数据越界错误响应*/
+			break;
+		}
+	}
+
+	return	b_Return;
+}
+
+#elif ECU_TYPE == ECU_BMS_FRWK_3
+boolean UdsFunc_SID_RC_SUBID_STR_Callback
+	(uint8 *ui8_pInd, uint8 *ui8_pRes, uint16 *ui16_pResLen)
+{
+	boolean	b_Return;
+	uint16	ui16_DID;
+
+	ui16_DID = (uint16)ui8_pInd[0U] * 0x100U + ui8_pInd[1U];	/*从TP层取服务数据ID*/
+
+	b_Return = E_NOT_OK;
+
+	switch(ui16_DID)
+	{
+		case SID_RC_DID_0203:
+		{
+			st_Uds_SID_RC_Info.b_PreProgrammingFlag = TRUE;	/*预刷新请求*/
+
+			if(st_N_USData_Indication.ui8_N_TAtype == UDS_ADDR_TYPE_PHY)
+			{
+				if(BL_GetCurState(BL_NODE1) == STATE_EX_MODE)
+				{
+					BL_SetProgFlag(BL_true,BL_NODE1);
+				}
+			}
+
+			/*回应数据*/
+			ui16_pResLen[0U] = 2U;
+			ui8_pRes[0U] = (uint8)(ui16_DID / 0x100U);
+			ui8_pRes[1U] = (uint8)(ui16_DID);
+			st_Uds_Response.ui8_ResCode = UDS_RES_CODE_PR;	/*正响应*/
+
+			b_Return = E_OK;	/*回调函数执行完毕*/
+			break;
+		}
+		case SID_RC_DID_FF00:
+		{
+			/*回应数据*/
+			ui16_pResLen[0U] = 2U;
+			ui8_pRes[0U] = (uint8)(ui16_DID / 0x100U);
+			ui8_pRes[1U] = (uint8)(ui16_DID);
+			st_Uds_Response.ui8_ResCode = UDS_RES_CODE_PR;	/*正响应*/
+			break;
+		}
+		case SID_RC_DID_FF01:
+		{
+			/*回应数据*/
+			ui16_pResLen[0U] = 2U;
+			ui8_pRes[0U] = (uint8)(ui16_DID / 0x100U);
+			ui8_pRes[1U] = (uint8)(ui16_DID);
+			st_Uds_Response.ui8_ResCode = UDS_RES_CODE_PR;	/*正响应*/
+
+			b_Return = E_OK;	/*回调函数执行完毕*/
+			break;
+		}
+		case SID_RC_DID_0202:
+		{
+			/*回应数据*/
+			ui16_pResLen[0U] = 2U;
+			ui8_pRes[0U] = (uint8)(ui16_DID / 0x100U);
+			ui8_pRes[1U] = (uint8)(ui16_DID);
+			st_Uds_Response.ui8_ResCode = UDS_RES_CODE_PR;	/*正响应*/
+
+			b_Return = E_OK;	/*回调函数执行完毕*/
+			break;
+		}
+		default:
+		{
+			st_Uds_Response.ui8_ResCode = UDS_RES_CODE_ROOR;	/*数据越界错误响应*/
+			break;
+		}
+	}
+
+	return	b_Return;
+}
+#endif

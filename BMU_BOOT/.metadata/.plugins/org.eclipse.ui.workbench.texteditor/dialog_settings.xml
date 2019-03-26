@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<section name="Workbench">
+	<section name="org.eclipse.ui.texteditor.FindReplaceDialog_dialogBounds">
+		<item value="275" key="DIALOG_WIDTH"/>
+		<item value="15" key="DIALOG_Y_ORIGIN"/>
+		<item value="355" key="DIALOG_HEIGHT"/>
+		<item value="753" key="DIALOG_X_ORIGIN"/>
+		<item value="1|宋体|9.0|0|WINDOWS|1|-12|0|0|0|400|0|0|0|1|0|0|0|0|宋体" key="DIALOG_FONT_NAME"/>
+	</section>
+	<section name="org.eclipse.ui.texteditor.FindReplaceDialog">
+		<item value="true" key="wrap"/>
+		<item value="false" key="isRegEx"/>
+		<item value="false" key="casesensitive"/>
+		<item value="false" key="incremental"/>
+		<item value="false" key="wholeword"/>
+		<item value="CAN_W" key="selection"/>
+		<list key="findhistory">
+			<item value="CAN_W"/>
+			<item value="FF00"/>
+			<item value="ui8_Count"/>
+			<item value="TP_TASK_FC_STATE"/>
+			<item value="crc32("/>
+			<item value="UdsFunc_A_PDU_Analysis"/>
+			<item value="UdsFunc_Receiver_Appl_Deal"/>
+			<item value="EraseSelectedSector"/>
+		</list>
+		<list key="replacehistory">
+			<item value=""/>
+			<item value="si32_EraseSize"/>
+			<item value="uint8"/>
+		</list>
+	</section>
+</section>

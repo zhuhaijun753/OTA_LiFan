@@ -1,0 +1,2273 @@
+	; Module start
+	.compiler_version	"TASKING VX-toolset for TriCore: C compiler v4.3r1 Build 759 SN 00641831"
+	.compiler_invocation	"ctc -f cc9084a -c99 --dep-file=Initiate_Files\\.MAIN.o.d -D__CPU__=tc1782 -D__CPU_TC1782__ --core=tc1.3.1 -F -ID:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_1.9\\BMU_BOOT -ID:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_1.9\\BMU_BOOT\\Communication_Files\\CanDrv -ID:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_1.9\\BMU_BOOT\\Communication_Files\\Com -ID:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_1.9\\BMU_BOOT\\Communication_Files\\Com\\Can_Input -ID:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_1.9\\BMU_BOOT\\Communication_Files\\Com\\Can_Output -ID:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_1.9\\BMU_BOOT\\Communication_Files\\Uds\\Dcm -ID:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_1.9\\BMU_BOOT\\Communication_Files\\Uds\\Dem -ID:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_1.9\\BMU_BOOT\\Communication_Files\\Uds\\Tp -ID:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_1.9\\BMU_BOOT\\Communication_Files\\Uds\\User -ID:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_1.9\\BMU_BOOT\\Complex_Files -ID:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_1.9\\BMU_BOOT\\Initiate_Files -ID:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_1.9\\BMU_BOOT\\Nvm_Files\\FlsDrv -ID:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_1.9\\BMU_BOOT\\Stand_Header -g2 --make-target=Initiate_Files\\MAIN.o -t4 --language=-gcc,-volatile,+strings --default-near-size=0 -O2 --default-a1-size=0 --default-a0-size=0 --source --align=0 --compact-max-size=200 --switch=auto -o Initiate_Files\\MAIN.src ..\\Initiate_Files\\MAIN.c"
+	.compiler_name		"ctc"
+	.name	"MAIN"
+
+	
+$TC131
+	
+	.sdecl	'.text.MAIN.MAIN_vInit',code,cluster('MAIN_vInit')
+	.sect	'.text.MAIN.MAIN_vInit'
+	.align	2
+	
+	.global	MAIN_vInit
+
+; ..\Initiate_Files\MAIN.c	     1  //****************************************************************************
+; ..\Initiate_Files\MAIN.c	     2  // @Module        Project Settings
+; ..\Initiate_Files\MAIN.c	     3  // @Filename      MAIN.c
+; ..\Initiate_Files\MAIN.c	     4  // @Project       HBCU_0926.dav
+; ..\Initiate_Files\MAIN.c	     5  //----------------------------------------------------------------------------
+; ..\Initiate_Files\MAIN.c	     6  // @Controller    Infineon TC1782
+; ..\Initiate_Files\MAIN.c	     7  //
+; ..\Initiate_Files\MAIN.c	     8  // @Compiler      Tasking 3.5r1
+; ..\Initiate_Files\MAIN.c	     9  //
+; ..\Initiate_Files\MAIN.c	    10  // @Codegenerator 1.0
+; ..\Initiate_Files\MAIN.c	    11  //
+; ..\Initiate_Files\MAIN.c	    12  // @Description   This file contains the project initialization function.
+; ..\Initiate_Files\MAIN.c	    13  //
+; ..\Initiate_Files\MAIN.c	    14  //----------------------------------------------------------------------------
+; ..\Initiate_Files\MAIN.c	    15  // @Date          2019-1-11 17:50:17
+; ..\Initiate_Files\MAIN.c	    16  //
+; ..\Initiate_Files\MAIN.c	    17  //****************************************************************************
+; ..\Initiate_Files\MAIN.c	    18  
+; ..\Initiate_Files\MAIN.c	    19  // USER CODE BEGIN (MAIN_General,1)
+; ..\Initiate_Files\MAIN.c	    20  
+; ..\Initiate_Files\MAIN.c	    21  // USER CODE END
+; ..\Initiate_Files\MAIN.c	    22  
+; ..\Initiate_Files\MAIN.c	    23  
+; ..\Initiate_Files\MAIN.c	    24  
+; ..\Initiate_Files\MAIN.c	    25  //****************************************************************************
+; ..\Initiate_Files\MAIN.c	    26  // @Project Includes
+; ..\Initiate_Files\MAIN.c	    27  //****************************************************************************
+; ..\Initiate_Files\MAIN.c	    28  
+; ..\Initiate_Files\MAIN.c	    29  #include "MAIN.h"
+; ..\Initiate_Files\MAIN.c	    30  
+; ..\Initiate_Files\MAIN.c	    31  // USER CODE BEGIN (MAIN_General,2)
+; ..\Initiate_Files\MAIN.c	    32  /*ui32_SysPowerOnOrBSLReset_Flag*/
+; ..\Initiate_Files\MAIN.c	    33  #pragma noclear
+; ..\Initiate_Files\MAIN.c	    34  volatile uint32 ui32_KeepBSLState_Flag __at(0xD001B000 - 12);
+; ..\Initiate_Files\MAIN.c	    35  volatile uint8 ui8_Appl_Start_Magic_Flag[4] __at(0xD001B000 - 8);
+; ..\Initiate_Files\MAIN.c	    36  volatile uint32 ui32_SysPowerOnOrBSLReset_Flag __at(0xD001B000 - 4);
+; ..\Initiate_Files\MAIN.c	    37  #pragma clear
+; ..\Initiate_Files\MAIN.c	    38  // USER CODE END
+; ..\Initiate_Files\MAIN.c	    39  
+; ..\Initiate_Files\MAIN.c	    40  
+; ..\Initiate_Files\MAIN.c	    41  //****************************************************************************
+; ..\Initiate_Files\MAIN.c	    42  // @Macros
+; ..\Initiate_Files\MAIN.c	    43  //****************************************************************************
+; ..\Initiate_Files\MAIN.c	    44  
+; ..\Initiate_Files\MAIN.c	    45  // USER CODE BEGIN (MAIN_General,3)
+; ..\Initiate_Files\MAIN.c	    46  
+; ..\Initiate_Files\MAIN.c	    47  // USER CODE END
+; ..\Initiate_Files\MAIN.c	    48  
+; ..\Initiate_Files\MAIN.c	    49  
+; ..\Initiate_Files\MAIN.c	    50  //****************************************************************************
+; ..\Initiate_Files\MAIN.c	    51  // @Defines
+; ..\Initiate_Files\MAIN.c	    52  //****************************************************************************
+; ..\Initiate_Files\MAIN.c	    53  
+; ..\Initiate_Files\MAIN.c	    54  #define RESET_INDICATOR     ((SCU_RSTSTAT & ((uword)(0x0001001B))))
+; ..\Initiate_Files\MAIN.c	    55  #define WATCHDOG_RESET      ((uword)0x00000008)
+; ..\Initiate_Files\MAIN.c	    56  #define SOFTWARE_RESET      ((uword)0x00000010)
+; ..\Initiate_Files\MAIN.c	    57  #define ESR0_RESET          ((uword)0x00000001)
+; ..\Initiate_Files\MAIN.c	    58  #define ESR1_RESET          ((uword)0x00000002)
+; ..\Initiate_Files\MAIN.c	    59  #define POWERON_RESET       ((uword)0x00010000)
+; ..\Initiate_Files\MAIN.c	    60  
+; ..\Initiate_Files\MAIN.c	    61  // USER CODE BEGIN (MAIN_General,4)
+; ..\Initiate_Files\MAIN.c	    62  
+; ..\Initiate_Files\MAIN.c	    63  // USER CODE END
+; ..\Initiate_Files\MAIN.c	    64  
+; ..\Initiate_Files\MAIN.c	    65  
+; ..\Initiate_Files\MAIN.c	    66  //****************************************************************************
+; ..\Initiate_Files\MAIN.c	    67  // @Typedefs
+; ..\Initiate_Files\MAIN.c	    68  //****************************************************************************
+; ..\Initiate_Files\MAIN.c	    69  
+; ..\Initiate_Files\MAIN.c	    70  // USER CODE BEGIN (MAIN_General,5)
+; ..\Initiate_Files\MAIN.c	    71  
+; ..\Initiate_Files\MAIN.c	    72  // USER CODE END
+; ..\Initiate_Files\MAIN.c	    73  
+; ..\Initiate_Files\MAIN.c	    74  
+; ..\Initiate_Files\MAIN.c	    75  //****************************************************************************
+; ..\Initiate_Files\MAIN.c	    76  // @Imported Global Variables
+; ..\Initiate_Files\MAIN.c	    77  //****************************************************************************
+; ..\Initiate_Files\MAIN.c	    78  
+; ..\Initiate_Files\MAIN.c	    79  // USER CODE BEGIN (MAIN_General,6)
+; ..\Initiate_Files\MAIN.c	    80  
+; ..\Initiate_Files\MAIN.c	    81  // USER CODE END
+; ..\Initiate_Files\MAIN.c	    82  
+; ..\Initiate_Files\MAIN.c	    83  
+; ..\Initiate_Files\MAIN.c	    84  //****************************************************************************
+; ..\Initiate_Files\MAIN.c	    85  // @Global Variables
+; ..\Initiate_Files\MAIN.c	    86  //****************************************************************************
+; ..\Initiate_Files\MAIN.c	    87  volatile unsigned int DummyToForceRead; 
+; ..\Initiate_Files\MAIN.c	    88  
+; ..\Initiate_Files\MAIN.c	    89  // USER CODE BEGIN (MAIN_General,7)
+; ..\Initiate_Files\MAIN.c	    90   volatile unsigned char uc_Cnt5ms = 180;
+; ..\Initiate_Files\MAIN.c	    91  // USER CODE END
+; ..\Initiate_Files\MAIN.c	    92  
+; ..\Initiate_Files\MAIN.c	    93  
+; ..\Initiate_Files\MAIN.c	    94  //****************************************************************************
+; ..\Initiate_Files\MAIN.c	    95  // @External Prototypes
+; ..\Initiate_Files\MAIN.c	    96  //****************************************************************************
+; ..\Initiate_Files\MAIN.c	    97  
+; ..\Initiate_Files\MAIN.c	    98  // USER CODE BEGIN (MAIN_General,8)
+; ..\Initiate_Files\MAIN.c	    99  
+; ..\Initiate_Files\MAIN.c	   100  // USER CODE END
+; ..\Initiate_Files\MAIN.c	   101  
+; ..\Initiate_Files\MAIN.c	   102  
+; ..\Initiate_Files\MAIN.c	   103  //****************************************************************************
+; ..\Initiate_Files\MAIN.c	   104  // @Prototypes Of Local Functions
+; ..\Initiate_Files\MAIN.c	   105  //****************************************************************************
+; ..\Initiate_Files\MAIN.c	   106  
+; ..\Initiate_Files\MAIN.c	   107  // USER CODE BEGIN (MAIN_General,9)
+; ..\Initiate_Files\MAIN.c	   108  
+; ..\Initiate_Files\MAIN.c	   109  // USER CODE END
+; ..\Initiate_Files\MAIN.c	   110  
+; ..\Initiate_Files\MAIN.c	   111  
+; ..\Initiate_Files\MAIN.c	   112  //****************************************************************************
+; ..\Initiate_Files\MAIN.c	   113  // @Function      void MAIN_vInit(void) 
+; ..\Initiate_Files\MAIN.c	   114  //
+; ..\Initiate_Files\MAIN.c	   115  //----------------------------------------------------------------------------
+; ..\Initiate_Files\MAIN.c	   116  // @Description   This function initializes the microcontroller.
+; ..\Initiate_Files\MAIN.c	   117  //
+; ..\Initiate_Files\MAIN.c	   118  //----------------------------------------------------------------------------
+; ..\Initiate_Files\MAIN.c	   119  // @Returnvalue   None
+; ..\Initiate_Files\MAIN.c	   120  //
+; ..\Initiate_Files\MAIN.c	   121  //----------------------------------------------------------------------------
+; ..\Initiate_Files\MAIN.c	   122  // @Parameters    None
+; ..\Initiate_Files\MAIN.c	   123  //
+; ..\Initiate_Files\MAIN.c	   124  //----------------------------------------------------------------------------
+; ..\Initiate_Files\MAIN.c	   125  // @Date          2019-1-11
+; ..\Initiate_Files\MAIN.c	   126  //
+; ..\Initiate_Files\MAIN.c	   127  //****************************************************************************
+; ..\Initiate_Files\MAIN.c	   128  
+; ..\Initiate_Files\MAIN.c	   129  // USER CODE BEGIN (Init,1)
+; ..\Initiate_Files\MAIN.c	   130  
+; ..\Initiate_Files\MAIN.c	   131  // USER CODE END
+; ..\Initiate_Files\MAIN.c	   132  
+; ..\Initiate_Files\MAIN.c	   133  void MAIN_vInit(void)
+; Function MAIN_vInit
+.L57:
+MAIN_vInit:	.type	func
+
+; ..\Initiate_Files\MAIN.c	   134  {
+; ..\Initiate_Files\MAIN.c	   135    // USER CODE BEGIN (Init,2)
+; ..\Initiate_Files\MAIN.c	   136  
+; ..\Initiate_Files\MAIN.c	   137    // USER CODE END
+; ..\Initiate_Files\MAIN.c	   138  
+; ..\Initiate_Files\MAIN.c	   139    //// -----------------------------------------------------------------------
+; ..\Initiate_Files\MAIN.c	   140    //// Begin of Important Settings for the Start-Up File
+; ..\Initiate_Files\MAIN.c	   141    //// -----------------------------------------------------------------------
+; ..\Initiate_Files\MAIN.c	   142    ///  All following settings must be set in the start-up file. You can use 
+; ..\Initiate_Files\MAIN.c	   143    ///  DAvE's project file (*.dpt) to include this register values into your 
+; ..\Initiate_Files\MAIN.c	   144    ///  compiler EDE.
+; ..\Initiate_Files\MAIN.c	   145  
+; ..\Initiate_Files\MAIN.c	   146      ///  ---------------------------------------------------------------------
+; ..\Initiate_Files\MAIN.c	   147      ///  System Peripheral Bus Control Unit (SBCU):
+; ..\Initiate_Files\MAIN.c	   148      ///  ---------------------------------------------------------------------
+; ..\Initiate_Files\MAIN.c	   149      ///  SBCU starvation protection is enabled
+; ..\Initiate_Files\MAIN.c	   150      ///  the debug trace is enabled. Error information is captured in 
+; ..\Initiate_Files\MAIN.c	   151      ///  register SBCU_EADD, SBCU_EDAT and SBCU_ECON
+; ..\Initiate_Files\MAIN.c	   152      ///  sample period of request for starvation protection: 64
+; ..\Initiate_Files\MAIN.c	   153      ///  SBCU bus time-out value: 65536 cycles
+; ..\Initiate_Files\MAIN.c	   154  
+; ..\Initiate_Files\MAIN.c	   155      //// this register must be set in the start-up file
+; ..\Initiate_Files\MAIN.c	   156      //// SBCU_CON  =  0x4009FFFF;
+; ..\Initiate_Files\MAIN.c	   157  
+; ..\Initiate_Files\MAIN.c	   158      ///  ---------------------------------------------------------------------
+; ..\Initiate_Files\MAIN.c	   159      ///  LMB External Bus Unit (EBU):
+; ..\Initiate_Files\MAIN.c	   160      ///  ---------------------------------------------------------------------
+; ..\Initiate_Files\MAIN.c	   161      ///  - enable the EBU module clock
+; ..\Initiate_Files\MAIN.c	   162      ///  - disable EndInit Protection of the CLC Register
+; ..\Initiate_Files\MAIN.c	   163      ///  - request EBU to run off input clock divided by 1
+; ..\Initiate_Files\MAIN.c	   164  
+; ..\Initiate_Files\MAIN.c	   165      //// this register must be set in the start-up file
+; ..\Initiate_Files\MAIN.c	   166      //// EBU_CLC  =  0x00110000;
+; ..\Initiate_Files\MAIN.c	   167  
+; ..\Initiate_Files\MAIN.c	   168      ///  External Arbitration:
+; ..\Initiate_Files\MAIN.c	   169      ///  - EBU is disabled
+; ..\Initiate_Files\MAIN.c	   170  
+; ..\Initiate_Files\MAIN.c	   171      //// this register must be set in the start-up file
+; ..\Initiate_Files\MAIN.c	   172      //// EBU_MODCON  =  0x00000000;
+; ..\Initiate_Files\MAIN.c	   173  
+; ..\Initiate_Files\MAIN.c	   174      ///  ---------------------------------------------------------------------
+; ..\Initiate_Files\MAIN.c	   175      ///  Data Memory Interface (DMI):
+; ..\Initiate_Files\MAIN.c	   176      ///  ---------------------------------------------------------------------
+; ..\Initiate_Files\MAIN.c	   177      ///  - No Data Cache
+; ..\Initiate_Files\MAIN.c	   178      ///  - 128 Kbyte Data Memory
+; ..\Initiate_Files\MAIN.c	   179  
+; ..\Initiate_Files\MAIN.c	   180      //// this register must be set in the start-up file
+; ..\Initiate_Files\MAIN.c	   181      //// DMI_CON  =  0x08000802;
+; ..\Initiate_Files\MAIN.c	   182  
+; ..\Initiate_Files\MAIN.c	   183      ///  ---------------------------------------------------------------------
+; ..\Initiate_Files\MAIN.c	   184      ///  Program Memory Interface (PMI):
+; ..\Initiate_Files\MAIN.c	   185      ///  ---------------------------------------------------------------------
+; ..\Initiate_Files\MAIN.c	   186      ///  - No Instruction Cache
+; ..\Initiate_Files\MAIN.c	   187      ///  - 40 Kbyte Program Memory
+; ..\Initiate_Files\MAIN.c	   188  
+; ..\Initiate_Files\MAIN.c	   189      //// this register must be set in the start-up file
+; ..\Initiate_Files\MAIN.c	   190      //// PMI_CON2  =  0x02800284;
+; ..\Initiate_Files\MAIN.c	   191  
+; ..\Initiate_Files\MAIN.c	   192    //// -----------------------------------------------------------------------
+; ..\Initiate_Files\MAIN.c	   193    //// End of Important Settings for the Start-Up File
+; ..\Initiate_Files\MAIN.c	   194    //// -----------------------------------------------------------------------
+; ..\Initiate_Files\MAIN.c	   195  
+; ..\Initiate_Files\MAIN.c	   196    ///  -----------------------------------------------------------------------
+; ..\Initiate_Files\MAIN.c	   197    ///  Clock System:
+; ..\Initiate_Files\MAIN.c	   198    ///  -----------------------------------------------------------------------
+; ..\Initiate_Files\MAIN.c	   199    ///  - external clock frequency: 20.00 MHz
+; ..\Initiate_Files\MAIN.c	   200    ///  - input divider (PDIV): 2
+; ..\Initiate_Files\MAIN.c	   201    ///  - PLL operation (VCOBYP = 0)
+; ..\Initiate_Files\MAIN.c	   202    ///  - VCO range: 700 MHz - 800 MHz
+; ..\Initiate_Files\MAIN.c	   203    ///  - feedback divider (NDIV): 64
+; ..\Initiate_Files\MAIN.c	   204    //// - the VCO output frequency is too LOW (640.00 MHz)
+; ..\Initiate_Files\MAIN.c	   205    ///  - output divider (KDIV): 8
+; ..\Initiate_Files\MAIN.c	   206    ///  - CPU clock: 80.00 MHz
+; ..\Initiate_Files\MAIN.c	   207    ///  - the ratio fcpu /ffpi is  2 / 1
+; ..\Initiate_Files\MAIN.c	   208    ///  - the ratio fcpu /flmb is  1 / 1
+; ..\Initiate_Files\MAIN.c	   209    ///  - the ratio fcpu /fpcp is  1 / 1
+; ..\Initiate_Files\MAIN.c	   210    ///  - system clock: 40.00 MHz
+; ..\Initiate_Files\MAIN.c	   211  
+; ..\Initiate_Files\MAIN.c	   212  
+; ..\Initiate_Files\MAIN.c	   213     /// Comparing with the Compiler settings
+; ..\Initiate_Files\MAIN.c	   214     if(((SCU_PLLCON0  & 0X1017E00) != 0X1017E00) || ((SCU_PLLCON1 & 0X20007) != 0X20007) \ 
+	mov	d15,#32256
+.L211:
+	addih	d15,d15,#257
+	ld.w	d0,0xf0000518
+.L212:
+	and	d0,d15
+.L213:
+	jne	d15,d0,.L2				; predicted not taken
+.L214:
+	mov	d15,#7
+.L215:
+	addih	d15,d15,#2
+	ld.w	d0,0xf000051c
+.L216:
+	and	d0,d15
+.L217:
+	jne	d15,d0,.L3				; predicted not taken
+.L218:
+
+; ..\Initiate_Files\MAIN.c	   215         || ((SCU_CCUCON0 & 0X1) != 0X1))
+	ld.w	d15,0xf0000530
+.L219:
+	jnz.t	d15:0,.L4				; predicted taken
+.L3:
+.L2:
+
+; ..\Initiate_Files\MAIN.c	   216     {
+; ..\Initiate_Files\MAIN.c	   217  
+; ..\Initiate_Files\MAIN.c	   218    //// - after a software reset PLL refuse to lock again unless oscillator is 
+; ..\Initiate_Files\MAIN.c	   219    ////   disconnected first
+; ..\Initiate_Files\MAIN.c	   220  
+; ..\Initiate_Files\MAIN.c	   221      MAIN_vResetENDINIT();
+	lea	a15,0xf00005f0
+	ld.w	d15,[a15]
+	insert	d4,d15,#0,#0,#1
+	call	MAIN_vWriteWDTCON0
+	lea	a12,0xf00005f0
+.L5:
+	ld.bu	d15,[a12]
+	jnz.t	d15:0,.L5				; predicted taken
+.L220:
+
+; ..\Initiate_Files\MAIN.c	   222      SCU_PLLCON0_VCOBYP  =  0;    // reset VCO bypass
+	lea	a13,0xf0000518
+	ld.bu	d15,[a13]
+.L221:
+	insert	d15,d15,#0,#0,#1
+	st.b	[a13],d15
+.L222:
+
+; ..\Initiate_Files\MAIN.c	   223      SCU_PLLCON0_SETFINDIS  =  1; // disconnect OSC from PLL
+	ld.bu	d15,[a13]
+.L223:
+	or	d15,#16
+	st.b	[a13],d15
+.L224:
+
+; ..\Initiate_Files\MAIN.c	   224      MAIN_vSetENDINIT();
+	ld.w	d15,[a15]
+	or	d4,d15,#1
+	call	MAIN_vWriteWDTCON0
+.L225:
+
+; ..\Initiate_Files\MAIN.c	   225  
+; ..\Initiate_Files\MAIN.c	   226  
+; ..\Initiate_Files\MAIN.c	   227    if (MAIN_vResetCheck())
+	call	MAIN_vResetCheck
+.L226:
+	jeq	d2,#0,.L6				; predicted taken
+.L227:
+
+; ..\Initiate_Files\MAIN.c	   228    {
+; ..\Initiate_Files\MAIN.c	   229      if (!SCU_PLLSTAT_PWDSTAT)
+	lea	a14,0xf0000514
+	ld.bu	d15,[a14]
+	jnz.t	d15:1,.L7				; predicted taken
+.L228:
+
+; ..\Initiate_Files\MAIN.c	   230      {
+; ..\Initiate_Files\MAIN.c	   231        MAIN_vResetENDINIT();
+	ld.w	d15,[a15]
+	insert	d4,d15,#0,#0,#1
+	call	MAIN_vWriteWDTCON0
+.L8:
+	ld.bu	d15,[a12]
+	jnz.t	d15:0,.L8				; predicted taken
+.L229:
+
+; ..\Initiate_Files\MAIN.c	   232        SCU_CCUCON0  =  0x00000001; // set FPI,LMB and PCP dividers
+	mov	d15,#1
+	st.w	0xf0000530,d15
+.L230:
+
+; ..\Initiate_Files\MAIN.c	   233        SCU_PLLCON0_VCOBYP  =  1;  // set VCO bypass (goto Prescaler Mode)
+	ld.bu	d15,[a13]
+.L231:
+	or	d15,#1
+	st.b	[a13],d15
+
+; ..\Initiate_Files\MAIN.c	   234        while (!SCU_PLLSTAT_VCOBYST);// wait for prescaler mode
+.L9:
+	ld.bu	d15,[a14]
+	jz.t	d15:0,.L9				; predicted taken
+.L232:
+
+; ..\Initiate_Files\MAIN.c	   235        SCU_PLLCON0  =  0x01057E21; // set P,N divider, connect OSC
+	mov	d15,#32289
+.L233:
+	addih	d15,d15,#261
+	st.w	0xf0000518,d15
+.L234:
+
+; ..\Initiate_Files\MAIN.c	   236        SCU_PLLCON1  =  0x00020007; // set K1,K2 divider
+	mov	d15,#7
+.L235:
+	addih	d15,d15,#2
+	st.w	0xf000051c,d15
+.L236:
+
+; ..\Initiate_Files\MAIN.c	   237        MAIN_vSetENDINIT();
+	ld.w	d15,[a15]
+	or	d4,d15,#1
+	call	MAIN_vWriteWDTCON0
+
+; ..\Initiate_Files\MAIN.c	   238        while (SCU_PLLSTAT_VCOLOCK == 0);// wait for LOCK
+.L10:
+	ld.bu	d15,[a14]
+.L237:
+	jz.t	d15:2,.L10				; predicted taken
+.L238:
+
+; ..\Initiate_Files\MAIN.c	   239        MAIN_vResetENDINIT();
+	ld.w	d15,[a15]
+	insert	d4,d15,#0,#0,#1
+	call	MAIN_vWriteWDTCON0
+.L11:
+	ld.bu	d15,[a12]
+	jnz.t	d15:0,.L11				; predicted taken
+.L239:
+
+; ..\Initiate_Files\MAIN.c	   240        SCU_PLLCON0_VCOBYP  =  0;  // Reset VCO bypass (Leave Prescaler Mode)
+	ld.bu	d15,[a13]
+.L240:
+	insert	d15,d15,#0,#0,#1
+	st.b	[a13],d15
+.L241:
+
+; ..\Initiate_Files\MAIN.c	   241        MAIN_vSetENDINIT();
+	ld.w	d15,[a15]
+	or	d4,d15,#1
+	call	MAIN_vWriteWDTCON0
+.L7:
+.L6:
+.L4:
+
+; ..\Initiate_Files\MAIN.c	   242      }
+; ..\Initiate_Files\MAIN.c	   243     }
+; ..\Initiate_Files\MAIN.c	   244    }
+; ..\Initiate_Files\MAIN.c	   245  
+; ..\Initiate_Files\MAIN.c	   246    ///  -----------------------------------------------------------------------
+; ..\Initiate_Files\MAIN.c	   247    ///  Interrupt System:
+; ..\Initiate_Files\MAIN.c	   248    ///  -----------------------------------------------------------------------
+; ..\Initiate_Files\MAIN.c	   249    ///  - four arbitration cycles (max. 255 interrupt sources)
+; ..\Initiate_Files\MAIN.c	   250    ///  - two clocks per arbitration cycle
+; ..\Initiate_Files\MAIN.c	   251  
+; ..\Initiate_Files\MAIN.c	   252    MTCR(0xFE2C,  0x00000000);     // load CPU interrupt control register
+	mov	d15,#0
+	lea	a15,0xf00005f0
+.L242:
+	mtcr	#65068,d15
+	isync
+.L243:
+
+; ..\Initiate_Files\MAIN.c	   253    ISYNC();
+	isync
+.L244:
+
+; ..\Initiate_Files\MAIN.c	   254  
+; ..\Initiate_Files\MAIN.c	   255    ///  -----------------------------------------------------------------------
+; ..\Initiate_Files\MAIN.c	   256    ///  Peripheral Control Processor (PCP):
+; ..\Initiate_Files\MAIN.c	   257    ///  -----------------------------------------------------------------------
+; ..\Initiate_Files\MAIN.c	   258    ///  - stop the PCP internal clock when PCP is idle
+; ..\Initiate_Files\MAIN.c	   259  
+; ..\Initiate_Files\MAIN.c	   260    ///  - use Full Context save area (R[0] - R[7])
+; ..\Initiate_Files\MAIN.c	   261    ///  - start progam counter as left by last invocation
+; ..\Initiate_Files\MAIN.c	   262    ///  - channel watchdog is disabled
+; ..\Initiate_Files\MAIN.c	   263    ///  - maximum channel number checking is disabled
+; ..\Initiate_Files\MAIN.c	   264  
+; ..\Initiate_Files\MAIN.c	   265    MAIN_vResetENDINIT();
+	ld.w	d15,[a15]
+	insert	d4,d15,#0,#0,#1
+	call	MAIN_vWriteWDTCON0
+.L12:
+	ld.bu	d15,[a15]
+	jnz.t	d15:0,.L12				; predicted taken
+.L245:
+
+; ..\Initiate_Files\MAIN.c	   266    PCP_CLC        =  0x00000000;  // load PCP clock control register
+	mov	d15,#0
+	movh.a	a2,#61444
+	st.w	[a2]@los(0xf0043f00),d15
+.L246:
+
+; ..\Initiate_Files\MAIN.c	   267    PCP_CS         =  0x00000200;  // load PCP control and status register
+	mov	d15,#512
+	st.w	[a2]@los(0xf0043f10),d15
+.L247:
+
+; ..\Initiate_Files\MAIN.c	   268    MAIN_vSetENDINIT();
+	ld.w	d15,[a15]
+	or	d4,d15,#1
+	call	MAIN_vWriteWDTCON0
+.L248:
+
+; ..\Initiate_Files\MAIN.c	   269  
+; ..\Initiate_Files\MAIN.c	   270    ///  - four arbitration cycles (max. 255 PCP channels)
+; ..\Initiate_Files\MAIN.c	   271    ///  - two clocks per arbitration cycle
+; ..\Initiate_Files\MAIN.c	   272    PCP_ICR        =  0x00000000;  // load PCP interrupt control register
+	mov	d15,#0
+	movh.a	a2,#61444
+	st.w	[a2]@los(0xf0043f20),d15
+.L249:
+
+; ..\Initiate_Files\MAIN.c	   273  
+; ..\Initiate_Files\MAIN.c	   274    ///  - the PCP warning mechanism is disabled
+; ..\Initiate_Files\MAIN.c	   275    PCP_ITR        =  0x00000000;  // load PCP interrupt threshold register
+	st.w	[a2]@los(0xf0043f24),d15
+.L250:
+
+; ..\Initiate_Files\MAIN.c	   276  
+; ..\Initiate_Files\MAIN.c	   277    ///  - type of service of PCP node 4 is CPU interrupt
+; ..\Initiate_Files\MAIN.c	   278    PCP_SRC4       =  0x00001000;  // load service request control register 4
+	mov	d15,#4096
+	st.w	[a2]@los(0xf0043fec),d15
+.L251:
+
+; ..\Initiate_Files\MAIN.c	   279  
+; ..\Initiate_Files\MAIN.c	   280    ///  - type of service of PCP node 5 is CPU interrupt
+; ..\Initiate_Files\MAIN.c	   281    PCP_SRC5       =  0x00001000;  // load service request control register 5
+	st.w	[a2]@los(0xf0043fe8),d15
+.L252:
+
+; ..\Initiate_Files\MAIN.c	   282  
+; ..\Initiate_Files\MAIN.c	   283    ///  - type of service of PCP node 6 is CPU interrupt
+; ..\Initiate_Files\MAIN.c	   284    PCP_SRC6       =  0x00001000;  // load service request control register 6
+	st.w	[a2]@los(0xf0043fe4),d15
+.L253:
+
+; ..\Initiate_Files\MAIN.c	   285  
+; ..\Initiate_Files\MAIN.c	   286    ///  - type of service of PCP node 7 is CPU interrupt
+; ..\Initiate_Files\MAIN.c	   287    PCP_SRC7       =  0x00001000;  // load service request control register 7
+	st.w	[a2]@los(0xf0043fe0),d15
+.L254:
+
+; ..\Initiate_Files\MAIN.c	   288  
+; ..\Initiate_Files\MAIN.c	   289    ///  - type of service of PCP node 8 is CPU interrupt
+; ..\Initiate_Files\MAIN.c	   290    PCP_SRC8       =  0x00001000;  // load service request control register 8
+	st.w	[a2]@los(0xf0043fdc),d15
+.L255:
+
+; ..\Initiate_Files\MAIN.c	   291  
+; ..\Initiate_Files\MAIN.c	   292    ///  -----------------------------------------------------------------------
+; ..\Initiate_Files\MAIN.c	   293    ///  Configuration of the DMA Module Clock:
+; ..\Initiate_Files\MAIN.c	   294    ///  -----------------------------------------------------------------------
+; ..\Initiate_Files\MAIN.c	   295    ///  - enable the DMA module
+; ..\Initiate_Files\MAIN.c	   296  
+; ..\Initiate_Files\MAIN.c	   297    MAIN_vResetENDINIT();
+	ld.w	d15,[a15]
+	insert	d4,d15,#0,#0,#1
+	call	MAIN_vWriteWDTCON0
+.L13:
+	ld.bu	d15,[a15]
+	jnz.t	d15:0,.L13				; predicted taken
+.L256:
+
+; ..\Initiate_Files\MAIN.c	   298    DMA_CLC        =  0x00000008;  // DMA clock control register
+	mov	d15,#8
+	st.w	0xf0003c00,d15
+.L257:
+
+; ..\Initiate_Files\MAIN.c	   299    DummyToForceRead  =  DMA_CLC;  // read it back to ensure it is read
+	movh.a	a2,#@his(DummyToForceRead)
+.L258:
+	ld.w	d15,0xf0003c00
+.L259:
+	st.w	[a2]@los(DummyToForceRead),d15
+.L260:
+
+; ..\Initiate_Files\MAIN.c	   300    MAIN_vSetENDINIT();
+	ld.w	d15,[a15]
+	or	d4,d15,#1
+	call	MAIN_vWriteWDTCON0
+.L261:
+
+; ..\Initiate_Files\MAIN.c	   301  
+; ..\Initiate_Files\MAIN.c	   302    //   -----------------------------------------------------------------------
+; ..\Initiate_Files\MAIN.c	   303    //   Initialization of the Peripherals:
+; ..\Initiate_Files\MAIN.c	   304    //   -----------------------------------------------------------------------
+; ..\Initiate_Files\MAIN.c	   305    //   initializes the Parallel Ports
+; ..\Initiate_Files\MAIN.c	   306    IO_vInit();
+	call	IO_vInit
+.L262:
+
+; ..\Initiate_Files\MAIN.c	   307  
+; ..\Initiate_Files\MAIN.c	   308    //   initializes the System Control Unit (SCU)
+; ..\Initiate_Files\MAIN.c	   309    SCU_vInit();
+	call	SCU_vInit
+.L263:
+
+; ..\Initiate_Files\MAIN.c	   310  
+; ..\Initiate_Files\MAIN.c	   311    //   initializes the System Timer (STM)
+; ..\Initiate_Files\MAIN.c	   312    STM_vInit();
+	call	STM_vInit
+.L264:
+
+; ..\Initiate_Files\MAIN.c	   313  
+; ..\Initiate_Files\MAIN.c	   314  
+; ..\Initiate_Files\MAIN.c	   315    // USER CODE BEGIN (Init,3)
+; ..\Initiate_Files\MAIN.c	   316    os_init();
+	call	os_init
+.L265:
+
+; ..\Initiate_Files\MAIN.c	   317    // USER CODE END
+; ..\Initiate_Files\MAIN.c	   318  
+; ..\Initiate_Files\MAIN.c	   319    ///  -----------------------------------------------------------------------
+; ..\Initiate_Files\MAIN.c	   320    ///  System Start Conditions:
+; ..\Initiate_Files\MAIN.c	   321    ///  -----------------------------------------------------------------------
+; ..\Initiate_Files\MAIN.c	   322  
+; ..\Initiate_Files\MAIN.c	   323    //// - the CPU interrupt system is globally disabled
+; ..\Initiate_Files\MAIN.c	   324    DISABLE();
+	disable
+.L266:
+
+; ..\Initiate_Files\MAIN.c	   325  
+; ..\Initiate_Files\MAIN.c	   326    //// - the PCP interrupt system is globally disabled
+; ..\Initiate_Files\MAIN.c	   327  
+; ..\Initiate_Files\MAIN.c	   328  
+; ..\Initiate_Files\MAIN.c	   329    // USER CODE BEGIN (Init,4)
+; ..\Initiate_Files\MAIN.c	   330  
+; ..\Initiate_Files\MAIN.c	   331    // USER CODE END
+; ..\Initiate_Files\MAIN.c	   332  
+; ..\Initiate_Files\MAIN.c	   333  } //  End of function MAIN_vInit
+	ret
+.L119:
+	
+__MAIN_vInit_function_end:
+	.size	MAIN_vInit,__MAIN_vInit_function_end-MAIN_vInit
+.L82:
+	; End of function
+	
+	.sdecl	'.text.MAIN.MAIN_vWriteWDTCON0',code,cluster('MAIN_vWriteWDTCON0')
+	.sect	'.text.MAIN.MAIN_vWriteWDTCON0'
+	.align	2
+	
+	.global	MAIN_vWriteWDTCON0
+
+; ..\Initiate_Files\MAIN.c	   334  
+; ..\Initiate_Files\MAIN.c	   335  
+; ..\Initiate_Files\MAIN.c	   336  //****************************************************************************
+; ..\Initiate_Files\MAIN.c	   337  // @Function      void MAIN_vWriteWDTCON0(uword uwValue) 
+; ..\Initiate_Files\MAIN.c	   338  //
+; ..\Initiate_Files\MAIN.c	   339  //----------------------------------------------------------------------------
+; ..\Initiate_Files\MAIN.c	   340  // @Description   This function writes the parameter uwValue to the WDT_CON0 
+; ..\Initiate_Files\MAIN.c	   341  //                register which is password protected. 
+; ..\Initiate_Files\MAIN.c	   342  //
+; ..\Initiate_Files\MAIN.c	   343  //----------------------------------------------------------------------------
+; ..\Initiate_Files\MAIN.c	   344  // @Returnvalue   None
+; ..\Initiate_Files\MAIN.c	   345  //
+; ..\Initiate_Files\MAIN.c	   346  //----------------------------------------------------------------------------
+; ..\Initiate_Files\MAIN.c	   347  // @Parameters    uwValue: 
+; ..\Initiate_Files\MAIN.c	   348  //                Value for the WDTCON0 register
+; ..\Initiate_Files\MAIN.c	   349  //
+; ..\Initiate_Files\MAIN.c	   350  //----------------------------------------------------------------------------
+; ..\Initiate_Files\MAIN.c	   351  // @Date          2019-1-11
+; ..\Initiate_Files\MAIN.c	   352  //
+; ..\Initiate_Files\MAIN.c	   353  //****************************************************************************
+; ..\Initiate_Files\MAIN.c	   354  
+; ..\Initiate_Files\MAIN.c	   355  // USER CODE BEGIN (WriteWDTCON0,1)
+; ..\Initiate_Files\MAIN.c	   356  
+; ..\Initiate_Files\MAIN.c	   357  // USER CODE END
+; ..\Initiate_Files\MAIN.c	   358  
+; ..\Initiate_Files\MAIN.c	   359  void MAIN_vWriteWDTCON0(uword uwValue)
+; Function MAIN_vWriteWDTCON0
+.L59:
+MAIN_vWriteWDTCON0:	.type	func
+
+; ..\Initiate_Files\MAIN.c	   360  {
+; ..\Initiate_Files\MAIN.c	   361    uword uwDummy;
+; ..\Initiate_Files\MAIN.c	   362  
+; ..\Initiate_Files\MAIN.c	   363    uwDummy        =  WDT_CON0;   
+	lea	a15,0xf00005f0
+	ld.w	d15,[a15]
+.L130:
+
+; ..\Initiate_Files\MAIN.c	   364    uwDummy |=  0x000000F0;       //  set HWPW1 = 1111b
+; ..\Initiate_Files\MAIN.c	   365  
+; ..\Initiate_Files\MAIN.c	   366    if(WDT_CON1_DR)
+	or	d15,#240
+	lea	a2,0xf00005f4
+	ld.bu	d0,[a2]
+.L155:
+	jz.t	d0:3,.L14				; prediction unknown
+.L156:
+
+; ..\Initiate_Files\MAIN.c	   367    {
+; ..\Initiate_Files\MAIN.c	   368      uwDummy |=  0x00000008;     //  set HWPW0 = WDTDR
+	or	d15,#8
+.L157:
+	j	.L15
+.L14:
+
+; ..\Initiate_Files\MAIN.c	   369    }
+; ..\Initiate_Files\MAIN.c	   370    else
+; ..\Initiate_Files\MAIN.c	   371    {
+; ..\Initiate_Files\MAIN.c	   372      uwDummy &= ~0x00000008;     //  set HWPW0 = WDTDR
+	insert	d15,d15,#0,#3,#1
+.L15:
+
+; ..\Initiate_Files\MAIN.c	   373    }
+; ..\Initiate_Files\MAIN.c	   374    if(WDT_CON1_IR)
+	ld.bu	d0,[a2]
+.L158:
+	jz.t	d0:2,.L16				; prediction unknown
+.L159:
+
+; ..\Initiate_Files\MAIN.c	   375    {
+; ..\Initiate_Files\MAIN.c	   376      uwDummy |=  0x00000004;     //  set HWPW0 = WDTIR
+	or	d15,#4
+.L160:
+	j	.L17
+.L16:
+
+; ..\Initiate_Files\MAIN.c	   377    }
+; ..\Initiate_Files\MAIN.c	   378    else
+; ..\Initiate_Files\MAIN.c	   379    {
+; ..\Initiate_Files\MAIN.c	   380      uwDummy &= ~0x00000004;     //  set HWPW0 = WDTIR
+	insert	d15,d15,#0,#2,#1
+.L17:
+
+; ..\Initiate_Files\MAIN.c	   381    }
+; ..\Initiate_Files\MAIN.c	   382  
+; ..\Initiate_Files\MAIN.c	   383    uwDummy &= ~0x00000002;       //  set WDTLCK = 0
+; ..\Initiate_Files\MAIN.c	   384    WDT_CON0 =  uwDummy;          //  unlock access
+	insert	d15,d15,#0,#1,#1
+	st.w	[a15],d15
+.L161:
+
+; ..\Initiate_Files\MAIN.c	   385  
+; ..\Initiate_Files\MAIN.c	   386    uwValue  |=  0x000000F2;      //  set HWPW1 = 1111b and WDTLCK = 1
+	or	d15,d4,#242
+.L131:
+
+; ..\Initiate_Files\MAIN.c	   387    uwValue  &= ~0x0000000C;      //  set HWPW0 = 00b
+; ..\Initiate_Files\MAIN.c	   388    WDT_CON0  =  uwValue;         //  write access and lock
+	insert	d15,d15,#0,#2,#2
+	st.w	[a15],d15
+.L129:
+
+; ..\Initiate_Files\MAIN.c	   389  
+; ..\Initiate_Files\MAIN.c	   390  } //  End of function MAIN_vWriteWDTCON0
+	ret
+.L102:
+	
+__MAIN_vWriteWDTCON0_function_end:
+	.size	MAIN_vWriteWDTCON0,__MAIN_vWriteWDTCON0_function_end-MAIN_vWriteWDTCON0
+.L72:
+	; End of function
+	
+	.sdecl	'.text.MAIN.MAIN_vResetCheck',code,cluster('MAIN_vResetCheck')
+	.sect	'.text.MAIN.MAIN_vResetCheck'
+	.align	2
+	
+	.global	MAIN_vResetCheck
+
+; ..\Initiate_Files\MAIN.c	   391  
+; ..\Initiate_Files\MAIN.c	   392  
+; ..\Initiate_Files\MAIN.c	   393  
+; ..\Initiate_Files\MAIN.c	   394  //****************************************************************************
+; ..\Initiate_Files\MAIN.c	   395  // @Function         ubyte MAIN_vResetCheck(void)
+; ..\Initiate_Files\MAIN.c	   396  //
+; ..\Initiate_Files\MAIN.c	   397  //----------------------------------------------------------------------------
+; ..\Initiate_Files\MAIN.c	   398  // @Description   
+; ..\Initiate_Files\MAIN.c	   399  //      This function checks the reset types (application/system).
+; ..\Initiate_Files\MAIN.c	   400  //
+; ..\Initiate_Files\MAIN.c	   401  //----------------------------------------------------------------------------
+; ..\Initiate_Files\MAIN.c	   402  // @Returnvalue   1 on system reset
+; ..\Initiate_Files\MAIN.c	   403  //                0 on application reset
+; ..\Initiate_Files\MAIN.c	   404  //
+; ..\Initiate_Files\MAIN.c	   405  //----------------------------------------------------------------------------
+; ..\Initiate_Files\MAIN.c	   406  // @Parameters    None
+; ..\Initiate_Files\MAIN.c	   407  //
+; ..\Initiate_Files\MAIN.c	   408  //----------------------------------------------------------------------------
+; ..\Initiate_Files\MAIN.c	   409  // @Date          2019-1-11
+; ..\Initiate_Files\MAIN.c	   410  //
+; ..\Initiate_Files\MAIN.c	   411  //****************************************************************************
+; ..\Initiate_Files\MAIN.c	   412  
+; ..\Initiate_Files\MAIN.c	   413  ubyte MAIN_vResetCheck(void)
+; Function MAIN_vResetCheck
+.L61:
+MAIN_vResetCheck:	.type	func
+
+; ..\Initiate_Files\MAIN.c	   414  {
+; ..\Initiate_Files\MAIN.c	   415    ubyte ubWDTAppReset,ubESR0AppReset,ubESR1AppReset,ubSWAppReset;
+; ..\Initiate_Files\MAIN.c	   416    ubyte ubWDTSysReset,ubESR1SysReset,ubSWSysReset;
+; ..\Initiate_Files\MAIN.c	   417    ubyte ubChkAppReset,ubEsr0Chk,ubOtherSysReset;
+; ..\Initiate_Files\MAIN.c	   418    uword uwReset,uwOtherReset;
+; ..\Initiate_Files\MAIN.c	   419  
+; ..\Initiate_Files\MAIN.c	   420    ubWDTAppReset = ((SCU_RSTCON & (uword)(0X00000080)) && (SCU_RSTSTAT & (uword)(0X00000008)));
+	mov	d0,#0
+	lea	a15,0xf0000558
+.L132:
+	ld.w	d15,[a15]
+.L166:
+	jz.t	d15:7,.L18				; predicted taken
+.L167:
+	ld.w	d15,0xf0000550
+.L168:
+	jz.t	d15:3,.L19				; predicted taken
+.L169:
+	mov	d0,#1
+.L19:
+.L18:
+	lea	a2,0xf0000550
+.L170:
+
+; ..\Initiate_Files\MAIN.c	   421    ubSWAppReset = ((SCU_RSTCON & (uword)(0X00000200)) && (SCU_RSTSTAT & (uword)(0X00000010)));
+	mov	d1,#0
+	ld.w	d15,[a15]
+.L134:
+	jz.t	d15:9,.L20				; prediction unknown
+.L171:
+	ld.w	d15,[a2]
+.L172:
+	jz.t	d15:4,.L21				; predicted taken
+.L173:
+	mov	d1,#1
+.L21:
+.L20:
+
+; ..\Initiate_Files\MAIN.c	   422    ubESR0AppReset = ((SCU_RSTCON & (uword)(0X00000002)) && (SCU_RSTSTAT & (uword)(0X00000001)));
+	mov	d4,#0
+	ld.w	d15,[a15]
+.L136:
+	jz.t	d15:1,.L22				; prediction unknown
+.L174:
+	ld.w	d15,[a2]
+.L175:
+	jz.t	d15:0,.L23				; predicted taken
+.L176:
+	mov	d4,#1
+.L23:
+.L22:
+
+; ..\Initiate_Files\MAIN.c	   423    ubESR1AppReset = ((SCU_RSTCON & (uword)(0X00000008)) && (SCU_RSTSTAT & (uword)(0X00000002)));
+	mov	d2,#0
+	ld.w	d15,[a15]
+.L137:
+	jz.t	d15:3,.L24				; prediction unknown
+.L177:
+	ld.w	d15,[a2]
+.L178:
+	jz.t	d15:1,.L25				; predicted taken
+.L179:
+	mov	d2,#1
+.L25:
+.L24:
+
+; ..\Initiate_Files\MAIN.c	   424    ubChkAppReset = (!(ubWDTAppReset || ubSWAppReset || ubESR1AppReset));
+	mov	d3,#0
+.L180:
+	jne	d0,#0,.L26				; predicted not taken
+.L181:
+	jne	d1,#0,.L27				; predicted not taken
+.L182:
+	jeq	d2,#0,.L28				; predicted taken
+.L27:
+.L26:
+	mov	d3,#1
+.L28:
+	eq	d3,d3,#0
+.L139:
+
+; ..\Initiate_Files\MAIN.c	   425    ubEsr0Chk = ((SCU_RSTCON & (uword)(0X00000003)) && (SCU_RSTSTAT & (uword)(0X0000001B)));
+	mov	d5,#0
+	ld.w	d15,[a15]
+.L141:
+	and	d15,#3
+.L183:
+	jeq	d15,#0,.L29				; prediction unknown
+.L184:
+	ld.w	d15,[a2]
+.L185:
+	and	d15,#27
+.L186:
+	cmov	d5,d15,#1
+.L29:
+
+; ..\Initiate_Files\MAIN.c	   426  
+; ..\Initiate_Files\MAIN.c	   427    ubWDTSysReset = ((SCU_RSTCON & (uword)(0X00000040)) && (SCU_RSTSTAT & (uword)(0X00000008)));
+	mov	d0,#0
+	ld.w	d15,[a15]
+.L133:
+	jz.t	d15:6,.L31				; prediction unknown
+.L187:
+	ld.w	d15,[a2]
+.L188:
+	jz.t	d15:3,.L32				; predicted taken
+.L189:
+	mov	d0,#1
+.L32:
+.L31:
+
+; ..\Initiate_Files\MAIN.c	   428    ubSWSysReset = ((SCU_RSTCON & (uword)(0X00000100)) && (SCU_RSTSTAT & (uword)(0X00000010)));
+	mov	d1,#0
+	ld.w	d15,[a15]
+.L135:
+	jz.t	d15:8,.L33				; prediction unknown
+.L190:
+	ld.w	d15,[a2]
+.L191:
+	jz.t	d15:4,.L34				; predicted taken
+.L192:
+	mov	d1,#1
+.L34:
+.L33:
+
+; ..\Initiate_Files\MAIN.c	   429    ubESR1SysReset = ((SCU_RSTCON & (uword)(0X00000004)) && (SCU_RSTSTAT & (uword)(0X00000002)));
+	mov	d2,#0
+	ld.w	d15,[a15]
+.L138:
+	jz.t	d15:2,.L35				; prediction unknown
+.L193:
+	ld.w	d15,[a2]
+.L194:
+	jz.t	d15:1,.L36				; predicted taken
+.L195:
+	mov	d2,#1
+.L36:
+.L35:
+
+; ..\Initiate_Files\MAIN.c	   430    ubOtherSysReset = ( ((ubWDTSysReset || ubSWSysReset || ubESR1SysReset))&& (SCU_RSTSTAT & (uword)(0X00000001)));
+	mov	d6,#0
+.L145:
+	jne	d0,#0,.L37				; prediction unknown
+.L196:
+	jne	d1,#0,.L38				; prediction unknown
+.L197:
+	jeq	d2,#0,.L39				; prediction unknown
+.L38:
+.L37:
+	ld.w	d15,[a2]
+.L198:
+	jz.t	d15:0,.L40				; predicted taken
+.L199:
+	mov	d6,#1
+.L40:
+.L39:
+
+; ..\Initiate_Files\MAIN.c	   431  
+; ..\Initiate_Files\MAIN.c	   432    uwReset =  (((ubChkAppReset & !ubEsr0Chk)||(ubChkAppReset & ubEsr0Chk) && (!(ubESR0AppReset)|| ubOtherSysReset)));
+	mov	d0,#0
+.L142:
+	eq	d15,d5,#0
+.L200:
+	and	d15,d3
+.L201:
+	jne	d15,#0,.L41				; predicted not taken
+.L202:
+	and	d3,d5
+.L140:
+	jeq	d3,#0,.L42				; prediction unknown
+.L203:
+	jeq	d4,#0,.L43				; predicted not taken
+.L204:
+	jeq	d6,#0,.L44				; predicted taken
+.L43:
+.L41:
+	mov	d0,#1
+.L44:
+.L42:
+
+; ..\Initiate_Files\MAIN.c	   433    uwOtherReset = (SCU_RSTSTAT & (uword)(0X003F0000)) ;
+	movh	d1,#63
+	ld.w	d15,[a2]
+.L143:
+	and	d15,d1
+.L205:
+
+; ..\Initiate_Files\MAIN.c	   434    if(uwReset || uwOtherReset)
+	jne	d0,#0,.L45				; predicted not taken
+.L206:
+	jeq	d15,#0,.L46				; predicted taken
+.L45:
+
+; ..\Initiate_Files\MAIN.c	   435    {
+; ..\Initiate_Files\MAIN.c	   436      return 1;
+	mov	d2,#1
+.L144:
+
+; ..\Initiate_Files\MAIN.c	   437    }
+; ..\Initiate_Files\MAIN.c	   438    else
+; ..\Initiate_Files\MAIN.c	   439    {
+; ..\Initiate_Files\MAIN.c	   440      return 0;
+; ..\Initiate_Files\MAIN.c	   441    }
+; ..\Initiate_Files\MAIN.c	   442  
+; ..\Initiate_Files\MAIN.c	   443  } //  End of function MAIN_vResetCheck
+	ret
+.L46:
+	mov	d2,#0
+.L146:
+	ret
+.L107:
+	
+__MAIN_vResetCheck_function_end:
+	.size	MAIN_vResetCheck,__MAIN_vResetCheck_function_end-MAIN_vResetCheck
+.L77:
+	; End of function
+	
+	.sdecl	'.text.MAIN.main',code,cluster('main')
+	.sect	'.text.MAIN.main'
+	.align	2
+	
+	.global	main
+
+; ..\Initiate_Files\MAIN.c	   444  
+; ..\Initiate_Files\MAIN.c	   445  
+; ..\Initiate_Files\MAIN.c	   446  //****************************************************************************
+; ..\Initiate_Files\MAIN.c	   447  // @Function      sword main(void) 
+; ..\Initiate_Files\MAIN.c	   448  //
+; ..\Initiate_Files\MAIN.c	   449  //----------------------------------------------------------------------------
+; ..\Initiate_Files\MAIN.c	   450  // @Description   This is the main function.
+; ..\Initiate_Files\MAIN.c	   451  //
+; ..\Initiate_Files\MAIN.c	   452  //----------------------------------------------------------------------------
+; ..\Initiate_Files\MAIN.c	   453  // @Returnvalue   Returns an sword value
+; ..\Initiate_Files\MAIN.c	   454  //
+; ..\Initiate_Files\MAIN.c	   455  //----------------------------------------------------------------------------
+; ..\Initiate_Files\MAIN.c	   456  // @Parameters    None
+; ..\Initiate_Files\MAIN.c	   457  //
+; ..\Initiate_Files\MAIN.c	   458  //----------------------------------------------------------------------------
+; ..\Initiate_Files\MAIN.c	   459  // @Date          2019-1-11
+; ..\Initiate_Files\MAIN.c	   460  //
+; ..\Initiate_Files\MAIN.c	   461  //****************************************************************************
+; ..\Initiate_Files\MAIN.c	   462  
+; ..\Initiate_Files\MAIN.c	   463  // USER CODE BEGIN (Main,1)
+; ..\Initiate_Files\MAIN.c	   464  uint8 Boot_Flag[256] = {0};
+; ..\Initiate_Files\MAIN.c	   465  uint8 Test11[8] = {0};
+; ..\Initiate_Files\MAIN.c	   466  // USER CODE END
+; ..\Initiate_Files\MAIN.c	   467  
+; ..\Initiate_Files\MAIN.c	   468  sword main(void)
+; Function main
+.L63:
+main:	.type	func
+
+; ..\Initiate_Files\MAIN.c	   469  {
+; ..\Initiate_Files\MAIN.c	   470    sword swReturn;
+; ..\Initiate_Files\MAIN.c	   471  
+; ..\Initiate_Files\MAIN.c	   472    // USER CODE BEGIN (Main,2)
+; ..\Initiate_Files\MAIN.c	   473    Fls_Read(0xA0010000, &Boot_Flag[0], 2U);
+	movh.a	a15,#@his(Boot_Flag)
+	lea	a15,[a15]@los(Boot_Flag)
+.L271:
+	movh	d4,#40961
+.L272:
+	mov	d5,#2
+	mov.aa	a4,a15
+	call	Fls_Read
+.L273:
+
+; ..\Initiate_Files\MAIN.c	   474    switch(ui32_KeepBSLState_Flag)
+; ..\Initiate_Files\MAIN.c	   475    {
+; ..\Initiate_Files\MAIN.c	   476    case SYS_KEEP_BSL_STATE:								/*应用层跳转底层，刷程序*/
+	mov.u	d0,#41377
+	movh.a	a12,#@his(ui32_KeepBSLState_Flag)
+.L274:
+	addih	d0,d0,#41377
+	lea	a12,[a12]@los(ui32_KeepBSLState_Flag)
+	ld.w	d15,[a12]
+.L275:
+	jeq	d15,d0,.L49				; prediction unknown
+.L276:
+
+; ..\Initiate_Files\MAIN.c	   477  	  Boot_Flag[0] = 0x00;
+; ..\Initiate_Files\MAIN.c	   478  	  break;
+; ..\Initiate_Files\MAIN.c	   479    case SYS_BSL_RESET:									/*应用程序与硬件不兼容，进行回刷操作*/
+	mov.u	d0,#41891
+	addih	d0,d0,#41891
+	jeq	d15,d0,.L50				; prediction unknown
+	j	.L51
+.L49:
+	mov	d15,#0
+	st.b	[a15],d15
+.L277:
+	j	.L52
+.L50:
+
+; ..\Initiate_Files\MAIN.c	   480  	  ui32_KeepBSLState_Flag = SYS_BSL_RESET;
+	mov.u	d15,#41891
+.L278:
+	addih	d15,d15,#41891
+	st.w	[a12],d15
+
+; ..\Initiate_Files\MAIN.c	   481  	  break;
+; ..\Initiate_Files\MAIN.c	   482    case SYS_POWER_ON_RESET:
+; ..\Initiate_Files\MAIN.c	   483  
+; ..\Initiate_Files\MAIN.c	   484    default:
+; ..\Initiate_Files\MAIN.c	   485  //	  Fls_Read(0xA0010000, &Boot_Flag[0], 2U);
+; ..\Initiate_Files\MAIN.c	   486  //	  if(Boot_Flag[0] == 0xfe)
+; ..\Initiate_Files\MAIN.c	   487  //	  {
+; ..\Initiate_Files\MAIN.c	   488  //	  	RunUserCode();
+; ..\Initiate_Files\MAIN.c	   489  //	  }
+; ..\Initiate_Files\MAIN.c	   490  	  break;
+; ..\Initiate_Files\MAIN.c	   491    }
+; ..\Initiate_Files\MAIN.c	   492  
+; ..\Initiate_Files\MAIN.c	   493    // USER CODE END
+; ..\Initiate_Files\MAIN.c	   494  
+; ..\Initiate_Files\MAIN.c	   495    swReturn = 0;
+.L52:
+.L51:
+
+; ..\Initiate_Files\MAIN.c	   496  
+; ..\Initiate_Files\MAIN.c	   497    switch(RESET_INDICATOR)
+	ld.w	d15,0xf0000550
+.L279:
+
+; ..\Initiate_Files\MAIN.c	   498    {
+; ..\Initiate_Files\MAIN.c	   499      case WATCHDOG_RESET:         //  the last reset was a watchdog triggered
+; ..\Initiate_Files\MAIN.c	   500                                   //  (hardware) reset
+; ..\Initiate_Files\MAIN.c	   501  
+; ..\Initiate_Files\MAIN.c	   502           // USER CODE BEGIN (Main,3)
+; ..\Initiate_Files\MAIN.c	   503  
+; ..\Initiate_Files\MAIN.c	   504           // USER CODE END
+; ..\Initiate_Files\MAIN.c	   505  
+; ..\Initiate_Files\MAIN.c	   506      case SOFTWARE_RESET:         //  the last reset was an internally 
+; ..\Initiate_Files\MAIN.c	   507                                   //  triggered software reset
+; ..\Initiate_Files\MAIN.c	   508  
+; ..\Initiate_Files\MAIN.c	   509           // USER CODE BEGIN (Main,4)
+; ..\Initiate_Files\MAIN.c	   510  
+; ..\Initiate_Files\MAIN.c	   511           // USER CODE END
+; ..\Initiate_Files\MAIN.c	   512  
+; ..\Initiate_Files\MAIN.c	   513      case ESR0_RESET:             //  the last reset was an externally 
+; ..\Initiate_Files\MAIN.c	   514                                   //  triggered hardware reset (#ESR0 pin)
+; ..\Initiate_Files\MAIN.c	   515  
+; ..\Initiate_Files\MAIN.c	   516           // USER CODE BEGIN (Main,4.1)
+; ..\Initiate_Files\MAIN.c	   517  
+; ..\Initiate_Files\MAIN.c	   518           // USER CODE END
+; ..\Initiate_Files\MAIN.c	   519  
+; ..\Initiate_Files\MAIN.c	   520      case ESR1_RESET:             //  the last reset was an externally 
+; ..\Initiate_Files\MAIN.c	   521                                   //  triggered hardware reset (#ESR1 pin)
+; ..\Initiate_Files\MAIN.c	   522  
+; ..\Initiate_Files\MAIN.c	   523           // USER CODE BEGIN (Main,4.2)
+; ..\Initiate_Files\MAIN.c	   524  
+; ..\Initiate_Files\MAIN.c	   525           // USER CODE END
+; ..\Initiate_Files\MAIN.c	   526  
+; ..\Initiate_Files\MAIN.c	   527      case POWERON_RESET:          //  the last reset was an externally
+; ..\Initiate_Files\MAIN.c	   528                                   //  triggered power on reset (#POR pin)
+; ..\Initiate_Files\MAIN.c	   529  
+; ..\Initiate_Files\MAIN.c	   530           // USER CODE BEGIN (Main,5)
+; ..\Initiate_Files\MAIN.c	   531  
+; ..\Initiate_Files\MAIN.c	   532           // USER CODE END
+; ..\Initiate_Files\MAIN.c	   533  
+; ..\Initiate_Files\MAIN.c	   534      default:
+; ..\Initiate_Files\MAIN.c	   535  
+; ..\Initiate_Files\MAIN.c	   536           // USER CODE BEGIN (Main,6)
+; ..\Initiate_Files\MAIN.c	   537  
+; ..\Initiate_Files\MAIN.c	   538           // USER CODE END
+; ..\Initiate_Files\MAIN.c	   539  
+; ..\Initiate_Files\MAIN.c	   540           MAIN_vInit();
+	call	MAIN_vInit
+.L280:
+
+; ..\Initiate_Files\MAIN.c	   541    }
+; ..\Initiate_Files\MAIN.c	   542  
+; ..\Initiate_Files\MAIN.c	   543  
+; ..\Initiate_Files\MAIN.c	   544           // USER CODE BEGIN (Main,7)
+; ..\Initiate_Files\MAIN.c	   545  
+; ..\Initiate_Files\MAIN.c	   546  
+; ..\Initiate_Files\MAIN.c	   547  			ENABLE();									//使能总中断
+	enable
+.L281:
+
+; ..\Initiate_Files\MAIN.c	   548  
+; ..\Initiate_Files\MAIN.c	   549  			if((ui32_KeepBSLState_Flag == SYS_KEEP_BSL_STATE) || (ui32_KeepBSLState_Flag == SYS_POWER_ON_RESET))
+	mov.u	d0,#41377
+	ld.w	d15,[a12]
+.L282:
+	addih	d0,d0,#41377
+.L283:
+	jeq	d15,d0,.L53				; predicted not taken
+.L284:
+	mov.u	d0,#41634
+	ld.w	d15,[a12]
+.L285:
+	addih	d0,d0,#41634
+.L286:
+	jne	d15,d0,.L54				; predicted taken
+.L53:
+
+; ..\Initiate_Files\MAIN.c	   550  			{
+; ..\Initiate_Files\MAIN.c	   551  				st_Uds_SID_DSC_Info.ui8_Active_Session = UDS_PROGRAMMING_SESSION_ACTIVE;
+	movh.a	a15,#@his(st_Uds_SID_DSC_Info)
+	lea	a15,[a15]@los(st_Uds_SID_DSC_Info)
+.L287:
+	mov	d15,#2
+	st.b	[a15],d15
+.L288:
+
+; ..\Initiate_Files\MAIN.c	   552  				st_Uds_Dcm_Info.ui16_S3_Timer = UDS_S3_SERVER_MAX;	/*重置S3Server计数器值*/
+	movh.a	a15,#@his(st_Uds_Dcm_Info)
+	lea	a15,[a15]@los(st_Uds_Dcm_Info)
+.L289:
+	mov	d15,#5000
+	st.h	[a15]2,d15
+.L54:
+
+; ..\Initiate_Files\MAIN.c	   553  			}
+; ..\Initiate_Files\MAIN.c	   554  
+; ..\Initiate_Files\MAIN.c	   555  
+; ..\Initiate_Files\MAIN.c	   556    		  while(1)
+.L55:
+
+; ..\Initiate_Files\MAIN.c	   557    		  {
+; ..\Initiate_Files\MAIN.c	   558   			  os_operate();
+	call	os_operate
+.L290:
+
+; ..\Initiate_Files\MAIN.c	   559    			  __nop();
+	nop
+.L291:
+	j	.L55
+.L121:
+	
+__main_function_end:
+	.size	main,__main_function_end-main
+.L87:
+	; End of function
+	
+	.sdecl	'.bss.MAIN.ui32_KeepBSLState_Flag',data,noclear,cluster('ui32_KeepBSLState_Flag') at 0xd001aff4
+	.sect	'.bss.MAIN.ui32_KeepBSLState_Flag'
+	.global	ui32_KeepBSLState_Flag
+	.align	2
+ui32_KeepBSLState_Flag:	.type	object
+	.size	ui32_KeepBSLState_Flag,4
+	.space	4
+	.sdecl	'.bss.MAIN.ui8_Appl_Start_Magic_Flag',data,noclear,cluster('ui8_Appl_Start_Magic_Flag') at 0xd001aff8
+	.sect	'.bss.MAIN.ui8_Appl_Start_Magic_Flag'
+	.global	ui8_Appl_Start_Magic_Flag
+ui8_Appl_Start_Magic_Flag:	.type	object
+	.size	ui8_Appl_Start_Magic_Flag,4
+	.space	4
+	.sdecl	'.bss.MAIN.ui32_SysPowerOnOrBSLReset_Flag',data,noclear,cluster('ui32_SysPowerOnOrBSLReset_Flag') at 0xd001affc
+	.sect	'.bss.MAIN.ui32_SysPowerOnOrBSLReset_Flag'
+	.global	ui32_SysPowerOnOrBSLReset_Flag
+	.align	2
+ui32_SysPowerOnOrBSLReset_Flag:	.type	object
+	.size	ui32_SysPowerOnOrBSLReset_Flag,4
+	.space	4
+	.sdecl	'.bss.MAIN.DummyToForceRead',data,cluster('DummyToForceRead')
+	.sect	'.bss.MAIN.DummyToForceRead'
+	.global	DummyToForceRead
+	.align	2
+DummyToForceRead:	.type	object
+	.size	DummyToForceRead,4
+	.space	4
+	.sdecl	'.data.MAIN.uc_Cnt5ms',data,cluster('uc_Cnt5ms')
+	.sect	'.data.MAIN.uc_Cnt5ms'
+	.global	uc_Cnt5ms
+uc_Cnt5ms:	.type	object
+	.size	uc_Cnt5ms,1
+	.byte	180
+	.sdecl	'.data.MAIN.Boot_Flag',data,cluster('Boot_Flag')
+	.sect	'.data.MAIN.Boot_Flag'
+	.global	Boot_Flag
+Boot_Flag:	.type	object
+	.size	Boot_Flag,256
+	.space	256
+	.sdecl	'.data.MAIN.Test11',data,cluster('Test11')
+	.sect	'.data.MAIN.Test11'
+	.global	Test11
+Test11:	.type	object
+	.size	Test11,8
+	.space	8
+	.calls	'MAIN_vInit','MAIN_vWriteWDTCON0'
+	.calls	'MAIN_vInit','MAIN_vResetCheck'
+	.calls	'MAIN_vInit','IO_vInit'
+	.calls	'MAIN_vInit','SCU_vInit'
+	.calls	'MAIN_vInit','STM_vInit'
+	.calls	'MAIN_vInit','os_init'
+	.calls	'main','Fls_Read'
+	.calls	'main','MAIN_vInit'
+	.calls	'main','os_operate'
+	.calls	'MAIN_vInit','',0
+	.calls	'MAIN_vWriteWDTCON0','',0
+	.calls	'MAIN_vResetCheck','',0
+	.extern	IO_vInit
+	.extern	SCU_vInit
+	.extern	STM_vInit
+	.extern	os_init
+	.extern	os_operate
+	.extern	Fls_Read
+	.extern	st_Uds_SID_DSC_Info
+	.extern	st_Uds_Dcm_Info
+	.calls	'main','',0
+	.sdecl	'.debug_info',debug
+	.sect	'.debug_info'
+.L65:
+	.word	980
+	.half	3
+	.word	.L66
+	.byte	4
+.L64:
+	.byte	1
+	.byte	'..\\Initiate_Files\\MAIN.c',0
+	.byte	'TASKING VX-toolset for TriCore: C compiler',0
+	.byte	'D:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_1.9\\BMU_BOOT\\Debug\\',0,12,1
+	.word	.L67
+	.byte	2
+	.byte	'__mtcr',0,1,1,1,1
+.L120:
+	.byte	3
+	.byte	'int',0,4,5,4
+	.word	154
+	.byte	4
+	.word	154
+	.byte	0,5
+	.byte	'__nop',0,1,1,1,1,5
+	.byte	'__isync',0,1,1,1,1,5
+	.byte	'__disable',0,1,1,1,1,5
+	.byte	'__enable',0,1,1,1,1
+.L103:
+	.byte	3
+	.byte	'unsigned int',0,4,7
+.L106:
+	.byte	3
+	.byte	'unsigned char',0,1,8,6
+	.byte	'IO_vInit',0,1,148,5,6,1,1,1,1,6
+	.byte	'SCU_vInit',0,2,95,6,1,1,1,1,6
+	.byte	'STM_vInit',0,3,97,6,1,1,1,1,6
+	.byte	'os_init',0,4,21,6,1,1,1,1,6
+	.byte	'os_operate',0,4,23,6,1,1,1,1,7
+	.byte	'Fls_Read',0,5,172,1,16
+	.word	241
+	.byte	1,1,1,1,3
+	.byte	'unsigned long int',0,4,7,8
+	.byte	'ui32_SA',0,5,172,1,33
+	.word	369
+	.byte	9
+	.word	241
+	.byte	8
+	.byte	'ui8_p_TA',0,5,172,1,49
+	.word	407
+	.byte	8
+	.byte	'ui32_Len',0,5,172,1,66
+	.word	369
+	.byte	0,10
+	.byte	'void',0,9
+	.word	449
+	.byte	11
+	.byte	'__prof_adm',0,6,1,1
+	.word	455
+	.byte	12,1,9
+	.word	479
+	.byte	11
+	.byte	'__codeptr',0,6,1,1
+	.word	481
+.L122:
+	.byte	13
+	.word	369
+.L123:
+	.byte	13
+	.word	241
+.L124:
+	.byte	14,128,2
+	.word	241
+	.byte	15,255,1,0,11
+	.byte	'ubyte',0,7,78,24
+	.word	241
+	.byte	3
+	.byte	'unsigned short int',0,2,7,11
+	.byte	'ushort',0,7,80,24
+	.word	539
+	.byte	11
+	.byte	'uword',0,7,82,24
+	.word	225
+	.byte	11
+	.byte	'sword',0,7,83,24
+	.word	154
+	.byte	11
+	.byte	'uint8',0,8,87,29
+	.word	241
+	.byte	11
+	.byte	'uint16',0,8,89,29
+	.word	539
+	.byte	3
+	.byte	'long int',0,4,5,11
+	.byte	'sint32',0,8,90,29
+	.word	633
+	.byte	11
+	.byte	'uint32',0,8,91,27
+	.word	369
+	.byte	11
+	.byte	'boolean',0,8,102,29
+	.word	241
+	.byte	16,9,10,9,4,17
+	.byte	'ui8_Active_Session',0,1
+	.word	241
+	.byte	2,35,0,17
+	.byte	'ui16_Write_EEROM_Delay',0,2
+	.word	539
+	.byte	2,35,2,0,11
+	.byte	'Struct_Uds_SID_DSC_Info',0,9,14,2
+	.word	691
+	.byte	18
+	.byte	'st_Uds_SID_DSC_Info',0,9,15,32
+	.word	691
+	.byte	1,1,16,10,75,9,6,17
+	.byte	'b_Service_Enable',0,1
+	.word	241
+	.byte	2,35,0,17
+	.byte	'ui16_S3_Timer',0,2
+	.word	539
+	.byte	2,35,2,17
+	.byte	'ui8_Cur_Task',0,1
+	.word	241
+	.byte	2,35,4,0,11
+	.byte	'Struct_Uds_Dcm_Info',0,10,80,2
+	.word	819
+	.byte	18
+	.byte	'st_Uds_Dcm_Info',0,10,124,29
+	.word	819
+	.byte	1,1,14,4
+	.word	241
+	.byte	15,3,0
+.L125:
+	.byte	13
+	.word	950
+.L126:
+	.byte	13
+	.word	369
+.L127:
+	.byte	13
+	.word	225
+.L128:
+	.byte	14,8
+	.word	241
+	.byte	15,7,0,0
+	.sdecl	'.debug_abbrev',debug
+	.sect	'.debug_abbrev'
+.L66:
+	.byte	1,17,1,3,8,37,8,27,8,19,15,128,70,12,16,6,0,0,2,46,1,3,8,54,15,39,12,63,12,60,12,0,0,3,36,0,3,8,11,15
+	.byte	62,15,0,0,4,5,0,73,19,0,0,5,46,0,3,8,54,15,39,12,63,12,60,12,0,0,6,46,0,3,8,58,15,59,15,57,15,54,15,39
+	.byte	12,63,12,60,12,0,0,7,46,1,3,8,58,15,59,15,57,15,73,19,54,15,39,12,63,12,60,12,0,0,8,5,0,3,8,58,15,59,15
+	.byte	57,15,73,19,0,0,9,15,0,73,19,0,0,10,59,0,3,8,0,0,11,22,0,3,8,58,15,59,15,57,15,73,19,0,0,12,21,0,54,15
+	.byte	0,0,13,53,0,73,19,0,0,14,1,1,11,15,73,19,0,0,15,33,0,47,15,0,0,16,19,1,58,15,59,15,57,15,11,15,0,0,17
+	.byte	13,0,3,8,11,15,73,19,56,9,0,0,18,52,0,3,8,58,15,59,15,57,15,73,19,63,12,60,12,0,0,0
+	.sdecl	'.debug_line',debug
+	.sect	'.debug_line'
+.L67:
+	.word	.L148-.L147
+.L147:
+	.half	3
+	.word	.L150-.L149
+.L149:
+	.byte	2,1,-4,9,10,0,1,1,1,1,0,0,0,1
+	.byte	'D:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_1.9\\BMU_BOOT\\Complex_Files',0
+	.byte	'D:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_1.9\\BMU_BOOT\\Nvm_Files\\FlsDrv',0
+	.byte	'D:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_1.9\\BMU_BOOT\\Stand_Header',0
+	.byte	'D:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_1.9\\BMU_BOOT\\Communication_Files\\Uds\\User',0
+	.byte	'D:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_1.9\\BMU_BOOT\\Communication_Files\\Uds\\Dcm',0,0
+	.byte	'..\\Initiate_Files\\IO.h',0,0,0,0
+	.byte	'..\\Initiate_Files\\SCU.h',0,0,0,0
+	.byte	'..\\Initiate_Files\\STM.h',0,0,0,0
+	.byte	'Operating_System.h',0,1,0,0
+	.byte	'Flash_TC1782_Driver.h',0,2,0,0
+	.byte	'..\\Initiate_Files\\MAIN.c',0,0,0,0
+	.byte	'..\\Initiate_Files\\MAIN.h',0,0,0,0
+	.byte	'Platform_Types.h',0,3,0,0
+	.byte	'Uds_User_DiagnosticSessionControlCallback.h',0,4,0,0
+	.byte	'Uds_Dcm_Drv.h',0,5,0,0,0
+.L150:
+.L148:
+	.sdecl	'.debug_info',debug,cluster('MAIN_vWriteWDTCON0')
+	.sect	'.debug_info'
+.L68:
+	.word	240
+	.half	3
+	.word	.L69
+	.byte	4,1
+	.byte	'..\\Initiate_Files\\MAIN.c',0
+	.byte	'TASKING VX-toolset for TriCore: C compiler',0
+	.byte	'D:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_1.9\\BMU_BOOT\\Debug\\',0,12,1
+	.word	.L71,.L70
+	.byte	2
+	.word	.L64
+	.byte	3
+	.byte	'MAIN_vWriteWDTCON0',0,1,231,2,6,1,1,1
+	.word	.L59,.L102,.L58
+	.byte	4
+	.byte	'uwValue',0,1,231,2,31
+	.word	.L103,.L104
+	.byte	5
+	.word	.L59,.L102
+	.byte	6
+	.byte	'uwDummy',0,1,233,2,9
+	.word	.L103,.L105
+	.byte	0,0,0
+	.sdecl	'.debug_abbrev',debug,cluster('MAIN_vWriteWDTCON0')
+	.sect	'.debug_abbrev'
+.L69:
+	.byte	1,17,1,3,8,37,8,27,8,19,15,128,70,12,85,6,16,6,0,0,2,61,0,24,16,0,0,3,46,1,3,8,58,15,59,15,57,15,54,15
+	.byte	39,12,63,12,17,1,18,1,64,6,0,0,4,5,0,3,8,58,15,59,15,57,15,73,16,2,6,0,0,5,11,1,17,1,18,1,0,0,6,52,0,3
+	.byte	8,58,15,59,15,57,15,73,16,2,6,0,0,0
+	.sdecl	'.debug_line',debug,cluster('MAIN_vWriteWDTCON0')
+	.sect	'.debug_line'
+.L70:
+	.word	.L152-.L151
+.L151:
+	.half	3
+	.word	.L154-.L153
+.L153:
+	.byte	2,1,-4,9,10,0,1,1,1,1,0,0,0,1,0
+	.byte	'..\\Initiate_Files\\MAIN.c',0,0,0,0,0
+.L154:
+	.byte	5,21,7,0,5,2
+	.word	.L59
+	.byte	3,234,2,1,5,11,9
+	.half	.L130-.L59
+	.byte	3,1,1,5,6,3,2,1,5,3,9
+	.half	.L155-.L130
+	.byte	1,5,13,7,9
+	.half	.L156-.L155
+	.byte	3,2,1,5,27,9
+	.half	.L157-.L156
+	.byte	1,5,13,9
+	.half	.L14-.L157
+	.byte	3,4,1,5,6,9
+	.half	.L15-.L14
+	.byte	3,2,1,5,3,9
+	.half	.L158-.L15
+	.byte	1,5,13,7,9
+	.half	.L159-.L158
+	.byte	3,2,1,5,27,9
+	.half	.L160-.L159
+	.byte	1,5,13,9
+	.half	.L16-.L160
+	.byte	3,4,1,5,11,9
+	.half	.L17-.L16
+	.byte	3,3,1,5,12,3,1,1,9
+	.half	.L161-.L17
+	.byte	3,2,1,9
+	.half	.L131-.L161
+	.byte	3,1,1,5,13,3,1,1,5,1,9
+	.half	.L129-.L131
+	.byte	3,2,1,7,9
+	.half	.L72-.L129
+	.byte	0,1,1
+.L152:
+	.sdecl	'.debug_ranges',debug,cluster('MAIN_vWriteWDTCON0')
+	.sect	'.debug_ranges'
+.L71:
+	.word	-1,.L59,0,.L72-.L59,0,0
+	.sdecl	'.debug_info',debug,cluster('MAIN_vResetCheck')
+	.sect	'.debug_info'
+.L73:
+	.word	495
+	.half	3
+	.word	.L74
+	.byte	4,1
+	.byte	'..\\Initiate_Files\\MAIN.c',0
+	.byte	'TASKING VX-toolset for TriCore: C compiler',0
+	.byte	'D:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_1.9\\BMU_BOOT\\Debug\\',0,12,1
+	.word	.L76,.L75
+	.byte	2
+	.word	.L64
+	.byte	3
+	.byte	'MAIN_vResetCheck',0,1,157,3,7
+	.word	.L106
+	.byte	1,1,1
+	.word	.L61,.L107,.L60
+	.byte	4
+	.word	.L61,.L107
+	.byte	5
+	.byte	'ubWDTAppReset',0,1,159,3,9
+	.word	.L106,.L108
+	.byte	5
+	.byte	'ubESR0AppReset',0,1,159,3,23
+	.word	.L106,.L109
+	.byte	5
+	.byte	'ubESR1AppReset',0,1,159,3,38
+	.word	.L106,.L110
+	.byte	5
+	.byte	'ubSWAppReset',0,1,159,3,53
+	.word	.L106,.L111
+	.byte	5
+	.byte	'ubWDTSysReset',0,1,160,3,9
+	.word	.L106,.L112
+	.byte	5
+	.byte	'ubESR1SysReset',0,1,160,3,23
+	.word	.L106,.L113
+	.byte	5
+	.byte	'ubSWSysReset',0,1,160,3,38
+	.word	.L106,.L114
+	.byte	5
+	.byte	'ubChkAppReset',0,1,161,3,9
+	.word	.L106,.L115
+	.byte	5
+	.byte	'ubEsr0Chk',0,1,161,3,23
+	.word	.L106,.L116
+	.byte	5
+	.byte	'ubOtherSysReset',0,1,161,3,33
+	.word	.L106,.L117
+	.byte	5
+	.byte	'uwOtherReset',0,1,162,3,17
+	.word	.L103,.L118
+	.byte	0,0,0
+	.sdecl	'.debug_abbrev',debug,cluster('MAIN_vResetCheck')
+	.sect	'.debug_abbrev'
+.L74:
+	.byte	1,17,1,3,8,37,8,27,8,19,15,128,70,12,85,6,16,6,0,0,2,61,0,24,16,0,0,3,46,1,3,8,58,15,59,15,57,15,73,16
+	.byte	54,15,39,12,63,12,17,1,18,1,64,6,0,0,4,11,1,17,1,18,1,0,0,5,52,0,3,8,58,15,59,15,57,15,73,16,2,6,0,0,0
+	.sdecl	'.debug_line',debug,cluster('MAIN_vResetCheck')
+	.sect	'.debug_line'
+.L75:
+	.word	.L163-.L162
+.L162:
+	.half	3
+	.word	.L165-.L164
+.L164:
+	.byte	2,1,-4,9,10,0,1,1,1,1,0,0,0,1,0
+	.byte	'..\\Initiate_Files\\MAIN.c',0,0,0,0,0
+.L165:
+	.byte	5,55,7,0,5,2
+	.word	.L61
+	.byte	3,163,3,1,5,21,1,5,20,9
+	.half	.L166-.L61
+	.byte	1,5,59,7,9
+	.half	.L167-.L166
+	.byte	1,5,71,9
+	.half	.L168-.L167
+	.byte	1,5,55,7,9
+	.half	.L169-.L168
+	.byte	1,5,59,9
+	.half	.L18-.L169
+	.byte	1,5,54,9
+	.half	.L170-.L18
+	.byte	3,1,1,5,20,1,5,19,9
+	.half	.L134-.L170
+	.byte	1,5,58,7,9
+	.half	.L171-.L134
+	.byte	1,5,70,9
+	.half	.L172-.L171
+	.byte	1,5,54,7,9
+	.half	.L173-.L172
+	.byte	1,5,56,9
+	.half	.L20-.L173
+	.byte	3,1,1,5,22,1,5,21,9
+	.half	.L136-.L20
+	.byte	1,5,60,7,9
+	.half	.L174-.L136
+	.byte	1,5,72,9
+	.half	.L175-.L174
+	.byte	1,5,56,7,9
+	.half	.L176-.L175
+	.byte	1,9
+	.half	.L22-.L176
+	.byte	3,1,1,5,22,1,5,21,9
+	.half	.L137-.L22
+	.byte	1,5,60,7,9
+	.half	.L177-.L137
+	.byte	1,5,72,9
+	.half	.L178-.L177
+	.byte	1,5,56,7,9
+	.half	.L179-.L178
+	.byte	1,5,52,9
+	.half	.L24-.L179
+	.byte	3,1,1,5,22,9
+	.half	.L180-.L24
+	.byte	1,5,39,7,9
+	.half	.L181-.L180
+	.byte	1,5,55,7,9
+	.half	.L182-.L181
+	.byte	1,5,52,7,9
+	.half	.L26-.L182
+	.byte	1,5,20,9
+	.half	.L28-.L26
+	.byte	1,5,51,9
+	.half	.L139-.L28
+	.byte	3,1,1,5,17,1,5,28,9
+	.half	.L141-.L139
+	.byte	1,5,16,9
+	.half	.L183-.L141
+	.byte	1,5,55,7,9
+	.half	.L184-.L183
+	.byte	1,5,67,9
+	.half	.L185-.L184
+	.byte	1,5,51,9
+	.half	.L186-.L185
+	.byte	1,5,55,9
+	.half	.L29-.L186
+	.byte	3,2,1,5,21,1,5,20,9
+	.half	.L133-.L29
+	.byte	1,5,59,7,9
+	.half	.L187-.L133
+	.byte	1,5,71,9
+	.half	.L188-.L187
+	.byte	1,5,55,7,9
+	.half	.L189-.L188
+	.byte	1,5,54,9
+	.half	.L31-.L189
+	.byte	3,1,1,5,20,1,5,19,9
+	.half	.L135-.L31
+	.byte	1,5,58,7,9
+	.half	.L190-.L135
+	.byte	1,5,70,9
+	.half	.L191-.L190
+	.byte	1,5,54,7,9
+	.half	.L192-.L191
+	.byte	1,5,56,9
+	.half	.L33-.L192
+	.byte	3,1,1,5,22,1,5,21,9
+	.half	.L138-.L33
+	.byte	1,5,60,7,9
+	.half	.L193-.L138
+	.byte	1,5,72,9
+	.half	.L194-.L193
+	.byte	1,5,56,7,9
+	.half	.L195-.L194
+	.byte	1,5,74,9
+	.half	.L35-.L195
+	.byte	3,1,1,5,25,9
+	.half	.L145-.L35
+	.byte	1,5,42,7,9
+	.half	.L196-.L145
+	.byte	1,5,58,7,9
+	.half	.L197-.L196
+	.byte	1,5,78,7,9
+	.half	.L37-.L197
+	.byte	1,5,90,9
+	.half	.L198-.L37
+	.byte	1,5,74,7,9
+	.half	.L199-.L198
+	.byte	1,5,44,9
+	.half	.L39-.L199
+	.byte	3,2,1,5,33,9
+	.half	.L142-.L39
+	.byte	1,5,31,9
+	.half	.L200-.L142
+	.byte	1,5,16,9
+	.half	.L201-.L200
+	.byte	1,5,61,7,9
+	.half	.L202-.L201
+	.byte	1,5,46,9
+	.half	.L140-.L202
+	.byte	1,5,79,7,9
+	.half	.L203-.L140
+	.byte	1,5,98,7,9
+	.half	.L204-.L203
+	.byte	1,5,44,7,9
+	.half	.L41-.L204
+	.byte	1,5,33,9
+	.half	.L42-.L41
+	.byte	3,1,1,5,19,1,5,31,9
+	.half	.L143-.L42
+	.byte	1,5,6,9
+	.half	.L205-.L143
+	.byte	3,1,1,5,17,7,9
+	.half	.L206-.L205
+	.byte	1,5,12,7,9
+	.half	.L45-.L206
+	.byte	3,2,1,5,1,9
+	.half	.L144-.L45
+	.byte	3,7,1,5,12,7,9
+	.half	.L46-.L144
+	.byte	3,125,1,5,1,9
+	.half	.L146-.L46
+	.byte	3,3,1,7,9
+	.half	.L77-.L146
+	.byte	0,1,1
+.L163:
+	.sdecl	'.debug_ranges',debug,cluster('MAIN_vResetCheck')
+	.sect	'.debug_ranges'
+.L76:
+	.word	-1,.L61,0,.L77-.L61,0,0
+	.sdecl	'.debug_info',debug,cluster('MAIN_vInit')
+	.sect	'.debug_info'
+.L78:
+	.word	189
+	.half	3
+	.word	.L79
+	.byte	4,1
+	.byte	'..\\Initiate_Files\\MAIN.c',0
+	.byte	'TASKING VX-toolset for TriCore: C compiler',0
+	.byte	'D:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_1.9\\BMU_BOOT\\Debug\\',0,12,1
+	.word	.L81,.L80
+	.byte	2
+	.word	.L64
+	.byte	3
+	.byte	'MAIN_vInit',0,1,133,1,6,1,1,1
+	.word	.L57,.L119,.L56
+	.byte	4
+	.word	.L57,.L119
+	.byte	0,0
+	.sdecl	'.debug_abbrev',debug,cluster('MAIN_vInit')
+	.sect	'.debug_abbrev'
+.L79:
+	.byte	1,17,1,3,8,37,8,27,8,19,15,128,70,12,85,6,16,6,0,0,2,61,0,24,16,0,0,3,46,1,3,8,58,15,59,15,57,15,54,15
+	.byte	39,12,63,12,17,1,18,1,64,6,0,0,4,11,0,17,1,18,1,0,0,0
+	.sdecl	'.debug_line',debug,cluster('MAIN_vInit')
+	.sect	'.debug_line'
+.L80:
+	.word	.L208-.L207
+.L207:
+	.half	3
+	.word	.L210-.L209
+.L209:
+	.byte	2,1,-4,9,10,0,1,1,1,1,0,0,0,1,0
+	.byte	'..\\Initiate_Files\\MAIN.c',0,0,0,0,0
+.L210:
+	.byte	5,38,7,0,5,2
+	.word	.L57
+	.byte	3,213,1,1,5,9,9
+	.half	.L211-.L57
+	.byte	1,5,22,9
+	.half	.L212-.L211
+	.byte	1,5,7,9
+	.half	.L213-.L212
+	.byte	1,5,80,7,9
+	.half	.L214-.L213
+	.byte	1,5,54,9
+	.half	.L215-.L214
+	.byte	1,5,66,9
+	.half	.L216-.L215
+	.byte	1,5,77,9
+	.half	.L217-.L216
+	.byte	1,5,13,7,9
+	.half	.L218-.L217
+	.byte	3,1,1,5,32,9
+	.half	.L219-.L218
+	.byte	1,5,5,7,9
+	.half	.L2-.L219
+	.byte	3,6,1,9
+	.half	.L220-.L2
+	.byte	3,1,1,5,25,9
+	.half	.L221-.L220
+	.byte	1,5,5,9
+	.half	.L222-.L221
+	.byte	3,1,1,5,28,9
+	.half	.L223-.L222
+	.byte	1,5,5,9
+	.half	.L224-.L223
+	.byte	3,1,1,5,23,9
+	.half	.L225-.L224
+	.byte	3,3,1,5,3,9
+	.half	.L226-.L225
+	.byte	1,5,10,7,9
+	.half	.L227-.L226
+	.byte	3,2,1,5,7,9
+	.half	.L228-.L227
+	.byte	3,2,1,5,23,9
+	.half	.L229-.L228
+	.byte	3,1,1,5,20,1,5,7,9
+	.half	.L230-.L229
+	.byte	3,1,1,5,27,9
+	.half	.L231-.L230
+	.byte	1,5,15,9
+	.half	.L9-.L231
+	.byte	3,1,1,5,23,9
+	.half	.L232-.L9
+	.byte	3,1,1,5,20,9
+	.half	.L233-.L232
+	.byte	1,5,23,9
+	.half	.L234-.L233
+	.byte	3,1,1,5,20,9
+	.half	.L235-.L234
+	.byte	1,5,7,9
+	.half	.L236-.L235
+	.byte	3,1,1,5,14,9
+	.half	.L10-.L236
+	.byte	3,1,1,5,38,9
+	.half	.L237-.L10
+	.byte	1,5,7,7,9
+	.half	.L238-.L237
+	.byte	3,1,1,9
+	.half	.L239-.L238
+	.byte	3,1,1,5,27,9
+	.half	.L240-.L239
+	.byte	1,5,7,9
+	.half	.L241-.L240
+	.byte	3,1,1,5,17,9
+	.half	.L4-.L241
+	.byte	3,11,1,5,5,3,97,1,5,7,9
+	.half	.L242-.L4
+	.byte	3,31,1,5,8,9
+	.half	.L243-.L242
+	.byte	3,1,1,5,3,9
+	.half	.L244-.L243
+	.byte	3,12,1,5,21,9
+	.half	.L245-.L244
+	.byte	3,1,1,5,18,1,5,21,9
+	.half	.L246-.L245
+	.byte	3,1,1,5,18,1,5,3,9
+	.half	.L247-.L246
+	.byte	3,1,1,5,21,9
+	.half	.L248-.L247
+	.byte	3,4,1,5,18,1,9
+	.half	.L249-.L248
+	.byte	3,3,1,5,21,9
+	.half	.L250-.L249
+	.byte	3,3,1,5,18,1,9
+	.half	.L251-.L250
+	.byte	3,3,1,9
+	.half	.L252-.L251
+	.byte	3,3,1,9
+	.half	.L253-.L252
+	.byte	3,3,1,9
+	.half	.L254-.L253
+	.byte	3,3,1,5,3,9
+	.half	.L255-.L254
+	.byte	3,7,1,5,21,9
+	.half	.L256-.L255
+	.byte	3,1,1,5,18,1,5,3,9
+	.half	.L257-.L256
+	.byte	3,1,1,5,24,9
+	.half	.L258-.L257
+	.byte	1,5,21,9
+	.half	.L259-.L258
+	.byte	1,5,3,9
+	.half	.L260-.L259
+	.byte	3,1,1,5,11,9
+	.half	.L261-.L260
+	.byte	3,6,1,5,12,9
+	.half	.L262-.L261
+	.byte	3,3,1,9
+	.half	.L263-.L262
+	.byte	3,3,1,5,10,9
+	.half	.L264-.L263
+	.byte	3,4,1,9
+	.half	.L265-.L264
+	.byte	3,8,1,5,1,9
+	.half	.L266-.L265
+	.byte	3,9,1,7,9
+	.half	.L82-.L266
+	.byte	0,1,1
+.L208:
+	.sdecl	'.debug_ranges',debug,cluster('MAIN_vInit')
+	.sect	'.debug_ranges'
+.L81:
+	.word	-1,.L57,0,.L82-.L57,0,0
+	.sdecl	'.debug_info',debug,cluster('main')
+	.sect	'.debug_info'
+.L83:
+	.word	187
+	.half	3
+	.word	.L84
+	.byte	4,1
+	.byte	'..\\Initiate_Files\\MAIN.c',0
+	.byte	'TASKING VX-toolset for TriCore: C compiler',0
+	.byte	'D:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_1.9\\BMU_BOOT\\Debug\\',0,12,1
+	.word	.L86,.L85
+	.byte	2
+	.word	.L64
+	.byte	3
+	.byte	'main',0,1,212,3,7
+	.word	.L120
+	.byte	1,1,1
+	.word	.L63,.L121,.L62
+	.byte	4
+	.word	.L63,.L121
+	.byte	0,0
+	.sdecl	'.debug_abbrev',debug,cluster('main')
+	.sect	'.debug_abbrev'
+.L84:
+	.byte	1,17,1,3,8,37,8,27,8,19,15,128,70,12,85,6,16,6,0,0,2,61,0,24,16,0,0,3,46,1,3,8,58,15,59,15,57,15,73,16
+	.byte	54,15,39,12,63,12,17,1,18,1,64,6,0,0,4,11,0,17,1,18,1,0,0,0
+	.sdecl	'.debug_line',debug,cluster('main')
+	.sect	'.debug_line'
+.L85:
+	.word	.L268-.L267
+.L267:
+	.half	3
+	.word	.L270-.L269
+.L269:
+	.byte	2,1,-4,9,10,0,1,1,1,1,0,0,0,1,0
+	.byte	'..\\Initiate_Files\\MAIN.c',0,0,0,0,0
+.L270:
+	.byte	5,25,7,0,5,2
+	.word	.L63
+	.byte	3,216,3,1,5,12,9
+	.half	.L271-.L63
+	.byte	1,5,39,9
+	.half	.L272-.L271
+	.byte	1,5,8,9
+	.half	.L273-.L272
+	.byte	3,3,1,5,10,3,126,1,5,8,9
+	.half	.L274-.L273
+	.byte	3,2,1,5,10,3,126,1,5,8,9
+	.half	.L275-.L274
+	.byte	3,2,1,7,9
+	.half	.L276-.L275
+	.byte	3,3,1,5,19,9
+	.half	.L49-.L276
+	.byte	3,126,1,5,17,1,5,4,9
+	.half	.L277-.L49
+	.byte	3,1,1,5,29,9
+	.half	.L50-.L277
+	.byte	3,2,1,5,27,9
+	.half	.L278-.L50
+	.byte	1,5,10,9
+	.half	.L51-.L278
+	.byte	3,17,1,5,20,9
+	.half	.L279-.L51
+	.byte	3,43,1,5,10,9
+	.half	.L280-.L279
+	.byte	3,7,1,5,34,9
+	.half	.L281-.L280
+	.byte	3,2,1,5,8,1,5,34,9
+	.half	.L282-.L281
+	.byte	1,5,7,9
+	.half	.L283-.L282
+	.byte	1,5,84,7,9
+	.half	.L284-.L283
+	.byte	1,5,58,1,5,84,9
+	.half	.L285-.L284
+	.byte	1,5,81,9
+	.half	.L286-.L285
+	.byte	1,5,5,7,9
+	.half	.L53-.L286
+	.byte	3,2,1,5,46,9
+	.half	.L287-.L53
+	.byte	1,5,44,1,5,5,9
+	.half	.L288-.L287
+	.byte	3,1,1,5,37,9
+	.half	.L289-.L288
+	.byte	1,5,35,1,5,17,9
+	.half	.L55-.L289
+	.byte	3,6,1,5,13,9
+	.half	.L290-.L55
+	.byte	3,1,1,5,14,9
+	.half	.L291-.L290
+	.byte	3,125,1,5,1,9
+	.half	.L87-.L291
+	.byte	3,9,0,1,1
+.L268:
+	.sdecl	'.debug_ranges',debug,cluster('main')
+	.sect	'.debug_ranges'
+.L86:
+	.word	-1,.L63,0,.L87-.L63,0,0
+	.sdecl	'.debug_info',debug,cluster('ui32_KeepBSLState_Flag')
+	.sect	'.debug_info'
+.L88:
+	.word	178
+	.half	3
+	.word	.L89
+	.byte	4,1
+	.byte	'..\\Initiate_Files\\MAIN.c',0
+	.byte	'TASKING VX-toolset for TriCore: C compiler',0
+	.byte	'D:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_1.9\\BMU_BOOT\\Debug\\',0,12,1,2
+	.word	.L64
+	.byte	3
+	.byte	'ui32_KeepBSLState_Flag',0,6,34,17
+	.word	.L122
+	.byte	1,5,3
+	.word	ui32_KeepBSLState_Flag
+	.byte	0
+	.sdecl	'.debug_abbrev',debug,cluster('ui32_KeepBSLState_Flag')
+	.sect	'.debug_abbrev'
+.L89:
+	.byte	1,17,1,3,8,37,8,27,8,19,15,128,70,12,0,0,2,61,0,24,16,0,0,3,52,0,3,8,58,15,59,15,57,15,73,16,63,12,2,9
+	.byte	0,0,0
+	.sdecl	'.debug_info',debug,cluster('uc_Cnt5ms')
+	.sect	'.debug_info'
+.L90:
+	.word	165
+	.half	3
+	.word	.L91
+	.byte	4,1
+	.byte	'..\\Initiate_Files\\MAIN.c',0
+	.byte	'TASKING VX-toolset for TriCore: C compiler',0
+	.byte	'D:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_1.9\\BMU_BOOT\\Debug\\',0,12,1,2
+	.word	.L64
+	.byte	3
+	.byte	'uc_Cnt5ms',0,6,90,25
+	.word	.L123
+	.byte	1,5,3
+	.word	uc_Cnt5ms
+	.byte	0
+	.sdecl	'.debug_abbrev',debug,cluster('uc_Cnt5ms')
+	.sect	'.debug_abbrev'
+.L91:
+	.byte	1,17,1,3,8,37,8,27,8,19,15,128,70,12,0,0,2,61,0,24,16,0,0,3,52,0,3,8,58,15,59,15,57,15,73,16,63,12,2,9
+	.byte	0,0,0
+	.sdecl	'.debug_info',debug,cluster('Boot_Flag')
+	.sect	'.debug_info'
+.L92:
+	.word	166
+	.half	3
+	.word	.L93
+	.byte	4,1
+	.byte	'..\\Initiate_Files\\MAIN.c',0
+	.byte	'TASKING VX-toolset for TriCore: C compiler',0
+	.byte	'D:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_1.9\\BMU_BOOT\\Debug\\',0,12,1,2
+	.word	.L64
+	.byte	3
+	.byte	'Boot_Flag',0,6,208,3,7
+	.word	.L124
+	.byte	1,5,3
+	.word	Boot_Flag
+	.byte	0
+	.sdecl	'.debug_abbrev',debug,cluster('Boot_Flag')
+	.sect	'.debug_abbrev'
+.L93:
+	.byte	1,17,1,3,8,37,8,27,8,19,15,128,70,12,0,0,2,61,0,24,16,0,0,3,52,0,3,8,58,15,59,15,57,15,73,16,63,12,2,9
+	.byte	0,0,0
+	.sdecl	'.debug_info',debug,cluster('ui8_Appl_Start_Magic_Flag')
+	.sect	'.debug_info'
+.L94:
+	.word	181
+	.half	3
+	.word	.L95
+	.byte	4,1
+	.byte	'..\\Initiate_Files\\MAIN.c',0
+	.byte	'TASKING VX-toolset for TriCore: C compiler',0
+	.byte	'D:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_1.9\\BMU_BOOT\\Debug\\',0,12,1,2
+	.word	.L64
+	.byte	3
+	.byte	'ui8_Appl_Start_Magic_Flag',0,6,35,16
+	.word	.L125
+	.byte	1,5,3
+	.word	ui8_Appl_Start_Magic_Flag
+	.byte	0
+	.sdecl	'.debug_abbrev',debug,cluster('ui8_Appl_Start_Magic_Flag')
+	.sect	'.debug_abbrev'
+.L95:
+	.byte	1,17,1,3,8,37,8,27,8,19,15,128,70,12,0,0,2,61,0,24,16,0,0,3,52,0,3,8,58,15,59,15,57,15,73,16,63,12,2,9
+	.byte	0,0,0
+	.sdecl	'.debug_info',debug,cluster('ui32_SysPowerOnOrBSLReset_Flag')
+	.sect	'.debug_info'
+.L96:
+	.word	186
+	.half	3
+	.word	.L97
+	.byte	4,1
+	.byte	'..\\Initiate_Files\\MAIN.c',0
+	.byte	'TASKING VX-toolset for TriCore: C compiler',0
+	.byte	'D:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_1.9\\BMU_BOOT\\Debug\\',0,12,1,2
+	.word	.L64
+	.byte	3
+	.byte	'ui32_SysPowerOnOrBSLReset_Flag',0,6,36,17
+	.word	.L126
+	.byte	1,5,3
+	.word	ui32_SysPowerOnOrBSLReset_Flag
+	.byte	0
+	.sdecl	'.debug_abbrev',debug,cluster('ui32_SysPowerOnOrBSLReset_Flag')
+	.sect	'.debug_abbrev'
+.L97:
+	.byte	1,17,1,3,8,37,8,27,8,19,15,128,70,12,0,0,2,61,0,24,16,0,0,3,52,0,3,8,58,15,59,15,57,15,73,16,63,12,2,9
+	.byte	0,0,0
+	.sdecl	'.debug_info',debug,cluster('DummyToForceRead')
+	.sect	'.debug_info'
+.L98:
+	.word	172
+	.half	3
+	.word	.L99
+	.byte	4,1
+	.byte	'..\\Initiate_Files\\MAIN.c',0
+	.byte	'TASKING VX-toolset for TriCore: C compiler',0
+	.byte	'D:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_1.9\\BMU_BOOT\\Debug\\',0,12,1,2
+	.word	.L64
+	.byte	3
+	.byte	'DummyToForceRead',0,6,87,23
+	.word	.L127
+	.byte	1,5,3
+	.word	DummyToForceRead
+	.byte	0
+	.sdecl	'.debug_abbrev',debug,cluster('DummyToForceRead')
+	.sect	'.debug_abbrev'
+.L99:
+	.byte	1,17,1,3,8,37,8,27,8,19,15,128,70,12,0,0,2,61,0,24,16,0,0,3,52,0,3,8,58,15,59,15,57,15,73,16,63,12,2,9
+	.byte	0,0,0
+	.sdecl	'.debug_info',debug,cluster('Test11')
+	.sect	'.debug_info'
+.L100:
+	.word	163
+	.half	3
+	.word	.L101
+	.byte	4,1
+	.byte	'..\\Initiate_Files\\MAIN.c',0
+	.byte	'TASKING VX-toolset for TriCore: C compiler',0
+	.byte	'D:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_1.9\\BMU_BOOT\\Debug\\',0,12,1,2
+	.word	.L64
+	.byte	3
+	.byte	'Test11',0,6,209,3,7
+	.word	.L128
+	.byte	1,5,3
+	.word	Test11
+	.byte	0
+	.sdecl	'.debug_abbrev',debug,cluster('Test11')
+	.sect	'.debug_abbrev'
+.L101:
+	.byte	1,17,1,3,8,37,8,27,8,19,15,128,70,12,0,0,2,61,0,24,16,0,0,3,52,0,3,8,58,15,59,15,57,15,73,16,63,12,2,9
+	.byte	0,0,0
+	.sdecl	'.debug_loc',debug,cluster('MAIN_vInit')
+	.sect	'.debug_loc'
+.L56:
+	.word	-1,.L57,0,.L119-.L57
+	.half	2
+	.byte	138,0
+	.word	0,0
+	.sdecl	'.debug_loc',debug,cluster('MAIN_vResetCheck')
+	.sect	'.debug_loc'
+.L60:
+	.word	-1,.L61,0,.L107-.L61
+	.half	2
+	.byte	138,0
+	.word	0,0
+.L115:
+	.word	-1,.L61,.L139-.L61,.L140-.L61
+	.half	5
+	.byte	144,33,157,32,32
+	.word	0,0
+.L109:
+	.word	-1,.L61,.L136-.L61,.L107-.L61
+	.half	5
+	.byte	144,34,157,32,0
+	.word	0,0
+.L110:
+	.word	-1,.L61,.L137-.L61,.L138-.L61
+	.half	5
+	.byte	144,33,157,32,0
+	.word	0,0
+.L113:
+	.word	-1,.L61,.L138-.L61,.L144-.L61
+	.half	5
+	.byte	144,33,157,32,0
+	.word	.L46-.L61,.L146-.L61
+	.half	5
+	.byte	144,33,157,32,0
+	.word	0,0
+.L116:
+	.word	-1,.L61,.L141-.L61,.L107-.L61
+	.half	5
+	.byte	144,34,157,32,32
+	.word	0,0
+.L117:
+	.word	-1,.L61,.L145-.L61,.L107-.L61
+	.half	5
+	.byte	144,35,157,32,0
+	.word	0,0
+.L111:
+	.word	-1,.L61,.L134-.L61,.L135-.L61
+	.half	5
+	.byte	144,32,157,32,32
+	.word	0,0
+.L114:
+	.word	-1,.L61,.L135-.L61,.L143-.L61
+	.half	5
+	.byte	144,32,157,32,32
+	.word	0,0
+.L108:
+	.word	-1,.L61,.L132-.L61,.L133-.L61
+	.half	5
+	.byte	144,32,157,32,0
+	.word	0,0
+.L112:
+	.word	-1,.L61,.L133-.L61,.L142-.L61
+	.half	5
+	.byte	144,32,157,32,0
+	.word	0,0
+.L118:
+	.word	-1,.L61,.L143-.L61,.L107-.L61
+	.half	5
+	.byte	144,39,157,32,32
+	.word	0,0
+	.sdecl	'.debug_loc',debug,cluster('MAIN_vWriteWDTCON0')
+	.sect	'.debug_loc'
+.L58:
+	.word	-1,.L59,0,.L102-.L59
+	.half	2
+	.byte	138,0
+	.word	0,0
+.L105:
+	.word	-1,.L59,.L130-.L59,.L131-.L59
+	.half	5
+	.byte	144,39,157,32,32
+	.word	0,0
+.L104:
+	.word	-1,.L59,0,.L129-.L59
+	.half	5
+	.byte	144,34,157,32,0
+	.word	.L129-.L59,.L102-.L59
+	.half	5
+	.byte	144,39,157,32,32
+	.word	0,0
+	.sdecl	'.debug_loc',debug,cluster('main')
+	.sect	'.debug_loc'
+.L62:
+	.word	-1,.L63,0,.L121-.L63
+	.half	2
+	.byte	138,0
+	.word	0,0
+	.sdecl	'.debug_frame',debug
+	.sect	'.debug_frame'
+.L292:
+	.word	48
+	.word	-1
+	.byte	3,0,2,1,27,12,26,0,8,26,8,27,8,30,8,29,8,28,8,16,8,17,8,24,8,25,8,31,8,32,8,33,8,34,8,35,8,36,8,37,8,38
+	.byte	8,39
+	.sdecl	'.debug_frame',debug,cluster('MAIN_vInit')
+	.sect	'.debug_frame'
+	.word	12
+	.word	.L292,.L57,.L119-.L57
+	.sdecl	'.debug_frame',debug,cluster('MAIN_vWriteWDTCON0')
+	.sect	'.debug_frame'
+	.word	24
+	.word	.L292,.L59,.L102-.L59
+	.byte	8,19,8,20,8,21,8,22,8,23,0,0
+	.sdecl	'.debug_frame',debug,cluster('MAIN_vResetCheck')
+	.sect	'.debug_frame'
+	.word	24
+	.word	.L292,.L61,.L107-.L61
+	.byte	8,19,8,20,8,21,8,22,8,23,0,0
+	.sdecl	'.debug_frame',debug,cluster('main')
+	.sect	'.debug_frame'
+	.word	12
+	.word	.L292,.L63,.L121-.L63
+
+; ..\Initiate_Files\MAIN.c	   560    		  }
+; ..\Initiate_Files\MAIN.c	   561           // USER CODE END
+; ..\Initiate_Files\MAIN.c	   562  
+; ..\Initiate_Files\MAIN.c	   563    return(swReturn);
+; ..\Initiate_Files\MAIN.c	   564  
+; ..\Initiate_Files\MAIN.c	   565  } //  End of function main
+; ..\Initiate_Files\MAIN.c	   566  
+; ..\Initiate_Files\MAIN.c	   567  
+; ..\Initiate_Files\MAIN.c	   568  
+; ..\Initiate_Files\MAIN.c	   569  // USER CODE BEGIN (MAIN_General,10)
+; ..\Initiate_Files\MAIN.c	   570  
+; ..\Initiate_Files\MAIN.c	   571  // USER CODE END
+; ..\Initiate_Files\MAIN.c	   572  
+
+	; Module end

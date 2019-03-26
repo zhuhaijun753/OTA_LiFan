@@ -1,0 +1,595 @@
+
+#include "MAIN.h"
+
+Struct_Uds_SID_DSC_Info	st_Uds_SID_DSC_Info;	/*UDS SID_DSC信息*/
+
+
+void UdsFunc_ChangeSession_Init(void)
+{
+	st_Uds_SID_SA_Info.b_Security_Locked = 0x00;		/*初始化密钥为锁定状态*/
+	st_Uds_SID_SA_Info.b_RequestSeedFlag = 0x00;		/*初始化request seed标志FALSE*/
+	st_Uds_SID_CC_Info.ui8_CommuCtrlFlag = UDS_EN_RX_TX_NCM;  //初始化为使能发送使能接收
+//	st_Uds_SID_CDTCS_Info.ui8_DTCSettingType = UDS_CDTCS_ON;  //恢复DTC
+
+#if ECU_TYPE == ECU_VCU
+			if(255 != UDS_VEHSTATE_ENUM)
+       		{
+       		  CAN0_Tx_flag = 1;
+       		  CAN1_Tx_flag = 1;
+       		  CAN2_Tx_flag = 1;
+       		}
+			VINP_DiagShutOffReq_flg = 0;
+
+#elif ECU_TYPE == ECU_VBU
+			if(255 != UDS_VEHSTATE_ENUM)
+       		{
+       		  CAN0_Tx_flag = 1;
+       		  CAN1_Tx_flag = 1;
+       		  CAN2_Tx_flag = 1;
+       		}
+			VINP_DiagShutOffReq_flg = 0;
+
+#elif ECU_TYPE == ECU_BMS
+//			BMSIN_MLIF_ComptrLink_enum = 0;                                         //测试用上位机连接标志归零
+//			BMSIN_MLIF_PrgrmFlash_flg = 0;                                          //恢复模型诊断
+			
+#elif ECU_TYPE == ECU_MCU
+			if(255 != UDS_VEHSTATE_ENUM)
+       		{
+//       		  CAN0_Tx_flag = 1;
+       		  	  CAN1_Tx_flag = 1;
+//       		  CAN2_Tx_flag = 1;
+       		}
+			VINP_SHUTOFF_DIAG = 0;                                                  //恢复模型诊断                                          
+
+#elif ECU_TYPE == ECU_BMS_FRWK_3
+			BMSIN_MLIF_ComptrLink_enum = 0;                                         //测试用上位机连接标志归零
+
+			VINP_DiagShutOffReq_flg = 0;                                            //恢复VCU模型诊断			
+			BMSIN_MLIF_PrgrmFlash_flg = 0;                                          //恢复模型诊断
+#endif
+}
+
+#if ECU_TYPE == ECU_VCU
+boolean UdsFunc_SID_DSC_SUBID_DS_Callback
+	(uint8 *ui8_pRes, uint16 *ui16_pResLen)
+{
+	boolean	b_Return;
+
+	UdsFunc_ChangeSession_Init();	/*切换session初始化*/
+	st_Uds_SID_DSC_Info.ui8_Active_Session = UDS_DEFAULT_SESSION_ACTIVE;
+	BMSIN_MLIF_ComptrLink_enum = 0;          //测试用上位机连接标志归零
+
+	/*回应数据*/
+	ui16_pResLen[0U] = 4U;
+	ui8_pRes[0U] = (uint8)(UDS_P2_SERVER_MAX / 0x100U);
+	ui8_pRes[1U] = (uint8)(UDS_P2_SERVER_MAX);
+	ui8_pRes[2U] = (uint8)(UDS_P2EX_SERVER_MAX / 0x100U);
+	ui8_pRes[3U] = (uint8)(UDS_P2EX_SERVER_MAX);
+	st_Uds_Response.ui8_ResCode = UDS_RES_CODE_PR;	/*正响应*/
+
+	b_Return = E_OK;
+
+	return	b_Return;
+}
+
+
+boolean UdsFunc_SID_DSC_SUBID_PRGS_Callback
+	(uint8 *ui8_pRes, uint16 *ui16_pResLen)
+{
+	boolean	b_Return = E_NOT_OK;
+
+	//UdsFunc_ChangeSession_Init();	/*切换session初始化*/
+	st_Uds_SID_DSC_Info.ui8_Active_Session = UDS_PROGRAMMING_SESSION_ACTIVE;
+
+	//ui32_KeepBSLState_Flag = SYS_KEEP_BSL_STATE;	/*系统保持BSL状态*/
+
+	 if(Boot_7C2_flg == 2)
+	 {
+		 if(st_Uds_SID_DSC_Info.ui16_Write_EEROM_Delay == UDS_BOOT_STATE_DELAY_TIME)
+		 {
+			 VCU_BMS_WriteToEE();
+		 }
+	     Task_CheckEepromWriteStatus();
+	     if(FALSE == b_Eeprom_WriteOperation_Vaild)
+	     {
+
+	    	 Boot_7C2_flg = 4;
+		     VCUReset_flg = 1 ;
+		     st_Uds_SID_DSC_Info.ui16_Write_EEROM_Delay = UDS_BOOT_STATE_DELAY_TIME;
+		 	ui16_pResLen[0U] = 4U;
+		 	ui8_pRes[0U] = (uint8)(UDS_P2_SERVER_MAX / 0x100U);
+		 	ui8_pRes[1U] = (uint8)(UDS_P2_SERVER_MAX);
+		 	ui8_pRes[2U] = (uint8)(UDS_P2EX_SERVER_MAX / 0x100U);
+		 	ui8_pRes[3U] = (uint8)(UDS_P2EX_SERVER_MAX);
+		 	st_Uds_Response.ui8_ResCode = UDS_RES_CODE_PR;	/*正响应*/
+		 	b_Return = E_OK;
+	     }
+	     else
+	     {
+	    	 st_Uds_SID_DSC_Info.ui16_Write_EEROM_Delay --;
+
+				if(st_Uds_SID_DSC_Info.ui16_Write_EEROM_Delay != 0U)
+				{
+					if((st_Uds_SID_DSC_Info.ui16_Write_EEROM_Delay & 0x7FU) == 0U)
+					{
+						st_Uds_Response.ui8_ResCode = UDS_RES_CODE_RCRRP;	/*请求挂起响应*/
+					}
+				}
+				else
+				{
+					Boot_7C2_flg = 5;
+
+					st_Uds_SID_DSC_Info.ui16_Write_EEROM_Delay = UDS_BOOT_STATE_DELAY_TIME;	/*初始化Boot State255等待时间*/
+					st_Uds_Response.ui8_ResCode = UDS_RES_CODE_CNC;
+					b_Return = E_OK;
+				}
+	     }
+
+
+	 }
+	 else
+	 {
+	     Boot_7C2_flg = 5;
+	     st_Uds_Response.ui8_ResCode = UDS_RES_CODE_CNC;
+	     b_Return = E_OK;
+	 }
+
+	/*回应数据*/
+
+	return	b_Return;
+}
+
+
+boolean UdsFunc_SID_DSC_SUBID_EXTDS_Callback
+	(uint8 *ui8_pRes, uint16 *ui16_pResLen)
+{
+	boolean	b_Return;
+
+	UdsFunc_ChangeSession_Init();	/*切换session初始化*/
+	st_Uds_SID_DSC_Info.ui8_Active_Session = UDS_EXTENDED_SESSION_ACTIVE;
+
+
+		Boot_7C2_flg = 0 ;
+		Boot_7DF_flg = 1 ;
+		/*回应数据*/
+		ui16_pResLen[0U] = 4U;
+		ui8_pRes[0U] = (uint8)(UDS_P2_SERVER_MAX / 0x100U);
+		ui8_pRes[1U] = (uint8)(UDS_P2_SERVER_MAX);
+		ui8_pRes[2U] = (uint8)(UDS_P2EX_SERVER_MAX / 0x100U);
+		ui8_pRes[3U] = (uint8)(UDS_P2EX_SERVER_MAX);
+		st_Uds_Response.ui8_ResCode = UDS_RES_CODE_PR;	/*正响应*/
+
+		b_Return = E_OK;
+
+	return	b_Return;
+}
+#elif ECU_TYPE == ECU_VBU
+boolean UdsFunc_SID_DSC_SUBID_DS_Callback
+	(uint8 *ui8_pRes, uint16 *ui16_pResLen)
+{
+	boolean	b_Return;
+
+	UdsFunc_ChangeSession_Init();	/*切换session初始化*/
+	st_Uds_SID_DSC_Info.ui8_Active_Session = UDS_DEFAULT_SESSION_ACTIVE;
+	BMSIN_MLIF_ComptrLink_enum = 0;          //测试用上位机连接标志归零
+
+	/*回应数据*/
+	ui16_pResLen[0U] = 4U;
+	ui8_pRes[0U] = (uint8)(UDS_P2_SERVER_MAX / 0x100U);
+	ui8_pRes[1U] = (uint8)(UDS_P2_SERVER_MAX);
+	ui8_pRes[2U] = (uint8)(UDS_P2EX_SERVER_MAX / 0x100U);
+	ui8_pRes[3U] = (uint8)(UDS_P2EX_SERVER_MAX);
+	st_Uds_Response.ui8_ResCode = UDS_RES_CODE_PR;	/*正响应*/
+
+	b_Return = E_OK;
+
+	return	b_Return;
+}
+
+
+boolean UdsFunc_SID_DSC_SUBID_PRGS_Callback
+	(uint8 *ui8_pRes, uint16 *ui16_pResLen)
+{
+	boolean	b_Return = E_NOT_OK;
+
+	//UdsFunc_ChangeSession_Init();	/*切换session初始化*/
+	st_Uds_SID_DSC_Info.ui8_Active_Session = UDS_PROGRAMMING_SESSION_ACTIVE;
+
+	//ui32_KeepBSLState_Flag = SYS_KEEP_BSL_STATE;	/*系统保持BSL状态*/
+
+	 if(Boot_7C2_flg == 2)
+	 {
+		 if(st_Uds_SID_DSC_Info.ui16_Write_EEROM_Delay == UDS_BOOT_STATE_DELAY_TIME)
+		 {
+			 VCU_BMS_WriteToEE();
+		 }
+	     Task_CheckEepromWriteStatus();
+	     if(FALSE == b_Eeprom_WriteOperation_Vaild)
+	     {
+
+	    	 Boot_7C2_flg = 4;
+		     VCUReset_flg = 1 ;
+		     st_Uds_SID_DSC_Info.ui16_Write_EEROM_Delay = UDS_BOOT_STATE_DELAY_TIME;
+		 	ui16_pResLen[0U] = 4U;
+		 	ui8_pRes[0U] = (uint8)(UDS_P2_SERVER_MAX / 0x100U);
+		 	ui8_pRes[1U] = (uint8)(UDS_P2_SERVER_MAX);
+		 	ui8_pRes[2U] = (uint8)(UDS_P2EX_SERVER_MAX / 0x100U);
+		 	ui8_pRes[3U] = (uint8)(UDS_P2EX_SERVER_MAX);
+		 	st_Uds_Response.ui8_ResCode = UDS_RES_CODE_PR;	/*正响应*/
+		 	b_Return = E_OK;
+	     }
+	     else
+	     {
+	    	 st_Uds_SID_DSC_Info.ui16_Write_EEROM_Delay --;
+
+				if(st_Uds_SID_DSC_Info.ui16_Write_EEROM_Delay != 0U)
+				{
+					if((st_Uds_SID_DSC_Info.ui16_Write_EEROM_Delay & 0x7FU) == 0U)
+					{
+						st_Uds_Response.ui8_ResCode = UDS_RES_CODE_RCRRP;	/*请求挂起响应*/
+					}
+				}
+				else
+				{
+					Boot_7C2_flg = 5;
+
+					st_Uds_SID_DSC_Info.ui16_Write_EEROM_Delay = UDS_BOOT_STATE_DELAY_TIME;	/*初始化Boot State255等待时间*/
+					st_Uds_Response.ui8_ResCode = UDS_RES_CODE_CNC;
+					b_Return = E_OK;
+				}
+	     }
+
+
+	 }
+	 else
+	 {
+	     Boot_7C2_flg = 5;
+	     st_Uds_Response.ui8_ResCode = UDS_RES_CODE_CNC;
+	     b_Return = E_OK;
+	 }
+
+	/*回应数据*/
+
+	return	b_Return;
+}
+
+
+boolean UdsFunc_SID_DSC_SUBID_EXTDS_Callback
+	(uint8 *ui8_pRes, uint16 *ui16_pResLen)
+{
+	boolean	b_Return;
+
+	UdsFunc_ChangeSession_Init();	/*切换session初始化*/
+	st_Uds_SID_DSC_Info.ui8_Active_Session = UDS_EXTENDED_SESSION_ACTIVE;
+
+
+		Boot_7C2_flg = 0 ;
+		Boot_7DF_flg = 1 ;
+		/*回应数据*/
+		ui16_pResLen[0U] = 4U;
+		ui8_pRes[0U] = (uint8)(UDS_P2_SERVER_MAX / 0x100U);
+		ui8_pRes[1U] = (uint8)(UDS_P2_SERVER_MAX);
+		ui8_pRes[2U] = (uint8)(UDS_P2EX_SERVER_MAX / 0x100U);
+		ui8_pRes[3U] = (uint8)(UDS_P2EX_SERVER_MAX);
+		st_Uds_Response.ui8_ResCode = UDS_RES_CODE_PR;	/*正响应*/
+
+		b_Return = E_OK;
+
+	return	b_Return;
+}
+
+#elif ECU_TYPE == ECU_BMS
+boolean UdsFunc_SID_DSC_SUBID_DS_Callback
+	(uint8 *ui8_pRes, uint16 *ui16_pResLen)
+{
+	boolean	b_Return;
+
+	UdsFunc_ChangeSession_Init();	/*切换session初始化*/
+	st_Uds_SID_DSC_Info.ui8_Active_Session = UDS_DEFAULT_SESSION_ACTIVE;
+
+	/*回应数据*/
+	ui16_pResLen[0U] = 4U;
+	ui8_pRes[0U] = (uint8)(UDS_P2_SERVER_MAX / 0x100U);
+	ui8_pRes[1U] = (uint8)(UDS_P2_SERVER_MAX);
+	//wxc20180622
+	ui8_pRes[2U] = (uint8)(UDS_P2EX_SERVER_MAX /10U / 0x100U);
+	ui8_pRes[3U] = (uint8)(UDS_P2EX_SERVER_MAX /10);
+	st_Uds_Response.ui8_ResCode = UDS_RES_CODE_PR;	/*正响应*/
+
+	b_Return = E_OK;
+
+	return	b_Return;
+}
+
+
+boolean UdsFunc_SID_DSC_SUBID_PRGS_Callback
+	(uint8 *ui8_pRes, uint16 *ui16_pResLen)
+{
+	boolean	b_Return;
+
+	//UdsFunc_ChangeSession_Init();	/*切换session初始化*/
+	st_Uds_SID_DSC_Info.ui8_Active_Session = UDS_PROGRAMMING_SESSION_ACTIVE;
+
+//	if(st_Uds_SID_RC_Info.b_PreProgrammingFlag == TRUE)
+//	{
+		ui32_KeepBSLState_Flag = SYS_KEEP_BSL_STATE;	/*系统保持BSL状态，因是boot层注释此行，无需重启*/
+//	}
+	st_Uds_SID_ER_Info.b_HardResetFlag = TRUE;
+
+	/*回应数据*/
+	ui16_pResLen[0U] = 4U;
+	ui8_pRes[0U] = (uint8)(UDS_P2_SERVER_MAX / 0x100U);
+	ui8_pRes[1U] = (uint8)(UDS_P2_SERVER_MAX);
+	ui8_pRes[2U] = (uint8)(UDS_P2EX_SERVER_MAX / 10U / 0x100U);
+	ui8_pRes[3U] = (uint8)(UDS_P2EX_SERVER_MAX / 10U);
+	st_Uds_Response.ui8_ResCode = UDS_RES_CODE_PR;	/*正响应*/
+
+	b_Return = E_OK;
+
+	return	b_Return;
+}
+
+
+boolean UdsFunc_SID_DSC_SUBID_EXTDS_Callback
+	(uint8 *ui8_pRes, uint16 *ui16_pResLen)
+{
+	boolean	b_Return;
+
+//	b_Return = E_NOT_OK;	/*回调函数未执行完毕*/
+
+	UdsFunc_ChangeSession_Init();	/*切换session初始化*/
+	st_Uds_SID_DSC_Info.ui8_Active_Session = UDS_EXTENDED_SESSION_ACTIVE;
+
+//	if(st_N_USData_Indication.ui8_N_TAtype == UDS_ADDR_TYPE_PHY)
+//	{
+		/*回应数据*/
+		ui16_pResLen[0U] = 4U;
+		ui8_pRes[0U] = (uint8)(UDS_P2_SERVER_MAX / 0x100U);
+		ui8_pRes[1U] = (uint8)(UDS_P2_SERVER_MAX);
+		ui8_pRes[2U] = (uint8)(UDS_P2EX_SERVER_MAX / 10U / 0x100U);
+		ui8_pRes[3U] = (uint8)(UDS_P2EX_SERVER_MAX / 10U);
+		st_Uds_Response.ui8_ResCode = UDS_RES_CODE_PR;	/*正响应*/
+
+		b_Return = E_OK;
+//	}
+//	else if(st_N_USData_Indication.ui8_N_TAtype == UDS_ADDR_TYPE_FUNC)
+//	{
+//		b_Return = E_OK;
+//	}
+
+	return	b_Return;
+}
+#elif ECU_TYPE == ECU_MCU
+boolean UdsFunc_SID_DSC_SUBID_DS_Callback
+	(uint8 *ui8_pRes, uint16 *ui16_pResLen)
+{
+	boolean	b_Return;
+
+	UdsFunc_ChangeSession_Init();	/*切换session初始化*/
+	st_Uds_SID_DSC_Info.ui8_Active_Session = UDS_DEFAULT_SESSION_ACTIVE;
+//	BMSIN_MLIF_ComptrLink_enum = 0;          //测试用上位机连接标志归零
+
+	/*回应数据*/
+	ui16_pResLen[0U] = 4U;
+	ui8_pRes[0U] = (uint8)(UDS_P2_SERVER_MAX / 0x100U);
+	ui8_pRes[1U] = (uint8)(UDS_P2_SERVER_MAX);
+	ui8_pRes[2U] = (uint8)(UDS_P2EX_SERVER_MAX / 0x100U);
+	ui8_pRes[3U] = (uint8)(UDS_P2EX_SERVER_MAX);
+	st_Uds_Response.ui8_ResCode = UDS_RES_CODE_PR;	/*正响应*/
+
+	b_Return = E_OK;
+
+	return	b_Return;
+}
+
+
+boolean UdsFunc_SID_DSC_SUBID_PRGS_Callback
+	(uint8 *ui8_pRes, uint16 *ui16_pResLen)
+{
+	boolean	b_Return = E_NOT_OK;
+
+	//UdsFunc_ChangeSession_Init();	/*切换session初始化*/
+	st_Uds_SID_DSC_Info.ui8_Active_Session = UDS_PROGRAMMING_SESSION_ACTIVE;
+
+	//ui32_KeepBSLState_Flag = SYS_KEEP_BSL_STATE;	/*系统保持BSL状态*/
+
+	 if(Boot_MCU_flg == 2)
+	 {
+		 if(st_Uds_SID_DSC_Info.ui16_Write_EEROM_Delay == UDS_BOOT_STATE_DELAY_TIME)
+		 {
+			 VCU_BMS_WriteToEE();
+		 }
+	     Task_CheckEepromWriteStatus();
+	     if(FALSE == b_Eeprom_WriteOperation_Vaild)
+	     {
+
+	    	 Boot_MCU_flg = 4;
+		     VCUReset_flg = 1 ;
+		     st_Uds_SID_DSC_Info.ui16_Write_EEROM_Delay = UDS_BOOT_STATE_DELAY_TIME;
+		 	ui16_pResLen[0U] = 4U;
+		 	ui8_pRes[0U] = (uint8)(UDS_P2_SERVER_MAX / 0x100U);
+		 	ui8_pRes[1U] = (uint8)(UDS_P2_SERVER_MAX);
+		 	ui8_pRes[2U] = (uint8)(UDS_P2EX_SERVER_MAX / 0x100U);
+		 	ui8_pRes[3U] = (uint8)(UDS_P2EX_SERVER_MAX);
+		 	st_Uds_Response.ui8_ResCode = UDS_RES_CODE_PR;	/*正响应*/
+		 	b_Return = E_OK;
+	     }
+	     else
+	     {
+	    	 st_Uds_SID_DSC_Info.ui16_Write_EEROM_Delay --;
+
+				if(st_Uds_SID_DSC_Info.ui16_Write_EEROM_Delay != 0U)
+				{
+					if((st_Uds_SID_DSC_Info.ui16_Write_EEROM_Delay & 0x7FU) == 0U)
+					{
+						st_Uds_Response.ui8_ResCode = UDS_RES_CODE_RCRRP;	/*请求挂起响应*/
+					}
+				}
+				else
+				{
+					Boot_MCU_flg = 5;
+
+					st_Uds_SID_DSC_Info.ui16_Write_EEROM_Delay = UDS_BOOT_STATE_DELAY_TIME;	/*初始化Boot State255等待时间*/
+					st_Uds_Response.ui8_ResCode = UDS_RES_CODE_CNC;
+					b_Return = E_OK;
+				}
+	     }
+
+
+	 }
+	 else
+	 {
+		 Boot_MCU_flg = 5;
+	     st_Uds_Response.ui8_ResCode = UDS_RES_CODE_CNC;
+	     b_Return = E_OK;
+	 }
+
+	/*回应数据*/
+
+	return	b_Return;
+}
+
+
+boolean UdsFunc_SID_DSC_SUBID_EXTDS_Callback
+	(uint8 *ui8_pRes, uint16 *ui16_pResLen)
+{
+	boolean	b_Return;
+
+	UdsFunc_ChangeSession_Init();	/*切换session初始化*/
+	st_Uds_SID_DSC_Info.ui8_Active_Session = UDS_EXTENDED_SESSION_ACTIVE;
+
+
+	    Boot_MCU_flg = 0 ;
+		Boot_7DF_flg = 1 ;
+		/*回应数据*/
+		ui16_pResLen[0U] = 4U;
+		ui8_pRes[0U] = (uint8)(UDS_P2_SERVER_MAX / 0x100U);
+		ui8_pRes[1U] = (uint8)(UDS_P2_SERVER_MAX);
+		ui8_pRes[2U] = (uint8)(UDS_P2EX_SERVER_MAX / 0x100U);
+		ui8_pRes[3U] = (uint8)(UDS_P2EX_SERVER_MAX);
+		st_Uds_Response.ui8_ResCode = UDS_RES_CODE_PR;	/*正响应*/
+
+		b_Return = E_OK;
+
+	return	b_Return;
+}
+
+#elif ECU_TYPE == ECU_BMS_FRWK_3
+boolean UdsFunc_SID_DSC_SUBID_DS_Callback
+	(uint8 *ui8_pRes, uint16 *ui16_pResLen)
+{
+	boolean	b_Return;
+
+	UdsFunc_ChangeSession_Init();	/*切换session初始化*/
+	st_Uds_SID_DSC_Info.ui8_Active_Session = UDS_DEFAULT_SESSION_ACTIVE;
+	BMSIN_MLIF_ComptrLink_enum = 0;          //测试用上位机连接标志归零
+
+	/*回应数据*/
+	ui16_pResLen[0U] = 4U;
+	ui8_pRes[0U] = (uint8)(UDS_P2_SERVER_MAX / 0x100U);
+	ui8_pRes[1U] = (uint8)(UDS_P2_SERVER_MAX);
+	ui8_pRes[2U] = (uint8)(UDS_P2EX_SERVER_MAX / 0x100U);
+	ui8_pRes[3U] = (uint8)(UDS_P2EX_SERVER_MAX);
+	st_Uds_Response.ui8_ResCode = UDS_RES_CODE_PR;	/*正响应*/
+
+	b_Return = E_OK;
+
+	return	b_Return;
+}
+
+
+boolean UdsFunc_SID_DSC_SUBID_PRGS_Callback
+	(uint8 *ui8_pRes, uint16 *ui16_pResLen)
+{
+	boolean	b_Return = E_NOT_OK;
+
+	//UdsFunc_ChangeSession_Init();	/*切换session初始化*/
+
+	 if(STATE_CCTRL == BL_GetCurState(BL_NODE1))
+	 {
+		 if(st_Uds_SID_DSC_Info.ui16_Write_EEROM_Delay == UDS_BOOT_STATE_DELAY_TIME)
+		 {
+			 WriteRamToEE();
+		 }
+	     Task_CheckEepromWriteStatus();
+	     if(FALSE == b_Eeprom_WriteOperation_Vaild)
+	     {
+	    	st_Uds_SID_DSC_Info.ui8_Active_Session = UDS_PROGRAMMING_SESSION_ACTIVE;
+
+	    	BL_SetState(BL_IDLE,BL_NODE1);        //流程走完，回复初始状态
+	 		BL_SetProgFlag(BL_false,BL_NODE1);
+
+	 		VCUReset_flg = 1 ;
+		    st_Uds_SID_DSC_Info.ui16_Write_EEROM_Delay = UDS_BOOT_STATE_DELAY_TIME;
+		 	ui16_pResLen[0U] = 4U;
+		 	ui8_pRes[0U] = (uint8)(UDS_P2_SERVER_MAX / 0x100U);
+		 	ui8_pRes[1U] = (uint8)(UDS_P2_SERVER_MAX);
+		 	ui8_pRes[2U] = (uint8)(UDS_P2EX_SERVER_MAX / 0x100U);
+		 	ui8_pRes[3U] = (uint8)(UDS_P2EX_SERVER_MAX);
+		 	st_Uds_Response.ui8_ResCode = UDS_RES_CODE_PR;	/*正响应*/
+		 	b_Return = E_OK;
+	     }
+	     else
+	     {
+	    	 st_Uds_SID_DSC_Info.ui16_Write_EEROM_Delay --;
+
+				if(st_Uds_SID_DSC_Info.ui16_Write_EEROM_Delay != 0U)
+				{
+					if((st_Uds_SID_DSC_Info.ui16_Write_EEROM_Delay & 0x7FU) == 0U)
+					{
+						st_Uds_Response.ui8_ResCode = UDS_RES_CODE_RCRRP;	/*请求挂起响应*/
+					}
+				}
+				else
+				{
+			 		BL_SetState(BL_IDLE,BL_NODE1);        //流程错误，回复初始状态
+				 	BL_SetProgFlag(BL_false,BL_NODE1);
+
+					st_Uds_SID_DSC_Info.ui16_Write_EEROM_Delay = UDS_BOOT_STATE_DELAY_TIME;	/*初始化Boot State255等待时间*/
+					st_Uds_Response.ui8_ResCode = UDS_RES_CODE_CNC;
+					b_Return = E_OK;
+				}
+	     }
+	 }
+	 else
+	 {
+	 	BL_SetState(BL_IDLE,BL_NODE1);        //流程错误，回复初始状态
+		BL_SetProgFlag(BL_false,BL_NODE1);
+
+		st_Uds_SID_DSC_Info.ui16_Write_EEROM_Delay = UDS_BOOT_STATE_DELAY_TIME;	/*初始化Boot State255等待时间*/
+	    st_Uds_Response.ui8_ResCode = UDS_RES_CODE_CNC;
+	    b_Return = E_OK;
+	 }
+
+	/*回应数据*/
+
+	return	b_Return;
+}
+
+
+boolean UdsFunc_SID_DSC_SUBID_EXTDS_Callback
+	(uint8 *ui8_pRes, uint16 *ui16_pResLen)
+{
+	boolean	b_Return ;
+
+	UdsFunc_ChangeSession_Init();	/*切换session初始化*/
+	st_Uds_SID_DSC_Info.ui8_Active_Session = UDS_EXTENDED_SESSION_ACTIVE;
+
+	if(st_N_USData_Indication.ui8_N_TAtype == UDS_ADDR_TYPE_FUNC)
+	{
+		BL_SetState(STATE_EX_MODE,BL_NODE1);
+		BL_SetProgFlag(BL_false,BL_NODE1);
+	}
+
+	ui16_pResLen[0U] = 4U;
+	ui8_pRes[0U] = (uint8)(UDS_P2_SERVER_MAX / 0x100U);
+	ui8_pRes[1U] = (uint8)(UDS_P2_SERVER_MAX);
+	ui8_pRes[2U] = (uint8)(UDS_P2EX_SERVER_MAX / 0x100U);
+	ui8_pRes[3U] = (uint8)(UDS_P2EX_SERVER_MAX);
+	st_Uds_Response.ui8_ResCode = UDS_RES_CODE_PR;	/*正响应*/
+	b_Return = E_OK;
+
+	return	b_Return;
+}
+#endif

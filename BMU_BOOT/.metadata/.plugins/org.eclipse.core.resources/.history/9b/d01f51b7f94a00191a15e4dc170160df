@@ -1,0 +1,132 @@
+
+#include "MAIN.h"
+
+/*SID CDTCI服务*/
+const	Struct_Uds_SID_RTDD	st_Uds_SID_RTDD[UDS_SID_RTDD_NUMBER] =
+{
+		{
+			0x00U,								/*数据格式ID*/
+			0x02U,								/*支持的session*/
+												/*Default 		Bit0—— 1:支持  0:不支持*/
+												/*Programming 	Bit1—— 1:支持  0:不支持*/
+												/*Extended 		Bit2—— 1:支持  0:不支持*/
+												/*Coding        bit3—— 1:支持  0:不支持*/
+			0x08,								/*是否需要解密钥*/
+												/*leve1 		Bit0—— 1:需要  0:不需要*/
+												/*leve2 		Bit1—— 1:需要  0:不需要*/
+												/*leve3 		Bit2—— 1:需要  0:不需要*/
+												/*leve4         bit3—— 1:需要  0:不需要*/
+			UdsFunc_SID_RTDD_AG_Callback	/*回调函数*/
+		},
+};
+
+/*************************************************************************/
+/*
+Function:		void UdsFunc_SID_RTDD_Analysis(uint8 *ui8_pInd, uint16 ui16_IndLen)
+
+Description: 	此函数用于解析SID_RTDD服务
+
+Parameters: 	ui8_pInd(不含SID)
+				ui16_IndLen(不含SID)
+
+Return:       	void
+
+Return Values:  无
+
+Remarks:
+
+Example:
+*/
+void UdsFunc_SID_RTDD_Analysis(uint8 *ui8_pInd, uint16 ui16_IndLen)
+{
+	uint8	ui8_Loop_1;	/*循环计数器*/
+	uint32	ui8_FormatId;	/*数据格式ID*/
+
+	ui8_FormatId = ui8_pInd[0U];
+
+	/*查询匹配groupOfDTC号*/
+	for(ui8_Loop_1 = 0U; ui8_Loop_1 < UDS_SID_RTDD_NUMBER; ui8_Loop_1++)
+	{
+		if(ui8_FormatId == st_Uds_SID_RTDD[ui8_Loop_1].ui8_dataFormatId)
+		{
+			break;
+		}
+	}
+	if(ui8_Loop_1 < UDS_SID_RTDD_NUMBER)	/*查到符合的格式ID*/
+	{
+		/*判断Session是否支持*/
+		if((st_Uds_SID_DSC_Info.ui8_Active_Session & st_Uds_SID_RTDD[ui8_Loop_1].ui8_Session_Support) != 0U)
+		{
+			/*判断服务无需密钥，或密钥已解锁*/
+			if(((st_Uds_SID_RTDD[ui8_Loop_1].b_Security_En & st_Uds_SID_SA_Info.b_Security_Locked) != 0U) || (st_Uds_SID_RTDD[ui8_Loop_1].b_Security_En == 0U))
+\\
+			{
+				st_Uds_Dcm_Info.ui8_Cur_Task = UDS_TASK_SID_RTDD;	/*当前为 ClearDiagnosticInformation任务*/
+			}
+			else
+			{
+				st_Uds_Response.ui8_ResCode = UDS_RES_CODE_SAD;	/*服务密钥未解锁响应*/
+			}
+		}
+		else
+		{
+			st_Uds_Response.ui8_ResCode = UDS_RES_CODE_SNSIAS;	/*服务在工作Session下不支持响应*/
+		}
+	}
+	else
+	{
+		st_Uds_Response.ui8_ResCode = UDS_RES_CODE_ROOR;	/*数据越界错误响应*/
+	}
+}
+
+/*************************************************************************/
+/*
+Function:		boolean UdsFunc_SID_RTDD_Appl_Deal
+				(uint8 *ui8_pInd, uint8 *ui8_pRes, uint16 *ui16_pResLen)
+
+Description: 	此函数用于处理SID_RTDD应用层任务
+
+Parameters: 	ui8_pInd(不含SID)
+				ui8_pRes(不含SID)
+				ui16_pResLen
+
+Return:       	boolean
+
+Return Values:  E_OK		任务完成
+				E_NOT_OK	任务未完成
+
+Remarks:
+
+Example:
+*/
+boolean UdsFunc_SID_RTDD_Appl_Deal(uint8 *ui8_pInd, uint8 *ui8_pRes, uint16 *ui16_pResLen)
+{
+	uint8	ui8_Loop_1;	/*循环计数器*/
+	uint8	ui8_FormatId;	/*groupOfDTC号*/
+	boolean	b_Return;
+
+
+	ui8_FormatId = ui8_pInd[0U];	/*从TP层取数据格式ID*/
+
+	/*查询匹配ID号*/
+	for(ui8_Loop_1 = 0U; ui8_Loop_1 < UDS_SID_RTDD_NUMBER; ui8_Loop_1++)
+	{
+		if(ui8_FormatId == st_Uds_SID_RTDD[ui8_Loop_1].ui8_dataFormatId)
+		{
+			break;
+		}
+	}
+
+	if(ui8_Loop_1 < UDS_SID_RTDD_NUMBER)	/*查到符合的ID号*/
+	{
+		b_Return = st_Uds_SID_RTDD[ui8_Loop_1].pFunc(&ui8_pInd[1U], &ui8_pRes[0U], &ui16_pResLen[0U]);	/*执行子功能任务*/
+	}
+	else
+	{
+		st_Uds_Response.ui8_ResCode = UDS_RES_CODE_ROOR;	/*数据越界错误响应*/
+		b_Return = E_OK;
+	}
+
+	return b_Return;
+}
+

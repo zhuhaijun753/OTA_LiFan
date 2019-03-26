@@ -1,0 +1,794 @@
+	; Module start
+	.compiler_version	"TASKING VX-toolset for TriCore: C compiler v4.3r1 Build 759 SN 00641831"
+	.compiler_invocation	"ctc -f cc7832a -c99 --dep-file=Communication_Files\\Uds\\User\\.Uds_User_TransferDataCallback.o.d -D__CPU__=tc1782 -D__CPU_TC1782__ --core=tc1.3.1 -F -ID:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_1.9\\BMU_BOOT -ID:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_1.9\\BMU_BOOT\\Communication_Files\\CanDrv -ID:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_1.9\\BMU_BOOT\\Communication_Files\\Com -ID:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_1.9\\BMU_BOOT\\Communication_Files\\Com\\Can_Input -ID:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_1.9\\BMU_BOOT\\Communication_Files\\Com\\Can_Output -ID:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_1.9\\BMU_BOOT\\Communication_Files\\Uds\\Dcm -ID:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_1.9\\BMU_BOOT\\Communication_Files\\Uds\\Dem -ID:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_1.9\\BMU_BOOT\\Communication_Files\\Uds\\Tp -ID:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_1.9\\BMU_BOOT\\Communication_Files\\Uds\\User -ID:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_1.9\\BMU_BOOT\\Complex_Files -ID:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_1.9\\BMU_BOOT\\Initiate_Files -ID:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_1.9\\BMU_BOOT\\Nvm_Files\\FlsDrv -ID:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_1.9\\BMU_BOOT\\Stand_Header -g2 --make-target=Communication_Files\\Uds\\User\\Uds_User_TransferDataCallback.o -t4 --language=-gcc,-volatile,+strings --default-near-size=0 -O2 --default-a1-size=0 --default-a0-size=0 --source --align=0 --compact-max-size=200 --switch=auto -o Communication_Files\\Uds\\User\\Uds_User_TransferDataCallback.src ..\\Communication_Files\\Uds\\User\\Uds_User_TransferDataCallback.c"
+	.compiler_name		"ctc"
+	.name	"Uds_User_TransferDataCallback"
+
+	
+$TC131
+	
+	.sdecl	'.text.Uds_User_TransferDataCallback.UdsFunc_SID_TRADATA_Callback',code,cluster('UdsFunc_SID_TRADATA_Callback')
+	.sect	'.text.Uds_User_TransferDataCallback.UdsFunc_SID_TRADATA_Callback'
+	.align	2
+	
+	.global	UdsFunc_SID_TRADATA_Callback
+
+; ..\Communication_Files\Uds\User\Uds_User_TransferDataCallback.c	     1  
+; ..\Communication_Files\Uds\User\Uds_User_TransferDataCallback.c	     2  #include "MAIN.h"
+; ..\Communication_Files\Uds\User\Uds_User_TransferDataCallback.c	     3  
+; ..\Communication_Files\Uds\User\Uds_User_TransferDataCallback.c	     4  uint8 Boot_Flash[256];
+; ..\Communication_Files\Uds\User\Uds_User_TransferDataCallback.c	     5  
+; ..\Communication_Files\Uds\User\Uds_User_TransferDataCallback.c	     6  /*************************************************************************/
+; ..\Communication_Files\Uds\User\Uds_User_TransferDataCallback.c	     7  /*
+; ..\Communication_Files\Uds\User\Uds_User_TransferDataCallback.c	     8  Function:		void UdsFunc_SID_TRADATA_Callback
+; ..\Communication_Files\Uds\User\Uds_User_TransferDataCallback.c	     9  				(uint8 *ui8_pRes, uint16 *ui16_pResLen)
+; ..\Communication_Files\Uds\User\Uds_User_TransferDataCallback.c	    10  
+; ..\Communication_Files\Uds\User\Uds_User_TransferDataCallback.c	    11  Description: 	此函数用于SID_TRADATA服务回调
+; ..\Communication_Files\Uds\User\Uds_User_TransferDataCallback.c	    12  
+; ..\Communication_Files\Uds\User\Uds_User_TransferDataCallback.c	    13  Parameters: 	ui8_pRes(不含SID和SubID)
+; ..\Communication_Files\Uds\User\Uds_User_TransferDataCallback.c	    14  				ui16_pResLen
+; ..\Communication_Files\Uds\User\Uds_User_TransferDataCallback.c	    15  
+; ..\Communication_Files\Uds\User\Uds_User_TransferDataCallback.c	    16  Return:       	boolean
+; ..\Communication_Files\Uds\User\Uds_User_TransferDataCallback.c	    17  
+; ..\Communication_Files\Uds\User\Uds_User_TransferDataCallback.c	    18  Return Values:  E_OK		任务完成
+; ..\Communication_Files\Uds\User\Uds_User_TransferDataCallback.c	    19  				E_NOT_OK	任务未完成
+; ..\Communication_Files\Uds\User\Uds_User_TransferDataCallback.c	    20  
+; ..\Communication_Files\Uds\User\Uds_User_TransferDataCallback.c	    21  Remarks:
+; ..\Communication_Files\Uds\User\Uds_User_TransferDataCallback.c	    22  
+; ..\Communication_Files\Uds\User\Uds_User_TransferDataCallback.c	    23  Example:
+; ..\Communication_Files\Uds\User\Uds_User_TransferDataCallback.c	    24  */
+; ..\Communication_Files\Uds\User\Uds_User_TransferDataCallback.c	    25  uint32 ui32_TRDATACount = 0;
+; ..\Communication_Files\Uds\User\Uds_User_TransferDataCallback.c	    26  uint8 ui8_TRDATAFlag = 1;
+; ..\Communication_Files\Uds\User\Uds_User_TransferDataCallback.c	    27  boolean UdsFunc_SID_TRADATA_Callback
+; Function UdsFunc_SID_TRADATA_Callback
+.L12:
+UdsFunc_SID_TRADATA_Callback:	.type	func
+
+; ..\Communication_Files\Uds\User\Uds_User_TransferDataCallback.c	    28  	(uint8 *ui8_pInd, uint8 *ui8_pRes, uint16 *ui16_pResLen)
+; ..\Communication_Files\Uds\User\Uds_User_TransferDataCallback.c	    29  {
+; ..\Communication_Files\Uds\User\Uds_User_TransferDataCallback.c	    30  	boolean	b_Return;
+; ..\Communication_Files\Uds\User\Uds_User_TransferDataCallback.c	    31  	uint16 uin16_Loop;
+; ..\Communication_Files\Uds\User\Uds_User_TransferDataCallback.c	    32  
+; ..\Communication_Files\Uds\User\Uds_User_TransferDataCallback.c	    33  	b_Return = E_NOT_OK;
+	mov	d8,#1
+	mov.aa	a15,a4
+.L42:
+	mov.aa	a12,a5
+.L44:
+	mov.aa	a14,a6
+.L38:
+
+; ..\Communication_Files\Uds\User\Uds_User_TransferDataCallback.c	    34  
+; ..\Communication_Files\Uds\User\Uds_User_TransferDataCallback.c	    35  	uint32 uin32_WriteAddress;
+; ..\Communication_Files\Uds\User\Uds_User_TransferDataCallback.c	    36  
+; ..\Communication_Files\Uds\User\Uds_User_TransferDataCallback.c	    37  	if((Fls_GetStatus() == FLS_TASK_IDLE_STATE) && (ui8_TRDATAFlag == 1))
+	call	Fls_GetStatus
+.L41:
+	jne	d2,#0,.L2				; predicted not taken
+.L56:
+	movh.a	a13,#@his(ui8_TRDATAFlag)
+	lea	a13,[a13]@los(ui8_TRDATAFlag)
+	ld.bu	d15,[a13]
+.L57:
+	jne	d15,#1,.L3				; predicted not taken
+.L58:
+
+; ..\Communication_Files\Uds\User\Uds_User_TransferDataCallback.c	    38  	{
+; ..\Communication_Files\Uds\User\Uds_User_TransferDataCallback.c	    39  		memset(Boot_Flash, 0, 256U);
+	movh.a	a14,#@his(Boot_Flash)
+.L45:
+	lea	a14,[a14]@los(Boot_Flash)
+.L59:
+	mov	d4,#0
+.L60:
+	mov	d5,#256
+	mov.aa	a4,a14
+	call	memset
+.L61:
+
+; ..\Communication_Files\Uds\User\Uds_User_TransferDataCallback.c	    40  
+; ..\Communication_Files\Uds\User\Uds_User_TransferDataCallback.c	    41  		/*数据准备*/
+; ..\Communication_Files\Uds\User\Uds_User_TransferDataCallback.c	    42  		for(uin16_Loop = 0U; uin16_Loop < 256U; uin16_Loop++)
+; ..\Communication_Files\Uds\User\Uds_User_TransferDataCallback.c	    43  		{
+; ..\Communication_Files\Uds\User\Uds_User_TransferDataCallback.c	    44  			Boot_Flash[uin16_Loop] = ui8_pInd[uin16_Loop + 1U];
+	lea	a15,[a15]1
+.L43:
+	mov.aa	a2,a14
+.L62:
+	lea	a4,255
+.L4:
+	ld.bu	d15,[a15+]
+.L63:
+	st.b	[a2+],d15
+.L64:
+	loop	a4,.L4				; predicted taken
+.L65:
+
+; ..\Communication_Files\Uds\User\Uds_User_TransferDataCallback.c	    45  		}
+; ..\Communication_Files\Uds\User\Uds_User_TransferDataCallback.c	    46  
+; ..\Communication_Files\Uds\User\Uds_User_TransferDataCallback.c	    47  		/*地址准备*/
+; ..\Communication_Files\Uds\User\Uds_User_TransferDataCallback.c	    48  		if((st_Uds_SID_RDD_Info.ui32_memoryAddress >= 0xD4000000) && ((st_Uds_SID_RDD_Info.ui32_memoryAddress < 0xD4FFFFFF)))
+	movh.a	a15,#@his(st_Uds_SID_RDD_Info)
+.L66:
+	movh	d0,#54272
+	lea	a15,[a15]@los(st_Uds_SID_RDD_Info)
+.L67:
+	mov.u	d1,#65535
+	ld.w	d15,[a15]4
+	sub	d0,d15,d0
+.L68:
+	addih	d1,d1,#255
+.L69:
+	jlt.u	d0,d1,.L5				; unsupported prediction taken forward branch
+.L70:
+
+; ..\Communication_Files\Uds\User\Uds_User_TransferDataCallback.c	    49  		{
+; ..\Communication_Files\Uds\User\Uds_User_TransferDataCallback.c	    50  			/*因观致车厂要求，提供的flash驱动*/
+; ..\Communication_Files\Uds\User\Uds_User_TransferDataCallback.c	    51  		}
+; ..\Communication_Files\Uds\User\Uds_User_TransferDataCallback.c	    52  		else
+; ..\Communication_Files\Uds\User\Uds_User_TransferDataCallback.c	    53  		{
+; ..\Communication_Files\Uds\User\Uds_User_TransferDataCallback.c	    54  			st_Uds_SID_RDD_Info.ui16_pageCount = ui8_pRes[0] + 256U * st_Uds_SID_RDD_Info.ui8_pageFlag;
+	ld.bu	d0,[a15]
+.L71:
+	sh	d2,d0,#8
+	mov.aa	a2,a15
+.L72:
+	ld.bu	d1,[a12]
+.L73:
+	add	d1,d2
+	st.h	[+a2]2,d1
+.L74:
+
+; ..\Communication_Files\Uds\User\Uds_User_TransferDataCallback.c	    55  
+; ..\Communication_Files\Uds\User\Uds_User_TransferDataCallback.c	    56  			if(ui8_pRes[0] == 0xFF)
+	ld.bu	d1,[a12]
+.L75:
+
+; ..\Communication_Files\Uds\User\Uds_User_TransferDataCallback.c	    57  			{
+; ..\Communication_Files\Uds\User\Uds_User_TransferDataCallback.c	    58  				st_Uds_SID_RDD_Info.ui8_pageFlag++;
+; ..\Communication_Files\Uds\User\Uds_User_TransferDataCallback.c	    59  			}
+; ..\Communication_Files\Uds\User\Uds_User_TransferDataCallback.c	    60  
+; ..\Communication_Files\Uds\User\Uds_User_TransferDataCallback.c	    61  			uin32_WriteAddress = st_Uds_SID_RDD_Info.ui32_memoryAddress + (st_Uds_SID_RDD_Info.ui16_pageCount - 1) * 256U;
+; ..\Communication_Files\Uds\User\Uds_User_TransferDataCallback.c	    62  	//		st_Uds_SID_RDD_Info.ui32_memorySize = st_Uds_SID_RDD_Info.ui32_memorySize - 256U;
+; ..\Communication_Files\Uds\User\Uds_User_TransferDataCallback.c	    63  
+; ..\Communication_Files\Uds\User\Uds_User_TransferDataCallback.c	    64  	//		Test1[0] = (uint8)(uin32_WriteAddress>>24&0xFF);
+; ..\Communication_Files\Uds\User\Uds_User_TransferDataCallback.c	    65  	//		Test1[1] = (uint8)(uin32_WriteAddress>>16&0xFF);
+; ..\Communication_Files\Uds\User\Uds_User_TransferDataCallback.c	    66  	//		Test1[2] = (uint8)(uin32_WriteAddress>>8&0xFF);
+; ..\Communication_Files\Uds\User\Uds_User_TransferDataCallback.c	    67  	//		Test1[3] = (uint8)(uin32_WriteAddress&0xFF);
+; ..\Communication_Files\Uds\User\Uds_User_TransferDataCallback.c	    68  
+; ..\Communication_Files\Uds\User\Uds_User_TransferDataCallback.c	    69  			//CAN_Write(23, Test1);
+; ..\Communication_Files\Uds\User\Uds_User_TransferDataCallback.c	    70  
+; ..\Communication_Files\Uds\User\Uds_User_TransferDataCallback.c	    71  			/*写入数据*/
+; ..\Communication_Files\Uds\User\Uds_User_TransferDataCallback.c	    72  			Fls_Write(uin32_WriteAddress, &Boot_Flash[0], 256U);
+	eq	d1,d1,#255
+	mov.aa	a4,a14
+.L76:
+	add	d0,d1
+	st.b	[a15],d0
+.L77:
+	ld.hu	d0,[a15]2
+.L78:
+	add	d0,#-1
+	sh	d4,d0,#8
+.L79:
+	add	d4,d15
+.L80:
+	mov	d5,#256
+	call	Fls_Write
+.L81:
+
+; ..\Communication_Files\Uds\User\Uds_User_TransferDataCallback.c	    73  			ui8_TRDATAFlag = 2;
+	mov	d15,#2
+	st.b	[a13],d15
+.L82:
+
+; ..\Communication_Files\Uds\User\Uds_User_TransferDataCallback.c	    74  			ui32_TRDATACount = 0;
+	movh.a	a15,#@his(ui32_TRDATACount)
+.L83:
+	mov	d15,#0
+	st.w	[a15]@los(ui32_TRDATACount),d15
+.L84:
+
+; ..\Communication_Files\Uds\User\Uds_User_TransferDataCallback.c	    75  			st_Uds_Response.ui8_ResCode = UDS_RES_CODE_RCRRP;	/*78*/
+	movh.a	a15,#@his(st_Uds_Response)
+	lea	a15,[a15]@los(st_Uds_Response)
+.L85:
+	mov	d15,#120
+	st.b	[a15],d15
+.L86:
+	j	.L6
+.L3:
+.L2:
+
+; ..\Communication_Files\Uds\User\Uds_User_TransferDataCallback.c	    76  
+; ..\Communication_Files\Uds\User\Uds_User_TransferDataCallback.c	    77  		}
+; ..\Communication_Files\Uds\User\Uds_User_TransferDataCallback.c	    78  	}
+; ..\Communication_Files\Uds\User\Uds_User_TransferDataCallback.c	    79  	else if((Fls_GetStatus() == FLS_TASK_IDLE_STATE) && (ui8_TRDATAFlag == 2))
+	call	Fls_GetStatus
+.L87:
+	jne	d2,#0,.L7				; predicted taken
+.L88:
+	movh.a	a2,#@his(ui8_TRDATAFlag)
+	lea	a2,[a2]@los(ui8_TRDATAFlag)
+	ld.bu	d15,[a2]
+.L89:
+	jne	d15,#2,.L8				; predicted taken
+.L90:
+
+; ..\Communication_Files\Uds\User\Uds_User_TransferDataCallback.c	    80  	{
+; ..\Communication_Files\Uds\User\Uds_User_TransferDataCallback.c	    81  		ui32_TRDATACount++;
+	movh.a	a4,#@his(ui32_TRDATACount)
+	lea	a4,[a4]@los(ui32_TRDATACount)
+.L91:
+
+; ..\Communication_Files\Uds\User\Uds_User_TransferDataCallback.c	    82  		if(ui32_TRDATACount == 50)
+	mov	d0,#50
+	ld.w	d15,[a4]
+.L92:
+	add	d15,#1
+	st.w	[a4],d15
+.L93:
+	jne	d15,d0,.L9				; predicted not taken
+.L94:
+
+; ..\Communication_Files\Uds\User\Uds_User_TransferDataCallback.c	    83  		{
+; ..\Communication_Files\Uds\User\Uds_User_TransferDataCallback.c	    84  			ui8_TRDATAFlag = 1;
+	mov	d15,#1
+	st.b	[a2],d15
+.L95:
+
+; ..\Communication_Files\Uds\User\Uds_User_TransferDataCallback.c	    85  			ui32_TRDATACount = 0;
+	mov	d8,#0
+	st.w	[a4],d8
+.L96:
+
+; ..\Communication_Files\Uds\User\Uds_User_TransferDataCallback.c	    86  			/*回应数据*/
+; ..\Communication_Files\Uds\User\Uds_User_TransferDataCallback.c	    87  			ui16_pResLen[0U] = 1U;
+	st.h	[a14],d15
+.L97:
+
+; ..\Communication_Files\Uds\User\Uds_User_TransferDataCallback.c	    88  			ui8_pRes[0U] = ui8_pInd[0U];
+	ld.bu	d15,[a15]
+.L98:
+	st.b	[a12],d15
+.L99:
+
+; ..\Communication_Files\Uds\User\Uds_User_TransferDataCallback.c	    89  			st_Uds_Response.ui8_ResCode = UDS_RES_CODE_PR;	/*正响应*/
+	movh.a	a15,#@his(st_Uds_Response)
+.L46:
+	lea	a15,[a15]@los(st_Uds_Response)
+.L100:
+	st.b	[a15],d8
+.L9:
+.L8:
+.L7:
+.L6:
+.L5:
+
+; ..\Communication_Files\Uds\User\Uds_User_TransferDataCallback.c	    90  			b_Return = E_OK;
+; ..\Communication_Files\Uds\User\Uds_User_TransferDataCallback.c	    91  		}
+; ..\Communication_Files\Uds\User\Uds_User_TransferDataCallback.c	    92  	}
+; ..\Communication_Files\Uds\User\Uds_User_TransferDataCallback.c	    93  
+; ..\Communication_Files\Uds\User\Uds_User_TransferDataCallback.c	    94  
+; ..\Communication_Files\Uds\User\Uds_User_TransferDataCallback.c	    95  
+; ..\Communication_Files\Uds\User\Uds_User_TransferDataCallback.c	    96  
+; ..\Communication_Files\Uds\User\Uds_User_TransferDataCallback.c	    97  
+; ..\Communication_Files\Uds\User\Uds_User_TransferDataCallback.c	    98  	return	b_Return;
+	mov	d2,d8
+.L47:
+
+; ..\Communication_Files\Uds\User\Uds_User_TransferDataCallback.c	    99  }
+	ret
+.L29:
+	
+__UdsFunc_SID_TRADATA_Callback_function_end:
+	.size	UdsFunc_SID_TRADATA_Callback,__UdsFunc_SID_TRADATA_Callback_function_end-UdsFunc_SID_TRADATA_Callback
+.L21:
+	; End of function
+	
+	.sdecl	'.bss.Uds_User_TransferDataCallback.Boot_Flash',data,cluster('Boot_Flash')
+	.sect	'.bss.Uds_User_TransferDataCallback.Boot_Flash'
+	.global	Boot_Flash
+Boot_Flash:	.type	object
+	.size	Boot_Flash,256
+	.space	256
+	.sdecl	'.data.Uds_User_TransferDataCallback.ui32_TRDATACount',data,cluster('ui32_TRDATACount')
+	.sect	'.data.Uds_User_TransferDataCallback.ui32_TRDATACount'
+	.global	ui32_TRDATACount
+	.align	2
+ui32_TRDATACount:	.type	object
+	.size	ui32_TRDATACount,4
+	.space	4
+	.sdecl	'.data.Uds_User_TransferDataCallback.ui8_TRDATAFlag',data,cluster('ui8_TRDATAFlag')
+	.sect	'.data.Uds_User_TransferDataCallback.ui8_TRDATAFlag'
+	.global	ui8_TRDATAFlag
+ui8_TRDATAFlag:	.type	object
+	.size	ui8_TRDATAFlag,1
+	.byte	1
+	.calls	'UdsFunc_SID_TRADATA_Callback','Fls_GetStatus'
+	.calls	'UdsFunc_SID_TRADATA_Callback','memset'
+	.calls	'UdsFunc_SID_TRADATA_Callback','Fls_Write'
+	.extern	Fls_Write
+	.extern	Fls_GetStatus
+	.extern	st_Uds_SID_RDD_Info
+	.extern	st_Uds_Response
+	.extern	memset
+	.calls	'UdsFunc_SID_TRADATA_Callback','',0
+	.sdecl	'.debug_info',debug
+	.sect	'.debug_info'
+.L14:
+	.word	1044
+	.half	3
+	.word	.L15
+	.byte	4
+.L13:
+	.byte	1
+	.byte	'..\\Communication_Files\\Uds\\User\\Uds_User_TransferDataCallback.c',0
+	.byte	'TASKING VX-toolset for TriCore: C compiler',0
+	.byte	'D:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_1.9\\BMU_BOOT\\Debug\\',0,12,1
+	.word	.L16
+.L28:
+	.byte	2
+	.byte	'unsigned char',0,1,8,3
+	.byte	'Fls_Write',0,1,149,1,16
+	.word	181
+	.byte	1,1,1,1
+.L40:
+	.byte	2
+	.byte	'unsigned long int',0,4,7,4
+	.byte	'ui32_TA',0,1,149,1,33
+	.word	221
+.L30:
+	.byte	5
+	.word	181
+	.byte	4
+	.byte	'p_ui8_SA',0,1,149,1,49
+	.word	259
+	.byte	4
+	.byte	'ui32_Len',0,1,149,1,66
+	.word	221
+	.byte	0,6
+	.byte	'Fls_GetStatus',0,1,191,1,14
+	.word	181
+	.byte	1,1,1,1
+.L36:
+	.byte	2
+	.byte	'unsigned short int',0,2,7
+.L33:
+	.byte	5
+	.word	328
+	.byte	7
+	.byte	'void',0,5
+	.word	355
+	.byte	3
+	.byte	'memset',0,2,48,17
+	.word	361
+	.byte	1,1,1,1,8,2,48,33
+	.word	361
+	.byte	2
+	.byte	'int',0,4,5,8,2,48,36
+	.word	393
+	.byte	2
+	.byte	'unsigned int',0,4,7,8,2,48,41
+	.word	408
+	.byte	0,9
+	.byte	'__prof_adm',0,3,1,1
+	.word	361
+	.byte	10,1,5
+	.word	452
+	.byte	9
+	.byte	'__codeptr',0,3,1,1
+	.word	454
+	.byte	9
+	.byte	'ubyte',0,4,78,24
+	.word	181
+	.byte	9
+	.byte	'ushort',0,4,80,24
+	.word	328
+	.byte	9
+	.byte	'uword',0,4,82,24
+	.word	408
+	.byte	9
+	.byte	'uint8',0,5,87,29
+	.word	181
+	.byte	9
+	.byte	'uint16',0,5,89,29
+	.word	328
+	.byte	2
+	.byte	'long int',0,4,5,9
+	.byte	'sint32',0,5,90,29
+	.word	549
+	.byte	9
+	.byte	'uint32',0,5,91,27
+	.word	221
+	.byte	9
+	.byte	'boolean',0,5,102,29
+	.word	181
+	.byte	11,6,2,9,16,12
+	.byte	'ui8_pageFlag',0,1
+	.word	181
+	.byte	2,35,0,12
+	.byte	'ui8_ErrFlag',0,1
+	.word	181
+	.byte	2,35,1,12
+	.byte	'ui16_pageCount',0,2
+	.word	328
+	.byte	2,35,2,12
+	.byte	'ui32_memoryAddress',0,4
+	.word	221
+	.byte	2,35,4,12
+	.byte	'si32_memorySize',0,4
+	.word	549
+	.byte	2,35,8,12
+	.byte	'ui32_Check',0,4
+	.word	221
+	.byte	2,35,12,0,9
+	.byte	'Struct_Uds_SID_RDD_Info',0,6,10,2
+	.word	607
+	.byte	13
+	.byte	'st_Uds_SID_RDD_Info',0,6,11,32
+	.word	607
+	.byte	1,1
+.L39:
+	.byte	14,128,2
+	.word	181
+	.byte	15,255,1,0,11,7,91,9,28,12
+	.byte	'ui8_ResCode',0,1
+	.word	181
+	.byte	2,35,0,12
+	.byte	'b_SuppressPosRspBit',0,1
+	.word	181
+	.byte	2,35,1,12
+	.byte	'ui8_pMsgData',0,4
+	.word	259
+	.byte	2,35,4,12
+	.byte	'ui16_pLength',0,4
+	.word	350
+	.byte	2,35,8,14,8
+	.word	181
+	.byte	15,7,0,12
+	.byte	'ui8_Neg78_Buf',0,8
+	.word	925
+	.byte	2,35,12,12
+	.byte	'ui8_3E_Buf',0,8
+	.word	925
+	.byte	2,35,20,0,9
+	.byte	'Struct_Uds_Response',0,7,99,2
+	.word	826
+	.byte	13
+	.byte	'st_Uds_Response',0,7,126,29
+	.word	826
+	.byte	1,1,9
+	.byte	'size_t',0,2,20,25
+	.word	408
+	.byte	0
+	.sdecl	'.debug_abbrev',debug
+	.sect	'.debug_abbrev'
+.L15:
+	.byte	1,17,1,3,8,37,8,27,8,19,15,128,70,12,16,6,0,0,2,36,0,3,8,11,15,62,15,0,0,3,46,1,3,8,58,15,59,15,57,15
+	.byte	73,19,54,15,39,12,63,12,60,12,0,0,4,5,0,3,8,58,15,59,15,57,15,73,19,0,0,5,15,0,73,19,0,0,6,46,0,3,8,58
+	.byte	15,59,15,57,15,73,19,54,15,39,12,63,12,60,12,0,0,7,59,0,3,8,0,0,8,5,0,58,15,59,15,57,15,73,19,0,0,9,22
+	.byte	0,3,8,58,15,59,15,57,15,73,19,0,0,10,21,0,54,15,0,0,11,19,1,58,15,59,15,57,15,11,15,0,0,12,13,0,3,8,11
+	.byte	15,73,19,56,9,0,0,13,52,0,3,8,58,15,59,15,57,15,73,19,63,12,60,12,0,0,14,1,1,11,15,73,19,0,0,15,33,0,47
+	.byte	15,0,0,0
+	.sdecl	'.debug_line',debug
+	.sect	'.debug_line'
+.L16:
+	.word	.L49-.L48
+.L48:
+	.half	3
+	.word	.L51-.L50
+.L50:
+	.byte	2,1,-4,9,10,0,1,1,1,1,0,0,0,1
+	.byte	'D:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_1.9\\BMU_BOOT\\Nvm_Files\\FlsDrv',0
+	.byte	'C:\\Program Files (x86)\\TASKING\\TriCore v4.3r1\\ctc\\include\\',0
+	.byte	'D:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_1.9\\BMU_BOOT\\Initiate_Files',0
+	.byte	'D:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_1.9\\BMU_BOOT\\Stand_Header',0
+	.byte	'D:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_1.9\\BMU_BOOT\\Communication_Files\\Uds\\User',0
+	.byte	'D:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_1.9\\BMU_BOOT\\Communication_Files\\Uds\\Dcm',0,0
+	.byte	'Flash_TC1782_Driver.h',0,1,0,0
+	.byte	'String.h',0,2,0,0
+	.byte	'..\\Communication_Files\\Uds\\User\\Uds_User_TransferDataCallback.c',0,0,0,0
+	.byte	'MAIN.h',0,3,0,0
+	.byte	'Platform_Types.h',0,4,0,0
+	.byte	'Uds_User_RequestDownloadCallback.h',0,5,0,0
+	.byte	'Uds_Dcm_Drv.h',0,6,0,0,0
+.L51:
+.L49:
+	.sdecl	'.debug_info',debug,cluster('UdsFunc_SID_TRADATA_Callback')
+	.sect	'.debug_info'
+.L17:
+	.word	370
+	.half	3
+	.word	.L18
+	.byte	4,1
+	.byte	'..\\Communication_Files\\Uds\\User\\Uds_User_TransferDataCallback.c',0
+	.byte	'TASKING VX-toolset for TriCore: C compiler',0
+	.byte	'D:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_1.9\\BMU_BOOT\\Debug\\',0,12,1
+	.word	.L20,.L19
+	.byte	2
+	.word	.L13
+	.byte	3
+	.byte	'UdsFunc_SID_TRADATA_Callback',0,1,27,9
+	.word	.L28
+	.byte	1,1,1
+	.word	.L12,.L29,.L11
+	.byte	4
+	.byte	'ui8_pInd',0,1,28,10
+	.word	.L30,.L31
+	.byte	4
+	.byte	'ui8_pRes',0,1,28,27
+	.word	.L30,.L32
+	.byte	4
+	.byte	'ui16_pResLen',0,1,28,45
+	.word	.L33,.L34
+	.byte	5
+	.word	.L12,.L29
+	.byte	6
+	.byte	'b_Return',0,1,30,10
+	.word	.L28,.L35
+	.byte	6
+	.byte	'uin16_Loop',0,1,31,9
+	.word	.L36,.L37
+	.byte	7
+	.word	.L38,.L29
+	.byte	0,0,0
+	.sdecl	'.debug_abbrev',debug,cluster('UdsFunc_SID_TRADATA_Callback')
+	.sect	'.debug_abbrev'
+.L18:
+	.byte	1,17,1,3,8,37,8,27,8,19,15,128,70,12,85,6,16,6,0,0,2,61,0,24,16,0,0,3,46,1,3,8,58,15,59,15,57,15,73,16
+	.byte	54,15,39,12,63,12,17,1,18,1,64,6,0,0,4,5,0,3,8,58,15,59,15,57,15,73,16,2,6,0,0,5,11,1,17,1,18,1,0,0,6
+	.byte	52,0,3,8,58,15,59,15,57,15,73,16,2,6,0,0,7,11,0,17,1,18,1,0,0,0
+	.sdecl	'.debug_line',debug,cluster('UdsFunc_SID_TRADATA_Callback')
+	.sect	'.debug_line'
+.L19:
+	.word	.L53-.L52
+.L52:
+	.half	3
+	.word	.L55-.L54
+.L54:
+	.byte	2,1,-4,9,10,0,1,1,1,1,0,0,0,1,0
+	.byte	'..\\Communication_Files\\Uds\\User\\Uds_User_TransferDataCallback.c',0,0,0,0,0
+.L55:
+	.byte	5,11,7,0,5,2
+	.word	.L12
+	.byte	3,32,1,5,9,3,122,1,5,19,9
+	.half	.L38-.L12
+	.byte	3,10,1,5,5,9
+	.half	.L41-.L38
+	.byte	1,5,50,7,9
+	.half	.L56-.L41
+	.byte	1,5,65,9
+	.half	.L57-.L56
+	.byte	1,5,10,7,9
+	.half	.L58-.L57
+	.byte	3,2,1,5,22,9
+	.half	.L59-.L58
+	.byte	1,5,25,9
+	.half	.L60-.L59
+	.byte	1,5,49,9
+	.half	.L61-.L60
+	.byte	3,5,1,5,55,9
+	.half	.L43-.L61
+	.byte	3,126,1,5,41,9
+	.half	.L62-.L43
+	.byte	1,5,37,9
+	.half	.L4-.L62
+	.byte	3,2,1,5,27,9
+	.half	.L63-.L4
+	.byte	1,5,41,9
+	.half	.L64-.L63
+	.byte	3,126,1,5,66,7,9
+	.half	.L65-.L64
+	.byte	3,6,1,5,49,9
+	.half	.L66-.L65
+	.byte	1,5,66,1,5,107,9
+	.half	.L67-.L66
+	.byte	1,5,85,1,5,107,9
+	.half	.L68-.L67
+	.byte	1,5,105,9
+	.half	.L69-.L68
+	.byte	1,5,81,7,9
+	.half	.L70-.L69
+	.byte	3,6,1,5,23,9
+	.half	.L71-.L70
+	.byte	1,5,49,9
+	.half	.L72-.L71
+	.byte	1,5,53,9
+	.half	.L73-.L72
+	.byte	1,5,39,1,5,15,9
+	.half	.L74-.L73
+	.byte	3,2,1,5,19,9
+	.half	.L75-.L74
+	.byte	1,5,50,3,16,1,5,37,9
+	.half	.L76-.L75
+	.byte	3,114,1,5,86,9
+	.half	.L77-.L76
+	.byte	3,3,1,5,102,9
+	.half	.L78-.L77
+	.byte	1,5,64,9
+	.half	.L79-.L78
+	.byte	1,5,50,9
+	.half	.L80-.L79
+	.byte	3,11,1,5,21,9
+	.half	.L81-.L80
+	.byte	3,1,1,5,19,1,5,4,9
+	.half	.L82-.L81
+	.byte	3,1,1,5,23,9
+	.half	.L83-.L82
+	.byte	1,5,21,1,5,4,9
+	.half	.L84-.L83
+	.byte	3,1,1,5,34,9
+	.half	.L85-.L84
+	.byte	1,5,32,1,5,3,9
+	.half	.L86-.L85
+	.byte	3,105,1,5,24,9
+	.half	.L2-.L86
+	.byte	3,27,1,5,10,9
+	.half	.L87-.L2
+	.byte	1,5,55,7,9
+	.half	.L88-.L87
+	.byte	1,5,70,9
+	.half	.L89-.L88
+	.byte	1,5,3,7,9
+	.half	.L90-.L89
+	.byte	3,2,1,5,26,9
+	.half	.L91-.L90
+	.byte	3,1,1,5,3,3,127,1,5,19,9
+	.half	.L92-.L91
+	.byte	1,5,3,9
+	.half	.L93-.L92
+	.byte	3,1,1,5,21,7,9
+	.half	.L94-.L93
+	.byte	3,2,1,5,19,1,5,23,9
+	.half	.L95-.L94
+	.byte	3,1,1,5,21,1,9
+	.half	.L96-.L95
+	.byte	3,2,1,5,27,9
+	.half	.L97-.L96
+	.byte	3,1,1,5,17,9
+	.half	.L98-.L97
+	.byte	1,5,4,9
+	.half	.L99-.L98
+	.byte	3,1,1,5,32,9
+	.half	.L100-.L99
+	.byte	1,5,2,9
+	.half	.L5-.L100
+	.byte	3,9,1,5,1,9
+	.half	.L47-.L5
+	.byte	3,1,1,7,9
+	.half	.L21-.L47
+	.byte	0,1,1
+.L53:
+	.sdecl	'.debug_ranges',debug,cluster('UdsFunc_SID_TRADATA_Callback')
+	.sect	'.debug_ranges'
+.L20:
+	.word	-1,.L12,0,.L21-.L12,0,0
+	.sdecl	'.debug_info',debug,cluster('Boot_Flash')
+	.sect	'.debug_info'
+.L22:
+	.word	205
+	.half	3
+	.word	.L23
+	.byte	4,1
+	.byte	'..\\Communication_Files\\Uds\\User\\Uds_User_TransferDataCallback.c',0
+	.byte	'TASKING VX-toolset for TriCore: C compiler',0
+	.byte	'D:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_1.9\\BMU_BOOT\\Debug\\',0,12,1,2
+	.word	.L13
+	.byte	3
+	.byte	'Boot_Flash',0,3,4,7
+	.word	.L39
+	.byte	1,5,3
+	.word	Boot_Flash
+	.byte	0
+	.sdecl	'.debug_abbrev',debug,cluster('Boot_Flash')
+	.sect	'.debug_abbrev'
+.L23:
+	.byte	1,17,1,3,8,37,8,27,8,19,15,128,70,12,0,0,2,61,0,24,16,0,0,3,52,0,3,8,58,15,59,15,57,15,73,16,63,12,2,9
+	.byte	0,0,0
+	.sdecl	'.debug_info',debug,cluster('ui32_TRDATACount')
+	.sect	'.debug_info'
+.L24:
+	.word	211
+	.half	3
+	.word	.L25
+	.byte	4,1
+	.byte	'..\\Communication_Files\\Uds\\User\\Uds_User_TransferDataCallback.c',0
+	.byte	'TASKING VX-toolset for TriCore: C compiler',0
+	.byte	'D:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_1.9\\BMU_BOOT\\Debug\\',0,12,1,2
+	.word	.L13
+	.byte	3
+	.byte	'ui32_TRDATACount',0,3,25,8
+	.word	.L40
+	.byte	1,5,3
+	.word	ui32_TRDATACount
+	.byte	0
+	.sdecl	'.debug_abbrev',debug,cluster('ui32_TRDATACount')
+	.sect	'.debug_abbrev'
+.L25:
+	.byte	1,17,1,3,8,37,8,27,8,19,15,128,70,12,0,0,2,61,0,24,16,0,0,3,52,0,3,8,58,15,59,15,57,15,73,16,63,12,2,9
+	.byte	0,0,0
+	.sdecl	'.debug_info',debug,cluster('ui8_TRDATAFlag')
+	.sect	'.debug_info'
+.L26:
+	.word	209
+	.half	3
+	.word	.L27
+	.byte	4,1
+	.byte	'..\\Communication_Files\\Uds\\User\\Uds_User_TransferDataCallback.c',0
+	.byte	'TASKING VX-toolset for TriCore: C compiler',0
+	.byte	'D:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_1.9\\BMU_BOOT\\Debug\\',0,12,1,2
+	.word	.L13
+	.byte	3
+	.byte	'ui8_TRDATAFlag',0,3,26,7
+	.word	.L28
+	.byte	1,5,3
+	.word	ui8_TRDATAFlag
+	.byte	0
+	.sdecl	'.debug_abbrev',debug,cluster('ui8_TRDATAFlag')
+	.sect	'.debug_abbrev'
+.L27:
+	.byte	1,17,1,3,8,37,8,27,8,19,15,128,70,12,0,0,2,61,0,24,16,0,0,3,52,0,3,8,58,15,59,15,57,15,73,16,63,12,2,9
+	.byte	0,0,0
+	.sdecl	'.debug_loc',debug,cluster('UdsFunc_SID_TRADATA_Callback')
+	.sect	'.debug_loc'
+.L11:
+	.word	-1,.L12,0,.L29-.L12
+	.half	2
+	.byte	138,0
+	.word	0,0
+.L35:
+	.word	-1,.L12,.L42-.L12,.L29-.L12
+	.half	5
+	.byte	144,36,157,32,0
+	.word	.L47-.L12,.L29-.L12
+	.half	5
+	.byte	144,33,157,32,0
+	.word	0,0
+.L34:
+	.word	-1,.L12,0,.L41-.L12
+	.half	1
+	.byte	102
+	.word	.L38-.L12,.L45-.L12
+	.half	1
+	.byte	110
+	.word	.L2-.L12,.L5-.L12
+	.half	1
+	.byte	110
+	.word	0,0
+.L31:
+	.word	-1,.L12,0,.L41-.L12
+	.half	1
+	.byte	100
+	.word	.L42-.L12,.L43-.L12
+	.half	1
+	.byte	111
+	.word	.L2-.L12,.L46-.L12
+	.half	1
+	.byte	111
+	.word	0,0
+.L32:
+	.word	-1,.L12,0,.L41-.L12
+	.half	1
+	.byte	101
+	.word	.L44-.L12,.L29-.L12
+	.half	1
+	.byte	108
+	.word	0,0
+.L37:
+	.word	0,0
+	.sdecl	'.debug_frame',debug
+	.sect	'.debug_frame'
+.L101:
+	.word	48
+	.word	-1
+	.byte	3,0,2,1,27,12,26,0,8,26,8,27,8,30,8,29,8,28,8,16,8,17,8,24,8,25,8,31,8,32,8,33,8,34,8,35,8,36,8,37,8,38
+	.byte	8,39
+	.sdecl	'.debug_frame',debug,cluster('UdsFunc_SID_TRADATA_Callback')
+	.sect	'.debug_frame'
+	.word	12
+	.word	.L101,.L12,.L29-.L12
+
+; ..\Communication_Files\Uds\User\Uds_User_TransferDataCallback.c	   100  
+
+	; Module end

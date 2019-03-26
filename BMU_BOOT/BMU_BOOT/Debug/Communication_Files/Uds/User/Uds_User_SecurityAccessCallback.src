@@ -1,0 +1,2596 @@
+	; Module start
+	.compiler_version	"TASKING VX-toolset for TriCore: C compiler v4.3r1 Build 759 SN 00641831"
+	.compiler_invocation	"ctc -f cc10588a -c99 --dep-file=Communication_Files\\Uds\\User\\.Uds_User_SecurityAccessCallback.o.d -D__CPU__=tc1782 -D__CPU_TC1782__ --core=tc1.3.1 -F -ID:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_1.9\\BMU_BOOT -ID:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_1.9\\BMU_BOOT\\Communication_Files\\CanDrv -ID:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_1.9\\BMU_BOOT\\Communication_Files\\Com -ID:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_1.9\\BMU_BOOT\\Communication_Files\\Com\\Can_Input -ID:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_1.9\\BMU_BOOT\\Communication_Files\\Com\\Can_Output -ID:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_1.9\\BMU_BOOT\\Communication_Files\\Uds\\Dcm -ID:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_1.9\\BMU_BOOT\\Communication_Files\\Uds\\Dem -ID:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_1.9\\BMU_BOOT\\Communication_Files\\Uds\\Tp -ID:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_1.9\\BMU_BOOT\\Communication_Files\\Uds\\User -ID:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_1.9\\BMU_BOOT\\Complex_Files -ID:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_1.9\\BMU_BOOT\\Initiate_Files -ID:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_1.9\\BMU_BOOT\\Nvm_Files\\FlsDrv -ID:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_1.9\\BMU_BOOT\\Stand_Header -g2 --make-target=Communication_Files\\Uds\\User\\Uds_User_SecurityAccessCallback.o -t4 --language=-gcc,-volatile,+strings --default-near-size=0 -O2 --default-a1-size=0 --default-a0-size=0 --source --align=0 --compact-max-size=200 --switch=auto -o Communication_Files\\Uds\\User\\Uds_User_SecurityAccessCallback.src ..\\Communication_Files\\Uds\\User\\Uds_User_SecurityAccessCallback.c"
+	.compiler_name		"ctc"
+	.name	"Uds_User_SecurityAccessCallback"
+
+	
+$TC131
+	
+	.sdecl	'.text.Uds_User_SecurityAccessCallback.BitReplace',code,cluster('BitReplace')
+	.sect	'.text.Uds_User_SecurityAccessCallback.BitReplace'
+	.align	2
+	
+	.global	BitReplace
+
+; ..\Communication_Files\Uds\User\Uds_User_SecurityAccessCallback.c	     1  
+; ..\Communication_Files\Uds\User\Uds_User_SecurityAccessCallback.c	     2  #include "MAIN.h"
+; ..\Communication_Files\Uds\User\Uds_User_SecurityAccessCallback.c	     3  
+; ..\Communication_Files\Uds\User\Uds_User_SecurityAccessCallback.c	     4  Struct_Uds_SID_SA_Info	st_Uds_SID_SA_Info;	/*UDS SID_SA信息*/
+; ..\Communication_Files\Uds\User\Uds_User_SecurityAccessCallback.c	     5  unsigned char AppKeyConst[4] = {0x8F, 0xC5, 0xCC, 0x0A};
+; ..\Communication_Files\Uds\User\Uds_User_SecurityAccessCallback.c	     6  unsigned char ui8_Uds_Seed[4];
+; ..\Communication_Files\Uds\User\Uds_User_SecurityAccessCallback.c	     7  
+; ..\Communication_Files\Uds\User\Uds_User_SecurityAccessCallback.c	     8  //wxc20180620
+; ..\Communication_Files\Uds\User\Uds_User_SecurityAccessCallback.c	     9  //uint32 saGetKey(uint8* wSeed)
+; ..\Communication_Files\Uds\User\Uds_User_SecurityAccessCallback.c	    10  //{
+; ..\Communication_Files\Uds\User\Uds_User_SecurityAccessCallback.c	    11  ////    uint8 Seed[4];
+; ..\Communication_Files\Uds\User\Uds_User_SecurityAccessCallback.c	    12  ////    uint8 Const[4];
+; ..\Communication_Files\Uds\User\Uds_User_SecurityAccessCallback.c	    13  ////    uint8 Seed2[4];
+; ..\Communication_Files\Uds\User\Uds_User_SecurityAccessCallback.c	    14  ////    uint8 Key1[4];
+; ..\Communication_Files\Uds\User\Uds_User_SecurityAccessCallback.c	    15  ////    uint8 Key2[4];
+; ..\Communication_Files\Uds\User\Uds_User_SecurityAccessCallback.c	    16  ////    uint8 Key[4];
+; ..\Communication_Files\Uds\User\Uds_User_SecurityAccessCallback.c	    17  ////    uint8 i;
+; ..\Communication_Files\Uds\User\Uds_User_SecurityAccessCallback.c	    18  ////    uint8 j = 3;
+; ..\Communication_Files\Uds\User\Uds_User_SecurityAccessCallback.c	    19  ////    uint32 wKey;
+; ..\Communication_Files\Uds\User\Uds_User_SecurityAccessCallback.c	    20  ////
+; ..\Communication_Files\Uds\User\Uds_User_SecurityAccessCallback.c	    21  ////    Seed[0] = (uint8)((wSeed & 0xff000000) >> 24);
+; ..\Communication_Files\Uds\User\Uds_User_SecurityAccessCallback.c	    22  ////    Seed[1] = (uint8)((wSeed & 0x00ff0000) >> 16);
+; ..\Communication_Files\Uds\User\Uds_User_SecurityAccessCallback.c	    23  ////    Seed[2] = (uint8)((wSeed & 0x0000ff00) >> 8);
+; ..\Communication_Files\Uds\User\Uds_User_SecurityAccessCallback.c	    24  ////    Seed[3] = (uint8)(wSeed & 0x000000ff);
+; ..\Communication_Files\Uds\User\Uds_User_SecurityAccessCallback.c	    25  ////
+; ..\Communication_Files\Uds\User\Uds_User_SecurityAccessCallback.c	    26  ////    Const[3] = (uint8)((wConst & 0xff000000) >> 24);
+; ..\Communication_Files\Uds\User\Uds_User_SecurityAccessCallback.c	    27  ////    Const[2] = (uint8)((wConst & 0x00ff0000) >> 16);
+; ..\Communication_Files\Uds\User\Uds_User_SecurityAccessCallback.c	    28  ////    Const[1] = (uint8)((wConst & 0x0000ff00) >> 8);
+; ..\Communication_Files\Uds\User\Uds_User_SecurityAccessCallback.c	    29  ////    Const[0] = (uint8)(wConst & 0x000000ff);
+; ..\Communication_Files\Uds\User\Uds_User_SecurityAccessCallback.c	    30  ////
+; ..\Communication_Files\Uds\User\Uds_User_SecurityAccessCallback.c	    31  ////
+; ..\Communication_Files\Uds\User\Uds_User_SecurityAccessCallback.c	    32  ////
+; ..\Communication_Files\Uds\User\Uds_User_SecurityAccessCallback.c	    33  ////    for (i = 0; i < 4; i++)
+; ..\Communication_Files\Uds\User\Uds_User_SecurityAccessCallback.c	    34  ////    {
+; ..\Communication_Files\Uds\User\Uds_User_SecurityAccessCallback.c	    35  ////        Key1[i] = Seed [i] ^ Const[i];
+; ..\Communication_Files\Uds\User\Uds_User_SecurityAccessCallback.c	    36  ////        Seed2[i] = Seed [j];
+; ..\Communication_Files\Uds\User\Uds_User_SecurityAccessCallback.c	    37  ////        Key2[i] = Seed2[i] ^ Const[i];
+; ..\Communication_Files\Uds\User\Uds_User_SecurityAccessCallback.c	    38  ////        Key[i] = (uint8)(Key1[i] + Key2[i]+0x05);
+; ..\Communication_Files\Uds\User\Uds_User_SecurityAccessCallback.c	    39  ////        j--;
+; ..\Communication_Files\Uds\User\Uds_User_SecurityAccessCallback.c	    40  ////    }
+; ..\Communication_Files\Uds\User\Uds_User_SecurityAccessCallback.c	    41  ////
+; ..\Communication_Files\Uds\User\Uds_User_SecurityAccessCallback.c	    42  ////    wKey = ((((uint32)Key[3])& 0x000000ff)
+; ..\Communication_Files\Uds\User\Uds_User_SecurityAccessCallback.c	    43  ////            + (((uint32)(Key[2]) << 8) & 0x0000ff00)
+; ..\Communication_Files\Uds\User\Uds_User_SecurityAccessCallback.c	    44  ////            + (((uint32)(Key[1]) << 16) & 0x00ff0000)
+; ..\Communication_Files\Uds\User\Uds_User_SecurityAccessCallback.c	    45  ////            + (((uint32)(Key[0]) << 24) & 0xff000000));
+; ..\Communication_Files\Uds\User\Uds_User_SecurityAccessCallback.c	    46  //
+; ..\Communication_Files\Uds\User\Uds_User_SecurityAccessCallback.c	    47  //	return((((wSeed >> 4) ^ wSeed) << 3) ^ wSeed);
+; ..\Communication_Files\Uds\User\Uds_User_SecurityAccessCallback.c	    48  //}
+; ..\Communication_Files\Uds\User\Uds_User_SecurityAccessCallback.c	    49  
+; ..\Communication_Files\Uds\User\Uds_User_SecurityAccessCallback.c	    50  /*观致算法
+; ..\Communication_Files\Uds\User\Uds_User_SecurityAccessCallback.c	    51  uint32 saGetKey(uint8 *wSeed)
+; ..\Communication_Files\Uds\User\Uds_User_SecurityAccessCallback.c	    52  {
+; ..\Communication_Files\Uds\User\Uds_User_SecurityAccessCallback.c	    53  	uint8 *ui8_temp;
+; ..\Communication_Files\Uds\User\Uds_User_SecurityAccessCallback.c	    54  	uint8 data[8];
+; ..\Communication_Files\Uds\User\Uds_User_SecurityAccessCallback.c	    55  	uint8 ui8_data0;
+; ..\Communication_Files\Uds\User\Uds_User_SecurityAccessCallback.c	    56  	uint8 ui8_data1;
+; ..\Communication_Files\Uds\User\Uds_User_SecurityAccessCallback.c	    57  	uint8 ui8_data2;
+; ..\Communication_Files\Uds\User\Uds_User_SecurityAccessCallback.c	    58  	uint8 ui8_data3;
+; ..\Communication_Files\Uds\User\Uds_User_SecurityAccessCallback.c	    59  
+; ..\Communication_Files\Uds\User\Uds_User_SecurityAccessCallback.c	    60  	uint8 ui8_crc1;
+; ..\Communication_Files\Uds\User\Uds_User_SecurityAccessCallback.c	    61  	uint8 ui8_crc2;
+; ..\Communication_Files\Uds\User\Uds_User_SecurityAccessCallback.c	    62  	uint8 ui8_crc3;
+; ..\Communication_Files\Uds\User\Uds_User_SecurityAccessCallback.c	    63  	uint8 ui8_crc4;
+; ..\Communication_Files\Uds\User\Uds_User_SecurityAccessCallback.c	    64  	uint8 ui8_crc5;
+; ..\Communication_Files\Uds\User\Uds_User_SecurityAccessCallback.c	    65  
+; ..\Communication_Files\Uds\User\Uds_User_SecurityAccessCallback.c	    66  	ui8_data0 = wSeed[0];
+; ..\Communication_Files\Uds\User\Uds_User_SecurityAccessCallback.c	    67  	ui8_data1 = wSeed[1];
+; ..\Communication_Files\Uds\User\Uds_User_SecurityAccessCallback.c	    68  	ui8_data2 = wSeed[2];
+; ..\Communication_Files\Uds\User\Uds_User_SecurityAccessCallback.c	    69  	ui8_data3 = wSeed[3];
+; ..\Communication_Files\Uds\User\Uds_User_SecurityAccessCallback.c	    70  
+; ..\Communication_Files\Uds\User\Uds_User_SecurityAccessCallback.c	    71  	ui8_temp = wSeed;
+; ..\Communication_Files\Uds\User\Uds_User_SecurityAccessCallback.c	    72  	ui8_crc1 = crc(ui8_temp, 4);
+; ..\Communication_Files\Uds\User\Uds_User_SecurityAccessCallback.c	    73  
+; ..\Communication_Files\Uds\User\Uds_User_SecurityAccessCallback.c	    74  	ui8_temp = wSeed;
+; ..\Communication_Files\Uds\User\Uds_User_SecurityAccessCallback.c	    75  	ui8_temp[0] = ui8_crc1;
+; ..\Communication_Files\Uds\User\Uds_User_SecurityAccessCallback.c	    76  	ui8_crc2 = crc(ui8_temp, 4);
+; ..\Communication_Files\Uds\User\Uds_User_SecurityAccessCallback.c	    77  	ui8_temp[0] = ui8_data0;
+; ..\Communication_Files\Uds\User\Uds_User_SecurityAccessCallback.c	    78  
+; ..\Communication_Files\Uds\User\Uds_User_SecurityAccessCallback.c	    79  	ui8_temp = wSeed;
+; ..\Communication_Files\Uds\User\Uds_User_SecurityAccessCallback.c	    80  	ui8_temp[1] = ui8_crc2;
+; ..\Communication_Files\Uds\User\Uds_User_SecurityAccessCallback.c	    81  	ui8_crc3 = crc(ui8_temp, 4);
+; ..\Communication_Files\Uds\User\Uds_User_SecurityAccessCallback.c	    82  	ui8_temp[1] = ui8_data1;
+; ..\Communication_Files\Uds\User\Uds_User_SecurityAccessCallback.c	    83  
+; ..\Communication_Files\Uds\User\Uds_User_SecurityAccessCallback.c	    84  	ui8_temp = wSeed;
+; ..\Communication_Files\Uds\User\Uds_User_SecurityAccessCallback.c	    85  	ui8_temp[2] = ui8_crc3;
+; ..\Communication_Files\Uds\User\Uds_User_SecurityAccessCallback.c	    86  	ui8_crc4 = crc(ui8_temp, 4);
+; ..\Communication_Files\Uds\User\Uds_User_SecurityAccessCallback.c	    87  	ui8_temp[2] = ui8_data2;
+; ..\Communication_Files\Uds\User\Uds_User_SecurityAccessCallback.c	    88  
+; ..\Communication_Files\Uds\User\Uds_User_SecurityAccessCallback.c	    89  	ui8_temp = wSeed;
+; ..\Communication_Files\Uds\User\Uds_User_SecurityAccessCallback.c	    90  	ui8_temp[3] = ui8_crc4;
+; ..\Communication_Files\Uds\User\Uds_User_SecurityAccessCallback.c	    91  	ui8_crc5 = crc(ui8_temp, 4);
+; ..\Communication_Files\Uds\User\Uds_User_SecurityAccessCallback.c	    92  	ui8_temp[3] = ui8_data3;
+; ..\Communication_Files\Uds\User\Uds_User_SecurityAccessCallback.c	    93  
+; ..\Communication_Files\Uds\User\Uds_User_SecurityAccessCallback.c	    94  	data[0] = ui8_crc2;
+; ..\Communication_Files\Uds\User\Uds_User_SecurityAccessCallback.c	    95  	data[1] = ui8_crc3;
+; ..\Communication_Files\Uds\User\Uds_User_SecurityAccessCallback.c	    96  	data[2] = ui8_crc4;
+; ..\Communication_Files\Uds\User\Uds_User_SecurityAccessCallback.c	    97  	data[3] = ui8_crc5;
+; ..\Communication_Files\Uds\User\Uds_User_SecurityAccessCallback.c	    98  
+; ..\Communication_Files\Uds\User\Uds_User_SecurityAccessCallback.c	    99  	return ((ui8_crc2 * 0x100U * 0x100U * 0x100U
+; ..\Communication_Files\Uds\User\Uds_User_SecurityAccessCallback.c	   100  			+ ui8_crc3 * 0x100U * 0x100U
+; ..\Communication_Files\Uds\User\Uds_User_SecurityAccessCallback.c	   101  			+ ui8_crc4 * 0x100U
+; ..\Communication_Files\Uds\User\Uds_User_SecurityAccessCallback.c	   102  			+ ui8_crc5));
+; ..\Communication_Files\Uds\User\Uds_User_SecurityAccessCallback.c	   103  
+; ..\Communication_Files\Uds\User\Uds_User_SecurityAccessCallback.c	   104  }*/
+; ..\Communication_Files\Uds\User\Uds_User_SecurityAccessCallback.c	   105  /*微宏算法*/
+; ..\Communication_Files\Uds\User\Uds_User_SecurityAccessCallback.c	   106  unsigned char BitReplace(unsigned char seed)
+; Function BitReplace
+.L26:
+BitReplace:	.type	func
+
+; ..\Communication_Files\Uds\User\Uds_User_SecurityAccessCallback.c	   107  {
+; ..\Communication_Files\Uds\User\Uds_User_SecurityAccessCallback.c	   108      seed = ((seed & 0x55) << 1) | ((seed >> 1) & 0x55);
+	and	d15,d4,#85
+.L244:
+	sha	d0,d15,#1
+.L245:
+	sha	d4,#-1
+.L133:
+	and	d15,d4,#85
+.L134:
+	or	d0,d15
+.L246:
+
+; ..\Communication_Files\Uds\User\Uds_User_SecurityAccessCallback.c	   109      seed = ((seed & 0x33) << 2) | ((seed >> 2) & 0x33);
+	and	d15,d0,#51
+.L247:
+	sha	d1,d15,#2
+.L248:
+	sha	d0,#-2
+.L135:
+	and	d15,d0,#51
+.L136:
+	or	d1,d15
+.L249:
+
+; ..\Communication_Files\Uds\User\Uds_User_SecurityAccessCallback.c	   110      seed = ((seed & 0x0F) << 4) | ((seed >> 4) & 0x0F);
+	and	d15,d1,#15
+.L250:
+	sha	d15,#4
+.L251:
+	sha	d1,#-4
+.L137:
+	or	d2,d15,d1
+.L138:
+
+; ..\Communication_Files\Uds\User\Uds_User_SecurityAccessCallback.c	   111      return seed;
+; ..\Communication_Files\Uds\User\Uds_User_SecurityAccessCallback.c	   112  }
+	ret
+.L125:
+	
+__BitReplace_function_end:
+	.size	BitReplace,__BitReplace_function_end-BitReplace
+.L71:
+	; End of function
+	
+	.sdecl	'.text.Uds_User_SecurityAccessCallback.saGetKey',code,cluster('saGetKey')
+	.sect	'.text.Uds_User_SecurityAccessCallback.saGetKey'
+	.align	2
+	
+	.global	saGetKey
+
+; ..\Communication_Files\Uds\User\Uds_User_SecurityAccessCallback.c	   113  
+; ..\Communication_Files\Uds\User\Uds_User_SecurityAccessCallback.c	   114  
+; ..\Communication_Files\Uds\User\Uds_User_SecurityAccessCallback.c	   115  uint32 saGetKey(uint8 *wSeed)
+; Function saGetKey
+.L28:
+saGetKey:	.type	func
+	mov.aa	a15,a4
+.L140:
+
+; ..\Communication_Files\Uds\User\Uds_User_SecurityAccessCallback.c	   116  {
+; ..\Communication_Files\Uds\User\Uds_User_SecurityAccessCallback.c	   117  	unsigned char seed2[4];
+; ..\Communication_Files\Uds\User\Uds_User_SecurityAccessCallback.c	   118  	unsigned char key1[4];
+; ..\Communication_Files\Uds\User\Uds_User_SecurityAccessCallback.c	   119  	unsigned char key2[4];
+; ..\Communication_Files\Uds\User\Uds_User_SecurityAccessCallback.c	   120  //	unsigned char key[4];
+; ..\Communication_Files\Uds\User\Uds_User_SecurityAccessCallback.c	   121  
+; ..\Communication_Files\Uds\User\Uds_User_SecurityAccessCallback.c	   122  	unsigned int key1_temp = 0;
+; ..\Communication_Files\Uds\User\Uds_User_SecurityAccessCallback.c	   123  	unsigned int key2_temp = 0;
+; ..\Communication_Files\Uds\User\Uds_User_SecurityAccessCallback.c	   124  	unsigned int key_temp = 0;
+; ..\Communication_Files\Uds\User\Uds_User_SecurityAccessCallback.c	   125  
+; ..\Communication_Files\Uds\User\Uds_User_SecurityAccessCallback.c	   126  	key1[0] = wSeed[0]^AppKeyConst[0];
+; ..\Communication_Files\Uds\User\Uds_User_SecurityAccessCallback.c	   127      key1[1] = wSeed[1]^AppKeyConst[1];
+; ..\Communication_Files\Uds\User\Uds_User_SecurityAccessCallback.c	   128      key1[2] = wSeed[2]^AppKeyConst[2];
+; ..\Communication_Files\Uds\User\Uds_User_SecurityAccessCallback.c	   129      key1[3] = wSeed[3]^AppKeyConst[3];
+; ..\Communication_Files\Uds\User\Uds_User_SecurityAccessCallback.c	   130  
+; ..\Communication_Files\Uds\User\Uds_User_SecurityAccessCallback.c	   131      key1_temp = key1[0] * 256U * 256U *256U + key1[1] * 256U * 256U + key1[2] * 256U + key1[3];
+; ..\Communication_Files\Uds\User\Uds_User_SecurityAccessCallback.c	   132  
+; ..\Communication_Files\Uds\User\Uds_User_SecurityAccessCallback.c	   133      seed2[0] = BitReplace(wSeed[3]);
+	ld.bu	d9,[a15]3
+	mov	d4,d9
+	call	BitReplace
+.L139:
+
+; ..\Communication_Files\Uds\User\Uds_User_SecurityAccessCallback.c	   134  	seed2[1] = BitReplace(wSeed[2]);
+	mov	d8,d2
+	ld.bu	d15,[a15]2
+	mov	d4,d15
+	call	BitReplace
+.L256:
+
+; ..\Communication_Files\Uds\User\Uds_User_SecurityAccessCallback.c	   135      seed2[2] = BitReplace(wSeed[1]);
+	mov	d10,d2
+	ld.bu	d12,[a15]1
+	mov	d4,d12
+	call	BitReplace
+.L257:
+
+; ..\Communication_Files\Uds\User\Uds_User_SecurityAccessCallback.c	   136      seed2[3] = BitReplace(wSeed[0]);
+	mov	d11,d2
+	ld.bu	d13,[a15]
+	mov	d4,d13
+	call	BitReplace
+.L258:
+
+; ..\Communication_Files\Uds\User\Uds_User_SecurityAccessCallback.c	   137  
+; ..\Communication_Files\Uds\User\Uds_User_SecurityAccessCallback.c	   138      key2[0] = (seed2[0] + AppKeyConst[3])^AppKeyConst[0];
+; ..\Communication_Files\Uds\User\Uds_User_SecurityAccessCallback.c	   139      key2[1] = (seed2[1] + AppKeyConst[2])^AppKeyConst[1];
+; ..\Communication_Files\Uds\User\Uds_User_SecurityAccessCallback.c	   140      key2[2] = (seed2[2] + AppKeyConst[1])^AppKeyConst[2];
+; ..\Communication_Files\Uds\User\Uds_User_SecurityAccessCallback.c	   141      key2[3] = (seed2[3] + AppKeyConst[0])^AppKeyConst[3];
+	movh.a	a15,#@his(AppKeyConst)
+.L141:
+	lea	a15,[a15]@los(AppKeyConst)
+.L259:
+	ld.bu	d4,[a15]
+.L260:
+	xor	d0,d13,d4
+	ld.bu	d6,[a15]1
+.L261:
+	xor	d1,d12,d6
+	ld.bu	d5,[a15]2
+.L262:
+	sh	d0,d0,#24
+	ld.bu	d3,[a15]3
+.L263:
+	sh	d1,d1,#16
+.L264:
+	xor	d15,d5
+.L265:
+	sh	d15,d15,#8
+.L266:
+	add	d0,d1
+.L267:
+	add	d8,d3
+.L268:
+	add	d10,d5
+	extr.u	d1,d10,#0,#8
+.L269:
+	add	d0,d15
+.L270:
+	extr.u	d15,d8,#0,#8
+.L271:
+	xor	d15,d4
+.L272:
+	xor	d1,d6
+.L273:
+
+; ..\Communication_Files\Uds\User\Uds_User_SecurityAccessCallback.c	   142  
+; ..\Communication_Files\Uds\User\Uds_User_SecurityAccessCallback.c	   143      key2_temp = (unsigned int)(key2[0] * 256U * 256U *256U + key2[1] * 256U *256U + key2[2] * 256U + key2[3]);
+	sh	d15,d15,#24
+.L274:
+	sh	d1,d1,#16
+.L275:
+	add	d11,d6
+.L276:
+	add	d15,d1
+.L277:
+	extr.u	d1,d11,#0,#8
+.L278:
+	xor	d5,d1
+.L279:
+	sh	d1,d5,#8
+.L280:
+	add	d2,d4
+.L281:
+	add	d15,d1
+.L282:
+	extr.u	d1,d2,#0,#8
+.L283:
+	xor	d9,d3
+.L284:
+	xor	d3,d1
+.L285:
+	add	d0,d9
+.L286:
+	add	d15,d3
+.L287:
+
+; ..\Communication_Files\Uds\User\Uds_User_SecurityAccessCallback.c	   144      key_temp = (unsigned int)(key1_temp + key2_temp);
+	add	d2,d0,d15
+.L288:
+
+; ..\Communication_Files\Uds\User\Uds_User_SecurityAccessCallback.c	   145  
+; ..\Communication_Files\Uds\User\Uds_User_SecurityAccessCallback.c	   146  //    key[0] = (unsigned char)(key_temp>>24);
+; ..\Communication_Files\Uds\User\Uds_User_SecurityAccessCallback.c	   147  //    key[1] = (unsigned char)(key_temp>>16);
+; ..\Communication_Files\Uds\User\Uds_User_SecurityAccessCallback.c	   148  //    key[2] = (unsigned char)(key_temp>>8);
+; ..\Communication_Files\Uds\User\Uds_User_SecurityAccessCallback.c	   149  //    key[3] = (unsigned char)(key_temp);
+; ..\Communication_Files\Uds\User\Uds_User_SecurityAccessCallback.c	   150  
+; ..\Communication_Files\Uds\User\Uds_User_SecurityAccessCallback.c	   151      return (key_temp);
+; ..\Communication_Files\Uds\User\Uds_User_SecurityAccessCallback.c	   152  }
+	ret
+.L127:
+	
+__saGetKey_function_end:
+	.size	saGetKey,__saGetKey_function_end-saGetKey
+.L76:
+	; End of function
+	
+	.sdecl	'.text.Uds_User_SecurityAccessCallback.saGetKey1',code,cluster('saGetKey1')
+	.sect	'.text.Uds_User_SecurityAccessCallback.saGetKey1'
+	.align	2
+	
+	.global	saGetKey1
+
+; ..\Communication_Files\Uds\User\Uds_User_SecurityAccessCallback.c	   153  
+; ..\Communication_Files\Uds\User\Uds_User_SecurityAccessCallback.c	   154  uint32 saGetKey1(uint8 *wSeed)
+; Function saGetKey1
+.L30:
+saGetKey1:	.type	func
+
+; ..\Communication_Files\Uds\User\Uds_User_SecurityAccessCallback.c	   155  {
+; ..\Communication_Files\Uds\User\Uds_User_SecurityAccessCallback.c	   156  //	unsigned char seed2[4];
+; ..\Communication_Files\Uds\User\Uds_User_SecurityAccessCallback.c	   157  	unsigned char key1[4];
+; ..\Communication_Files\Uds\User\Uds_User_SecurityAccessCallback.c	   158  //	unsigned char key2[4];
+; ..\Communication_Files\Uds\User\Uds_User_SecurityAccessCallback.c	   159  	unsigned char key[4];
+; ..\Communication_Files\Uds\User\Uds_User_SecurityAccessCallback.c	   160  
+; ..\Communication_Files\Uds\User\Uds_User_SecurityAccessCallback.c	   161  	unsigned int key1_temp = 0;
+; ..\Communication_Files\Uds\User\Uds_User_SecurityAccessCallback.c	   162  	unsigned int key2_temp = 0;
+; ..\Communication_Files\Uds\User\Uds_User_SecurityAccessCallback.c	   163  	unsigned int key_temp = 0;
+; ..\Communication_Files\Uds\User\Uds_User_SecurityAccessCallback.c	   164  
+; ..\Communication_Files\Uds\User\Uds_User_SecurityAccessCallback.c	   165  	key1[0] = wSeed[0]^AppKeyConst[0];
+	movh.a	a15,#@his(AppKeyConst)
+	lea	a15,[a15]@los(AppKeyConst)
+.L293:
+	ld.bu	d0,[a4]
+.L294:
+	ld.bu	d15,[a15]
+.L295:
+
+; ..\Communication_Files\Uds\User\Uds_User_SecurityAccessCallback.c	   166      key1[1] = wSeed[1]^AppKeyConst[1];
+	xor	d0,d15
+	ld.bu	d15,[a4]1
+.L296:
+	ld.bu	d1,[a15]1
+.L297:
+
+; ..\Communication_Files\Uds\User\Uds_User_SecurityAccessCallback.c	   167      key1[2] = wSeed[2]^AppKeyConst[2];
+; ..\Communication_Files\Uds\User\Uds_User_SecurityAccessCallback.c	   168      key1[3] = wSeed[3]^AppKeyConst[3];
+	xor	d1,d15
+	ld.bu	d15,[a4]3
+.L298:
+	ld.bu	d2,[a15]3
+.L299:
+	xor	d3,d15,d2
+.L300:
+
+; ..\Communication_Files\Uds\User\Uds_User_SecurityAccessCallback.c	   169  
+; ..\Communication_Files\Uds\User\Uds_User_SecurityAccessCallback.c	   170      key[0] = (key1[2]&0x0F)|(key1[2]&0xF0);
+; ..\Communication_Files\Uds\User\Uds_User_SecurityAccessCallback.c	   171      key[1] = ((key1[0]&0x0F)<<4)|((key1[1]&0xF0)>>4);
+; ..\Communication_Files\Uds\User\Uds_User_SecurityAccessCallback.c	   172      key[2] = ((key1[1]&0xF0))|((key1[3]&0xF0)>>4);
+; ..\Communication_Files\Uds\User\Uds_User_SecurityAccessCallback.c	   173      key[3] = ((key1[0]&0x0F)<<4)|((key1[3]&0x0F));
+	and	d15,d0,#15
+.L301:
+	and	d0,d1,#240
+	ld.bu	d1,[a4]2
+.L302:
+	sha	d2,d0,#-4
+.L303:
+	sha	d4,d15,#4
+	ld.bu	d15,[a15]2
+.L304:
+	xor	d1,d15
+.L305:
+	or	d2,d4
+.L306:
+
+; ..\Communication_Files\Uds\User\Uds_User_SecurityAccessCallback.c	   174  
+; ..\Communication_Files\Uds\User\Uds_User_SecurityAccessCallback.c	   175      key2_temp = (unsigned int)(key[0] * 256U * 256U *256U + key[1] * 256U *256U + key[2] * 256U + key[3]);
+	sh	d1,d1,#24
+.L307:
+	sh	d2,d2,#16
+.L308:
+	and	d15,d3,#240
+.L309:
+	add	d1,d2
+.L310:
+	sha	d2,d15,#-4
+.L311:
+	or	d0,d2
+.L312:
+	and	d15,d3,#15
+.L313:
+	sh	d0,d0,#8
+.L314:
+	add	d1,d0
+.L315:
+	or	d4,d15
+.L316:
+	add	d2,d1,d4
+.L317:
+
+; ..\Communication_Files\Uds\User\Uds_User_SecurityAccessCallback.c	   176  
+; ..\Communication_Files\Uds\User\Uds_User_SecurityAccessCallback.c	   177  //    key[0] = (unsigned char)(key_temp>>24);
+; ..\Communication_Files\Uds\User\Uds_User_SecurityAccessCallback.c	   178  //    key[1] = (unsigned char)(key_temp>>16);
+; ..\Communication_Files\Uds\User\Uds_User_SecurityAccessCallback.c	   179  //    key[2] = (unsigned char)(key_temp>>8);
+; ..\Communication_Files\Uds\User\Uds_User_SecurityAccessCallback.c	   180  //    key[3] = (unsigned char)(key_temp);
+; ..\Communication_Files\Uds\User\Uds_User_SecurityAccessCallback.c	   181  
+; ..\Communication_Files\Uds\User\Uds_User_SecurityAccessCallback.c	   182      return (key2_temp);
+; ..\Communication_Files\Uds\User\Uds_User_SecurityAccessCallback.c	   183  }
+	ret
+.L129:
+	
+__saGetKey1_function_end:
+	.size	saGetKey1,__saGetKey1_function_end-saGetKey1
+.L81:
+	; End of function
+	
+	.sdecl	'.text.Uds_User_SecurityAccessCallback.UdsFunc_SID_SA_SUBID_RSD1_Callback',code,cluster('UdsFunc_SID_SA_SUBID_RSD1_Callback')
+	.sect	'.text.Uds_User_SecurityAccessCallback.UdsFunc_SID_SA_SUBID_RSD1_Callback'
+	.align	2
+	
+	.global	UdsFunc_SID_SA_SUBID_RSD1_Callback
+
+; ..\Communication_Files\Uds\User\Uds_User_SecurityAccessCallback.c	   184  
+; ..\Communication_Files\Uds\User\Uds_User_SecurityAccessCallback.c	   185  /*************************************************************************/
+; ..\Communication_Files\Uds\User\Uds_User_SecurityAccessCallback.c	   186  /*
+; ..\Communication_Files\Uds\User\Uds_User_SecurityAccessCallback.c	   187  Function:		void UdsFunc_SID_SA_SUBID_RSD4_Callback
+; ..\Communication_Files\Uds\User\Uds_User_SecurityAccessCallback.c	   188  				(uint8 *ui8_pInd, uint8 *ui8_pRes, uint16 *ui16_pResLen)
+; ..\Communication_Files\Uds\User\Uds_User_SecurityAccessCallback.c	   189  
+; ..\Communication_Files\Uds\User\Uds_User_SecurityAccessCallback.c	   190  Description: 	此函数用于SID_SA_SUBID_RSD服务回调
+; ..\Communication_Files\Uds\User\Uds_User_SecurityAccessCallback.c	   191  
+; ..\Communication_Files\Uds\User\Uds_User_SecurityAccessCallback.c	   192  Parameters: 	ui8_pInd(不含SID和SubID)
+; ..\Communication_Files\Uds\User\Uds_User_SecurityAccessCallback.c	   193  				ui8_pRes(不含SID和SubID)
+; ..\Communication_Files\Uds\User\Uds_User_SecurityAccessCallback.c	   194  				ui16_pResLen
+; ..\Communication_Files\Uds\User\Uds_User_SecurityAccessCallback.c	   195  
+; ..\Communication_Files\Uds\User\Uds_User_SecurityAccessCallback.c	   196  Return:       	boolean
+; ..\Communication_Files\Uds\User\Uds_User_SecurityAccessCallback.c	   197  
+; ..\Communication_Files\Uds\User\Uds_User_SecurityAccessCallback.c	   198  Return Values:  E_OK		任务完成
+; ..\Communication_Files\Uds\User\Uds_User_SecurityAccessCallback.c	   199  				E_NOT_OK	任务未完成
+; ..\Communication_Files\Uds\User\Uds_User_SecurityAccessCallback.c	   200  
+; ..\Communication_Files\Uds\User\Uds_User_SecurityAccessCallback.c	   201  Remarks:
+; ..\Communication_Files\Uds\User\Uds_User_SecurityAccessCallback.c	   202  
+; ..\Communication_Files\Uds\User\Uds_User_SecurityAccessCallback.c	   203  Example:
+; ..\Communication_Files\Uds\User\Uds_User_SecurityAccessCallback.c	   204  */
+; ..\Communication_Files\Uds\User\Uds_User_SecurityAccessCallback.c	   205  boolean UdsFunc_SID_SA_SUBID_RSD1_Callback
+; Function UdsFunc_SID_SA_SUBID_RSD1_Callback
+.L32:
+UdsFunc_SID_SA_SUBID_RSD1_Callback:	.type	func
+
+; ..\Communication_Files\Uds\User\Uds_User_SecurityAccessCallback.c	   206  	(uint8 *ui8_pInd, uint8 *ui8_pRes, uint16 *ui16_pResLen)
+; ..\Communication_Files\Uds\User\Uds_User_SecurityAccessCallback.c	   207  {
+; ..\Communication_Files\Uds\User\Uds_User_SecurityAccessCallback.c	   208  	boolean	b_Return;
+; ..\Communication_Files\Uds\User\Uds_User_SecurityAccessCallback.c	   209  	uint32 	ui32_Cur_STM_TIM0;	/*当前STM_TIM0值*/
+; ..\Communication_Files\Uds\User\Uds_User_SecurityAccessCallback.c	   210  
+; ..\Communication_Files\Uds\User\Uds_User_SecurityAccessCallback.c	   211  	ui32_Cur_STM_TIM0 = STM_TIM0;	/*取STM_TIM0值*/
+	movh.a	a14,#@his(.L345)
+	lea	a14,[a14]@los(.L345)
+	j	.cocofun_2
+.L345:
+.L144:
+
+; ..\Communication_Files\Uds\User\Uds_User_SecurityAccessCallback.c	   212  
+; ..\Communication_Files\Uds\User\Uds_User_SecurityAccessCallback.c	   213  	//ULOCK状态下Seed返回0x00，否则返回STM_TIM0值
+; ..\Communication_Files\Uds\User\Uds_User_SecurityAccessCallback.c	   214  	if(st_Uds_SID_SA_Info.b_Security_Locked == 0x01)
+	ld.bu	d15,[a15]
+.L168:
+	jne	d15,#1,.L5				; prediction unknown
+.L169:
+
+; ..\Communication_Files\Uds\User\Uds_User_SecurityAccessCallback.c	   215  	{
+; ..\Communication_Files\Uds\User\Uds_User_SecurityAccessCallback.c	   216  		ui8_Uds_Seed[0U] = 0x00U;
+	mov	d15,#0
+	st.b	[a2],d15
+.L170:
+
+; ..\Communication_Files\Uds\User\Uds_User_SecurityAccessCallback.c	   217  		ui8_Uds_Seed[1U] = 0x00U;
+	st.b	[a4],d15
+.L171:
+
+; ..\Communication_Files\Uds\User\Uds_User_SecurityAccessCallback.c	   218  		ui8_Uds_Seed[2U] = 0x00U;
+	st.b	[a7],d15
+.L172:
+
+; ..\Communication_Files\Uds\User\Uds_User_SecurityAccessCallback.c	   219  		ui8_Uds_Seed[3U] = 0x00U;
+	st.b	[a12],d15
+.L173:
+	j	.L6
+.L5:
+
+; ..\Communication_Files\Uds\User\Uds_User_SecurityAccessCallback.c	   220  	}
+; ..\Communication_Files\Uds\User\Uds_User_SecurityAccessCallback.c	   221  	else
+; ..\Communication_Files\Uds\User\Uds_User_SecurityAccessCallback.c	   222  	{
+; ..\Communication_Files\Uds\User\Uds_User_SecurityAccessCallback.c	   223  		ui8_Uds_Seed[0U] = (uint8)(ui32_Cur_STM_TIM0 / 0x100U / 0x100U / 0x100U);
+	sh	d15,d0,#-24
+	st.b	[a2],d15
+.L174:
+
+; ..\Communication_Files\Uds\User\Uds_User_SecurityAccessCallback.c	   224  		ui8_Uds_Seed[1U] = (uint8)(ui32_Cur_STM_TIM0 / 0x100U / 0x100U);
+	sh	d15,d0,#-16
+	st.b	[a4],d15
+.L175:
+
+; ..\Communication_Files\Uds\User\Uds_User_SecurityAccessCallback.c	   225  		ui8_Uds_Seed[2U] = (uint8)(ui32_Cur_STM_TIM0 / 0x100U);
+	sh	d15,d0,#-8
+	st.b	[a7],d15
+.L176:
+
+; ..\Communication_Files\Uds\User\Uds_User_SecurityAccessCallback.c	   226  		ui8_Uds_Seed[3U] = (uint8)(ui32_Cur_STM_TIM0);
+	st.b	[a12],d0
+.L6:
+
+; ..\Communication_Files\Uds\User\Uds_User_SecurityAccessCallback.c	   227  	}
+; ..\Communication_Files\Uds\User\Uds_User_SecurityAccessCallback.c	   228  
+; ..\Communication_Files\Uds\User\Uds_User_SecurityAccessCallback.c	   229  	st_Uds_SID_SA_Info.b_RequestSeedFlag = 0x01;	/*request seed标志完成*/
+	mov	d15,#1
+.L177:
+	movh.a	a14,#@his(.L346)
+	lea	a14,[a14]@los(.L346)
+	j	.cocofun_1
+.L346:
+.L178:
+
+; ..\Communication_Files\Uds\User\Uds_User_SecurityAccessCallback.c	   230  
+; ..\Communication_Files\Uds\User\Uds_User_SecurityAccessCallback.c	   231  	/*回应数据*/
+; ..\Communication_Files\Uds\User\Uds_User_SecurityAccessCallback.c	   232  	ui16_pResLen[0U] = 4U;
+; ..\Communication_Files\Uds\User\Uds_User_SecurityAccessCallback.c	   233  	ui8_pRes[0U] = ui8_Uds_Seed[0U];
+; ..\Communication_Files\Uds\User\Uds_User_SecurityAccessCallback.c	   234  	ui8_pRes[1U] = ui8_Uds_Seed[1U];
+; ..\Communication_Files\Uds\User\Uds_User_SecurityAccessCallback.c	   235  	ui8_pRes[2U] = ui8_Uds_Seed[2U];
+; ..\Communication_Files\Uds\User\Uds_User_SecurityAccessCallback.c	   236  	ui8_pRes[3U] = ui8_Uds_Seed[3U];
+; ..\Communication_Files\Uds\User\Uds_User_SecurityAccessCallback.c	   237  	st_Uds_Response.ui8_ResCode = UDS_RES_CODE_PR;	/*正响应*/
+; ..\Communication_Files\Uds\User\Uds_User_SecurityAccessCallback.c	   238  
+; ..\Communication_Files\Uds\User\Uds_User_SecurityAccessCallback.c	   239  	b_Return = E_OK;	/*回调函数执行完毕*/
+; ..\Communication_Files\Uds\User\Uds_User_SecurityAccessCallback.c	   240  
+; ..\Communication_Files\Uds\User\Uds_User_SecurityAccessCallback.c	   241  	return	b_Return;
+; ..\Communication_Files\Uds\User\Uds_User_SecurityAccessCallback.c	   242  }
+	ret
+.L99:
+	
+__UdsFunc_SID_SA_SUBID_RSD1_Callback_function_end:
+	.size	UdsFunc_SID_SA_SUBID_RSD1_Callback,__UdsFunc_SID_SA_SUBID_RSD1_Callback_function_end-UdsFunc_SID_SA_SUBID_RSD1_Callback
+.L51:
+	; End of function
+	
+	.sdecl	'.text.Uds_User_SecurityAccessCallback..cocofun_2',code,cluster('.cocofun_2')
+	.sect	'.text.Uds_User_SecurityAccessCallback..cocofun_2'
+	.align	2
+; Function .cocofun_2
+.L34:
+.cocofun_2:	.type	func
+; Function body .cocofun_2, coco_iter:0
+	ld.w	d0,0xf0000210
+.L143:
+	movh.a	a2,#@his(ui8_Uds_Seed)
+	lea	a2,[a2]@los(ui8_Uds_Seed)
+.L339:
+	lea	a4,[a2]1
+.L142:
+	lea	a7,[a2]2
+.L340:
+	lea	a12,[a2]3
+.L341:
+	movh.a	a15,#@his(st_Uds_SID_SA_Info)
+	lea	a15,[a15]@los(st_Uds_SID_SA_Info)
+.L342:
+	ji	a14
+.L91:
+	; End of function
+	.sdecl	'.text.Uds_User_SecurityAccessCallback..cocofun_1',code,cluster('.cocofun_1')
+	.sect	'.text.Uds_User_SecurityAccessCallback..cocofun_1'
+	.align	2
+; Function .cocofun_1
+.L36:
+.cocofun_1:	.type	func
+; Function body .cocofun_1, coco_iter:0
+	st.b	[a15]1,d15
+.L322:
+	mov	d15,#4
+	st.h	[a6],d15
+.L323:
+	ld.bu	d15,[a2]
+.L324:
+	st.b	[a5],d15
+.L325:
+	ld.bu	d15,[a4]
+.L326:
+	st.b	[a5]1,d15
+.L327:
+	ld.bu	d15,[a7]
+.L328:
+	st.b	[a5]2,d15
+.L329:
+	ld.bu	d15,[a12]
+.L330:
+	st.b	[a5]3,d15
+.L331:
+	mov	d15,#0
+	movh.a	a15,#@his(st_Uds_Response)
+.L332:
+	mov	d2,d15
+	lea	a15,[a15]@los(st_Uds_Response)
+.L333:
+	st.b	[a15],d15
+.L334:
+	ji	a14
+.L86:
+	; End of function
+	.sdecl	'.text.Uds_User_SecurityAccessCallback.UdsFunc_SID_SA_SUBID_SK1_Callback',code,cluster('UdsFunc_SID_SA_SUBID_SK1_Callback')
+	.sect	'.text.Uds_User_SecurityAccessCallback.UdsFunc_SID_SA_SUBID_SK1_Callback'
+	.align	2
+	
+	.global	UdsFunc_SID_SA_SUBID_SK1_Callback
+
+; ..\Communication_Files\Uds\User\Uds_User_SecurityAccessCallback.c	   243  
+; ..\Communication_Files\Uds\User\Uds_User_SecurityAccessCallback.c	   244  /*************************************************************************/
+; ..\Communication_Files\Uds\User\Uds_User_SecurityAccessCallback.c	   245  /*
+; ..\Communication_Files\Uds\User\Uds_User_SecurityAccessCallback.c	   246  Function:		void UdsFunc_SID_SA_SUBID_SK4_Callback
+; ..\Communication_Files\Uds\User\Uds_User_SecurityAccessCallback.c	   247  				(uint8 *ui8_pInd, uint8 *ui8_pRes, uint16 *ui16_pResLen)
+; ..\Communication_Files\Uds\User\Uds_User_SecurityAccessCallback.c	   248  
+; ..\Communication_Files\Uds\User\Uds_User_SecurityAccessCallback.c	   249  Description: 	此函数用于SID_SA_SUBID_SK服务回调
+; ..\Communication_Files\Uds\User\Uds_User_SecurityAccessCallback.c	   250  
+; ..\Communication_Files\Uds\User\Uds_User_SecurityAccessCallback.c	   251  Parameters: 	ui8_pInd(不含SID和SubID)
+; ..\Communication_Files\Uds\User\Uds_User_SecurityAccessCallback.c	   252  				ui8_pRes(不含SID和SubID)
+; ..\Communication_Files\Uds\User\Uds_User_SecurityAccessCallback.c	   253  				ui16_pResLen
+; ..\Communication_Files\Uds\User\Uds_User_SecurityAccessCallback.c	   254  
+; ..\Communication_Files\Uds\User\Uds_User_SecurityAccessCallback.c	   255  Return:       	boolean
+; ..\Communication_Files\Uds\User\Uds_User_SecurityAccessCallback.c	   256  
+; ..\Communication_Files\Uds\User\Uds_User_SecurityAccessCallback.c	   257  Return Values:  E_OK		任务完成
+; ..\Communication_Files\Uds\User\Uds_User_SecurityAccessCallback.c	   258  				E_NOT_OK	任务未完成
+; ..\Communication_Files\Uds\User\Uds_User_SecurityAccessCallback.c	   259  
+; ..\Communication_Files\Uds\User\Uds_User_SecurityAccessCallback.c	   260  Remarks:
+; ..\Communication_Files\Uds\User\Uds_User_SecurityAccessCallback.c	   261  
+; ..\Communication_Files\Uds\User\Uds_User_SecurityAccessCallback.c	   262  Example:
+; ..\Communication_Files\Uds\User\Uds_User_SecurityAccessCallback.c	   263  */
+; ..\Communication_Files\Uds\User\Uds_User_SecurityAccessCallback.c	   264  boolean UdsFunc_SID_SA_SUBID_SK1_Callback
+; Function UdsFunc_SID_SA_SUBID_SK1_Callback
+.L38:
+UdsFunc_SID_SA_SUBID_SK1_Callback:	.type	func
+	sub.a	a10,#8
+.L145:
+	mov.aa	a12,a4
+.L148:
+	st.a	[a10]4,a6
+.L149:
+
+; ..\Communication_Files\Uds\User\Uds_User_SecurityAccessCallback.c	   265  	(uint8 *ui8_pInd, uint8 *ui8_pRes, uint16 *ui16_pResLen)
+; ..\Communication_Files\Uds\User\Uds_User_SecurityAccessCallback.c	   266  {
+; ..\Communication_Files\Uds\User\Uds_User_SecurityAccessCallback.c	   267  	boolean	b_Return;
+; ..\Communication_Files\Uds\User\Uds_User_SecurityAccessCallback.c	   268  	uint8	ui8_Loop_1;	/*循环计数器*/
+; ..\Communication_Files\Uds\User\Uds_User_SecurityAccessCallback.c	   269  //	uint32	ui32_Seed;
+; ..\Communication_Files\Uds\User\Uds_User_SecurityAccessCallback.c	   270  	uint32	ui32_Key;
+; ..\Communication_Files\Uds\User\Uds_User_SecurityAccessCallback.c	   271  
+; ..\Communication_Files\Uds\User\Uds_User_SecurityAccessCallback.c	   272  	if(st_Uds_SID_SA_Info.b_RequestSeedFlag == 0x01)
+; ..\Communication_Files\Uds\User\Uds_User_SecurityAccessCallback.c	   273  	{
+; ..\Communication_Files\Uds\User\Uds_User_SecurityAccessCallback.c	   274  //		for(ui8_Loop_1 = 0U; ui8_Loop_1 < 4U; ui8_Loop_1++)
+; ..\Communication_Files\Uds\User\Uds_User_SecurityAccessCallback.c	   275  //		{
+; ..\Communication_Files\Uds\User\Uds_User_SecurityAccessCallback.c	   276  //			ui8_Aes_Data_Array[ui8_Loop_1 * 4U + 0U] = ui8_Uds_Seed[0U];
+; ..\Communication_Files\Uds\User\Uds_User_SecurityAccessCallback.c	   277  //			ui8_Aes_Data_Array[ui8_Loop_1 * 4U + 1U] = ui8_Uds_Seed[1U];
+; ..\Communication_Files\Uds\User\Uds_User_SecurityAccessCallback.c	   278  //			ui8_Aes_Data_Array[ui8_Loop_1 * 4U + 2U] = ui8_Uds_Seed[2U];
+; ..\Communication_Files\Uds\User\Uds_User_SecurityAccessCallback.c	   279  //			ui8_Aes_Data_Array[ui8_Loop_1 * 4U + 3U] = ui8_Uds_Seed[3U];
+; ..\Communication_Files\Uds\User\Uds_User_SecurityAccessCallback.c	   280  //		}
+; ..\Communication_Files\Uds\User\Uds_User_SecurityAccessCallback.c	   281  //
+; ..\Communication_Files\Uds\User\Uds_User_SecurityAccessCallback.c	   282  //		Aes_Key_Input();
+; ..\Communication_Files\Uds\User\Uds_User_SecurityAccessCallback.c	   283  //		Aes_Encrypt_Deal();		//AES计算
+; ..\Communication_Files\Uds\User\Uds_User_SecurityAccessCallback.c	   284  //
+; ..\Communication_Files\Uds\User\Uds_User_SecurityAccessCallback.c	   285  //		ui8_Uds_Seed[0U] = ui8_Aes_Data_Array[0U];
+; ..\Communication_Files\Uds\User\Uds_User_SecurityAccessCallback.c	   286  //		ui8_Uds_Seed[1U] = ui8_Aes_Data_Array[1U];
+; ..\Communication_Files\Uds\User\Uds_User_SecurityAccessCallback.c	   287  //		ui8_Uds_Seed[2U] = ui8_Aes_Data_Array[2U];
+; ..\Communication_Files\Uds\User\Uds_User_SecurityAccessCallback.c	   288  //		ui8_Uds_Seed[3U] = ui8_Aes_Data_Array[3U];
+; ..\Communication_Files\Uds\User\Uds_User_SecurityAccessCallback.c	   289  
+; ..\Communication_Files\Uds\User\Uds_User_SecurityAccessCallback.c	   290  //		ui32_Seed = ui8_Uds_Seed[0U] * 0x100U * 0x100U * 0x100U
+; ..\Communication_Files\Uds\User\Uds_User_SecurityAccessCallback.c	   291  //					+ ui8_Uds_Seed[1U] * 0x100U * 0x100U
+; ..\Communication_Files\Uds\User\Uds_User_SecurityAccessCallback.c	   292  //					+ ui8_Uds_Seed[2U] * 0x100U
+; ..\Communication_Files\Uds\User\Uds_User_SecurityAccessCallback.c	   293  //					+ui8_Uds_Seed[3U];
+; ..\Communication_Files\Uds\User\Uds_User_SecurityAccessCallback.c	   294  
+; ..\Communication_Files\Uds\User\Uds_User_SecurityAccessCallback.c	   295  		ui32_Key = saGetKey1(&ui8_Uds_Seed[0U]);
+; ..\Communication_Files\Uds\User\Uds_User_SecurityAccessCallback.c	   296  
+; ..\Communication_Files\Uds\User\Uds_User_SecurityAccessCallback.c	   297  		ui8_Uds_Seed[0U] = (uint8)(ui32_Key / 0x100U / 0x100U / 0x100U);
+; ..\Communication_Files\Uds\User\Uds_User_SecurityAccessCallback.c	   298  		ui8_Uds_Seed[1U] = (uint8)(ui32_Key / 0x100U / 0x100U);
+; ..\Communication_Files\Uds\User\Uds_User_SecurityAccessCallback.c	   299  		ui8_Uds_Seed[2U] = (uint8)(ui32_Key / 0x100U);
+; ..\Communication_Files\Uds\User\Uds_User_SecurityAccessCallback.c	   300  		ui8_Uds_Seed[3U] = (uint8)ui32_Key;
+; ..\Communication_Files\Uds\User\Uds_User_SecurityAccessCallback.c	   301  
+; ..\Communication_Files\Uds\User\Uds_User_SecurityAccessCallback.c	   302  
+; ..\Communication_Files\Uds\User\Uds_User_SecurityAccessCallback.c	   303  
+; ..\Communication_Files\Uds\User\Uds_User_SecurityAccessCallback.c	   304  		for(ui8_Loop_1 = 0U; ui8_Loop_1 < 4U; ui8_Loop_1++)
+; ..\Communication_Files\Uds\User\Uds_User_SecurityAccessCallback.c	   305  		{
+; ..\Communication_Files\Uds\User\Uds_User_SecurityAccessCallback.c	   306  			if(ui8_pInd[ui8_Loop_1] != ui8_Uds_Seed[ui8_Loop_1])
+; ..\Communication_Files\Uds\User\Uds_User_SecurityAccessCallback.c	   307  			{
+; ..\Communication_Files\Uds\User\Uds_User_SecurityAccessCallback.c	   308  				break;
+; ..\Communication_Files\Uds\User\Uds_User_SecurityAccessCallback.c	   309  			}
+; ..\Communication_Files\Uds\User\Uds_User_SecurityAccessCallback.c	   310  		}
+; ..\Communication_Files\Uds\User\Uds_User_SecurityAccessCallback.c	   311  //		ui8_Loop_1 = 4U;
+; ..\Communication_Files\Uds\User\Uds_User_SecurityAccessCallback.c	   312  		if(ui8_Loop_1 < 4U)
+; ..\Communication_Files\Uds\User\Uds_User_SecurityAccessCallback.c	   313  		{
+; ..\Communication_Files\Uds\User\Uds_User_SecurityAccessCallback.c	   314  			st_Uds_Response.ui8_ResCode = UDS_RES_CODE_IK;	/*密钥错误响应*/
+	movh.a	a13,#@his(st_Uds_Response)
+	lea	a13,[a13]@los(st_Uds_Response)
+.L183:
+	movh.a	a14,#@his(st_Uds_SID_SA_Info)
+	lea	a14,[a14]@los(st_Uds_SID_SA_Info)
+.L184:
+	mov.aa	a15,a14
+	ld.bu	d15,[+a15]1
+	st.a	[a10],a15
+.L185:
+	jne	d15,#1,.L8				; predicted taken
+.L186:
+	movh.a	a15,#@his(ui8_Uds_Seed)
+	lea	a15,[a15]@los(ui8_Uds_Seed)
+	mov.aa	a4,a15
+.L147:
+	call	saGetKey1
+.L146:
+	sh	d15,d2,#-24
+	st.b	[a15],d15
+.L187:
+	sh	d15,d2,#-16
+	st.b	[a15]1,d15
+.L188:
+	sh	d15,d2,#-8
+	st.b	[a15]2,d15
+.L189:
+	st.b	[a15]3,d2
+.L190:
+	mov	d0,#0
+	mov.a	a2,#3
+.L9:
+	ld.bu	d15,[a12]
+.L191:
+	ld.bu	d1,[a15]
+.L192:
+	jne	d15,d1,.L10				; predicted not taken
+.L193:
+	add	d0,#1
+	add.a	a15,#1
+	add.a	a12,#1
+.L194:
+	loop	a2,.L9				; predicted taken
+.L10:
+	jge.u	d0,#4,.L11				; prediction unknown
+.L195:
+	mov	d15,#53
+.L196:
+	j	.L12
+.L11:
+
+; ..\Communication_Files\Uds\User\Uds_User_SecurityAccessCallback.c	   315  		}
+; ..\Communication_Files\Uds\User\Uds_User_SecurityAccessCallback.c	   316  		else
+; ..\Communication_Files\Uds\User\Uds_User_SecurityAccessCallback.c	   317  		{
+; ..\Communication_Files\Uds\User\Uds_User_SecurityAccessCallback.c	   318  			st_Uds_SID_SA_Info.b_RequestSeedFlag = 0x00;	/*request seed标志清除*/
+	mov	d15,#0
+	ld.a	a15,[a10]
+	st.b	[a15],d15
+.L197:
+
+; ..\Communication_Files\Uds\User\Uds_User_SecurityAccessCallback.c	   319  			st_Uds_SID_SA_Info.b_Security_Locked = 0x01;	/*密钥解除锁定*/
+	mov	d0,#1
+	st.b	[a14],d0
+.L150:
+
+; ..\Communication_Files\Uds\User\Uds_User_SecurityAccessCallback.c	   320  
+; ..\Communication_Files\Uds\User\Uds_User_SecurityAccessCallback.c	   321  			/*回应数据*/
+; ..\Communication_Files\Uds\User\Uds_User_SecurityAccessCallback.c	   322  			ui16_pResLen[0U] = 0U;
+	ld.a	a15,[a10]4
+.L151:
+	st.h	[a15],d15
+.L198:
+	j	.L13
+.L8:
+
+; ..\Communication_Files\Uds\User\Uds_User_SecurityAccessCallback.c	   323  			st_Uds_Response.ui8_ResCode = UDS_RES_CODE_PR;	/*正响应*/
+; ..\Communication_Files\Uds\User\Uds_User_SecurityAccessCallback.c	   324  		}
+; ..\Communication_Files\Uds\User\Uds_User_SecurityAccessCallback.c	   325  	}
+; ..\Communication_Files\Uds\User\Uds_User_SecurityAccessCallback.c	   326  	else
+; ..\Communication_Files\Uds\User\Uds_User_SecurityAccessCallback.c	   327  	{
+; ..\Communication_Files\Uds\User\Uds_User_SecurityAccessCallback.c	   328  		st_Uds_Response.ui8_ResCode = UDS_RES_CODE_RSE;	/*请求顺序错误响应*/
+	mov	d15,#36
+.L12:
+.L13:
+
+; ..\Communication_Files\Uds\User\Uds_User_SecurityAccessCallback.c	   329  	}
+; ..\Communication_Files\Uds\User\Uds_User_SecurityAccessCallback.c	   330  
+; ..\Communication_Files\Uds\User\Uds_User_SecurityAccessCallback.c	   331  	b_Return = E_OK;	/*回调函数执行完毕*/
+; ..\Communication_Files\Uds\User\Uds_User_SecurityAccessCallback.c	   332  
+; ..\Communication_Files\Uds\User\Uds_User_SecurityAccessCallback.c	   333  	return	b_Return;
+	mov	d2,#0
+	st.b	[a13],d15
+.L199:
+
+; ..\Communication_Files\Uds\User\Uds_User_SecurityAccessCallback.c	   334  }
+	ret
+.L108:
+	
+__UdsFunc_SID_SA_SUBID_SK1_Callback_function_end:
+	.size	UdsFunc_SID_SA_SUBID_SK1_Callback,__UdsFunc_SID_SA_SUBID_SK1_Callback_function_end-UdsFunc_SID_SA_SUBID_SK1_Callback
+.L56:
+	; End of function
+	
+	.sdecl	'.text.Uds_User_SecurityAccessCallback.UdsFunc_SID_SA_SUBID_RSD4_Callback',code,cluster('UdsFunc_SID_SA_SUBID_RSD4_Callback')
+	.sect	'.text.Uds_User_SecurityAccessCallback.UdsFunc_SID_SA_SUBID_RSD4_Callback'
+	.align	2
+	
+	.global	UdsFunc_SID_SA_SUBID_RSD4_Callback
+
+; ..\Communication_Files\Uds\User\Uds_User_SecurityAccessCallback.c	   335  
+; ..\Communication_Files\Uds\User\Uds_User_SecurityAccessCallback.c	   336  /*************************************************************************/
+; ..\Communication_Files\Uds\User\Uds_User_SecurityAccessCallback.c	   337  /*
+; ..\Communication_Files\Uds\User\Uds_User_SecurityAccessCallback.c	   338  Function:		void UdsFunc_SID_SA_SUBID_RSD4_Callback
+; ..\Communication_Files\Uds\User\Uds_User_SecurityAccessCallback.c	   339  				(uint8 *ui8_pInd, uint8 *ui8_pRes, uint16 *ui16_pResLen)
+; ..\Communication_Files\Uds\User\Uds_User_SecurityAccessCallback.c	   340  
+; ..\Communication_Files\Uds\User\Uds_User_SecurityAccessCallback.c	   341  Description: 	此函数用于SID_SA_SUBID_RSD服务回调
+; ..\Communication_Files\Uds\User\Uds_User_SecurityAccessCallback.c	   342  
+; ..\Communication_Files\Uds\User\Uds_User_SecurityAccessCallback.c	   343  Parameters: 	ui8_pInd(不含SID和SubID)
+; ..\Communication_Files\Uds\User\Uds_User_SecurityAccessCallback.c	   344  				ui8_pRes(不含SID和SubID)
+; ..\Communication_Files\Uds\User\Uds_User_SecurityAccessCallback.c	   345  				ui16_pResLen
+; ..\Communication_Files\Uds\User\Uds_User_SecurityAccessCallback.c	   346  
+; ..\Communication_Files\Uds\User\Uds_User_SecurityAccessCallback.c	   347  Return:       	boolean
+; ..\Communication_Files\Uds\User\Uds_User_SecurityAccessCallback.c	   348  
+; ..\Communication_Files\Uds\User\Uds_User_SecurityAccessCallback.c	   349  Return Values:  E_OK		任务完成
+; ..\Communication_Files\Uds\User\Uds_User_SecurityAccessCallback.c	   350  				E_NOT_OK	任务未完成
+; ..\Communication_Files\Uds\User\Uds_User_SecurityAccessCallback.c	   351  
+; ..\Communication_Files\Uds\User\Uds_User_SecurityAccessCallback.c	   352  Remarks:
+; ..\Communication_Files\Uds\User\Uds_User_SecurityAccessCallback.c	   353  
+; ..\Communication_Files\Uds\User\Uds_User_SecurityAccessCallback.c	   354  Example:
+; ..\Communication_Files\Uds\User\Uds_User_SecurityAccessCallback.c	   355  */
+; ..\Communication_Files\Uds\User\Uds_User_SecurityAccessCallback.c	   356  boolean UdsFunc_SID_SA_SUBID_RSD4_Callback
+; Function UdsFunc_SID_SA_SUBID_RSD4_Callback
+.L40:
+UdsFunc_SID_SA_SUBID_RSD4_Callback:	.type	func
+
+; ..\Communication_Files\Uds\User\Uds_User_SecurityAccessCallback.c	   357  	(uint8 *ui8_pInd, uint8 *ui8_pRes, uint16 *ui16_pResLen)
+; ..\Communication_Files\Uds\User\Uds_User_SecurityAccessCallback.c	   358  {
+; ..\Communication_Files\Uds\User\Uds_User_SecurityAccessCallback.c	   359  	boolean	b_Return;
+; ..\Communication_Files\Uds\User\Uds_User_SecurityAccessCallback.c	   360  	uint32 	ui32_Cur_STM_TIM0;	/*当前STM_TIM0值*/
+; ..\Communication_Files\Uds\User\Uds_User_SecurityAccessCallback.c	   361  
+; ..\Communication_Files\Uds\User\Uds_User_SecurityAccessCallback.c	   362  	ui32_Cur_STM_TIM0 = STM_TIM0;	/*取STM_TIM0值*/
+	movh.a	a14,#@his(.L347)
+	lea	a14,[a14]@los(.L347)
+	j	.cocofun_2
+.L347:
+.L152:
+
+; ..\Communication_Files\Uds\User\Uds_User_SecurityAccessCallback.c	   363  
+; ..\Communication_Files\Uds\User\Uds_User_SecurityAccessCallback.c	   364  	//ULOCK状态下Seed返回0x00，否则返回STM_TIM0值
+; ..\Communication_Files\Uds\User\Uds_User_SecurityAccessCallback.c	   365  	if(st_Uds_SID_SA_Info.b_Security_Locked == 0x08)
+	mov	d15,#8
+	ld.bu	d1,[a15]
+.L204:
+	jne	d15,d1,.L15				; prediction unknown
+.L205:
+
+; ..\Communication_Files\Uds\User\Uds_User_SecurityAccessCallback.c	   366  	{
+; ..\Communication_Files\Uds\User\Uds_User_SecurityAccessCallback.c	   367  		ui8_Uds_Seed[0U] = 0x00U;
+	mov	d15,#0
+	st.b	[a2],d15
+.L206:
+
+; ..\Communication_Files\Uds\User\Uds_User_SecurityAccessCallback.c	   368  		ui8_Uds_Seed[1U] = 0x00U;
+	st.b	[a4],d15
+.L207:
+
+; ..\Communication_Files\Uds\User\Uds_User_SecurityAccessCallback.c	   369  		ui8_Uds_Seed[2U] = 0x00U;
+	st.b	[a7],d15
+.L208:
+
+; ..\Communication_Files\Uds\User\Uds_User_SecurityAccessCallback.c	   370  		ui8_Uds_Seed[3U] = 0x00U;
+	st.b	[a12],d15
+.L209:
+	j	.L16
+.L15:
+
+; ..\Communication_Files\Uds\User\Uds_User_SecurityAccessCallback.c	   371  	}
+; ..\Communication_Files\Uds\User\Uds_User_SecurityAccessCallback.c	   372  	else
+; ..\Communication_Files\Uds\User\Uds_User_SecurityAccessCallback.c	   373  	{
+; ..\Communication_Files\Uds\User\Uds_User_SecurityAccessCallback.c	   374  		ui8_Uds_Seed[0U] = (uint8)(ui32_Cur_STM_TIM0 / 0x100U / 0x100U / 0x100U);
+	sh	d15,d0,#-24
+	st.b	[a2],d15
+.L210:
+
+; ..\Communication_Files\Uds\User\Uds_User_SecurityAccessCallback.c	   375  		ui8_Uds_Seed[1U] = (uint8)(ui32_Cur_STM_TIM0 / 0x100U / 0x100U);
+	sh	d15,d0,#-16
+	st.b	[a4],d15
+.L211:
+
+; ..\Communication_Files\Uds\User\Uds_User_SecurityAccessCallback.c	   376  		ui8_Uds_Seed[2U] = (uint8)(ui32_Cur_STM_TIM0 / 0x100U);
+	sh	d15,d0,#-8
+	st.b	[a7],d15
+.L212:
+
+; ..\Communication_Files\Uds\User\Uds_User_SecurityAccessCallback.c	   377  		ui8_Uds_Seed[3U] = (uint8)(ui32_Cur_STM_TIM0);
+	st.b	[a12],d0
+.L16:
+
+; ..\Communication_Files\Uds\User\Uds_User_SecurityAccessCallback.c	   378  	}
+; ..\Communication_Files\Uds\User\Uds_User_SecurityAccessCallback.c	   379  
+; ..\Communication_Files\Uds\User\Uds_User_SecurityAccessCallback.c	   380  	st_Uds_SID_SA_Info.b_RequestSeedFlag = 0x08;	/*request seed标志完成*/
+	mov	d15,#8
+.L213:
+	movh.a	a14,#@his(.L348)
+	lea	a14,[a14]@los(.L348)
+	j	.cocofun_1
+.L348:
+.L214:
+
+; ..\Communication_Files\Uds\User\Uds_User_SecurityAccessCallback.c	   381  
+; ..\Communication_Files\Uds\User\Uds_User_SecurityAccessCallback.c	   382  	/*回应数据*/
+; ..\Communication_Files\Uds\User\Uds_User_SecurityAccessCallback.c	   383  	ui16_pResLen[0U] = 4U;
+; ..\Communication_Files\Uds\User\Uds_User_SecurityAccessCallback.c	   384  	ui8_pRes[0U] = ui8_Uds_Seed[0U];
+; ..\Communication_Files\Uds\User\Uds_User_SecurityAccessCallback.c	   385  	ui8_pRes[1U] = ui8_Uds_Seed[1U];
+; ..\Communication_Files\Uds\User\Uds_User_SecurityAccessCallback.c	   386  	ui8_pRes[2U] = ui8_Uds_Seed[2U];
+; ..\Communication_Files\Uds\User\Uds_User_SecurityAccessCallback.c	   387  	ui8_pRes[3U] = ui8_Uds_Seed[3U];
+; ..\Communication_Files\Uds\User\Uds_User_SecurityAccessCallback.c	   388  	st_Uds_Response.ui8_ResCode = UDS_RES_CODE_PR;	/*正响应*/
+; ..\Communication_Files\Uds\User\Uds_User_SecurityAccessCallback.c	   389  
+; ..\Communication_Files\Uds\User\Uds_User_SecurityAccessCallback.c	   390  	b_Return = E_OK;	/*回调函数执行完毕*/
+; ..\Communication_Files\Uds\User\Uds_User_SecurityAccessCallback.c	   391  
+; ..\Communication_Files\Uds\User\Uds_User_SecurityAccessCallback.c	   392  	return	b_Return;
+; ..\Communication_Files\Uds\User\Uds_User_SecurityAccessCallback.c	   393  }
+	ret
+.L114:
+	
+__UdsFunc_SID_SA_SUBID_RSD4_Callback_function_end:
+	.size	UdsFunc_SID_SA_SUBID_RSD4_Callback,__UdsFunc_SID_SA_SUBID_RSD4_Callback_function_end-UdsFunc_SID_SA_SUBID_RSD4_Callback
+.L61:
+	; End of function
+	
+	.sdecl	'.text.Uds_User_SecurityAccessCallback.UdsFunc_SID_SA_SUBID_SK4_Callback',code,cluster('UdsFunc_SID_SA_SUBID_SK4_Callback')
+	.sect	'.text.Uds_User_SecurityAccessCallback.UdsFunc_SID_SA_SUBID_SK4_Callback'
+	.align	2
+	
+	.global	UdsFunc_SID_SA_SUBID_SK4_Callback
+
+; ..\Communication_Files\Uds\User\Uds_User_SecurityAccessCallback.c	   394  
+; ..\Communication_Files\Uds\User\Uds_User_SecurityAccessCallback.c	   395  /*************************************************************************/
+; ..\Communication_Files\Uds\User\Uds_User_SecurityAccessCallback.c	   396  /*
+; ..\Communication_Files\Uds\User\Uds_User_SecurityAccessCallback.c	   397  Function:		void UdsFunc_SID_SA_SUBID_SK4_Callback
+; ..\Communication_Files\Uds\User\Uds_User_SecurityAccessCallback.c	   398  				(uint8 *ui8_pInd, uint8 *ui8_pRes, uint16 *ui16_pResLen)
+; ..\Communication_Files\Uds\User\Uds_User_SecurityAccessCallback.c	   399  
+; ..\Communication_Files\Uds\User\Uds_User_SecurityAccessCallback.c	   400  Description: 	此函数用于SID_SA_SUBID_SK服务回调
+; ..\Communication_Files\Uds\User\Uds_User_SecurityAccessCallback.c	   401  
+; ..\Communication_Files\Uds\User\Uds_User_SecurityAccessCallback.c	   402  Parameters: 	ui8_pInd(不含SID和SubID)
+; ..\Communication_Files\Uds\User\Uds_User_SecurityAccessCallback.c	   403  				ui8_pRes(不含SID和SubID)
+; ..\Communication_Files\Uds\User\Uds_User_SecurityAccessCallback.c	   404  				ui16_pResLen
+; ..\Communication_Files\Uds\User\Uds_User_SecurityAccessCallback.c	   405  
+; ..\Communication_Files\Uds\User\Uds_User_SecurityAccessCallback.c	   406  Return:       	boolean
+; ..\Communication_Files\Uds\User\Uds_User_SecurityAccessCallback.c	   407  
+; ..\Communication_Files\Uds\User\Uds_User_SecurityAccessCallback.c	   408  Return Values:  E_OK		任务完成
+; ..\Communication_Files\Uds\User\Uds_User_SecurityAccessCallback.c	   409  				E_NOT_OK	任务未完成
+; ..\Communication_Files\Uds\User\Uds_User_SecurityAccessCallback.c	   410  
+; ..\Communication_Files\Uds\User\Uds_User_SecurityAccessCallback.c	   411  Remarks:
+; ..\Communication_Files\Uds\User\Uds_User_SecurityAccessCallback.c	   412  
+; ..\Communication_Files\Uds\User\Uds_User_SecurityAccessCallback.c	   413  Example:
+; ..\Communication_Files\Uds\User\Uds_User_SecurityAccessCallback.c	   414  */
+; ..\Communication_Files\Uds\User\Uds_User_SecurityAccessCallback.c	   415  boolean UdsFunc_SID_SA_SUBID_SK4_Callback
+; Function UdsFunc_SID_SA_SUBID_SK4_Callback
+.L42:
+UdsFunc_SID_SA_SUBID_SK4_Callback:	.type	func
+
+; ..\Communication_Files\Uds\User\Uds_User_SecurityAccessCallback.c	   416  	(uint8 *ui8_pInd, uint8 *ui8_pRes, uint16 *ui16_pResLen)
+; ..\Communication_Files\Uds\User\Uds_User_SecurityAccessCallback.c	   417  {
+; ..\Communication_Files\Uds\User\Uds_User_SecurityAccessCallback.c	   418  	boolean	b_Return;
+; ..\Communication_Files\Uds\User\Uds_User_SecurityAccessCallback.c	   419  	uint8	ui8_Loop_1;	/*循环计数器*/
+; ..\Communication_Files\Uds\User\Uds_User_SecurityAccessCallback.c	   420  //	uint32	ui32_Seed;
+; ..\Communication_Files\Uds\User\Uds_User_SecurityAccessCallback.c	   421  	uint32	ui32_Key;
+; ..\Communication_Files\Uds\User\Uds_User_SecurityAccessCallback.c	   422  
+; ..\Communication_Files\Uds\User\Uds_User_SecurityAccessCallback.c	   423  	if(st_Uds_SID_SA_Info.b_RequestSeedFlag == 0x08)
+	movh.a	a14,#@his(st_Uds_SID_SA_Info)
+	lea	a14,[a14]@los(st_Uds_SID_SA_Info)
+.L219:
+	sub.a	a10,#8
+.L153:
+	mov	d15,#8
+	st.a	[a10]4,a6
+.L156:
+	mov.aa	a15,a14
+.L220:
+
+; ..\Communication_Files\Uds\User\Uds_User_SecurityAccessCallback.c	   424  	{
+; ..\Communication_Files\Uds\User\Uds_User_SecurityAccessCallback.c	   425  //		for(ui8_Loop_1 = 0U; ui8_Loop_1 < 4U; ui8_Loop_1++)
+; ..\Communication_Files\Uds\User\Uds_User_SecurityAccessCallback.c	   426  //		{
+; ..\Communication_Files\Uds\User\Uds_User_SecurityAccessCallback.c	   427  //			ui8_Aes_Data_Array[ui8_Loop_1 * 4U + 0U] = ui8_Uds_Seed[0U];
+; ..\Communication_Files\Uds\User\Uds_User_SecurityAccessCallback.c	   428  //			ui8_Aes_Data_Array[ui8_Loop_1 * 4U + 1U] = ui8_Uds_Seed[1U];
+; ..\Communication_Files\Uds\User\Uds_User_SecurityAccessCallback.c	   429  //			ui8_Aes_Data_Array[ui8_Loop_1 * 4U + 2U] = ui8_Uds_Seed[2U];
+; ..\Communication_Files\Uds\User\Uds_User_SecurityAccessCallback.c	   430  //			ui8_Aes_Data_Array[ui8_Loop_1 * 4U + 3U] = ui8_Uds_Seed[3U];
+; ..\Communication_Files\Uds\User\Uds_User_SecurityAccessCallback.c	   431  //		}
+; ..\Communication_Files\Uds\User\Uds_User_SecurityAccessCallback.c	   432  //
+; ..\Communication_Files\Uds\User\Uds_User_SecurityAccessCallback.c	   433  //		Aes_Key_Input();
+; ..\Communication_Files\Uds\User\Uds_User_SecurityAccessCallback.c	   434  //		Aes_Encrypt_Deal();		//AES计算
+; ..\Communication_Files\Uds\User\Uds_User_SecurityAccessCallback.c	   435  //
+; ..\Communication_Files\Uds\User\Uds_User_SecurityAccessCallback.c	   436  //		ui8_Uds_Seed[0U] = ui8_Aes_Data_Array[0U];
+; ..\Communication_Files\Uds\User\Uds_User_SecurityAccessCallback.c	   437  //		ui8_Uds_Seed[1U] = ui8_Aes_Data_Array[1U];
+; ..\Communication_Files\Uds\User\Uds_User_SecurityAccessCallback.c	   438  //		ui8_Uds_Seed[2U] = ui8_Aes_Data_Array[2U];
+; ..\Communication_Files\Uds\User\Uds_User_SecurityAccessCallback.c	   439  //		ui8_Uds_Seed[3U] = ui8_Aes_Data_Array[3U];
+; ..\Communication_Files\Uds\User\Uds_User_SecurityAccessCallback.c	   440  
+; ..\Communication_Files\Uds\User\Uds_User_SecurityAccessCallback.c	   441  //		ui32_Seed = ui8_Uds_Seed[0U] * 0x100U * 0x100U * 0x100U
+; ..\Communication_Files\Uds\User\Uds_User_SecurityAccessCallback.c	   442  //					+ ui8_Uds_Seed[1U] * 0x100U * 0x100U
+; ..\Communication_Files\Uds\User\Uds_User_SecurityAccessCallback.c	   443  //					+ ui8_Uds_Seed[2U] * 0x100U
+; ..\Communication_Files\Uds\User\Uds_User_SecurityAccessCallback.c	   444  //					+ui8_Uds_Seed[3U];
+; ..\Communication_Files\Uds\User\Uds_User_SecurityAccessCallback.c	   445  
+; ..\Communication_Files\Uds\User\Uds_User_SecurityAccessCallback.c	   446  		ui32_Key = saGetKey(&ui8_Uds_Seed[0U]);
+; ..\Communication_Files\Uds\User\Uds_User_SecurityAccessCallback.c	   447  
+; ..\Communication_Files\Uds\User\Uds_User_SecurityAccessCallback.c	   448  		ui8_Uds_Seed[0U] = (uint8)(ui32_Key / 0x100U / 0x100U / 0x100U);
+; ..\Communication_Files\Uds\User\Uds_User_SecurityAccessCallback.c	   449  		ui8_Uds_Seed[1U] = (uint8)(ui32_Key / 0x100U / 0x100U);
+; ..\Communication_Files\Uds\User\Uds_User_SecurityAccessCallback.c	   450  		ui8_Uds_Seed[2U] = (uint8)(ui32_Key / 0x100U);
+; ..\Communication_Files\Uds\User\Uds_User_SecurityAccessCallback.c	   451  		ui8_Uds_Seed[3U] = (uint8)ui32_Key;
+; ..\Communication_Files\Uds\User\Uds_User_SecurityAccessCallback.c	   452  
+; ..\Communication_Files\Uds\User\Uds_User_SecurityAccessCallback.c	   453  
+; ..\Communication_Files\Uds\User\Uds_User_SecurityAccessCallback.c	   454  
+; ..\Communication_Files\Uds\User\Uds_User_SecurityAccessCallback.c	   455  		for(ui8_Loop_1 = 0U; ui8_Loop_1 < 4U; ui8_Loop_1++)
+; ..\Communication_Files\Uds\User\Uds_User_SecurityAccessCallback.c	   456  		{
+; ..\Communication_Files\Uds\User\Uds_User_SecurityAccessCallback.c	   457  			if(ui8_pInd[ui8_Loop_1] != ui8_Uds_Seed[ui8_Loop_1])
+; ..\Communication_Files\Uds\User\Uds_User_SecurityAccessCallback.c	   458  			{
+; ..\Communication_Files\Uds\User\Uds_User_SecurityAccessCallback.c	   459  				break;
+; ..\Communication_Files\Uds\User\Uds_User_SecurityAccessCallback.c	   460  			}
+; ..\Communication_Files\Uds\User\Uds_User_SecurityAccessCallback.c	   461  		}
+; ..\Communication_Files\Uds\User\Uds_User_SecurityAccessCallback.c	   462  //		ui8_Loop_1 = 4U;
+; ..\Communication_Files\Uds\User\Uds_User_SecurityAccessCallback.c	   463  		if(ui8_Loop_1 < 4U)
+; ..\Communication_Files\Uds\User\Uds_User_SecurityAccessCallback.c	   464  		{
+; ..\Communication_Files\Uds\User\Uds_User_SecurityAccessCallback.c	   465  			st_Uds_Response.ui8_ResCode = UDS_RES_CODE_IK;	/*密钥错误响应*/
+	movh.a	a13,#@his(st_Uds_Response)
+.L221:
+	ld.bu	d0,[+a15]1
+	st.a	[a10],a15
+.L222:
+	mov.aa	a12,a4
+.L157:
+	lea	a13,[a13]@los(st_Uds_Response)
+.L223:
+	jne	d15,d0,.L18				; predicted taken
+.L224:
+	movh.a	a15,#@his(ui8_Uds_Seed)
+	lea	a15,[a15]@los(ui8_Uds_Seed)
+	mov.aa	a4,a15
+.L155:
+	call	saGetKey
+.L154:
+	sh	d15,d2,#-24
+	st.b	[a15],d15
+.L225:
+	sh	d15,d2,#-16
+	st.b	[a15]1,d15
+.L226:
+	sh	d15,d2,#-8
+	st.b	[a15]2,d15
+.L227:
+	st.b	[a15]3,d2
+.L228:
+	mov	d0,#0
+	mov.a	a2,#3
+.L19:
+	ld.bu	d15,[a12]
+.L229:
+	ld.bu	d1,[a15]
+.L230:
+	jne	d15,d1,.L20				; predicted not taken
+.L231:
+	add	d0,#1
+	add.a	a15,#1
+	add.a	a12,#1
+.L232:
+	loop	a2,.L19				; predicted taken
+.L20:
+	jge.u	d0,#4,.L21				; prediction unknown
+.L233:
+	mov	d15,#53
+.L234:
+	j	.L22
+.L21:
+
+; ..\Communication_Files\Uds\User\Uds_User_SecurityAccessCallback.c	   466  		}
+; ..\Communication_Files\Uds\User\Uds_User_SecurityAccessCallback.c	   467  		else
+; ..\Communication_Files\Uds\User\Uds_User_SecurityAccessCallback.c	   468  		{
+; ..\Communication_Files\Uds\User\Uds_User_SecurityAccessCallback.c	   469  			st_Uds_SID_SA_Info.b_RequestSeedFlag = 0x00;	/*request seed标志清除*/
+	mov	d0,#0
+	ld.a	a15,[a10]
+.L158:
+	st.b	[a15],d0
+.L235:
+
+; ..\Communication_Files\Uds\User\Uds_User_SecurityAccessCallback.c	   470  			st_Uds_SID_SA_Info.b_Security_Locked = 0x08;	/*密钥解除锁定*/
+	mov	d15,#8
+	st.b	[a14],d15
+.L236:
+
+; ..\Communication_Files\Uds\User\Uds_User_SecurityAccessCallback.c	   471  
+; ..\Communication_Files\Uds\User\Uds_User_SecurityAccessCallback.c	   472  			/*回应数据*/
+; ..\Communication_Files\Uds\User\Uds_User_SecurityAccessCallback.c	   473  			ui16_pResLen[0U] = 0U;
+	ld.a	a15,[a10]4
+.L159:
+	st.h	[a15],d0
+.L237:
+
+; ..\Communication_Files\Uds\User\Uds_User_SecurityAccessCallback.c	   474  			st_Uds_Response.ui8_ResCode = UDS_RES_CODE_PR;	/*正响应*/
+	st.b	[a13],d0
+.L238:
+	j	.L23
+.L18:
+
+; ..\Communication_Files\Uds\User\Uds_User_SecurityAccessCallback.c	   475  		}
+; ..\Communication_Files\Uds\User\Uds_User_SecurityAccessCallback.c	   476  	}
+; ..\Communication_Files\Uds\User\Uds_User_SecurityAccessCallback.c	   477  	else
+; ..\Communication_Files\Uds\User\Uds_User_SecurityAccessCallback.c	   478  	{
+; ..\Communication_Files\Uds\User\Uds_User_SecurityAccessCallback.c	   479  		st_Uds_Response.ui8_ResCode = UDS_RES_CODE_RSE;	/*请求顺序错误响应*/
+	mov	d15,#36
+.L22:
+	st.b	[a13],d15
+.L23:
+
+; ..\Communication_Files\Uds\User\Uds_User_SecurityAccessCallback.c	   480  	}
+; ..\Communication_Files\Uds\User\Uds_User_SecurityAccessCallback.c	   481  
+; ..\Communication_Files\Uds\User\Uds_User_SecurityAccessCallback.c	   482  	b_Return = E_OK;	/*回调函数执行完毕*/
+; ..\Communication_Files\Uds\User\Uds_User_SecurityAccessCallback.c	   483  
+; ..\Communication_Files\Uds\User\Uds_User_SecurityAccessCallback.c	   484  	return	b_Return;
+	mov	d2,#0
+.L239:
+
+; ..\Communication_Files\Uds\User\Uds_User_SecurityAccessCallback.c	   485  }
+	ret
+.L119:
+	
+__UdsFunc_SID_SA_SUBID_SK4_Callback_function_end:
+	.size	UdsFunc_SID_SA_SUBID_SK4_Callback,__UdsFunc_SID_SA_SUBID_SK4_Callback_function_end-UdsFunc_SID_SA_SUBID_SK4_Callback
+.L66:
+	; End of function
+	
+	.sdecl	'.bss.Uds_User_SecurityAccessCallback.st_Uds_SID_SA_Info',data,cluster('st_Uds_SID_SA_Info')
+	.sect	'.bss.Uds_User_SecurityAccessCallback.st_Uds_SID_SA_Info'
+	.global	st_Uds_SID_SA_Info
+	.align	4
+st_Uds_SID_SA_Info:	.type	object
+	.size	st_Uds_SID_SA_Info,8
+	.space	8
+	.sdecl	'.data.Uds_User_SecurityAccessCallback.AppKeyConst',data,cluster('AppKeyConst')
+	.sect	'.data.Uds_User_SecurityAccessCallback.AppKeyConst'
+	.global	AppKeyConst
+AppKeyConst:	.type	object
+	.size	AppKeyConst,4
+	.byte	143,197,204,10
+	.sdecl	'.bss.Uds_User_SecurityAccessCallback.ui8_Uds_Seed',data,cluster('ui8_Uds_Seed')
+	.sect	'.bss.Uds_User_SecurityAccessCallback.ui8_Uds_Seed'
+	.global	ui8_Uds_Seed
+ui8_Uds_Seed:	.type	object
+	.size	ui8_Uds_Seed,4
+	.space	4
+	.calls	'saGetKey','BitReplace'
+	.calls	'UdsFunc_SID_SA_SUBID_SK1_Callback','saGetKey1'
+	.calls	'UdsFunc_SID_SA_SUBID_SK4_Callback','saGetKey'
+	.calls	'UdsFunc_SID_SA_SUBID_RSD1_Callback','.cocofun_2'
+	.calls	'UdsFunc_SID_SA_SUBID_RSD1_Callback','.cocofun_1'
+	.calls	'UdsFunc_SID_SA_SUBID_RSD4_Callback','.cocofun_2'
+	.calls	'UdsFunc_SID_SA_SUBID_RSD4_Callback','.cocofun_1'
+	.calls	'BitReplace','',0
+	.calls	'saGetKey','',0
+	.calls	'saGetKey1','',0
+	.calls	'UdsFunc_SID_SA_SUBID_RSD1_Callback','',0
+	.calls	'.cocofun_2','',0
+	.calls	'.cocofun_1','',0
+	.calls	'UdsFunc_SID_SA_SUBID_SK1_Callback','',8
+	.calls	'UdsFunc_SID_SA_SUBID_RSD4_Callback','',0
+	.extern	st_Uds_Response
+	.calls	'UdsFunc_SID_SA_SUBID_SK4_Callback','',8
+	.sdecl	'.debug_info',debug
+	.sect	'.debug_info'
+.L44:
+	.word	832
+	.half	3
+	.word	.L45
+	.byte	4
+.L43:
+	.byte	1
+	.byte	'..\\Communication_Files\\Uds\\User\\Uds_User_SecurityAccessCallback.c',0
+	.byte	'TASKING VX-toolset for TriCore: C compiler',0
+	.byte	'D:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_1.9\\BMU_BOOT\\Debug\\',0,12,1
+	.word	.L46
+.L98:
+	.byte	2
+	.byte	'unsigned char',0,1,8
+.L100:
+	.byte	3
+	.word	183
+	.byte	2
+	.byte	'unsigned short int',0,2,7
+.L103:
+	.byte	3
+	.word	205
+.L106:
+	.byte	2
+	.byte	'unsigned long int',0,4,7,4
+	.byte	'void',0,3
+	.word	253
+	.byte	5
+	.byte	'__prof_adm',0,1,1,1
+	.word	259
+	.byte	6,1,3
+	.word	283
+	.byte	5
+	.byte	'__codeptr',0,1,1,1
+	.word	285
+	.byte	5
+	.byte	'ubyte',0,2,78,24
+	.word	183
+	.byte	5
+	.byte	'ushort',0,2,80,24
+	.word	205
+	.byte	2
+	.byte	'unsigned int',0,4,7,5
+	.byte	'uword',0,2,82,24
+	.word	337
+	.byte	5
+	.byte	'uint8',0,3,87,29
+	.word	183
+	.byte	5
+	.byte	'uint16',0,3,89,29
+	.word	205
+	.byte	2
+	.byte	'long int',0,4,5,5
+	.byte	'sint32',0,3,90,29
+	.word	396
+	.byte	5
+	.byte	'uint32',0,3,91,27
+	.word	232
+	.byte	5
+	.byte	'boolean',0,3,102,29
+	.word	183
+.L131:
+	.byte	7,4,5,9,8,8
+	.byte	'b_Security_Locked',0,1
+	.word	183
+	.byte	2,35,0,8
+	.byte	'b_RequestSeedFlag',0,1
+	.word	183
+	.byte	2,35,1,8
+	.byte	'SA_Counter',0,1
+	.word	183
+	.byte	2,35,2,8
+	.byte	'SeedKeyFlag',0,1
+	.word	183
+	.byte	2,35,3,8
+	.byte	'ui32_Boot_State255_Delay',0,4
+	.word	232
+	.byte	2,35,4,0,5
+	.byte	'Struct_Uds_SID_SA_Info',0,4,20,2
+	.word	454
+	.byte	7,5,91,9,28,8
+	.byte	'ui8_ResCode',0,1
+	.word	183
+	.byte	2,35,0,8
+	.byte	'b_SuppressPosRspBit',0,1
+	.word	183
+	.byte	2,35,1,8
+	.byte	'ui8_pMsgData',0,4
+	.word	200
+	.byte	2,35,4,8
+	.byte	'ui16_pLength',0,4
+	.word	227
+	.byte	2,35,8,9,8
+	.word	183
+	.byte	10,7,0,8
+	.byte	'ui8_Neg78_Buf',0,8
+	.word	719
+	.byte	2,35,12,8
+	.byte	'ui8_3E_Buf',0,8
+	.word	719
+	.byte	2,35,20,0,5
+	.byte	'Struct_Uds_Response',0,5,99,2
+	.word	620
+	.byte	11
+	.byte	'st_Uds_Response',0,5,126,29
+	.word	620
+	.byte	1,1
+.L132:
+	.byte	9,4
+	.word	183
+	.byte	10,3,0,0
+	.sdecl	'.debug_abbrev',debug
+	.sect	'.debug_abbrev'
+.L45:
+	.byte	1,17,1,3,8,37,8,27,8,19,15,128,70,12,16,6,0,0,2,36,0,3,8,11,15,62,15,0,0,3,15,0,73,19,0,0,4,59,0,3,8,0
+	.byte	0,5,22,0,3,8,58,15,59,15,57,15,73,19,0,0,6,21,0,54,15,0,0,7,19,1,58,15,59,15,57,15,11,15,0,0,8,13,0,3
+	.byte	8,11,15,73,19,56,9,0,0,9,1,1,11,15,73,19,0,0,10,33,0,47,15,0,0,11,52,0,3,8,58,15,59,15,57,15,73,19,63
+	.byte	12,60,12,0,0,0
+	.sdecl	'.debug_line',debug
+	.sect	'.debug_line'
+.L46:
+	.word	.L161-.L160
+.L160:
+	.half	3
+	.word	.L163-.L162
+.L162:
+	.byte	2,1,-4,9,10,0,1,1,1,1,0,0,0,1
+	.byte	'D:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_1.9\\BMU_BOOT\\Initiate_Files',0
+	.byte	'D:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_1.9\\BMU_BOOT\\Stand_Header',0
+	.byte	'D:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_1.9\\BMU_BOOT\\Communication_Files\\Uds\\User',0
+	.byte	'D:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_1.9\\BMU_BOOT\\Communication_Files\\Uds\\Dcm',0,0
+	.byte	'..\\Communication_Files\\Uds\\User\\Uds_User_SecurityAccessCallback.c',0,0,0,0
+	.byte	'MAIN.h',0,1,0,0
+	.byte	'Platform_Types.h',0,2,0,0
+	.byte	'Uds_User_SecurityAccessCallback.h',0,3,0,0
+	.byte	'Uds_Dcm_Drv.h',0,4,0,0,0
+.L163:
+.L161:
+	.sdecl	'.debug_info',debug,cluster('UdsFunc_SID_SA_SUBID_RSD1_Callback')
+	.sect	'.debug_info'
+.L47:
+	.word	356
+	.half	3
+	.word	.L48
+	.byte	4,1
+	.byte	'..\\Communication_Files\\Uds\\User\\Uds_User_SecurityAccessCallback.c',0
+	.byte	'TASKING VX-toolset for TriCore: C compiler',0
+	.byte	'D:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_1.9\\BMU_BOOT\\Debug\\',0,12,1
+	.word	.L50,.L49
+	.byte	2
+	.word	.L43
+	.byte	3
+	.byte	'UdsFunc_SID_SA_SUBID_RSD1_Callback',0,1,205,1,9
+	.word	.L98
+	.byte	1,1,1
+	.word	.L32,.L99,.L31
+	.byte	4
+	.byte	'ui8_pInd',0,1,206,1,10
+	.word	.L100,.L101
+	.byte	4
+	.byte	'ui8_pRes',0,1,206,1,27
+	.word	.L100,.L102
+	.byte	4
+	.byte	'ui16_pResLen',0,1,206,1,45
+	.word	.L103,.L104
+	.byte	5
+	.word	.L105
+	.byte	6
+	.byte	'ui32_Cur_STM_TIM0',0,1,209,1,10
+	.word	.L106,.L107
+	.byte	0,0,0
+	.sdecl	'.debug_abbrev',debug,cluster('UdsFunc_SID_SA_SUBID_RSD1_Callback')
+	.sect	'.debug_abbrev'
+.L48:
+	.byte	1,17,1,3,8,37,8,27,8,19,15,128,70,12,85,6,16,6,0,0,2,61,0,24,16,0,0,3,46,1,3,8,58,15,59,15,57,15,73,16
+	.byte	54,15,39,12,63,12,17,1,18,1,64,6,0,0,4,5,0,3,8,58,15,59,15,57,15,73,16,2,6,0,0,5,11,1,85,6,0,0,6,52,0
+	.byte	3,8,58,15,59,15,57,15,73,16,2,6,0,0,0
+	.sdecl	'.debug_line',debug,cluster('UdsFunc_SID_SA_SUBID_RSD1_Callback')
+	.sect	'.debug_line'
+.L49:
+	.word	.L165-.L164
+.L164:
+	.half	3
+	.word	.L167-.L166
+.L166:
+	.byte	2,1,-4,9,10,0,1,1,1,1,0,0,0,1,0
+	.byte	'..\\Communication_Files\\Uds\\User\\Uds_User_SecurityAccessCallback.c',0,0,0,0,0
+.L167:
+	.byte	5,22,7,0,5,2
+	.word	.L32
+	.byte	3,210,1,1,5,23,9
+	.half	.L144-.L32
+	.byte	3,3,1,5,2,9
+	.half	.L168-.L144
+	.byte	1,5,22,7,9
+	.half	.L169-.L168
+	.byte	3,2,1,5,20,1,9
+	.half	.L170-.L169
+	.byte	3,1,1,9
+	.half	.L171-.L170
+	.byte	3,1,1,9
+	.half	.L172-.L171
+	.byte	3,1,1,5,27,9
+	.half	.L173-.L172
+	.byte	3,125,1,5,30,9
+	.half	.L5-.L173
+	.byte	3,7,1,5,20,1,5,30,9
+	.half	.L174-.L5
+	.byte	3,1,1,5,20,1,5,30,9
+	.half	.L175-.L174
+	.byte	3,1,1,5,20,1,9
+	.half	.L176-.L175
+	.byte	3,1,1,5,41,9
+	.half	.L6-.L176
+	.byte	3,3,1,5,39,9
+	.half	.L177-.L6
+	.byte	1,5,1,9
+	.half	.L178-.L177
+	.byte	3,13,1,7,9
+	.half	.L51-.L178
+	.byte	0,1,1
+.L165:
+	.sdecl	'.debug_ranges',debug,cluster('UdsFunc_SID_SA_SUBID_RSD1_Callback')
+	.sect	'.debug_ranges'
+.L50:
+	.word	-1,.L32,0,.L51-.L32,0,0
+.L105:
+	.word	-1,.L32,0,.L99-.L32,-1,.L34,0,.L91-.L34,-1,.L36,0,.L86-.L36,0,0
+	.sdecl	'.debug_info',debug,cluster('UdsFunc_SID_SA_SUBID_SK1_Callback')
+	.sect	'.debug_info'
+.L52:
+	.word	374
+	.half	3
+	.word	.L53
+	.byte	4,1
+	.byte	'..\\Communication_Files\\Uds\\User\\Uds_User_SecurityAccessCallback.c',0
+	.byte	'TASKING VX-toolset for TriCore: C compiler',0
+	.byte	'D:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_1.9\\BMU_BOOT\\Debug\\',0,12,1
+	.word	.L55,.L54
+	.byte	2
+	.word	.L43
+	.byte	3
+	.byte	'UdsFunc_SID_SA_SUBID_SK1_Callback',0,1,136,2,9
+	.word	.L98
+	.byte	1,1,1
+	.word	.L38,.L108,.L37
+	.byte	4
+	.byte	'ui8_pInd',0,1,137,2,10
+	.word	.L100,.L109
+	.byte	4
+	.byte	'ui8_pRes',0,1,137,2,27
+	.word	.L100,.L110
+	.byte	4
+	.byte	'ui16_pResLen',0,1,137,2,45
+	.word	.L103,.L111
+	.byte	5
+	.word	.L38,.L108
+	.byte	6
+	.byte	'ui8_Loop_1',0,1,140,2,8
+	.word	.L98,.L112
+	.byte	6
+	.byte	'ui32_Key',0,1,142,2,9
+	.word	.L106,.L113
+	.byte	0,0,0
+	.sdecl	'.debug_abbrev',debug,cluster('UdsFunc_SID_SA_SUBID_SK1_Callback')
+	.sect	'.debug_abbrev'
+.L53:
+	.byte	1,17,1,3,8,37,8,27,8,19,15,128,70,12,85,6,16,6,0,0,2,61,0,24,16,0,0,3,46,1,3,8,58,15,59,15,57,15,73,16
+	.byte	54,15,39,12,63,12,17,1,18,1,64,6,0,0,4,5,0,3,8,58,15,59,15,57,15,73,16,2,6,0,0,5,11,1,17,1,18,1,0,0,6
+	.byte	52,0,3,8,58,15,59,15,57,15,73,16,2,6,0,0,0
+	.sdecl	'.debug_line',debug,cluster('UdsFunc_SID_SA_SUBID_SK1_Callback')
+	.sect	'.debug_line'
+.L54:
+	.word	.L180-.L179
+.L179:
+	.half	3
+	.word	.L182-.L181
+.L181:
+	.byte	2,1,-4,9,10,0,1,1,1,1,0,0,0,1,0
+	.byte	'..\\Communication_Files\\Uds\\User\\Uds_User_SecurityAccessCallback.c',0,0,0,0,0
+.L182:
+	.byte	5,9,7,0,5,2
+	.word	.L38
+	.byte	3,135,2,1,5,4,9
+	.half	.L149-.L38
+	.byte	3,50,1,5,5,9
+	.half	.L183-.L149
+	.byte	3,86,1,5,23,9
+	.half	.L184-.L183
+	.byte	1,5,2,9
+	.half	.L185-.L184
+	.byte	1,5,25,7,9
+	.half	.L186-.L185
+	.byte	3,23,1,5,30,9
+	.half	.L146-.L186
+	.byte	3,2,1,5,20,1,5,30,9
+	.half	.L187-.L146
+	.byte	3,1,1,5,20,1,5,30,9
+	.half	.L188-.L187
+	.byte	3,1,1,5,20,1,9
+	.half	.L189-.L188
+	.byte	3,1,1,5,18,9
+	.half	.L190-.L189
+	.byte	3,4,1,5,39,1,5,15,9
+	.half	.L9-.L190
+	.byte	3,2,1,5,43,9
+	.half	.L191-.L9
+	.byte	1,5,4,9
+	.half	.L192-.L191
+	.byte	1,5,51,7,9
+	.half	.L193-.L192
+	.byte	3,126,1,5,39,9
+	.half	.L194-.L193
+	.byte	1,5,3,7,9
+	.half	.L10-.L194
+	.byte	3,8,1,5,34,7,9
+	.half	.L195-.L10
+	.byte	3,2,1,5,49,9
+	.half	.L196-.L195
+	.byte	1,5,43,9
+	.half	.L11-.L196
+	.byte	3,4,1,5,41,1,5,43,9
+	.half	.L197-.L11
+	.byte	3,1,1,5,41,1,5,21,9
+	.half	.L150-.L197
+	.byte	3,3,1,5,3,9
+	.half	.L198-.L150
+	.byte	3,122,1,5,33,9
+	.half	.L8-.L198
+	.byte	3,12,1,5,9,9
+	.half	.L13-.L8
+	.byte	3,5,1,5,31,3,123,1,5,1,9
+	.half	.L199-.L13
+	.byte	3,6,1,7,9
+	.half	.L56-.L199
+	.byte	0,1,1
+.L180:
+	.sdecl	'.debug_ranges',debug,cluster('UdsFunc_SID_SA_SUBID_SK1_Callback')
+	.sect	'.debug_ranges'
+.L55:
+	.word	-1,.L38,0,.L56-.L38,0,0
+	.sdecl	'.debug_info',debug,cluster('UdsFunc_SID_SA_SUBID_RSD4_Callback')
+	.sect	'.debug_info'
+.L57:
+	.word	360
+	.half	3
+	.word	.L58
+	.byte	4,1
+	.byte	'..\\Communication_Files\\Uds\\User\\Uds_User_SecurityAccessCallback.c',0
+	.byte	'TASKING VX-toolset for TriCore: C compiler',0
+	.byte	'D:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_1.9\\BMU_BOOT\\Debug\\',0,12,1
+	.word	.L60,.L59
+	.byte	2
+	.word	.L43
+	.byte	3
+	.byte	'UdsFunc_SID_SA_SUBID_RSD4_Callback',0,1,228,2,9
+	.word	.L98
+	.byte	1,1,1
+	.word	.L40,.L114,.L39
+	.byte	4
+	.byte	'ui8_pInd',0,1,229,2,10
+	.word	.L100,.L115
+	.byte	4
+	.byte	'ui8_pRes',0,1,229,2,27
+	.word	.L100,.L116
+	.byte	4
+	.byte	'ui16_pResLen',0,1,229,2,45
+	.word	.L103,.L117
+	.byte	5
+	.word	.L40,.L114
+	.byte	6
+	.byte	'ui32_Cur_STM_TIM0',0,1,232,2,10
+	.word	.L106,.L118
+	.byte	0,0,0
+	.sdecl	'.debug_abbrev',debug,cluster('UdsFunc_SID_SA_SUBID_RSD4_Callback')
+	.sect	'.debug_abbrev'
+.L58:
+	.byte	1,17,1,3,8,37,8,27,8,19,15,128,70,12,85,6,16,6,0,0,2,61,0,24,16,0,0,3,46,1,3,8,58,15,59,15,57,15,73,16
+	.byte	54,15,39,12,63,12,17,1,18,1,64,6,0,0,4,5,0,3,8,58,15,59,15,57,15,73,16,2,6,0,0,5,11,1,17,1,18,1,0,0,6
+	.byte	52,0,3,8,58,15,59,15,57,15,73,16,2,6,0,0,0
+	.sdecl	'.debug_line',debug,cluster('UdsFunc_SID_SA_SUBID_RSD4_Callback')
+	.sect	'.debug_line'
+.L59:
+	.word	.L201-.L200
+.L200:
+	.half	3
+	.word	.L203-.L202
+.L202:
+	.byte	2,1,-4,9,10,0,1,1,1,1,0,0,0,1,0
+	.byte	'..\\Communication_Files\\Uds\\User\\Uds_User_SecurityAccessCallback.c',0,0,0,0,0
+.L203:
+	.byte	5,22,7,0,5,2
+	.word	.L40
+	.byte	3,233,2,1,5,45,9
+	.half	.L152-.L40
+	.byte	3,3,1,5,23,1,5,2,9
+	.half	.L204-.L152
+	.byte	1,5,22,7,9
+	.half	.L205-.L204
+	.byte	3,2,1,5,20,1,9
+	.half	.L206-.L205
+	.byte	3,1,1,9
+	.half	.L207-.L206
+	.byte	3,1,1,9
+	.half	.L208-.L207
+	.byte	3,1,1,5,27,9
+	.half	.L209-.L208
+	.byte	3,125,1,5,30,9
+	.half	.L15-.L209
+	.byte	3,7,1,5,20,1,5,30,9
+	.half	.L210-.L15
+	.byte	3,1,1,5,20,1,5,30,9
+	.half	.L211-.L210
+	.byte	3,1,1,5,20,1,9
+	.half	.L212-.L211
+	.byte	3,1,1,5,41,9
+	.half	.L16-.L212
+	.byte	3,3,1,5,39,9
+	.half	.L213-.L16
+	.byte	1,5,1,9
+	.half	.L214-.L213
+	.byte	3,13,1,7,9
+	.half	.L61-.L214
+	.byte	0,1,1
+.L201:
+	.sdecl	'.debug_ranges',debug,cluster('UdsFunc_SID_SA_SUBID_RSD4_Callback')
+	.sect	'.debug_ranges'
+.L60:
+	.word	-1,.L40,0,.L61-.L40,0,0
+	.sdecl	'.debug_info',debug,cluster('UdsFunc_SID_SA_SUBID_SK4_Callback')
+	.sect	'.debug_info'
+.L62:
+	.word	374
+	.half	3
+	.word	.L63
+	.byte	4,1
+	.byte	'..\\Communication_Files\\Uds\\User\\Uds_User_SecurityAccessCallback.c',0
+	.byte	'TASKING VX-toolset for TriCore: C compiler',0
+	.byte	'D:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_1.9\\BMU_BOOT\\Debug\\',0,12,1
+	.word	.L65,.L64
+	.byte	2
+	.word	.L43
+	.byte	3
+	.byte	'UdsFunc_SID_SA_SUBID_SK4_Callback',0,1,159,3,9
+	.word	.L98
+	.byte	1,1,1
+	.word	.L42,.L119,.L41
+	.byte	4
+	.byte	'ui8_pInd',0,1,160,3,10
+	.word	.L100,.L120
+	.byte	4
+	.byte	'ui8_pRes',0,1,160,3,27
+	.word	.L100,.L121
+	.byte	4
+	.byte	'ui16_pResLen',0,1,160,3,45
+	.word	.L103,.L122
+	.byte	5
+	.word	.L42,.L119
+	.byte	6
+	.byte	'ui8_Loop_1',0,1,163,3,8
+	.word	.L98,.L123
+	.byte	6
+	.byte	'ui32_Key',0,1,165,3,9
+	.word	.L106,.L124
+	.byte	0,0,0
+	.sdecl	'.debug_abbrev',debug,cluster('UdsFunc_SID_SA_SUBID_SK4_Callback')
+	.sect	'.debug_abbrev'
+.L63:
+	.byte	1,17,1,3,8,37,8,27,8,19,15,128,70,12,85,6,16,6,0,0,2,61,0,24,16,0,0,3,46,1,3,8,58,15,59,15,57,15,73,16
+	.byte	54,15,39,12,63,12,17,1,18,1,64,6,0,0,4,5,0,3,8,58,15,59,15,57,15,73,16,2,6,0,0,5,11,1,17,1,18,1,0,0,6
+	.byte	52,0,3,8,58,15,59,15,57,15,73,16,2,6,0,0,0
+	.sdecl	'.debug_line',debug,cluster('UdsFunc_SID_SA_SUBID_SK4_Callback')
+	.sect	'.debug_line'
+.L64:
+	.word	.L216-.L215
+.L215:
+	.half	3
+	.word	.L218-.L217
+.L217:
+	.byte	2,1,-4,9,10,0,1,1,1,1,0,0,0,1,0
+	.byte	'..\\Communication_Files\\Uds\\User\\Uds_User_SecurityAccessCallback.c',0,0,0,0,0
+.L218:
+	.byte	5,5,7,0,5,2
+	.word	.L42
+	.byte	3,166,3,1,5,9,9
+	.half	.L219-.L42
+	.byte	3,120,1,5,45,9
+	.half	.L153-.L219
+	.byte	3,8,1,5,9,3,120,1,5,23,9
+	.half	.L156-.L153
+	.byte	3,8,1,5,4,9
+	.half	.L220-.L156
+	.byte	3,42,1,5,23,9
+	.half	.L221-.L220
+	.byte	3,86,1,5,9,9
+	.half	.L222-.L221
+	.byte	3,120,1,5,4,9
+	.half	.L157-.L222
+	.byte	3,50,1,5,2,9
+	.half	.L223-.L157
+	.byte	3,86,1,5,24,7,9
+	.half	.L224-.L223
+	.byte	3,23,1,5,30,9
+	.half	.L154-.L224
+	.byte	3,2,1,5,20,1,5,30,9
+	.half	.L225-.L154
+	.byte	3,1,1,5,20,1,5,30,9
+	.half	.L226-.L225
+	.byte	3,1,1,5,20,1,9
+	.half	.L227-.L226
+	.byte	3,1,1,5,18,9
+	.half	.L228-.L227
+	.byte	3,4,1,5,39,1,5,15,9
+	.half	.L19-.L228
+	.byte	3,2,1,5,43,9
+	.half	.L229-.L19
+	.byte	1,5,4,9
+	.half	.L230-.L229
+	.byte	1,5,51,7,9
+	.half	.L231-.L230
+	.byte	3,126,1,5,39,9
+	.half	.L232-.L231
+	.byte	1,5,3,7,9
+	.half	.L20-.L232
+	.byte	3,8,1,5,34,7,9
+	.half	.L233-.L20
+	.byte	3,2,1,5,49,9
+	.half	.L234-.L233
+	.byte	1,5,43,9
+	.half	.L21-.L234
+	.byte	3,4,1,5,41,1,5,43,9
+	.half	.L235-.L21
+	.byte	3,1,1,5,41,1,5,21,9
+	.half	.L236-.L235
+	.byte	3,3,1,5,32,9
+	.half	.L237-.L236
+	.byte	3,1,1,5,3,9
+	.half	.L238-.L237
+	.byte	3,121,1,5,33,9
+	.half	.L18-.L238
+	.byte	3,12,1,5,31,9
+	.half	.L22-.L18
+	.byte	1,5,9,9
+	.half	.L23-.L22
+	.byte	3,5,1,5,1,9
+	.half	.L239-.L23
+	.byte	3,1,1,7,9
+	.half	.L66-.L239
+	.byte	0,1,1
+.L216:
+	.sdecl	'.debug_ranges',debug,cluster('UdsFunc_SID_SA_SUBID_SK4_Callback')
+	.sect	'.debug_ranges'
+.L65:
+	.word	-1,.L42,0,.L66-.L42,0,0
+	.sdecl	'.debug_info',debug,cluster('BitReplace')
+	.sect	'.debug_info'
+.L67:
+	.word	250
+	.half	3
+	.word	.L68
+	.byte	4,1
+	.byte	'..\\Communication_Files\\Uds\\User\\Uds_User_SecurityAccessCallback.c',0
+	.byte	'TASKING VX-toolset for TriCore: C compiler',0
+	.byte	'D:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_1.9\\BMU_BOOT\\Debug\\',0,12,1
+	.word	.L70,.L69
+	.byte	2
+	.word	.L43
+	.byte	3
+	.byte	'BitReplace',0,1,106,15
+	.word	.L98
+	.byte	1,1,1
+	.word	.L26,.L125,.L25
+	.byte	4
+	.byte	'seed',0,1,106,40
+	.word	.L98,.L126
+	.byte	5
+	.word	.L26,.L125
+	.byte	0,0
+	.sdecl	'.debug_abbrev',debug,cluster('BitReplace')
+	.sect	'.debug_abbrev'
+.L68:
+	.byte	1,17,1,3,8,37,8,27,8,19,15,128,70,12,85,6,16,6,0,0,2,61,0,24,16,0,0,3,46,1,3,8,58,15,59,15,57,15,73,16
+	.byte	54,15,39,12,63,12,17,1,18,1,64,6,0,0,4,5,0,3,8,58,15,59,15,57,15,73,16,2,6,0,0,5,11,0,17,1,18,1,0,0,0
+	.sdecl	'.debug_line',debug,cluster('BitReplace')
+	.sect	'.debug_line'
+.L69:
+	.word	.L241-.L240
+.L240:
+	.half	3
+	.word	.L243-.L242
+.L242:
+	.byte	2,1,-4,9,10,0,1,1,1,1,0,0,0,1,0
+	.byte	'..\\Communication_Files\\Uds\\User\\Uds_User_SecurityAccessCallback.c',0,0,0,0,0
+.L243:
+	.byte	5,19,7,0,5,2
+	.word	.L26
+	.byte	3,235,0,1,5,27,9
+	.half	.L244-.L26
+	.byte	1,5,42,9
+	.half	.L245-.L244
+	.byte	1,5,48,9
+	.half	.L133-.L245
+	.byte	1,5,33,9
+	.half	.L134-.L133
+	.byte	1,5,19,9
+	.half	.L246-.L134
+	.byte	3,1,1,5,27,9
+	.half	.L247-.L246
+	.byte	1,5,42,9
+	.half	.L248-.L247
+	.byte	1,5,48,9
+	.half	.L135-.L248
+	.byte	1,5,33,9
+	.half	.L136-.L135
+	.byte	1,5,19,9
+	.half	.L249-.L136
+	.byte	3,1,1,5,27,9
+	.half	.L250-.L249
+	.byte	1,5,42,9
+	.half	.L251-.L250
+	.byte	1,5,33,9
+	.half	.L137-.L251
+	.byte	1,5,1,9
+	.half	.L138-.L137
+	.byte	3,2,1,7,9
+	.half	.L71-.L138
+	.byte	0,1,1
+.L241:
+	.sdecl	'.debug_ranges',debug,cluster('BitReplace')
+	.sect	'.debug_ranges'
+.L70:
+	.word	-1,.L26,0,.L71-.L26,0,0
+	.sdecl	'.debug_info',debug,cluster('saGetKey')
+	.sect	'.debug_info'
+.L72:
+	.word	249
+	.half	3
+	.word	.L73
+	.byte	4,1
+	.byte	'..\\Communication_Files\\Uds\\User\\Uds_User_SecurityAccessCallback.c',0
+	.byte	'TASKING VX-toolset for TriCore: C compiler',0
+	.byte	'D:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_1.9\\BMU_BOOT\\Debug\\',0,12,1
+	.word	.L75,.L74
+	.byte	2
+	.word	.L43
+	.byte	3
+	.byte	'saGetKey',0,1,115,8
+	.word	.L106
+	.byte	1,1,1
+	.word	.L28,.L127,.L27
+	.byte	4
+	.byte	'wSeed',0,1,115,24
+	.word	.L100,.L128
+	.byte	5
+	.word	.L28,.L127
+	.byte	0,0
+	.sdecl	'.debug_abbrev',debug,cluster('saGetKey')
+	.sect	'.debug_abbrev'
+.L73:
+	.byte	1,17,1,3,8,37,8,27,8,19,15,128,70,12,85,6,16,6,0,0,2,61,0,24,16,0,0,3,46,1,3,8,58,15,59,15,57,15,73,16
+	.byte	54,15,39,12,63,12,17,1,18,1,64,6,0,0,4,5,0,3,8,58,15,59,15,57,15,73,16,2,6,0,0,5,11,0,17,1,18,1,0,0,0
+	.sdecl	'.debug_line',debug,cluster('saGetKey')
+	.sect	'.debug_line'
+.L74:
+	.word	.L253-.L252
+.L252:
+	.half	3
+	.word	.L255-.L254
+.L254:
+	.byte	2,1,-4,9,10,0,1,1,1,1,0,0,0,1,0
+	.byte	'..\\Communication_Files\\Uds\\User\\Uds_User_SecurityAccessCallback.c',0,0,0,0,0
+.L255:
+	.byte	5,8,7,0,5,2
+	.word	.L28
+	.byte	3,242,0,1,5,32,9
+	.half	.L140-.L28
+	.byte	3,18,1,5,14,9
+	.half	.L139-.L140
+	.byte	1,5,29,3,1,1,5,11,9
+	.half	.L256-.L139
+	.byte	1,5,32,3,1,1,5,14,9
+	.half	.L257-.L256
+	.byte	1,5,32,3,1,1,5,43,9
+	.half	.L258-.L257
+	.byte	3,5,1,5,38,9
+	.half	.L259-.L258
+	.byte	1,5,20,9
+	.half	.L260-.L259
+	.byte	3,113,1,5,38,3,14,1,5,23,9
+	.half	.L261-.L260
+	.byte	3,115,1,5,54,3,13,1,5,21,9
+	.half	.L262-.L261
+	.byte	3,119,1,5,54,3,10,1,5,51,9
+	.half	.L263-.L262
+	.byte	3,118,1,5,23,9
+	.half	.L264-.L263
+	.byte	3,125,1,5,75,9
+	.half	.L265-.L264
+	.byte	3,3,1,5,45,9
+	.half	.L266-.L265
+	.byte	1,5,25,9
+	.half	.L267-.L266
+	.byte	3,7,1,9
+	.half	.L268-.L267
+	.byte	3,1,1,5,69,9
+	.half	.L269-.L268
+	.byte	3,120,1,5,25,9
+	.half	.L270-.L269
+	.byte	3,7,1,5,42,9
+	.half	.L271-.L270
+	.byte	1,9
+	.half	.L272-.L271
+	.byte	3,1,1,5,36,9
+	.half	.L273-.L272
+	.byte	3,4,1,5,66,9
+	.half	.L274-.L273
+	.byte	1,5,25,9
+	.half	.L275-.L274
+	.byte	3,125,1,5,60,9
+	.half	.L276-.L275
+	.byte	3,3,1,5,25,9
+	.half	.L277-.L276
+	.byte	3,125,1,5,42,9
+	.half	.L278-.L277
+	.byte	1,5,89,9
+	.half	.L279-.L278
+	.byte	3,3,1,5,25,9
+	.half	.L280-.L279
+	.byte	3,126,1,5,83,9
+	.half	.L281-.L280
+	.byte	3,2,1,5,25,9
+	.half	.L282-.L281
+	.byte	3,126,1,5,23,9
+	.half	.L283-.L282
+	.byte	3,116,1,5,42,9
+	.half	.L284-.L283
+	.byte	3,12,1,5,86,9
+	.half	.L285-.L284
+	.byte	3,118,1,5,100,9
+	.half	.L286-.L285
+	.byte	3,12,1,5,41,9
+	.half	.L287-.L286
+	.byte	3,1,1,5,1,9
+	.half	.L288-.L287
+	.byte	3,8,1,7,9
+	.half	.L76-.L288
+	.byte	0,1,1
+.L253:
+	.sdecl	'.debug_ranges',debug,cluster('saGetKey')
+	.sect	'.debug_ranges'
+.L75:
+	.word	-1,.L28,0,.L76-.L28,0,0
+	.sdecl	'.debug_info',debug,cluster('saGetKey1')
+	.sect	'.debug_info'
+.L77:
+	.word	252
+	.half	3
+	.word	.L78
+	.byte	4,1
+	.byte	'..\\Communication_Files\\Uds\\User\\Uds_User_SecurityAccessCallback.c',0
+	.byte	'TASKING VX-toolset for TriCore: C compiler',0
+	.byte	'D:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_1.9\\BMU_BOOT\\Debug\\',0,12,1
+	.word	.L80,.L79
+	.byte	2
+	.word	.L43
+	.byte	3
+	.byte	'saGetKey1',0,1,154,1,8
+	.word	.L106
+	.byte	1,1,1
+	.word	.L30,.L129,.L29
+	.byte	4
+	.byte	'wSeed',0,1,154,1,25
+	.word	.L100,.L130
+	.byte	5
+	.word	.L30,.L129
+	.byte	0,0
+	.sdecl	'.debug_abbrev',debug,cluster('saGetKey1')
+	.sect	'.debug_abbrev'
+.L78:
+	.byte	1,17,1,3,8,37,8,27,8,19,15,128,70,12,85,6,16,6,0,0,2,61,0,24,16,0,0,3,46,1,3,8,58,15,59,15,57,15,73,16
+	.byte	54,15,39,12,63,12,17,1,18,1,64,6,0,0,4,5,0,3,8,58,15,59,15,57,15,73,16,2,6,0,0,5,11,0,17,1,18,1,0,0,0
+	.sdecl	'.debug_line',debug,cluster('saGetKey1')
+	.sect	'.debug_line'
+.L79:
+	.word	.L290-.L289
+.L289:
+	.half	3
+	.word	.L292-.L291
+.L291:
+	.byte	2,1,-4,9,10,0,1,1,1,1,0,0,0,1,0
+	.byte	'..\\Communication_Files\\Uds\\User\\Uds_User_SecurityAccessCallback.c',0,0,0,0,0
+.L292:
+	.byte	5,21,7,0,5,2
+	.word	.L30
+	.byte	3,164,1,1,5,17,9
+	.half	.L293-.L30
+	.byte	1,5,32,9
+	.half	.L294-.L293
+	.byte	1,5,20,9
+	.half	.L295-.L294
+	.byte	1,3,1,1,5,35,9
+	.half	.L296-.L295
+	.byte	1,5,23,9
+	.half	.L297-.L296
+	.byte	1,5,20,3,2,1,5,35,9
+	.half	.L298-.L297
+	.byte	1,5,23,9
+	.half	.L299-.L298
+	.byte	1,9
+	.half	.L300-.L299
+	.byte	3,5,1,9
+	.half	.L301-.L300
+	.byte	3,127,1,5,20,3,123,1,5,49,9
+	.half	.L302-.L301
+	.byte	3,4,1,5,29,9
+	.half	.L303-.L302
+	.byte	3,2,1,5,35,3,122,1,5,23,9
+	.half	.L304-.L303
+	.byte	1,5,33,9
+	.half	.L305-.L304
+	.byte	3,4,1,5,35,9
+	.half	.L306-.L305
+	.byte	3,4,1,5,64,9
+	.half	.L307-.L306
+	.byte	1,5,40,9
+	.half	.L308-.L307
+	.byte	3,125,1,5,59,9
+	.half	.L309-.L308
+	.byte	3,3,1,5,46,9
+	.half	.L310-.L309
+	.byte	3,125,1,5,30,9
+	.half	.L311-.L310
+	.byte	1,5,43,9
+	.half	.L312-.L311
+	.byte	3,1,1,5,86,9
+	.half	.L313-.L312
+	.byte	3,2,1,5,81,9
+	.half	.L314-.L313
+	.byte	1,5,33,9
+	.half	.L315-.L314
+	.byte	3,126,1,5,97,9
+	.half	.L316-.L315
+	.byte	3,2,1,5,1,9
+	.half	.L317-.L316
+	.byte	3,8,1,7,9
+	.half	.L81-.L317
+	.byte	0,1,1
+.L290:
+	.sdecl	'.debug_ranges',debug,cluster('saGetKey1')
+	.sect	'.debug_ranges'
+.L80:
+	.word	-1,.L30,0,.L81-.L30,0,0
+	.sdecl	'.debug_info',debug,cluster('.cocofun_1')
+	.sect	'.debug_info'
+.L82:
+	.word	218
+	.half	3
+	.word	.L83
+	.byte	4,1
+	.byte	'..\\Communication_Files\\Uds\\User\\Uds_User_SecurityAccessCallback.c',0
+	.byte	'TASKING VX-toolset for TriCore: C compiler',0
+	.byte	'D:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_1.9\\BMU_BOOT\\Debug\\',0,12,1
+	.word	.L85,.L84
+	.byte	2
+	.word	.L43
+	.byte	3
+	.byte	'.cocofun_1',0,1,205,1,9,1
+	.word	.L36,.L86,.L35
+	.byte	0
+	.sdecl	'.debug_abbrev',debug,cluster('.cocofun_1')
+	.sect	'.debug_abbrev'
+.L83:
+	.byte	1,17,1,3,8,37,8,27,8,19,15,128,70,12,85,6,16,6,0,0,2,61,0,24,16,0,0,3,46,0,3,8,58,15,59,15,57,15,54,15
+	.byte	17,1,18,1,64,6,0,0,0
+	.sdecl	'.debug_line',debug,cluster('.cocofun_1')
+	.sect	'.debug_line'
+.L84:
+	.word	.L319-.L318
+.L318:
+	.half	3
+	.word	.L321-.L320
+.L320:
+	.byte	2,1,-4,9,10,0,1,1,1,1,0,0,0,1,0
+	.byte	'..\\Communication_Files\\Uds\\User\\Uds_User_SecurityAccessCallback.c',0,0,0,0,0
+.L321:
+	.byte	5,39,7,0,5,2
+	.word	.L36
+	.byte	3,228,1,1,5,21,9
+	.half	.L322-.L36
+	.byte	3,3,1,5,19,1,5,29,9
+	.half	.L323-.L322
+	.byte	3,1,1,5,15,9
+	.half	.L324-.L323
+	.byte	1,5,29,9
+	.half	.L325-.L324
+	.byte	3,1,1,5,15,9
+	.half	.L326-.L325
+	.byte	1,5,29,9
+	.half	.L327-.L326
+	.byte	3,1,1,5,15,9
+	.half	.L328-.L327
+	.byte	1,5,29,9
+	.half	.L329-.L328
+	.byte	3,1,1,5,15,9
+	.half	.L330-.L329
+	.byte	1,5,32,9
+	.half	.L331-.L330
+	.byte	3,1,1,5,2,1,5,9,9
+	.half	.L332-.L331
+	.byte	3,4,1,5,2,3,124,1,5,30,9
+	.half	.L333-.L332
+	.byte	1,5,9,9
+	.half	.L334-.L333
+	.byte	3,4,1,7,9
+	.half	.L86-.L334
+	.byte	0,1,1,5,39,0,5,2
+	.word	.L36
+	.byte	3,251,2,1,5,21,9
+	.half	.L322-.L36
+	.byte	3,3,1,5,19,1,5,29,9
+	.half	.L323-.L322
+	.byte	3,1,1,5,15,9
+	.half	.L324-.L323
+	.byte	1,5,29,9
+	.half	.L325-.L324
+	.byte	3,1,1,5,15,9
+	.half	.L326-.L325
+	.byte	1,5,29,9
+	.half	.L327-.L326
+	.byte	3,1,1,5,15,9
+	.half	.L328-.L327
+	.byte	1,5,29,9
+	.half	.L329-.L328
+	.byte	3,1,1,5,15,9
+	.half	.L330-.L329
+	.byte	1,5,32,9
+	.half	.L331-.L330
+	.byte	3,1,1,5,2,1,5,9,9
+	.half	.L332-.L331
+	.byte	3,4,1,5,2,3,124,1,5,30,9
+	.half	.L333-.L332
+	.byte	1,5,9,9
+	.half	.L334-.L333
+	.byte	3,237,126,1,7,9
+	.half	.L86-.L334
+	.byte	0,1,1
+.L319:
+	.sdecl	'.debug_ranges',debug,cluster('.cocofun_1')
+	.sect	'.debug_ranges'
+.L85:
+	.word	-1,.L36,0,.L86-.L36,0,0
+	.sdecl	'.debug_info',debug,cluster('.cocofun_2')
+	.sect	'.debug_info'
+.L87:
+	.word	218
+	.half	3
+	.word	.L88
+	.byte	4,1
+	.byte	'..\\Communication_Files\\Uds\\User\\Uds_User_SecurityAccessCallback.c',0
+	.byte	'TASKING VX-toolset for TriCore: C compiler',0
+	.byte	'D:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_1.9\\BMU_BOOT\\Debug\\',0,12,1
+	.word	.L90,.L89
+	.byte	2
+	.word	.L43
+	.byte	3
+	.byte	'.cocofun_2',0,1,205,1,9,1
+	.word	.L34,.L91,.L33
+	.byte	0
+	.sdecl	'.debug_abbrev',debug,cluster('.cocofun_2')
+	.sect	'.debug_abbrev'
+.L88:
+	.byte	1,17,1,3,8,37,8,27,8,19,15,128,70,12,85,6,16,6,0,0,2,61,0,24,16,0,0,3,46,0,3,8,58,15,59,15,57,15,54,15
+	.byte	17,1,18,1,64,6,0,0,0
+	.sdecl	'.debug_line',debug,cluster('.cocofun_2')
+	.sect	'.debug_line'
+.L89:
+	.word	.L336-.L335
+.L335:
+	.half	3
+	.word	.L338-.L337
+.L337:
+	.byte	2,1,-4,9,10,0,1,1,1,1,0,0,0,1,0
+	.byte	'..\\Communication_Files\\Uds\\User\\Uds_User_SecurityAccessCallback.c',0,0,0,0,0
+.L338:
+	.byte	5,22,7,0,5,2
+	.word	.L34
+	.byte	3,210,1,1,5,3,9
+	.half	.L143-.L34
+	.byte	3,6,1,5,16,9
+	.half	.L339-.L143
+	.byte	1,9
+	.half	.L142-.L339
+	.byte	3,1,1,9
+	.half	.L340-.L142
+	.byte	3,1,1,5,5,9
+	.half	.L341-.L340
+	.byte	3,123,1,9
+	.half	.L91-.L341
+	.byte	0,1,1,5,22,0,5,2
+	.word	.L34
+	.byte	3,233,2,1,5,3,9
+	.half	.L143-.L34
+	.byte	3,6,1,5,16,9
+	.half	.L339-.L143
+	.byte	1,9
+	.half	.L142-.L339
+	.byte	3,1,1,9
+	.half	.L340-.L142
+	.byte	3,1,1,5,5,9
+	.half	.L341-.L340
+	.byte	3,123,1,9
+	.half	.L342-.L341
+	.byte	3,233,126,1,7,9
+	.half	.L91-.L342
+	.byte	0,1,1
+.L336:
+	.sdecl	'.debug_ranges',debug,cluster('.cocofun_2')
+	.sect	'.debug_ranges'
+.L90:
+	.word	-1,.L34,0,.L91-.L34,0,0
+	.sdecl	'.debug_info',debug,cluster('st_Uds_SID_SA_Info')
+	.sect	'.debug_info'
+.L92:
+	.word	215
+	.half	3
+	.word	.L93
+	.byte	4,1
+	.byte	'..\\Communication_Files\\Uds\\User\\Uds_User_SecurityAccessCallback.c',0
+	.byte	'TASKING VX-toolset for TriCore: C compiler',0
+	.byte	'D:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_1.9\\BMU_BOOT\\Debug\\',0,12,1,2
+	.word	.L43
+	.byte	3
+	.byte	'st_Uds_SID_SA_Info',0,1,4,24
+	.word	.L131
+	.byte	1,5,3
+	.word	st_Uds_SID_SA_Info
+	.byte	0
+	.sdecl	'.debug_abbrev',debug,cluster('st_Uds_SID_SA_Info')
+	.sect	'.debug_abbrev'
+.L93:
+	.byte	1,17,1,3,8,37,8,27,8,19,15,128,70,12,0,0,2,61,0,24,16,0,0,3,52,0,3,8,58,15,59,15,57,15,73,16,63,12,2,9
+	.byte	0,0,0
+	.sdecl	'.debug_info',debug,cluster('AppKeyConst')
+	.sect	'.debug_info'
+.L94:
+	.word	208
+	.half	3
+	.word	.L95
+	.byte	4,1
+	.byte	'..\\Communication_Files\\Uds\\User\\Uds_User_SecurityAccessCallback.c',0
+	.byte	'TASKING VX-toolset for TriCore: C compiler',0
+	.byte	'D:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_1.9\\BMU_BOOT\\Debug\\',0,12,1,2
+	.word	.L43
+	.byte	3
+	.byte	'AppKeyConst',0,1,5,15
+	.word	.L132
+	.byte	1,5,3
+	.word	AppKeyConst
+	.byte	0
+	.sdecl	'.debug_abbrev',debug,cluster('AppKeyConst')
+	.sect	'.debug_abbrev'
+.L95:
+	.byte	1,17,1,3,8,37,8,27,8,19,15,128,70,12,0,0,2,61,0,24,16,0,0,3,52,0,3,8,58,15,59,15,57,15,73,16,63,12,2,9
+	.byte	0,0,0
+	.sdecl	'.debug_info',debug,cluster('ui8_Uds_Seed')
+	.sect	'.debug_info'
+.L96:
+	.word	209
+	.half	3
+	.word	.L97
+	.byte	4,1
+	.byte	'..\\Communication_Files\\Uds\\User\\Uds_User_SecurityAccessCallback.c',0
+	.byte	'TASKING VX-toolset for TriCore: C compiler',0
+	.byte	'D:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_1.9\\BMU_BOOT\\Debug\\',0,12,1,2
+	.word	.L43
+	.byte	3
+	.byte	'ui8_Uds_Seed',0,1,6,15
+	.word	.L132
+	.byte	1,5,3
+	.word	ui8_Uds_Seed
+	.byte	0
+	.sdecl	'.debug_abbrev',debug,cluster('ui8_Uds_Seed')
+	.sect	'.debug_abbrev'
+.L97:
+	.byte	1,17,1,3,8,37,8,27,8,19,15,128,70,12,0,0,2,61,0,24,16,0,0,3,52,0,3,8,58,15,59,15,57,15,73,16,63,12,2,9
+	.byte	0,0,0
+	.sdecl	'.debug_loc',debug,cluster('.cocofun_1')
+	.sect	'.debug_loc'
+.L35:
+	.word	-1,.L36,0,.L86-.L36
+	.half	2
+	.byte	138,0
+	.word	0,0
+	.sdecl	'.debug_loc',debug,cluster('.cocofun_2')
+	.sect	'.debug_loc'
+.L33:
+	.word	-1,.L34,0,.L91-.L34
+	.half	2
+	.byte	138,0
+	.word	0,0
+	.sdecl	'.debug_loc',debug,cluster('BitReplace')
+	.sect	'.debug_loc'
+.L25:
+	.word	-1,.L26,0,.L125-.L26
+	.half	2
+	.byte	138,0
+	.word	0,0
+.L126:
+	.word	-1,.L26,0,.L133-.L26
+	.half	5
+	.byte	144,34,157,32,0
+	.word	.L134-.L26,.L135-.L26
+	.half	5
+	.byte	144,32,157,32,0
+	.word	.L136-.L26,.L137-.L26
+	.half	5
+	.byte	144,32,157,32,32
+	.word	.L138-.L26,.L125-.L26
+	.half	5
+	.byte	144,33,157,32,0
+	.word	0,0
+	.sdecl	'.debug_loc',debug,cluster('UdsFunc_SID_SA_SUBID_RSD1_Callback')
+	.sect	'.debug_loc'
+.L31:
+	.word	-1,.L32,0,.L99-.L32
+	.half	2
+	.byte	138,0
+	.word	0,0
+.L104:
+	.word	-1,.L32,.L34-.L32,.L91-.L32
+	.half	1
+	.byte	102
+	.word	.L36-.L32,.L86-.L32
+	.half	1
+	.byte	102
+	.word	.L144-.L32,.L99-.L32
+	.half	1
+	.byte	102
+	.word	0,0
+.L107:
+	.word	-1,.L32,.L143-.L32,.L91-.L32
+	.half	5
+	.byte	144,32,157,32,0
+	.word	.L36-.L32,.L86-.L32
+	.half	5
+	.byte	144,32,157,32,0
+	.word	.L144-.L32,.L99-.L32
+	.half	5
+	.byte	144,32,157,32,0
+	.word	0,0
+.L101:
+	.word	-1,.L32,.L34-.L32,.L142-.L32
+	.half	1
+	.byte	100
+	.word	0,0
+.L102:
+	.word	-1,.L32,.L34-.L32,.L91-.L32
+	.half	1
+	.byte	101
+	.word	.L36-.L32,.L86-.L32
+	.half	1
+	.byte	101
+	.word	.L144-.L32,.L99-.L32
+	.half	1
+	.byte	101
+	.word	0,0
+	.sdecl	'.debug_loc',debug,cluster('UdsFunc_SID_SA_SUBID_RSD4_Callback')
+	.sect	'.debug_loc'
+.L39:
+	.word	-1,.L40,0,.L114-.L40
+	.half	2
+	.byte	138,0
+	.word	0,0
+.L117:
+	.word	-1,.L40,.L34-.L40,.L91-.L40
+	.half	1
+	.byte	102
+	.word	.L36-.L40,.L86-.L40
+	.half	1
+	.byte	102
+	.word	.L152-.L40,.L114-.L40
+	.half	1
+	.byte	102
+	.word	0,0
+.L118:
+	.word	-1,.L40,.L143-.L40,.L91-.L40
+	.half	5
+	.byte	144,32,157,32,0
+	.word	.L36-.L40,.L86-.L40
+	.half	5
+	.byte	144,32,157,32,0
+	.word	.L152-.L40,.L114-.L40
+	.half	5
+	.byte	144,32,157,32,0
+	.word	0,0
+.L115:
+	.word	-1,.L40,.L34-.L40,.L142-.L40
+	.half	1
+	.byte	100
+	.word	0,0
+.L116:
+	.word	-1,.L40,.L34-.L40,.L91-.L40
+	.half	1
+	.byte	101
+	.word	.L36-.L40,.L86-.L40
+	.half	1
+	.byte	101
+	.word	.L152-.L40,.L114-.L40
+	.half	1
+	.byte	101
+	.word	0,0
+	.sdecl	'.debug_loc',debug,cluster('UdsFunc_SID_SA_SUBID_SK1_Callback')
+	.sect	'.debug_loc'
+.L37:
+	.word	-1,.L38,0,.L145-.L38
+	.half	2
+	.byte	138,0
+	.word	.L145-.L38,.L108-.L38
+	.half	2
+	.byte	138,8
+	.word	.L108-.L38,.L108-.L38
+	.half	2
+	.byte	138,0
+	.word	0,0
+.L111:
+	.word	-1,.L38,0,.L146-.L38
+	.half	1
+	.byte	102
+	.word	.L149-.L38,.L108-.L38
+	.half	2
+	.byte	145,124
+	.word	.L151-.L38,.L8-.L38
+	.half	1
+	.byte	111
+	.word	.L8-.L38,.L13-.L38
+	.half	1
+	.byte	102
+	.word	0,0
+.L113:
+	.word	-1,.L38,.L146-.L38,.L8-.L38
+	.half	5
+	.byte	144,33,157,32,0
+	.word	0,0
+.L112:
+	.word	-1,.L38,.L9-.L38,.L150-.L38
+	.half	5
+	.byte	144,32,157,32,0
+	.word	0,0
+.L109:
+	.word	-1,.L38,0,.L147-.L38
+	.half	1
+	.byte	100
+	.word	.L148-.L38,.L108-.L38
+	.half	1
+	.byte	108
+	.word	.L8-.L38,.L13-.L38
+	.half	1
+	.byte	100
+	.word	0,0
+.L110:
+	.word	-1,.L38,0,.L146-.L38
+	.half	1
+	.byte	101
+	.word	.L8-.L38,.L13-.L38
+	.half	1
+	.byte	101
+	.word	0,0
+	.sdecl	'.debug_loc',debug,cluster('UdsFunc_SID_SA_SUBID_SK4_Callback')
+	.sect	'.debug_loc'
+.L41:
+	.word	-1,.L42,0,.L153-.L42
+	.half	2
+	.byte	138,0
+	.word	.L153-.L42,.L119-.L42
+	.half	2
+	.byte	138,8
+	.word	.L119-.L42,.L119-.L42
+	.half	2
+	.byte	138,0
+	.word	0,0
+.L122:
+	.word	-1,.L42,0,.L154-.L42
+	.half	1
+	.byte	102
+	.word	.L156-.L42,.L119-.L42
+	.half	2
+	.byte	145,124
+	.word	.L159-.L42,.L18-.L42
+	.half	1
+	.byte	111
+	.word	.L18-.L42,.L22-.L42
+	.half	1
+	.byte	102
+	.word	0,0
+.L124:
+	.word	-1,.L42,.L154-.L42,.L18-.L42
+	.half	5
+	.byte	144,33,157,32,0
+	.word	0,0
+.L123:
+	.word	-1,.L42,.L19-.L42,.L158-.L42
+	.half	5
+	.byte	144,32,157,32,0
+	.word	0,0
+.L120:
+	.word	-1,.L42,0,.L155-.L42
+	.half	1
+	.byte	100
+	.word	.L157-.L42,.L119-.L42
+	.half	1
+	.byte	108
+	.word	.L18-.L42,.L22-.L42
+	.half	1
+	.byte	100
+	.word	0,0
+.L121:
+	.word	-1,.L42,0,.L154-.L42
+	.half	1
+	.byte	101
+	.word	.L18-.L42,.L22-.L42
+	.half	1
+	.byte	101
+	.word	0,0
+	.sdecl	'.debug_loc',debug,cluster('saGetKey')
+	.sect	'.debug_loc'
+.L27:
+	.word	-1,.L28,0,.L127-.L28
+	.half	2
+	.byte	138,0
+	.word	0,0
+.L128:
+	.word	-1,.L28,0,.L139-.L28
+	.half	1
+	.byte	100
+	.word	.L140-.L28,.L141-.L28
+	.half	1
+	.byte	111
+	.word	0,0
+	.sdecl	'.debug_loc',debug,cluster('saGetKey1')
+	.sect	'.debug_loc'
+.L29:
+	.word	-1,.L30,0,.L129-.L30
+	.half	2
+	.byte	138,0
+	.word	0,0
+.L130:
+	.word	-1,.L30,0,.L129-.L30
+	.half	1
+	.byte	100
+	.word	0,0
+	.sdecl	'.debug_frame',debug
+	.sect	'.debug_frame'
+.L343:
+	.word	48
+	.word	-1
+	.byte	3,0,2,1,27,12,26,0,8,26,8,27,8,30,8,29,8,28,8,16,8,17,8,24,8,25,8,31,8,32,8,33,8,34,8,35,8,36,8,37,8,38
+	.byte	8,39
+	.sdecl	'.debug_frame',debug,cluster('BitReplace')
+	.sect	'.debug_frame'
+	.word	24
+	.word	.L343,.L26,.L125-.L26
+	.byte	8,18,8,19,8,20,8,21,8,22,8,23
+	.sdecl	'.debug_frame',debug,cluster('saGetKey')
+	.sect	'.debug_frame'
+	.word	12
+	.word	.L343,.L28,.L127-.L28
+	.sdecl	'.debug_frame',debug,cluster('saGetKey1')
+	.sect	'.debug_frame'
+	.word	24
+	.word	.L343,.L30,.L129-.L30
+	.byte	8,18,8,19,8,21,8,22,8,23,0,0
+	.sdecl	'.debug_frame',debug,cluster('UdsFunc_SID_SA_SUBID_RSD1_Callback')
+	.sect	'.debug_frame'
+	.word	16
+	.word	.L343,.L32,.L99-.L32
+	.byte	8,19,0,0
+	.sdecl	'.debug_frame',debug,cluster('UdsFunc_SID_SA_SUBID_SK1_Callback')
+	.sect	'.debug_frame'
+	.word	36
+	.word	.L343,.L38,.L108-.L38
+	.byte	4
+	.word	(.L145-.L38)/2
+	.byte	19,8,22,26,3,19,138,8,4
+	.word	(.L108-.L145)/2
+	.byte	19,0,8,26,0,0
+	.sdecl	'.debug_frame',debug,cluster('UdsFunc_SID_SA_SUBID_RSD4_Callback')
+	.sect	'.debug_frame'
+	.word	16
+	.word	.L343,.L40,.L114-.L40
+	.byte	8,19,0,0
+	.sdecl	'.debug_frame',debug,cluster('UdsFunc_SID_SA_SUBID_SK4_Callback')
+	.sect	'.debug_frame'
+	.word	36
+	.word	.L343,.L42,.L119-.L42
+	.byte	4
+	.word	(.L153-.L42)/2
+	.byte	19,8,22,26,3,19,138,8,4
+	.word	(.L119-.L153)/2
+	.byte	19,0,8,26,0,0
+	.sdecl	'.debug_frame',debug
+	.sect	'.debug_frame'
+.L344:
+	.word	48
+	.word	-1
+	.byte	3,0,2,1,30,12,26,0,8,26,8,27,8,30,8,29,8,28,8,16,8,17,8,24,8,25,8,31,8,32,8,33,8,34,8,35,8,36,8,37,8,38
+	.byte	8,39
+	.sdecl	'.debug_frame',debug,cluster('.cocofun_2')
+	.sect	'.debug_frame'
+	.word	24
+	.word	.L344,.L34,.L91-.L34
+	.byte	8,18,8,19,8,20,8,21,8,22,8,23
+	.sdecl	'.debug_frame',debug,cluster('.cocofun_1')
+	.sect	'.debug_frame'
+	.word	24
+	.word	.L344,.L36,.L86-.L36
+	.byte	8,18,8,19,8,20,8,21,8,22,8,23
+
+; ..\Communication_Files\Uds\User\Uds_User_SecurityAccessCallback.c	   486  
+; ..\Communication_Files\Uds\User\Uds_User_SecurityAccessCallback.c	   487  
+
+	; Module end

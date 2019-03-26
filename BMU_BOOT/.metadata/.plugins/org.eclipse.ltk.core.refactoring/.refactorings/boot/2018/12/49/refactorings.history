@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Rename resource &apos;BMU_BOOT/Initiate_Files/boot.dav&apos; to &apos;BMU_BOOT.dav&apos;" description="Rename resource &apos;boot.dav&apos;" flags="7" id="org.eclipse.ltk.core.refactoring.rename.resource" input="Initiate_Files/boot.dav" name="BMU_BOOT.dav" stamp="1543988682043" updateReferences="true"/>
+</session>

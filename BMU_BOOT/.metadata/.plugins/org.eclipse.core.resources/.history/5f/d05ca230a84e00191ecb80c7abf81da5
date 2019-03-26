@@ -1,0 +1,993 @@
+/*----------------------------------------------------------------------------------------------------*/
+/*
+File Name：  	CanDrv_TC1782.c
+Author：        	任智强
+Version：      	V1.00.0007
+Comment：  	CAN驱动
+			MISRA_2004去除:
+			R1.1：     不允许C语言扩展；
+			R2.2：     不允许使用”//“；
+			R5.1：     不允许使用超过31个字符；
+			R7.1：     不能使用8进制数；
+			R10.1：	整型数值不应隐式转换；
+			R10.3：	强制转换到更窄的类型；
+			R10.5：	位运算符强制转换；
+			R10.6：   需要定义数值后加”U“；
+			R12.2：	表达值不同；
+			R12.7：	不能使用无符号型；
+			R14.3：	在预处理之前，空语句只能出现在一行上；
+			R14.8：   应该是复合语句
+			R17.4：	数组的索引；
+			R19.4：   宏定义相关；
+			R19.10： 宏定义相关；
+			R20.1：   需保留关键字（头文件防止重复调用问题）；
+History：
+			V1.00.0000		20140509	初始版本
+			v1.00.0001		20140611	增加BUSOFF功能，增加CAN ID设置，增加CAN MASK屏蔽
+			v1.00.0002		20140612	CAN_Read()增加CAN ID参数返回
+			v1.00.0003		20140618	增加BusOff快速，慢速恢复功能
+			V1.00.0004		20140621	修改接口函数注释
+			V1.00.0005		20140624	调整BusOff恢复时间
+			V1.00.0006		20140713	增加CAN接收发送中断配置，增加通过ID号读取数据函数
+			V1.00.0007		20150427	修改CAN报文优选级
+
+*/
+
+#include "MAIN.h"
+
+
+//CAN故障
+Struct_CAN_Error	st_CAN_Error[MAX_NODE_NUM];
+
+uint32	ui32_BOFF_Delay_Count[MAX_NODE_NUM];	//BUSOFF Delay计数器
+uint32	ui32_BOFF_Clear_Count[MAX_NODE_NUM];	//BUSOFF清除计数器
+uint8	ui8_CallCycle_Count[MAX_OBJECT_NUM];	//收发周期计数器
+
+uint32	ui32_MSIMASK_Value[4U];	//MSIMASK寄存器值
+
+/*************************************************************************/
+/*
+Function:		void CAN_Init(void)
+
+Description: 	此函数用于CAN初始化
+
+Parameters: 	void
+
+Return:       	void
+
+Return Values:  无
+
+Remarks:		运行时间<1ms
+				用户在系统初始化时调用此函数初始化CAN模块。
+
+Example:		初始化CAN模块
+				CAN_Init();
+*/
+void CAN_Init(void)
+{
+	volatile uint32	ui32_Temp;
+	volatile uint8	ui8_Node_Loop;
+	volatile uint8	ui8_MO_Loop;
+
+	MAIN_vResetENDINIT();
+	CAN_CLC        =  0x00000000;  // 使能CAN模块
+	ui32_Temp      =  CAN_CLC;     // 虚拟读一次避免管道效应
+	while((CAN_CLC & 0x00000002 )== 0x00000002)
+	{
+		__nop();  					//等待直到模块使能
+	}
+	CAN_FDR        =  0x000043FF;  // 选择normal分频
+	ui32_Temp      =  CAN_FDR;     // 虚拟读一次避免管道效应
+	MAIN_vSetENDINIT();
+
+	while(CAN_PANCTR & CAN_PANCTR_BUSY)
+	{
+		__nop();					//等待Panel完成初始化
+	}
+
+	CAN_MCR        =  0x00000000;
+	CAN_MCR        =  0x00000000;
+
+
+	//配置Node
+	for(ui8_Node_Loop = 0U; ui8_Node_Loop < MAX_NODE_NUM; ui8_Node_Loop++)
+	{
+		if(st_CAN_Node[ui8_Node_Loop].b_Enable == TRUE)	//判断Node是否使能
+		{
+
+			REG_CAN_NCR(ui8_Node_Loop) =  0x00000049;  	//CAN_NCR 置位INIT，CCE,ALIE
+			REG_CAN_NIPR(ui8_Node_Loop) =  0x00000002;  //CAN_NIPR SRN 2
+
+			REG_CAN_NECNT(ui8_Node_Loop) =  0x00600000; //CAN_NECNT warning threshold value 96
+
+			switch(ui8_Node_Loop)	//配置CAN收发管脚
+			{
+				case NODE_0:
+				{
+					REG_CAN_NPCR(ui8_Node_Loop) =  0x00000000;  //CAN_NPCR
+					P3_IOCR12      = (P3_IOCR12 & ~0x000000F0) | 0x00000020; //P3.12管脚作为输入
+					P3_IOCR12      = (P3_IOCR12 & ~0x0000F000) | 0x00009000; //P3.13管脚作为输出
+
+					RESETIO_P1_13;
+					break;
+				}
+
+				case NODE_1:
+				{
+					REG_CAN_NPCR(ui8_Node_Loop) =  0x00000000;  //CAN_NPCR
+					P3_IOCR12      = (P3_IOCR12 & ~0x00F00000) | 0x00200000; //P3.14作为输入
+					P3_IOCR12      = (P3_IOCR12 & ~0xF0000000) | 0x90000000; //P3.15作为输出
+					break;
+				}
+
+				case NODE_2:
+				{
+					REG_CAN_NPCR(ui8_Node_Loop) =  0x00000002;  //CAN_NPCR
+					P4_IOCR0       = (P4_IOCR0 & ~0x000000F0) | 0x00000020; //P4.0作为输入
+					P4_IOCR0       = (P4_IOCR0 & ~0x0000F000) | 0x0000B000; //P4.1作为输出
+					break;
+				}
+
+				default:
+					break;
+			}
+
+			/*更改波特率*/
+			  switch(Boot_Flag[1])
+			  {
+			  case 0x01:	/*500K*/
+				  st_CAN_Node[ui8_Node_Loop].ui32_BaudRate      =  500000U;  // load  node 0 bit timing register
+				  break;
+			  case 0x02:	/*250K*/
+				  st_CAN_Node[ui8_Node_Loop].ui32_BaudRate      =  250000U;  // load  node 0 bit timing register
+				  break;
+			  case 0x03:	/*125K*/
+				  st_CAN_Node[ui8_Node_Loop].ui32_BaudRate      =  125000U;  // load  node 0 bit timing register
+				  break;
+			  default:
+				  st_CAN_Node[ui8_Node_Loop].ui32_BaudRate      =  500000U;  // load  node 0 bit timing register
+				  break;
+			  }
+
+			//配置波特率
+			ui32_Temp = (st_CAN_Node[ui8_Node_Loop].ui32_CAN_Clock / st_CAN_Node[ui8_Node_Loop].ui32_BaudRate
+					/ (st_CAN_Node[ui8_Node_Loop].ui8_TSEG1 + st_CAN_Node[ui8_Node_Loop].ui8_TSEG2 + 1U)) - 1U;
+			ui32_Temp += (uint32)(st_CAN_Node[ui8_Node_Loop].ui8_SJW - 1U) << 6U;
+			ui32_Temp += (uint32)((uint8)(st_CAN_Node[ui8_Node_Loop].ui8_TSEG1 - 1U)) << 8U;
+			ui32_Temp += (uint32)((uint8)(st_CAN_Node[ui8_Node_Loop].ui8_TSEG2 - 1U)) << 12U;
+			REG_CAN_NBTR(ui8_Node_Loop) =  ui32_Temp;  //CAN_NBTR
+
+			REG_CAN_NFCR(ui8_Node_Loop) =  0x00000000; //CAN_NFCR
+		}
+	}
+
+	//配置MO
+	ui32_MSIMASK_Value[0U] = 0U;
+	ui32_MSIMASK_Value[1U] = 0U;
+	ui32_MSIMASK_Value[2U] = 0U;
+	ui32_MSIMASK_Value[3U] = 0U;
+	for(ui8_MO_Loop = 0U; ui8_MO_Loop < MAX_OBJECT_NUM; ui8_MO_Loop++)
+	{
+		if(st_CAN_Object[ui8_MO_Loop].b_Enable == TRUE)	//判断MO是否使能
+		{
+			ui32_Temp = (uint32)((uint8)(st_CAN_Object[ui8_MO_Loop].ui8_Node + 1U) )* 0x100U * 0x100U * 0x100U;
+			ui32_Temp += (uint32)ui8_MO_Loop * 0x100U * 0x100U;
+			ui32_Temp += 0x02;
+			SetListCommand(ui32_Temp);  //分配MO到相应Node
+
+			if(st_CAN_Object[ui8_MO_Loop].b_Dir == CAN_RX_DIR)
+			{
+				REG_CAN_MOCTR(ui8_MO_Loop) =  0x00A00000;  //CAN_MOCTR
+			}
+			else if(st_CAN_Object[ui8_MO_Loop].b_Dir == CAN_TX_DIR)
+			{
+				REG_CAN_MOCTR(ui8_MO_Loop) =  0x0EA80000;  //CAN_MOCTR
+			}
+			else
+			{
+				__nop();
+			}
+
+			if(st_CAN_Object[ui8_MO_Loop].ui8_DLC <= 8U)
+			{
+				REG_CAN_MOFCR(ui8_MO_Loop) = (uint32)((uint8)st_CAN_Object[ui8_MO_Loop].ui8_DLC )<< 24U;
+
+				if(st_CAN_Object[ui8_MO_Loop].b_RxIRQ == TRUE)	//接收中断使能
+				{
+					REG_CAN_MOFCR(ui8_MO_Loop) |= 0x10000U;
+					ui32_MSIMASK_Value[ui8_MO_Loop / 32U] |= 1 << (ui8_MO_Loop & 0x1FU);
+				}
+
+				if(st_CAN_Object[ui8_MO_Loop].b_TxIRQ == TRUE)	//发送中断使能
+				{
+					REG_CAN_MOFCR(ui8_MO_Loop) |= 0x20000U;
+					ui32_MSIMASK_Value[ui8_MO_Loop / 32U] |= 1 << (ui8_MO_Loop & 0x1FU);
+				}
+			}
+			REG_CAN_MOFGPR(ui8_MO_Loop) =  0x00000000; //CAN_MOFGPR
+
+			if(st_CAN_Object[ui8_MO_Loop].b_IDE == CAN_STD_ID)	//11位CAN ID
+			{
+				REG_CAN_MOAMR(ui8_MO_Loop) =  ((uint32)st_CAN_Object[ui8_MO_Loop].ui32_Mask << 18U) | 0x20000000;  //CAN_MOAMR
+				REG_CAN_MOAR(ui8_MO_Loop) =  ((uint32)st_CAN_Object[ui8_MO_Loop].ui32_ID << 18U) | 0x40000000;  //CAN_MOAR
+			}
+			else if(st_CAN_Object[ui8_MO_Loop].b_IDE == CAN_EXT_ID)	//29位CAN ID
+			{
+				REG_CAN_MOAMR(ui8_MO_Loop) =  (uint32)st_CAN_Object[ui8_MO_Loop].ui32_Mask | 0x20000000;  //CAN_MOAMR
+				REG_CAN_MOAR(ui8_MO_Loop) =  (uint32)st_CAN_Object[ui8_MO_Loop].ui32_ID | 0xA0000000;  //CAN_MOAR
+			}
+			else
+			{
+				__nop();
+			}
+
+			ui32_Temp = (((uint32)ui8_MO_Loop) / 32U) << 13U;
+			ui32_Temp += ((uint32)ui8_MO_Loop & 0x1FU) << 8U;
+			REG_CAN_MOIPR(ui8_MO_Loop) =  ui32_Temp | 0x10U;  //CAN_MOIPR 接收中断分配在INT0，发送中断分配在INT1
+			REG_CAN_MOCTR(ui8_MO_Loop) =  0x00200000; //CAN_MOCTR set MSGVAL
+		}
+	}
+
+	CAN_SRC0       =  0x00001001;  // set service request control register
+	CAN_SRC1       =  0x00001002;  // set service request control register
+	CAN_SRC2       =  0x00001003;  // set service request control register
+
+	//启动Node
+	for(ui8_Node_Loop = 0U; ui8_Node_Loop < MAX_NODE_NUM; ui8_Node_Loop++)
+	{
+		if(st_CAN_Node[ui8_Node_Loop].b_Enable == TRUE)	//判断Node是否使能
+		{
+			//使能Node
+			REG_CAN_NCR(ui8_Node_Loop) &= ~0x00000041;  //CAN_NCR reset INIT and CCE
+		}
+		ui32_BOFF_Delay_Count[ui8_Node_Loop] = st_CAN_Node[ui8_Node_Loop].ui32_BOFF_Dealy;
+		ui32_BOFF_Clear_Count[ui8_Node_Loop] = 0U;
+		ui8_CallCycle_Count[ui8_Node_Loop] = 0U;
+	}
+	CAN_Error_Clear();	//初始化清除CAN故障
+}
+
+/*************************************************************************/
+/*
+Function:		boolean CAN_Read_By_ID(uint32 ui32_ID, uint8 *TargetAddressPtr)
+
+Description: 	此函数用于基于CAN ID号接收CAN消息
+
+Parameters: 	ui32_ID				CAN ID(11位或29位)
+				TargetAddressPtr	数据存放指针(指向8字节buffer)
+
+Return:       	boolean		用户可根据返回值判断CAN消息是否成功接收
+
+Return Values:  TRUE		接收消息成功
+				FALSE		接收消息失败
+
+Remarks:		运行时间<1ms
+				用户在中间层需要接收CAN数据时调用此函数。
+				需保证输入参数CAN的ID号已经配置使能，并且完成过CAN初始化。
+
+Example:		接收ID号0x100的CAN数据存放至buffer数组
+				ret_val = CAN_Read(0x100U, &buffer[0U]);
+*/
+boolean CAN_Read_By_ID(uint32 ui32_ID, uint8 *TargetAddressPtr)
+{
+	uint16	ui16_Loop_1;
+	uint8	ui8_Loop_2;
+	boolean b_Return;
+
+	b_Return = FALSE;
+	for(ui16_Loop_1 = 0U; ui16_Loop_1 < MAX_CAN_RX_BY_ID_NUM; ui16_Loop_1++)	//检查符合输入参数ID的配置
+	{
+		if(st_CAN_Rx_By_ID[ui16_Loop_1].b_Enable == TRUE)
+		{
+			if(ui32_ID == st_CAN_Rx_By_ID[ui16_Loop_1].ui32_ID)	//ID相等
+			{
+				if(st_CAN_Rx_By_ID[ui16_Loop_1].b_Empty == FALSE)	//数据不为空
+				{
+					st_CAN_Rx_By_ID[ui16_Loop_1].b_Empty = TRUE;
+					for(ui8_Loop_2 = 0U; ui8_Loop_2 < 8U; ui8_Loop_2++)
+					{
+						*(TargetAddressPtr + ui8_Loop_2) = st_CAN_Rx_By_ID[ui16_Loop_1].ui8_Data[ui8_Loop_2];
+					}
+					b_Return = TRUE;
+				}
+			}
+		}
+	}
+	return(b_Return);
+}
+boolean CANOBJ_Read(uint8 ui8_Obj, uint8 *TargetAddressPtr)
+{
+	uint8	ui8_Loop;
+	boolean b_Return;
+
+	b_Return = FALSE;
+	if((st_CAN_Object[ui8_Obj].b_Enable == TRUE)
+			&& (st_CAN_Object[ui8_Obj].b_Dir == CAN_RX_DIR))	//判断MO是否使能,并且MO为接收
+	{
+		if(ui8_CallCycle_Count[ui8_Obj] > 1U)
+		{
+			ui8_CallCycle_Count[ui8_Obj]--;
+		}
+		else
+		{
+			ui8_CallCycle_Count[ui8_Obj] = st_CAN_Object[ui8_Obj].ui8_CallCycle;
+			if((CAN_HWOBJ[ui8_Obj].uwMOCTR & 0x00000008))    // if NEWDAT
+			{
+				for(ui8_Loop = 0U; ui8_Loop < 8U; ui8_Loop++)
+				{
+					*(TargetAddressPtr + ui8_Loop) = CAN_HWOBJ[ui8_Obj].ubData[ui8_Loop];
+				}
+				CAN_HWOBJ[ui8_Obj].uwMOCTR = 0x00000008;     // reset NEWDAT
+				b_Return = TRUE;
+			}
+		}
+	}
+	return(b_Return);
+}
+/*************************************************************************/
+/*
+Function:		boolean CAN_Read(uint8 ui8_Obj, uint32* p_ui32_ID, uint8 *TargetAddressPtr)
+
+Description: 	此函数用于接收CAN消息
+
+Parameters: 	ui8_Obj				CAN的MO号(0~127)
+				p_ui32_ID			CAN ID指针
+				TargetAddressPtr	数据存放指针(指向8字节buffer)
+
+Return:       	boolean		用户可根据返回值判断CAN消息是否成功接收
+
+Return Values:  TRUE		接收消息成功
+				FALSE		接收消息失败
+
+Remarks:		运行时间<1ms
+				用户在中间层需要接收CAN数据时调用此函数。
+				需保证输入参数CAN的MO号已经配置使能，并且完成过CAN初始化。
+
+Example:		接收MO0的CAN数据存放至buffer数组，CAN ID指向p_ID指针
+				ret_val = CAN_Read(0U, p_ID, &buffer[0U]);
+*/
+boolean CAN_Read(uint8 ui8_Obj, uint32* p_ui32_ID, uint8 *TargetAddressPtr)
+{
+	boolean b_Return;
+	uint32 ui32_ID;
+	ui32_ID  = * p_ui32_ID ;
+//	b_Return = FALSE;
+
+	if(st_CAN_Object[ui8_Obj].b_RxIRQ == FALSE)
+	{
+		b_Return = CANOBJ_Read(  ui8_Obj,  TargetAddressPtr);
+	}
+	else
+	{
+		b_Return = CAN_Read_By_ID(  ui32_ID,  TargetAddressPtr);
+
+	}
+	return(b_Return);
+}
+
+/*************************************************************************/
+/*
+Function:		boolean CAN_Write(uint8 ui8_Obj, uint8 *SourceAddressPtr)
+
+Description: 	此函数用于发送CAN消息
+
+Parameters: 	ui8_Obj				CAN的MO号(0~127)
+				SourceAddressPtr	数据指针(指向8字节buffer)
+
+Return:       	boolean		用户可根据返回值判断CAN消息是否成功发送
+
+Return Values:  TRUE		发送消息成功
+				FALSE		发送消息失败
+
+Remarks:		运行时间<1ms
+				用户在中间层需要发送CAN数据时调用此函数。
+				需保证输入参数CAN的MO号已经配置使能，并且完成过CAN初始化。
+
+Example:		使用MO1发送buffer数组里的数据到CAN总线
+				ret_val = CAN_Write(1U, &buffer[0U]);
+*/
+boolean CAN_Write(uint8 ui8_Obj, uint8 *SourceAddressPtr)
+{
+	uint8	ui8_Loop;
+	boolean b_Return;
+
+	b_Return = FALSE;
+	if((st_CAN_Object[ui8_Obj].b_Enable == TRUE)
+			&& (st_CAN_Object[ui8_Obj].b_Dir == CAN_TX_DIR))	//判断MO是否使能,并且MO为发送
+	{
+		if((SourceAddressPtr[1] == 0x7F) && (SourceAddressPtr[3] == 0x78))
+		{
+				ui8_CallCycle_Count[ui8_Obj] = st_CAN_Object[ui8_Obj].ui8_CallCycle;
+		}
+
+		if(ui8_CallCycle_Count[ui8_Obj] > 1U)
+		{
+			ui8_CallCycle_Count[ui8_Obj]--;
+		}
+		else
+		{
+//			ui8_CallCycle_Count[ui8_Obj] = st_CAN_Object[ui8_Obj].ui8_CallCycle;
+
+			CAN_HWOBJ[ui8_Obj].uwMOCTR = 0x00080000;       // set NEWDAT
+			for(ui8_Loop = 0U; ui8_Loop < 8U; ui8_Loop++)
+			{
+				CAN_HWOBJ[ui8_Obj].ubData[ui8_Loop] = *(SourceAddressPtr++);
+			}
+			CAN_HWOBJ[ui8_Obj].uwMOCTR = 0x00200040;       // reset RTSEL, set MSGVAL
+			CAN_HWOBJ[ui8_Obj].uwMOCTR = 0x07000000;  // set TXRQ,TXEN0,TXEN1
+
+			if((CAN_HWOBJ[ui8_Obj].ubData[1] == 0x7F) && (CAN_HWOBJ[ui8_Obj].ubData[3] == 0x78))
+			{
+				ui8_CallCycle_Count[ui8_Obj] = st_CAN_Object[ui8_Obj].ui8_CallCycle*10;
+			}
+			else
+			{
+				ui8_CallCycle_Count[ui8_Obj] = st_CAN_Object[ui8_Obj].ui8_CallCycle;
+			}
+
+			b_Return = TRUE;
+		}
+	}
+
+	Update_Count = 0;			/*发送清零*/
+	return(b_Return);
+}
+
+/*************************************************************************/
+/*
+Function:		void CAN_MOs_TXPND_Reset(uint8 ui8_Obj)
+
+Description: 	此函数用于清除MO发送完成标志
+
+Parameters: 	void
+
+Return:       	void
+
+Return Values:  无
+
+Remarks:		运行时间<1ms
+
+Example:
+*/
+void CAN_MOs_TXPND_Reset(uint8 ui8_Obj)
+{
+	REG_CAN_MOCTR(ui8_Obj) = CAN_MOSTAT0_TXPND;  //Reset TXPND
+}
+
+/*************************************************************************/
+/*
+Function:		uint8 CAN_MOs_Transmit_Status(uint8 ui8_Obj)
+
+Description: 	此函数用于检查MO是否发送完成
+
+Parameters: 	void
+
+Return:       	void
+
+Return Values:  无
+
+Remarks:		运行时间<1ms
+
+Example:
+*/
+uint8 CAN_MOs_Transmit_Status(uint8 ui8_Obj)
+{
+	uint8 b_Return;
+
+	b_Return = E_NOT_OK;
+
+    if(REG_CAN_MOCTR(ui8_Obj) & CAN_MOSTAT0_TXPND)   //if TXPND is set
+    {
+    	REG_CAN_MOCTR(ui8_Obj) = CAN_MOSTAT0_TXPND;  //Reset TXPND
+    	b_Return = E_OK;
+    }
+
+    return b_Return;
+}
+
+/*************************************************************************/
+/*
+Function:		uint8 CAN_MOs_Get_DLC(uint8 ui8_Obj)
+
+Description: 	获取CAN MO接收数据长度
+
+Parameters: 	ui8_Obj
+
+Return:       	uint8
+
+Return Values:  无
+
+Remarks:		运行时间<1ms
+
+Example:
+*/
+uint8 CAN_MOs_Get_DLC(uint8 ui8_Obj)
+{
+	uint8 ui8_DLC;
+
+	ui8_DLC = (REG_CAN_MOFCR(ui8_Obj) >> 24U) & 0x0FU;
+
+	return ui8_DLC;
+}
+
+/*************************************************************************/
+/*
+Function:		void CAN_Set_ID(uint8 ui8_Obj, uint32 ui32_ID)
+
+Description: 	此函数用于设置CAN ID号
+
+Parameters: 	ui8_Obj		CAN的MO号(0~127)
+				ui32_ID		CAN的ID号(11位或29位)
+
+Return:       	void
+
+Return Values:  无
+
+Remarks:		运行时间<1ms
+				用户在中间层需要设置CAN ID号时调用此函数。
+				需保证输入参数CAN的MO号已经配置使能，并且完成过CAN初始化。
+				MO若配置为标准帧，ID参数为11位；MO若配置为扩展帧，ID参数为29位。
+
+Example:		设置MO0的CAN ID号为0x200
+				CAN_Set_ID(0U,0x200U);
+*/
+void CAN_Set_ID(uint8 ui8_Obj, uint32 ui32_ID)
+{
+	if(st_CAN_Object[ui8_Obj].b_IDE == CAN_STD_ID)	//11位CAN ID
+	{
+		REG_CAN_MOAR(ui8_Obj) =  ((uint32)ui32_ID << 18U) + 0x80000000;  //CAN_MOAR
+	}
+	else if(st_CAN_Object[ui8_Obj].b_IDE == CAN_EXT_ID)	//29位CAN ID
+	{
+		REG_CAN_MOAR(ui8_Obj) =  (uint32)ui32_ID + 0xA0000000;  //CAN_MOAR
+	}
+}
+
+/*
+Function:		void CAN_Read_Error(void)
+Description: 	读取CAN故障
+Input: 			void
+Output:       	None
+Return:        	void
+Time:
+Others:
+Physical Test：
+*/
+void CAN_Read_Error(void)
+{
+	uint32	ui32_Temp;
+	uint8	ui8_Node_Loop;
+
+	for(ui8_Node_Loop = 0U; ui8_Node_Loop < MAX_NODE_NUM; ui8_Node_Loop++)
+	{
+		if(st_CAN_Node[ui8_Node_Loop].b_Enable == TRUE)	//判断Node是否使能
+		{
+			ui32_Temp = REG_CAN_NSR(ui8_Node_Loop);
+			if (ui32_Temp & 0x00000020)      // if ALERT
+			{
+				if (ui32_Temp & 0x00000080)  // if BOFF
+				{
+					st_CAN_Error[ui8_Node_Loop].b_BOFF = TRUE;
+				}
+
+				if (ui32_Temp & 0x00000040)  // if EWRN
+				{
+					st_CAN_Error[ui8_Node_Loop].b_EWRN = TRUE;
+				}
+
+				if (ui32_Temp & 0x00000100)  // if LLE
+				{
+					st_CAN_Error[ui8_Node_Loop].b_LLE = TRUE;
+					REG_CAN_NSR(ui8_Node_Loop) = 0x00000238;    // reset LLE
+				}
+
+				if (ui32_Temp & 0x00000200)  // if LOE
+				{
+					st_CAN_Error[ui8_Node_Loop].b_LOE = TRUE;
+					REG_CAN_NSR(ui8_Node_Loop) = 0x00000138;    // reset LOE
+				}
+
+				if (REG_CAN_NCR(ui8_Node_Loop) & 0x00000001) // if INIT
+				{
+					st_CAN_Error[ui8_Node_Loop].b_INIT = TRUE;
+				}
+
+				REG_CAN_NSR(ui8_Node_Loop) = 0x00000318;    // reset ALERT
+			}
+
+			if (ui32_Temp & 0x00000007)  // if LEC
+			{
+				switch (ui32_Temp & 0x00000007)  // LEC0 (Last Error Code0)
+				{
+					case ERROR_STUFF: // Stuff Error
+					{
+						st_CAN_Error[ui8_Node_Loop].b_Stuff = TRUE;
+						break;
+					}
+
+					case ERROR_FORM: // Form Error
+					{
+						st_CAN_Error[ui8_Node_Loop].b_Form = TRUE;
+						break;
+					}
+
+					case ERROR_ACK: // Ack Error
+					{
+						st_CAN_Error[ui8_Node_Loop].b_Ack = TRUE;
+						break;
+					}
+
+					case ERROR_BIT1: // Bit1 Error
+					{
+						st_CAN_Error[ui8_Node_Loop].b_Bit1 = TRUE;
+						break;
+					}
+
+					case ERROR_BIT0: // Bit0 Error
+					{
+						if (ui32_Temp & 0x00000080)  // if Busoff status
+						{
+							st_CAN_Error[ui8_Node_Loop].b_Bit0_BOFF = TRUE;
+						}
+						else
+						{
+							st_CAN_Error[ui8_Node_Loop].b_Bit0_Trans = TRUE;
+						}
+						break;
+					}
+
+					case ERROR_CRC: // CRC Error
+					{
+						st_CAN_Error[ui8_Node_Loop].b_CRC = TRUE;
+						break;
+					}
+
+					default:
+					{
+						break;
+					}
+				}
+				REG_CAN_NSR(ui8_Node_Loop) = 0x0000033F;    // reset LEC
+			}
+		}
+		CAN_Error_Callback(ui8_Node_Loop);	//CAN故障回调
+	}
+}
+
+/*************************************************************************/
+/*
+Function:		void CAN_Error_Clear(void)
+
+Description: 	此函数用于清除CAN故障信息
+
+Parameters: 	void
+
+Return:       	void
+
+Return Values:  无
+
+Remarks:		运行时间<1ms
+				用户在中间层需要清除CAN故障信息时调用此函数。
+
+Example:		清除CAN故障
+				CAN_Error_Clear();
+*/
+void CAN_Error_Clear(void)
+{
+	uint8	ui8_Node_Loop;
+
+	for(ui8_Node_Loop = 0U; ui8_Node_Loop < MAX_NODE_NUM; ui8_Node_Loop++)
+	{
+		//清除CAN故障
+		st_CAN_Error[ui8_Node_Loop].b_BOFF = FALSE;
+		st_CAN_Error[ui8_Node_Loop].b_EWRN = FALSE;
+		st_CAN_Error[ui8_Node_Loop].b_LLE = FALSE;
+		st_CAN_Error[ui8_Node_Loop].b_LOE = FALSE;
+		st_CAN_Error[ui8_Node_Loop].b_INIT = FALSE;
+		st_CAN_Error[ui8_Node_Loop].b_Stuff = FALSE;
+		st_CAN_Error[ui8_Node_Loop].b_Form = FALSE;
+		st_CAN_Error[ui8_Node_Loop].b_Ack = FALSE;
+		st_CAN_Error[ui8_Node_Loop].b_Bit1 = FALSE;
+		st_CAN_Error[ui8_Node_Loop].b_Bit0_BOFF = FALSE;
+		st_CAN_Error[ui8_Node_Loop].b_Bit0_Trans = FALSE;
+		st_CAN_Error[ui8_Node_Loop].b_CRC = FALSE;
+	}
+}
+
+/*
+Function:		boolean CAN_Read_BusOff(uint8 ui8_Node)
+Description: 	此函数用于读取BUSOFF信息
+Input: 			ui8_Node	CAN Node
+Output:       	None
+Return:        	TRUE		进入BUSOFF
+				FALSE	没有进入BUSOFF
+Time:
+Others:
+Physical Test：
+*/
+boolean CAN_Read_BusOff(uint8 ui8_Node)
+{
+	boolean b_Return;
+
+	b_Return = FALSE;
+	if(st_CAN_Error[ui8_Node].b_BOFF == TRUE)
+	{
+		b_Return = TRUE;
+	}
+	return b_Return;
+}
+
+/*
+Function:		void CAN_BusOff_Clear(uint8 ui8_Node)
+Description: 	此函数用于清除BUSOFF
+Input: 			ui8_Node	CAN Node
+Output:       	None
+Return:        	void
+Time:
+Others:
+Physical Test：
+*/
+void CAN_BusOff_Clear(uint8 ui8_Node)
+{
+	ui32_BOFF_Clear_Count[ui8_Node]++;
+	if(ui32_BOFF_Clear_Count[ui8_Node] >= BUS_OFF_SLOW_THRESHOLD)	//大于阀值，切换到慢速恢复
+	{
+		st_CAN_Node[ui8_Node].ui32_BOFF_Dealy = BUS_OFF_DEALY_SLOW;	//慢速恢复
+	}
+
+	REG_CAN_NCR(ui8_Node) &= ~0x00000041;  //CAN_NCR reset INIT and CCE
+	st_CAN_Error[ui8_Node].b_BOFF = FALSE;
+
+	//根据不同Node号分别处理故障
+	if(ui8_Node == 0U)
+	{
+//		b_VbHDD_CAN0MduFlt_flg_Valid = FALSE	;		//CAN0收发器故障清零
+	}
+	else if(ui8_Node == 1U)
+	{
+//		b_VbHDD_CAN1MduFlt_flg_Valid = FALSE	;		//CAN1收发器故障清零
+	}
+	else if(ui8_Node == 2U)
+	{
+//		b_VbHDD_CAN2MduFlt_flg_Valid = FALSE	;		//CAN2收发器故障清零
+	}
+	else
+	{
+		__nop();
+	}
+
+}
+
+/*************************************************************************/
+/*
+Function:		void CAN_BusOff_Deal(void)
+
+Description: 	此函数用于busoff恢复处理
+
+Parameters: 	void
+
+Return:       	void
+
+Return Values:  无
+
+Remarks:		运行时间<1ms
+				用户在固定周期(推荐10ms)中调用此函数用来BusOff恢复
+
+Example:		BusOff恢复处理
+				CAN_BusOff_Deal();
+*/
+void CAN_BusOff_Deal(void)
+{
+	uint8	ui8_Node_Loop;
+
+	for(ui8_Node_Loop = 0U; ui8_Node_Loop < MAX_NODE_NUM; ui8_Node_Loop++)
+	{
+		if(st_CAN_Node[ui8_Node_Loop].b_Enable == TRUE)	//判断Node是否使能
+		{
+			if((REG_CAN_NSR(ui8_Node_Loop) & 0x00000008U) != 0U)	//判断是否该节点有数据成功发送
+			{
+				REG_CAN_NSR(ui8_Node_Loop) &= 0xFFFFFFF7U;	//清发送完成标志
+				ui32_BOFF_Clear_Count[ui8_Node_Loop] = 0U;	//清除计数器
+				st_CAN_Node[ui8_Node_Loop].ui32_BOFF_Dealy = BUS_OFF_DEALY_FAST;	//快速恢复
+				ui32_BOFF_Delay_Count[ui8_Node_Loop] = st_CAN_Node[ui8_Node_Loop].ui32_BOFF_Dealy;
+			}
+
+			if(CAN_Read_BusOff(ui8_Node_Loop) == TRUE)	//判断是否进入BUSOFF
+			{
+				if(ui32_BOFF_Delay_Count[ui8_Node_Loop] > 0U)
+				{
+					ui32_BOFF_Delay_Count[ui8_Node_Loop]--;
+				}
+				else
+				{	//BUSOFF计数器为0时清除BUSOFF
+					CAN_BusOff_Clear(ui8_Node_Loop);
+					ui32_BOFF_Delay_Count[ui8_Node_Loop] = st_CAN_Node[ui8_Node_Loop].ui32_BOFF_Dealy;
+				}
+			}
+		}
+	}
+}
+
+/*
+Function:		void CAN_Rx_Interrupt(uint8 ui8_Obj)
+Description: 	CAN接收中断处理
+Input: 			ui8_Obj	CAN MO
+Output:       	None
+Return:        	void
+Time:
+Others:
+Physical Test：
+*/
+void CAN_Rx_Interrupt(uint8 ui8_Obj)
+{
+	uint16	ui16_Loop_1;
+	uint8	ui8_Loop_2;
+	uint32	ui32_ID;
+	boolean	b_Rx_By_ID;
+
+	if(CAN_HWOBJ[ui8_Obj].uwMOCTR & CAN_MOSTAT_RXPND)        // if message object  receive interrupt
+	{
+		if(CAN_HWOBJ[ui8_Obj].uwMOCTR & CAN_MOSTAT_NEWDAT)     // if NEWDAT is set
+		{
+			if (CAN_HWOBJ[ui8_Obj].uwMOCTR & CAN_MOSTAT_MSGLST)  // if MSGLST is set
+			{
+				CAN_HWOBJ[ui8_Obj].uwMOCTR = CAN_MOSTAT_MSGLST;    // reset MSGLST
+			}
+			//接收CAN ID
+			if(st_CAN_Object[ui8_Obj].b_IDE == CAN_STD_ID)	//11位CAN ID
+			{
+				ui32_ID = (CAN_HWOBJ[ui8_Obj].uwMOAR >> 18U) & 0x7FFU;
+			}
+			else if(st_CAN_Object[ui8_Obj].b_IDE == CAN_EXT_ID)	//29位CAN ID
+			{
+				ui32_ID = CAN_HWOBJ[ui8_Obj].uwMOAR & 0x1FFFFFFFU;
+			}
+			else
+			{
+				ui32_ID = 0xFFFFFFFFU;
+				__nop();
+			}
+
+			//根据CAN ID接收数据
+			b_Rx_By_ID = FALSE;
+			for(ui16_Loop_1 = 0U; ui16_Loop_1 < MAX_CAN_RX_BY_ID_NUM; ui16_Loop_1++)
+			{
+				if(st_CAN_Rx_By_ID[ui16_Loop_1].b_Enable == TRUE)
+				{
+					if(ui32_ID == st_CAN_Rx_By_ID[ui16_Loop_1].ui32_ID)	//ID相等
+					{
+						for(ui8_Loop_2 = 0U; ui8_Loop_2 < 8U; ui8_Loop_2++)
+						{
+							st_CAN_Rx_By_ID[ui16_Loop_1].ui8_Data[ui8_Loop_2] = CAN_HWOBJ[ui8_Obj].ubData[ui8_Loop_2];
+						}
+						st_CAN_Rx_By_ID[ui16_Loop_1].b_Empty = FALSE;
+						b_Rx_By_ID = TRUE;
+						break;
+					}
+				}
+			}
+			if(b_Rx_By_ID == FALSE)	//没有查询到对应ID的配置，报故障
+			{
+//				Dem_ReportErrorStatus(DEM_EVENT_ID_Rx_By_ID_FAULT, DEM_EVENT_STATUS_FAILED);
+			}
+
+			CAN_Rx_Interrupt_Callback(ui8_Obj);
+			CAN_HWOBJ[ui8_Obj].uwMOCTR = CAN_MOSTAT_NEWDAT;      // reset NEWDAT
+		}
+		CAN_HWOBJ[ui8_Obj].uwMOCTR = CAN_MOSTAT_RXPND;         // reset RXPND
+	}  // End of RXPND0
+}
+
+/*
+Function:		void CAN_Tx_Interrupt(uint8 ui8_Obj)
+Description: 	CAN发送完成中断处理
+Input: 			ui8_Obj	CAN MO
+Output:       	None
+Return:        	void
+Time:
+Others:
+Physical Test：
+*/
+void CAN_Tx_Interrupt(uint8 ui8_Obj)
+{
+	if(CAN_HWOBJ[ui8_Obj].uwMOCTR & CAN_MOSTAT_TXPND)        // if message object  transmit interrupt
+	{
+		CAN_Tx_Interrupt_Callback(ui8_Obj);
+		CAN_HWOBJ[ui8_Obj].uwMOCTR = CAN_MOSTAT_NEWDAT;        // reset NEWDAT
+		CAN_HWOBJ[ui8_Obj].uwMOCTR = CAN_MOSTAT_TXPND;         // reset TXPND
+	}
+}
+
+void INTERRUPT (CAN_SRN0INT) CAN_viSRN0(void)
+{
+	uint8 ui8_Obj;
+
+	CAN_MSIMASK = ui32_MSIMASK_Value[0U];
+	while (CAN_MSID0 != 0x00000020)
+	{
+		ui8_Obj = (32U * 0U)+ CAN_MSID0;
+		CAN_Rx_Interrupt(ui8_Obj);
+		CAN_MSPND0 =  ~(1 << CAN_MSID0); // reset PND bit
+	}
+
+	CAN_MSIMASK = ui32_MSIMASK_Value[1U];
+	while (CAN_MSID1 != 0x00000020)
+	{
+		ui8_Obj = (32U * 1U)+ CAN_MSID1;
+		CAN_Rx_Interrupt(ui8_Obj);
+		CAN_MSPND1 =  ~(1 << CAN_MSID1); // reset PND bit
+	}
+
+	CAN_MSIMASK = ui32_MSIMASK_Value[2U];
+	while (CAN_MSID2 != 0x00000020)
+	{
+		ui8_Obj = (32U * 2U)+ CAN_MSID2;
+		CAN_Rx_Interrupt(ui8_Obj);
+		CAN_MSPND2 =  ~(1 << CAN_MSID2); // reset PND bit
+	}
+
+	CAN_MSIMASK = ui32_MSIMASK_Value[3U];
+	while (CAN_MSID3 != 0x00000020)
+	{
+		ui8_Obj = (32U * 3U)+ CAN_MSID3;
+		CAN_Rx_Interrupt(ui8_Obj);
+		CAN_MSPND3 =  ~(1 << CAN_MSID3); // reset PND bit
+	}
+} //  End of function CAN_viSRN0
+
+void INTERRUPT (CAN_SRN1INT) CAN_viSRN1(void)
+{
+	uint8 ui8_Obj;
+
+	CAN_MSIMASK = ui32_MSIMASK_Value[0U];
+	while (CAN_MSID0 != 0x00000020)
+	{
+		ui8_Obj = (32U * 0U)+ CAN_MSID0;
+		CAN_Tx_Interrupt(ui8_Obj);
+		CAN_MSPND0 =  ~(1 << CAN_MSID0); // reset PND bit
+	}
+
+	CAN_MSIMASK = ui32_MSIMASK_Value[1U];
+	while (CAN_MSID1 != 0x00000020)
+	{
+		ui8_Obj = (32U * 1U)+ CAN_MSID1;
+		CAN_Tx_Interrupt(ui8_Obj);
+		CAN_MSPND1 =  ~(1 << CAN_MSID1); // reset PND bit
+	}
+
+	CAN_MSIMASK = ui32_MSIMASK_Value[2U];
+	while (CAN_MSID2 != 0x00000020)
+	{
+		ui8_Obj = (32U * 2U)+ CAN_MSID2;
+		CAN_Tx_Interrupt(ui8_Obj);
+		CAN_MSPND2 =  ~(1 << CAN_MSID2); // reset PND bit
+	}
+
+	CAN_MSIMASK = ui32_MSIMASK_Value[3U];
+	while (CAN_MSID3 != 0x00000020)
+	{
+		ui8_Obj = (32U * 3U)+ CAN_MSID3;
+		CAN_Tx_Interrupt(ui8_Obj);
+		CAN_MSPND3 =  ~(1 << CAN_MSID3); // reset PND bit
+	}
+} //  End of function CAN_viSRN1
+
+void INTERRUPT (CAN_SRN2INT) CAN_viSRN2(void)
+{
+	CAN_Read_Error();
+	CAN_BusOff_Clear(0);
+} //  End of function CAN_viSRN2
+
+uint8 CAN_ubRequestMsgObj(uint8 ubObjNr)
+{
+  uint8 ubReturn;
+
+  ubReturn = 0;
+  if((CAN_HWOBJ[ubObjNr].uwMOCTR & 0x00000100) == 0x00000000)  // if reset TXRQ
+  {
+    CAN_HWOBJ[ubObjNr].uwMOCTR = 0x00000020;                   // reset MSGVAL
+    ubReturn = 1;
+  }
+  return(ubReturn);
+
+}

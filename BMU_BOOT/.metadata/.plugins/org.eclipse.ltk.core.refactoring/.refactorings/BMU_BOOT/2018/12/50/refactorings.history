@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Rename resource &apos;BMU_BOOT/PERIODTASK.C&apos; to &apos;PERIODTASK_111111111111111.C&apos;" description="Rename resource &apos;PERIODTASK.C&apos;" flags="7" id="org.eclipse.ltk.core.refactoring.rename.resource" input="PERIODTASK.C" name="PERIODTASK_111111111111111.C" stamp="1544499492283" updateReferences="true"/>
+</session>

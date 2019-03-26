@@ -1,0 +1,859 @@
+	; Module start
+	.compiler_version	"TASKING VX-toolset for TriCore: C compiler v4.3r1 Build 759 SN 00641831"
+	.compiler_invocation	"ctc -f cc540a -c99 --dep-file=Initiate_Files\\.IO.o.d -D__CPU__=tc1782 -D__CPU_TC1782__ --core=tc1.3.1 -F -ID:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_1.9\\BMU_BOOT -ID:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_1.9\\BMU_BOOT\\Communication_Files\\CanDrv -ID:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_1.9\\BMU_BOOT\\Communication_Files\\Com -ID:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_1.9\\BMU_BOOT\\Communication_Files\\Com\\Can_Input -ID:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_1.9\\BMU_BOOT\\Communication_Files\\Com\\Can_Output -ID:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_1.9\\BMU_BOOT\\Communication_Files\\Uds\\Dcm -ID:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_1.9\\BMU_BOOT\\Communication_Files\\Uds\\Dem -ID:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_1.9\\BMU_BOOT\\Communication_Files\\Uds\\Tp -ID:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_1.9\\BMU_BOOT\\Communication_Files\\Uds\\User -ID:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_1.9\\BMU_BOOT\\Complex_Files -ID:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_1.9\\BMU_BOOT\\Initiate_Files -ID:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_1.9\\BMU_BOOT\\Nvm_Files\\FlsDrv -ID:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_1.9\\BMU_BOOT\\Stand_Header -g2 --make-target=Initiate_Files\\IO.o -t4 --language=-gcc,-volatile,+strings --default-near-size=0 -O2 --default-a1-size=0 --default-a0-size=0 --source --align=0 --compact-max-size=200 --switch=auto -o Initiate_Files\\IO.src ..\\Initiate_Files\\IO.c"
+	.compiler_name		"ctc"
+	.name	"IO"
+
+	
+$TC131
+	
+	.sdecl	'.text.IO.IO_vInit',code,cluster('IO_vInit')
+	.sect	'.text.IO.IO_vInit'
+	.align	2
+	
+	.global	IO_vInit
+
+; ..\Initiate_Files\IO.c	     1  //****************************************************************************
+; ..\Initiate_Files\IO.c	     2  // @Module        Parallel Ports
+; ..\Initiate_Files\IO.c	     3  // @Filename      IO.c
+; ..\Initiate_Files\IO.c	     4  // @Project       HBCU_0926.dav
+; ..\Initiate_Files\IO.c	     5  //----------------------------------------------------------------------------
+; ..\Initiate_Files\IO.c	     6  // @Controller    Infineon TC1782
+; ..\Initiate_Files\IO.c	     7  //
+; ..\Initiate_Files\IO.c	     8  // @Compiler      Tasking 3.5r1
+; ..\Initiate_Files\IO.c	     9  //
+; ..\Initiate_Files\IO.c	    10  // @Codegenerator 1.0
+; ..\Initiate_Files\IO.c	    11  //
+; ..\Initiate_Files\IO.c	    12  // @Description   This file contains functions that use the IO module.
+; ..\Initiate_Files\IO.c	    13  //
+; ..\Initiate_Files\IO.c	    14  //----------------------------------------------------------------------------
+; ..\Initiate_Files\IO.c	    15  // @Date          2019-1-11 17:50:19
+; ..\Initiate_Files\IO.c	    16  //
+; ..\Initiate_Files\IO.c	    17  //****************************************************************************
+; ..\Initiate_Files\IO.c	    18  
+; ..\Initiate_Files\IO.c	    19  // USER CODE BEGIN (IO_General,1)
+; ..\Initiate_Files\IO.c	    20  
+; ..\Initiate_Files\IO.c	    21  // USER CODE END
+; ..\Initiate_Files\IO.c	    22  
+; ..\Initiate_Files\IO.c	    23  
+; ..\Initiate_Files\IO.c	    24  
+; ..\Initiate_Files\IO.c	    25  //****************************************************************************
+; ..\Initiate_Files\IO.c	    26  // @Project Includes
+; ..\Initiate_Files\IO.c	    27  //****************************************************************************
+; ..\Initiate_Files\IO.c	    28  
+; ..\Initiate_Files\IO.c	    29  #include "MAIN.h"
+; ..\Initiate_Files\IO.c	    30  
+; ..\Initiate_Files\IO.c	    31  // USER CODE BEGIN (IO_General,2)
+; ..\Initiate_Files\IO.c	    32  
+; ..\Initiate_Files\IO.c	    33  // USER CODE END
+; ..\Initiate_Files\IO.c	    34  
+; ..\Initiate_Files\IO.c	    35  
+; ..\Initiate_Files\IO.c	    36  //****************************************************************************
+; ..\Initiate_Files\IO.c	    37  // @Macros
+; ..\Initiate_Files\IO.c	    38  //****************************************************************************
+; ..\Initiate_Files\IO.c	    39  
+; ..\Initiate_Files\IO.c	    40  // USER CODE BEGIN (IO_General,3)
+; ..\Initiate_Files\IO.c	    41  
+; ..\Initiate_Files\IO.c	    42  // USER CODE END
+; ..\Initiate_Files\IO.c	    43  
+; ..\Initiate_Files\IO.c	    44  
+; ..\Initiate_Files\IO.c	    45  //****************************************************************************
+; ..\Initiate_Files\IO.c	    46  // @Defines
+; ..\Initiate_Files\IO.c	    47  //****************************************************************************
+; ..\Initiate_Files\IO.c	    48  
+; ..\Initiate_Files\IO.c	    49  // USER CODE BEGIN (IO_General,4)
+; ..\Initiate_Files\IO.c	    50  
+; ..\Initiate_Files\IO.c	    51  // USER CODE END
+; ..\Initiate_Files\IO.c	    52  
+; ..\Initiate_Files\IO.c	    53  
+; ..\Initiate_Files\IO.c	    54  //****************************************************************************
+; ..\Initiate_Files\IO.c	    55  // @Typedefs
+; ..\Initiate_Files\IO.c	    56  //****************************************************************************
+; ..\Initiate_Files\IO.c	    57  
+; ..\Initiate_Files\IO.c	    58  // USER CODE BEGIN (IO_General,5)
+; ..\Initiate_Files\IO.c	    59  
+; ..\Initiate_Files\IO.c	    60  // USER CODE END
+; ..\Initiate_Files\IO.c	    61  
+; ..\Initiate_Files\IO.c	    62  
+; ..\Initiate_Files\IO.c	    63  //****************************************************************************
+; ..\Initiate_Files\IO.c	    64  // @Imported Global Variables
+; ..\Initiate_Files\IO.c	    65  //****************************************************************************
+; ..\Initiate_Files\IO.c	    66  
+; ..\Initiate_Files\IO.c	    67  // USER CODE BEGIN (IO_General,6)
+; ..\Initiate_Files\IO.c	    68  
+; ..\Initiate_Files\IO.c	    69  // USER CODE END
+; ..\Initiate_Files\IO.c	    70  
+; ..\Initiate_Files\IO.c	    71  
+; ..\Initiate_Files\IO.c	    72  //****************************************************************************
+; ..\Initiate_Files\IO.c	    73  // @Global Variables
+; ..\Initiate_Files\IO.c	    74  //****************************************************************************
+; ..\Initiate_Files\IO.c	    75  
+; ..\Initiate_Files\IO.c	    76  // USER CODE BEGIN (IO_General,7)
+; ..\Initiate_Files\IO.c	    77  
+; ..\Initiate_Files\IO.c	    78  // USER CODE END
+; ..\Initiate_Files\IO.c	    79  
+; ..\Initiate_Files\IO.c	    80  
+; ..\Initiate_Files\IO.c	    81  //****************************************************************************
+; ..\Initiate_Files\IO.c	    82  // @External Prototypes
+; ..\Initiate_Files\IO.c	    83  //****************************************************************************
+; ..\Initiate_Files\IO.c	    84  
+; ..\Initiate_Files\IO.c	    85  // USER CODE BEGIN (IO_General,8)
+; ..\Initiate_Files\IO.c	    86  
+; ..\Initiate_Files\IO.c	    87  // USER CODE END
+; ..\Initiate_Files\IO.c	    88  
+; ..\Initiate_Files\IO.c	    89  
+; ..\Initiate_Files\IO.c	    90  //****************************************************************************
+; ..\Initiate_Files\IO.c	    91  // @Prototypes Of Local Functions
+; ..\Initiate_Files\IO.c	    92  //****************************************************************************
+; ..\Initiate_Files\IO.c	    93  
+; ..\Initiate_Files\IO.c	    94  // USER CODE BEGIN (IO_General,9)
+; ..\Initiate_Files\IO.c	    95  
+; ..\Initiate_Files\IO.c	    96  // USER CODE END
+; ..\Initiate_Files\IO.c	    97  
+; ..\Initiate_Files\IO.c	    98  
+; ..\Initiate_Files\IO.c	    99  //****************************************************************************
+; ..\Initiate_Files\IO.c	   100  // @Function      void IO_vInit(void) 
+; ..\Initiate_Files\IO.c	   101  //
+; ..\Initiate_Files\IO.c	   102  //----------------------------------------------------------------------------
+; ..\Initiate_Files\IO.c	   103  // @Description   This is the initialization function of the IO function 
+; ..\Initiate_Files\IO.c	   104  //                library. It is assumed that the SFRs used by this library 
+; ..\Initiate_Files\IO.c	   105  //                are in their reset state. 
+; ..\Initiate_Files\IO.c	   106  //                Note:
+; ..\Initiate_Files\IO.c	   107  //                Alternate outputs are set in their own initialization 
+; ..\Initiate_Files\IO.c	   108  //                function.
+; ..\Initiate_Files\IO.c	   109  //
+; ..\Initiate_Files\IO.c	   110  //----------------------------------------------------------------------------
+; ..\Initiate_Files\IO.c	   111  // @Returnvalue   None
+; ..\Initiate_Files\IO.c	   112  //
+; ..\Initiate_Files\IO.c	   113  //----------------------------------------------------------------------------
+; ..\Initiate_Files\IO.c	   114  // @Parameters    None
+; ..\Initiate_Files\IO.c	   115  //
+; ..\Initiate_Files\IO.c	   116  //----------------------------------------------------------------------------
+; ..\Initiate_Files\IO.c	   117  // @Date          2019-1-11
+; ..\Initiate_Files\IO.c	   118  //
+; ..\Initiate_Files\IO.c	   119  //****************************************************************************
+; ..\Initiate_Files\IO.c	   120  
+; ..\Initiate_Files\IO.c	   121  // USER CODE BEGIN (IO_Function,1)
+; ..\Initiate_Files\IO.c	   122  
+; ..\Initiate_Files\IO.c	   123  // USER CODE END
+; ..\Initiate_Files\IO.c	   124  
+; ..\Initiate_Files\IO.c	   125  void IO_vInit(void)
+; Function IO_vInit
+.L10:
+IO_vInit:	.type	func
+
+; ..\Initiate_Files\IO.c	   126  {
+; ..\Initiate_Files\IO.c	   127    // USER CODE BEGIN (IO_Function,2)
+; ..\Initiate_Files\IO.c	   128  
+; ..\Initiate_Files\IO.c	   129    // USER CODE END
+; ..\Initiate_Files\IO.c	   130  
+; ..\Initiate_Files\IO.c	   131  
+; ..\Initiate_Files\IO.c	   132    ///  -----------------------------------------------------------------------
+; ..\Initiate_Files\IO.c	   133    ///  Configuration of Port P0:
+; ..\Initiate_Files\IO.c	   134    ///  -----------------------------------------------------------------------
+; ..\Initiate_Files\IO.c	   135    ///  P0.1:
+; ..\Initiate_Files\IO.c	   136    ///  - is used as general purpose output
+; ..\Initiate_Files\IO.c	   137    ///  - push/pull output is selected
+; ..\Initiate_Files\IO.c	   138    ///  - the pin status is high level
+; ..\Initiate_Files\IO.c	   139    ///  - output driver characteristic: medium driver
+; ..\Initiate_Files\IO.c	   140    ///  P0.2:
+; ..\Initiate_Files\IO.c	   141    ///  - is used as general purpose output
+; ..\Initiate_Files\IO.c	   142    ///  - push/pull output is selected
+; ..\Initiate_Files\IO.c	   143    ///  - the pin status is high level
+; ..\Initiate_Files\IO.c	   144    ///  - output driver characteristic: medium driver
+; ..\Initiate_Files\IO.c	   145  
+; ..\Initiate_Files\IO.c	   146    P0_OMR         =  0x00000006;  // load data output register
+	mov	d15,#6
+	st.w	0xf0000c04,d15
+.L37:
+
+; ..\Initiate_Files\IO.c	   147    MAIN_vResetENDINIT();
+	lea	a15,0xf00005f0
+	ld.w	d15,[a15]
+	insert	d4,d15,#0,#0,#1
+	call	MAIN_vWriteWDTCON0
+	lea	a12,0xf00005f0
+.L2:
+	ld.bu	d15,[a12]
+	jnz.t	d15:0,.L2				; predicted taken
+.L38:
+
+; ..\Initiate_Files\IO.c	   148    P0_PDR         =  0x00000000;  // load pad driver mode register
+	mov	d15,#0
+	st.w	0xf0000c40,d15
+.L39:
+
+; ..\Initiate_Files\IO.c	   149    MAIN_vSetENDINIT();
+	ld.w	d15,[a15]
+	or	d4,d15,#1
+	call	MAIN_vWriteWDTCON0
+.L40:
+
+; ..\Initiate_Files\IO.c	   150    P0_IOCR0       =  0x20808020;  // load port control register 0
+	mov.u	d15,#32800
+.L41:
+	addih	d15,d15,#8320
+	st.w	0xf0000c10,d15
+.L42:
+
+; ..\Initiate_Files\IO.c	   151    P0_IOCR4       =  0x20202020;  // load port control register 4
+	mov	d8,#8224
+.L43:
+	addih	d8,d8,#8224
+	st.w	0xf0000c14,d8
+.L44:
+
+; ..\Initiate_Files\IO.c	   152    P0_IOCR8       =  0x20202020;  // load port control register 8
+	st.w	0xf0000c18,d8
+.L45:
+
+; ..\Initiate_Files\IO.c	   153    P0_IOCR12      =  0x20202020;  // load port control register 12
+	st.w	0xf0000c1c,d8
+.L46:
+
+; ..\Initiate_Files\IO.c	   154  
+; ..\Initiate_Files\IO.c	   155    ///  -----------------------------------------------------------------------
+; ..\Initiate_Files\IO.c	   156    ///  Configuration of Port P1:
+; ..\Initiate_Files\IO.c	   157    ///  -----------------------------------------------------------------------
+; ..\Initiate_Files\IO.c	   158    ///  - no pin of port P1 is used
+; ..\Initiate_Files\IO.c	   159  
+; ..\Initiate_Files\IO.c	   160    P1_OMR         =  0x00000000;  // load data output register
+	mov	d15,#0
+	st.w	0xf0000d04,d15
+.L47:
+
+; ..\Initiate_Files\IO.c	   161    MAIN_vResetENDINIT();
+	movh.a	a14,#@his(.L97)
+	lea	a14,[a14]@los(.L97)
+	j	.cocofun_1
+.L97:
+.L48:
+
+; ..\Initiate_Files\IO.c	   162    P1_PDR         =  0x00000000;  // load pad driver mode register
+	st.w	0xf0000d40,d15
+.L49:
+
+; ..\Initiate_Files\IO.c	   163    MAIN_vSetENDINIT();
+	ld.w	d15,[a15]
+	or	d4,d15,#1
+	call	MAIN_vWriteWDTCON0
+.L50:
+
+; ..\Initiate_Files\IO.c	   164    P1_IOCR0       =  0x20202020;  // load port control register 0
+	st.w	0xf0000d10,d8
+.L51:
+
+; ..\Initiate_Files\IO.c	   165    P1_IOCR4       =  0x20202020;  // load port control register 4
+	st.w	0xf0000d14,d8
+.L52:
+
+; ..\Initiate_Files\IO.c	   166    P1_IOCR8       =  0x20202020;  // load port control register 8
+	st.w	0xf0000d18,d8
+.L53:
+
+; ..\Initiate_Files\IO.c	   167    P1_IOCR12      =  0x20202020;  // load port control register 12
+	st.w	0xf0000d1c,d8
+.L54:
+
+; ..\Initiate_Files\IO.c	   168  
+; ..\Initiate_Files\IO.c	   169    ///  -----------------------------------------------------------------------
+; ..\Initiate_Files\IO.c	   170    ///  Configuration of Port P2:
+; ..\Initiate_Files\IO.c	   171    ///  -----------------------------------------------------------------------
+; ..\Initiate_Files\IO.c	   172    ///  P2.7:
+; ..\Initiate_Files\IO.c	   173    ///  - is used as general purpose output
+; ..\Initiate_Files\IO.c	   174    ///  - push/pull output is selected
+; ..\Initiate_Files\IO.c	   175    ///  - the pin status is high level
+; ..\Initiate_Files\IO.c	   176    ///  - output driver characteristic: strong driver, sharp edge
+; ..\Initiate_Files\IO.c	   177  
+; ..\Initiate_Files\IO.c	   178    P2_OMR         =  0x00000080;  // load data output register
+	mov	d15,#128
+	st.w	0xf0000e04,d15
+.L55:
+
+; ..\Initiate_Files\IO.c	   179    MAIN_vResetENDINIT();
+	movh.a	a14,#@his(.L98)
+	lea	a14,[a14]@los(.L98)
+	j	.cocofun_1
+.L98:
+.L56:
+
+; ..\Initiate_Files\IO.c	   180    P2_PDR         =  0x00000000;  // load pad driver mode register
+	st.w	0xf0000e40,d15
+.L57:
+
+; ..\Initiate_Files\IO.c	   181    MAIN_vSetENDINIT();
+	ld.w	d15,[a15]
+	or	d4,d15,#1
+	call	MAIN_vWriteWDTCON0
+.L58:
+
+; ..\Initiate_Files\IO.c	   182    P2_IOCR0       =  0x20202020;  // load port control register 0
+; ..\Initiate_Files\IO.c	   183    P2_IOCR4       =  0x80202020;  // load port control register 4
+	mov	d15,#8224
+	st.w	0xf0000e10,d8
+.L59:
+	addih	d15,d15,#32800
+	st.w	0xf0000e14,d15
+.L60:
+
+; ..\Initiate_Files\IO.c	   184    P2_IOCR8       =  0x20202020;  // load port control register 8
+	st.w	0xf0000e18,d8
+.L61:
+
+; ..\Initiate_Files\IO.c	   185    P2_IOCR12      =  0x20202020;  // load port control register 12
+; ..\Initiate_Files\IO.c	   186  
+; ..\Initiate_Files\IO.c	   187    ///  -----------------------------------------------------------------------
+; ..\Initiate_Files\IO.c	   188    ///  Configuration of Port P3:
+; ..\Initiate_Files\IO.c	   189    ///  -----------------------------------------------------------------------
+; ..\Initiate_Files\IO.c	   190    ///  - no pin of port P3 is used
+; ..\Initiate_Files\IO.c	   191  
+; ..\Initiate_Files\IO.c	   192    P3_OMR         =  0x00000000;  // load data output register
+	mov	d15,#0
+	st.w	0xf0000e1c,d8
+.L62:
+	st.w	0xf0000f04,d15
+.L63:
+
+; ..\Initiate_Files\IO.c	   193    MAIN_vResetENDINIT();
+	movh.a	a14,#@his(.L99)
+	lea	a14,[a14]@los(.L99)
+	j	.cocofun_1
+.L99:
+.L64:
+
+; ..\Initiate_Files\IO.c	   194    P3_PDR         =  0x00000000;  // load pad driver mode register
+	st.w	0xf0000f40,d15
+.L65:
+
+; ..\Initiate_Files\IO.c	   195    MAIN_vSetENDINIT();
+	ld.w	d15,[a15]
+	or	d4,d15,#1
+	call	MAIN_vWriteWDTCON0
+.L66:
+
+; ..\Initiate_Files\IO.c	   196    P3_IOCR0       =  0x20202020;  // load port control register 0
+	st.w	0xf0000f10,d8
+.L67:
+
+; ..\Initiate_Files\IO.c	   197    P3_IOCR4       =  0x20202020;  // load port control register 4
+	st.w	0xf0000f14,d8
+.L68:
+
+; ..\Initiate_Files\IO.c	   198    P3_IOCR8       =  0x20202020;  // load port control register 8
+	st.w	0xf0000f18,d8
+.L69:
+
+; ..\Initiate_Files\IO.c	   199    P3_IOCR12      =  0x20202020;  // load port control register 12
+	st.w	0xf0000f1c,d8
+.L70:
+
+; ..\Initiate_Files\IO.c	   200  
+; ..\Initiate_Files\IO.c	   201    ///  -----------------------------------------------------------------------
+; ..\Initiate_Files\IO.c	   202    ///  Configuration of Port P4:
+; ..\Initiate_Files\IO.c	   203    ///  -----------------------------------------------------------------------
+; ..\Initiate_Files\IO.c	   204    ///  - no pin of port P4 is used
+; ..\Initiate_Files\IO.c	   205  
+; ..\Initiate_Files\IO.c	   206    P4_OMR         =  0x00000000;  // load data output register
+	mov	d15,#0
+	st.w	0xf0001004,d15
+.L71:
+
+; ..\Initiate_Files\IO.c	   207    MAIN_vResetENDINIT();
+	movh.a	a14,#@his(.L100)
+	lea	a14,[a14]@los(.L100)
+	j	.cocofun_1
+.L100:
+.L72:
+
+; ..\Initiate_Files\IO.c	   208    P4_PDR         =  0x00000000;  // load pad driver mode register
+	st.w	0xf0001040,d15
+.L73:
+
+; ..\Initiate_Files\IO.c	   209    MAIN_vSetENDINIT();
+	ld.w	d15,[a15]
+	or	d4,d15,#1
+	call	MAIN_vWriteWDTCON0
+.L74:
+
+; ..\Initiate_Files\IO.c	   210    P4_IOCR0       =  0x20202020;  // load port control register 0
+	st.w	0xf0001010,d8
+.L75:
+
+; ..\Initiate_Files\IO.c	   211  
+; ..\Initiate_Files\IO.c	   212    ///  -----------------------------------------------------------------------
+; ..\Initiate_Files\IO.c	   213    ///  Configuration of Port P5:
+; ..\Initiate_Files\IO.c	   214    ///  -----------------------------------------------------------------------
+; ..\Initiate_Files\IO.c	   215    ///  - no pin of port P5 is used
+; ..\Initiate_Files\IO.c	   216  
+; ..\Initiate_Files\IO.c	   217    P5_OMR         =  0x00000000;  // load data output register
+	mov	d15,#0
+	st.w	0xf0001104,d15
+.L76:
+
+; ..\Initiate_Files\IO.c	   218    MAIN_vResetENDINIT();
+	movh.a	a14,#@his(.L101)
+	lea	a14,[a14]@los(.L101)
+	j	.cocofun_1
+.L101:
+.L77:
+
+; ..\Initiate_Files\IO.c	   219    P5_PDR         =  0x00000000;  // load pad driver mode register
+	st.w	0xf0001140,d15
+.L78:
+
+; ..\Initiate_Files\IO.c	   220    MAIN_vSetENDINIT();
+	ld.w	d15,[a15]
+	or	d4,d15,#1
+	call	MAIN_vWriteWDTCON0
+.L79:
+
+; ..\Initiate_Files\IO.c	   221    P5_IOCR0       =  0x20202020;  // load port control register 0
+	st.w	0xf0001110,d8
+.L80:
+
+; ..\Initiate_Files\IO.c	   222    P5_IOCR4       =  0x20202020;  // load port control register 4
+	st.w	0xf0001114,d8
+.L81:
+
+; ..\Initiate_Files\IO.c	   223    P5_IOCR8       =  0x20202020;  // load port control register 8
+	st.w	0xf0001118,d8
+.L82:
+
+; ..\Initiate_Files\IO.c	   224    P5_IOCR12      =  0x20202020;  // load port control register 12
+	st.w	0xf000111c,d8
+.L83:
+
+; ..\Initiate_Files\IO.c	   225  
+; ..\Initiate_Files\IO.c	   226    ///  -----------------------------------------------------------------------
+; ..\Initiate_Files\IO.c	   227    ///  Configuration of Port P6:
+; ..\Initiate_Files\IO.c	   228    ///  -----------------------------------------------------------------------
+; ..\Initiate_Files\IO.c	   229    ///  - no pin of port P6 is used
+; ..\Initiate_Files\IO.c	   230  
+; ..\Initiate_Files\IO.c	   231    P6_OMR         =  0x00000000;  // load data output register
+	mov	d15,#0
+	st.w	0xf0001204,d15
+.L84:
+
+; ..\Initiate_Files\IO.c	   232    MAIN_vResetENDINIT();
+	movh.a	a14,#@his(.L102)
+	lea	a14,[a14]@los(.L102)
+	j	.cocofun_1
+.L102:
+.L85:
+
+; ..\Initiate_Files\IO.c	   233    P6_PDR         =  0x00000000;  // load pad driver mode register
+	st.w	0xf0001240,d15
+.L86:
+
+; ..\Initiate_Files\IO.c	   234    MAIN_vSetENDINIT();
+	ld.w	d15,[a15]
+	or	d4,d15,#1
+	call	MAIN_vWriteWDTCON0
+.L87:
+
+; ..\Initiate_Files\IO.c	   235    P6_IOCR0       =  0x20202020;  // load port control register 0
+	st.w	0xf0001210,d8
+.L88:
+
+; ..\Initiate_Files\IO.c	   236  
+; ..\Initiate_Files\IO.c	   237  
+; ..\Initiate_Files\IO.c	   238    // USER CODE BEGIN (IO_Function,3)
+; ..\Initiate_Files\IO.c	   239  
+; ..\Initiate_Files\IO.c	   240    // USER CODE END
+; ..\Initiate_Files\IO.c	   241  
+; ..\Initiate_Files\IO.c	   242  } //  End of function IO_vInit
+	ret
+.L27:
+	
+__IO_vInit_function_end:
+	.size	IO_vInit,__IO_vInit_function_end-IO_vInit
+.L21:
+	; End of function
+	
+	.sdecl	'.text.IO..cocofun_1',code,cluster('.cocofun_1')
+	.sect	'.text.IO..cocofun_1'
+	.align	2
+; Function .cocofun_1
+.L12:
+.cocofun_1:	.type	func
+; Function body .cocofun_1, coco_iter:0
+	ld.w	d15,[a15]
+	insert	d4,d15,#0,#0,#1
+	call	MAIN_vWriteWDTCON0
+.L3:
+	ld.bu	d15,[a12]
+	jnz.t	d15:0,.L3				; predicted taken
+.L93:
+	mov	d15,#0
+.L94:
+	ji	a14
+.L26:
+	; End of function
+	.calls	'IO_vInit','MAIN_vWriteWDTCON0'
+	.calls	'IO_vInit','.cocofun_1'
+	.calls	'IO_vInit','',0
+	.extern	MAIN_vWriteWDTCON0
+	.calls	'.cocofun_1','',0
+	.sdecl	'.debug_info',debug
+	.sect	'.debug_info'
+.L14:
+	.word	444
+	.half	3
+	.word	.L15
+	.byte	4
+.L13:
+	.byte	1
+	.byte	'..\\Initiate_Files\\IO.c',0
+	.byte	'TASKING VX-toolset for TriCore: C compiler',0
+	.byte	'D:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_1.9\\BMU_BOOT\\Debug\\',0,12,1
+	.word	.L16
+	.byte	2
+	.byte	'MAIN_vWriteWDTCON0',0,1,148,1,6,1,1,1,1,3
+	.byte	'unsigned int',0,4,7,4
+	.byte	'uwValue',0,1,148,1,31
+	.word	168
+	.byte	0,5
+	.byte	'void',0,6
+	.word	202
+	.byte	7
+	.byte	'__prof_adm',0,2,1,1
+	.word	208
+	.byte	8,1,6
+	.word	232
+	.byte	7
+	.byte	'__codeptr',0,2,1,1
+	.word	234
+	.byte	3
+	.byte	'unsigned char',0,1,8,7
+	.byte	'ubyte',0,1,78,24
+	.word	257
+	.byte	3
+	.byte	'unsigned short int',0,2,7,7
+	.byte	'ushort',0,1,80,24
+	.word	288
+	.byte	7
+	.byte	'uword',0,1,82,24
+	.word	168
+	.byte	7
+	.byte	'uint8',0,3,87,29
+	.word	257
+	.byte	7
+	.byte	'uint16',0,3,89,29
+	.word	288
+	.byte	3
+	.byte	'long int',0,4,5,7
+	.byte	'sint32',0,3,90,29
+	.word	368
+	.byte	3
+	.byte	'unsigned long int',0,4,7,7
+	.byte	'uint32',0,3,91,27
+	.word	395
+	.byte	7
+	.byte	'boolean',0,3,102,29
+	.word	257
+	.byte	0
+	.sdecl	'.debug_abbrev',debug
+	.sect	'.debug_abbrev'
+.L15:
+	.byte	1,17,1,3,8,37,8,27,8,19,15,128,70,12,16,6,0,0,2,46,1,3,8,58,15,59,15,57,15,54,15,39,12,63,12,60,12,0,0
+	.byte	3,36,0,3,8,11,15,62,15,0,0,4,5,0,3,8,58,15,59,15,57,15,73,19,0,0,5,59,0,3,8,0,0,6,15,0,73,19,0,0,7,22
+	.byte	0,3,8,58,15,59,15,57,15,73,19,0,0,8,21,0,54,15,0,0,0
+	.sdecl	'.debug_line',debug
+	.sect	'.debug_line'
+.L16:
+	.word	.L30-.L29
+.L29:
+	.half	3
+	.word	.L32-.L31
+.L31:
+	.byte	2,1,-4,9,10,0,1,1,1,1,0,0,0,1
+	.byte	'D:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_1.9\\BMU_BOOT\\Stand_Header',0,0
+	.byte	'..\\Initiate_Files\\MAIN.h',0,0,0,0
+	.byte	'..\\Initiate_Files\\IO.c',0,0,0,0
+	.byte	'Platform_Types.h',0,1,0,0,0
+.L32:
+.L30:
+	.sdecl	'.debug_info',debug,cluster('IO_vInit')
+	.sect	'.debug_info'
+.L17:
+	.word	180
+	.half	3
+	.word	.L18
+	.byte	4,1
+	.byte	'..\\Initiate_Files\\IO.c',0
+	.byte	'TASKING VX-toolset for TriCore: C compiler',0
+	.byte	'D:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_1.9\\BMU_BOOT\\Debug\\',0,12,1
+	.word	.L20,.L19
+	.byte	2
+	.word	.L13
+	.byte	3
+	.byte	'IO_vInit',0,1,125,6,1,1,1
+	.word	.L10,.L27,.L9
+	.byte	4
+	.word	.L28
+	.byte	0,0
+	.sdecl	'.debug_abbrev',debug,cluster('IO_vInit')
+	.sect	'.debug_abbrev'
+.L18:
+	.byte	1,17,1,3,8,37,8,27,8,19,15,128,70,12,85,6,16,6,0,0,2,61,0,24,16,0,0,3,46,1,3,8,58,15,59,15,57,15,54,15
+	.byte	39,12,63,12,17,1,18,1,64,6,0,0,4,11,0,85,6,0,0,0
+	.sdecl	'.debug_line',debug,cluster('IO_vInit')
+	.sect	'.debug_line'
+.L19:
+	.word	.L34-.L33
+.L33:
+	.half	3
+	.word	.L36-.L35
+.L35:
+	.byte	2,1,-4,9,10,0,1,1,1,1,0,0,0,1,0
+	.byte	'..\\Initiate_Files\\IO.c',0,0,0,0,0
+.L36:
+	.byte	5,21,7,0,5,2
+	.word	.L10
+	.byte	3,145,1,1,5,18,1,5,3,9
+	.half	.L37-.L10
+	.byte	3,1,1,5,21,9
+	.half	.L38-.L37
+	.byte	3,1,1,5,18,1,5,3,9
+	.half	.L39-.L38
+	.byte	3,1,1,5,21,9
+	.half	.L40-.L39
+	.byte	3,1,1,5,18,9
+	.half	.L41-.L40
+	.byte	1,5,21,9
+	.half	.L42-.L41
+	.byte	3,1,1,5,18,9
+	.half	.L43-.L42
+	.byte	1,9
+	.half	.L44-.L43
+	.byte	3,1,1,9
+	.half	.L45-.L44
+	.byte	3,1,1,5,21,9
+	.half	.L46-.L45
+	.byte	3,7,1,5,18,1,5,3,9
+	.half	.L47-.L46
+	.byte	3,1,1,5,18,9
+	.half	.L48-.L47
+	.byte	3,1,1,5,3,9
+	.half	.L49-.L48
+	.byte	3,1,1,5,18,9
+	.half	.L50-.L49
+	.byte	3,1,1,9
+	.half	.L51-.L50
+	.byte	3,1,1,9
+	.half	.L52-.L51
+	.byte	3,1,1,9
+	.half	.L53-.L52
+	.byte	3,1,1,5,21,9
+	.half	.L54-.L53
+	.byte	3,11,1,5,18,1,5,3,9
+	.half	.L55-.L54
+	.byte	3,1,1,5,18,9
+	.half	.L56-.L55
+	.byte	3,1,1,5,3,9
+	.half	.L57-.L56
+	.byte	3,1,1,5,21,9
+	.half	.L58-.L57
+	.byte	3,2,1,5,18,3,127,1,5,21,9
+	.half	.L59-.L58
+	.byte	3,1,1,5,18,1,9
+	.half	.L60-.L59
+	.byte	3,1,1,5,21,9
+	.half	.L61-.L60
+	.byte	3,8,1,5,18,3,121,1,9
+	.half	.L62-.L61
+	.byte	3,7,1,5,3,9
+	.half	.L63-.L62
+	.byte	3,1,1,5,18,9
+	.half	.L64-.L63
+	.byte	3,1,1,5,3,9
+	.half	.L65-.L64
+	.byte	3,1,1,5,18,9
+	.half	.L66-.L65
+	.byte	3,1,1,9
+	.half	.L67-.L66
+	.byte	3,1,1,9
+	.half	.L68-.L67
+	.byte	3,1,1,9
+	.half	.L69-.L68
+	.byte	3,1,1,5,21,9
+	.half	.L70-.L69
+	.byte	3,7,1,5,18,1,5,3,9
+	.half	.L71-.L70
+	.byte	3,1,1,5,18,9
+	.half	.L72-.L71
+	.byte	3,1,1,5,3,9
+	.half	.L73-.L72
+	.byte	3,1,1,5,18,9
+	.half	.L74-.L73
+	.byte	3,1,1,5,21,9
+	.half	.L75-.L74
+	.byte	3,7,1,5,18,1,5,3,9
+	.half	.L76-.L75
+	.byte	3,1,1,5,18,9
+	.half	.L77-.L76
+	.byte	3,1,1,5,3,9
+	.half	.L78-.L77
+	.byte	3,1,1,5,18,9
+	.half	.L79-.L78
+	.byte	3,1,1,9
+	.half	.L80-.L79
+	.byte	3,1,1,9
+	.half	.L81-.L80
+	.byte	3,1,1,9
+	.half	.L82-.L81
+	.byte	3,1,1,5,21,9
+	.half	.L83-.L82
+	.byte	3,7,1,5,18,1,5,3,9
+	.half	.L84-.L83
+	.byte	3,1,1,5,18,9
+	.half	.L85-.L84
+	.byte	3,1,1,5,3,9
+	.half	.L86-.L85
+	.byte	3,1,1,5,18,9
+	.half	.L87-.L86
+	.byte	3,1,1,5,1,9
+	.half	.L88-.L87
+	.byte	3,7,1,7,9
+	.half	.L21-.L88
+	.byte	0,1,1
+.L34:
+	.sdecl	'.debug_ranges',debug,cluster('IO_vInit')
+	.sect	'.debug_ranges'
+.L20:
+	.word	-1,.L10,0,.L21-.L10,0,0
+.L28:
+	.word	-1,.L10,0,.L27-.L10,-1,.L12,0,.L26-.L12,0,0
+	.sdecl	'.debug_info',debug,cluster('.cocofun_1')
+	.sect	'.debug_info'
+.L22:
+	.word	174
+	.half	3
+	.word	.L23
+	.byte	4,1
+	.byte	'..\\Initiate_Files\\IO.c',0
+	.byte	'TASKING VX-toolset for TriCore: C compiler',0
+	.byte	'D:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_1.9\\BMU_BOOT\\Debug\\',0,12,1
+	.word	.L25,.L24
+	.byte	2
+	.word	.L13
+	.byte	3
+	.byte	'.cocofun_1',0,1,125,6,1
+	.word	.L12,.L26,.L11
+	.byte	0
+	.sdecl	'.debug_abbrev',debug,cluster('.cocofun_1')
+	.sect	'.debug_abbrev'
+.L23:
+	.byte	1,17,1,3,8,37,8,27,8,19,15,128,70,12,85,6,16,6,0,0,2,61,0,24,16,0,0,3,46,0,3,8,58,15,59,15,57,15,54,15
+	.byte	17,1,18,1,64,6,0,0,0
+	.sdecl	'.debug_line',debug,cluster('.cocofun_1')
+	.sect	'.debug_line'
+.L24:
+	.word	.L90-.L89
+.L89:
+	.half	3
+	.word	.L92-.L91
+.L91:
+	.byte	2,1,-4,9,10,0,1,1,1,1,0,0,0,1,0
+	.byte	'..\\Initiate_Files\\IO.c',0,0,0,0,0
+.L92:
+	.byte	5,3,7,0,5,2
+	.word	.L12
+	.byte	3,160,1,1,5,21,9
+	.half	.L93-.L12
+	.byte	3,1,1,9
+	.half	.L26-.L93
+	.byte	0,1,1,5,3,0,5,2
+	.word	.L12
+	.byte	3,178,1,1,5,21,9
+	.half	.L93-.L12
+	.byte	3,1,1,9
+	.half	.L94-.L93
+	.byte	3,110,1,7,9
+	.half	.L26-.L94
+	.byte	0,1,1,5,3,0,5,2
+	.word	.L12
+	.byte	3,192,1,1,5,21,9
+	.half	.L93-.L12
+	.byte	3,1,1,9
+	.half	.L94-.L93
+	.byte	3,96,1,7,9
+	.half	.L26-.L94
+	.byte	0,1,1,5,3,0,5,2
+	.word	.L12
+	.byte	3,206,1,1,5,21,9
+	.half	.L93-.L12
+	.byte	3,1,1,9
+	.half	.L94-.L93
+	.byte	3,82,1,7,9
+	.half	.L26-.L94
+	.byte	0,1,1,5,3,0,5,2
+	.word	.L12
+	.byte	3,217,1,1,5,21,9
+	.half	.L93-.L12
+	.byte	3,1,1,9
+	.half	.L94-.L93
+	.byte	3,71,1,7,9
+	.half	.L26-.L94
+	.byte	0,1,1,5,3,0,5,2
+	.word	.L12
+	.byte	3,231,1,1,5,21,9
+	.half	.L93-.L12
+	.byte	3,1,1,9
+	.half	.L94-.L93
+	.byte	3,185,127,1,7,9
+	.half	.L26-.L94
+	.byte	0,1,1
+.L90:
+	.sdecl	'.debug_ranges',debug,cluster('.cocofun_1')
+	.sect	'.debug_ranges'
+.L25:
+	.word	-1,.L12,0,.L26-.L12,0,0
+	.sdecl	'.debug_loc',debug,cluster('.cocofun_1')
+	.sect	'.debug_loc'
+.L11:
+	.word	-1,.L12,0,.L26-.L12
+	.half	2
+	.byte	138,0
+	.word	0,0
+	.sdecl	'.debug_loc',debug,cluster('IO_vInit')
+	.sect	'.debug_loc'
+.L9:
+	.word	-1,.L10,0,.L27-.L10
+	.half	2
+	.byte	138,0
+	.word	0,0
+	.sdecl	'.debug_frame',debug
+	.sect	'.debug_frame'
+.L95:
+	.word	48
+	.word	-1
+	.byte	3,0,2,1,27,12,26,0,8,26,8,27,8,30,8,29,8,28,8,16,8,17,8,24,8,25,8,31,8,32,8,33,8,34,8,35,8,36,8,37,8,38
+	.byte	8,39
+	.sdecl	'.debug_frame',debug,cluster('IO_vInit')
+	.sect	'.debug_frame'
+	.word	12
+	.word	.L95,.L10,.L27-.L10
+	.sdecl	'.debug_frame',debug
+	.sect	'.debug_frame'
+.L96:
+	.word	48
+	.word	-1
+	.byte	3,0,2,1,30,12,26,0,8,26,8,27,8,30,8,29,8,28,8,16,8,17,8,24,8,25,8,31,8,32,8,33,8,34,8,35,8,36,8,37,8,38
+	.byte	8,39
+	.sdecl	'.debug_frame',debug,cluster('.cocofun_1')
+	.sect	'.debug_frame'
+	.word	24
+	.word	.L96,.L12,.L26-.L12
+	.byte	8,18,8,19,8,20,8,21,8,22,8,23
+
+; ..\Initiate_Files\IO.c	   243  
+; ..\Initiate_Files\IO.c	   244  
+; ..\Initiate_Files\IO.c	   245  
+; ..\Initiate_Files\IO.c	   246  
+; ..\Initiate_Files\IO.c	   247  // USER CODE BEGIN (IO_General,10)
+; ..\Initiate_Files\IO.c	   248  
+; ..\Initiate_Files\IO.c	   249  // USER CODE END
+; ..\Initiate_Files\IO.c	   250  
+
+	; Module end

@@ -1,0 +1,4582 @@
+	; Module start
+	.compiler_version	"TASKING VX-toolset for TriCore: C compiler v4.3r1 Build 759 SN 00641831"
+	.compiler_invocation	"ctc -f cc232a -c99 --dep-file=.CANbootloader.o.d -D__CPU__=tc1782 -D__CPU_TC1782__ --core=tc1.3.1 -F -ID:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_1.9\\BMU_BOOT -ID:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_1.9\\BMU_BOOT\\Communication_Files\\CanDrv -ID:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_1.9\\BMU_BOOT\\Communication_Files\\Com -ID:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_1.9\\BMU_BOOT\\Communication_Files\\Com\\Can_Input -ID:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_1.9\\BMU_BOOT\\Communication_Files\\Com\\Can_Output -ID:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_1.9\\BMU_BOOT\\Communication_Files\\Uds\\Dcm -ID:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_1.9\\BMU_BOOT\\Communication_Files\\Uds\\Dem -ID:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_1.9\\BMU_BOOT\\Communication_Files\\Uds\\Tp -ID:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_1.9\\BMU_BOOT\\Communication_Files\\Uds\\User -ID:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_1.9\\BMU_BOOT\\Complex_Files -ID:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_1.9\\BMU_BOOT\\Initiate_Files -ID:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_1.9\\BMU_BOOT\\Nvm_Files\\FlsDrv -ID:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_1.9\\BMU_BOOT\\Stand_Header -g2 --make-target=CANbootloader.o -t4 --language=-gcc,-volatile,+strings --default-near-size=0 -O2 --default-a1-size=0 --default-a0-size=0 --source --align=0 --compact-max-size=200 --switch=auto -o CANbootloader.src ..\\CANbootloader.c"
+	.compiler_name		"ctc"
+	.name	"CANbootloader"
+
+	
+$TC131
+	
+	.sdecl	'.text.CANbootloader.CAN_ACK',code,cluster('CAN_ACK')
+	.sect	'.text.CANbootloader.CAN_ACK'
+	.align	2
+	
+	.global	CAN_ACK
+
+; ..\CANbootloader.c	     1  /*
+; ..\CANbootloader.c	     2   * CAN_message.c
+; ..\CANbootloader.c	     3   *
+; ..\CANbootloader.c	     4   *  Created on: 2017-8-28
+; ..\CANbootloader.c	     5   *      Author: HSNE_LP22E
+; ..\CANbootloader.c	     6   */
+; ..\CANbootloader.c	     7  
+; ..\CANbootloader.c	     8  #include "MAIN.h"
+; ..\CANbootloader.c	     9  CAN_SWObj stCANRecObj;
+; ..\CANbootloader.c	    10  CAN_SWObj *pstCANRecObj = &stCANRecObj;
+; ..\CANbootloader.c	    11  BYTE DataBlock[PAGE_SIZE+16]={0};
+; ..\CANbootloader.c	    12  BYTE SectorAddressValid;
+; ..\CANbootloader.c	    13  unsigned int Handflag = 2;		/**/
+; ..\CANbootloader.c	    14  DWORD SectorStartAddress[18] = {Sector0_Start_Address,Sector1_Start_Address,Sector2_Start_Address,Sector3_Start_Address,
+; ..\CANbootloader.c	    15  		Sector4_Start_Address,Sector5_Start_Address,Sector6_Start_Address,Sector7_Start_Address,
+; ..\CANbootloader.c	    16  		Sector8_Start_Address,Sector9_Start_Address,Sector10_Start_Address,Sector11_Start_Address,
+; ..\CANbootloader.c	    17  		Sector12_Start_Address,Sector13_Start_Address,Sector14_Start_Address,Sector15_Start_Address,
+; ..\CANbootloader.c	    18  		Sector16_Start_Address,Sector17_Start_Address};
+; ..\CANbootloader.c	    19  BYTE SectorEraseFlag[18] = {0};
+; ..\CANbootloader.c	    20  void CAN_ACK(BYTE ubACK,BYTE ubTmp)
+; Function CAN_ACK
+.L67:
+CAN_ACK:	.type	func
+	mov	d15,d4
+.L270:
+	mov	d8,d5
+.L272:
+
+; ..\CANbootloader.c	    21  {
+; ..\CANbootloader.c	    22  	/*如未发送成功，不发送*/
+; ..\CANbootloader.c	    23  	if(CAN_ubRequestMsgObj(125) == 0)
+	mov	d4,#125
+.L268:
+	call	CAN_ubRequestMsgObj
+.L269:
+	jeq	d2,#0,.L2				; predicted taken
+.L334:
+
+; ..\CANbootloader.c	    24  	{
+; ..\CANbootloader.c	    25  		return;
+; ..\CANbootloader.c	    26  	}
+; ..\CANbootloader.c	    27  	CAN_HWOBJ[125].uwMOCTR = 0x00080000;       // set NEWDAT
+	movh.a	a15,#61440
+.L335:
+	movh	d0,#8
+	lea	a15,[a15]@los(0xf0005fbc)
+.L336:
+
+; ..\CANbootloader.c	    28  
+; ..\CANbootloader.c	    29  	CAN_HWOBJ[125].ubData[0] = ubACK;
+	movh.a	a2,#61440
+.L337:
+	st.w	[a15],d0
+.L338:
+	lea	a2,[a2]@los(0xf0005fb0)
+.L339:
+	st.b	[a2],d15
+.L340:
+
+; ..\CANbootloader.c	    30  	CAN_HWOBJ[125].ubData[1] = ubTmp;
+	movh.a	a2,#61440
+.L341:
+
+; ..\CANbootloader.c	    31  
+; ..\CANbootloader.c	    32  	CAN_HWOBJ[125].uwMOCTR = 0x00200040;       // reset RTSEL, set MSGVAL
+	mov.u	d15,#32769
+	lea	a2,[a2]@los(0xf0005fb1)
+.L271:
+	sh	d15,#6
+	st.b	[a2],d8
+.L342:
+	st.w	[a15],d15
+.L343:
+
+; ..\CANbootloader.c	    33  	CAN_HWOBJ[125].uwMOCTR = 0x07000000;  	// set TXRQ,TXEN0,TXEN1
+	movh	d15,#1792
+	st.w	[a15],d15
+
+; ..\CANbootloader.c	    34  }
+.L2:
+	ret
+.L212:
+	
+__CAN_ACK_function_end:
+	.size	CAN_ACK,__CAN_ACK_function_end-CAN_ACK
+.L107:
+	; End of function
+	
+	.sdecl	'.text.CANbootloader.transmitback_data',code,cluster('transmitback_data')
+	.sect	'.text.CANbootloader.transmitback_data'
+	.align	2
+	
+	.global	transmitback_data
+
+; ..\CANbootloader.c	    35  
+; ..\CANbootloader.c	    36  BYTE ubAddrPrgm[8];
+; ..\CANbootloader.c	    37  BYTE ubgCommand;
+; ..\CANbootloader.c	    38  BYTE ubgCommand1;
+; ..\CANbootloader.c	    39  BYTE ubgCommand2;
+; ..\CANbootloader.c	    40  BYTE ubgCommand3;
+; ..\CANbootloader.c	    41  unsigned long crc32_Data = 0;
+; ..\CANbootloader.c	    42  void transmitback_data(void)
+; Function transmitback_data
+transmitback_data:	.type	func
+
+; ..\CANbootloader.c	    43  {
+; ..\CANbootloader.c	    44  	UINT i;
+; ..\CANbootloader.c	    45  //***********************transmit the address date*************************//
+; ..\CANbootloader.c	    46  
+; ..\CANbootloader.c	    47  #if 0
+; ..\CANbootloader.c	    48  	  while(!CAN_ubRequestMsgObj(126));
+; ..\CANbootloader.c	    49  	  CAN_HWOBJ[126].uwMOCTR = 0x00080000;       // set NEWDAT
+; ..\CANbootloader.c	    50  
+; ..\CANbootloader.c	    51  	  CAN_HWOBJ[126].ubData[0] = ubAddrPrgm[0];
+; ..\CANbootloader.c	    52  	  CAN_HWOBJ[126].ubData[1] = ubAddrPrgm[1];
+; ..\CANbootloader.c	    53  	  CAN_HWOBJ[126].ubData[2] = ubAddrPrgm[2];
+; ..\CANbootloader.c	    54  	  CAN_HWOBJ[126].ubData[3] = ubAddrPrgm[3];
+; ..\CANbootloader.c	    55  	  CAN_HWOBJ[126].ubData[4] = ubAddrPrgm[4];
+; ..\CANbootloader.c	    56  	  CAN_HWOBJ[126].ubData[5] = 2;
+; ..\CANbootloader.c	    57  	  CAN_HWOBJ[126].ubData[6] = 3;
+; ..\CANbootloader.c	    58  	  CAN_HWOBJ[126].ubData[7] = 4;
+; ..\CANbootloader.c	    59  
+; ..\CANbootloader.c	    60  	  CAN_HWOBJ[126].uwMOCTR = 0x00200040;       // reset RTSEL, set MSGVAL
+; ..\CANbootloader.c	    61  	  CAN_HWOBJ[126].uwMOCTR = 0x07000000;
+; ..\CANbootloader.c	    62  
+; ..\CANbootloader.c	    63  	  //*********************transmit the flash date******************************//
+; ..\CANbootloader.c	    64  	    for(i=0; i < (8*32);i+=8){
+; ..\CANbootloader.c	    65  
+; ..\CANbootloader.c	    66  	  	while(!CAN_ubRequestMsgObj(126));
+; ..\CANbootloader.c	    67  	    CAN_HWOBJ[126].uwMOCTR = 0x00080000;       // set NEWDAT
+; ..\CANbootloader.c	    68  	  	CAN_HWOBJ[126].ubData[0] = DataBlock[i+0];
+; ..\CANbootloader.c	    69  	  	CAN_HWOBJ[126].ubData[1] = DataBlock[i+1];
+; ..\CANbootloader.c	    70  	  	CAN_HWOBJ[126].ubData[2] = DataBlock[i+2];
+; ..\CANbootloader.c	    71  	  	CAN_HWOBJ[126].ubData[3] = DataBlock[i+3];
+; ..\CANbootloader.c	    72  	  	CAN_HWOBJ[126].ubData[4] = DataBlock[i+4];
+; ..\CANbootloader.c	    73  	  	CAN_HWOBJ[126].ubData[5] = DataBlock[i+5];
+; ..\CANbootloader.c	    74  	  	CAN_HWOBJ[126].ubData[6] = DataBlock[i+6];
+; ..\CANbootloader.c	    75  	  	CAN_HWOBJ[126].ubData[7] = DataBlock[i+7];
+; ..\CANbootloader.c	    76  
+; ..\CANbootloader.c	    77  	  	CAN_HWOBJ[126].uwMOCTR = 0x00200040;       // reset RTSEL, set MSGVAL
+; ..\CANbootloader.c	    78  	  	CAN_HWOBJ[126].uwMOCTR = 0x07000000;  	// set TXRQ,TXEN0,TXEN1
+; ..\CANbootloader.c	    79  	    }
+; ..\CANbootloader.c	    80  #else
+; ..\CANbootloader.c	    81  	  	while(!CAN_ubRequestMsgObj(126));
+.L3:
+	mov	d4,#126
+	call	CAN_ubRequestMsgObj
+.L409:
+	jeq	d2,#0,.L3				; predicted taken
+.L410:
+
+; ..\CANbootloader.c	    82  	    CAN_HWOBJ[126].uwMOCTR = 0x00080000;       // set NEWDAT
+	movh.a	a4,#61440
+	lea	a4,[a4]@los(0xf0005fdc)
+.L411:
+	movh	d15,#8
+	st.w	[a4],d15
+.L412:
+
+; ..\CANbootloader.c	    83  	  	CAN_HWOBJ[126].ubData[0] = ubAddrPrgm[1];
+	movh.a	a15,#@his(ubAddrPrgm)
+	lea	a15,[a15]@los(ubAddrPrgm)
+.L413:
+	movh.a	a2,#61440
+	lea	a2,[a2]@los(0xf0005fd0)
+.L414:
+	ld.bu	d15,[a15]1
+.L415:
+	st.b	[a2],d15
+.L416:
+
+; ..\CANbootloader.c	    84  	  	CAN_HWOBJ[126].ubData[1] = ubAddrPrgm[2];
+	movh.a	a2,#61440
+	lea	a2,[a2]@los(0xf0005fd1)
+.L417:
+	ld.bu	d15,[a15]2
+.L418:
+	st.b	[a2],d15
+.L419:
+
+; ..\CANbootloader.c	    85  	  	CAN_HWOBJ[126].ubData[2] = ubAddrPrgm[3];
+	movh.a	a2,#61440
+	lea	a2,[a2]@los(0xf0005fd2)
+.L420:
+	ld.bu	d15,[a15]3
+.L421:
+	st.b	[a2],d15
+.L422:
+
+; ..\CANbootloader.c	    86  	  	CAN_HWOBJ[126].ubData[3] = ubAddrPrgm[4];
+	movh.a	a2,#61440
+	lea	a2,[a2]@los(0xf0005fd3)
+.L423:
+	ld.bu	d15,[a15]4
+.L424:
+	st.b	[a2],d15
+.L425:
+
+; ..\CANbootloader.c	    87  	  	CAN_HWOBJ[126].ubData[4] = (unsigned char)(crc32_Data>>24);
+	movh.a	a15,#@his(crc32_Data)
+	lea	a15,[a15]@los(crc32_Data)
+.L426:
+	movh.a	a2,#61440
+	lea	a2,[a2]@los(0xf0005fd4)
+.L427:
+	ld.w	d15,[a15]
+.L428:
+	sh	d15,d15,#-24
+	st.b	[a2],d15
+.L429:
+
+; ..\CANbootloader.c	    88  	  	CAN_HWOBJ[126].ubData[5] = (unsigned char)(crc32_Data>>16);
+	movh.a	a2,#61440
+	lea	a2,[a2]@los(0xf0005fd5)
+.L430:
+	ld.w	d15,[a15]
+.L431:
+	sh	d15,d15,#-16
+	st.b	[a2],d15
+.L432:
+
+; ..\CANbootloader.c	    89  	  	CAN_HWOBJ[126].ubData[6] = (unsigned char)(crc32_Data>>8);
+	movh.a	a2,#61440
+	lea	a2,[a2]@los(0xf0005fd6)
+.L433:
+	ld.w	d15,[a15]
+.L434:
+	sh	d15,#-8
+	st.b	[a2],d15
+.L435:
+
+; ..\CANbootloader.c	    90  	  	CAN_HWOBJ[126].ubData[7] = (unsigned char)(crc32_Data);
+	movh.a	a2,#61440
+	lea	a2,[a2]@los(0xf0005fd7)
+.L436:
+	ld.w	d15,[a15]
+.L437:
+	st.b	[a2],d15
+.L438:
+
+; ..\CANbootloader.c	    91  
+; ..\CANbootloader.c	    92  	  	CAN_HWOBJ[126].uwMOCTR = 0x00200040;       // reset RTSEL, set MSGVAL
+	mov.u	d15,#32769
+.L439:
+	sh	d15,#6
+	st.w	[a4],d15
+.L440:
+
+; ..\CANbootloader.c	    93  	  	CAN_HWOBJ[126].uwMOCTR = 0x07000000;  	// set TXRQ,TXEN0,TXEN1
+	movh	d15,#1792
+	st.w	[a4],d15
+.L441:
+
+; ..\CANbootloader.c	    94  #endif
+; ..\CANbootloader.c	    95  
+; ..\CANbootloader.c	    96  }
+	ret
+.L217:
+	
+__transmitback_data_function_end:
+	.size	transmitback_data,__transmitback_data_function_end-transmitback_data
+.L117:
+	; End of function
+	
+	.sdecl	'.text.CANbootloader.SendBlock',code,cluster('SendBlock')
+	.sect	'.text.CANbootloader.SendBlock'
+	.align	2
+	
+	.global	SendBlock
+
+; ..\CANbootloader.c	    97  void SendBlock(void)
+; Function SendBlock
+.L70:
+SendBlock:	.type	func
+
+; ..\CANbootloader.c	    98  {
+; ..\CANbootloader.c	    99  	UINT i;
+; ..\CANbootloader.c	   100  	  //*********************transmit the flash date******************************//
+; ..\CANbootloader.c	   101  	    for(i=0; i < (8*32);i+=8){
+; ..\CANbootloader.c	   102  
+; ..\CANbootloader.c	   103  	  	while(!CAN_ubRequestMsgObj(126));
+; ..\CANbootloader.c	   104  	    CAN_HWOBJ[126].uwMOCTR = 0x00080000;       // set NEWDAT
+	mov	d8,#0
+	movh.a	a12,#61440
+.L273:
+	lea	a12,[a12]@los(0xf0005fdc)
+.L482:
+	lea	a13,31
+.L4:
+.L5:
+	mov	d4,#126
+	call	CAN_ubRequestMsgObj
+.L483:
+	jeq	d2,#0,.L5				; predicted taken
+.L484:
+	movh	d0,#8
+	st.w	[a12],d0
+.L485:
+
+; ..\CANbootloader.c	   105  	  	CAN_HWOBJ[126].ubData[0] = DataBlock[i+0];
+	movh.a	a15,#@his(DataBlock)
+	lea	a15,[a15]@los(DataBlock)
+.L486:
+	addsc.a	a15,a15,d8,#0
+.L487:
+	movh.a	a2,#61440
+	lea	a2,[a2]@los(0xf0005fd0)
+.L488:
+	ld.bu	d0,[a15]
+.L489:
+	st.b	[a2],d0
+.L490:
+
+; ..\CANbootloader.c	   106  	  	CAN_HWOBJ[126].ubData[1] = DataBlock[i+1];
+	movh.a	a2,#61440
+	lea	a2,[a2]@los(0xf0005fd1)
+.L491:
+	ld.bu	d15,[a15]1
+.L492:
+	st.b	[a2],d15
+.L493:
+
+; ..\CANbootloader.c	   107  	  	CAN_HWOBJ[126].ubData[2] = DataBlock[i+2];
+	movh.a	a2,#61440
+	lea	a2,[a2]@los(0xf0005fd2)
+.L494:
+	ld.bu	d15,[a15]2
+.L495:
+	st.b	[a2],d15
+.L496:
+
+; ..\CANbootloader.c	   108  	  	CAN_HWOBJ[126].ubData[3] = DataBlock[i+3];
+	movh.a	a2,#61440
+	lea	a2,[a2]@los(0xf0005fd3)
+.L497:
+	ld.bu	d15,[a15]3
+.L498:
+	st.b	[a2],d15
+.L499:
+
+; ..\CANbootloader.c	   109  	  	CAN_HWOBJ[126].ubData[4] = DataBlock[i+4];
+	movh.a	a2,#61440
+	lea	a2,[a2]@los(0xf0005fd4)
+.L500:
+	ld.bu	d15,[a15]4
+.L501:
+	st.b	[a2],d15
+.L502:
+
+; ..\CANbootloader.c	   110  	  	CAN_HWOBJ[126].ubData[5] = DataBlock[i+5];
+	movh.a	a2,#61440
+	lea	a2,[a2]@los(0xf0005fd5)
+.L503:
+	ld.bu	d15,[a15]5
+.L504:
+	st.b	[a2],d15
+.L505:
+
+; ..\CANbootloader.c	   111  	  	CAN_HWOBJ[126].ubData[6] = DataBlock[i+6];
+	movh.a	a2,#61440
+	lea	a2,[a2]@los(0xf0005fd6)
+.L506:
+	ld.bu	d15,[a15]6
+.L507:
+	st.b	[a2],d15
+.L508:
+
+; ..\CANbootloader.c	   112  	  	CAN_HWOBJ[126].ubData[7] = DataBlock[i+7];
+	movh.a	a2,#61440
+	lea	a2,[a2]@los(0xf0005fd7)
+.L509:
+	ld.bu	d15,[a15]7
+.L510:
+	st.b	[a2],d15
+.L511:
+
+; ..\CANbootloader.c	   113  
+; ..\CANbootloader.c	   114  	  	CAN_HWOBJ[126].uwMOCTR = 0x00200040;       // reset RTSEL, set MSGVAL
+	mov.u	d15,#32769
+.L512:
+	sh	d15,#6
+	st.w	[a12],d15
+.L513:
+
+; ..\CANbootloader.c	   115  	  	CAN_HWOBJ[126].uwMOCTR = 0x07000000;  	// set TXRQ,TXEN0,TXEN1
+	movh	d15,#1792
+	st.w	[a12],d15
+.L514:
+	add	d8,d8,#8
+.L515:
+	loop	a13,.L4				; predicted taken
+.L516:
+
+; ..\CANbootloader.c	   116  	    }
+; ..\CANbootloader.c	   117  }
+	ret
+.L226:
+	
+__SendBlock_function_end:
+	.size	SendBlock,__SendBlock_function_end-SendBlock
+.L132:
+	; End of function
+	
+	.sdecl	'.text.CANbootloader.SendFlag',code,cluster('SendFlag')
+	.sect	'.text.CANbootloader.SendFlag'
+	.align	2
+	
+	.global	SendFlag
+
+; ..\CANbootloader.c	   118  void SendFlag()
+; Function SendFlag
+SendFlag:	.type	func
+
+; ..\CANbootloader.c	   119  {
+; ..\CANbootloader.c	   120  	while(!CAN_ubRequestMsgObj(126));
+.L6:
+	mov	d4,#126
+	call	CAN_ubRequestMsgObj
+.L521:
+	jeq	d2,#0,.L6				; predicted taken
+.L522:
+
+; ..\CANbootloader.c	   121  		    CAN_HWOBJ[126].uwMOCTR = 0x00080000;       // set NEWDAT
+	movh.a	a2,#61440
+	lea	a2,[a2]@los(0xf0005fdc)
+.L523:
+	movh	d15,#8
+	st.w	[a2],d15
+.L524:
+
+; ..\CANbootloader.c	   122  		  	CAN_HWOBJ[126].ubData[0] = DataBlock[0];
+	movh.a	a15,#@his(DataBlock)
+	lea	a15,[a15]@los(DataBlock)
+.L525:
+	movh.a	a4,#61440
+	lea	a4,[a4]@los(0xf0005fd0)
+.L526:
+	ld.bu	d15,[a15]
+.L527:
+	st.b	[a4],d15
+.L528:
+
+; ..\CANbootloader.c	   123  		  	CAN_HWOBJ[126].ubData[1] = DataBlock[1];
+	movh.a	a4,#61440
+	lea	a4,[a4]@los(0xf0005fd1)
+.L529:
+	ld.bu	d15,[a15]1
+.L530:
+	st.b	[a4],d15
+.L531:
+
+; ..\CANbootloader.c	   124  		  	CAN_HWOBJ[126].ubData[2] = DataBlock[2];
+	movh.a	a4,#61440
+	lea	a4,[a4]@los(0xf0005fd2)
+.L532:
+	ld.bu	d15,[a15]2
+.L533:
+	st.b	[a4],d15
+.L534:
+
+; ..\CANbootloader.c	   125  		  	CAN_HWOBJ[126].ubData[3] = DataBlock[3];
+	movh.a	a4,#61440
+	lea	a4,[a4]@los(0xf0005fd3)
+.L535:
+	ld.bu	d15,[a15]3
+.L536:
+	st.b	[a4],d15
+.L537:
+
+; ..\CANbootloader.c	   126  		  	CAN_HWOBJ[126].ubData[4] = DataBlock[4];
+	movh.a	a4,#61440
+	lea	a4,[a4]@los(0xf0005fd4)
+.L538:
+	ld.bu	d15,[a15]4
+.L539:
+	st.b	[a4],d15
+.L540:
+
+; ..\CANbootloader.c	   127  		  	CAN_HWOBJ[126].ubData[5] = DataBlock[5];
+	movh.a	a4,#61440
+	lea	a4,[a4]@los(0xf0005fd5)
+.L541:
+	ld.bu	d15,[a15]5
+.L542:
+	st.b	[a4],d15
+.L543:
+
+; ..\CANbootloader.c	   128  		  	CAN_HWOBJ[126].ubData[6] = DataBlock[6];
+	movh.a	a4,#61440
+	lea	a4,[a4]@los(0xf0005fd6)
+.L544:
+	ld.bu	d15,[a15]6
+.L545:
+	st.b	[a4],d15
+.L546:
+
+; ..\CANbootloader.c	   129  		  	CAN_HWOBJ[126].ubData[7] = DataBlock[7];
+	movh.a	a4,#61440
+	lea	a4,[a4]@los(0xf0005fd7)
+.L547:
+	ld.bu	d15,[a15]7
+.L548:
+	st.b	[a4],d15
+.L549:
+
+; ..\CANbootloader.c	   130  
+; ..\CANbootloader.c	   131  		  	CAN_HWOBJ[126].uwMOCTR = 0x00200040;       // reset RTSEL, set MSGVAL
+	mov.u	d15,#32769
+.L550:
+	sh	d15,#6
+	st.w	[a2],d15
+.L551:
+
+; ..\CANbootloader.c	   132  		  	CAN_HWOBJ[126].uwMOCTR = 0x07000000;  	// set TXRQ,TXEN0,TXEN1
+	movh	d15,#1792
+	st.w	[a2],d15
+.L552:
+
+; ..\CANbootloader.c	   133  }
+	ret
+.L228:
+	
+__SendFlag_function_end:
+	.size	SendFlag,__SendFlag_function_end-SendFlag
+.L137:
+	; End of function
+	
+	.sdecl	'.text.CANbootloader.clearDataBlock',code,cluster('clearDataBlock')
+	.sect	'.text.CANbootloader.clearDataBlock'
+	.align	2
+	
+	.global	clearDataBlock
+
+; ..\CANbootloader.c	   134  void clearDataBlock()
+; Function clearDataBlock
+.L73:
+clearDataBlock:	.type	func
+
+; ..\CANbootloader.c	   135  {
+; ..\CANbootloader.c	   136  	UINT i;
+; ..\CANbootloader.c	   137  	for(i=0; i < (8*32);i++){
+; ..\CANbootloader.c	   138  		  DataBlock[i] = 0x00;
+	mov	d15,#0
+	movh.a	a15,#@his(DataBlock)
+	lea	a15,[a15]@los(DataBlock)
+.L557:
+	lea	a2,255
+.L7:
+	st.b	[a15+],d15
+.L558:
+	loop	a2,.L7				; predicted taken
+.L559:
+
+; ..\CANbootloader.c	   139  	}
+; ..\CANbootloader.c	   140  }
+	ret
+.L229:
+	
+__clearDataBlock_function_end:
+	.size	clearDataBlock,__clearDataBlock_function_end-clearDataBlock
+.L142:
+	; End of function
+	
+	.sdecl	'.text.CANbootloader.ReceiveDataBlock',code,cluster('ReceiveDataBlock')
+	.sect	'.text.CANbootloader.ReceiveDataBlock'
+	.align	2
+	
+	.global	ReceiveDataBlock
+
+; ..\CANbootloader.c	   141  
+; ..\CANbootloader.c	   142  void ReceiveDataBlock(void)
+; Function ReceiveDataBlock
+.L75:
+ReceiveDataBlock:	.type	func
+
+; ..\CANbootloader.c	   143  {
+; ..\CANbootloader.c	   144  	UINT i;
+; ..\CANbootloader.c	   145  	for (i = 0; i < (32*8); i+=8)   // 256 bytes, 64 words
+; ..\CANbootloader.c	   146  	  {
+; ..\CANbootloader.c	   147  	    while (!(CAN_MOCTR124 & 0x08)); // wait until NEWDAT
+	mov	d0,#0
+	movh.a	a4,#61440
+.L274:
+	mov	d1,#8
+	lea	a4,[a4]@los(0xf0005f9c)
+.L564:
+	lea	a5,31
+.L8:
+.L9:
+	ld.w	d15,[a4]
+.L565:
+	jz.t	d15:3,.L9				; predicted taken
+.L566:
+
+; ..\CANbootloader.c	   148  	    {
+; ..\CANbootloader.c	   149  	      // store the Datas from the CAN Messages
+; ..\CANbootloader.c	   150  	    	DataBlock[i+0] = CAN_HWOBJ[124].ubData[0];
+	movh.a	a15,#@his(DataBlock)
+.L567:
+	movh.a	a2,#61440
+.L568:
+	lea	a15,[a15]@los(DataBlock)
+.L569:
+	addsc.a	a15,a15,d0,#0
+.L570:
+	lea	a2,[a2]@los(0xf0005f90)
+.L571:
+	ld.bu	d15,[a2]
+.L572:
+
+; ..\CANbootloader.c	   151  	    	DataBlock[i+1] = CAN_HWOBJ[124].ubData[1];
+	movh.a	a2,#61440
+.L573:
+	st.b	[a15],d15
+.L574:
+	lea	a2,[a2]@los(0xf0005f91)
+	ld.bu	d15,[a2]
+.L575:
+
+; ..\CANbootloader.c	   152  	    	DataBlock[i+2] = CAN_HWOBJ[124].ubData[2];
+	movh.a	a2,#61440
+.L576:
+	st.b	[a15]1,d15
+.L577:
+	lea	a2,[a2]@los(0xf0005f92)
+	ld.bu	d15,[a2]
+.L578:
+
+; ..\CANbootloader.c	   153  	    	DataBlock[i+3] = CAN_HWOBJ[124].ubData[3];
+	movh.a	a2,#61440
+.L579:
+	st.b	[a15]2,d15
+.L580:
+	lea	a2,[a2]@los(0xf0005f93)
+	ld.bu	d15,[a2]
+.L581:
+
+; ..\CANbootloader.c	   154  	    	DataBlock[i+4] = CAN_HWOBJ[124].ubData[4];
+	movh.a	a2,#61440
+.L582:
+	st.b	[a15]3,d15
+.L583:
+	lea	a2,[a2]@los(0xf0005f94)
+	ld.bu	d15,[a2]
+.L584:
+
+; ..\CANbootloader.c	   155  	    	DataBlock[i+5] = CAN_HWOBJ[124].ubData[5];
+	movh.a	a2,#61440
+.L585:
+	st.b	[a15]4,d15
+.L586:
+	lea	a2,[a2]@los(0xf0005f95)
+	ld.bu	d15,[a2]
+.L587:
+
+; ..\CANbootloader.c	   156  	    	DataBlock[i+6] = CAN_HWOBJ[124].ubData[6];
+	movh.a	a2,#61440
+.L588:
+	st.b	[a15]5,d15
+.L589:
+	lea	a2,[a2]@los(0xf0005f96)
+	ld.bu	d15,[a2]
+.L590:
+
+; ..\CANbootloader.c	   157  	    	DataBlock[i+7] = CAN_HWOBJ[124].ubData[7];
+	movh.a	a2,#61440
+.L591:
+	st.b	[a15]6,d15
+.L592:
+	lea	a2,[a2]@los(0xf0005f97)
+	ld.bu	d15,[a2]
+.L593:
+	st.b	[a15]7,d15
+.L594:
+
+; ..\CANbootloader.c	   158  //	    	CAN_ACK(4,8);
+; ..\CANbootloader.c	   159  	    }
+; ..\CANbootloader.c	   160  	    CAN_HWOBJ[124].uwMOCTR = CAN_MOSTAT0_NEWDAT;                     // clear NEWDAT
+	add	d0,d0,#8
+	st.w	[a4],d1
+.L595:
+	loop	a5,.L8				; predicted taken
+.L596:
+
+; ..\CANbootloader.c	   161  	  }
+; ..\CANbootloader.c	   162  }
+	ret
+.L231:
+	
+__ReceiveDataBlock_function_end:
+	.size	ReceiveDataBlock,__ReceiveDataBlock_function_end-ReceiveDataBlock
+.L147:
+	; End of function
+	
+	.sdecl	'.text.CANbootloader.ProgramFlashPage',code,cluster('ProgramFlashPage')
+	.sect	'.text.CANbootloader.ProgramFlashPage'
+	.align	2
+	
+	.global	ProgramFlashPage
+
+; ..\CANbootloader.c	   163  
+; ..\CANbootloader.c	   164  //****************************************************************************
+; ..\CANbootloader.c	   165  // Function      _Bool ProgramFlashPage(DWORD dwPageAddr)
+; ..\CANbootloader.c	   166  //
+; ..\CANbootloader.c	   167  //----------------------------------------------------------------------------
+; ..\CANbootloader.c	   168  // Description   Program one page of FLASH
+; ..\CANbootloader.c	   169  //
+; ..\CANbootloader.c	   170  //----------------------------------------------------------------------------
+; ..\CANbootloader.c	   171  // Return value  1 : SUCCESS
+; ..\CANbootloader.c	   172  //               0 : FAILED
+; ..\CANbootloader.c	   173  //----------------------------------------------------------------------------
+; ..\CANbootloader.c	   174  // Parameters    dwPageAddr : start address of one page in FLASH
+; ..\CANbootloader.c	   175  //
+; ..\CANbootloader.c	   176  //----------------------------------------------------------------------------
+; ..\CANbootloader.c	   177  // Date          2011-7-4
+; ..\CANbootloader.c	   178  //
+; ..\CANbootloader.c	   179  //****************************************************************************
+; ..\CANbootloader.c	   180  _Bool ProgramFlashPage(DWORD dwPageAddr)
+; Function ProgramFlashPage
+.L77:
+ProgramFlashPage:	.type	func
+
+; ..\CANbootloader.c	   181  {
+; ..\CANbootloader.c	   182  	DWORD dwFlashBaseAddr;
+; ..\CANbootloader.c	   183  	UINT ui;
+; ..\CANbootloader.c	   184  	volatile DWORD* pdwFsr;
+; ..\CANbootloader.c	   185  
+; ..\CANbootloader.c	   186  	dwFlashBaseAddr=dwPageAddr & PFLASH_BASE_MASK;
+	insert	d15,d4,#0,#0,#21
+.L238:
+
+; ..\CANbootloader.c	   187  
+; ..\CANbootloader.c	   188  	// prepare magic pointers
+; ..\CANbootloader.c	   189  	DWORD* pdwAddr5554=(DWORD*)(dwFlashBaseAddr+0x5554);
+	addi	d0,d15,#21844
+.L276:
+	mov.a	a2,d0
+.L278:
+
+; ..\CANbootloader.c	   190  	DWORD* pdwAddrAAA8=(DWORD*)(dwFlashBaseAddr+0xAAA8);
+	mov.u	d0,#43688
+.L277:
+	add	d0,d15
+.L601:
+	mov.a	a4,d0
+.L279:
+
+; ..\CANbootloader.c	   191  	QWORD* pqwAddr55F0=(QWORD*)(dwFlashBaseAddr+0x55F0);
+	addi	d15,d15,#22000
+.L275:
+	mov.a	a5,d15
+.L281:
+
+; ..\CANbootloader.c	   192  
+; ..\CANbootloader.c	   193  		// clear status register
+; ..\CANbootloader.c	   194  		*pdwAddr5554=0x000000F5;
+	mov	d15,#245
+	st.w	[a2],d15
+.L280:
+
+; ..\CANbootloader.c	   195  
+; ..\CANbootloader.c	   196  		// enter page mode
+; ..\CANbootloader.c	   197  		*pdwAddr5554=0x00000050;  // program FLASH
+	mov	d15,#80
+	st.w	[a2],d15
+.L602:
+
+; ..\CANbootloader.c	   198  
+; ..\CANbootloader.c	   199  		// load assembly buffer
+; ..\CANbootloader.c	   200  		for(ui = 0; ui < PAGE_SIZE; ui+=8)
+	mov	d5,#0
+	lea	a6,31
+.L10:
+
+; ..\CANbootloader.c	   201  		{
+; ..\CANbootloader.c	   202  			QWORD qw =  (QWORD)(DataBlock[0+ui] & 0xFF);
+; ..\CANbootloader.c	   203  			qw      += ((QWORD)(DataBlock[1+ui] & 0xFF) << 8);
+; ..\CANbootloader.c	   204  			qw      += ((QWORD)(DataBlock[2+ui] & 0xFF) << 16);
+; ..\CANbootloader.c	   205  			qw      += ((QWORD)(DataBlock[3+ui] & 0xFF) << 24);
+; ..\CANbootloader.c	   206  			qw      += ((QWORD)(DataBlock[4+ui] & 0xFF) << 32);
+; ..\CANbootloader.c	   207  			qw      += ((QWORD)(DataBlock[5+ui] & 0xFF) << 40);
+; ..\CANbootloader.c	   208  			qw      += ((QWORD)(DataBlock[6+ui] & 0xFF) << 48);
+; ..\CANbootloader.c	   209  			qw      += ((QWORD)(DataBlock[7+ui] & 0xFF) << 56);
+	movh.a	a15,#@his(DataBlock)
+	lea	a15,[a15]@los(DataBlock)
+.L603:
+	addsc.a	a15,a15,d5,#0
+.L604:
+	mov	d1,#0
+	ld.bu	d0,[a15]1
+.L605:
+	dextr	d1,d1,d0,#8
+	ld.bu	d2,[a15]
+.L606:
+	sh	d0,d0,#8
+	ld.bu	d15,[a15]5
+.L607:
+	addx	d0,d2,d0
+	ld.bu	d2,[a15]2
+.L608:
+	mov	d3,#0
+.L244:
+	add	d5,d5,#8
+.L245:
+	addc	d1,d3,d1
+.L609:
+	mov	d3,#0
+.L610:
+	dextr	d3,d3,d2,#16
+	sh	d2,d2,#16
+.L611:
+	addx	d0,d0,d2
+	ld.bu	d2,[a15]3
+.L612:
+	addc	d1,d1,d3
+.L613:
+	mov	d3,#0
+.L614:
+	dextr	d3,d3,d2,#24
+	sh	d2,d2,#24
+.L615:
+	addx	d0,d0,d2
+.L616:
+	addc	d1,d1,d3
+	ld.bu	d3,[a15]4
+.L617:
+	addx	d0,d0,#0
+	addc	d1,d1,d3
+.L618:
+	addx	d0,d0,#0
+.L619:
+	sh	d3,d15,#8
+	ld.bu	d15,[a15]6
+.L620:
+	addc	d1,d1,d3
+.L621:
+	addx	d0,d0,#0
+.L622:
+	sh	d3,d15,#16
+	ld.bu	d15,[a15]7
+.L623:
+	addc	d1,d1,d3
+.L624:
+	addx	d0,d0,#0
+.L625:
+	sh	d3,d15,#24
+.L626:
+
+; ..\CANbootloader.c	   210  			*pqwAddr55F0=qw;
+	addc	d1,d1,d3
+	st.d	[a5]0,e0
+.L246:
+	loop	a6,.L10				; predicted taken
+.L627:
+
+; ..\CANbootloader.c	   211  		}
+; ..\CANbootloader.c	   212  
+; ..\CANbootloader.c	   213  		// write page
+; ..\CANbootloader.c	   214  		*pdwAddr5554 = 0x000000AA;
+; ..\CANbootloader.c	   215  		*pdwAddrAAA8 = 0x00000055;
+; ..\CANbootloader.c	   216  		*pdwAddr5554 = 0x000000A0;
+; ..\CANbootloader.c	   217  		*((DWORD*)dwPageAddr) = 0x000000AA;
+	mov.a	a15,d4
+.L282:
+	mov	d0,#170
+	st.w	[a2],d0
+.L628:
+	mov	d15,#85
+	st.w	[a4],d15
+.L629:
+	mov	d15,#160
+	st.w	[a2],d15
+.L630:
+
+; ..\CANbootloader.c	   218  
+; ..\CANbootloader.c	   219  		//poll status register
+; ..\CANbootloader.c	   220  		if((dwPageAddr>=0xA0200000))
+; ..\CANbootloader.c	   221  		{
+; ..\CANbootloader.c	   222  			pdwFsr=(DWORD*)PFLASH1_FSR;
+; ..\CANbootloader.c	   223  		}
+; ..\CANbootloader.c	   224  		else
+; ..\CANbootloader.c	   225  		{
+; ..\CANbootloader.c	   226  			pdwFsr=(DWORD*)PFLASH0_FSR;
+; ..\CANbootloader.c	   227  		}
+; ..\CANbootloader.c	   228  		//while(*pdwFsr & FLASH_MASK_BUSY) {}
+; ..\CANbootloader.c	   229  
+; ..\CANbootloader.c	   230          return 1;
+	mov	d2,#1
+	st.w	[a15],d0
+.L631:
+
+; ..\CANbootloader.c	   231  }
+	ret
+.L234:
+	
+__ProgramFlashPage_function_end:
+	.size	ProgramFlashPage,__ProgramFlashPage_function_end-ProgramFlashPage
+.L152:
+	; End of function
+	
+	.sdecl	'.text.CANbootloader.ProgramBootFlag',code,cluster('ProgramBootFlag')
+	.sect	'.text.CANbootloader.ProgramBootFlag'
+	.align	2
+	
+	.global	ProgramBootFlag
+
+; ..\CANbootloader.c	   232  
+; ..\CANbootloader.c	   233  void ProgramBootFlag(BYTE flag)
+; Function ProgramBootFlag
+.L79:
+ProgramBootFlag:	.type	func
+
+; ..\CANbootloader.c	   234  {
+; ..\CANbootloader.c	   235  	//第一遍写入读取判断
+; ..\CANbootloader.c	   236  	DataBlock[0] = flag;
+	mov	d8,d4
+	movh.a	a12,#@his(DataBlock)
+.L284:
+
+; ..\CANbootloader.c	   237  	DataBlock[1] = Boot_Flag[1];
+; ..\CANbootloader.c	   238  	ProgramFlashPage(0xa0010000);
+	movh	d9,#40961
+	lea	a12,[a12]@los(DataBlock)
+.L446:
+	mov	d4,d9
+	movh.a	a15,#@his(Boot_Flag)
+.L283:
+	st.b	[a12],d8
+.L447:
+	lea	a15,[a15]@los(Boot_Flag)
+.L448:
+	ld.bu	d15,[a15]1
+.L449:
+	st.b	[a12]1,d15
+.L450:
+	call	ProgramFlashPage
+.L451:
+
+; ..\CANbootloader.c	   239  	ReadFlag();
+	call	ReadFlag
+.L452:
+
+; ..\CANbootloader.c	   240  	if(DataBlock[0] != flag){
+	ld.bu	d15,[a12]
+.L453:
+	jeq	d15,d8,.L12				; predicted taken
+.L454:
+
+; ..\CANbootloader.c	   241  		//第二遍写入读取判断
+; ..\CANbootloader.c	   242  		DataBlock[0] = flag;
+; ..\CANbootloader.c	   243  		ProgramFlashPage(0xa0010000);
+	mov	d4,d9
+	st.b	[a12],d8
+.L455:
+	call	ProgramFlashPage
+.L456:
+
+; ..\CANbootloader.c	   244  		ReadFlag();
+	call	ReadFlag
+.L457:
+
+; ..\CANbootloader.c	   245  		if(DataBlock[0] != flag){
+	ld.bu	d15,[a12]
+.L458:
+	jeq	d15,d8,.L13				; predicted taken
+.L459:
+
+; ..\CANbootloader.c	   246  			//第三遍写入读取判断（如不正确，直接跳出）
+; ..\CANbootloader.c	   247  			DataBlock[0] = flag;
+; ..\CANbootloader.c	   248  			ProgramFlashPage(0xa0010000);
+	mov	d4,d9
+	st.b	[a12],d8
+.L460:
+	call	ProgramFlashPage
+.L461:
+
+; ..\CANbootloader.c	   249  			ReadFlag();
+	j	ReadFlag
+.L13:
+.L12:
+
+; ..\CANbootloader.c	   250  			if(DataBlock[0] != flag){
+; ..\CANbootloader.c	   251  				return;
+; ..\CANbootloader.c	   252  			}
+; ..\CANbootloader.c	   253  		}
+; ..\CANbootloader.c	   254  	}
+; ..\CANbootloader.c	   255  }
+	ret
+.L218:
+	
+__ProgramBootFlag_function_end:
+	.size	ProgramBootFlag,__ProgramBootFlag_function_end-ProgramBootFlag
+.L122:
+	; End of function
+	
+	.sdecl	'.text.CANbootloader.ReadFlag',code,cluster('ReadFlag')
+	.sect	'.text.CANbootloader.ReadFlag'
+	.align	2
+	
+	.global	ReadFlag
+
+; ..\CANbootloader.c	   256  
+; ..\CANbootloader.c	   257  
+; ..\CANbootloader.c	   258  
+; ..\CANbootloader.c	   259  BYTE ReadFlag(void)
+; Function ReadFlag
+.L81:
+ReadFlag:	.type	func
+
+; ..\CANbootloader.c	   260  {
+; ..\CANbootloader.c	   261  	DWORD ulBaseAddr = 0xA0010000;
+; ..\CANbootloader.c	   262  	UINT i;
+; ..\CANbootloader.c	   263  		DWORD *PageAddr = ulBaseAddr;
+	movh.a	a2,#40961
+.L285:
+
+; ..\CANbootloader.c	   264  
+; ..\CANbootloader.c	   265  		DWORD *dwPageAddr=PageAddr;
+; ..\CANbootloader.c	   266  		UINT volatile  * pflash = (UINT volatile  *)ulBaseAddr;		//!!!!!!!
+; ..\CANbootloader.c	   267  		for(i=0;i<256;i+=4)
+; ..\CANbootloader.c	   268  		{
+; ..\CANbootloader.c	   269  			DWORD* p=(DWORD*)(dwPageAddr);
+; ..\CANbootloader.c	   270  			DWORD FlashDW=*p;
+; ..\CANbootloader.c	   271  			DataBlock [i]=    FlashDW & 0xff;
+	mov	d0,#0
+	movh.a	a4,#@his(DataBlock)
+.L206:
+	lea	a4,[a4]@los(DataBlock)
+.L207:
+	lea	a5,63
+.L14:
+	ld.w	d1,[a2+]
+.L286:
+	addsc.a	a15,a4,d0,#0
+.L323:
+	st.b	[a15],d1
+.L324:
+
+; ..\CANbootloader.c	   272  			DataBlock [i+1]= (FlashDW & 0xff00)  	>> 8;
+	sh	d15,d1,#-8
+	st.b	[a15]1,d15
+.L325:
+
+; ..\CANbootloader.c	   273  			DataBlock [i+2]= (FlashDW & 0xff0000)	>> 16;
+	sh	d15,d1,#-16
+	st.b	[a15]2,d15
+.L326:
+
+; ..\CANbootloader.c	   274  			DataBlock [i+3]= (FlashDW & 0xff000000)	>> 24;
+	sh	d15,d1,#-24
+	st.b	[a15]3,d15
+.L208:
+	add	d0,#4
+.L327:
+	loop	a5,.L14				; predicted taken
+.L328:
+
+; ..\CANbootloader.c	   275  
+; ..\CANbootloader.c	   276  			dwPageAddr ++ ;
+; ..\CANbootloader.c	   277  //			CAN_ACK(2,4);
+; ..\CANbootloader.c	   278  		}
+; ..\CANbootloader.c	   279  //		Flag_Band = DataBlock[1];
+; ..\CANbootloader.c	   280  		return DataBlock[0];
+	ld.bu	d2,[a4]
+.L329:
+
+; ..\CANbootloader.c	   281  }
+	ret
+.L200:
+	
+__ReadFlag_function_end:
+	.size	ReadFlag,__ReadFlag_function_end-ReadFlag
+.L102:
+	; End of function
+	
+	.sdecl	'.text.CANbootloader.SectorStartAddressCheck',code,cluster('SectorStartAddressCheck')
+	.sect	'.text.CANbootloader.SectorStartAddressCheck'
+	.align	2
+	
+	.global	SectorStartAddressCheck
+
+; ..\CANbootloader.c	   282  
+; ..\CANbootloader.c	   283  int SectorStartAddressCheck(DWORD dwSectorAddr)
+; Function SectorStartAddressCheck
+.L83:
+SectorStartAddressCheck:	.type	func
+	mov	d15,d4
+.L287:
+
+; ..\CANbootloader.c	   284  {
+; ..\CANbootloader.c	   285  	if(dwSectorAddr>=Sector8_Start_Address&&dwSectorAddr<Sector8_End_Address)
+	movh	d0,#40962
+.L636:
+	sub	d0,d15,d0
+.L637:
+	mov.u	d1,#65535
+	addih	d1,d1,#1
+.L638:
+	jge.u	d0,d1,.L16				; unsupported prediction taken forward branch
+.L639:
+
+; ..\CANbootloader.c	   286  		return 8;
+	mov	d2,#8
+.L640:
+
+; ..\CANbootloader.c	   287  	else if(dwSectorAddr>=Sector9_Start_Address&&dwSectorAddr<Sector9_End_Address)
+; ..\CANbootloader.c	   288  		return 9;
+; ..\CANbootloader.c	   289  	else if(dwSectorAddr>=Sector10_Start_Address&&dwSectorAddr<Sector10_End_Address)
+; ..\CANbootloader.c	   290  		return 10;
+; ..\CANbootloader.c	   291  	else if(dwSectorAddr>=Sector11_Start_Address&&dwSectorAddr<Sector11_End_Address)
+; ..\CANbootloader.c	   292  		return 11;
+; ..\CANbootloader.c	   293  	else if(dwSectorAddr>=Sector12_Start_Address&&dwSectorAddr<Sector12_End_Address)
+; ..\CANbootloader.c	   294  		return 12;
+; ..\CANbootloader.c	   295  	else if(dwSectorAddr>=Sector13_Start_Address&&dwSectorAddr<Sector13_End_Address)
+; ..\CANbootloader.c	   296  		return 13;
+; ..\CANbootloader.c	   297  	else if(dwSectorAddr>=Sector14_Start_Address&&dwSectorAddr<Sector14_End_Address)
+; ..\CANbootloader.c	   298  		return 14;
+; ..\CANbootloader.c	   299  	else if(dwSectorAddr>=Sector15_Start_Address&&dwSectorAddr<Sector15_End_Address)
+; ..\CANbootloader.c	   300  		return 15;
+; ..\CANbootloader.c	   301  	else if(dwSectorAddr>=Sector16_Start_Address&&dwSectorAddr<Sector16_End_Address)
+; ..\CANbootloader.c	   302  		return 16;
+; ..\CANbootloader.c	   303  	else if(dwSectorAddr>=Sector17_Start_Address&&dwSectorAddr<Sector17_End_Address)
+; ..\CANbootloader.c	   304  		return 17;
+; ..\CANbootloader.c	   305  	else
+; ..\CANbootloader.c	   306  		return 20;
+; ..\CANbootloader.c	   307  }
+	ret
+.L16:
+	mov.u	d1,#65535
+	addih	d1,d1,#3
+.L641:
+	movh	d0,#40964
+.L642:
+	sub	d0,d15,d0
+.L643:
+	jge.u	d0,d1,.L18				; unsupported prediction taken forward branch
+.L644:
+	mov	d2,#9
+.L645:
+	ret
+.L18:
+	movh	d0,#40968
+.L646:
+	sub	d0,d15,d0
+.L647:
+	jge.u	d0,d1,.L20				; unsupported prediction taken forward branch
+.L648:
+	mov	d2,#10
+.L649:
+	ret
+.L20:
+	movh	d0,#40972
+.L650:
+	sub	d0,d15,d0
+.L651:
+	jge.u	d0,d1,.L22				; unsupported prediction taken forward branch
+.L652:
+	mov	d2,#11
+.L653:
+	ret
+.L22:
+	movh	d0,#40976
+.L654:
+	sub	d0,d15,d0
+.L655:
+	jge.u	d0,d1,.L24				; unsupported prediction taken forward branch
+.L656:
+	mov	d2,#12
+.L657:
+	ret
+.L24:
+	movh	d0,#40980
+.L658:
+	sub	d0,d15,d0
+.L659:
+	jge.u	d0,d1,.L26				; unsupported prediction taken forward branch
+.L660:
+	mov	d2,#13
+.L661:
+	ret
+.L26:
+	movh	d0,#40984
+.L662:
+	sub	d0,d15,d0
+.L663:
+	jge.u	d0,d1,.L28				; unsupported prediction taken forward branch
+.L664:
+	mov	d2,#14
+.L665:
+	ret
+.L28:
+	movh	d0,#40988
+.L666:
+	sub	d0,d15,d0
+.L667:
+	jge.u	d0,d1,.L30				; unsupported prediction taken forward branch
+.L668:
+	mov	d2,#15
+.L669:
+	ret
+.L30:
+	movh	d0,#40992
+.L670:
+	sub	d0,d15,d0
+.L671:
+	jge.u	d0,d1,.L32				; unsupported prediction taken forward branch
+.L672:
+	mov	d2,#16
+.L673:
+	ret
+.L32:
+	movh	d0,#40996
+.L674:
+	sub	d15,d0
+.L288:
+	ge.u	d0,d15,d1
+.L675:
+	mov	d15,#17
+	seln	d2,d0,d15,#20
+.L676:
+	ret
+.L248:
+	
+__SectorStartAddressCheck_function_end:
+	.size	SectorStartAddressCheck,__SectorStartAddressCheck_function_end-SectorStartAddressCheck
+.L157:
+	; End of function
+	
+	.sdecl	'.text.CANbootloader.EraseSelectedSector',code,cluster('EraseSelectedSector')
+	.sect	'.text.CANbootloader.EraseSelectedSector'
+	.align	2
+	
+	.global	EraseSelectedSector
+
+; ..\CANbootloader.c	   308  
+; ..\CANbootloader.c	   309  void EraseSelectedSector(int Index)
+; Function EraseSelectedSector
+.L85:
+EraseSelectedSector:	.type	func
+
+; ..\CANbootloader.c	   310  {
+; ..\CANbootloader.c	   311  	if(Index>=8&&Index<=17)
+	add	d15,d4,#-8
+.L681:
+	jge.u	d15,#10,.L37				; unsupported prediction taken forward branch
+.L682:
+
+; ..\CANbootloader.c	   312  	{
+; ..\CANbootloader.c	   313  		if(0==SectorEraseFlag[Index])
+	movh.a	a15,#@his(SectorEraseFlag)
+	lea	a15,[a15]@los(SectorEraseFlag)
+.L683:
+	addsc.a	a15,a15,d4,#0
+	ld.bu	d15,[a15]
+.L684:
+	jne	d15,#0,.L38				; predicted taken
+.L685:
+
+; ..\CANbootloader.c	   314  		{
+; ..\CANbootloader.c	   315  			EraseSector(SectorStartAddress[Index]);////????
+	movh.a	a2,#@his(SectorStartAddress)
+	lea	a2,[a2]@los(SectorStartAddress)
+.L686:
+	addsc.a	a2,a2,d4,#2
+	ld.w	d4,[a2]
+.L289:
+	call	EraseSector
+.L687:
+
+; ..\CANbootloader.c	   316  			SectorEraseFlag[Index] = 1;
+	mov	d15,#1
+	st.b	[a15],d15
+.L38:
+
+; ..\CANbootloader.c	   317  		}
+; ..\CANbootloader.c	   318  	}
+; ..\CANbootloader.c	   319  	else if(Index == 18)
+; ..\CANbootloader.c	   320  	{
+; ..\CANbootloader.c	   321  		EraseSector(0xAFE00000);
+; ..\CANbootloader.c	   322  	}
+; ..\CANbootloader.c	   323  	else if(Index == 19)
+; ..\CANbootloader.c	   324  	{
+; ..\CANbootloader.c	   325  		EraseSector(0xAFE10000);
+; ..\CANbootloader.c	   326  	}
+; ..\CANbootloader.c	   327  }
+	ret
+.L37:
+	mov	d15,#18
+.L688:
+	jne	d15,d4,.L40				; predicted taken
+.L689:
+	movh	d4,#45024
+.L290:
+	j	.L41
+.L40:
+	mov	d15,#19
+.L690:
+	jne	d15,d4,.L42				; predicted taken
+.L691:
+	movh	d4,#45025
+.L41:
+	j	EraseSector
+.L42:
+	ret
+.L250:
+	
+__EraseSelectedSector_function_end:
+	.size	EraseSelectedSector,__EraseSelectedSector_function_end-EraseSelectedSector
+.L162:
+	; End of function
+	
+	.sdecl	'.text.CANbootloader.EraseSector',code,cluster('EraseSector')
+	.sect	'.text.CANbootloader.EraseSector'
+	.align	2
+	
+	.global	EraseSector
+
+; ..\CANbootloader.c	   328  //******************************************************************************
+; ..\CANbootloader.c	   329  // Function      void EraseSector(DWORD dwSectorAddr, DWORD dwSize)
+; ..\CANbootloader.c	   330  //
+; ..\CANbootloader.c	   331  //------------------------------------------------------------------------------
+; ..\CANbootloader.c	   332  // Description   This function will erase one sector of PFLASH
+; ..\CANbootloader.c	   333  //
+; ..\CANbootloader.c	   334  //------------------------------------------------------------------------------
+; ..\CANbootloader.c	   335  // Return value  None
+; ..\CANbootloader.c	   336  //
+; ..\CANbootloader.c	   337  //------------------------------------------------------------------------------
+; ..\CANbootloader.c	   338  // Parameters    dwSectorAddr: the start address of the sector in PFLASH
+; ..\CANbootloader.c	   339  //               dwSize :  the size of sector
+; ..\CANbootloader.c	   340  //------------------------------------------------------------------------------
+; ..\CANbootloader.c	   341  // Date          2011-7-4
+; ..\CANbootloader.c	   342  //
+; ..\CANbootloader.c	   343  //******************************************************************************
+; ..\CANbootloader.c	   344  void EraseSector(DWORD dwSectorAddr)
+; Function EraseSector
+.L87:
+EraseSector:	.type	func
+
+; ..\CANbootloader.c	   345  {
+; ..\CANbootloader.c	   346  
+; ..\CANbootloader.c	   347  	DWORD dwAddr = dwSectorAddr;
+; ..\CANbootloader.c	   348  	if((dwAddr == 0xAFE00000) || (dwAddr == 0xAFE10000))
+	movh	d0,#45024
+.L466:
+	jeq	d4,d0,.L43				; predicted not taken
+.L467:
+	movh	d15,#45025
+.L468:
+	jne	d15,d4,.L44				; predicted taken
+.L43:
+
+; ..\CANbootloader.c	   349  	{
+; ..\CANbootloader.c	   350  		dwAddr = dwSectorAddr & DFLASH_BASE_MASK;
+	mov	d1,d0
+.L291:
+	j	.L45
+.L44:
+
+; ..\CANbootloader.c	   351  	}
+; ..\CANbootloader.c	   352  	else
+; ..\CANbootloader.c	   353  	{
+; ..\CANbootloader.c	   354  		dwAddr = dwSectorAddr & PFLASH_BASE_MASK;
+	insert	d1,d4,#0,#0,#21
+.L45:
+
+; ..\CANbootloader.c	   355  	}
+; ..\CANbootloader.c	   356  
+; ..\CANbootloader.c	   357  
+; ..\CANbootloader.c	   358  	DWORD* pdwAddr5554=(DWORD*)(dwAddr+0x5554);
+	addi	d15,d1,#21844
+.L292:
+	mov.a	a15,d15
+.L294:
+
+; ..\CANbootloader.c	   359  	DWORD* pdwAddrAAA8=(DWORD*)(dwAddr+0xAAA8);
+	mov.u	d15,#43688
+.L293:
+	add	d15,d1
+.L469:
+	mov.a	a2,d15
+.L297:
+
+; ..\CANbootloader.c	   360  
+; ..\CANbootloader.c	   361  	// clear status register
+; ..\CANbootloader.c	   362  	*pdwAddr5554=0x000000F5; //	ClearStatus(dwFlashBaseAddr);
+	mov	d15,#245
+	st.w	[a15],d15
+.L296:
+
+; ..\CANbootloader.c	   363  
+; ..\CANbootloader.c	   364  	// erase physical sector
+; ..\CANbootloader.c	   365  	*pdwAddr5554=0x000000AA;
+	mov	d2,#170
+	st.w	[a15],d2
+.L470:
+
+; ..\CANbootloader.c	   366  	*pdwAddrAAA8=0x00000055;
+	mov	d3,#85
+	st.w	[a2],d3
+.L471:
+
+; ..\CANbootloader.c	   367  	*pdwAddr5554=0x00000080;
+	mov	d15,#128
+	st.w	[a15],d15
+.L472:
+
+; ..\CANbootloader.c	   368  	*pdwAddr5554=0x000000AA;
+	st.w	[a15],d2
+.L473:
+
+; ..\CANbootloader.c	   369  	*pdwAddrAAA8=0x00000055;
+	st.w	[a2],d3
+.L474:
+
+; ..\CANbootloader.c	   370  
+; ..\CANbootloader.c	   371  	if((dwAddr == 0xAFE00000) || (dwAddr == 0xAFE10000))
+	jeq	d1,d0,.L46				; predicted not taken
+.L475:
+	movh	d15,#45025
+.L476:
+	jne	d15,d1,.L47				; prediction unknown
+.L46:
+
+; ..\CANbootloader.c	   372  	{
+; ..\CANbootloader.c	   373  		*((DWORD*)dwSectorAddr)=0x00000040;   // erase logical sector
+	mov.a	a15,d4
+.L295:
+	mov	d15,#64
+.L477:
+	j	.L48
+.L47:
+
+; ..\CANbootloader.c	   374  	}
+; ..\CANbootloader.c	   375  	else
+; ..\CANbootloader.c	   376  	{
+; ..\CANbootloader.c	   377  		*((DWORD*)dwSectorAddr)=0x00000030;   // erase logical sector
+	mov.a	a15,d4
+.L298:
+	mov	d15,#48
+.L48:
+	st.w	[a15],d15
+.L225:
+
+; ..\CANbootloader.c	   378  	}
+; ..\CANbootloader.c	   379  
+; ..\CANbootloader.c	   380  	volatile DWORD* pdwFsr;
+; ..\CANbootloader.c	   381  	pdwFsr=(DWORD*)PFLASH1_FSR;
+; ..\CANbootloader.c	   382  
+; ..\CANbootloader.c	   383  	//while(*pdwFsr & FLASH_MASK_BUSY) {};
+; ..\CANbootloader.c	   384  }
+	ret
+.L220:
+	
+__EraseSector_function_end:
+	.size	EraseSector,__EraseSector_function_end-EraseSector
+.L127:
+	; End of function
+	
+	.sdecl	'.text.CANbootloader.ReadBlock2',code,cluster('ReadBlock2')
+	.sect	'.text.CANbootloader.ReadBlock2'
+	.align	2
+	
+	.global	ReadBlock2
+
+; ..\CANbootloader.c	   385  //读内存,并放入DataBlock
+; ..\CANbootloader.c	   386  void ReadBlock2(DWORD ulBaseAddr)
+; Function ReadBlock2
+.L89:
+ReadBlock2:	.type	func
+
+; ..\CANbootloader.c	   387  {
+; ..\CANbootloader.c	   388  	UINT i;
+; ..\CANbootloader.c	   389  	DWORD *PageAddr = ulBaseAddr;
+; ..\CANbootloader.c	   390  	DWORD *dwPageAddr=PageAddr;
+	mov.a	a2,d4
+.L299:
+
+; ..\CANbootloader.c	   391  	for(i=0;i<256;i+=4)
+	mov	d0,#0
+	lea	a4,63
+.L49:
+
+; ..\CANbootloader.c	   392  	{
+; ..\CANbootloader.c	   393  		DWORD* p=(DWORD*)(dwPageAddr);
+; ..\CANbootloader.c	   394  		DWORD FlashDW=*p;
+	ld.w	d1,[a2+]
+.L300:
+
+; ..\CANbootloader.c	   395  		DataBlock [i]=    FlashDW & 0xff;
+	movh.a	a15,#@his(DataBlock)
+	lea	a15,[a15]@los(DataBlock)
+.L696:
+	addsc.a	a15,a15,d0,#0
+.L697:
+	st.b	[a15],d1
+.L698:
+
+; ..\CANbootloader.c	   396  		DataBlock [i+1]= (FlashDW & 0xff00)  	>> 8;
+	sh	d15,d1,#-8
+	st.b	[a15]1,d15
+.L699:
+
+; ..\CANbootloader.c	   397  		DataBlock [i+2]= (FlashDW & 0xff0000)	>> 16;
+	sh	d15,d1,#-16
+	st.b	[a15]2,d15
+.L700:
+
+; ..\CANbootloader.c	   398  		DataBlock [i+3]= (FlashDW & 0xff000000)	>> 24;
+	sh	d15,d1,#-24
+	st.b	[a15]3,d15
+.L256:
+	add	d0,#4
+.L701:
+	loop	a4,.L49				; predicted taken
+.L702:
+
+; ..\CANbootloader.c	   399  
+; ..\CANbootloader.c	   400  		dwPageAddr ++ ;
+; ..\CANbootloader.c	   401  	}
+; ..\CANbootloader.c	   402  
+; ..\CANbootloader.c	   403  }
+	ret
+.L252:
+	
+__ReadBlock2_function_end:
+	.size	ReadBlock2,__ReadBlock2_function_end-ReadBlock2
+.L167:
+	; End of function
+	
+	.sdecl	'.text.CANbootloader.Can_PackTrsmtAddr',code,cluster('Can_PackTrsmtAddr')
+	.sect	'.text.CANbootloader.Can_PackTrsmtAddr'
+	.align	2
+	
+	.global	Can_PackTrsmtAddr
+
+; ..\CANbootloader.c	   404  //解析地址
+; ..\CANbootloader.c	   405  void Can_PackTrsmtAddr(BYTE cmd,DWORD uladdr)
+; Function Can_PackTrsmtAddr
+.L91:
+Can_PackTrsmtAddr:	.type	func
+
+; ..\CANbootloader.c	   406  {
+; ..\CANbootloader.c	   407  	ubAddrPrgm[0] =  cmd;
+	movh.a	a15,#@his(ubAddrPrgm)
+	lea	a15,[a15]@los(ubAddrPrgm)
+.L707:
+	st.b	[a15],d4
+.L708:
+
+; ..\CANbootloader.c	   408  	ubAddrPrgm[1] =  uladdr & 0xff;
+	st.b	[a15]1,d5
+.L709:
+
+; ..\CANbootloader.c	   409  	ubAddrPrgm[2] = (uladdr >> 8)  & 0xff;
+	sh	d15,d5,#-8
+	st.b	[a15]2,d15
+.L710:
+
+; ..\CANbootloader.c	   410  	ubAddrPrgm[3] = (uladdr >> 16) & 0xff;
+	sh	d15,d5,#-16
+	st.b	[a15]3,d15
+.L711:
+
+; ..\CANbootloader.c	   411  	ubAddrPrgm[4] = (uladdr >> 24) & 0xff;
+	sh	d15,d5,#-24
+	st.b	[a15]4,d15
+.L712:
+
+; ..\CANbootloader.c	   412  }
+	ret
+.L259:
+	
+__Can_PackTrsmtAddr_function_end:
+	.size	Can_PackTrsmtAddr,__Can_PackTrsmtAddr_function_end-Can_PackTrsmtAddr
+.L172:
+	; End of function
+	
+	.sdecl	'.text.CANbootloader.process_command',code,cluster('process_command')
+	.sect	'.text.CANbootloader.process_command'
+	.align	2
+	
+	.global	process_command
+
+; ..\CANbootloader.c	   413  //运行用户代码,用户代码起始地址为0xa0020000
+; ..\CANbootloader.c	   414  //void RunUserCode(void)
+; ..\CANbootloader.c	   415  //{
+; ..\CANbootloader.c	   416  //
+; ..\CANbootloader.c	   417  //    __asm("movh.a a15,#0xa002\n"			//load flash
+; ..\CANbootloader.c	   418  //    	"\tlea a15,[a15]0x0000\n"			//base address
+; ..\CANbootloader.c	   419  //    	"\tji a15");						//au revoir!
+; ..\CANbootloader.c	   420  //
+; ..\CANbootloader.c	   421  //}
+; ..\CANbootloader.c	   422  //static unsigned long table[256];
+; ..\CANbootloader.c	   423  
+; ..\CANbootloader.c	   424  
+; ..\CANbootloader.c	   425  //位逆转
+; ..\CANbootloader.c	   426  //static unsigned long bitrev(unsigned long input, int bw)
+; ..\CANbootloader.c	   427  //{
+; ..\CANbootloader.c	   428  //    int i;
+; ..\CANbootloader.c	   429  //    unsigned long var;
+; ..\CANbootloader.c	   430  //    var = 0;
+; ..\CANbootloader.c	   431  //    for(i=0;i<bw;i++)
+; ..\CANbootloader.c	   432  //    {
+; ..\CANbootloader.c	   433  //        if(input & 0x01)
+; ..\CANbootloader.c	   434  //        {
+; ..\CANbootloader.c	   435  //            var |= 1<<(bw-1-i);
+; ..\CANbootloader.c	   436  //        }
+; ..\CANbootloader.c	   437  //        input>>=1;
+; ..\CANbootloader.c	   438  //    }
+; ..\CANbootloader.c	   439  //    return var;
+; ..\CANbootloader.c	   440  //}
+; ..\CANbootloader.c	   441  
+; ..\CANbootloader.c	   442  //码表生成
+; ..\CANbootloader.c	   443  //如:X32+X26+...X1+1,poly=(1<<26)|...|(1<<1)|(1<<0)
+; ..\CANbootloader.c	   444  //void crc32_init(unsigned long poly)
+; ..\CANbootloader.c	   445  //{
+; ..\CANbootloader.c	   446  //    int i;
+; ..\CANbootloader.c	   447  //    int j;
+; ..\CANbootloader.c	   448  //    unsigned long c;
+; ..\CANbootloader.c	   449  //
+; ..\CANbootloader.c	   450  //    poly=bitrev(poly,32);
+; ..\CANbootloader.c	   451  //    for(i=0; i<256; i++)
+; ..\CANbootloader.c	   452  //    {
+; ..\CANbootloader.c	   453  //        c = i;
+; ..\CANbootloader.c	   454  //        for (j=0; j<8; j++)
+; ..\CANbootloader.c	   455  //        {
+; ..\CANbootloader.c	   456  //            if(c&1)
+; ..\CANbootloader.c	   457  //            {
+; ..\CANbootloader.c	   458  //                c=poly^(c>>1);
+; ..\CANbootloader.c	   459  //            }
+; ..\CANbootloader.c	   460  //            else
+; ..\CANbootloader.c	   461  //            {
+; ..\CANbootloader.c	   462  //                c=c>>1;
+; ..\CANbootloader.c	   463  //            }
+; ..\CANbootloader.c	   464  //        }
+; ..\CANbootloader.c	   465  //        table[i] = c;
+; ..\CANbootloader.c	   466  //    }
+; ..\CANbootloader.c	   467  //}
+; ..\CANbootloader.c	   468  
+; ..\CANbootloader.c	   469  //    unsigned long crc32(unsigned long crc, void* input, int len)
+; ..\CANbootloader.c	   470  //    {
+; ..\CANbootloader.c	   471  //        int i;
+; ..\CANbootloader.c	   472  //        unsigned char index;
+; ..\CANbootloader.c	   473  //        unsigned char* pch;
+; ..\CANbootloader.c	   474  //        pch = (unsigned char*)input;
+; ..\CANbootloader.c	   475  //        for(i=0;i<len;i++)
+; ..\CANbootloader.c	   476  //        {
+; ..\CANbootloader.c	   477  //            index = (unsigned char)(crc^*pch);
+; ..\CANbootloader.c	   478  //            crc = (crc>>8)^table[index];
+; ..\CANbootloader.c	   479  //            pch++;
+; ..\CANbootloader.c	   480  //        }
+; ..\CANbootloader.c	   481  //        return crc;
+; ..\CANbootloader.c	   482  //    }
+; ..\CANbootloader.c	   483  void process_command(void)
+; Function process_command
+.L93:
+process_command:	.type	func
+
+; ..\CANbootloader.c	   484  {
+; ..\CANbootloader.c	   485  
+; ..\CANbootloader.c	   486  	UINT ulBaseAddr;
+; ..\CANbootloader.c	   487  
+; ..\CANbootloader.c	   488  	switch(ubgCommand)
+	movh.a	a12,#@his(ubgCommand)
+	lea	a12,[a12]@los(ubgCommand)
+	ld.bu	d0,[a12]
+.L348:
+
+; ..\CANbootloader.c	   489  	{
+; ..\CANbootloader.c	   490  	case 0x01:
+	jeq	d0,#1,.L50				; prediction unknown
+.L349:
+
+; ..\CANbootloader.c	   491  		if(ubgCommand1==0x02)
+; ..\CANbootloader.c	   492  		{
+; ..\CANbootloader.c	   493  			if(ubgCommand2==0x03)
+; ..\CANbootloader.c	   494  			{
+; ..\CANbootloader.c	   495  				if(ubgCommand3==0x04)
+; ..\CANbootloader.c	   496  				{		//解析地址
+; ..\CANbootloader.c	   497  						ulBaseAddr = (CAN_HWOBJ[124].ubData[4]);//upper bits
+; ..\CANbootloader.c	   498  						ulBaseAddr = (ulBaseAddr<<8)|CAN_HWOBJ[124].ubData[3];//middle bits
+; ..\CANbootloader.c	   499  						ulBaseAddr = (ulBaseAddr<<8)|CAN_HWOBJ[124].ubData[2];//middle bits
+; ..\CANbootloader.c	   500  						ulBaseAddr = (ulBaseAddr<<8)|CAN_HWOBJ[124].ubData[1];//middle bits
+; ..\CANbootloader.c	   501  
+; ..\CANbootloader.c	   502  						ReceiveDataBlock();
+; ..\CANbootloader.c	   503  						/*******以下三句不太懂****************/
+; ..\CANbootloader.c	   504  //						EraseSelectedSector(SectorStartAddressCheck(ulBaseAddr));
+; ..\CANbootloader.c	   505  						ProgramFlashPage(ulBaseAddr);
+; ..\CANbootloader.c	   506  						ReadBlock2(ulBaseAddr);
+; ..\CANbootloader.c	   507  						crc = 0xFFFFFFFF;
+; ..\CANbootloader.c	   508  						crc32_Data = crc32(DataBlock, 256U);
+; ..\CANbootloader.c	   509  						crc32_Data = crc32_Data ^ 0xFFFFFFFF;
+; ..\CANbootloader.c	   510  
+; ..\CANbootloader.c	   511  						CAN_ACK(0,0);
+; ..\CANbootloader.c	   512  						Can_PackTrsmtAddr(0x01,ulBaseAddr);		//load command and data
+; ..\CANbootloader.c	   513  						transmitback_data();					//send the data to pc
+; ..\CANbootloader.c	   514  						clearDataBlock();
+; ..\CANbootloader.c	   515  						Handflag = 1;
+; ..\CANbootloader.c	   516  						break;
+; ..\CANbootloader.c	   517  				}
+; ..\CANbootloader.c	   518  				else
+; ..\CANbootloader.c	   519  					break;
+; ..\CANbootloader.c	   520  			}
+; ..\CANbootloader.c	   521  			else
+; ..\CANbootloader.c	   522  				break;
+; ..\CANbootloader.c	   523  		}
+; ..\CANbootloader.c	   524  		else
+; ..\CANbootloader.c	   525  			break;
+; ..\CANbootloader.c	   526  	case 0x81:				//not in use
+; ..\CANbootloader.c	   527  
+; ..\CANbootloader.c	   528  		if(ubgCommand1==0x30)
+; ..\CANbootloader.c	   529  		{
+; ..\CANbootloader.c	   530  			if(ubgCommand2==0x40)
+; ..\CANbootloader.c	   531  			{
+; ..\CANbootloader.c	   532  				Handflag = 1;
+; ..\CANbootloader.c	   533  				EraseSelectedSector(ubgCommand3);
+; ..\CANbootloader.c	   534  				CAN_ACK(0x81,ubgCommand3);
+; ..\CANbootloader.c	   535  			}
+; ..\CANbootloader.c	   536  		}
+; ..\CANbootloader.c	   537  
+; ..\CANbootloader.c	   538  		break;
+; ..\CANbootloader.c	   539  	case 0x21://not is use
+; ..\CANbootloader.c	   540  		//ProgramBootFlag(0x01);		//bootflag 1
+; ..\CANbootloader.c	   541  		ReadFlag();
+; ..\CANbootloader.c	   542  		SendFlag();
+; ..\CANbootloader.c	   543  		break;
+; ..\CANbootloader.c	   544  	case 0x20:
+	mov	d15,#32
+	jeq	d15,d0,.L51				; prediction unknown
+.L350:
+	mov	d15,#33
+	jeq	d15,d0,.L52				; prediction unknown
+.L351:
+	mov	d15,#129
+	jeq	d15,d0,.L53				; prediction unknown
+	j	.L54
+.L50:
+	movh.a	a15,#@his(ubgCommand1)
+	lea	a15,[a15]@los(ubgCommand1)
+	ld.bu	d15,[a15]
+.L352:
+	jne	d15,#2,.L55				; prediction unknown
+.L353:
+	movh.a	a15,#@his(ubgCommand2)
+	lea	a15,[a15]@los(ubgCommand2)
+	ld.bu	d15,[a15]
+.L354:
+	jne	d15,#3,.L56				; prediction unknown
+.L355:
+	movh.a	a15,#@his(ubgCommand3)
+	lea	a15,[a15]@los(ubgCommand3)
+	ld.bu	d15,[a15]
+.L356:
+	jne	d15,#4,.L57				; predicted taken
+.L357:
+	movh.a	a15,#61440
+	lea	a15,[a15]@los(0xf0005f94)
+	ld.bu	d15,[a15]
+.L301:
+	sh	d15,d15,#8
+	movh.a	a15,#61440
+.L302:
+	lea	a15,[a15]@los(0xf0005f93)
+	ld.bu	d0,[a15]
+.L303:
+	or	d15,d0
+	movh.a	a15,#61440
+.L358:
+	sh	d15,d15,#8
+	lea	a15,[a15]@los(0xf0005f92)
+.L304:
+	ld.bu	d0,[a15]
+.L305:
+	or	d15,d0
+	movh.a	a15,#61440
+.L359:
+	sh	d15,d15,#8
+	lea	a15,[a15]@los(0xf0005f91)
+.L306:
+	ld.bu	d0,[a15]
+.L307:
+	or	d15,d0
+.L360:
+	call	ReceiveDataBlock
+.L361:
+	mov	d4,d15
+.L309:
+	call	ProgramFlashPage
+.L310:
+	mov	d4,d15
+.L311:
+	call	ReadBlock2
+.L312:
+	mov	d0,#-1
+	movh.a	a15,#@his(crc)
+.L362:
+	movh.a	a4,#@his(DataBlock)
+.L363:
+	mov	d4,#256
+	st.w	[a15]@los(crc),d0
+.L364:
+	lea	a4,[a4]@los(DataBlock)
+.L365:
+	movh.a	a15,#@his(crc32_Data)
+.L366:
+	call	crc32
+.L367:
+	mov	d0,#-1
+.L368:
+	xor	d2,d0
+	st.w	[a15]@los(crc32_Data),d2
+.L369:
+	mov	d4,#0
+.L370:
+	mov	d5,d4
+	call	CAN_ACK
+.L371:
+	mov	d4,#1
+.L372:
+	mov	d5,d15
+.L313:
+	call	Can_PackTrsmtAddr
+.L314:
+	call	transmitback_data
+.L373:
+	call	clearDataBlock
+.L374:
+	movh.a	a15,#@his(Handflag)
+.L375:
+	mov	d15,#1
+	st.w	[a15]@los(Handflag),d15
+.L308:
+	j	.L58
+.L53:
+	movh.a	a15,#@his(ubgCommand1)
+.L376:
+	mov	d15,#48
+	lea	a15,[a15]@los(ubgCommand1)
+	ld.bu	d0,[a15]
+.L377:
+	jne	d15,d0,.L59				; prediction unknown
+.L378:
+	movh.a	a15,#@his(ubgCommand2)
+.L379:
+	mov	d15,#64
+	lea	a15,[a15]@los(ubgCommand2)
+	ld.bu	d0,[a15]
+.L380:
+	jne	d15,d0,.L60				; predicted taken
+.L381:
+	movh.a	a15,#@his(Handflag)
+.L382:
+	mov	d15,#1
+	st.w	[a15]@los(Handflag),d15
+.L383:
+	movh.a	a15,#@his(ubgCommand3)
+	lea	a15,[a15]@los(ubgCommand3)
+	ld.bu	d4,[a15]
+	call	EraseSelectedSector
+.L384:
+	mov	d4,#129
+	movh.a	a15,#@his(ubgCommand3)
+	lea	a15,[a15]@los(ubgCommand3)
+	ld.bu	d5,[a15]
+	call	CAN_ACK
+.L385:
+	j	.L61
+.L52:
+	call	ReadFlag
+.L386:
+	call	SendFlag
+.L387:
+	j	.L62
+.L51:
+
+; ..\CANbootloader.c	   545  		if(ubgCommand1==0x30)
+	movh.a	a15,#@his(ubgCommand1)
+.L388:
+	mov	d15,#48
+	lea	a15,[a15]@los(ubgCommand1)
+	ld.bu	d0,[a15]
+.L389:
+	jne	d15,d0,.L63				; prediction unknown
+.L390:
+
+; ..\CANbootloader.c	   546  		{
+; ..\CANbootloader.c	   547  			if(ubgCommand2==0x40)
+	movh.a	a15,#@his(ubgCommand2)
+.L391:
+	mov	d15,#64
+	lea	a15,[a15]@los(ubgCommand2)
+	ld.bu	d0,[a15]
+.L392:
+	jne	d15,d0,.L64				; prediction unknown
+.L393:
+
+; ..\CANbootloader.c	   548  			{
+; ..\CANbootloader.c	   549  				if(ubgCommand3==0x50)
+	movh.a	a15,#@his(ubgCommand3)
+.L394:
+	mov	d15,#80
+	lea	a15,[a15]@los(ubgCommand3)
+	ld.bu	d0,[a15]
+.L395:
+	jne	d15,d0,.L65				; predicted taken
+.L396:
+
+; ..\CANbootloader.c	   550  				{
+; ..\CANbootloader.c	   551  		          ProgramBootFlag(0xfe);		    //bootflag 0xfe
+	mov	d4,#254
+	call	ProgramBootFlag
+.L397:
+
+; ..\CANbootloader.c	   552  		          RunUserCode();
+	call	RunUserCode
+.L65:
+.L64:
+.L63:
+
+; ..\CANbootloader.c	   553  		          break;
+; ..\CANbootloader.c	   554  				}
+; ..\CANbootloader.c	   555  				else
+; ..\CANbootloader.c	   556  					break;
+; ..\CANbootloader.c	   557  			}
+; ..\CANbootloader.c	   558  			else
+; ..\CANbootloader.c	   559  				break;
+; ..\CANbootloader.c	   560  		}
+; ..\CANbootloader.c	   561  		else
+; ..\CANbootloader.c	   562  			break;
+; ..\CANbootloader.c	   563  	default:
+; ..\CANbootloader.c	   564  		break;
+; ..\CANbootloader.c	   565  	}
+; ..\CANbootloader.c	   566  
+; ..\CANbootloader.c	   567  	ubgCommand = 0x00;
+.L62:
+.L61:
+.L60:
+.L59:
+.L58:
+.L57:
+.L56:
+.L55:
+.L54:
+	mov	d15,#0
+	st.b	[a12],d15
+.L398:
+
+; ..\CANbootloader.c	   568  	ubgCommand1 = 0x00;
+	movh.a	a15,#@his(ubgCommand1)
+	lea	a15,[a15]@los(ubgCommand1)
+.L399:
+	st.b	[a15],d15
+.L400:
+
+; ..\CANbootloader.c	   569  	ubgCommand2 = 0x00;
+	movh.a	a15,#@his(ubgCommand2)
+	lea	a15,[a15]@los(ubgCommand2)
+.L401:
+	st.b	[a15],d15
+.L402:
+
+; ..\CANbootloader.c	   570  	ubgCommand3 = 0x00;
+	movh.a	a15,#@his(ubgCommand3)
+	lea	a15,[a15]@los(ubgCommand3)
+.L403:
+	st.b	[a15],d15
+.L404:
+
+; ..\CANbootloader.c	   571  }
+	ret
+.L215:
+	
+__process_command_function_end:
+	.size	process_command,__process_command_function_end-process_command
+.L112:
+	; End of function
+	
+	.sdecl	'.bss.CANbootloader.stCANRecObj',data,cluster('stCANRecObj')
+	.sect	'.bss.CANbootloader.stCANRecObj'
+	.global	stCANRecObj
+	.align	4
+stCANRecObj:	.type	object
+	.size	stCANRecObj,20
+	.space	20
+	.sdecl	'.data.CANbootloader.pstCANRecObj',data,cluster('pstCANRecObj')
+	.sect	'.data.CANbootloader.pstCANRecObj'
+	.global	pstCANRecObj
+	.align	4
+pstCANRecObj:	.type	object
+	.size	pstCANRecObj,4
+	.word	stCANRecObj
+	.sdecl	'.data.CANbootloader.DataBlock',data,cluster('DataBlock')
+	.sect	'.data.CANbootloader.DataBlock'
+	.global	DataBlock
+DataBlock:	.type	object
+	.size	DataBlock,272
+	.space	272
+	.sdecl	'.bss.CANbootloader.SectorAddressValid',data,cluster('SectorAddressValid')
+	.sect	'.bss.CANbootloader.SectorAddressValid'
+	.global	SectorAddressValid
+SectorAddressValid:	.type	object
+	.size	SectorAddressValid,1
+	.space	1
+	.sdecl	'.data.CANbootloader.Handflag',data,cluster('Handflag')
+	.sect	'.data.CANbootloader.Handflag'
+	.global	Handflag
+	.align	2
+Handflag:	.type	object
+	.size	Handflag,4
+	.word	2
+	.sdecl	'.data.CANbootloader.SectorStartAddress',data,cluster('SectorStartAddress')
+	.sect	'.data.CANbootloader.SectorStartAddress'
+	.global	SectorStartAddress
+	.align	2
+SectorStartAddress:	.type	object
+	.size	SectorStartAddress,72
+	.word	-1610612736,-1610596352,-1610579968,-1610563584,-1610547200,-1610530816,-1610514432,-1610498048
+	.word	-1610481664,-1610350592,-1610088448,-1609826304,-1609564160,-1609302016,-1609039872,-1608777728
+	.word	-1608515584,-1608253440
+	.sdecl	'.data.CANbootloader.SectorEraseFlag',data,cluster('SectorEraseFlag')
+	.sect	'.data.CANbootloader.SectorEraseFlag'
+	.global	SectorEraseFlag
+SectorEraseFlag:	.type	object
+	.size	SectorEraseFlag,18
+	.space	18
+	.sdecl	'.bss.CANbootloader.ubAddrPrgm',data,cluster('ubAddrPrgm')
+	.sect	'.bss.CANbootloader.ubAddrPrgm'
+	.global	ubAddrPrgm
+ubAddrPrgm:	.type	object
+	.size	ubAddrPrgm,8
+	.space	8
+	.sdecl	'.bss.CANbootloader.ubgCommand',data,cluster('ubgCommand')
+	.sect	'.bss.CANbootloader.ubgCommand'
+	.global	ubgCommand
+ubgCommand:	.type	object
+	.size	ubgCommand,1
+	.space	1
+	.sdecl	'.bss.CANbootloader.ubgCommand1',data,cluster('ubgCommand1')
+	.sect	'.bss.CANbootloader.ubgCommand1'
+	.global	ubgCommand1
+ubgCommand1:	.type	object
+	.size	ubgCommand1,1
+	.space	1
+	.sdecl	'.bss.CANbootloader.ubgCommand2',data,cluster('ubgCommand2')
+	.sect	'.bss.CANbootloader.ubgCommand2'
+	.global	ubgCommand2
+ubgCommand2:	.type	object
+	.size	ubgCommand2,1
+	.space	1
+	.sdecl	'.bss.CANbootloader.ubgCommand3',data,cluster('ubgCommand3')
+	.sect	'.bss.CANbootloader.ubgCommand3'
+	.global	ubgCommand3
+ubgCommand3:	.type	object
+	.size	ubgCommand3,1
+	.space	1
+	.sdecl	'.data.CANbootloader.crc32_Data',data,cluster('crc32_Data')
+	.sect	'.data.CANbootloader.crc32_Data'
+	.global	crc32_Data
+	.align	2
+crc32_Data:	.type	object
+	.size	crc32_Data,4
+	.space	4
+	.calls	'CAN_ACK','CAN_ubRequestMsgObj'
+	.calls	'transmitback_data','CAN_ubRequestMsgObj'
+	.calls	'SendBlock','CAN_ubRequestMsgObj'
+	.calls	'SendFlag','CAN_ubRequestMsgObj'
+	.calls	'ProgramBootFlag','ProgramFlashPage'
+	.calls	'ProgramBootFlag','ReadFlag'
+	.calls	'EraseSelectedSector','EraseSector'
+	.calls	'process_command','ReceiveDataBlock'
+	.calls	'process_command','ProgramFlashPage'
+	.calls	'process_command','ReadBlock2'
+	.calls	'process_command','crc32'
+	.calls	'process_command','CAN_ACK'
+	.calls	'process_command','Can_PackTrsmtAddr'
+	.calls	'process_command','transmitback_data'
+	.calls	'process_command','clearDataBlock'
+	.calls	'process_command','EraseSelectedSector'
+	.calls	'process_command','ReadFlag'
+	.calls	'process_command','SendFlag'
+	.calls	'process_command','ProgramBootFlag'
+	.calls	'process_command','RunUserCode'
+	.calls	'CAN_ACK','',0
+	.calls	'transmitback_data','',0
+	.calls	'SendBlock','',0
+	.calls	'SendFlag','',0
+	.calls	'clearDataBlock','',0
+	.calls	'ReceiveDataBlock','',0
+	.calls	'ProgramFlashPage','',0
+	.calls	'ProgramBootFlag','',0
+	.calls	'ReadFlag','',0
+	.calls	'SectorStartAddressCheck','',0
+	.calls	'EraseSelectedSector','',0
+	.calls	'EraseSector','',0
+	.calls	'ReadBlock2','',0
+	.calls	'Can_PackTrsmtAddr','',0
+	.extern	Boot_Flag
+	.extern	crc
+	.extern	crc32
+	.extern	RunUserCode
+	.extern	CAN_ubRequestMsgObj
+	.calls	'process_command','',0
+	.sdecl	'.debug_info',debug
+	.sect	'.debug_info'
+.L95:
+	.word	792
+	.half	3
+	.word	.L96
+	.byte	4
+.L94:
+	.byte	1
+	.byte	'..\\CANbootloader.c',0
+	.byte	'TASKING VX-toolset for TriCore: C compiler',0
+	.byte	'D:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_1.9\\BMU_BOOT\\Debug\\',0,12,1
+	.word	.L97
+.L210:
+	.byte	2
+	.byte	'unsigned long int',0,4,7,3
+	.byte	'crc32',0,1,14,22
+	.word	136
+	.byte	1,1,1,1,4
+	.byte	'void',0,5
+	.word	175
+	.byte	6
+	.byte	'input',0,1,14,34
+	.word	181
+.L247:
+	.byte	2
+	.byte	'int',0,4,5,6
+	.byte	'len',0,1,14,45
+	.word	200
+	.byte	0,7
+	.byte	'RunUserCode',0,2,109,6,1,1,1,1
+.L199:
+	.byte	2
+	.byte	'unsigned char',0,1,8
+.L201:
+	.byte	2
+	.byte	'unsigned int',0,4,7
+.L203:
+	.byte	5
+	.word	136
+	.byte	3
+	.byte	'CAN_ubRequestMsgObj',0,3,186,2,14
+	.word	240
+	.byte	1,1,1,1,6
+	.byte	'ubObjNr',0,3,186,2,40
+	.word	240
+	.byte	0
+.L233:
+	.byte	2
+	.byte	'_Bool',0,1,2,2
+	.byte	'unsigned long long int',0,8,7
+.L241:
+	.byte	5
+	.word	338
+	.byte	8
+	.byte	'__prof_adm',0,4,1,1
+	.word	181
+	.byte	9,1,5
+	.word	388
+	.byte	8
+	.byte	'__codeptr',0,4,1,1
+	.word	390
+	.byte	10,128,2
+	.word	240
+	.byte	11,255,1,0,12
+	.byte	'Boot_Flag',0,5,43,22
+	.word	413
+	.byte	1,1,8
+	.byte	'ubyte',0,5,78,24
+	.word	240
+	.byte	2
+	.byte	'unsigned short int',0,2,7,8
+	.byte	'ushort',0,5,80,24
+	.word	458
+	.byte	8
+	.byte	'uword',0,5,82,24
+	.word	257
+	.byte	8
+	.byte	'uint8',0,6,87,29
+	.word	240
+	.byte	8
+	.byte	'uint16',0,6,89,29
+	.word	458
+	.byte	2
+	.byte	'long int',0,4,5,8
+	.byte	'sint32',0,6,90,29
+	.word	538
+	.byte	8
+	.byte	'uint32',0,6,91,27
+	.word	136
+	.byte	8
+	.byte	'boolean',0,6,102,29
+	.word	240
+	.byte	12
+	.byte	'crc',0,1,11,22
+	.word	136
+	.byte	1,1,8
+	.byte	'BYTE',0,2,12,28
+	.word	240
+	.byte	8
+	.byte	'DWORD',0,2,15,28
+	.word	136
+.L263:
+	.byte	13,2,17,9,20,14
+	.byte	'usMOCfg',0,2
+	.word	458
+	.byte	2,35,0,14
+	.byte	'uwID',0,4
+	.word	257
+	.byte	2,35,2,14
+	.byte	'uwMask',0,4
+	.word	257
+	.byte	2,35,6,10,8
+	.word	240
+	.byte	11,7,0,14
+	.byte	'ubData',0,8
+	.word	689
+	.byte	2,35,10,14
+	.byte	'usCounter',0,2
+	.word	458
+	.byte	2,35,18,0,8
+	.byte	'CAN_SWObj',0,2,24,4
+	.word	637
+.L262:
+	.byte	10,8
+	.word	240
+	.byte	11,7,0
+.L264:
+	.byte	5
+	.word	637
+.L265:
+	.byte	10,144,2
+	.word	240
+	.byte	11,143,2,0
+.L266:
+	.byte	10,72
+	.word	136
+	.byte	11,17,0
+.L267:
+	.byte	10,18
+	.word	240
+	.byte	11,17,0,0
+	.sdecl	'.debug_abbrev',debug
+	.sect	'.debug_abbrev'
+.L96:
+	.byte	1,17,1,3,8,37,8,27,8,19,15,128,70,12,16,6,0,0,2,36,0,3,8,11,15,62,15,0,0,3,46,1,3,8,58,15,59,15,57,15
+	.byte	73,19,54,15,39,12,63,12,60,12,0,0,4,59,0,3,8,0,0,5,15,0,73,19,0,0,6,5,0,3,8,58,15,59,15,57,15,73,19,0
+	.byte	0,7,46,0,3,8,58,15,59,15,57,15,54,15,39,12,63,12,60,12,0,0,8,22,0,3,8,58,15,59,15,57,15,73,19,0,0,9,21
+	.byte	0,54,15,0,0,10,1,1,11,15,73,19,0,0,11,33,0,47,15,0,0,12,52,0,3,8,58,15,59,15,57,15,73,19,63,12,60,12,0
+	.byte	0,13,19,1,58,15,59,15,57,15,11,15,0,0,14,13,0,3,8,11,15,73,19,56,9,0,0,0
+	.sdecl	'.debug_line',debug
+	.sect	'.debug_line'
+.L97:
+	.word	.L316-.L315
+.L315:
+	.half	3
+	.word	.L318-.L317
+.L317:
+	.byte	2,1,-4,9,10,0,1,1,1,1,0,0,0,1
+	.byte	'D:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_1.9\\BMU_BOOT\\Complex_Files',0
+	.byte	'D:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_1.9\\BMU_BOOT',0
+	.byte	'D:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_1.9\\BMU_BOOT\\Communication_Files\\CanDrv',0
+	.byte	'D:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_1.9\\BMU_BOOT\\Initiate_Files',0
+	.byte	'D:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_1.9\\BMU_BOOT\\Stand_Header',0,0
+	.byte	'Crc_Algorithm.h',0,1,0,0
+	.byte	'CANbootloader.h',0,2,0,0
+	.byte	'CanDrv_TC1782.h',0,3,0,0
+	.byte	'..\\CANbootloader.c',0,0,0,0
+	.byte	'MAIN.h',0,4,0,0
+	.byte	'Platform_Types.h',0,5,0,0,0
+.L318:
+.L316:
+	.sdecl	'.debug_info',debug,cluster('ReadFlag')
+	.sect	'.debug_info'
+.L98:
+	.word	267
+	.half	3
+	.word	.L99
+	.byte	4,1
+	.byte	'..\\CANbootloader.c',0
+	.byte	'TASKING VX-toolset for TriCore: C compiler',0
+	.byte	'D:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_1.9\\BMU_BOOT\\Debug\\',0,12,1
+	.word	.L101,.L100
+	.byte	2
+	.word	.L94
+	.byte	3
+	.byte	'ReadFlag',0,1,131,2,6
+	.word	.L199
+	.byte	1,1,1
+	.word	.L81,.L200,.L80
+	.byte	4
+	.word	.L81,.L200
+	.byte	5
+	.byte	'i',0,1,134,2,7
+	.word	.L201,.L202
+	.byte	5
+	.byte	'dwPageAddr',0,1,137,2,10
+	.word	.L203,.L204
+	.byte	6
+	.word	.L205
+	.byte	5
+	.byte	'p',0,1,141,2,11
+	.word	.L203,.L209
+	.byte	5
+	.byte	'FlashDW',0,1,142,2,10
+	.word	.L210,.L211
+	.byte	0,0,0,0
+	.sdecl	'.debug_abbrev',debug,cluster('ReadFlag')
+	.sect	'.debug_abbrev'
+.L99:
+	.byte	1,17,1,3,8,37,8,27,8,19,15,128,70,12,85,6,16,6,0,0,2,61,0,24,16,0,0,3,46,1,3,8,58,15,59,15,57,15,73,16
+	.byte	54,15,39,12,63,12,17,1,18,1,64,6,0,0,4,11,1,17,1,18,1,0,0,5,52,0,3,8,58,15,59,15,57,15,73,16,2,6,0,0,6
+	.byte	11,1,85,6,0,0,0
+	.sdecl	'.debug_line',debug,cluster('ReadFlag')
+	.sect	'.debug_line'
+.L100:
+	.word	.L320-.L319
+.L319:
+	.half	3
+	.word	.L322-.L321
+.L321:
+	.byte	2,1,-4,9,10,0,1,1,1,1,0,0,0,1,0
+	.byte	'..\\CANbootloader.c',0,0,0,0,0
+.L322:
+	.byte	5,21,7,0,5,2
+	.word	.L81
+	.byte	3,134,2,1,5,8,9
+	.half	.L285-.L81
+	.byte	3,4,1,5,4,3,4,1,5,16,9
+	.half	.L207-.L285
+	.byte	3,124,1,5,18,9
+	.half	.L14-.L207
+	.byte	3,3,1,5,14,9
+	.half	.L286-.L14
+	.byte	3,1,1,5,17,9
+	.half	.L323-.L286
+	.byte	1,5,42,9
+	.half	.L324-.L323
+	.byte	3,1,1,5,19,1,5,42,9
+	.half	.L325-.L324
+	.byte	3,1,1,5,19,1,5,44,9
+	.half	.L326-.L325
+	.byte	3,1,1,5,19,1,5,18,9
+	.half	.L208-.L326
+	.byte	3,121,1,5,16,9
+	.half	.L327-.L208
+	.byte	1,5,19,7,9
+	.half	.L328-.L327
+	.byte	3,13,1,5,1,9
+	.half	.L329-.L328
+	.byte	3,1,1,7,9
+	.half	.L102-.L329
+	.byte	0,1,1
+.L320:
+	.sdecl	'.debug_ranges',debug,cluster('ReadFlag')
+	.sect	'.debug_ranges'
+.L101:
+	.word	-1,.L81,0,.L102-.L81,0,0
+.L205:
+	.word	-1,.L81,.L206-.L81,.L207-.L81,.L14-.L81,.L208-.L81,0,0
+	.sdecl	'.debug_info',debug,cluster('CAN_ACK')
+	.sect	'.debug_info'
+.L103:
+	.word	215
+	.half	3
+	.word	.L104
+	.byte	4,1
+	.byte	'..\\CANbootloader.c',0
+	.byte	'TASKING VX-toolset for TriCore: C compiler',0
+	.byte	'D:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_1.9\\BMU_BOOT\\Debug\\',0,12,1
+	.word	.L106,.L105
+	.byte	2
+	.word	.L94
+	.byte	3
+	.byte	'CAN_ACK',0,1,20,6,1,1,1
+	.word	.L67,.L212,.L66
+	.byte	4
+	.byte	'ubACK',0,1,20,19
+	.word	.L199,.L213
+	.byte	4
+	.byte	'ubTmp',0,1,20,30
+	.word	.L199,.L214
+	.byte	5
+	.word	.L67,.L212
+	.byte	0,0
+	.sdecl	'.debug_abbrev',debug,cluster('CAN_ACK')
+	.sect	'.debug_abbrev'
+.L104:
+	.byte	1,17,1,3,8,37,8,27,8,19,15,128,70,12,85,6,16,6,0,0,2,61,0,24,16,0,0,3,46,1,3,8,58,15,59,15,57,15,54,15
+	.byte	39,12,63,12,17,1,18,1,64,6,0,0,4,5,0,3,8,58,15,59,15,57,15,73,16,2,6,0,0,5,11,0,17,1,18,1,0,0,0
+	.sdecl	'.debug_line',debug,cluster('CAN_ACK')
+	.sect	'.debug_line'
+.L105:
+	.word	.L331-.L330
+.L330:
+	.half	3
+	.word	.L333-.L332
+.L332:
+	.byte	2,1,-4,9,10,0,1,1,1,1,0,0,0,1,0
+	.byte	'..\\CANbootloader.c',0,0,0,0,0
+.L333:
+	.byte	5,6,7,0,5,2
+	.word	.L67
+	.byte	3,19,1,5,25,9
+	.half	.L272-.L67
+	.byte	3,3,1,5,2,9
+	.half	.L269-.L272
+	.byte	1,5,16,7,9
+	.half	.L334-.L269
+	.byte	3,4,1,5,27,9
+	.half	.L335-.L334
+	.byte	1,5,16,1,9
+	.half	.L336-.L335
+	.byte	3,2,1,5,25,9
+	.half	.L337-.L336
+	.byte	3,126,1,5,16,9
+	.half	.L338-.L337
+	.byte	3,2,1,5,27,9
+	.half	.L339-.L338
+	.byte	1,5,23,9
+	.half	.L340-.L339
+	.byte	3,1,1,5,27,9
+	.half	.L341-.L340
+	.byte	3,2,1,5,23,3,126,1,5,27,9
+	.half	.L271-.L341
+	.byte	3,2,1,3,126,1,5,25,9
+	.half	.L342-.L271
+	.byte	3,2,1,5,27,9
+	.half	.L343-.L342
+	.byte	3,1,1,5,25,1,5,1,9
+	.half	.L2-.L343
+	.byte	3,1,1,7,9
+	.half	.L107-.L2
+	.byte	0,1,1
+.L331:
+	.sdecl	'.debug_ranges',debug,cluster('CAN_ACK')
+	.sect	'.debug_ranges'
+.L106:
+	.word	-1,.L67,0,.L107-.L67,0,0
+	.sdecl	'.debug_info',debug,cluster('process_command')
+	.sect	'.debug_info'
+.L108:
+	.word	213
+	.half	3
+	.word	.L109
+	.byte	4,1
+	.byte	'..\\CANbootloader.c',0
+	.byte	'TASKING VX-toolset for TriCore: C compiler',0
+	.byte	'D:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_1.9\\BMU_BOOT\\Debug\\',0,12,1
+	.word	.L111,.L110
+	.byte	2
+	.word	.L94
+	.byte	3
+	.byte	'process_command',0,1,227,3,6,1,1,1
+	.word	.L93,.L215,.L92
+	.byte	4
+	.word	.L93,.L215
+	.byte	5
+	.byte	'ulBaseAddr',0,1,230,3,7
+	.word	.L201,.L216
+	.byte	0,0,0
+	.sdecl	'.debug_abbrev',debug,cluster('process_command')
+	.sect	'.debug_abbrev'
+.L109:
+	.byte	1,17,1,3,8,37,8,27,8,19,15,128,70,12,85,6,16,6,0,0,2,61,0,24,16,0,0,3,46,1,3,8,58,15,59,15,57,15,54,15
+	.byte	39,12,63,12,17,1,18,1,64,6,0,0,4,11,1,17,1,18,1,0,0,5,52,0,3,8,58,15,59,15,57,15,73,16,2,6,0,0,0
+	.sdecl	'.debug_line',debug,cluster('process_command')
+	.sect	'.debug_line'
+.L110:
+	.word	.L345-.L344
+.L344:
+	.half	3
+	.word	.L347-.L346
+.L346:
+	.byte	2,1,-4,9,10,0,1,1,1,1,0,0,0,1,0
+	.byte	'..\\CANbootloader.c',0,0,0,0,0
+.L347:
+	.byte	5,9,7,0,5,2
+	.word	.L93
+	.byte	3,231,3,1,5,7,9
+	.half	.L348-.L93
+	.byte	3,2,1,7,9
+	.half	.L349-.L348
+	.byte	3,54,1,9
+	.half	.L350-.L349
+	.byte	3,123,1,9
+	.half	.L351-.L350
+	.byte	3,115,1,5,6,9
+	.half	.L50-.L351
+	.byte	3,93,1,5,3,9
+	.half	.L352-.L50
+	.byte	1,5,7,7,9
+	.half	.L353-.L352
+	.byte	3,2,1,5,4,9
+	.half	.L354-.L353
+	.byte	1,5,8,7,9
+	.half	.L355-.L354
+	.byte	3,2,1,5,5,9
+	.half	.L356-.L355
+	.byte	1,5,42,7,9
+	.half	.L357-.L356
+	.byte	3,2,1,5,31,9
+	.half	.L301-.L357
+	.byte	3,1,1,5,57,1,5,35,9
+	.half	.L303-.L301
+	.byte	1,5,57,3,1,1,5,31,9
+	.half	.L358-.L303
+	.byte	1,5,57,1,5,35,9
+	.half	.L305-.L358
+	.byte	1,5,57,3,1,1,5,31,9
+	.half	.L359-.L305
+	.byte	1,5,57,1,5,35,9
+	.half	.L307-.L359
+	.byte	1,5,23,9
+	.half	.L360-.L307
+	.byte	3,2,1,5,24,9
+	.half	.L361-.L360
+	.byte	3,3,1,5,18,9
+	.half	.L310-.L361
+	.byte	3,1,1,5,13,9
+	.half	.L312-.L310
+	.byte	3,1,1,5,7,1,5,26,9
+	.half	.L362-.L312
+	.byte	3,1,1,5,37,9
+	.half	.L363-.L362
+	.byte	1,5,11,3,127,1,5,26,9
+	.half	.L364-.L363
+	.byte	3,1,1,5,7,9
+	.half	.L365-.L364
+	.byte	3,1,1,5,37,9
+	.half	.L366-.L365
+	.byte	3,127,1,5,33,9
+	.half	.L367-.L366
+	.byte	3,1,1,5,31,9
+	.half	.L368-.L367
+	.byte	1,5,18,1,5,15,9
+	.half	.L369-.L368
+	.byte	3,2,1,5,17,9
+	.half	.L370-.L369
+	.byte	1,5,25,9
+	.half	.L371-.L370
+	.byte	3,1,1,5,30,9
+	.half	.L372-.L371
+	.byte	1,5,24,9
+	.half	.L314-.L372
+	.byte	3,1,1,5,21,9
+	.half	.L373-.L314
+	.byte	3,1,1,5,7,9
+	.half	.L374-.L373
+	.byte	3,1,1,5,18,9
+	.half	.L375-.L374
+	.byte	1,5,16,1,5,7,9
+	.half	.L308-.L375
+	.byte	3,1,1,5,6,9
+	.half	.L53-.L308
+	.byte	3,12,1,5,19,9
+	.half	.L376-.L53
+	.byte	1,5,6,1,5,3,9
+	.half	.L377-.L376
+	.byte	1,5,7,7,9
+	.half	.L378-.L377
+	.byte	3,2,1,5,20,9
+	.half	.L379-.L378
+	.byte	1,5,7,1,5,4,9
+	.half	.L380-.L379
+	.byte	1,5,5,7,9
+	.half	.L381-.L380
+	.byte	3,2,1,5,16,9
+	.half	.L382-.L381
+	.byte	1,5,14,1,5,25,9
+	.half	.L383-.L382
+	.byte	3,1,1,5,13,9
+	.half	.L384-.L383
+	.byte	3,1,1,5,18,1,5,3,9
+	.half	.L385-.L384
+	.byte	3,4,1,5,11,9
+	.half	.L52-.L385
+	.byte	3,3,1,9
+	.half	.L386-.L52
+	.byte	3,1,1,5,3,9
+	.half	.L387-.L386
+	.byte	3,1,1,5,6,9
+	.half	.L51-.L387
+	.byte	3,2,1,5,19,9
+	.half	.L388-.L51
+	.byte	1,5,6,1,5,3,9
+	.half	.L389-.L388
+	.byte	1,5,7,7,9
+	.half	.L390-.L389
+	.byte	3,2,1,5,20,9
+	.half	.L391-.L390
+	.byte	1,5,7,1,5,4,9
+	.half	.L392-.L391
+	.byte	1,5,8,7,9
+	.half	.L393-.L392
+	.byte	3,2,1,5,21,9
+	.half	.L394-.L393
+	.byte	1,5,8,1,5,5,9
+	.half	.L395-.L394
+	.byte	1,5,29,7,9
+	.half	.L396-.L395
+	.byte	3,2,1,5,24,9
+	.half	.L397-.L396
+	.byte	3,1,1,5,15,9
+	.half	.L54-.L397
+	.byte	3,15,1,5,13,1,5,2,9
+	.half	.L398-.L54
+	.byte	3,1,1,5,14,9
+	.half	.L399-.L398
+	.byte	1,5,2,9
+	.half	.L400-.L399
+	.byte	3,1,1,5,14,9
+	.half	.L401-.L400
+	.byte	1,5,2,9
+	.half	.L402-.L401
+	.byte	3,1,1,5,14,9
+	.half	.L403-.L402
+	.byte	1,5,1,9
+	.half	.L404-.L403
+	.byte	3,1,1,7,9
+	.half	.L112-.L404
+	.byte	0,1,1
+.L345:
+	.sdecl	'.debug_ranges',debug,cluster('process_command')
+	.sect	'.debug_ranges'
+.L111:
+	.word	-1,.L93,0,.L112-.L93,0,0
+	.sdecl	'.debug_info',debug,cluster('transmitback_data')
+	.sect	'.debug_info'
+.L113:
+	.word	189
+	.half	3
+	.word	.L114
+	.byte	4,1
+	.byte	'..\\CANbootloader.c',0
+	.byte	'TASKING VX-toolset for TriCore: C compiler',0
+	.byte	'D:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_1.9\\BMU_BOOT\\Debug\\',0,12,1
+	.word	.L116,.L115
+	.byte	2
+	.word	.L94
+	.byte	3
+	.byte	'transmitback_data',0,1,42,6,1,1,1
+	.word	.L3,.L217,.L68
+	.byte	4
+	.word	.L3,.L217
+	.byte	0,0
+	.sdecl	'.debug_abbrev',debug,cluster('transmitback_data')
+	.sect	'.debug_abbrev'
+.L114:
+	.byte	1,17,1,3,8,37,8,27,8,19,15,128,70,12,85,6,16,6,0,0,2,61,0,24,16,0,0,3,46,1,3,8,58,15,59,15,57,15,54,15
+	.byte	39,12,63,12,17,1,18,1,64,6,0,0,4,11,0,17,1,18,1,0,0,0
+	.sdecl	'.debug_line',debug,cluster('transmitback_data')
+	.sect	'.debug_line'
+.L115:
+	.word	.L406-.L405
+.L405:
+	.half	3
+	.word	.L408-.L407
+.L407:
+	.byte	2,1,-4,9,10,0,1,1,1,1,0,0,0,1,0
+	.byte	'..\\CANbootloader.c',0,0,0,0,0
+.L408:
+	.byte	5,32,7,0,5,2
+	.word	.L3
+	.byte	3,208,0,1,5,12,9
+	.half	.L409-.L3
+	.byte	1,5,20,7,9
+	.half	.L410-.L409
+	.byte	3,1,1,5,31,9
+	.half	.L411-.L410
+	.byte	1,5,29,1,5,32,9
+	.half	.L412-.L411
+	.byte	3,1,1,5,19,9
+	.half	.L413-.L412
+	.byte	1,5,42,9
+	.half	.L414-.L413
+	.byte	1,5,30,9
+	.half	.L415-.L414
+	.byte	1,5,26,9
+	.half	.L416-.L415
+	.byte	3,1,1,5,42,9
+	.half	.L417-.L416
+	.byte	1,5,30,9
+	.half	.L418-.L417
+	.byte	1,5,26,9
+	.half	.L419-.L418
+	.byte	3,1,1,5,42,9
+	.half	.L420-.L419
+	.byte	1,5,30,9
+	.half	.L421-.L420
+	.byte	1,5,26,9
+	.half	.L422-.L421
+	.byte	3,1,1,5,42,9
+	.half	.L423-.L422
+	.byte	1,5,30,9
+	.half	.L424-.L423
+	.byte	1,5,48,9
+	.half	.L425-.L424
+	.byte	3,1,1,5,26,9
+	.half	.L426-.L425
+	.byte	1,5,48,9
+	.half	.L427-.L426
+	.byte	1,5,58,9
+	.half	.L428-.L427
+	.byte	1,5,30,1,5,26,9
+	.half	.L429-.L428
+	.byte	3,1,1,5,48,9
+	.half	.L430-.L429
+	.byte	1,5,58,9
+	.half	.L431-.L430
+	.byte	1,5,30,1,5,26,9
+	.half	.L432-.L431
+	.byte	3,1,1,5,48,9
+	.half	.L433-.L432
+	.byte	1,5,58,9
+	.half	.L434-.L433
+	.byte	1,5,30,1,5,26,9
+	.half	.L435-.L434
+	.byte	3,1,1,5,48,9
+	.half	.L436-.L435
+	.byte	1,5,30,9
+	.half	.L437-.L436
+	.byte	1,9
+	.half	.L438-.L437
+	.byte	3,2,1,5,28,9
+	.half	.L439-.L438
+	.byte	1,5,30,9
+	.half	.L440-.L439
+	.byte	3,1,1,5,28,1,5,1,9
+	.half	.L441-.L440
+	.byte	3,3,1,7,9
+	.half	.L117-.L441
+	.byte	0,1,1
+.L406:
+	.sdecl	'.debug_ranges',debug,cluster('transmitback_data')
+	.sect	'.debug_ranges'
+.L116:
+	.word	-1,.L3,0,.L117-.L3,0,0
+	.sdecl	'.debug_info',debug,cluster('ProgramBootFlag')
+	.sect	'.debug_info'
+.L118:
+	.word	206
+	.half	3
+	.word	.L119
+	.byte	4,1
+	.byte	'..\\CANbootloader.c',0
+	.byte	'TASKING VX-toolset for TriCore: C compiler',0
+	.byte	'D:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_1.9\\BMU_BOOT\\Debug\\',0,12,1
+	.word	.L121,.L120
+	.byte	2
+	.word	.L94
+	.byte	3
+	.byte	'ProgramBootFlag',0,1,233,1,6,1,1,1
+	.word	.L79,.L218,.L78
+	.byte	4
+	.byte	'flag',0,1,233,1,27
+	.word	.L199,.L219
+	.byte	5
+	.word	.L79,.L218
+	.byte	0,0
+	.sdecl	'.debug_abbrev',debug,cluster('ProgramBootFlag')
+	.sect	'.debug_abbrev'
+.L119:
+	.byte	1,17,1,3,8,37,8,27,8,19,15,128,70,12,85,6,16,6,0,0,2,61,0,24,16,0,0,3,46,1,3,8,58,15,59,15,57,15,54,15
+	.byte	39,12,63,12,17,1,18,1,64,6,0,0,4,5,0,3,8,58,15,59,15,57,15,73,16,2,6,0,0,5,11,0,17,1,18,1,0,0,0
+	.sdecl	'.debug_line',debug,cluster('ProgramBootFlag')
+	.sect	'.debug_line'
+.L120:
+	.word	.L443-.L442
+.L442:
+	.half	3
+	.word	.L445-.L444
+.L444:
+	.byte	2,1,-4,9,10,0,1,1,1,1,0,0,0,1,0
+	.byte	'..\\CANbootloader.c',0,0,0,0,0
+.L445:
+	.byte	5,6,7,0,5,2
+	.word	.L79
+	.byte	3,232,1,1,5,2,3,3,1,5,19,9
+	.half	.L284-.L79
+	.byte	3,2,1,5,2,3,126,1,5,19,9
+	.half	.L446-.L284
+	.byte	3,2,1,5,17,3,127,1,5,15,9
+	.half	.L283-.L446
+	.byte	3,127,1,5,17,9
+	.half	.L447-.L283
+	.byte	3,1,1,5,26,9
+	.half	.L448-.L447
+	.byte	1,5,15,9
+	.half	.L449-.L448
+	.byte	1,5,19,9
+	.half	.L450-.L449
+	.byte	3,1,1,5,10,9
+	.half	.L451-.L450
+	.byte	3,1,1,5,14,9
+	.half	.L452-.L451
+	.byte	3,1,1,5,2,9
+	.half	.L453-.L452
+	.byte	1,5,20,7,9
+	.half	.L454-.L453
+	.byte	3,3,1,5,16,3,127,1,5,20,9
+	.half	.L455-.L454
+	.byte	3,1,1,5,11,9
+	.half	.L456-.L455
+	.byte	3,1,1,5,15,9
+	.half	.L457-.L456
+	.byte	3,1,1,5,3,9
+	.half	.L458-.L457
+	.byte	1,5,21,7,9
+	.half	.L459-.L458
+	.byte	3,3,1,5,17,3,127,1,5,21,9
+	.half	.L460-.L459
+	.byte	3,1,1,5,12,9
+	.half	.L461-.L460
+	.byte	3,1,1,5,1,7,9
+	.half	.L12-.L461
+	.byte	3,6,1,7,9
+	.half	.L122-.L12
+	.byte	0,1,1
+.L443:
+	.sdecl	'.debug_ranges',debug,cluster('ProgramBootFlag')
+	.sect	'.debug_ranges'
+.L121:
+	.word	-1,.L79,0,.L122-.L79,0,0
+	.sdecl	'.debug_info',debug,cluster('EraseSector')
+	.sect	'.debug_info'
+.L123:
+	.word	300
+	.half	3
+	.word	.L124
+	.byte	4,1
+	.byte	'..\\CANbootloader.c',0
+	.byte	'TASKING VX-toolset for TriCore: C compiler',0
+	.byte	'D:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_1.9\\BMU_BOOT\\Debug\\',0,12,1
+	.word	.L126,.L125
+	.byte	2
+	.word	.L94
+	.byte	3
+	.byte	'EraseSector',0,1,216,2,6,1,1,1
+	.word	.L87,.L220,.L86
+	.byte	4
+	.byte	'dwSectorAddr',0,1,216,2,24
+	.word	.L210,.L221
+	.byte	5
+	.word	.L87,.L220
+	.byte	6
+	.byte	'dwAddr',0,1,219,2,8
+	.word	.L210,.L222
+	.byte	5
+	.word	.L45,.L220
+	.byte	6
+	.byte	'pdwAddr5554',0,1,230,2,9
+	.word	.L203,.L223
+	.byte	6
+	.byte	'pdwAddrAAA8',0,1,231,2,9
+	.word	.L203,.L224
+	.byte	7
+	.word	.L225,.L220
+	.byte	0,0,0,0
+	.sdecl	'.debug_abbrev',debug,cluster('EraseSector')
+	.sect	'.debug_abbrev'
+.L124:
+	.byte	1,17,1,3,8,37,8,27,8,19,15,128,70,12,85,6,16,6,0,0,2,61,0,24,16,0,0,3,46,1,3,8,58,15,59,15,57,15,54,15
+	.byte	39,12,63,12,17,1,18,1,64,6,0,0,4,5,0,3,8,58,15,59,15,57,15,73,16,2,6,0,0,5,11,1,17,1,18,1,0,0,6,52,0,3
+	.byte	8,58,15,59,15,57,15,73,16,2,6,0,0,7,11,0,17,1,18,1,0,0,0
+	.sdecl	'.debug_line',debug,cluster('EraseSector')
+	.sect	'.debug_line'
+.L125:
+	.word	.L463-.L462
+.L462:
+	.half	3
+	.word	.L465-.L464
+.L464:
+	.byte	2,1,-4,9,10,0,1,1,1,1,0,0,0,1,0
+	.byte	'..\\CANbootloader.c',0,0,0,0,0
+.L465:
+	.byte	5,16,7,0,5,2
+	.word	.L87
+	.byte	3,219,2,1,5,5,9
+	.half	.L466-.L87
+	.byte	1,5,42,7,9
+	.half	.L467-.L466
+	.byte	1,5,39,9
+	.half	.L468-.L467
+	.byte	1,5,10,7,9
+	.half	.L43-.L468
+	.byte	3,2,1,5,43,9
+	.half	.L291-.L43
+	.byte	1,5,25,9
+	.half	.L44-.L291
+	.byte	3,4,1,5,36,9
+	.half	.L45-.L44
+	.byte	3,4,1,5,20,9
+	.half	.L292-.L45
+	.byte	1,5,37,9
+	.half	.L294-.L292
+	.byte	3,1,1,5,36,9
+	.half	.L293-.L294
+	.byte	1,5,20,9
+	.half	.L469-.L293
+	.byte	1,5,15,9
+	.half	.L297-.L469
+	.byte	3,3,1,5,14,1,5,15,9
+	.half	.L296-.L297
+	.byte	3,3,1,5,14,1,5,15,9
+	.half	.L470-.L296
+	.byte	3,1,1,5,14,1,5,15,9
+	.half	.L471-.L470
+	.byte	3,1,1,5,14,1,9
+	.half	.L472-.L471
+	.byte	3,1,1,9
+	.half	.L473-.L472
+	.byte	3,1,1,5,5,9
+	.half	.L474-.L473
+	.byte	3,2,1,5,42,7,9
+	.half	.L475-.L474
+	.byte	1,5,39,9
+	.half	.L476-.L475
+	.byte	1,5,5,7,9
+	.half	.L46-.L476
+	.byte	3,2,1,5,27,9
+	.half	.L295-.L46
+	.byte	1,5,37,9
+	.half	.L477-.L295
+	.byte	1,5,5,9
+	.half	.L47-.L477
+	.byte	3,4,1,5,27,9
+	.half	.L298-.L47
+	.byte	1,5,26,9
+	.half	.L48-.L298
+	.byte	1,5,1,9
+	.half	.L225-.L48
+	.byte	3,7,1,7,9
+	.half	.L127-.L225
+	.byte	0,1,1
+.L463:
+	.sdecl	'.debug_ranges',debug,cluster('EraseSector')
+	.sect	'.debug_ranges'
+.L126:
+	.word	-1,.L87,0,.L127-.L87,0,0
+	.sdecl	'.debug_info',debug,cluster('SendBlock')
+	.sect	'.debug_info'
+.L128:
+	.word	196
+	.half	3
+	.word	.L129
+	.byte	4,1
+	.byte	'..\\CANbootloader.c',0
+	.byte	'TASKING VX-toolset for TriCore: C compiler',0
+	.byte	'D:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_1.9\\BMU_BOOT\\Debug\\',0,12,1
+	.word	.L131,.L130
+	.byte	2
+	.word	.L94
+	.byte	3
+	.byte	'SendBlock',0,1,97,6,1,1,1
+	.word	.L70,.L226,.L69
+	.byte	4
+	.word	.L70,.L226
+	.byte	5
+	.byte	'i',0,1,99,7
+	.word	.L201,.L227
+	.byte	0,0,0
+	.sdecl	'.debug_abbrev',debug,cluster('SendBlock')
+	.sect	'.debug_abbrev'
+.L129:
+	.byte	1,17,1,3,8,37,8,27,8,19,15,128,70,12,85,6,16,6,0,0,2,61,0,24,16,0,0,3,46,1,3,8,58,15,59,15,57,15,54,15
+	.byte	39,12,63,12,17,1,18,1,64,6,0,0,4,11,1,17,1,18,1,0,0,5,52,0,3,8,58,15,59,15,57,15,73,16,2,6,0,0,0
+	.sdecl	'.debug_line',debug,cluster('SendBlock')
+	.sect	'.debug_line'
+.L130:
+	.word	.L479-.L478
+.L478:
+	.half	3
+	.word	.L481-.L480
+.L480:
+	.byte	2,1,-4,9,10,0,1,1,1,1,0,0,0,1,0
+	.byte	'..\\CANbootloader.c',0,0,0,0,0
+.L481:
+	.byte	5,11,7,0,5,2
+	.word	.L70
+	.byte	3,228,0,1,5,20,3,3,1,5,25,9
+	.half	.L482-.L70
+	.byte	3,125,1,5,32,9
+	.half	.L5-.L482
+	.byte	3,2,1,5,12,9
+	.half	.L483-.L5
+	.byte	1,5,31,7,9
+	.half	.L484-.L483
+	.byte	3,1,1,5,29,1,5,32,9
+	.half	.L485-.L484
+	.byte	3,1,1,5,41,9
+	.half	.L486-.L485
+	.byte	1,5,19,9
+	.half	.L487-.L486
+	.byte	1,5,41,9
+	.half	.L488-.L487
+	.byte	1,5,30,9
+	.half	.L489-.L488
+	.byte	1,5,26,9
+	.half	.L490-.L489
+	.byte	3,1,1,5,41,9
+	.half	.L491-.L490
+	.byte	1,5,30,9
+	.half	.L492-.L491
+	.byte	1,5,26,9
+	.half	.L493-.L492
+	.byte	3,1,1,5,41,9
+	.half	.L494-.L493
+	.byte	1,5,30,9
+	.half	.L495-.L494
+	.byte	1,5,26,9
+	.half	.L496-.L495
+	.byte	3,1,1,5,41,9
+	.half	.L497-.L496
+	.byte	1,5,30,9
+	.half	.L498-.L497
+	.byte	1,5,26,9
+	.half	.L499-.L498
+	.byte	3,1,1,5,41,9
+	.half	.L500-.L499
+	.byte	1,5,30,9
+	.half	.L501-.L500
+	.byte	1,5,26,9
+	.half	.L502-.L501
+	.byte	3,1,1,5,41,9
+	.half	.L503-.L502
+	.byte	1,5,30,9
+	.half	.L504-.L503
+	.byte	1,5,26,9
+	.half	.L505-.L504
+	.byte	3,1,1,5,41,9
+	.half	.L506-.L505
+	.byte	1,5,30,9
+	.half	.L507-.L506
+	.byte	1,5,26,9
+	.half	.L508-.L507
+	.byte	3,1,1,5,41,9
+	.half	.L509-.L508
+	.byte	1,5,30,9
+	.half	.L510-.L509
+	.byte	1,9
+	.half	.L511-.L510
+	.byte	3,2,1,5,28,9
+	.half	.L512-.L511
+	.byte	1,5,30,9
+	.half	.L513-.L512
+	.byte	3,1,1,5,28,1,5,27,9
+	.half	.L514-.L513
+	.byte	3,114,1,5,25,9
+	.half	.L515-.L514
+	.byte	1,5,1,7,9
+	.half	.L516-.L515
+	.byte	3,16,1,7,9
+	.half	.L132-.L516
+	.byte	0,1,1
+.L479:
+	.sdecl	'.debug_ranges',debug,cluster('SendBlock')
+	.sect	'.debug_ranges'
+.L131:
+	.word	-1,.L70,0,.L132-.L70,0,0
+	.sdecl	'.debug_info',debug,cluster('SendFlag')
+	.sect	'.debug_info'
+.L133:
+	.word	179
+	.half	3
+	.word	.L134
+	.byte	4,1
+	.byte	'..\\CANbootloader.c',0
+	.byte	'TASKING VX-toolset for TriCore: C compiler',0
+	.byte	'D:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_1.9\\BMU_BOOT\\Debug\\',0,12,1
+	.word	.L136,.L135
+	.byte	2
+	.word	.L94
+	.byte	3
+	.byte	'SendFlag',0,1,118,6,1,1
+	.word	.L6,.L228,.L71
+	.byte	4
+	.word	.L6,.L228
+	.byte	0,0
+	.sdecl	'.debug_abbrev',debug,cluster('SendFlag')
+	.sect	'.debug_abbrev'
+.L134:
+	.byte	1,17,1,3,8,37,8,27,8,19,15,128,70,12,85,6,16,6,0,0,2,61,0,24,16,0,0,3,46,1,3,8,58,15,59,15,57,15,54,15
+	.byte	63,12,17,1,18,1,64,6,0,0,4,11,0,17,1,18,1,0,0,0
+	.sdecl	'.debug_line',debug,cluster('SendFlag')
+	.sect	'.debug_line'
+.L135:
+	.word	.L518-.L517
+.L517:
+	.half	3
+	.word	.L520-.L519
+.L519:
+	.byte	2,1,-4,9,10,0,1,1,1,1,0,0,0,1,0
+	.byte	'..\\CANbootloader.c',0,0,0,0,0
+.L520:
+	.byte	5,29,7,0,5,2
+	.word	.L6
+	.byte	3,247,0,1,5,9,9
+	.half	.L521-.L6
+	.byte	1,5,21,7,9
+	.half	.L522-.L521
+	.byte	3,1,1,5,32,9
+	.half	.L523-.L522
+	.byte	1,5,30,1,5,33,9
+	.half	.L524-.L523
+	.byte	3,1,1,5,20,9
+	.half	.L525-.L524
+	.byte	1,5,42,9
+	.half	.L526-.L525
+	.byte	1,5,31,9
+	.half	.L527-.L526
+	.byte	1,5,27,9
+	.half	.L528-.L527
+	.byte	3,1,1,5,42,9
+	.half	.L529-.L528
+	.byte	1,5,31,9
+	.half	.L530-.L529
+	.byte	1,5,27,9
+	.half	.L531-.L530
+	.byte	3,1,1,5,42,9
+	.half	.L532-.L531
+	.byte	1,5,31,9
+	.half	.L533-.L532
+	.byte	1,5,27,9
+	.half	.L534-.L533
+	.byte	3,1,1,5,42,9
+	.half	.L535-.L534
+	.byte	1,5,31,9
+	.half	.L536-.L535
+	.byte	1,5,27,9
+	.half	.L537-.L536
+	.byte	3,1,1,5,42,9
+	.half	.L538-.L537
+	.byte	1,5,31,9
+	.half	.L539-.L538
+	.byte	1,5,27,9
+	.half	.L540-.L539
+	.byte	3,1,1,5,42,9
+	.half	.L541-.L540
+	.byte	1,5,31,9
+	.half	.L542-.L541
+	.byte	1,5,27,9
+	.half	.L543-.L542
+	.byte	3,1,1,5,42,9
+	.half	.L544-.L543
+	.byte	1,5,31,9
+	.half	.L545-.L544
+	.byte	1,5,27,9
+	.half	.L546-.L545
+	.byte	3,1,1,5,42,9
+	.half	.L547-.L546
+	.byte	1,5,31,9
+	.half	.L548-.L547
+	.byte	1,9
+	.half	.L549-.L548
+	.byte	3,2,1,5,29,9
+	.half	.L550-.L549
+	.byte	1,5,31,9
+	.half	.L551-.L550
+	.byte	3,1,1,5,29,1,5,1,9
+	.half	.L552-.L551
+	.byte	3,1,1,7,9
+	.half	.L137-.L552
+	.byte	0,1,1
+.L518:
+	.sdecl	'.debug_ranges',debug,cluster('SendFlag')
+	.sect	'.debug_ranges'
+.L136:
+	.word	-1,.L6,0,.L137-.L6,0,0
+	.sdecl	'.debug_info',debug,cluster('clearDataBlock')
+	.sect	'.debug_info'
+.L138:
+	.word	202
+	.half	3
+	.word	.L139
+	.byte	4,1
+	.byte	'..\\CANbootloader.c',0
+	.byte	'TASKING VX-toolset for TriCore: C compiler',0
+	.byte	'D:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_1.9\\BMU_BOOT\\Debug\\',0,12,1
+	.word	.L141,.L140
+	.byte	2
+	.word	.L94
+	.byte	3
+	.byte	'clearDataBlock',0,1,134,1,6,1,1
+	.word	.L73,.L229,.L72
+	.byte	4
+	.word	.L73,.L229
+	.byte	5
+	.byte	'i',0,1,136,1,7
+	.word	.L201,.L230
+	.byte	0,0,0
+	.sdecl	'.debug_abbrev',debug,cluster('clearDataBlock')
+	.sect	'.debug_abbrev'
+.L139:
+	.byte	1,17,1,3,8,37,8,27,8,19,15,128,70,12,85,6,16,6,0,0,2,61,0,24,16,0,0,3,46,1,3,8,58,15,59,15,57,15,54,15
+	.byte	63,12,17,1,18,1,64,6,0,0,4,11,1,17,1,18,1,0,0,5,52,0,3,8,58,15,59,15,57,15,73,16,2,6,0,0,0
+	.sdecl	'.debug_line',debug,cluster('clearDataBlock')
+	.sect	'.debug_line'
+.L140:
+	.word	.L554-.L553
+.L553:
+	.half	3
+	.word	.L556-.L555
+.L555:
+	.byte	2,1,-4,9,10,0,1,1,1,1,0,0,0,1,0
+	.byte	'..\\CANbootloader.c',0,0,0,0,0
+.L556:
+	.byte	5,20,7,0,5,2
+	.word	.L73
+	.byte	3,137,1,1,5,5,1,5,21,9
+	.half	.L557-.L73
+	.byte	3,127,1,5,18,9
+	.half	.L7-.L557
+	.byte	3,1,1,5,21,9
+	.half	.L558-.L7
+	.byte	3,127,1,5,1,7,9
+	.half	.L559-.L558
+	.byte	3,3,1,7,9
+	.half	.L142-.L559
+	.byte	0,1,1
+.L554:
+	.sdecl	'.debug_ranges',debug,cluster('clearDataBlock')
+	.sect	'.debug_ranges'
+.L141:
+	.word	-1,.L73,0,.L142-.L73,0,0
+	.sdecl	'.debug_info',debug,cluster('ReceiveDataBlock')
+	.sect	'.debug_info'
+.L143:
+	.word	205
+	.half	3
+	.word	.L144
+	.byte	4,1
+	.byte	'..\\CANbootloader.c',0
+	.byte	'TASKING VX-toolset for TriCore: C compiler',0
+	.byte	'D:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_1.9\\BMU_BOOT\\Debug\\',0,12,1
+	.word	.L146,.L145
+	.byte	2
+	.word	.L94
+	.byte	3
+	.byte	'ReceiveDataBlock',0,1,142,1,6,1,1,1
+	.word	.L75,.L231,.L74
+	.byte	4
+	.word	.L75,.L231
+	.byte	5
+	.byte	'i',0,1,144,1,7
+	.word	.L201,.L232
+	.byte	0,0,0
+	.sdecl	'.debug_abbrev',debug,cluster('ReceiveDataBlock')
+	.sect	'.debug_abbrev'
+.L144:
+	.byte	1,17,1,3,8,37,8,27,8,19,15,128,70,12,85,6,16,6,0,0,2,61,0,24,16,0,0,3,46,1,3,8,58,15,59,15,57,15,54,15
+	.byte	39,12,63,12,17,1,18,1,64,6,0,0,4,11,1,17,1,18,1,0,0,5,52,0,3,8,58,15,59,15,57,15,73,16,2,6,0,0,0
+	.sdecl	'.debug_line',debug,cluster('ReceiveDataBlock')
+	.sect	'.debug_line'
+.L145:
+	.word	.L561-.L560
+.L560:
+	.half	3
+	.word	.L563-.L562
+.L562:
+	.byte	2,1,-4,9,10,0,1,1,1,1,0,0,0,1,0
+	.byte	'..\\CANbootloader.c',0,0,0,0,0
+.L563:
+	.byte	5,9,7,0,5,2
+	.word	.L75
+	.byte	3,144,1,1,5,15,3,2,1,5,12,9
+	.half	.L274-.L75
+	.byte	3,126,1,5,15,3,2,1,5,24,9
+	.half	.L564-.L274
+	.byte	3,126,1,5,15,9
+	.half	.L9-.L564
+	.byte	3,2,1,5,14,9
+	.half	.L565-.L9
+	.byte	1,5,7,7,9
+	.half	.L566-.L565
+	.byte	3,3,1,5,38,9
+	.half	.L567-.L566
+	.byte	1,5,7,9
+	.half	.L568-.L567
+	.byte	1,5,16,9
+	.half	.L569-.L568
+	.byte	1,5,38,9
+	.half	.L570-.L569
+	.byte	1,5,45,9
+	.half	.L571-.L570
+	.byte	1,9
+	.half	.L572-.L571
+	.byte	3,1,1,5,22,9
+	.half	.L573-.L572
+	.byte	3,127,1,5,45,9
+	.half	.L574-.L573
+	.byte	3,1,1,9
+	.half	.L575-.L574
+	.byte	3,1,1,5,22,9
+	.half	.L576-.L575
+	.byte	3,127,1,5,45,9
+	.half	.L577-.L576
+	.byte	3,1,1,9
+	.half	.L578-.L577
+	.byte	3,1,1,5,22,9
+	.half	.L579-.L578
+	.byte	3,127,1,5,45,9
+	.half	.L580-.L579
+	.byte	3,1,1,9
+	.half	.L581-.L580
+	.byte	3,1,1,5,22,9
+	.half	.L582-.L581
+	.byte	3,127,1,5,45,9
+	.half	.L583-.L582
+	.byte	3,1,1,9
+	.half	.L584-.L583
+	.byte	3,1,1,5,22,9
+	.half	.L585-.L584
+	.byte	3,127,1,5,45,9
+	.half	.L586-.L585
+	.byte	3,1,1,9
+	.half	.L587-.L586
+	.byte	3,1,1,5,22,9
+	.half	.L588-.L587
+	.byte	3,127,1,5,45,9
+	.half	.L589-.L588
+	.byte	3,1,1,9
+	.half	.L590-.L589
+	.byte	3,1,1,5,22,9
+	.half	.L591-.L590
+	.byte	3,127,1,5,45,9
+	.half	.L592-.L591
+	.byte	3,1,1,5,22,9
+	.half	.L593-.L592
+	.byte	1,5,27,9
+	.half	.L594-.L593
+	.byte	3,116,1,5,29,3,15,1,5,24,9
+	.half	.L595-.L594
+	.byte	3,113,1,5,1,7,9
+	.half	.L596-.L595
+	.byte	3,17,1,7,9
+	.half	.L147-.L596
+	.byte	0,1,1
+.L561:
+	.sdecl	'.debug_ranges',debug,cluster('ReceiveDataBlock')
+	.sect	'.debug_ranges'
+.L146:
+	.word	-1,.L75,0,.L147-.L75,0,0
+	.sdecl	'.debug_info',debug,cluster('ProgramFlashPage')
+	.sect	'.debug_info'
+.L148:
+	.word	353
+	.half	3
+	.word	.L149
+	.byte	4,1
+	.byte	'..\\CANbootloader.c',0
+	.byte	'TASKING VX-toolset for TriCore: C compiler',0
+	.byte	'D:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_1.9\\BMU_BOOT\\Debug\\',0,12,1
+	.word	.L151,.L150
+	.byte	2
+	.word	.L94
+	.byte	3
+	.byte	'ProgramFlashPage',0,1,180,1,7
+	.word	.L233
+	.byte	1,1,1
+	.word	.L77,.L234,.L76
+	.byte	4
+	.byte	'dwPageAddr',0,1,180,1,30
+	.word	.L210,.L235
+	.byte	5
+	.word	.L77,.L234
+	.byte	6
+	.byte	'dwFlashBaseAddr',0,1,182,1,8
+	.word	.L210,.L236
+	.byte	6
+	.byte	'ui',0,1,183,1,7
+	.word	.L201,.L237
+	.byte	5
+	.word	.L238,.L234
+	.byte	6
+	.byte	'pdwAddr5554',0,1,189,1,9
+	.word	.L203,.L239
+	.byte	6
+	.byte	'pdwAddrAAA8',0,1,190,1,9
+	.word	.L203,.L240
+	.byte	6
+	.byte	'pqwAddr55F0',0,1,191,1,9
+	.word	.L241,.L242
+	.byte	7
+	.word	.L243
+	.byte	0,0,0,0
+	.sdecl	'.debug_abbrev',debug,cluster('ProgramFlashPage')
+	.sect	'.debug_abbrev'
+.L149:
+	.byte	1,17,1,3,8,37,8,27,8,19,15,128,70,12,85,6,16,6,0,0,2,61,0,24,16,0,0,3,46,1,3,8,58,15,59,15,57,15,73,16
+	.byte	54,15,39,12,63,12,17,1,18,1,64,6,0,0,4,5,0,3,8,58,15,59,15,57,15,73,16,2,6,0,0,5,11,1,17,1,18,1,0,0,6
+	.byte	52,0,3,8,58,15,59,15,57,15,73,16,2,6,0,0,7,11,0,85,6,0,0,0
+	.sdecl	'.debug_line',debug,cluster('ProgramFlashPage')
+	.sect	'.debug_line'
+.L150:
+	.word	.L598-.L597
+.L597:
+	.half	3
+	.word	.L600-.L599
+.L599:
+	.byte	2,1,-4,9,10,0,1,1,1,1,0,0,0,1,0
+	.byte	'..\\CANbootloader.c',0,0,0,0,0
+.L600:
+	.byte	5,29,7,0,5,2
+	.word	.L77
+	.byte	3,185,1,1,5,45,9
+	.half	.L238-.L77
+	.byte	3,3,1,5,20,9
+	.half	.L276-.L238
+	.byte	1,5,46,9
+	.half	.L278-.L276
+	.byte	3,1,1,5,45,9
+	.half	.L277-.L278
+	.byte	1,5,20,9
+	.half	.L601-.L277
+	.byte	1,5,45,9
+	.half	.L279-.L601
+	.byte	3,1,1,5,20,9
+	.half	.L275-.L279
+	.byte	1,5,16,9
+	.half	.L281-.L275
+	.byte	3,3,1,5,15,1,5,16,9
+	.half	.L280-.L281
+	.byte	3,3,1,5,15,1,5,10,9
+	.half	.L602-.L280
+	.byte	3,3,1,5,29,1,5,24,9
+	.half	.L10-.L602
+	.byte	3,9,1,5,33,9
+	.half	.L603-.L10
+	.byte	1,5,16,9
+	.half	.L604-.L603
+	.byte	3,122,1,5,33,1,5,48,9
+	.half	.L605-.L604
+	.byte	1,5,33,3,127,1,5,48,9
+	.half	.L606-.L605
+	.byte	3,1,1,5,33,3,4,1,5,12,9
+	.half	.L607-.L606
+	.byte	3,124,1,5,33,3,1,1,5,16,9
+	.half	.L608-.L607
+	.byte	3,126,1,5,33,9
+	.half	.L244-.L608
+	.byte	3,126,1,5,12,9
+	.half	.L245-.L244
+	.byte	3,3,1,5,16,9
+	.half	.L609-.L245
+	.byte	3,1,1,5,48,9
+	.half	.L610-.L609
+	.byte	1,5,12,9
+	.half	.L611-.L610
+	.byte	1,5,33,3,1,1,5,12,9
+	.half	.L612-.L611
+	.byte	3,127,1,5,16,9
+	.half	.L613-.L612
+	.byte	3,1,1,5,48,9
+	.half	.L614-.L613
+	.byte	1,5,12,9
+	.half	.L615-.L614
+	.byte	1,5,33,9
+	.half	.L616-.L615
+	.byte	3,1,1,5,12,9
+	.half	.L617-.L616
+	.byte	1,9
+	.half	.L618-.L617
+	.byte	3,1,1,5,48,9
+	.half	.L619-.L618
+	.byte	1,5,33,3,1,1,5,12,9
+	.half	.L620-.L619
+	.byte	3,127,1,9
+	.half	.L621-.L620
+	.byte	3,1,1,5,48,9
+	.half	.L622-.L621
+	.byte	1,5,33,3,1,1,5,12,9
+	.half	.L623-.L622
+	.byte	3,127,1,9
+	.half	.L624-.L623
+	.byte	3,1,1,5,48,9
+	.half	.L625-.L624
+	.byte	1,5,12,9
+	.half	.L626-.L625
+	.byte	1,5,16,3,1,1,5,29,9
+	.half	.L246-.L626
+	.byte	3,118,1,5,5,7,9
+	.half	.L627-.L246
+	.byte	3,17,1,5,18,9
+	.half	.L282-.L627
+	.byte	3,125,1,5,16,1,5,18,9
+	.half	.L628-.L282
+	.byte	3,1,1,5,16,1,5,18,9
+	.half	.L629-.L628
+	.byte	3,1,1,5,16,1,9
+	.half	.L630-.L629
+	.byte	3,14,1,5,25,3,115,1,5,1,9
+	.half	.L631-.L630
+	.byte	3,14,1,7,9
+	.half	.L152-.L631
+	.byte	0,1,1
+.L598:
+	.sdecl	'.debug_ranges',debug,cluster('ProgramFlashPage')
+	.sect	'.debug_ranges'
+.L151:
+	.word	-1,.L77,0,.L152-.L77,0,0
+.L243:
+	.word	-1,.L77,.L10-.L77,.L244-.L77,.L245-.L77,.L246-.L77,0,0
+	.sdecl	'.debug_info',debug,cluster('SectorStartAddressCheck')
+	.sect	'.debug_info'
+.L153:
+	.word	226
+	.half	3
+	.word	.L154
+	.byte	4,1
+	.byte	'..\\CANbootloader.c',0
+	.byte	'TASKING VX-toolset for TriCore: C compiler',0
+	.byte	'D:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_1.9\\BMU_BOOT\\Debug\\',0,12,1
+	.word	.L156,.L155
+	.byte	2
+	.word	.L94
+	.byte	3
+	.byte	'SectorStartAddressCheck',0,1,155,2,5
+	.word	.L247
+	.byte	1,1,1
+	.word	.L83,.L248,.L82
+	.byte	4
+	.byte	'dwSectorAddr',0,1,155,2,35
+	.word	.L210,.L249
+	.byte	5
+	.word	.L83,.L248
+	.byte	0,0
+	.sdecl	'.debug_abbrev',debug,cluster('SectorStartAddressCheck')
+	.sect	'.debug_abbrev'
+.L154:
+	.byte	1,17,1,3,8,37,8,27,8,19,15,128,70,12,85,6,16,6,0,0,2,61,0,24,16,0,0,3,46,1,3,8,58,15,59,15,57,15,73,16
+	.byte	54,15,39,12,63,12,17,1,18,1,64,6,0,0,4,5,0,3,8,58,15,59,15,57,15,73,16,2,6,0,0,5,11,0,17,1,18,1,0,0,0
+	.sdecl	'.debug_line',debug,cluster('SectorStartAddressCheck')
+	.sect	'.debug_line'
+.L155:
+	.word	.L633-.L632
+.L632:
+	.half	3
+	.word	.L635-.L634
+.L634:
+	.byte	2,1,-4,9,10,0,1,1,1,1,0,0,0,1,0
+	.byte	'..\\CANbootloader.c',0,0,0,0,0
+.L635:
+	.byte	5,5,7,0,5,2
+	.word	.L83
+	.byte	3,154,2,1,5,19,9
+	.half	.L287-.L83
+	.byte	3,2,1,5,42,9
+	.half	.L636-.L287
+	.byte	1,5,55,9
+	.half	.L637-.L636
+	.byte	1,5,54,9
+	.half	.L638-.L637
+	.byte	1,5,10,7,9
+	.half	.L639-.L638
+	.byte	3,1,1,5,1,9
+	.half	.L640-.L639
+	.byte	3,21,1,5,60,7,9
+	.half	.L16-.L640
+	.byte	3,108,1,5,24,9
+	.half	.L641-.L16
+	.byte	1,5,47,9
+	.half	.L642-.L641
+	.byte	1,5,59,9
+	.half	.L643-.L642
+	.byte	1,5,10,7,9
+	.half	.L644-.L643
+	.byte	3,1,1,5,1,9
+	.half	.L645-.L644
+	.byte	3,19,1,5,24,7,9
+	.half	.L18-.L645
+	.byte	3,110,1,5,48,9
+	.half	.L646-.L18
+	.byte	1,5,60,9
+	.half	.L647-.L646
+	.byte	1,5,10,7,9
+	.half	.L648-.L647
+	.byte	3,1,1,5,1,9
+	.half	.L649-.L648
+	.byte	3,17,1,5,24,7,9
+	.half	.L20-.L649
+	.byte	3,112,1,5,48,9
+	.half	.L650-.L20
+	.byte	1,5,60,9
+	.half	.L651-.L650
+	.byte	1,5,10,7,9
+	.half	.L652-.L651
+	.byte	3,1,1,5,1,9
+	.half	.L653-.L652
+	.byte	3,15,1,5,24,7,9
+	.half	.L22-.L653
+	.byte	3,114,1,5,48,9
+	.half	.L654-.L22
+	.byte	1,5,60,9
+	.half	.L655-.L654
+	.byte	1,5,10,7,9
+	.half	.L656-.L655
+	.byte	3,1,1,5,1,9
+	.half	.L657-.L656
+	.byte	3,13,1,5,24,7,9
+	.half	.L24-.L657
+	.byte	3,116,1,5,48,9
+	.half	.L658-.L24
+	.byte	1,5,60,9
+	.half	.L659-.L658
+	.byte	1,5,10,7,9
+	.half	.L660-.L659
+	.byte	3,1,1,5,1,9
+	.half	.L661-.L660
+	.byte	3,11,1,5,24,7,9
+	.half	.L26-.L661
+	.byte	3,118,1,5,48,9
+	.half	.L662-.L26
+	.byte	1,5,60,9
+	.half	.L663-.L662
+	.byte	1,5,10,7,9
+	.half	.L664-.L663
+	.byte	3,1,1,5,1,9
+	.half	.L665-.L664
+	.byte	3,9,1,5,24,7,9
+	.half	.L28-.L665
+	.byte	3,120,1,5,48,9
+	.half	.L666-.L28
+	.byte	1,5,60,9
+	.half	.L667-.L666
+	.byte	1,5,10,7,9
+	.half	.L668-.L667
+	.byte	3,1,1,5,1,9
+	.half	.L669-.L668
+	.byte	3,7,1,5,24,7,9
+	.half	.L30-.L669
+	.byte	3,122,1,5,48,9
+	.half	.L670-.L30
+	.byte	1,5,60,9
+	.half	.L671-.L670
+	.byte	1,5,10,7,9
+	.half	.L672-.L671
+	.byte	3,1,1,5,1,9
+	.half	.L673-.L672
+	.byte	3,5,1,5,24,7,9
+	.half	.L32-.L673
+	.byte	3,124,1,5,48,9
+	.half	.L674-.L32
+	.byte	1,5,60,9
+	.half	.L288-.L674
+	.byte	1,5,10,9
+	.half	.L675-.L288
+	.byte	3,1,1,5,1,9
+	.half	.L676-.L675
+	.byte	3,3,1,7,9
+	.half	.L157-.L676
+	.byte	0,1,1
+.L633:
+	.sdecl	'.debug_ranges',debug,cluster('SectorStartAddressCheck')
+	.sect	'.debug_ranges'
+.L156:
+	.word	-1,.L83,0,.L157-.L83,0,0
+	.sdecl	'.debug_info',debug,cluster('EraseSelectedSector')
+	.sect	'.debug_info'
+.L158:
+	.word	211
+	.half	3
+	.word	.L159
+	.byte	4,1
+	.byte	'..\\CANbootloader.c',0
+	.byte	'TASKING VX-toolset for TriCore: C compiler',0
+	.byte	'D:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_1.9\\BMU_BOOT\\Debug\\',0,12,1
+	.word	.L161,.L160
+	.byte	2
+	.word	.L94
+	.byte	3
+	.byte	'EraseSelectedSector',0,1,181,2,6,1,1,1
+	.word	.L85,.L250,.L84
+	.byte	4
+	.byte	'Index',0,1,181,2,30
+	.word	.L247,.L251
+	.byte	5
+	.word	.L85,.L250
+	.byte	0,0
+	.sdecl	'.debug_abbrev',debug,cluster('EraseSelectedSector')
+	.sect	'.debug_abbrev'
+.L159:
+	.byte	1,17,1,3,8,37,8,27,8,19,15,128,70,12,85,6,16,6,0,0,2,61,0,24,16,0,0,3,46,1,3,8,58,15,59,15,57,15,54,15
+	.byte	39,12,63,12,17,1,18,1,64,6,0,0,4,5,0,3,8,58,15,59,15,57,15,73,16,2,6,0,0,5,11,0,17,1,18,1,0,0,0
+	.sdecl	'.debug_line',debug,cluster('EraseSelectedSector')
+	.sect	'.debug_line'
+.L160:
+	.word	.L678-.L677
+.L677:
+	.half	3
+	.word	.L680-.L679
+.L679:
+	.byte	2,1,-4,9,10,0,1,1,1,1,0,0,0,1,0
+	.byte	'..\\CANbootloader.c',0,0,0,0,0
+.L680:
+	.byte	5,15,7,0,5,2
+	.word	.L85
+	.byte	3,182,2,1,5,20,9
+	.half	.L681-.L85
+	.byte	1,5,9,7,9
+	.half	.L682-.L681
+	.byte	3,2,1,5,24,9
+	.half	.L683-.L682
+	.byte	1,5,3,9
+	.half	.L684-.L683
+	.byte	1,5,16,7,9
+	.half	.L685-.L684
+	.byte	3,2,1,5,34,9
+	.half	.L686-.L685
+	.byte	1,5,29,9
+	.half	.L687-.L686
+	.byte	3,1,1,5,27,1,5,1,9
+	.half	.L38-.L687
+	.byte	3,11,1,5,19,7,9
+	.half	.L37-.L38
+	.byte	3,120,1,5,7,9
+	.half	.L688-.L37
+	.byte	1,5,15,7,9
+	.half	.L689-.L688
+	.byte	3,2,1,5,26,9
+	.half	.L290-.L689
+	.byte	1,5,19,9
+	.half	.L40-.L290
+	.byte	3,2,1,5,7,9
+	.half	.L690-.L40
+	.byte	1,5,15,7,9
+	.half	.L691-.L690
+	.byte	3,2,1,5,1,9
+	.half	.L42-.L691
+	.byte	3,2,1,7,9
+	.half	.L162-.L42
+	.byte	0,1,1
+.L678:
+	.sdecl	'.debug_ranges',debug,cluster('EraseSelectedSector')
+	.sect	'.debug_ranges'
+.L161:
+	.word	-1,.L85,0,.L162-.L85,0,0
+	.sdecl	'.debug_info',debug,cluster('ReadBlock2')
+	.sect	'.debug_info'
+.L163:
+	.word	293
+	.half	3
+	.word	.L164
+	.byte	4,1
+	.byte	'..\\CANbootloader.c',0
+	.byte	'TASKING VX-toolset for TriCore: C compiler',0
+	.byte	'D:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_1.9\\BMU_BOOT\\Debug\\',0,12,1
+	.word	.L166,.L165
+	.byte	2
+	.word	.L94
+	.byte	3
+	.byte	'ReadBlock2',0,1,130,3,6,1,1,1
+	.word	.L89,.L252,.L88
+	.byte	4
+	.byte	'ulBaseAddr',0,1,130,3,23
+	.word	.L210,.L253
+	.byte	5
+	.word	.L89,.L252
+	.byte	6
+	.byte	'i',0,1,132,3,7
+	.word	.L201,.L254
+	.byte	6
+	.byte	'dwPageAddr',0,1,134,3,9
+	.word	.L203,.L255
+	.byte	5
+	.word	.L49,.L256
+	.byte	6
+	.byte	'p',0,1,137,3,10
+	.word	.L203,.L257
+	.byte	6
+	.byte	'FlashDW',0,1,138,3,9
+	.word	.L210,.L258
+	.byte	0,0,0,0
+	.sdecl	'.debug_abbrev',debug,cluster('ReadBlock2')
+	.sect	'.debug_abbrev'
+.L164:
+	.byte	1,17,1,3,8,37,8,27,8,19,15,128,70,12,85,6,16,6,0,0,2,61,0,24,16,0,0,3,46,1,3,8,58,15,59,15,57,15,54,15
+	.byte	39,12,63,12,17,1,18,1,64,6,0,0,4,5,0,3,8,58,15,59,15,57,15,73,16,2,6,0,0,5,11,1,17,1,18,1,0,0,6,52,0,3
+	.byte	8,58,15,59,15,57,15,73,16,2,6,0,0,0
+	.sdecl	'.debug_line',debug,cluster('ReadBlock2')
+	.sect	'.debug_line'
+.L165:
+	.word	.L693-.L692
+.L692:
+	.half	3
+	.word	.L695-.L694
+.L694:
+	.byte	2,1,-4,9,10,0,1,1,1,1,0,0,0,1,0
+	.byte	'..\\CANbootloader.c',0,0,0,0,0
+.L695:
+	.byte	5,19,7,0,5,2
+	.word	.L89
+	.byte	3,133,3,1,5,7,9
+	.half	.L299-.L89
+	.byte	3,1,1,5,15,1,5,17,9
+	.half	.L49-.L299
+	.byte	3,3,1,5,3,9
+	.half	.L300-.L49
+	.byte	3,1,1,5,13,9
+	.half	.L696-.L300
+	.byte	1,5,16,9
+	.half	.L697-.L696
+	.byte	1,5,41,9
+	.half	.L698-.L697
+	.byte	3,1,1,5,18,1,5,41,9
+	.half	.L699-.L698
+	.byte	3,1,1,5,18,1,5,43,9
+	.half	.L700-.L699
+	.byte	3,1,1,5,18,1,5,17,9
+	.half	.L256-.L700
+	.byte	3,121,1,5,15,9
+	.half	.L701-.L256
+	.byte	1,5,1,7,9
+	.half	.L702-.L701
+	.byte	3,12,1,7,9
+	.half	.L167-.L702
+	.byte	0,1,1
+.L693:
+	.sdecl	'.debug_ranges',debug,cluster('ReadBlock2')
+	.sect	'.debug_ranges'
+.L166:
+	.word	-1,.L89,0,.L167-.L89,0,0
+	.sdecl	'.debug_info',debug,cluster('Can_PackTrsmtAddr')
+	.sect	'.debug_info'
+.L168:
+	.word	227
+	.half	3
+	.word	.L169
+	.byte	4,1
+	.byte	'..\\CANbootloader.c',0
+	.byte	'TASKING VX-toolset for TriCore: C compiler',0
+	.byte	'D:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_1.9\\BMU_BOOT\\Debug\\',0,12,1
+	.word	.L171,.L170
+	.byte	2
+	.word	.L94
+	.byte	3
+	.byte	'Can_PackTrsmtAddr',0,1,149,3,6,1,1,1
+	.word	.L91,.L259,.L90
+	.byte	4
+	.byte	'cmd',0,1,149,3,29
+	.word	.L199,.L260
+	.byte	4
+	.byte	'uladdr',0,1,149,3,39
+	.word	.L210,.L261
+	.byte	5
+	.word	.L91,.L259
+	.byte	0,0
+	.sdecl	'.debug_abbrev',debug,cluster('Can_PackTrsmtAddr')
+	.sect	'.debug_abbrev'
+.L169:
+	.byte	1,17,1,3,8,37,8,27,8,19,15,128,70,12,85,6,16,6,0,0,2,61,0,24,16,0,0,3,46,1,3,8,58,15,59,15,57,15,54,15
+	.byte	39,12,63,12,17,1,18,1,64,6,0,0,4,5,0,3,8,58,15,59,15,57,15,73,16,2,6,0,0,5,11,0,17,1,18,1,0,0,0
+	.sdecl	'.debug_line',debug,cluster('Can_PackTrsmtAddr')
+	.sect	'.debug_line'
+.L170:
+	.word	.L704-.L703
+.L703:
+	.half	3
+	.word	.L706-.L705
+.L705:
+	.byte	2,1,-4,9,10,0,1,1,1,1,0,0,0,1,0
+	.byte	'..\\CANbootloader.c',0,0,0,0,0
+.L706:
+	.byte	5,2,7,0,5,2
+	.word	.L91
+	.byte	3,150,3,1,5,16,9
+	.half	.L707-.L91
+	.byte	1,9
+	.half	.L708-.L707
+	.byte	3,1,1,5,26,9
+	.half	.L709-.L708
+	.byte	3,1,1,5,16,1,5,26,9
+	.half	.L710-.L709
+	.byte	3,1,1,5,16,1,5,26,9
+	.half	.L711-.L710
+	.byte	3,1,1,5,16,1,5,1,9
+	.half	.L712-.L711
+	.byte	3,1,1,7,9
+	.half	.L172-.L712
+	.byte	0,1,1
+.L704:
+	.sdecl	'.debug_ranges',debug,cluster('Can_PackTrsmtAddr')
+	.sect	'.debug_ranges'
+.L171:
+	.word	-1,.L91,0,.L172-.L91,0,0
+	.sdecl	'.debug_info',debug,cluster('ubAddrPrgm')
+	.sect	'.debug_info'
+.L173:
+	.word	160
+	.half	3
+	.word	.L174
+	.byte	4,1
+	.byte	'..\\CANbootloader.c',0
+	.byte	'TASKING VX-toolset for TriCore: C compiler',0
+	.byte	'D:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_1.9\\BMU_BOOT\\Debug\\',0,12,1,2
+	.word	.L94
+	.byte	3
+	.byte	'ubAddrPrgm',0,4,36,6
+	.word	.L262
+	.byte	1,5,3
+	.word	ubAddrPrgm
+	.byte	0
+	.sdecl	'.debug_abbrev',debug,cluster('ubAddrPrgm')
+	.sect	'.debug_abbrev'
+.L174:
+	.byte	1,17,1,3,8,37,8,27,8,19,15,128,70,12,0,0,2,61,0,24,16,0,0,3,52,0,3,8,58,15,59,15,57,15,73,16,63,12,2,9
+	.byte	0,0,0
+	.sdecl	'.debug_info',debug,cluster('ubgCommand')
+	.sect	'.debug_info'
+.L175:
+	.word	160
+	.half	3
+	.word	.L176
+	.byte	4,1
+	.byte	'..\\CANbootloader.c',0
+	.byte	'TASKING VX-toolset for TriCore: C compiler',0
+	.byte	'D:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_1.9\\BMU_BOOT\\Debug\\',0,12,1,2
+	.word	.L94
+	.byte	3
+	.byte	'ubgCommand',0,4,37,6
+	.word	.L199
+	.byte	1,5,3
+	.word	ubgCommand
+	.byte	0
+	.sdecl	'.debug_abbrev',debug,cluster('ubgCommand')
+	.sect	'.debug_abbrev'
+.L176:
+	.byte	1,17,1,3,8,37,8,27,8,19,15,128,70,12,0,0,2,61,0,24,16,0,0,3,52,0,3,8,58,15,59,15,57,15,73,16,63,12,2,9
+	.byte	0,0,0
+	.sdecl	'.debug_info',debug,cluster('ubgCommand1')
+	.sect	'.debug_info'
+.L177:
+	.word	161
+	.half	3
+	.word	.L178
+	.byte	4,1
+	.byte	'..\\CANbootloader.c',0
+	.byte	'TASKING VX-toolset for TriCore: C compiler',0
+	.byte	'D:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_1.9\\BMU_BOOT\\Debug\\',0,12,1,2
+	.word	.L94
+	.byte	3
+	.byte	'ubgCommand1',0,4,38,6
+	.word	.L199
+	.byte	1,5,3
+	.word	ubgCommand1
+	.byte	0
+	.sdecl	'.debug_abbrev',debug,cluster('ubgCommand1')
+	.sect	'.debug_abbrev'
+.L178:
+	.byte	1,17,1,3,8,37,8,27,8,19,15,128,70,12,0,0,2,61,0,24,16,0,0,3,52,0,3,8,58,15,59,15,57,15,73,16,63,12,2,9
+	.byte	0,0,0
+	.sdecl	'.debug_info',debug,cluster('ubgCommand2')
+	.sect	'.debug_info'
+.L179:
+	.word	161
+	.half	3
+	.word	.L180
+	.byte	4,1
+	.byte	'..\\CANbootloader.c',0
+	.byte	'TASKING VX-toolset for TriCore: C compiler',0
+	.byte	'D:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_1.9\\BMU_BOOT\\Debug\\',0,12,1,2
+	.word	.L94
+	.byte	3
+	.byte	'ubgCommand2',0,4,39,6
+	.word	.L199
+	.byte	1,5,3
+	.word	ubgCommand2
+	.byte	0
+	.sdecl	'.debug_abbrev',debug,cluster('ubgCommand2')
+	.sect	'.debug_abbrev'
+.L180:
+	.byte	1,17,1,3,8,37,8,27,8,19,15,128,70,12,0,0,2,61,0,24,16,0,0,3,52,0,3,8,58,15,59,15,57,15,73,16,63,12,2,9
+	.byte	0,0,0
+	.sdecl	'.debug_info',debug,cluster('ubgCommand3')
+	.sect	'.debug_info'
+.L181:
+	.word	161
+	.half	3
+	.word	.L182
+	.byte	4,1
+	.byte	'..\\CANbootloader.c',0
+	.byte	'TASKING VX-toolset for TriCore: C compiler',0
+	.byte	'D:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_1.9\\BMU_BOOT\\Debug\\',0,12,1,2
+	.word	.L94
+	.byte	3
+	.byte	'ubgCommand3',0,4,40,6
+	.word	.L199
+	.byte	1,5,3
+	.word	ubgCommand3
+	.byte	0
+	.sdecl	'.debug_abbrev',debug,cluster('ubgCommand3')
+	.sect	'.debug_abbrev'
+.L182:
+	.byte	1,17,1,3,8,37,8,27,8,19,15,128,70,12,0,0,2,61,0,24,16,0,0,3,52,0,3,8,58,15,59,15,57,15,73,16,63,12,2,9
+	.byte	0,0,0
+	.sdecl	'.debug_info',debug,cluster('Handflag')
+	.sect	'.debug_info'
+.L183:
+	.word	158
+	.half	3
+	.word	.L184
+	.byte	4,1
+	.byte	'..\\CANbootloader.c',0
+	.byte	'TASKING VX-toolset for TriCore: C compiler',0
+	.byte	'D:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_1.9\\BMU_BOOT\\Debug\\',0,12,1,2
+	.word	.L94
+	.byte	3
+	.byte	'Handflag',0,4,13,14
+	.word	.L201
+	.byte	1,5,3
+	.word	Handflag
+	.byte	0
+	.sdecl	'.debug_abbrev',debug,cluster('Handflag')
+	.sect	'.debug_abbrev'
+.L184:
+	.byte	1,17,1,3,8,37,8,27,8,19,15,128,70,12,0,0,2,61,0,24,16,0,0,3,52,0,3,8,58,15,59,15,57,15,73,16,63,12,2,9
+	.byte	0,0,0
+	.sdecl	'.debug_info',debug,cluster('stCANRecObj')
+	.sect	'.debug_info'
+.L185:
+	.word	161
+	.half	3
+	.word	.L186
+	.byte	4,1
+	.byte	'..\\CANbootloader.c',0
+	.byte	'TASKING VX-toolset for TriCore: C compiler',0
+	.byte	'D:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_1.9\\BMU_BOOT\\Debug\\',0,12,1,2
+	.word	.L94
+	.byte	3
+	.byte	'stCANRecObj',0,4,9,11
+	.word	.L263
+	.byte	1,5,3
+	.word	stCANRecObj
+	.byte	0
+	.sdecl	'.debug_abbrev',debug,cluster('stCANRecObj')
+	.sect	'.debug_abbrev'
+.L186:
+	.byte	1,17,1,3,8,37,8,27,8,19,15,128,70,12,0,0,2,61,0,24,16,0,0,3,52,0,3,8,58,15,59,15,57,15,73,16,63,12,2,9
+	.byte	0,0,0
+	.sdecl	'.debug_info',debug,cluster('pstCANRecObj')
+	.sect	'.debug_info'
+.L187:
+	.word	162
+	.half	3
+	.word	.L188
+	.byte	4,1
+	.byte	'..\\CANbootloader.c',0
+	.byte	'TASKING VX-toolset for TriCore: C compiler',0
+	.byte	'D:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_1.9\\BMU_BOOT\\Debug\\',0,12,1,2
+	.word	.L94
+	.byte	3
+	.byte	'pstCANRecObj',0,4,10,12
+	.word	.L264
+	.byte	1,5,3
+	.word	pstCANRecObj
+	.byte	0
+	.sdecl	'.debug_abbrev',debug,cluster('pstCANRecObj')
+	.sect	'.debug_abbrev'
+.L188:
+	.byte	1,17,1,3,8,37,8,27,8,19,15,128,70,12,0,0,2,61,0,24,16,0,0,3,52,0,3,8,58,15,59,15,57,15,73,16,63,12,2,9
+	.byte	0,0,0
+	.sdecl	'.debug_info',debug,cluster('DataBlock')
+	.sect	'.debug_info'
+.L189:
+	.word	159
+	.half	3
+	.word	.L190
+	.byte	4,1
+	.byte	'..\\CANbootloader.c',0
+	.byte	'TASKING VX-toolset for TriCore: C compiler',0
+	.byte	'D:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_1.9\\BMU_BOOT\\Debug\\',0,12,1,2
+	.word	.L94
+	.byte	3
+	.byte	'DataBlock',0,4,11,6
+	.word	.L265
+	.byte	1,5,3
+	.word	DataBlock
+	.byte	0
+	.sdecl	'.debug_abbrev',debug,cluster('DataBlock')
+	.sect	'.debug_abbrev'
+.L190:
+	.byte	1,17,1,3,8,37,8,27,8,19,15,128,70,12,0,0,2,61,0,24,16,0,0,3,52,0,3,8,58,15,59,15,57,15,73,16,63,12,2,9
+	.byte	0,0,0
+	.sdecl	'.debug_info',debug,cluster('SectorAddressValid')
+	.sect	'.debug_info'
+.L191:
+	.word	168
+	.half	3
+	.word	.L192
+	.byte	4,1
+	.byte	'..\\CANbootloader.c',0
+	.byte	'TASKING VX-toolset for TriCore: C compiler',0
+	.byte	'D:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_1.9\\BMU_BOOT\\Debug\\',0,12,1,2
+	.word	.L94
+	.byte	3
+	.byte	'SectorAddressValid',0,4,12,6
+	.word	.L199
+	.byte	1,5,3
+	.word	SectorAddressValid
+	.byte	0
+	.sdecl	'.debug_abbrev',debug,cluster('SectorAddressValid')
+	.sect	'.debug_abbrev'
+.L192:
+	.byte	1,17,1,3,8,37,8,27,8,19,15,128,70,12,0,0,2,61,0,24,16,0,0,3,52,0,3,8,58,15,59,15,57,15,73,16,63,12,2,9
+	.byte	0,0,0
+	.sdecl	'.debug_info',debug,cluster('SectorStartAddress')
+	.sect	'.debug_info'
+.L193:
+	.word	168
+	.half	3
+	.word	.L194
+	.byte	4,1
+	.byte	'..\\CANbootloader.c',0
+	.byte	'TASKING VX-toolset for TriCore: C compiler',0
+	.byte	'D:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_1.9\\BMU_BOOT\\Debug\\',0,12,1,2
+	.word	.L94
+	.byte	3
+	.byte	'SectorStartAddress',0,4,14,7
+	.word	.L266
+	.byte	1,5,3
+	.word	SectorStartAddress
+	.byte	0
+	.sdecl	'.debug_abbrev',debug,cluster('SectorStartAddress')
+	.sect	'.debug_abbrev'
+.L194:
+	.byte	1,17,1,3,8,37,8,27,8,19,15,128,70,12,0,0,2,61,0,24,16,0,0,3,52,0,3,8,58,15,59,15,57,15,73,16,63,12,2,9
+	.byte	0,0,0
+	.sdecl	'.debug_info',debug,cluster('SectorEraseFlag')
+	.sect	'.debug_info'
+.L195:
+	.word	165
+	.half	3
+	.word	.L196
+	.byte	4,1
+	.byte	'..\\CANbootloader.c',0
+	.byte	'TASKING VX-toolset for TriCore: C compiler',0
+	.byte	'D:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_1.9\\BMU_BOOT\\Debug\\',0,12,1,2
+	.word	.L94
+	.byte	3
+	.byte	'SectorEraseFlag',0,4,19,6
+	.word	.L267
+	.byte	1,5,3
+	.word	SectorEraseFlag
+	.byte	0
+	.sdecl	'.debug_abbrev',debug,cluster('SectorEraseFlag')
+	.sect	'.debug_abbrev'
+.L196:
+	.byte	1,17,1,3,8,37,8,27,8,19,15,128,70,12,0,0,2,61,0,24,16,0,0,3,52,0,3,8,58,15,59,15,57,15,73,16,63,12,2,9
+	.byte	0,0,0
+	.sdecl	'.debug_info',debug,cluster('crc32_Data')
+	.sect	'.debug_info'
+.L197:
+	.word	160
+	.half	3
+	.word	.L198
+	.byte	4,1
+	.byte	'..\\CANbootloader.c',0
+	.byte	'TASKING VX-toolset for TriCore: C compiler',0
+	.byte	'D:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_1.9\\BMU_BOOT\\Debug\\',0,12,1,2
+	.word	.L94
+	.byte	3
+	.byte	'crc32_Data',0,4,41,15
+	.word	.L210
+	.byte	1,5,3
+	.word	crc32_Data
+	.byte	0
+	.sdecl	'.debug_abbrev',debug,cluster('crc32_Data')
+	.sect	'.debug_abbrev'
+.L198:
+	.byte	1,17,1,3,8,37,8,27,8,19,15,128,70,12,0,0,2,61,0,24,16,0,0,3,52,0,3,8,58,15,59,15,57,15,73,16,63,12,2,9
+	.byte	0,0,0
+	.sdecl	'.debug_loc',debug,cluster('CAN_ACK')
+	.sect	'.debug_loc'
+.L66:
+	.word	-1,.L67,0,.L212-.L67
+	.half	2
+	.byte	138,0
+	.word	0,0
+.L213:
+	.word	-1,.L67,0,.L268-.L67
+	.half	5
+	.byte	144,34,157,32,0
+	.word	.L270-.L67,.L271-.L67
+	.half	5
+	.byte	144,39,157,32,32
+	.word	0,0
+.L214:
+	.word	-1,.L67,0,.L269-.L67
+	.half	5
+	.byte	144,34,157,32,32
+	.word	.L272-.L67,.L212-.L67
+	.half	5
+	.byte	144,36,157,32,0
+	.word	0,0
+	.sdecl	'.debug_loc',debug,cluster('Can_PackTrsmtAddr')
+	.sect	'.debug_loc'
+.L90:
+	.word	-1,.L91,0,.L259-.L91
+	.half	2
+	.byte	138,0
+	.word	0,0
+.L260:
+	.word	-1,.L91,0,.L259-.L91
+	.half	5
+	.byte	144,34,157,32,0
+	.word	0,0
+.L261:
+	.word	-1,.L91,0,.L259-.L91
+	.half	5
+	.byte	144,34,157,32,32
+	.word	0,0
+	.sdecl	'.debug_loc',debug,cluster('EraseSector')
+	.sect	'.debug_loc'
+.L86:
+	.word	-1,.L87,0,.L220-.L87
+	.half	2
+	.byte	138,0
+	.word	0,0
+.L222:
+	.word	-1,.L87,.L291-.L87,.L44-.L87
+	.half	5
+	.byte	144,32,157,32,32
+	.word	.L45-.L87,.L220-.L87
+	.half	5
+	.byte	144,32,157,32,32
+	.word	0,0
+.L221:
+	.word	-1,.L87,0,.L220-.L87
+	.half	5
+	.byte	144,34,157,32,0
+	.word	.L295-.L87,.L47-.L87
+	.half	1
+	.byte	111
+	.word	.L298-.L87,.L225-.L87
+	.half	1
+	.byte	111
+	.word	0,0
+.L223:
+	.word	-1,.L87,.L292-.L87,.L293-.L87
+	.half	5
+	.byte	144,39,157,32,32
+	.word	.L294-.L87,.L295-.L87
+	.half	1
+	.byte	111
+	.word	.L47-.L87,.L298-.L87
+	.half	1
+	.byte	111
+	.word	0,0
+.L224:
+	.word	-1,.L87,.L293-.L87,.L296-.L87
+	.half	5
+	.byte	144,39,157,32,32
+	.word	.L297-.L87,.L220-.L87
+	.half	1
+	.byte	98
+	.word	0,0
+	.sdecl	'.debug_loc',debug,cluster('EraseSelectedSector')
+	.sect	'.debug_loc'
+.L84:
+	.word	-1,.L85,0,.L250-.L85
+	.half	2
+	.byte	138,0
+	.word	0,0
+.L251:
+	.word	-1,.L85,0,.L289-.L85
+	.half	5
+	.byte	144,34,157,32,0
+	.word	.L37-.L85,.L290-.L85
+	.half	5
+	.byte	144,34,157,32,0
+	.word	.L40-.L85,.L41-.L85
+	.half	5
+	.byte	144,34,157,32,0
+	.word	.L42-.L85,.L250-.L85
+	.half	5
+	.byte	144,34,157,32,0
+	.word	0,0
+	.sdecl	'.debug_loc',debug,cluster('ProgramBootFlag')
+	.sect	'.debug_loc'
+.L78:
+	.word	-1,.L79,0,.L218-.L79
+	.half	2
+	.byte	138,0
+	.word	0,0
+.L219:
+	.word	-1,.L79,0,.L283-.L79
+	.half	5
+	.byte	144,34,157,32,0
+	.word	.L284-.L79,.L218-.L79
+	.half	5
+	.byte	144,36,157,32,0
+	.word	0,0
+	.sdecl	'.debug_loc',debug,cluster('ProgramFlashPage')
+	.sect	'.debug_loc'
+.L76:
+	.word	-1,.L77,0,.L234-.L77
+	.half	2
+	.byte	138,0
+	.word	0,0
+.L236:
+	.word	-1,.L77,.L238-.L77,.L275-.L77
+	.half	5
+	.byte	144,39,157,32,32
+	.word	0,0
+.L235:
+	.word	-1,.L77,0,.L234-.L77
+	.half	5
+	.byte	144,34,157,32,0
+	.word	.L282-.L77,.L234-.L77
+	.half	1
+	.byte	111
+	.word	0,0
+.L239:
+	.word	-1,.L77,.L276-.L77,.L277-.L77
+	.half	5
+	.byte	144,32,157,32,0
+	.word	.L278-.L77,.L234-.L77
+	.half	1
+	.byte	98
+	.word	0,0
+.L240:
+	.word	-1,.L77,.L277-.L77,.L10-.L77
+	.half	5
+	.byte	144,32,157,32,0
+	.word	.L279-.L77,.L234-.L77
+	.half	1
+	.byte	100
+	.word	0,0
+.L242:
+	.word	-1,.L77,.L275-.L77,.L280-.L77
+	.half	5
+	.byte	144,39,157,32,32
+	.word	.L281-.L77,.L234-.L77
+	.half	1
+	.byte	101
+	.word	0,0
+.L237:
+	.word	-1,.L77,.L10-.L77,.L234-.L77
+	.half	5
+	.byte	144,34,157,32,32
+	.word	0,0
+	.sdecl	'.debug_loc',debug,cluster('ReadBlock2')
+	.sect	'.debug_loc'
+.L258:
+	.word	-1,.L89,.L300-.L89,.L252-.L89
+	.half	5
+	.byte	144,32,157,32,32
+	.word	0,0
+.L88:
+	.word	-1,.L89,0,.L252-.L89
+	.half	2
+	.byte	138,0
+	.word	0,0
+.L255:
+	.word	-1,.L89,.L299-.L89,.L252-.L89
+	.half	1
+	.byte	98
+	.word	0,0
+.L254:
+	.word	-1,.L89,.L49-.L89,.L252-.L89
+	.half	5
+	.byte	144,32,157,32,0
+	.word	0,0
+.L257:
+	.word	0,0
+.L253:
+	.word	-1,.L89,0,.L252-.L89
+	.half	5
+	.byte	144,34,157,32,0
+	.word	0,0
+	.sdecl	'.debug_loc',debug,cluster('ReadFlag')
+	.sect	'.debug_loc'
+.L211:
+	.word	-1,.L81,.L286-.L81,.L200-.L81
+	.half	5
+	.byte	144,32,157,32,32
+	.word	0,0
+.L80:
+	.word	-1,.L81,0,.L200-.L81
+	.half	2
+	.byte	138,0
+	.word	0,0
+.L204:
+	.word	-1,.L81,.L285-.L81,.L200-.L81
+	.half	1
+	.byte	98
+	.word	0,0
+.L202:
+	.word	-1,.L81,.L206-.L81,.L200-.L81
+	.half	5
+	.byte	144,32,157,32,0
+	.word	0,0
+.L209:
+	.word	0,0
+	.sdecl	'.debug_loc',debug,cluster('ReceiveDataBlock')
+	.sect	'.debug_loc'
+.L74:
+	.word	-1,.L75,0,.L231-.L75
+	.half	2
+	.byte	138,0
+	.word	0,0
+.L232:
+	.word	-1,.L75,.L274-.L75,.L231-.L75
+	.half	5
+	.byte	144,32,157,32,0
+	.word	0,0
+	.sdecl	'.debug_loc',debug,cluster('SectorStartAddressCheck')
+	.sect	'.debug_loc'
+.L82:
+	.word	-1,.L83,0,.L248-.L83
+	.half	2
+	.byte	138,0
+	.word	0,0
+.L249:
+	.word	-1,.L83,0,.L248-.L83
+	.half	5
+	.byte	144,34,157,32,0
+	.word	.L287-.L83,.L288-.L83
+	.half	5
+	.byte	144,39,157,32,32
+	.word	0,0
+	.sdecl	'.debug_loc',debug,cluster('SendBlock')
+	.sect	'.debug_loc'
+.L69:
+	.word	-1,.L70,0,.L226-.L70
+	.half	2
+	.byte	138,0
+	.word	0,0
+.L227:
+	.word	-1,.L70,.L273-.L70,.L226-.L70
+	.half	5
+	.byte	144,36,157,32,0
+	.word	0,0
+	.sdecl	'.debug_loc',debug,cluster('SendFlag')
+	.sect	'.debug_loc'
+.L71:
+	.word	-1,.L6,0,.L228-.L6
+	.half	2
+	.byte	138,0
+	.word	0,0
+	.sdecl	'.debug_loc',debug,cluster('clearDataBlock')
+	.sect	'.debug_loc'
+.L72:
+	.word	-1,.L73,0,.L229-.L73
+	.half	2
+	.byte	138,0
+	.word	0,0
+.L230:
+	.word	0,0
+	.sdecl	'.debug_loc',debug,cluster('process_command')
+	.sect	'.debug_loc'
+.L92:
+	.word	-1,.L93,0,.L215-.L93
+	.half	2
+	.byte	138,0
+	.word	0,0
+.L216:
+	.word	-1,.L93,.L301-.L93,.L302-.L93
+	.half	5
+	.byte	144,39,157,32,32
+	.word	.L303-.L93,.L304-.L93
+	.half	5
+	.byte	144,39,157,32,32
+	.word	.L305-.L93,.L306-.L93
+	.half	5
+	.byte	144,39,157,32,32
+	.word	.L307-.L93,.L308-.L93
+	.half	5
+	.byte	144,39,157,32,32
+	.word	.L309-.L93,.L310-.L93
+	.half	5
+	.byte	144,34,157,32,0
+	.word	.L311-.L93,.L312-.L93
+	.half	5
+	.byte	144,34,157,32,0
+	.word	.L313-.L93,.L314-.L93
+	.half	5
+	.byte	144,34,157,32,32
+	.word	0,0
+	.sdecl	'.debug_loc',debug,cluster('transmitback_data')
+	.sect	'.debug_loc'
+.L68:
+	.word	-1,.L3,0,.L217-.L3
+	.half	2
+	.byte	138,0
+	.word	0,0
+	.sdecl	'.debug_frame',debug
+	.sect	'.debug_frame'
+.L713:
+	.word	48
+	.word	-1
+	.byte	3,0,2,1,27,12,26,0,8,26,8,27,8,30,8,29,8,28,8,16,8,17,8,24,8,25,8,31,8,32,8,33,8,34,8,35,8,36,8,37,8,38
+	.byte	8,39
+	.sdecl	'.debug_frame',debug,cluster('CAN_ACK')
+	.sect	'.debug_frame'
+	.word	12
+	.word	.L713,.L67,.L212-.L67
+	.sdecl	'.debug_frame',debug,cluster('transmitback_data')
+	.sect	'.debug_frame'
+	.word	12
+	.word	.L713,.L3,.L217-.L3
+	.sdecl	'.debug_frame',debug,cluster('SendBlock')
+	.sect	'.debug_frame'
+	.word	12
+	.word	.L713,.L70,.L226-.L70
+	.sdecl	'.debug_frame',debug,cluster('SendFlag')
+	.sect	'.debug_frame'
+	.word	12
+	.word	.L713,.L6,.L228-.L6
+	.sdecl	'.debug_frame',debug,cluster('clearDataBlock')
+	.sect	'.debug_frame'
+	.word	24
+	.word	.L713,.L73,.L229-.L73
+	.byte	8,19,8,20,8,21,8,22,8,23,0,0
+	.sdecl	'.debug_frame',debug,cluster('ReceiveDataBlock')
+	.sect	'.debug_frame'
+	.word	20
+	.word	.L713,.L75,.L231-.L75
+	.byte	8,19,8,22,8,23,0,0
+	.sdecl	'.debug_frame',debug,cluster('ProgramFlashPage')
+	.sect	'.debug_frame'
+	.word	16
+	.word	.L713,.L77,.L234-.L77
+	.byte	8,19,8,23
+	.sdecl	'.debug_frame',debug,cluster('ProgramBootFlag')
+	.sect	'.debug_frame'
+	.word	12
+	.word	.L713,.L79,.L218-.L79
+	.sdecl	'.debug_frame',debug,cluster('ReadFlag')
+	.sect	'.debug_frame'
+	.word	20
+	.word	.L713,.L81,.L200-.L81
+	.byte	8,19,8,22,8,23,0,0
+	.sdecl	'.debug_frame',debug,cluster('SectorStartAddressCheck')
+	.sect	'.debug_frame'
+	.word	24
+	.word	.L713,.L83,.L248-.L83
+	.byte	8,18,8,19,8,20,8,21,8,22,8,23
+	.sdecl	'.debug_frame',debug,cluster('EraseSelectedSector')
+	.sect	'.debug_frame'
+	.word	12
+	.word	.L713,.L85,.L250-.L85
+	.sdecl	'.debug_frame',debug,cluster('EraseSector')
+	.sect	'.debug_frame'
+	.word	24
+	.word	.L713,.L87,.L220-.L87
+	.byte	8,19,8,20,8,21,8,22,8,23,0,0
+	.sdecl	'.debug_frame',debug,cluster('ReadBlock2')
+	.sect	'.debug_frame'
+	.word	20
+	.word	.L713,.L89,.L252-.L89
+	.byte	8,19,8,21,8,22,8,23
+	.sdecl	'.debug_frame',debug,cluster('Can_PackTrsmtAddr')
+	.sect	'.debug_frame'
+	.word	24
+	.word	.L713,.L91,.L259-.L91
+	.byte	8,18,8,19,8,20,8,21,8,22,8,23
+	.sdecl	'.debug_frame',debug,cluster('process_command')
+	.sect	'.debug_frame'
+	.word	12
+	.word	.L713,.L93,.L215-.L93
+
+; ..\CANbootloader.c	   572  
+
+	; Module end

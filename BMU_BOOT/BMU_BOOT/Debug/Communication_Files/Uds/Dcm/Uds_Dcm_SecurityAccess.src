@@ -1,0 +1,1132 @@
+	; Module start
+	.compiler_version	"TASKING VX-toolset for TriCore: C compiler v4.3r1 Build 759 SN 00641831"
+	.compiler_invocation	"ctc -f cc2752a -c99 --dep-file=Communication_Files\\Uds\\Dcm\\.Uds_Dcm_SecurityAccess.o.d -D__CPU__=tc1782 -D__CPU_TC1782__ --core=tc1.3.1 -F -ID:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_1.9\\BMU_BOOT -ID:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_1.9\\BMU_BOOT\\Communication_Files\\CanDrv -ID:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_1.9\\BMU_BOOT\\Communication_Files\\Com -ID:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_1.9\\BMU_BOOT\\Communication_Files\\Com\\Can_Input -ID:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_1.9\\BMU_BOOT\\Communication_Files\\Com\\Can_Output -ID:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_1.9\\BMU_BOOT\\Communication_Files\\Uds\\Dcm -ID:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_1.9\\BMU_BOOT\\Communication_Files\\Uds\\Dem -ID:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_1.9\\BMU_BOOT\\Communication_Files\\Uds\\Tp -ID:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_1.9\\BMU_BOOT\\Communication_Files\\Uds\\User -ID:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_1.9\\BMU_BOOT\\Complex_Files -ID:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_1.9\\BMU_BOOT\\Initiate_Files -ID:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_1.9\\BMU_BOOT\\Nvm_Files\\FlsDrv -ID:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_1.9\\BMU_BOOT\\Stand_Header -g2 --make-target=Communication_Files\\Uds\\Dcm\\Uds_Dcm_SecurityAccess.o -t4 --language=-gcc,-volatile,+strings --default-near-size=0 -O2 --default-a1-size=0 --default-a0-size=0 --source --align=0 --compact-max-size=200 --switch=auto -o Communication_Files\\Uds\\Dcm\\Uds_Dcm_SecurityAccess.src ..\\Communication_Files\\Uds\\Dcm\\Uds_Dcm_SecurityAccess.c"
+	.compiler_name		"ctc"
+	.name	"Uds_Dcm_SecurityAccess"
+
+	
+$TC131
+	
+	.sdecl	'.text.Uds_Dcm_SecurityAccess.UdsFunc_SID_SA_Analysis',code,cluster('UdsFunc_SID_SA_Analysis')
+	.sect	'.text.Uds_Dcm_SecurityAccess.UdsFunc_SID_SA_Analysis'
+	.align	2
+	
+	.global	UdsFunc_SID_SA_Analysis
+
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_SecurityAccess.c	     1  
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_SecurityAccess.c	     2  #include "MAIN.h"
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_SecurityAccess.c	     3  
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_SecurityAccess.c	     4  /*SID SA服务*/
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_SecurityAccess.c	     5  const	Struct_Uds_SID_SA	st_Uds_SID_SA[UDS_SID_SA_SUBFUNC_NUMBER] =
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_SecurityAccess.c	     6  {
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_SecurityAccess.c	     7  		{
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_SecurityAccess.c	     8  			0x01U,									/*子功能号*/
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_SecurityAccess.c	     9  			0x04U,
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_SecurityAccess.c	    10  			0x00U,
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_SecurityAccess.c	    11  			1U,										/*数据长度(不含SID)*/
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_SecurityAccess.c	    12  			UdsFunc_SID_SA_SUBID_RSD1_Callback		/*回调函数*/
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_SecurityAccess.c	    13  		},
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_SecurityAccess.c	    14  
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_SecurityAccess.c	    15  		{
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_SecurityAccess.c	    16  			0x02U,									/*子功能号*/
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_SecurityAccess.c	    17  			0x04U,
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_SecurityAccess.c	    18  			0x00U,
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_SecurityAccess.c	    19  			5U,										/*数据长度(不含SID)*/
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_SecurityAccess.c	    20  			UdsFunc_SID_SA_SUBID_SK1_Callback		/*回调函数*/
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_SecurityAccess.c	    21  		},
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_SecurityAccess.c	    22  
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_SecurityAccess.c	    23  		{
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_SecurityAccess.c	    24  			0x05U,									/*子功能号*/
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_SecurityAccess.c	    25  			0x06U,
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_SecurityAccess.c	    26  			0x00U,
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_SecurityAccess.c	    27  			1U,										/*数据长度(不含SID)*/
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_SecurityAccess.c	    28  			UdsFunc_SID_SA_SUBID_RSD4_Callback		/*回调函数*/
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_SecurityAccess.c	    29  		},
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_SecurityAccess.c	    30  
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_SecurityAccess.c	    31  		{
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_SecurityAccess.c	    32  			0x06U,									/*子功能号*/
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_SecurityAccess.c	    33  			0x06U,
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_SecurityAccess.c	    34  			0x00U,
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_SecurityAccess.c	    35  			5U,										/*数据长度(不含SID)*/
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_SecurityAccess.c	    36  			UdsFunc_SID_SA_SUBID_SK4_Callback		/*回调函数*/
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_SecurityAccess.c	    37  		},
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_SecurityAccess.c	    38  };
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_SecurityAccess.c	    39  
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_SecurityAccess.c	    40  /*************************************************************************/
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_SecurityAccess.c	    41  /*
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_SecurityAccess.c	    42  Function:		void UdsFunc_SID_SA_Analysis(uint8 *ui8_pInd, uint16 ui16_IndLen)
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_SecurityAccess.c	    43  
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_SecurityAccess.c	    44  Description: 	此函数用于解析SID_SA服务
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_SecurityAccess.c	    45  
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_SecurityAccess.c	    46  Parameters: 	ui8_pInd(不含SID)
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_SecurityAccess.c	    47  				ui16_IndLen(不含SID)
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_SecurityAccess.c	    48  
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_SecurityAccess.c	    49  Return:       	void
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_SecurityAccess.c	    50  
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_SecurityAccess.c	    51  Return Values:  无
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_SecurityAccess.c	    52  
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_SecurityAccess.c	    53  Remarks:
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_SecurityAccess.c	    54  
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_SecurityAccess.c	    55  Example:
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_SecurityAccess.c	    56  */
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_SecurityAccess.c	    57  void UdsFunc_SID_SA_Analysis(uint8 *ui8_pInd, uint16 ui16_IndLen)
+; Function UdsFunc_SID_SA_Analysis
+.L25:
+UdsFunc_SID_SA_Analysis:	.type	func
+
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_SecurityAccess.c	    58  {
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_SecurityAccess.c	    59  	uint8	ui8_Loop_1;	/*循环计数器*/
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_SecurityAccess.c	    60  	uint8	ui8_SubID;	/*子功能号*/
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_SecurityAccess.c	    61  
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_SecurityAccess.c	    62  	ui8_SubID = ui8_pInd[0U] & 0x7FU;	/*取子功能号*/
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_SecurityAccess.c	    63  
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_SecurityAccess.c	    64  	/*查询匹配子功能号*/
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_SecurityAccess.c	    65  	for(ui8_Loop_1 = 0U; ui8_Loop_1 < UDS_SID_SA_SUBFUNC_NUMBER; ui8_Loop_1++)
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_SecurityAccess.c	    66  	{
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_SecurityAccess.c	    67  		if((ui8_SubID & 0x7FU) == st_Uds_SID_SA[ui8_Loop_1].ui8_SubID)
+	mov	d0,#0
+	movh.a	a15,#@his(st_Uds_SID_SA)
+.L61:
+	lea	a15,[a15]@los(st_Uds_SID_SA)
+.L79:
+	ld.bu	d15,[a4]
+.L63:
+	and	d15,#127
+	mov.aa	a2,a15
+.L80:
+	mov.a	a4,#9
+.L2:
+	ld.bu	d1,[a2]
+.L81:
+	jeq	d15,d1,.L3				; predicted not taken
+.L82:
+	add	d0,#1
+	lea	a2,[a2]12
+.L83:
+	loop	a4,.L2				; predicted taken
+
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_SecurityAccess.c	    68  		{
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_SecurityAccess.c	    69  			break;
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_SecurityAccess.c	    70  		}
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_SecurityAccess.c	    71  	}
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_SecurityAccess.c	    72  
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_SecurityAccess.c	    73  	if(ui8_Loop_1 < UDS_SID_SA_SUBFUNC_NUMBER)	/*查到符合的子功能号*/
+.L3:
+
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_SecurityAccess.c	    74  	{
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_SecurityAccess.c	    75  //		/*判断Session是否支持*/
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_SecurityAccess.c	    76  //		if((st_Uds_SID_DSC_Info.ui8_Active_Session & st_Uds_SID_SA[ui8_Loop_1].ui8_Session_Support) != 0U)
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_SecurityAccess.c	    77  //		{
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_SecurityAccess.c	    78  			/*判断服务无需密钥，或密钥已解锁*/
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_SecurityAccess.c	    79  			if(((st_Uds_SID_SA[ui8_Loop_1].b_Security_En & st_Uds_SID_SA_Info.b_Security_Locked) != 0U) || (st_Uds_SID_SA[ui8_Loop_1].b_Security_En == 0U))
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_SecurityAccess.c	    80  			{
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_SecurityAccess.c	    81  				if(st_Uds_SID_SA_Info.ui32_Boot_State255_Delay != 0)
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_SecurityAccess.c	    82  				{
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_SecurityAccess.c	    83  					st_Uds_SID_SA_Info.ui32_Boot_State255_Delay--;
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_SecurityAccess.c	    84  					st_Uds_Response.ui8_ResCode = UDS_RES_CODE_RTDNE;	/*requiredTimeDelayNotExpired*/
+	movh.a	a2,#@his(st_Uds_Response)
+	lea	a2,[a2]@los(st_Uds_Response)
+.L84:
+	ld.bu	d1,[a2]
+.L85:
+	jge.u	d0,#10,.L4				; predicted not taken
+.L86:
+	mul	d15,d0,#12
+	movh.a	a4,#@his(st_Uds_SID_SA_Info)
+.L64:
+	addsc.a	a15,a15,d15,#0
+.L87:
+	lea	a4,[a4]@los(st_Uds_SID_SA_Info)
+.L88:
+	ld.bu	d15,[a15]2
+.L89:
+	ld.bu	d0,[a4]
+.L62:
+	and	d0,d15
+.L90:
+	jne	d0,#0,.L5				; predicted not taken
+.L91:
+	jne	d15,#0,.L6				; prediction unknown
+.L5:
+	ld.w	d15,[+a4]4
+.L92:
+	jeq	d15,#0,.L7				; predicted not taken
+.L93:
+	add	d15,#-1
+	st.w	[a4],d15
+.L94:
+	mov	d1,#55
+.L95:
+	j	.L8
+.L7:
+
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_SecurityAccess.c	    85  				}
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_SecurityAccess.c	    86  				else
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_SecurityAccess.c	    87  				{
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_SecurityAccess.c	    88  					if(ui16_IndLen == st_Uds_SID_SA[ui8_Loop_1].ui16_DataLen)	/*判断长度*/
+	ld.hu	d15,[a15]4
+.L96:
+	jne	d15,d4,.L9				; prediction unknown
+.L97:
+
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_SecurityAccess.c	    89  					{
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_SecurityAccess.c	    90  						st_Uds_Dcm_Info.ui8_Cur_Task = UDS_TASK_SID_SA;	/*当前为SecurityAccess任务*/
+	movh.a	a15,#@his(st_Uds_Dcm_Info)
+	lea	a15,[a15]@los(st_Uds_Dcm_Info)
+.L98:
+	mov	d15,#3
+	st.b	[a15]4,d15
+.L99:
+	j	.L10
+.L9:
+
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_SecurityAccess.c	    91  					}
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_SecurityAccess.c	    92  					else
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_SecurityAccess.c	    93  					{
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_SecurityAccess.c	    94  						st_Uds_Response.ui8_ResCode = UDS_RES_CODE_IMLOIF;	/*数据长度错误响应*/
+	mov	d1,#19
+.L100:
+	j	.L11
+.L6:
+
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_SecurityAccess.c	    95  					}
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_SecurityAccess.c	    96  				}
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_SecurityAccess.c	    97  			}
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_SecurityAccess.c	    98  			else
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_SecurityAccess.c	    99  			{
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_SecurityAccess.c	   100  				st_Uds_Response.ui8_ResCode = UDS_RES_CODE_SAD;	/*服务密钥未解锁响应*/
+	mov	d1,#51
+.L101:
+	j	.L12
+.L4:
+
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_SecurityAccess.c	   101  			}
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_SecurityAccess.c	   102  //		}
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_SecurityAccess.c	   103  //		else
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_SecurityAccess.c	   104  //		{
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_SecurityAccess.c	   105  //			st_Uds_Response.ui8_ResCode = UDS_RES_CODE_SNSIAS;	/*服务在工作Session下不支持响应*/
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_SecurityAccess.c	   106  //		}
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_SecurityAccess.c	   107  	}
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_SecurityAccess.c	   108  	else
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_SecurityAccess.c	   109  	{
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_SecurityAccess.c	   110  		st_Uds_Response.ui8_ResCode = UDS_RES_CODE_SFNS;	/*子功能不支持响应*/
+	mov	d1,#18
+.L12:
+.L11:
+.L10:
+.L8:
+
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_SecurityAccess.c	   111  	}
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_SecurityAccess.c	   112  
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_SecurityAccess.c	   113  }
+	st.b	[a2],d1
+	ret
+.L44:
+	
+__UdsFunc_SID_SA_Analysis_function_end:
+	.size	UdsFunc_SID_SA_Analysis,__UdsFunc_SID_SA_Analysis_function_end-UdsFunc_SID_SA_Analysis
+.L36:
+	; End of function
+	
+	.sdecl	'.text.Uds_Dcm_SecurityAccess.UdsFunc_SID_SA_Appl_Deal',code,cluster('UdsFunc_SID_SA_Appl_Deal')
+	.sect	'.text.Uds_Dcm_SecurityAccess.UdsFunc_SID_SA_Appl_Deal'
+	.align	2
+	
+	.global	UdsFunc_SID_SA_Appl_Deal
+
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_SecurityAccess.c	   114  
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_SecurityAccess.c	   115  /*************************************************************************/
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_SecurityAccess.c	   116  /*
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_SecurityAccess.c	   117  Function:		boolean UdsFunc_SID_SA_Appl_Deal
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_SecurityAccess.c	   118  				(uint8 *ui8_pInd, uint8 *ui8_pRes, uint16 *ui16_pResLen)
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_SecurityAccess.c	   119  
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_SecurityAccess.c	   120  Description: 	此函数用于处理SID_SA应用层任务
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_SecurityAccess.c	   121  
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_SecurityAccess.c	   122  Parameters: 	ui8_pInd(不含SID)
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_SecurityAccess.c	   123  				ui8_pRes(不含SID)
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_SecurityAccess.c	   124  				ui16_pResLen
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_SecurityAccess.c	   125  
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_SecurityAccess.c	   126  Return:       	boolean
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_SecurityAccess.c	   127  
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_SecurityAccess.c	   128  Return Values:  E_OK		任务完成
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_SecurityAccess.c	   129  				E_NOT_OK	任务未完成
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_SecurityAccess.c	   130  
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_SecurityAccess.c	   131  Remarks:
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_SecurityAccess.c	   132  
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_SecurityAccess.c	   133  Example:
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_SecurityAccess.c	   134  */
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_SecurityAccess.c	   135  boolean UdsFunc_SID_SA_Appl_Deal(uint8 *ui8_pInd, uint8 *ui8_pRes, uint16 *ui16_pResLen)
+; Function UdsFunc_SID_SA_Appl_Deal
+.L27:
+UdsFunc_SID_SA_Appl_Deal:	.type	func
+	mov.aa	a12,a5
+.L66:
+	mov.aa	a13,a6
+.L67:
+
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_SecurityAccess.c	   136  {
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_SecurityAccess.c	   137  	uint8	ui8_Loop_1;	/*循环计数器*/
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_SecurityAccess.c	   138  	uint8	ui8_SubID;	/*子功能号*/
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_SecurityAccess.c	   139  	boolean	b_Return;
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_SecurityAccess.c	   140  
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_SecurityAccess.c	   141  
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_SecurityAccess.c	   142  	if((ui8_pInd[0U] & 0x80U) != 0U)	/*抑制位为TRUE*/
+	ld.bu	d15,[a4]
+.L106:
+	jz.t	d15:7,.L13				; predicted taken
+.L107:
+
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_SecurityAccess.c	   143  	{
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_SecurityAccess.c	   144  		st_Uds_Response.b_SuppressPosRspBit = TRUE;	/*抑制正回应位赋TRUE*/
+	movh.a	a15,#@his(st_Uds_Response)
+	lea	a15,[a15]@los(st_Uds_Response)
+.L108:
+	mov	d15,#1
+	st.b	[a15]1,d15
+.L13:
+
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_SecurityAccess.c	   145  	}
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_SecurityAccess.c	   146  
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_SecurityAccess.c	   147  	ui8_SubID = ui8_pInd[0U] & 0x7FU;	/*取子功能号*/
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_SecurityAccess.c	   148  
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_SecurityAccess.c	   149  	/*查询匹配子功能号*/
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_SecurityAccess.c	   150  	for(ui8_Loop_1 = 0U; ui8_Loop_1 < UDS_SID_SA_SUBFUNC_NUMBER; ui8_Loop_1++)
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_SecurityAccess.c	   151  	{
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_SecurityAccess.c	   152  		if(ui8_SubID == st_Uds_SID_SA[ui8_Loop_1].ui8_SubID)
+	mov	d0,#0
+	movh.a	a15,#@his(st_Uds_SID_SA)
+.L68:
+	ld.bu	d15,[a4]
+.L109:
+	and	d8,d15,#127
+	lea	a15,[a15]@los(st_Uds_SID_SA)
+.L69:
+	movh.a	a14,#@his(st_Uds_Response)
+	lea	a14,[a14]@los(st_Uds_Response)
+.L110:
+	mov.aa	a2,a15
+.L111:
+	mov.a	a5,#9
+.L14:
+	ld.bu	d15,[a2]
+.L112:
+	jeq	d15,d8,.L15				; predicted not taken
+.L113:
+	add	d0,#1
+	lea	a2,[a2]12
+.L114:
+	loop	a5,.L14				; predicted taken
+
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_SecurityAccess.c	   153  		{
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_SecurityAccess.c	   154  			break;
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_SecurityAccess.c	   155  		}
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_SecurityAccess.c	   156  	}
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_SecurityAccess.c	   157  
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_SecurityAccess.c	   158  	if(ui8_Loop_1 < UDS_SID_SA_SUBFUNC_NUMBER)	/*查到符合的子功能号*/
+.L15:
+	jge.u	d0,#10,.L16				; unsupported prediction taken forward branch
+.L115:
+
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_SecurityAccess.c	   159  	{
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_SecurityAccess.c	   160  
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_SecurityAccess.c	   161  		b_Return = st_Uds_SID_SA[ui8_Loop_1].pFunc(&ui8_pInd[1U], &ui8_pRes[1U], &ui16_pResLen[0U]);	/*执行子功能任务*/
+	mul	d15,d0,#12
+	lea	a5,[a12]1
+.L116:
+	addsc.a	a15,a15,d15,#0
+.L117:
+	ld.a	a15,[a15]8
+.L118:
+	mov.aa	a6,a13
+.L119:
+	add.a	a4,#1
+.L120:
+	calli	a15
+.L65:
+
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_SecurityAccess.c	   162  
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_SecurityAccess.c	   163  		if(st_Uds_Response.ui8_ResCode == UDS_RES_CODE_PR)	/*判断是否正响应*/
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_SecurityAccess.c	   164  		{
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_SecurityAccess.c	   165  			if(st_Uds_SID_SA_Info.SA_Counter != 0U)
+	movh.a	a15,#@his(st_Uds_SID_SA_Info)
+	lea	a15,[a15]@los(st_Uds_SID_SA_Info)
+.L121:
+	mov.aa	a2,a15
+	ld.bu	d15,[+a2]2
+.L122:
+	ld.bu	d0,[a14]
+.L123:
+	jne	d0,#0,.L17				; prediction unknown
+.L124:
+	jeq	d15,#0,.L18				; predicted not taken
+.L125:
+
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_SecurityAccess.c	   166  			{
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_SecurityAccess.c	   167  				st_Uds_SID_SA_Info.SA_Counter--;
+	add	d15,#-1
+	st.b	[a2],d15
+.L126:
+
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_SecurityAccess.c	   168  				st_Uds_SID_SA_Info.SeedKeyFlag = 0;
+	mov	d15,#0
+	st.b	[a15]3,d15
+.L18:
+
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_SecurityAccess.c	   169  			}
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_SecurityAccess.c	   170  			ui8_pRes[0U] = ui8_SubID;	/*回应子功能号*/
+	st.b	[a12],d8
+.L127:
+
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_SecurityAccess.c	   171  			ui16_pResLen[0U] += 1U;		/*增加SubID字节长度*/
+	ld.hu	d15,[a13]0
+.L128:
+	add	d15,#1
+	st.h	[a13],d15
+.L129:
+
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_SecurityAccess.c	   172  		}
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_SecurityAccess.c	   173  		else												/*负响应*/
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_SecurityAccess.c	   174  		{
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_SecurityAccess.c	   175  			if(st_Uds_SID_SA_Info.SA_Counter < 3U)
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_SecurityAccess.c	   176  			{
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_SecurityAccess.c	   177  				st_Uds_SID_SA_Info.SA_Counter++;
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_SecurityAccess.c	   178  			}
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_SecurityAccess.c	   179  
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_SecurityAccess.c	   180  			if(st_Uds_SID_SA_Info.SA_Counter == 3U)
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_SecurityAccess.c	   181  			{
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_SecurityAccess.c	   182  				st_Uds_SID_SA_Info.SeedKeyFlag = 1;
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_SecurityAccess.c	   183  				st_Uds_SID_SA_Info.ui32_Boot_State255_Delay = UDS_BOOT_STATE_DELAY_TIME;	/*初始化Boot State255等待时间*/
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_SecurityAccess.c	   184  			}
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_SecurityAccess.c	   185  		}
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_SecurityAccess.c	   186  
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_SecurityAccess.c	   187  	}
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_SecurityAccess.c	   188  	else
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_SecurityAccess.c	   189  	{
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_SecurityAccess.c	   190  		st_Uds_Response.ui8_ResCode = UDS_RES_CODE_SFNS;	/*子功能不支持响应*/
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_SecurityAccess.c	   191  		b_Return = E_OK;
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_SecurityAccess.c	   192  	}
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_SecurityAccess.c	   193  
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_SecurityAccess.c	   194  	return b_Return;
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_SecurityAccess.c	   195  }
+	ret
+.L17:
+	jge.u	d15,#3,.L20				; predicted not taken
+.L130:
+	add	d15,#1
+	st.b	[a2],d15
+.L20:
+	ld.bu	d15,[a2]
+.L131:
+	jne	d15,#3,.L21				; predicted taken
+.L132:
+	mov	d15,#1
+	st.b	[a15]3,d15
+.L133:
+	mov	d15,#1000
+	st.w	[a15]4,d15
+.L21:
+	ret
+.L16:
+	mov	d15,#18
+	st.b	[a14],d15
+.L134:
+	mov	d2,#0
+.L70:
+	ret
+.L52:
+	
+__UdsFunc_SID_SA_Appl_Deal_function_end:
+	.size	UdsFunc_SID_SA_Appl_Deal,__UdsFunc_SID_SA_Appl_Deal_function_end-UdsFunc_SID_SA_Appl_Deal
+.L41:
+	; End of function
+	
+	.sdecl	'.rodata.Uds_Dcm_SecurityAccess.st_Uds_SID_SA',data,rom,cluster('st_Uds_SID_SA')
+	.sect	'.rodata.Uds_Dcm_SecurityAccess.st_Uds_SID_SA'
+	.global	st_Uds_SID_SA
+	.align	4
+st_Uds_SID_SA:	.type	object
+	.size	st_Uds_SID_SA,120
+	.byte	1,4
+	.space	2
+	.half	1
+	.space	2
+	.word	UdsFunc_SID_SA_SUBID_RSD1_Callback
+	.byte	2,4
+	.space	2
+	.half	5
+	.space	2
+	.word	UdsFunc_SID_SA_SUBID_SK1_Callback
+	.byte	5,6
+	.space	2
+	.half	1
+	.space	2
+	.word	UdsFunc_SID_SA_SUBID_RSD4_Callback
+	.byte	6,6
+	.space	2
+	.half	5
+	.space	2
+	.word	UdsFunc_SID_SA_SUBID_SK4_Callback
+	.space	72
+	.calls	'__INDIRECT__','UdsFunc_SID_SA_SUBID_RSD1_Callback'
+	.calls	'__INDIRECT__','UdsFunc_SID_SA_SUBID_SK1_Callback'
+	.calls	'__INDIRECT__','UdsFunc_SID_SA_SUBID_RSD4_Callback'
+	.calls	'__INDIRECT__','UdsFunc_SID_SA_SUBID_SK4_Callback'
+	.calls	'UdsFunc_SID_SA_Appl_Deal','__INDIRECT__'
+	.calls	'UdsFunc_SID_SA_Analysis','',0
+	.extern	st_Uds_SID_SA_Info
+	.extern	UdsFunc_SID_SA_SUBID_RSD1_Callback
+	.extern	UdsFunc_SID_SA_SUBID_SK1_Callback
+	.extern	UdsFunc_SID_SA_SUBID_RSD4_Callback
+	.extern	UdsFunc_SID_SA_SUBID_SK4_Callback
+	.extern	st_Uds_Dcm_Info
+	.extern	st_Uds_Response
+	.extern	__INDIRECT__
+	.calls	'UdsFunc_SID_SA_Appl_Deal','',0
+	.sdecl	'.debug_info',debug
+	.sect	'.debug_info'
+.L29:
+	.word	1595
+	.half	3
+	.word	.L30
+	.byte	4
+.L28:
+	.byte	1
+	.byte	'..\\Communication_Files\\Uds\\Dcm\\Uds_Dcm_SecurityAccess.c',0
+	.byte	'TASKING VX-toolset for TriCore: C compiler',0
+	.byte	'D:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_1.9\\BMU_BOOT\\Debug\\',0,12,1
+	.word	.L31
+.L49:
+	.byte	2
+	.byte	'unsigned char',0,1,8,3
+	.byte	'UdsFunc_SID_SA_SUBID_RSD1_Callback',0,1,43,16
+	.word	173
+	.byte	1,1,1,1
+.L45:
+	.byte	4
+	.word	173
+	.byte	5
+	.byte	'ui8_pInd',0,1,44,10
+	.word	237
+	.byte	5
+	.byte	'ui8_pRes',0,1,44,27
+	.word	237
+.L47:
+	.byte	2
+	.byte	'unsigned short int',0,2,7
+.L55:
+	.byte	4
+	.word	276
+	.byte	5
+	.byte	'ui16_pResLen',0,1,44,45
+	.word	298
+	.byte	0,3
+	.byte	'UdsFunc_SID_SA_SUBID_SK1_Callback',0,1,66,16
+	.word	173
+	.byte	1,1,1,1,5
+	.byte	'ui8_pInd',0,1,67,10
+	.word	237
+	.byte	5
+	.byte	'ui8_pRes',0,1,67,27
+	.word	237
+	.byte	5
+	.byte	'ui16_pResLen',0,1,67,45
+	.word	298
+	.byte	0,3
+	.byte	'UdsFunc_SID_SA_SUBID_RSD4_Callback',0,1,89,16
+	.word	173
+	.byte	1,1,1,1,5
+	.byte	'ui8_pInd',0,1,90,10
+	.word	237
+	.byte	5
+	.byte	'ui8_pRes',0,1,90,27
+	.word	237
+	.byte	5
+	.byte	'ui16_pResLen',0,1,90,45
+	.word	298
+	.byte	0,3
+	.byte	'UdsFunc_SID_SA_SUBID_SK4_Callback',0,1,112,16
+	.word	173
+	.byte	1,1,1,1,5
+	.byte	'ui8_pInd',0,1,113,10
+	.word	237
+	.byte	5
+	.byte	'ui8_pRes',0,1,113,27
+	.word	237
+	.byte	5
+	.byte	'ui16_pResLen',0,1,113,45
+	.word	298
+	.byte	0,6
+	.byte	'__INDIRECT__',0,2,1,1,1,1,1,7
+	.byte	'void',0,4
+	.word	652
+	.byte	8
+	.byte	'__prof_adm',0,2,1,1
+	.word	658
+	.byte	9,1,4
+	.word	682
+	.byte	8
+	.byte	'__codeptr',0,2,1,1
+	.word	684
+	.byte	8
+	.byte	'ubyte',0,3,78,24
+	.word	173
+	.byte	8
+	.byte	'ushort',0,3,80,24
+	.word	276
+	.byte	2
+	.byte	'unsigned int',0,4,7,8
+	.byte	'uword',0,3,82,24
+	.word	736
+	.byte	8
+	.byte	'uint8',0,4,87,29
+	.word	173
+	.byte	8
+	.byte	'uint16',0,4,89,29
+	.word	276
+	.byte	2
+	.byte	'long int',0,4,5,8
+	.byte	'sint32',0,4,90,29
+	.word	795
+	.byte	2
+	.byte	'unsigned long int',0,4,7,8
+	.byte	'uint32',0,4,91,27
+	.word	822
+	.byte	8
+	.byte	'boolean',0,4,102,29
+	.word	173
+	.byte	10,1,5,9,8,11
+	.byte	'b_Security_Locked',0,1
+	.word	173
+	.byte	2,35,0,11
+	.byte	'b_RequestSeedFlag',0,1
+	.word	173
+	.byte	2,35,1,11
+	.byte	'SA_Counter',0,1
+	.word	173
+	.byte	2,35,2,11
+	.byte	'SeedKeyFlag',0,1
+	.word	173
+	.byte	2,35,3,11
+	.byte	'ui32_Boot_State255_Delay',0,4
+	.word	822
+	.byte	2,35,4,0,8
+	.byte	'Struct_Uds_SID_SA_Info',0,1,20,2
+	.word	874
+	.byte	12
+	.byte	'st_Uds_SID_SA_Info',0,1,21,31
+	.word	874
+	.byte	1,1,10,5,8,9,12,11
+	.byte	'ui8_SubID',0,1
+	.word	173
+	.byte	2,35,0,11
+	.byte	'ui8_Session_Support',0,1
+	.word	173
+	.byte	2,35,1,11
+	.byte	'b_Security_En',0,1
+	.word	173
+	.byte	2,35,2,11
+	.byte	'ui16_DataLen',0,2
+	.word	276
+	.byte	2,35,4,13
+	.word	173
+	.byte	1,1,4
+	.word	173
+	.byte	14
+	.word	1174
+	.byte	14
+	.word	1174
+	.byte	4
+	.word	276
+	.byte	14
+	.word	1189
+	.byte	0,4
+	.word	1167
+	.byte	11
+	.byte	'pFunc',0,4
+	.word	1200
+	.byte	2,35,8,0,8
+	.byte	'Struct_Uds_SID_SA',0,5,23,2
+	.word	1069
+	.byte	10,6,75,9,6,11
+	.byte	'b_Service_Enable',0,1
+	.word	173
+	.byte	2,35,0,11
+	.byte	'ui16_S3_Timer',0,2
+	.word	276
+	.byte	2,35,2,11
+	.byte	'ui8_Cur_Task',0,1
+	.word	173
+	.byte	2,35,4,0,8
+	.byte	'Struct_Uds_Dcm_Info',0,6,80,2
+	.word	1247
+	.byte	10,6,91,9,28,11
+	.byte	'ui8_ResCode',0,1
+	.word	173
+	.byte	2,35,0,11
+	.byte	'b_SuppressPosRspBit',0,1
+	.word	173
+	.byte	2,35,1,11
+	.byte	'ui8_pMsgData',0,4
+	.word	237
+	.byte	2,35,4,11
+	.byte	'ui16_pLength',0,4
+	.word	298
+	.byte	2,35,8,15,8
+	.word	173
+	.byte	16,7,0,11
+	.byte	'ui8_Neg78_Buf',0,8
+	.word	1451
+	.byte	2,35,12,11
+	.byte	'ui8_3E_Buf',0,8
+	.word	1451
+	.byte	2,35,20,0,8
+	.byte	'Struct_Uds_Response',0,6,99,2
+	.word	1352
+	.byte	12
+	.byte	'st_Uds_Dcm_Info',0,6,124,29
+	.word	1247
+	.byte	1,1,12
+	.byte	'st_Uds_Response',0,6,126,29
+	.word	1352
+	.byte	1,1,15,120
+	.word	1069
+	.byte	16,9,0
+.L60:
+	.byte	17
+	.word	1584
+	.byte	0
+	.sdecl	'.debug_abbrev',debug
+	.sect	'.debug_abbrev'
+.L30:
+	.byte	1,17,1,3,8,37,8,27,8,19,15,128,70,12,16,6,0,0,2,36,0,3,8,11,15,62,15,0,0,3,46,1,3,8,58,15,59,15,57,15
+	.byte	73,19,54,15,39,12,63,12,60,12,0,0,4,15,0,73,19,0,0,5,5,0,3,8,58,15,59,15,57,15,73,19,0,0,6,46,0,3,8,58
+	.byte	15,59,15,57,15,54,15,63,12,60,12,0,0,7,59,0,3,8,0,0,8,22,0,3,8,58,15,59,15,57,15,73,19,0,0,9,21,0,54,15
+	.byte	0,0,10,19,1,58,15,59,15,57,15,11,15,0,0,11,13,0,3,8,11,15,73,19,56,9,0,0,12,52,0,3,8,58,15,59,15,57,15
+	.byte	73,19,63,12,60,12,0,0,13,21,1,73,19,54,15,39,12,0,0,14,5,0,73,19,0,0,15,1,1,11,15,73,19,0,0,16,33,0,47
+	.byte	15,0,0,17,38,0,73,19,0,0,0
+	.sdecl	'.debug_line',debug
+	.sect	'.debug_line'
+.L31:
+	.word	.L72-.L71
+.L71:
+	.half	3
+	.word	.L74-.L73
+.L73:
+	.byte	2,1,-4,9,10,0,1,1,1,1,0,0,0,1
+	.byte	'D:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_1.9\\BMU_BOOT\\Communication_Files\\Uds\\User',0
+	.byte	'D:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_1.9\\BMU_BOOT\\Initiate_Files',0
+	.byte	'D:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_1.9\\BMU_BOOT\\Stand_Header',0
+	.byte	'D:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_1.9\\BMU_BOOT\\Communication_Files\\Uds\\Dcm',0,0
+	.byte	'Uds_User_SecurityAccessCallback.h',0,1,0,0
+	.byte	'..\\Communication_Files\\Uds\\Dcm\\Uds_Dcm_SecurityAccess.c',0,0,0,0
+	.byte	'MAIN.h',0,2,0,0
+	.byte	'Platform_Types.h',0,3,0,0
+	.byte	'Uds_Dcm_SecurityAccess.h',0,4,0,0
+	.byte	'Uds_Dcm_Drv.h',0,4,0,0,0
+.L74:
+.L72:
+	.sdecl	'.debug_info',debug,cluster('UdsFunc_SID_SA_Analysis')
+	.sect	'.debug_info'
+.L32:
+	.word	323
+	.half	3
+	.word	.L33
+	.byte	4,1
+	.byte	'..\\Communication_Files\\Uds\\Dcm\\Uds_Dcm_SecurityAccess.c',0
+	.byte	'TASKING VX-toolset for TriCore: C compiler',0
+	.byte	'D:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_1.9\\BMU_BOOT\\Debug\\',0,12,1
+	.word	.L35,.L34
+	.byte	2
+	.word	.L28
+	.byte	3
+	.byte	'UdsFunc_SID_SA_Analysis',0,1,57,6,1,1,1
+	.word	.L25,.L44,.L24
+	.byte	4
+	.byte	'ui8_pInd',0,1,57,37
+	.word	.L45,.L46
+	.byte	4
+	.byte	'ui16_IndLen',0,1,57,54
+	.word	.L47,.L48
+	.byte	5
+	.word	.L25,.L44
+	.byte	6
+	.byte	'ui8_Loop_1',0,1,59,8
+	.word	.L49,.L50
+	.byte	6
+	.byte	'ui8_SubID',0,1,60,8
+	.word	.L49,.L51
+	.byte	0,0,0
+	.sdecl	'.debug_abbrev',debug,cluster('UdsFunc_SID_SA_Analysis')
+	.sect	'.debug_abbrev'
+.L33:
+	.byte	1,17,1,3,8,37,8,27,8,19,15,128,70,12,85,6,16,6,0,0,2,61,0,24,16,0,0,3,46,1,3,8,58,15,59,15,57,15,54,15
+	.byte	39,12,63,12,17,1,18,1,64,6,0,0,4,5,0,3,8,58,15,59,15,57,15,73,16,2,6,0,0,5,11,1,17,1,18,1,0,0,6,52,0,3
+	.byte	8,58,15,59,15,57,15,73,16,2,6,0,0,0
+	.sdecl	'.debug_line',debug,cluster('UdsFunc_SID_SA_Analysis')
+	.sect	'.debug_line'
+.L34:
+	.word	.L76-.L75
+.L75:
+	.half	3
+	.word	.L78-.L77
+.L77:
+	.byte	2,1,-4,9,10,0,1,1,1,1,0,0,0,1,0
+	.byte	'..\\Communication_Files\\Uds\\Dcm\\Uds_Dcm_SecurityAccess.c',0,0,0,0,0
+.L78:
+	.byte	5,17,7,0,5,2
+	.word	.L25
+	.byte	3,192,0,1,5,29,3,2,1,5,22,9
+	.half	.L79-.L25
+	.byte	3,123,1,5,27,9
+	.half	.L63-.L79
+	.byte	1,5,75,3,3,1,5,61,9
+	.half	.L80-.L63
+	.byte	1,5,54,9
+	.half	.L2-.L80
+	.byte	3,2,1,5,3,9
+	.half	.L81-.L2
+	.byte	1,5,73,7,9
+	.half	.L82-.L81
+	.byte	3,126,1,5,61,9
+	.half	.L83-.L82
+	.byte	1,5,6,7,9
+	.half	.L3-.L83
+	.byte	3,19,1,5,21,9
+	.half	.L84-.L3
+	.byte	1,5,2,9
+	.half	.L85-.L84
+	.byte	3,117,1,5,22,7,9
+	.half	.L86-.L85
+	.byte	3,6,1,5,51,1,5,22,9
+	.half	.L64-.L86
+	.byte	1,5,51,9
+	.half	.L87-.L64
+	.byte	1,5,34,9
+	.half	.L88-.L87
+	.byte	1,5,69,9
+	.half	.L89-.L88
+	.byte	1,5,49,9
+	.half	.L62-.L89
+	.byte	1,5,7,9
+	.half	.L90-.L62
+	.byte	1,5,140,1,7,9
+	.half	.L91-.L90
+	.byte	1,5,26,7,9
+	.half	.L5-.L91
+	.byte	3,2,1,5,5,9
+	.half	.L92-.L5
+	.byte	1,5,49,7,9
+	.half	.L93-.L92
+	.byte	3,2,1,5,34,9
+	.half	.L94-.L93
+	.byte	3,1,1,5,51,9
+	.half	.L95-.L94
+	.byte	3,127,1,5,49,9
+	.half	.L7-.L95
+	.byte	3,5,1,5,6,9
+	.half	.L96-.L7
+	.byte	1,5,7,7,9
+	.half	.L97-.L96
+	.byte	3,2,1,5,38,9
+	.half	.L98-.L97
+	.byte	1,5,36,1,5,53,9
+	.half	.L99-.L98
+	.byte	1,5,35,9
+	.half	.L9-.L99
+	.byte	3,4,1,5,5,9
+	.half	.L100-.L9
+	.byte	3,120,1,5,33,9
+	.half	.L6-.L100
+	.byte	3,14,1,5,4,9
+	.half	.L101-.L6
+	.byte	3,126,1,5,31,9
+	.half	.L4-.L101
+	.byte	3,12,1,5,1,9
+	.half	.L8-.L4
+	.byte	3,3,1,9
+	.half	.L36-.L8
+	.byte	0,1,1
+.L76:
+	.sdecl	'.debug_ranges',debug,cluster('UdsFunc_SID_SA_Analysis')
+	.sect	'.debug_ranges'
+.L35:
+	.word	-1,.L25,0,.L36-.L25,0,0
+	.sdecl	'.debug_info',debug,cluster('UdsFunc_SID_SA_Appl_Deal')
+	.sect	'.debug_info'
+.L37:
+	.word	378
+	.half	3
+	.word	.L38
+	.byte	4,1
+	.byte	'..\\Communication_Files\\Uds\\Dcm\\Uds_Dcm_SecurityAccess.c',0
+	.byte	'TASKING VX-toolset for TriCore: C compiler',0
+	.byte	'D:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_1.9\\BMU_BOOT\\Debug\\',0,12,1
+	.word	.L40,.L39
+	.byte	2
+	.word	.L28
+	.byte	3
+	.byte	'UdsFunc_SID_SA_Appl_Deal',0,1,135,1,9
+	.word	.L49
+	.byte	1,1,1
+	.word	.L27,.L52,.L26
+	.byte	4
+	.byte	'ui8_pInd',0,1,135,1,41
+	.word	.L45,.L53
+	.byte	4
+	.byte	'ui8_pRes',0,1,135,1,58
+	.word	.L45,.L54
+	.byte	4
+	.byte	'ui16_pResLen',0,1,135,1,76
+	.word	.L55,.L56
+	.byte	5
+	.word	.L27,.L52
+	.byte	6
+	.byte	'ui8_Loop_1',0,1,137,1,8
+	.word	.L49,.L57
+	.byte	6
+	.byte	'ui8_SubID',0,1,138,1,8
+	.word	.L49,.L58
+	.byte	6
+	.byte	'b_Return',0,1,139,1,10
+	.word	.L49,.L59
+	.byte	0,0,0
+	.sdecl	'.debug_abbrev',debug,cluster('UdsFunc_SID_SA_Appl_Deal')
+	.sect	'.debug_abbrev'
+.L38:
+	.byte	1,17,1,3,8,37,8,27,8,19,15,128,70,12,85,6,16,6,0,0,2,61,0,24,16,0,0,3,46,1,3,8,58,15,59,15,57,15,73,16
+	.byte	54,15,39,12,63,12,17,1,18,1,64,6,0,0,4,5,0,3,8,58,15,59,15,57,15,73,16,2,6,0,0,5,11,1,17,1,18,1,0,0,6
+	.byte	52,0,3,8,58,15,59,15,57,15,73,16,2,6,0,0,0
+	.sdecl	'.debug_line',debug,cluster('UdsFunc_SID_SA_Appl_Deal')
+	.sect	'.debug_line'
+.L39:
+	.word	.L103-.L102
+.L102:
+	.half	3
+	.word	.L105-.L104
+.L104:
+	.byte	2,1,-4,9,10,0,1,1,1,1,0,0,0,1,0
+	.byte	'..\\Communication_Files\\Uds\\Dcm\\Uds_Dcm_SecurityAccess.c',0,0,0,0,0
+.L105:
+	.byte	5,9,7,0,5,2
+	.word	.L27
+	.byte	3,134,1,1,5,14,9
+	.half	.L67-.L27
+	.byte	3,7,1,5,2,9
+	.half	.L106-.L67
+	.byte	1,5,3,7,9
+	.half	.L107-.L106
+	.byte	3,2,1,5,41,9
+	.half	.L108-.L107
+	.byte	1,5,39,1,5,17,9
+	.half	.L13-.L108
+	.byte	3,6,1,5,19,3,2,1,5,22,9
+	.half	.L68-.L13
+	.byte	3,123,1,5,27,9
+	.half	.L109-.L68
+	.byte	1,5,19,3,5,1,5,3,9
+	.half	.L69-.L109
+	.byte	3,120,1,5,75,9
+	.half	.L110-.L69
+	.byte	3,6,1,5,61,9
+	.half	.L111-.L110
+	.byte	1,5,44,9
+	.half	.L14-.L111
+	.byte	3,2,1,5,3,9
+	.half	.L112-.L14
+	.byte	1,5,73,7,9
+	.half	.L113-.L112
+	.byte	3,126,1,5,61,9
+	.half	.L114-.L113
+	.byte	1,5,2,7,9
+	.half	.L15-.L114
+	.byte	3,8,1,5,27,7,9
+	.half	.L115-.L15
+	.byte	3,3,1,5,71,1,5,27,9
+	.half	.L116-.L115
+	.byte	1,5,39,9
+	.half	.L117-.L116
+	.byte	1,5,77,9
+	.half	.L118-.L117
+	.byte	1,5,55,9
+	.half	.L119-.L118
+	.byte	1,5,77,9
+	.half	.L120-.L119
+	.byte	1,5,7,9
+	.half	.L65-.L120
+	.byte	3,4,1,5,25,9
+	.half	.L121-.L65
+	.byte	1,5,21,9
+	.half	.L122-.L121
+	.byte	3,126,1,5,3,9
+	.half	.L123-.L122
+	.byte	1,5,4,7,9
+	.half	.L124-.L123
+	.byte	3,2,1,5,34,7,9
+	.half	.L125-.L124
+	.byte	3,2,1,5,38,9
+	.half	.L126-.L125
+	.byte	3,1,1,5,36,1,5,17,9
+	.half	.L18-.L126
+	.byte	3,2,1,5,16,9
+	.half	.L127-.L18
+	.byte	3,1,1,5,21,9
+	.half	.L128-.L127
+	.byte	1,5,1,9
+	.half	.L129-.L128
+	.byte	3,24,1,5,4,7,9
+	.half	.L17-.L129
+	.byte	3,108,1,5,34,7,9
+	.half	.L130-.L17
+	.byte	3,2,1,5,25,9
+	.half	.L20-.L130
+	.byte	3,3,1,5,4,9
+	.half	.L131-.L20
+	.byte	1,5,38,7,9
+	.half	.L132-.L131
+	.byte	3,2,1,5,36,1,5,51,9
+	.half	.L133-.L132
+	.byte	3,1,1,5,49,1,5,1,9
+	.half	.L21-.L133
+	.byte	3,12,1,5,33,7,9
+	.half	.L16-.L21
+	.byte	3,123,1,5,31,1,5,12,9
+	.half	.L134-.L16
+	.byte	3,1,1,5,1,9
+	.half	.L70-.L134
+	.byte	3,4,1,7,9
+	.half	.L41-.L70
+	.byte	0,1,1
+.L103:
+	.sdecl	'.debug_ranges',debug,cluster('UdsFunc_SID_SA_Appl_Deal')
+	.sect	'.debug_ranges'
+.L40:
+	.word	-1,.L27,0,.L41-.L27,0,0
+	.sdecl	'.debug_info',debug,cluster('st_Uds_SID_SA')
+	.sect	'.debug_info'
+.L42:
+	.word	200
+	.half	3
+	.word	.L43
+	.byte	4,1
+	.byte	'..\\Communication_Files\\Uds\\Dcm\\Uds_Dcm_SecurityAccess.c',0
+	.byte	'TASKING VX-toolset for TriCore: C compiler',0
+	.byte	'D:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_1.9\\BMU_BOOT\\Debug\\',0,12,1,2
+	.word	.L28
+	.byte	3
+	.byte	'st_Uds_SID_SA',0,2,5,25
+	.word	.L60
+	.byte	1,5,3
+	.word	st_Uds_SID_SA
+	.byte	0
+	.sdecl	'.debug_abbrev',debug,cluster('st_Uds_SID_SA')
+	.sect	'.debug_abbrev'
+.L43:
+	.byte	1,17,1,3,8,37,8,27,8,19,15,128,70,12,0,0,2,61,0,24,16,0,0,3,52,0,3,8,58,15,59,15,57,15,73,16,63,12,2,9
+	.byte	0,0,0
+	.sdecl	'.debug_loc',debug,cluster('UdsFunc_SID_SA_Analysis')
+	.sect	'.debug_loc'
+.L24:
+	.word	-1,.L25,0,.L44-.L25
+	.half	2
+	.byte	138,0
+	.word	0,0
+.L48:
+	.word	-1,.L25,0,.L44-.L25
+	.half	5
+	.byte	144,34,157,32,0
+	.word	0,0
+.L50:
+	.word	-1,.L25,.L61-.L25,.L62-.L25
+	.half	5
+	.byte	144,32,157,32,0
+	.word	.L4-.L25,.L8-.L25
+	.half	5
+	.byte	144,32,157,32,0
+	.word	0,0
+.L51:
+	.word	-1,.L25,.L63-.L25,.L64-.L25
+	.half	5
+	.byte	144,39,157,32,32
+	.word	.L4-.L25,.L8-.L25
+	.half	5
+	.byte	144,39,157,32,32
+	.word	0,0
+.L46:
+	.word	-1,.L25,0,.L2-.L25
+	.half	1
+	.byte	100
+	.word	0,0
+	.sdecl	'.debug_loc',debug,cluster('UdsFunc_SID_SA_Appl_Deal')
+	.sect	'.debug_loc'
+.L26:
+	.word	-1,.L27,0,.L52-.L27
+	.half	2
+	.byte	138,0
+	.word	0,0
+.L59:
+	.word	-1,.L27,.L65-.L27,.L16-.L27
+	.half	5
+	.byte	144,33,157,32,0
+	.word	.L70-.L27,.L52-.L27
+	.half	5
+	.byte	144,33,157,32,0
+	.word	0,0
+.L56:
+	.word	-1,.L27,0,.L65-.L27
+	.half	1
+	.byte	102
+	.word	.L67-.L27,.L52-.L27
+	.half	1
+	.byte	109
+	.word	.L16-.L27,.L52-.L27
+	.half	1
+	.byte	102
+	.word	0,0
+.L57:
+	.word	-1,.L27,.L68-.L27,.L65-.L27
+	.half	5
+	.byte	144,32,157,32,0
+	.word	.L16-.L27,.L52-.L27
+	.half	5
+	.byte	144,32,157,32,0
+	.word	0,0
+.L58:
+	.word	-1,.L27,.L69-.L27,.L52-.L27
+	.half	5
+	.byte	144,36,157,32,0
+	.word	0,0
+.L53:
+	.word	-1,.L27,0,.L65-.L27
+	.half	1
+	.byte	100
+	.word	.L16-.L27,.L52-.L27
+	.half	1
+	.byte	100
+	.word	0,0
+.L54:
+	.word	-1,.L27,0,.L14-.L27
+	.half	1
+	.byte	101
+	.word	.L66-.L27,.L52-.L27
+	.half	1
+	.byte	108
+	.word	0,0
+	.sdecl	'.debug_frame',debug
+	.sect	'.debug_frame'
+.L135:
+	.word	48
+	.word	-1
+	.byte	3,0,2,1,27,12,26,0,8,26,8,27,8,30,8,29,8,28,8,16,8,17,8,24,8,25,8,31,8,32,8,33,8,34,8,35,8,36,8,37,8,38
+	.byte	8,39
+	.sdecl	'.debug_frame',debug,cluster('UdsFunc_SID_SA_Analysis')
+	.sect	'.debug_frame'
+	.word	20
+	.word	.L135,.L25,.L44-.L25
+	.byte	8,19,8,21,8,22,8,23
+	.sdecl	'.debug_frame',debug,cluster('UdsFunc_SID_SA_Appl_Deal')
+	.sect	'.debug_frame'
+	.word	12
+	.word	.L135,.L27,.L52-.L27
+
+
+	; Module end

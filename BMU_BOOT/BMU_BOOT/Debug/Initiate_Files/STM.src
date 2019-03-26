@@ -1,0 +1,809 @@
+	; Module start
+	.compiler_version	"TASKING VX-toolset for TriCore: C compiler v4.3r1 Build 759 SN 00641831"
+	.compiler_invocation	"ctc -f cc8912a -c99 --dep-file=Initiate_Files\\.STM.o.d -D__CPU__=tc1782 -D__CPU_TC1782__ --core=tc1.3.1 -F -ID:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_1.9\\BMU_BOOT -ID:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_1.9\\BMU_BOOT\\Communication_Files\\CanDrv -ID:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_1.9\\BMU_BOOT\\Communication_Files\\Com -ID:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_1.9\\BMU_BOOT\\Communication_Files\\Com\\Can_Input -ID:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_1.9\\BMU_BOOT\\Communication_Files\\Com\\Can_Output -ID:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_1.9\\BMU_BOOT\\Communication_Files\\Uds\\Dcm -ID:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_1.9\\BMU_BOOT\\Communication_Files\\Uds\\Dem -ID:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_1.9\\BMU_BOOT\\Communication_Files\\Uds\\Tp -ID:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_1.9\\BMU_BOOT\\Communication_Files\\Uds\\User -ID:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_1.9\\BMU_BOOT\\Complex_Files -ID:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_1.9\\BMU_BOOT\\Initiate_Files -ID:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_1.9\\BMU_BOOT\\Nvm_Files\\FlsDrv -ID:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_1.9\\BMU_BOOT\\Stand_Header -g2 --make-target=Initiate_Files\\STM.o -t4 --language=-gcc,-volatile,+strings --default-near-size=0 -O2 --default-a1-size=0 --default-a0-size=0 --source --align=0 --compact-max-size=200 --switch=auto -o Initiate_Files\\STM.src ..\\Initiate_Files\\STM.c"
+	.compiler_name		"ctc"
+	.name	"STM"
+
+	
+$TC131
+	
+	.sdecl	'.text.STM.STM_vInit',code,cluster('STM_vInit')
+	.sect	'.text.STM.STM_vInit'
+	.align	2
+	
+	.global	STM_vInit
+
+; ..\Initiate_Files\STM.c	     1  //****************************************************************************
+; ..\Initiate_Files\STM.c	     2  // @Module        System Timer (STM)
+; ..\Initiate_Files\STM.c	     3  // @Filename      STM.c
+; ..\Initiate_Files\STM.c	     4  // @Project       HBCU_0926.dav
+; ..\Initiate_Files\STM.c	     5  //----------------------------------------------------------------------------
+; ..\Initiate_Files\STM.c	     6  // @Controller    Infineon TC1782
+; ..\Initiate_Files\STM.c	     7  //
+; ..\Initiate_Files\STM.c	     8  // @Compiler      Tasking 3.5r1
+; ..\Initiate_Files\STM.c	     9  //
+; ..\Initiate_Files\STM.c	    10  // @Codegenerator 1.0
+; ..\Initiate_Files\STM.c	    11  //
+; ..\Initiate_Files\STM.c	    12  // @Description   This file contains functions that use the STM module.
+; ..\Initiate_Files\STM.c	    13  //
+; ..\Initiate_Files\STM.c	    14  //----------------------------------------------------------------------------
+; ..\Initiate_Files\STM.c	    15  // @Date          2019-1-11 17:50:20
+; ..\Initiate_Files\STM.c	    16  //
+; ..\Initiate_Files\STM.c	    17  //****************************************************************************
+; ..\Initiate_Files\STM.c	    18  
+; ..\Initiate_Files\STM.c	    19  // USER CODE BEGIN (STM_General,1)
+; ..\Initiate_Files\STM.c	    20  
+; ..\Initiate_Files\STM.c	    21  // USER CODE END
+; ..\Initiate_Files\STM.c	    22  
+; ..\Initiate_Files\STM.c	    23  
+; ..\Initiate_Files\STM.c	    24  
+; ..\Initiate_Files\STM.c	    25  //****************************************************************************
+; ..\Initiate_Files\STM.c	    26  // @Project Includes
+; ..\Initiate_Files\STM.c	    27  //****************************************************************************
+; ..\Initiate_Files\STM.c	    28  
+; ..\Initiate_Files\STM.c	    29  #include "MAIN.h"
+; ..\Initiate_Files\STM.c	    30  
+; ..\Initiate_Files\STM.c	    31  // USER CODE BEGIN (STM_General,2)
+; ..\Initiate_Files\STM.c	    32  
+; ..\Initiate_Files\STM.c	    33  // USER CODE END
+; ..\Initiate_Files\STM.c	    34  
+; ..\Initiate_Files\STM.c	    35  
+; ..\Initiate_Files\STM.c	    36  //****************************************************************************
+; ..\Initiate_Files\STM.c	    37  // @Macros
+; ..\Initiate_Files\STM.c	    38  //****************************************************************************
+; ..\Initiate_Files\STM.c	    39  
+; ..\Initiate_Files\STM.c	    40  // USER CODE BEGIN (STM_General,3)
+; ..\Initiate_Files\STM.c	    41  
+; ..\Initiate_Files\STM.c	    42  // USER CODE END
+; ..\Initiate_Files\STM.c	    43  
+; ..\Initiate_Files\STM.c	    44  
+; ..\Initiate_Files\STM.c	    45  //****************************************************************************
+; ..\Initiate_Files\STM.c	    46  // @Defines
+; ..\Initiate_Files\STM.c	    47  //****************************************************************************
+; ..\Initiate_Files\STM.c	    48  
+; ..\Initiate_Files\STM.c	    49  // USER CODE BEGIN (STM_General,4)
+; ..\Initiate_Files\STM.c	    50  
+; ..\Initiate_Files\STM.c	    51  // USER CODE END
+; ..\Initiate_Files\STM.c	    52  
+; ..\Initiate_Files\STM.c	    53  
+; ..\Initiate_Files\STM.c	    54  //****************************************************************************
+; ..\Initiate_Files\STM.c	    55  // @Typedefs
+; ..\Initiate_Files\STM.c	    56  //****************************************************************************
+; ..\Initiate_Files\STM.c	    57  
+; ..\Initiate_Files\STM.c	    58  // USER CODE BEGIN (STM_General,5)
+; ..\Initiate_Files\STM.c	    59  
+; ..\Initiate_Files\STM.c	    60  // USER CODE END
+; ..\Initiate_Files\STM.c	    61  
+; ..\Initiate_Files\STM.c	    62  
+; ..\Initiate_Files\STM.c	    63  //****************************************************************************
+; ..\Initiate_Files\STM.c	    64  // @Imported Global Variables
+; ..\Initiate_Files\STM.c	    65  //****************************************************************************
+; ..\Initiate_Files\STM.c	    66  
+; ..\Initiate_Files\STM.c	    67  
+; ..\Initiate_Files\STM.c	    68  // USER CODE BEGIN (STM_General,6)
+; ..\Initiate_Files\STM.c	    69  
+; ..\Initiate_Files\STM.c	    70  // USER CODE END
+; ..\Initiate_Files\STM.c	    71  
+; ..\Initiate_Files\STM.c	    72  
+; ..\Initiate_Files\STM.c	    73  //****************************************************************************
+; ..\Initiate_Files\STM.c	    74  // @Global Variables
+; ..\Initiate_Files\STM.c	    75  //****************************************************************************
+; ..\Initiate_Files\STM.c	    76  
+; ..\Initiate_Files\STM.c	    77  // USER CODE BEGIN (STM_General,7)
+; ..\Initiate_Files\STM.c	    78  
+; ..\Initiate_Files\STM.c	    79  // USER CODE END
+; ..\Initiate_Files\STM.c	    80  
+; ..\Initiate_Files\STM.c	    81  
+; ..\Initiate_Files\STM.c	    82  //****************************************************************************
+; ..\Initiate_Files\STM.c	    83  // @External Prototypes
+; ..\Initiate_Files\STM.c	    84  //****************************************************************************
+; ..\Initiate_Files\STM.c	    85  
+; ..\Initiate_Files\STM.c	    86  // USER CODE BEGIN (STM_General,8)
+; ..\Initiate_Files\STM.c	    87  
+; ..\Initiate_Files\STM.c	    88  // USER CODE END
+; ..\Initiate_Files\STM.c	    89  
+; ..\Initiate_Files\STM.c	    90  
+; ..\Initiate_Files\STM.c	    91  //****************************************************************************
+; ..\Initiate_Files\STM.c	    92  // @Prototypes Of Local Functions
+; ..\Initiate_Files\STM.c	    93  //****************************************************************************
+; ..\Initiate_Files\STM.c	    94  
+; ..\Initiate_Files\STM.c	    95  // USER CODE BEGIN (STM_General,9)
+; ..\Initiate_Files\STM.c	    96  
+; ..\Initiate_Files\STM.c	    97  // USER CODE END
+; ..\Initiate_Files\STM.c	    98  
+; ..\Initiate_Files\STM.c	    99  
+; ..\Initiate_Files\STM.c	   100  //****************************************************************************
+; ..\Initiate_Files\STM.c	   101  // @Function      void STM_vInit(void) 
+; ..\Initiate_Files\STM.c	   102  //
+; ..\Initiate_Files\STM.c	   103  //----------------------------------------------------------------------------
+; ..\Initiate_Files\STM.c	   104  // @Description   This is the initialization function of the STM function 
+; ..\Initiate_Files\STM.c	   105  //                library. It is assumed that the SFRs used by this library 
+; ..\Initiate_Files\STM.c	   106  //                are in their reset state. 
+; ..\Initiate_Files\STM.c	   107  //
+; ..\Initiate_Files\STM.c	   108  //----------------------------------------------------------------------------
+; ..\Initiate_Files\STM.c	   109  // @Returnvalue   None
+; ..\Initiate_Files\STM.c	   110  //
+; ..\Initiate_Files\STM.c	   111  //----------------------------------------------------------------------------
+; ..\Initiate_Files\STM.c	   112  // @Parameters    None
+; ..\Initiate_Files\STM.c	   113  //
+; ..\Initiate_Files\STM.c	   114  //----------------------------------------------------------------------------
+; ..\Initiate_Files\STM.c	   115  // @Date          2019-1-11
+; ..\Initiate_Files\STM.c	   116  //
+; ..\Initiate_Files\STM.c	   117  //****************************************************************************
+; ..\Initiate_Files\STM.c	   118  
+; ..\Initiate_Files\STM.c	   119  // USER CODE BEGIN (Init,1)
+; ..\Initiate_Files\STM.c	   120  
+; ..\Initiate_Files\STM.c	   121  // USER CODE END
+; ..\Initiate_Files\STM.c	   122  
+; ..\Initiate_Files\STM.c	   123  void STM_vInit(void)
+; Function STM_vInit
+.L7:
+STM_vInit:	.type	func
+
+; ..\Initiate_Files\STM.c	   124  {
+; ..\Initiate_Files\STM.c	   125  
+; ..\Initiate_Files\STM.c	   126    volatile unsigned int uwTemp;
+; ..\Initiate_Files\STM.c	   127  
+; ..\Initiate_Files\STM.c	   128    // USER CODE BEGIN (Init,2)
+; ..\Initiate_Files\STM.c	   129  
+; ..\Initiate_Files\STM.c	   130    // USER CODE END
+; ..\Initiate_Files\STM.c	   131  
+; ..\Initiate_Files\STM.c	   132    ///  -----------------------------------------------------------------------
+; ..\Initiate_Files\STM.c	   133    ///  Configuration of the Module Clock:
+; ..\Initiate_Files\STM.c	   134    ///  -----------------------------------------------------------------------
+; ..\Initiate_Files\STM.c	   135    ///  - enable the STM module
+; ..\Initiate_Files\STM.c	   136    ///  - Application Reset resets the STM module
+; ..\Initiate_Files\STM.c	   137    ///  - STM clock is System clock / 2 (= 20.00 MHz; 50.00 ns )
+; ..\Initiate_Files\STM.c	   138  
+; ..\Initiate_Files\STM.c	   139    MAIN_vResetENDINIT();
+	lea	a15,0xf00005f0
+	ld.w	d15,[a15]
+.L42:
+	insert	d4,d15,#0,#0,#1
+	sub.a	a10,#8
+.L33:
+	call	MAIN_vWriteWDTCON0
+.L2:
+	ld.bu	d15,0xf00005f0
+	jnz.t	d15:0,.L2				; predicted taken
+.L43:
+
+; ..\Initiate_Files\STM.c	   140    STM_CLC        =  0x00000200;  // load clock control register
+	mov	d15,#512
+	st.w	0xf0000200,d15
+.L44:
+
+; ..\Initiate_Files\STM.c	   141    uwTemp         =  STM_CLC;     // dummy read to avoid pipeline effects
+	ld.w	d15,0xf0000200
+.L45:
+	st.w	[a10],d15
+.L46:
+
+; ..\Initiate_Files\STM.c	   142    MAIN_vSetENDINIT();
+	ld.w	d15,[a15]
+	or	d4,d15,#1
+	call	MAIN_vWriteWDTCON0
+.L47:
+
+; ..\Initiate_Files\STM.c	   143  
+; ..\Initiate_Files\STM.c	   144  
+; ..\Initiate_Files\STM.c	   145    ///  -----------------------------------------------------------------------
+; ..\Initiate_Files\STM.c	   146    ///  STM Resolution And Range:
+; ..\Initiate_Files\STM.c	   147    ///  -----------------------------------------------------------------------
+; ..\Initiate_Files\STM.c	   148    ///  STM_TIMER_0     bits 0 ... 31 :
+; ..\Initiate_Files\STM.c	   149    ///  - resolution = 0.05 us
+; ..\Initiate_Files\STM.c	   150    ///  - range = 3.58 min
+; ..\Initiate_Files\STM.c	   151  
+; ..\Initiate_Files\STM.c	   152    ///  STM_TIMER_1     bits 4 ... 35 :
+; ..\Initiate_Files\STM.c	   153    ///  - resolution = 0.80 us
+; ..\Initiate_Files\STM.c	   154    ///  - range = 57.27 min
+; ..\Initiate_Files\STM.c	   155  
+; ..\Initiate_Files\STM.c	   156    ///  STM_TIMER_2     bits 8 ... 39 :
+; ..\Initiate_Files\STM.c	   157    ///  - resolution = 12.80 us
+; ..\Initiate_Files\STM.c	   158    ///  - range = 15.27 h
+; ..\Initiate_Files\STM.c	   159  
+; ..\Initiate_Files\STM.c	   160    ///  STM_TIMER_3     bits 12 ... 43 :
+; ..\Initiate_Files\STM.c	   161    ///  - resolution = 204.80 us
+; ..\Initiate_Files\STM.c	   162    ///  - range = 10.18 days
+; ..\Initiate_Files\STM.c	   163  
+; ..\Initiate_Files\STM.c	   164    ///  STM_TIMER_4     bits 16 ... 47 :
+; ..\Initiate_Files\STM.c	   165    ///  - resolution = 3.28 ms
+; ..\Initiate_Files\STM.c	   166    ///  - range = 162.89 days
+; ..\Initiate_Files\STM.c	   167  
+; ..\Initiate_Files\STM.c	   168    ///  STM_TIMER_5     bits 20 ... 51 :
+; ..\Initiate_Files\STM.c	   169    ///  - resolution = 52.43 ms
+; ..\Initiate_Files\STM.c	   170    ///  - range = 7.14 years
+; ..\Initiate_Files\STM.c	   171  
+; ..\Initiate_Files\STM.c	   172    ///  STM_TIMER_6     bits 32 ... 55 :
+; ..\Initiate_Files\STM.c	   173    ///  - resolution = 3.58 min
+; ..\Initiate_Files\STM.c	   174    ///  - range = 114.25 years
+; ..\Initiate_Files\STM.c	   175  
+; ..\Initiate_Files\STM.c	   176    ///  STM_TIMER_7     bits 32 ... 55 :
+; ..\Initiate_Files\STM.c	   177    ///  - resolution = 3.58 min
+; ..\Initiate_Files\STM.c	   178    ///  - range = 114.25 years
+; ..\Initiate_Files\STM.c	   179  
+; ..\Initiate_Files\STM.c	   180    ///  -----------------------------------------------------------------------
+; ..\Initiate_Files\STM.c	   181    ///  STM Compare 0 configuration:
+; ..\Initiate_Files\STM.c	   182    ///  -----------------------------------------------------------------------
+; ..\Initiate_Files\STM.c	   183    ///  - lowest bit number of STM which is compared with CMP0 is 0
+; ..\Initiate_Files\STM.c	   184    ///  - 15 bit(s) in register CMP0 are used for the compare operation with 
+; ..\Initiate_Files\STM.c	   185    ///    STM
+; ..\Initiate_Files\STM.c	   186    ///  - required compare value of CMP0 is 0x000057E4
+; ..\Initiate_Files\STM.c	   187    ///  - real compare value of CMP0 is 0x000057E4
+; ..\Initiate_Files\STM.c	   188    ///  - request on compare match with CMP0 is enabled and located to STMIR0
+; ..\Initiate_Files\STM.c	   189  
+; ..\Initiate_Files\STM.c	   190    STM_CMP0       =  0x000057E4;  // load compare register 0
+	mov	d15,#22500
+	st.w	0xf0000230,d15
+.L48:
+
+; ..\Initiate_Files\STM.c	   191  
+; ..\Initiate_Files\STM.c	   192    ///  -----------------------------------------------------------------------
+; ..\Initiate_Files\STM.c	   193    ///  STM Compare 1 configuration:
+; ..\Initiate_Files\STM.c	   194    ///  -----------------------------------------------------------------------
+; ..\Initiate_Files\STM.c	   195    ///  - lowest bit number of STM which is compared with CMP1 is 0
+; ..\Initiate_Files\STM.c	   196    ///  - 1 bit(s) in register CMP1 are used for the compare operation with STM
+; ..\Initiate_Files\STM.c	   197    ///  - required compare value of CMP1 is 0x00000000
+; ..\Initiate_Files\STM.c	   198    ///  - real compare value of CMP1 is 0x00000000
+; ..\Initiate_Files\STM.c	   199    ///  - request on compare match with CMP1 is not enabled
+; ..\Initiate_Files\STM.c	   200  
+; ..\Initiate_Files\STM.c	   201    STM_CMP1       =  0x00000000;  // load compare register 1
+	mov	d15,#0
+	st.w	0xf0000234,d15
+.L49:
+
+; ..\Initiate_Files\STM.c	   202  
+; ..\Initiate_Files\STM.c	   203    STM_CMCON      =  0x0000000E;  // load compare match control register
+	mov	d15,#14
+	st.w	0xf0000238,d15
+.L50:
+
+; ..\Initiate_Files\STM.c	   204    STM_ICR        =  0x00000001;  // load interrupt control register
+	mov	d15,#1
+	st.w	0xf000023c,d15
+.L51:
+
+; ..\Initiate_Files\STM.c	   205  
+; ..\Initiate_Files\STM.c	   206    ///  -----------------------------------------------------------------------
+; ..\Initiate_Files\STM.c	   207    ///  Configuration of the used STM Interrupts:
+; ..\Initiate_Files\STM.c	   208    ///  -----------------------------------------------------------------------
+; ..\Initiate_Files\STM.c	   209    ///  - SRN0 service request node configuration:
+; ..\Initiate_Files\STM.c	   210    ///  - SRN0 interrupt priority level (SRPN) = 30
+; ..\Initiate_Files\STM.c	   211    ///  - SRN0 CPU interrupt is selected
+; ..\Initiate_Files\STM.c	   212  
+; ..\Initiate_Files\STM.c	   213    STM_SRC0       =  0x0000101E;  // set service request control register
+	mov	d15,#4126
+	st.w	0xf00002fc,d15
+.L52:
+
+; ..\Initiate_Files\STM.c	   214  
+; ..\Initiate_Files\STM.c	   215  
+; ..\Initiate_Files\STM.c	   216    // USER CODE BEGIN (Init,3)
+; ..\Initiate_Files\STM.c	   217  
+; ..\Initiate_Files\STM.c	   218    // USER CODE END
+; ..\Initiate_Files\STM.c	   219  
+; ..\Initiate_Files\STM.c	   220  } //  End of function STM_vInit
+	ret
+.L28:
+	
+__STM_vInit_function_end:
+	.size	STM_vInit,__STM_vInit_function_end-STM_vInit
+.L18:
+	; End of function
+	
+	.sdecl	'.text.intvec.01e',code
+	.sect	'.text.intvec.01e'
+
+; ..\Initiate_Files\STM.c	   221  
+; ..\Initiate_Files\STM.c	   222  
+; ..\Initiate_Files\STM.c	   223  //****************************************************************************
+; ..\Initiate_Files\STM.c	   224  // @Function      void STM_viSRN0(void) 
+; ..\Initiate_Files\STM.c	   225  //
+; ..\Initiate_Files\STM.c	   226  //----------------------------------------------------------------------------
+; ..\Initiate_Files\STM.c	   227  // @Description   This is the interrupt service routine 0 of STM. It is 
+; ..\Initiate_Files\STM.c	   228  //                called if the selected compare match is pending.
+; ..\Initiate_Files\STM.c	   229  //                Please note that you have to add application specific code 
+; ..\Initiate_Files\STM.c	   230  //                to this function.
+; ..\Initiate_Files\STM.c	   231  //
+; ..\Initiate_Files\STM.c	   232  //----------------------------------------------------------------------------
+; ..\Initiate_Files\STM.c	   233  // @Returnvalue   None
+; ..\Initiate_Files\STM.c	   234  //
+; ..\Initiate_Files\STM.c	   235  //----------------------------------------------------------------------------
+; ..\Initiate_Files\STM.c	   236  // @Parameters    None
+; ..\Initiate_Files\STM.c	   237  //
+; ..\Initiate_Files\STM.c	   238  //----------------------------------------------------------------------------
+; ..\Initiate_Files\STM.c	   239  // @Date          2019-1-11
+; ..\Initiate_Files\STM.c	   240  //
+; ..\Initiate_Files\STM.c	   241  //****************************************************************************
+; ..\Initiate_Files\STM.c	   242  
+; ..\Initiate_Files\STM.c	   243  // USER CODE BEGIN (SRN0,1)
+; ..\Initiate_Files\STM.c	   244  #if 1
+; ..\Initiate_Files\STM.c	   245  uint8 Flag_Add = 0;
+; ..\Initiate_Files\STM.c	   246  uint8 Flag_1ms = 0;
+; ..\Initiate_Files\STM.c	   247  // USER CODE END
+; ..\Initiate_Files\STM.c	   248  
+; ..\Initiate_Files\STM.c	   249  void INTERRUPT (STM_INT0) STM_viSRN0(void)
+	movh.a	a14,#@his(STM_viSRN0)
+	lea	a14,[a14]@los(STM_viSRN0)
+	ji	a14
+	.sdecl	'.text.STM.STM_viSRN0',code,cluster('STM_viSRN0')
+	.sect	'.text.STM.STM_viSRN0'
+	.align	2
+	
+	.global	STM_viSRN0
+; Function STM_viSRN0
+.L9:
+STM_viSRN0:	.type	func
+	svlcx
+.L57:
+
+; ..\Initiate_Files\STM.c	   250  {
+; ..\Initiate_Files\STM.c	   251    // USER CODE BEGIN (SRN0,2)
+; ..\Initiate_Files\STM.c	   252  
+; ..\Initiate_Files\STM.c	   253    // USER CODE END
+; ..\Initiate_Files\STM.c	   254  
+; ..\Initiate_Files\STM.c	   255    if(STM_ICR_CMP0IR == 1)   // if compare match of CMP0 is pending
+	lea	a15,0xf000023c
+	ld.bu	d15,[a15]
+.L58:
+	jz.t	d15:1,.L3				; predicted taken
+.L59:
+
+; ..\Initiate_Files\STM.c	   256    {
+; ..\Initiate_Files\STM.c	   257      // USER CODE BEGIN (SRN0,3)
+; ..\Initiate_Files\STM.c	   258  	  STM_CMP0   =  STM_CMP0 + 0x57E4;		//定时500us基准的时间
+	ld.w	d15,0xf0000230
+.L60:
+	addi	d15,d15,#22500
+	st.w	0xf0000230,d15
+.L61:
+
+; ..\Initiate_Files\STM.c	   259  	  if(Flag_1ms == 0)
+	movh.a	a12,#@his(Flag_1ms)
+	lea	a12,[a12]@los(Flag_1ms)
+	ld.bu	d15,[a12]
+.L62:
+
+; ..\Initiate_Files\STM.c	   260  	  {
+; ..\Initiate_Files\STM.c	   261  		  Flag_1ms = 1;
+	eq	d15,d15,#0
+	st.b	[a12],d15
+.L63:
+
+; ..\Initiate_Files\STM.c	   262  //		  UdsFunc_Receiver_Task();
+; ..\Initiate_Files\STM.c	   263  	  }
+; ..\Initiate_Files\STM.c	   264  	  else
+; ..\Initiate_Files\STM.c	   265  	  {
+; ..\Initiate_Files\STM.c	   266  		  Flag_1ms = 0;
+; ..\Initiate_Files\STM.c	   267  	  }
+; ..\Initiate_Files\STM.c	   268  
+; ..\Initiate_Files\STM.c	   269  
+; ..\Initiate_Files\STM.c	   270  	  if(Flag_Add == 1)
+	movh.a	a12,#@his(Flag_Add)
+	lea	a12,[a12]@los(Flag_Add)
+	ld.bu	d15,[a12]
+.L64:
+	jne	d15,#1,.L4				; predicted taken
+.L65:
+
+; ..\Initiate_Files\STM.c	   271  	  {
+; ..\Initiate_Files\STM.c	   272  		  Flag_Add = 0;
+	mov	d15,#0
+	st.b	[a12],d15
+.L66:
+
+; ..\Initiate_Files\STM.c	   273  		  os_schedule();
+	call	os_schedule
+.L4:
+
+; ..\Initiate_Files\STM.c	   274  	  }
+; ..\Initiate_Files\STM.c	   275  	  Flag_Add++;
+	ld.bu	d15,[a12]
+.L67:
+	add	d15,#1
+	st.b	[a12],d15
+.L68:
+
+; ..\Initiate_Files\STM.c	   276      // USER CODE END
+; ..\Initiate_Files\STM.c	   277  
+; ..\Initiate_Files\STM.c	   278      STM_ISRR_CMP0IRR = 1;  // clear request bit of CMP0
+	ld.bu	d15,0xf0000240
+.L69:
+	st.t	0xf0000240:0,#1
+.L3:
+
+; ..\Initiate_Files\STM.c	   279    }
+; ..\Initiate_Files\STM.c	   280  
+; ..\Initiate_Files\STM.c	   281    if(STM_ICR_CMP1IR == 1)   // if compare match of CMP1 is pending
+	ld.bu	d15,[a15]
+.L70:
+	jz.t	d15:5,.L5				; predicted taken
+.L71:
+
+; ..\Initiate_Files\STM.c	   282    {
+; ..\Initiate_Files\STM.c	   283      // USER CODE BEGIN (SRN0,4)
+; ..\Initiate_Files\STM.c	   284  
+; ..\Initiate_Files\STM.c	   285      // USER CODE END
+; ..\Initiate_Files\STM.c	   286  
+; ..\Initiate_Files\STM.c	   287      STM_ISRR_CMP1IRR = 1;  // clear request bit of CMP1
+	ld.bu	d15,0xf0000240
+.L72:
+	st.t	0xf0000240:2,#1
+.L5:
+
+; ..\Initiate_Files\STM.c	   288    }
+; ..\Initiate_Files\STM.c	   289  
+; ..\Initiate_Files\STM.c	   290    // USER CODE BEGIN (SRN0,5)
+; ..\Initiate_Files\STM.c	   291  
+; ..\Initiate_Files\STM.c	   292    // USER CODE END
+; ..\Initiate_Files\STM.c	   293  
+; ..\Initiate_Files\STM.c	   294  } //  End of function STM_viSRN0
+	rslcx
+	rfe
+.L31:
+	
+__STM_viSRN0_function_end:
+	.size	STM_viSRN0,__STM_viSRN0_function_end-STM_viSRN0
+.L23:
+	; End of function
+	
+	.sdecl	'.data.STM.Flag_Add',data,cluster('Flag_Add')
+	.sect	'.data.STM.Flag_Add'
+	.global	Flag_Add
+Flag_Add:	.type	object
+	.size	Flag_Add,1
+	.space	1
+	.sdecl	'.data.STM.Flag_1ms',data,cluster('Flag_1ms')
+	.sect	'.data.STM.Flag_1ms'
+	.global	Flag_1ms
+Flag_1ms:	.type	object
+	.size	Flag_1ms,1
+	.space	1
+	.calls	'STM_vInit','MAIN_vWriteWDTCON0'
+	.calls	'STM_viSRN0','os_schedule'
+	.calls	'STM_vInit','',8
+	.extern	MAIN_vWriteWDTCON0
+	.extern	os_schedule
+	.calls	'STM_viSRN0','',0
+	.sdecl	'.debug_info',debug
+	.sect	'.debug_info'
+.L11:
+	.word	470
+	.half	3
+	.word	.L12
+	.byte	4
+.L10:
+	.byte	1
+	.byte	'..\\Initiate_Files\\STM.c',0
+	.byte	'TASKING VX-toolset for TriCore: C compiler',0
+	.byte	'D:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_1.9\\BMU_BOOT\\Debug\\',0,12,1
+	.word	.L13
+	.byte	2
+	.byte	'MAIN_vWriteWDTCON0',0,1,148,1,6,1,1,1,1,3
+	.byte	'unsigned int',0,4,7,4
+	.byte	'uwValue',0,1,148,1,31
+	.word	169
+	.byte	0
+.L29:
+	.byte	5
+	.word	169
+	.byte	6
+	.byte	'os_schedule',0,2,22,6,1,1,1,1,7
+	.byte	'void',0,8
+	.word	228
+	.byte	9
+	.byte	'__prof_adm',0,3,1,1
+	.word	234
+	.byte	10,1,8
+	.word	258
+	.byte	9
+	.byte	'__codeptr',0,3,1,1
+	.word	260
+.L32:
+	.byte	3
+	.byte	'unsigned char',0,1,8,9
+	.byte	'ubyte',0,1,78,24
+	.word	283
+	.byte	3
+	.byte	'unsigned short int',0,2,7,9
+	.byte	'ushort',0,1,80,24
+	.word	314
+	.byte	9
+	.byte	'uword',0,1,82,24
+	.word	169
+	.byte	9
+	.byte	'uint8',0,4,87,29
+	.word	283
+	.byte	9
+	.byte	'uint16',0,4,89,29
+	.word	314
+	.byte	3
+	.byte	'long int',0,4,5,9
+	.byte	'sint32',0,4,90,29
+	.word	394
+	.byte	3
+	.byte	'unsigned long int',0,4,7,9
+	.byte	'uint32',0,4,91,27
+	.word	421
+	.byte	9
+	.byte	'boolean',0,4,102,29
+	.word	283
+	.byte	0
+	.sdecl	'.debug_abbrev',debug
+	.sect	'.debug_abbrev'
+.L12:
+	.byte	1,17,1,3,8,37,8,27,8,19,15,128,70,12,16,6,0,0,2,46,1,3,8,58,15,59,15,57,15,54,15,39,12,63,12,60,12,0,0
+	.byte	3,36,0,3,8,11,15,62,15,0,0,4,5,0,3,8,58,15,59,15,57,15,73,19,0,0,5,53,0,73,19,0,0,6,46,0,3,8,58,15,59
+	.byte	15,57,15,54,15,39,12,63,12,60,12,0,0,7,59,0,3,8,0,0,8,15,0,73,19,0,0,9,22,0,3,8,58,15,59,15,57,15,73,19
+	.byte	0,0,10,21,0,54,15,0,0,0
+	.sdecl	'.debug_line',debug
+	.sect	'.debug_line'
+.L13:
+	.word	.L35-.L34
+.L34:
+	.half	3
+	.word	.L37-.L36
+.L36:
+	.byte	2,1,-4,9,10,0,1,1,1,1,0,0,0,1
+	.byte	'D:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_1.9\\BMU_BOOT\\Complex_Files',0
+	.byte	'D:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_1.9\\BMU_BOOT\\Stand_Header',0,0
+	.byte	'..\\Initiate_Files\\MAIN.h',0,0,0,0
+	.byte	'Operating_System.h',0,1,0,0
+	.byte	'..\\Initiate_Files\\STM.c',0,0,0,0
+	.byte	'Platform_Types.h',0,2,0,0,0
+.L37:
+.L35:
+	.sdecl	'.debug_info',debug,cluster('STM_vInit')
+	.sect	'.debug_info'
+.L14:
+	.word	206
+	.half	3
+	.word	.L15
+	.byte	4,1
+	.byte	'..\\Initiate_Files\\STM.c',0
+	.byte	'TASKING VX-toolset for TriCore: C compiler',0
+	.byte	'D:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_1.9\\BMU_BOOT\\Debug\\',0,12,1
+	.word	.L17,.L16
+	.byte	2
+	.word	.L10
+	.byte	3
+	.byte	'STM_vInit',0,1,123,6,1,1,1
+	.word	.L7,.L28,.L6
+	.byte	4
+	.word	.L7,.L28
+	.byte	5
+	.byte	'uwTemp',0,1,126,25
+	.word	.L29,.L30
+	.byte	0,0,0
+	.sdecl	'.debug_abbrev',debug,cluster('STM_vInit')
+	.sect	'.debug_abbrev'
+.L15:
+	.byte	1,17,1,3,8,37,8,27,8,19,15,128,70,12,85,6,16,6,0,0,2,61,0,24,16,0,0,3,46,1,3,8,58,15,59,15,57,15,54,15
+	.byte	39,12,63,12,17,1,18,1,64,6,0,0,4,11,1,17,1,18,1,0,0,5,52,0,3,8,58,15,59,15,57,15,73,16,2,6,0,0,0
+	.sdecl	'.debug_line',debug,cluster('STM_vInit')
+	.sect	'.debug_line'
+.L16:
+	.word	.L39-.L38
+.L38:
+	.half	3
+	.word	.L41-.L40
+.L40:
+	.byte	2,1,-4,9,10,0,1,1,1,1,0,0,0,1,0
+	.byte	'..\\Initiate_Files\\STM.c',0,0,0,0,0
+.L41:
+	.byte	5,3,7,0,5,2
+	.word	.L7
+	.byte	3,138,1,1,5,6,9
+	.half	.L42-.L7
+	.byte	3,112,1,5,3,9
+	.half	.L33-.L42
+	.byte	3,16,1,5,21,9
+	.half	.L43-.L33
+	.byte	3,1,1,5,18,1,5,21,9
+	.half	.L44-.L43
+	.byte	3,1,1,5,18,9
+	.half	.L45-.L44
+	.byte	1,5,3,9
+	.half	.L46-.L45
+	.byte	3,1,1,5,21,9
+	.half	.L47-.L46
+	.byte	3,48,1,5,18,1,5,21,9
+	.half	.L48-.L47
+	.byte	3,11,1,5,18,1,5,21,9
+	.half	.L49-.L48
+	.byte	3,2,1,5,18,1,5,21,9
+	.half	.L50-.L49
+	.byte	3,1,1,5,18,1,5,21,9
+	.half	.L51-.L50
+	.byte	3,9,1,5,18,1,5,1,9
+	.half	.L52-.L51
+	.byte	3,7,1,7,9
+	.half	.L18-.L52
+	.byte	0,1,1
+.L39:
+	.sdecl	'.debug_ranges',debug,cluster('STM_vInit')
+	.sect	'.debug_ranges'
+.L17:
+	.word	-1,.L7,0,.L18-.L7,0,0
+	.sdecl	'.debug_info',debug,cluster('STM_viSRN0')
+	.sect	'.debug_info'
+.L19:
+	.word	188
+	.half	3
+	.word	.L20
+	.byte	4,1
+	.byte	'..\\Initiate_Files\\STM.c',0
+	.byte	'TASKING VX-toolset for TriCore: C compiler',0
+	.byte	'D:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_1.9\\BMU_BOOT\\Debug\\',0,12,1
+	.word	.L22,.L21
+	.byte	2
+	.word	.L10
+	.byte	3
+	.byte	'STM_viSRN0',0,1,249,1,27,1,1,1
+	.word	.L9,.L31,.L8
+	.byte	4
+	.word	.L9,.L31
+	.byte	0,0
+	.sdecl	'.debug_abbrev',debug,cluster('STM_viSRN0')
+	.sect	'.debug_abbrev'
+.L20:
+	.byte	1,17,1,3,8,37,8,27,8,19,15,128,70,12,85,6,16,6,0,0,2,61,0,24,16,0,0,3,46,1,3,8,58,15,59,15,57,15,54,15
+	.byte	39,12,63,12,17,1,18,1,64,6,0,0,4,11,0,17,1,18,1,0,0,0
+	.sdecl	'.debug_line',debug,cluster('STM_viSRN0')
+	.sect	'.debug_line'
+.L21:
+	.word	.L54-.L53
+.L53:
+	.half	3
+	.word	.L56-.L55
+.L55:
+	.byte	2,1,-4,9,10,0,1,1,1,1,0,0,0,1,0
+	.byte	'..\\Initiate_Files\\STM.c',0,0,0,0,0
+.L56:
+	.byte	5,27,7,0,5,2
+	.word	.L9
+	.byte	3,248,1,1,5,6,9
+	.half	.L57-.L9
+	.byte	3,6,1,5,3,9
+	.half	.L58-.L57
+	.byte	1,5,18,7,9
+	.half	.L59-.L58
+	.byte	3,3,1,5,27,9
+	.half	.L60-.L59
+	.byte	1,5,15,1,5,7,9
+	.half	.L61-.L60
+	.byte	3,1,1,5,16,9
+	.half	.L62-.L61
+	.byte	1,5,14,3,2,1,5,7,9
+	.half	.L63-.L62
+	.byte	3,9,1,5,4,9
+	.half	.L64-.L63
+	.byte	1,5,16,7,9
+	.half	.L65-.L64
+	.byte	3,2,1,5,14,1,5,16,9
+	.half	.L66-.L65
+	.byte	3,1,1,5,4,9
+	.half	.L4-.L66
+	.byte	3,2,1,5,12,9
+	.half	.L67-.L4
+	.byte	1,5,5,9
+	.half	.L68-.L67
+	.byte	3,3,1,5,22,9
+	.half	.L69-.L68
+	.byte	1,5,6,9
+	.half	.L3-.L69
+	.byte	3,3,1,5,3,9
+	.half	.L70-.L3
+	.byte	1,5,5,7,9
+	.half	.L71-.L70
+	.byte	3,6,1,5,22,9
+	.half	.L72-.L71
+	.byte	1,5,1,9
+	.half	.L5-.L72
+	.byte	3,7,1,9
+	.half	.L23-.L5
+	.byte	0,1,1
+.L54:
+	.sdecl	'.debug_ranges',debug,cluster('STM_viSRN0')
+	.sect	'.debug_ranges'
+.L22:
+	.word	-1,.L9,0,.L23-.L9,0,0
+	.sdecl	'.debug_info',debug,cluster('Flag_Add')
+	.sect	'.debug_info'
+.L24:
+	.word	164
+	.half	3
+	.word	.L25
+	.byte	4,1
+	.byte	'..\\Initiate_Files\\STM.c',0
+	.byte	'TASKING VX-toolset for TriCore: C compiler',0
+	.byte	'D:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_1.9\\BMU_BOOT\\Debug\\',0,12,1,2
+	.word	.L10
+	.byte	3
+	.byte	'Flag_Add',0,3,245,1,7
+	.word	.L32
+	.byte	1,5,3
+	.word	Flag_Add
+	.byte	0
+	.sdecl	'.debug_abbrev',debug,cluster('Flag_Add')
+	.sect	'.debug_abbrev'
+.L25:
+	.byte	1,17,1,3,8,37,8,27,8,19,15,128,70,12,0,0,2,61,0,24,16,0,0,3,52,0,3,8,58,15,59,15,57,15,73,16,63,12,2,9
+	.byte	0,0,0
+	.sdecl	'.debug_info',debug,cluster('Flag_1ms')
+	.sect	'.debug_info'
+.L26:
+	.word	164
+	.half	3
+	.word	.L27
+	.byte	4,1
+	.byte	'..\\Initiate_Files\\STM.c',0
+	.byte	'TASKING VX-toolset for TriCore: C compiler',0
+	.byte	'D:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_1.9\\BMU_BOOT\\Debug\\',0,12,1,2
+	.word	.L10
+	.byte	3
+	.byte	'Flag_1ms',0,3,246,1,7
+	.word	.L32
+	.byte	1,5,3
+	.word	Flag_1ms
+	.byte	0
+	.sdecl	'.debug_abbrev',debug,cluster('Flag_1ms')
+	.sect	'.debug_abbrev'
+.L27:
+	.byte	1,17,1,3,8,37,8,27,8,19,15,128,70,12,0,0,2,61,0,24,16,0,0,3,52,0,3,8,58,15,59,15,57,15,73,16,63,12,2,9
+	.byte	0,0,0
+	.sdecl	'.debug_loc',debug,cluster('STM_vInit')
+	.sect	'.debug_loc'
+.L6:
+	.word	-1,.L7,0,.L33-.L7
+	.half	2
+	.byte	138,0
+	.word	.L33-.L7,.L28-.L7
+	.half	2
+	.byte	138,8
+	.word	.L28-.L7,.L28-.L7
+	.half	2
+	.byte	138,0
+	.word	0,0
+.L30:
+	.word	-1,.L7,0,.L28-.L7
+	.half	2
+	.byte	145,120
+	.word	0,0
+	.sdecl	'.debug_loc',debug,cluster('STM_viSRN0')
+	.sect	'.debug_loc'
+.L8:
+	.word	-1,.L9,0,.L31-.L9
+	.half	2
+	.byte	138,0
+	.word	0,0
+	.sdecl	'.debug_frame',debug
+	.sect	'.debug_frame'
+.L73:
+	.word	48
+	.word	-1
+	.byte	3,0,2,1,27,12,26,0,8,26,8,27,8,30,8,29,8,28,8,16,8,17,8,24,8,25,8,31,8,32,8,33,8,34,8,35,8,36,8,37,8,38
+	.byte	8,39
+	.sdecl	'.debug_frame',debug,cluster('STM_vInit')
+	.sect	'.debug_frame'
+	.word	36
+	.word	.L73,.L7,.L28-.L7
+	.byte	4
+	.word	(.L33-.L7)/2
+	.byte	19,8,22,26,3,19,138,8,4
+	.word	(.L28-.L33)/2
+	.byte	19,0,8,26,0,0
+	.sdecl	'.debug_frame',debug,cluster('STM_viSRN0')
+	.sect	'.debug_frame'
+	.word	12
+	.word	.L73,.L9,.L31-.L9
+
+; ..\Initiate_Files\STM.c	   295  
+; ..\Initiate_Files\STM.c	   296  
+; ..\Initiate_Files\STM.c	   297  
+; ..\Initiate_Files\STM.c	   298  // USER CODE BEGIN (STM_General,10)
+; ..\Initiate_Files\STM.c	   299  #endif
+; ..\Initiate_Files\STM.c	   300  // USER CODE END
+; ..\Initiate_Files\STM.c	   301  
+
+	; Module end

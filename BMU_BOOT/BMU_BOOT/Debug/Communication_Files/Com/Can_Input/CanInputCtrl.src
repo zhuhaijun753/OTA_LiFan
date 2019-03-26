@@ -1,0 +1,843 @@
+	; Module start
+	.compiler_version	"TASKING VX-toolset for TriCore: C compiler v4.3r1 Build 759 SN 00641831"
+	.compiler_invocation	"ctc -f cc10592a -c99 --dep-file=Communication_Files\\Com\\Can_Input\\.CanInputCtrl.o.d -D__CPU__=tc1782 -D__CPU_TC1782__ --core=tc1.3.1 -F -ID:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_1.9\\BMU_BOOT -ID:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_1.9\\BMU_BOOT\\Communication_Files\\CanDrv -ID:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_1.9\\BMU_BOOT\\Communication_Files\\Com -ID:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_1.9\\BMU_BOOT\\Communication_Files\\Com\\Can_Input -ID:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_1.9\\BMU_BOOT\\Communication_Files\\Com\\Can_Output -ID:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_1.9\\BMU_BOOT\\Communication_Files\\Uds\\Dcm -ID:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_1.9\\BMU_BOOT\\Communication_Files\\Uds\\Dem -ID:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_1.9\\BMU_BOOT\\Communication_Files\\Uds\\Tp -ID:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_1.9\\BMU_BOOT\\Communication_Files\\Uds\\User -ID:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_1.9\\BMU_BOOT\\Complex_Files -ID:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_1.9\\BMU_BOOT\\Initiate_Files -ID:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_1.9\\BMU_BOOT\\Nvm_Files\\FlsDrv -ID:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_1.9\\BMU_BOOT\\Stand_Header -g2 --make-target=Communication_Files\\Com\\Can_Input\\CanInputCtrl.o -t4 --language=-gcc,-volatile,+strings --default-near-size=0 -O2 --default-a1-size=0 --default-a0-size=0 --source --align=0 --compact-max-size=200 --switch=auto -o Communication_Files\\Com\\Can_Input\\CanInputCtrl.src ..\\Communication_Files\\Com\\Can_Input\\CanInputCtrl.c"
+	.compiler_name		"ctc"
+	.name	"CanInputCtrl"
+
+	
+$TC131
+	
+	.sdecl	'.text.CanInputCtrl.CanInput_10ms',code,cluster('CanInput_10ms')
+	.sect	'.text.CanInputCtrl.CanInput_10ms'
+	.align	2
+	
+	.global	CanInput_10ms
+
+; ..\Communication_Files\Com\Can_Input\CanInputCtrl.c	     1  /*
+; ..\Communication_Files\Com\Can_Input\CanInputCtrl.c	     2   * CanInputCtrl.c
+; ..\Communication_Files\Com\Can_Input\CanInputCtrl.c	     3   *
+; ..\Communication_Files\Com\Can_Input\CanInputCtrl.c	     4   *  Created on: 2016-3-11
+; ..\Communication_Files\Com\Can_Input\CanInputCtrl.c	     5   *
+; ..\Communication_Files\Com\Can_Input\CanInputCtrl.c	     6   */
+; ..\Communication_Files\Com\Can_Input\CanInputCtrl.c	     7  #include "MAIN.h"
+; ..\Communication_Files\Com\Can_Input\CanInputCtrl.c	     8  
+; ..\Communication_Files\Com\Can_Input\CanInputCtrl.c	     9  
+; ..\Communication_Files\Com\Can_Input\CanInputCtrl.c	    10  
+; ..\Communication_Files\Com\Can_Input\CanInputCtrl.c	    11  void CanInput_10ms(void)
+; Function CanInput_10ms
+.L9:
+CanInput_10ms:	.type	func
+
+; ..\Communication_Files\Com\Can_Input\CanInputCtrl.c	    12  {
+; ..\Communication_Files\Com\Can_Input\CanInputCtrl.c	    13  
+; ..\Communication_Files\Com\Can_Input\CanInputCtrl.c	    14  }
+	ret
+.L62:
+	
+__CanInput_10ms_function_end:
+	.size	CanInput_10ms,__CanInput_10ms_function_end-CanInput_10ms
+.L35:
+	; End of function
+	
+	.sdecl	'.text.CanInputCtrl.CanInput_20ms',code,cluster('CanInput_20ms')
+	.sect	'.text.CanInputCtrl.CanInput_20ms'
+	.align	2
+	
+	.global	CanInput_20ms
+
+; ..\Communication_Files\Com\Can_Input\CanInputCtrl.c	    15  
+; ..\Communication_Files\Com\Can_Input\CanInputCtrl.c	    16  void CanInput_20ms(void)
+; Function CanInput_20ms
+.L11:
+CanInput_20ms:	.type	func
+
+; ..\Communication_Files\Com\Can_Input\CanInputCtrl.c	    17  {
+; ..\Communication_Files\Com\Can_Input\CanInputCtrl.c	    18  
+; ..\Communication_Files\Com\Can_Input\CanInputCtrl.c	    19  }
+	ret
+.L63:
+	
+__CanInput_20ms_function_end:
+	.size	CanInput_20ms,__CanInput_20ms_function_end-CanInput_20ms
+.L40:
+	; End of function
+	
+	.sdecl	'.text.CanInputCtrl.CanInput_50ms',code,cluster('CanInput_50ms')
+	.sect	'.text.CanInputCtrl.CanInput_50ms'
+	.align	2
+	
+	.global	CanInput_50ms
+
+; ..\Communication_Files\Com\Can_Input\CanInputCtrl.c	    20  
+; ..\Communication_Files\Com\Can_Input\CanInputCtrl.c	    21  void CanInput_50ms(void)
+; Function CanInput_50ms
+.L13:
+CanInput_50ms:	.type	func
+
+; ..\Communication_Files\Com\Can_Input\CanInputCtrl.c	    22  {
+; ..\Communication_Files\Com\Can_Input\CanInputCtrl.c	    23  
+; ..\Communication_Files\Com\Can_Input\CanInputCtrl.c	    24  }
+	ret
+.L64:
+	
+__CanInput_50ms_function_end:
+	.size	CanInput_50ms,__CanInput_50ms_function_end-CanInput_50ms
+.L45:
+	; End of function
+	
+	.sdecl	'.text.CanInputCtrl.CanInput_100ms',code,cluster('CanInput_100ms')
+	.sect	'.text.CanInputCtrl.CanInput_100ms'
+	.align	2
+	
+	.global	CanInput_100ms
+
+; ..\Communication_Files\Com\Can_Input\CanInputCtrl.c	    25  
+; ..\Communication_Files\Com\Can_Input\CanInputCtrl.c	    26  void CanInput_100ms(void)
+; Function CanInput_100ms
+.L15:
+CanInput_100ms:	.type	func
+
+; ..\Communication_Files\Com\Can_Input\CanInputCtrl.c	    27  {
+; ..\Communication_Files\Com\Can_Input\CanInputCtrl.c	    28  
+; ..\Communication_Files\Com\Can_Input\CanInputCtrl.c	    29  }
+	ret
+.L65:
+	
+__CanInput_100ms_function_end:
+	.size	CanInput_100ms,__CanInput_100ms_function_end-CanInput_100ms
+.L50:
+	; End of function
+	
+	.sdecl	'.text.CanInputCtrl.CanInput_500ms',code,cluster('CanInput_500ms')
+	.sect	'.text.CanInputCtrl.CanInput_500ms'
+	.align	2
+	
+	.global	CanInput_500ms
+
+; ..\Communication_Files\Com\Can_Input\CanInputCtrl.c	    30  
+; ..\Communication_Files\Com\Can_Input\CanInputCtrl.c	    31  void CanInput_500ms(void)
+; Function CanInput_500ms
+.L17:
+CanInput_500ms:	.type	func
+
+; ..\Communication_Files\Com\Can_Input\CanInputCtrl.c	    32  {
+; ..\Communication_Files\Com\Can_Input\CanInputCtrl.c	    33  
+; ..\Communication_Files\Com\Can_Input\CanInputCtrl.c	    34  }
+	ret
+.L66:
+	
+__CanInput_500ms_function_end:
+	.size	CanInput_500ms,__CanInput_500ms_function_end-CanInput_500ms
+.L55:
+	; End of function
+	
+	.sdecl	'.text.CanInputCtrl.CanInput_1000ms',code,cluster('CanInput_1000ms')
+	.sect	'.text.CanInputCtrl.CanInput_1000ms'
+	.align	2
+	
+	.global	CanInput_1000ms
+
+; ..\Communication_Files\Com\Can_Input\CanInputCtrl.c	    35  
+; ..\Communication_Files\Com\Can_Input\CanInputCtrl.c	    36  void CanInput_1000ms(void)
+; Function CanInput_1000ms
+.L19:
+CanInput_1000ms:	.type	func
+
+; ..\Communication_Files\Com\Can_Input\CanInputCtrl.c	    37  {
+; ..\Communication_Files\Com\Can_Input\CanInputCtrl.c	    38  
+; ..\Communication_Files\Com\Can_Input\CanInputCtrl.c	    39  }
+	ret
+.L67:
+	
+__CanInput_1000ms_function_end:
+	.size	CanInput_1000ms,__CanInput_1000ms_function_end-CanInput_1000ms
+.L60:
+	; End of function
+	
+	.sdecl	'.text.CanInputCtrl.F_Input_Control',code,cluster('F_Input_Control')
+	.sect	'.text.CanInputCtrl.F_Input_Control'
+	.align	2
+	
+	.global	F_Input_Control
+
+; ..\Communication_Files\Com\Can_Input\CanInputCtrl.c	    40  
+; ..\Communication_Files\Com\Can_Input\CanInputCtrl.c	    41  
+; ..\Communication_Files\Com\Can_Input\CanInputCtrl.c	    42  void F_Input_Control(void)
+; Function F_Input_Control
+.L21:
+F_Input_Control:	.type	func
+
+; ..\Communication_Files\Com\Can_Input\CanInputCtrl.c	    43  {
+; ..\Communication_Files\Com\Can_Input\CanInputCtrl.c	    44  
+; ..\Communication_Files\Com\Can_Input\CanInputCtrl.c	    45  
+; ..\Communication_Files\Com\Can_Input\CanInputCtrl.c	    46  	if((uc_Cnt5ms % 2) == 1)  //10ms
+	movh.a	a15,#@his(uc_Cnt5ms)
+	lea	a15,[a15]@los(uc_Cnt5ms)
+	ld.bu	d15,[a15]
+.L76:
+	jz.t	d15:0,.L2				; predicted taken
+.L77:
+
+; ..\Communication_Files\Com\Can_Input\CanInputCtrl.c	    47  	{
+; ..\Communication_Files\Com\Can_Input\CanInputCtrl.c	    48  		CanInput_10ms();
+	call	CanInput_10ms
+.L2:
+
+; ..\Communication_Files\Com\Can_Input\CanInputCtrl.c	    49  	}
+; ..\Communication_Files\Com\Can_Input\CanInputCtrl.c	    50  	if((uc_Cnt5ms % 4) == 0)  //20ms
+	ld.bu	d15,[a15]
+	and	d15,#3
+.L78:
+	jne	d15,#0,.L3				; predicted taken
+.L79:
+
+; ..\Communication_Files\Com\Can_Input\CanInputCtrl.c	    51  	{
+; ..\Communication_Files\Com\Can_Input\CanInputCtrl.c	    52  		CanInput_20ms();
+	call	CanInput_20ms
+.L3:
+
+; ..\Communication_Files\Com\Can_Input\CanInputCtrl.c	    53  	}
+; ..\Communication_Files\Com\Can_Input\CanInputCtrl.c	    54  	if((uc_Cnt5ms % 10) == 2)  //50ms
+	mov	d5,#10
+	ld.bu	d4,[a15]
+.L80:
+	call	__rt_udivmod8
+.L81:
+	jne	d3,#2,.L4				; predicted taken
+.L82:
+
+; ..\Communication_Files\Com\Can_Input\CanInputCtrl.c	    55  	{
+; ..\Communication_Files\Com\Can_Input\CanInputCtrl.c	    56  		CanInput_50ms();
+	call	CanInput_50ms
+.L4:
+
+; ..\Communication_Files\Com\Can_Input\CanInputCtrl.c	    57  	}
+; ..\Communication_Files\Com\Can_Input\CanInputCtrl.c	    58  	if((uc_Cnt5ms  % 20) == 18)  //100ms
+	mov	d5,#20
+	ld.bu	d4,[a15]
+.L83:
+	call	__rt_udivmod8
+.L84:
+	mov	d15,#18
+.L85:
+	jne	d15,d3,.L5				; predicted taken
+.L86:
+
+; ..\Communication_Files\Com\Can_Input\CanInputCtrl.c	    59  	{
+; ..\Communication_Files\Com\Can_Input\CanInputCtrl.c	    60  		CanInput_100ms();
+	call	CanInput_100ms
+.L5:
+
+; ..\Communication_Files\Com\Can_Input\CanInputCtrl.c	    61  	}
+; ..\Communication_Files\Com\Can_Input\CanInputCtrl.c	    62  	//if(((uc_Cnt5ms ) % 50) == 35)  //250ms
+; ..\Communication_Files\Com\Can_Input\CanInputCtrl.c	    63  	if((uc_Cnt5ms  % 100) == 90)  //500ms
+	mov	d5,#100
+	ld.bu	d4,[a15]
+.L87:
+	call	__rt_udivmod8
+.L88:
+	mov	d15,#90
+.L89:
+	jne	d15,d3,.L6				; predicted taken
+.L90:
+
+; ..\Communication_Files\Com\Can_Input\CanInputCtrl.c	    64  	{
+; ..\Communication_Files\Com\Can_Input\CanInputCtrl.c	    65  		CanInput_500ms();
+	call	CanInput_500ms
+.L6:
+
+; ..\Communication_Files\Com\Can_Input\CanInputCtrl.c	    66  	}
+; ..\Communication_Files\Com\Can_Input\CanInputCtrl.c	    67  
+; ..\Communication_Files\Com\Can_Input\CanInputCtrl.c	    68  	if((uc_Cnt5ms % 200) == 186)  //1000ms                            //1000ms
+	mov	d5,#200
+	ld.bu	d4,[a15]
+.L91:
+	call	__rt_udivmod8
+.L92:
+	mov	d15,#186
+.L93:
+	jne	d15,d3,.L7				; predicted taken
+.L94:
+
+; ..\Communication_Files\Com\Can_Input\CanInputCtrl.c	    69  	{
+; ..\Communication_Files\Com\Can_Input\CanInputCtrl.c	    70  //		static unsigned char Task2000msFlag = 0;
+; ..\Communication_Files\Com\Can_Input\CanInputCtrl.c	    71  
+; ..\Communication_Files\Com\Can_Input\CanInputCtrl.c	    72  		CanInput_1000ms();
+	j	CanInput_1000ms
+.L7:
+
+; ..\Communication_Files\Com\Can_Input\CanInputCtrl.c	    73  
+; ..\Communication_Files\Com\Can_Input\CanInputCtrl.c	    74  /*
+; ..\Communication_Files\Com\Can_Input\CanInputCtrl.c	    75  		Task2000msFlag ++;
+; ..\Communication_Files\Com\Can_Input\CanInputCtrl.c	    76  		if(2 == Task2000msFlag)                                        //2000ms
+; ..\Communication_Files\Com\Can_Input\CanInputCtrl.c	    77  		{
+; ..\Communication_Files\Com\Can_Input\CanInputCtrl.c	    78  			Task2000msFlag = 0;
+; ..\Communication_Files\Com\Can_Input\CanInputCtrl.c	    79  		}
+; ..\Communication_Files\Com\Can_Input\CanInputCtrl.c	    80  */
+; ..\Communication_Files\Com\Can_Input\CanInputCtrl.c	    81  	}
+; ..\Communication_Files\Com\Can_Input\CanInputCtrl.c	    82  
+; ..\Communication_Files\Com\Can_Input\CanInputCtrl.c	    83  	return;
+; ..\Communication_Files\Com\Can_Input\CanInputCtrl.c	    84  }
+	ret
+.L61:
+	
+__F_Input_Control_function_end:
+	.size	F_Input_Control,__F_Input_Control_function_end-F_Input_Control
+.L30:
+	; End of function
+	
+	.calls	'F_Input_Control','__rt_udivmod8'
+	.calls	'F_Input_Control','CanInput_10ms'
+	.calls	'F_Input_Control','CanInput_20ms'
+	.calls	'F_Input_Control','CanInput_50ms'
+	.calls	'F_Input_Control','CanInput_100ms'
+	.calls	'F_Input_Control','CanInput_500ms'
+	.calls	'F_Input_Control','CanInput_1000ms'
+	.calls	'CanInput_10ms','',0
+	.calls	'CanInput_20ms','',0
+	.calls	'CanInput_50ms','',0
+	.calls	'CanInput_100ms','',0
+	.calls	'CanInput_500ms','',0
+	.calls	'CanInput_1000ms','',0
+	.extern	uc_Cnt5ms
+	.extern	__rt_udivmod8
+	.calls	'F_Input_Control','',0
+	.sdecl	'.debug_info',debug
+	.sect	'.debug_info'
+.L23:
+	.word	452
+	.half	3
+	.word	.L24
+	.byte	4
+.L22:
+	.byte	1
+	.byte	'..\\Communication_Files\\Com\\Can_Input\\CanInputCtrl.c',0
+	.byte	'TASKING VX-toolset for TriCore: C compiler',0
+	.byte	'D:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_1.9\\BMU_BOOT\\Debug\\',0,12,1
+	.word	.L25
+	.byte	2
+	.byte	'void',0,3
+	.word	169
+	.byte	4
+	.byte	'__prof_adm',0,1,1,1
+	.word	175
+	.byte	5,1,3
+	.word	199
+	.byte	4
+	.byte	'__codeptr',0,1,1,1
+	.word	201
+	.byte	6
+	.byte	'unsigned char',0,1,8,7
+	.word	224
+	.byte	8
+	.byte	'uc_Cnt5ms',0,2,41,31
+	.word	241
+	.byte	1,1,4
+	.byte	'ubyte',0,2,78,24
+	.word	224
+	.byte	6
+	.byte	'unsigned short int',0,2,7,4
+	.byte	'ushort',0,2,80,24
+	.word	280
+	.byte	6
+	.byte	'unsigned int',0,4,7,4
+	.byte	'uword',0,2,82,24
+	.word	317
+	.byte	4
+	.byte	'uint8',0,3,87,29
+	.word	224
+	.byte	4
+	.byte	'uint16',0,3,89,29
+	.word	280
+	.byte	6
+	.byte	'long int',0,4,5,4
+	.byte	'sint32',0,3,90,29
+	.word	376
+	.byte	6
+	.byte	'unsigned long int',0,4,7,4
+	.byte	'uint32',0,3,91,27
+	.word	403
+	.byte	4
+	.byte	'boolean',0,3,102,29
+	.word	224
+	.byte	0
+	.sdecl	'.debug_abbrev',debug
+	.sect	'.debug_abbrev'
+.L24:
+	.byte	1,17,1,3,8,37,8,27,8,19,15,128,70,12,16,6,0,0,2,59,0,3,8,0,0,3,15,0,73,19,0,0,4,22,0,3,8,58,15,59,15,57
+	.byte	15,73,19,0,0,5,21,0,54,15,0,0,6,36,0,3,8,11,15,62,15,0,0,7,53,0,73,19,0,0,8,52,0,3,8,58,15,59,15,57,15
+	.byte	73,19,63,12,60,12,0,0,0
+	.sdecl	'.debug_line',debug
+	.sect	'.debug_line'
+.L25:
+	.word	.L69-.L68
+.L68:
+	.half	3
+	.word	.L71-.L70
+.L70:
+	.byte	2,1,-4,9,10,0,1,1,1,1,0,0,0,1
+	.byte	'D:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_1.9\\BMU_BOOT\\Initiate_Files',0
+	.byte	'D:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_1.9\\BMU_BOOT\\Stand_Header',0,0
+	.byte	'..\\Communication_Files\\Com\\Can_Input\\CanInputCtrl.c',0,0,0,0
+	.byte	'MAIN.h',0,1,0,0
+	.byte	'Platform_Types.h',0,2,0,0,0
+.L71:
+.L69:
+	.sdecl	'.debug_info',debug,cluster('F_Input_Control')
+	.sect	'.debug_info'
+.L26:
+	.word	220
+	.half	3
+	.word	.L27
+	.byte	4,1
+	.byte	'..\\Communication_Files\\Com\\Can_Input\\CanInputCtrl.c',0
+	.byte	'TASKING VX-toolset for TriCore: C compiler',0
+	.byte	'D:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_1.9\\BMU_BOOT\\Debug\\',0,12,1
+	.word	.L29,.L28
+	.byte	2
+	.word	.L22
+	.byte	3
+	.byte	'F_Input_Control',0,1,42,6,1,1,1
+	.word	.L21,.L61,.L20
+	.byte	4
+	.word	.L21,.L61
+	.byte	0,0
+	.sdecl	'.debug_abbrev',debug,cluster('F_Input_Control')
+	.sect	'.debug_abbrev'
+.L27:
+	.byte	1,17,1,3,8,37,8,27,8,19,15,128,70,12,85,6,16,6,0,0,2,61,0,24,16,0,0,3,46,1,3,8,58,15,59,15,57,15,54,15
+	.byte	39,12,63,12,17,1,18,1,64,6,0,0,4,11,0,17,1,18,1,0,0,0
+	.sdecl	'.debug_line',debug,cluster('F_Input_Control')
+	.sect	'.debug_line'
+.L28:
+	.word	.L73-.L72
+.L72:
+	.half	3
+	.word	.L75-.L74
+.L74:
+	.byte	2,1,-4,9,10,0,1,1,1,1,0,0,0,1,0
+	.byte	'..\\Communication_Files\\Com\\Can_Input\\CanInputCtrl.c',0,0,0,0,0
+.L75:
+	.byte	5,6,7,0,5,2
+	.word	.L21
+	.byte	3,45,1,5,2,9
+	.half	.L76-.L21
+	.byte	1,5,16,7,9
+	.half	.L77-.L76
+	.byte	3,2,1,5,6,9
+	.half	.L2-.L77
+	.byte	3,2,1,5,2,9
+	.half	.L78-.L2
+	.byte	1,5,16,7,9
+	.half	.L79-.L78
+	.byte	3,2,1,5,18,9
+	.half	.L3-.L79
+	.byte	3,2,1,5,6,1,5,16,9
+	.half	.L80-.L3
+	.byte	1,5,2,9
+	.half	.L81-.L80
+	.byte	1,5,16,7,9
+	.half	.L82-.L81
+	.byte	3,2,1,5,19,9
+	.half	.L4-.L82
+	.byte	3,2,1,5,6,1,5,17,9
+	.half	.L83-.L4
+	.byte	1,5,26,9
+	.half	.L84-.L83
+	.byte	1,5,2,9
+	.half	.L85-.L84
+	.byte	1,5,17,7,9
+	.half	.L86-.L85
+	.byte	3,2,1,5,19,9
+	.half	.L5-.L86
+	.byte	3,3,1,5,6,1,5,17,9
+	.half	.L87-.L5
+	.byte	1,5,27,9
+	.half	.L88-.L87
+	.byte	1,5,2,9
+	.half	.L89-.L88
+	.byte	1,5,17,7,9
+	.half	.L90-.L89
+	.byte	3,2,1,5,18,9
+	.half	.L6-.L90
+	.byte	3,3,1,5,6,1,5,16,9
+	.half	.L91-.L6
+	.byte	1,5,26,9
+	.half	.L92-.L91
+	.byte	1,5,2,9
+	.half	.L93-.L92
+	.byte	1,5,18,7,9
+	.half	.L94-.L93
+	.byte	3,4,1,5,1,7,9
+	.half	.L7-.L94
+	.byte	3,12,1,7,9
+	.half	.L30-.L7
+	.byte	0,1,1
+.L73:
+	.sdecl	'.debug_ranges',debug,cluster('F_Input_Control')
+	.sect	'.debug_ranges'
+.L29:
+	.word	-1,.L21,0,.L30-.L21,0,0
+	.sdecl	'.debug_info',debug,cluster('CanInput_10ms')
+	.sect	'.debug_info'
+.L31:
+	.word	218
+	.half	3
+	.word	.L32
+	.byte	4,1
+	.byte	'..\\Communication_Files\\Com\\Can_Input\\CanInputCtrl.c',0
+	.byte	'TASKING VX-toolset for TriCore: C compiler',0
+	.byte	'D:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_1.9\\BMU_BOOT\\Debug\\',0,12,1
+	.word	.L34,.L33
+	.byte	2
+	.word	.L22
+	.byte	3
+	.byte	'CanInput_10ms',0,1,11,6,1,1,1
+	.word	.L9,.L62,.L8
+	.byte	4
+	.word	.L9,.L62
+	.byte	0,0
+	.sdecl	'.debug_abbrev',debug,cluster('CanInput_10ms')
+	.sect	'.debug_abbrev'
+.L32:
+	.byte	1,17,1,3,8,37,8,27,8,19,15,128,70,12,85,6,16,6,0,0,2,61,0,24,16,0,0,3,46,1,3,8,58,15,59,15,57,15,54,15
+	.byte	39,12,63,12,17,1,18,1,64,6,0,0,4,11,0,17,1,18,1,0,0,0
+	.sdecl	'.debug_line',debug,cluster('CanInput_10ms')
+	.sect	'.debug_line'
+.L33:
+	.word	.L96-.L95
+.L95:
+	.half	3
+	.word	.L98-.L97
+.L97:
+	.byte	2,1,-4,9,10,0,1,1,1,1,0,0,0,1,0
+	.byte	'..\\Communication_Files\\Com\\Can_Input\\CanInputCtrl.c',0,0,0,0,0
+.L98:
+	.byte	5,1,7,0,5,2
+	.word	.L9
+	.byte	3,13,1,7,9
+	.half	.L35-.L9
+	.byte	0,1,1
+.L96:
+	.sdecl	'.debug_ranges',debug,cluster('CanInput_10ms')
+	.sect	'.debug_ranges'
+.L34:
+	.word	-1,.L9,0,.L35-.L9,0,0
+	.sdecl	'.debug_info',debug,cluster('CanInput_20ms')
+	.sect	'.debug_info'
+.L36:
+	.word	218
+	.half	3
+	.word	.L37
+	.byte	4,1
+	.byte	'..\\Communication_Files\\Com\\Can_Input\\CanInputCtrl.c',0
+	.byte	'TASKING VX-toolset for TriCore: C compiler',0
+	.byte	'D:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_1.9\\BMU_BOOT\\Debug\\',0,12,1
+	.word	.L39,.L38
+	.byte	2
+	.word	.L22
+	.byte	3
+	.byte	'CanInput_20ms',0,1,16,6,1,1,1
+	.word	.L11,.L63,.L10
+	.byte	4
+	.word	.L11,.L63
+	.byte	0,0
+	.sdecl	'.debug_abbrev',debug,cluster('CanInput_20ms')
+	.sect	'.debug_abbrev'
+.L37:
+	.byte	1,17,1,3,8,37,8,27,8,19,15,128,70,12,85,6,16,6,0,0,2,61,0,24,16,0,0,3,46,1,3,8,58,15,59,15,57,15,54,15
+	.byte	39,12,63,12,17,1,18,1,64,6,0,0,4,11,0,17,1,18,1,0,0,0
+	.sdecl	'.debug_line',debug,cluster('CanInput_20ms')
+	.sect	'.debug_line'
+.L38:
+	.word	.L100-.L99
+.L99:
+	.half	3
+	.word	.L102-.L101
+.L101:
+	.byte	2,1,-4,9,10,0,1,1,1,1,0,0,0,1,0
+	.byte	'..\\Communication_Files\\Com\\Can_Input\\CanInputCtrl.c',0,0,0,0,0
+.L102:
+	.byte	5,1,7,0,5,2
+	.word	.L11
+	.byte	3,18,1,7,9
+	.half	.L40-.L11
+	.byte	0,1,1
+.L100:
+	.sdecl	'.debug_ranges',debug,cluster('CanInput_20ms')
+	.sect	'.debug_ranges'
+.L39:
+	.word	-1,.L11,0,.L40-.L11,0,0
+	.sdecl	'.debug_info',debug,cluster('CanInput_50ms')
+	.sect	'.debug_info'
+.L41:
+	.word	218
+	.half	3
+	.word	.L42
+	.byte	4,1
+	.byte	'..\\Communication_Files\\Com\\Can_Input\\CanInputCtrl.c',0
+	.byte	'TASKING VX-toolset for TriCore: C compiler',0
+	.byte	'D:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_1.9\\BMU_BOOT\\Debug\\',0,12,1
+	.word	.L44,.L43
+	.byte	2
+	.word	.L22
+	.byte	3
+	.byte	'CanInput_50ms',0,1,21,6,1,1,1
+	.word	.L13,.L64,.L12
+	.byte	4
+	.word	.L13,.L64
+	.byte	0,0
+	.sdecl	'.debug_abbrev',debug,cluster('CanInput_50ms')
+	.sect	'.debug_abbrev'
+.L42:
+	.byte	1,17,1,3,8,37,8,27,8,19,15,128,70,12,85,6,16,6,0,0,2,61,0,24,16,0,0,3,46,1,3,8,58,15,59,15,57,15,54,15
+	.byte	39,12,63,12,17,1,18,1,64,6,0,0,4,11,0,17,1,18,1,0,0,0
+	.sdecl	'.debug_line',debug,cluster('CanInput_50ms')
+	.sect	'.debug_line'
+.L43:
+	.word	.L104-.L103
+.L103:
+	.half	3
+	.word	.L106-.L105
+.L105:
+	.byte	2,1,-4,9,10,0,1,1,1,1,0,0,0,1,0
+	.byte	'..\\Communication_Files\\Com\\Can_Input\\CanInputCtrl.c',0,0,0,0,0
+.L106:
+	.byte	5,1,7,0,5,2
+	.word	.L13
+	.byte	3,23,1,7,9
+	.half	.L45-.L13
+	.byte	0,1,1
+.L104:
+	.sdecl	'.debug_ranges',debug,cluster('CanInput_50ms')
+	.sect	'.debug_ranges'
+.L44:
+	.word	-1,.L13,0,.L45-.L13,0,0
+	.sdecl	'.debug_info',debug,cluster('CanInput_100ms')
+	.sect	'.debug_info'
+.L46:
+	.word	219
+	.half	3
+	.word	.L47
+	.byte	4,1
+	.byte	'..\\Communication_Files\\Com\\Can_Input\\CanInputCtrl.c',0
+	.byte	'TASKING VX-toolset for TriCore: C compiler',0
+	.byte	'D:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_1.9\\BMU_BOOT\\Debug\\',0,12,1
+	.word	.L49,.L48
+	.byte	2
+	.word	.L22
+	.byte	3
+	.byte	'CanInput_100ms',0,1,26,6,1,1,1
+	.word	.L15,.L65,.L14
+	.byte	4
+	.word	.L15,.L65
+	.byte	0,0
+	.sdecl	'.debug_abbrev',debug,cluster('CanInput_100ms')
+	.sect	'.debug_abbrev'
+.L47:
+	.byte	1,17,1,3,8,37,8,27,8,19,15,128,70,12,85,6,16,6,0,0,2,61,0,24,16,0,0,3,46,1,3,8,58,15,59,15,57,15,54,15
+	.byte	39,12,63,12,17,1,18,1,64,6,0,0,4,11,0,17,1,18,1,0,0,0
+	.sdecl	'.debug_line',debug,cluster('CanInput_100ms')
+	.sect	'.debug_line'
+.L48:
+	.word	.L108-.L107
+.L107:
+	.half	3
+	.word	.L110-.L109
+.L109:
+	.byte	2,1,-4,9,10,0,1,1,1,1,0,0,0,1,0
+	.byte	'..\\Communication_Files\\Com\\Can_Input\\CanInputCtrl.c',0,0,0,0,0
+.L110:
+	.byte	5,1,7,0,5,2
+	.word	.L15
+	.byte	3,28,1,7,9
+	.half	.L50-.L15
+	.byte	0,1,1
+.L108:
+	.sdecl	'.debug_ranges',debug,cluster('CanInput_100ms')
+	.sect	'.debug_ranges'
+.L49:
+	.word	-1,.L15,0,.L50-.L15,0,0
+	.sdecl	'.debug_info',debug,cluster('CanInput_500ms')
+	.sect	'.debug_info'
+.L51:
+	.word	219
+	.half	3
+	.word	.L52
+	.byte	4,1
+	.byte	'..\\Communication_Files\\Com\\Can_Input\\CanInputCtrl.c',0
+	.byte	'TASKING VX-toolset for TriCore: C compiler',0
+	.byte	'D:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_1.9\\BMU_BOOT\\Debug\\',0,12,1
+	.word	.L54,.L53
+	.byte	2
+	.word	.L22
+	.byte	3
+	.byte	'CanInput_500ms',0,1,31,6,1,1,1
+	.word	.L17,.L66,.L16
+	.byte	4
+	.word	.L17,.L66
+	.byte	0,0
+	.sdecl	'.debug_abbrev',debug,cluster('CanInput_500ms')
+	.sect	'.debug_abbrev'
+.L52:
+	.byte	1,17,1,3,8,37,8,27,8,19,15,128,70,12,85,6,16,6,0,0,2,61,0,24,16,0,0,3,46,1,3,8,58,15,59,15,57,15,54,15
+	.byte	39,12,63,12,17,1,18,1,64,6,0,0,4,11,0,17,1,18,1,0,0,0
+	.sdecl	'.debug_line',debug,cluster('CanInput_500ms')
+	.sect	'.debug_line'
+.L53:
+	.word	.L112-.L111
+.L111:
+	.half	3
+	.word	.L114-.L113
+.L113:
+	.byte	2,1,-4,9,10,0,1,1,1,1,0,0,0,1,0
+	.byte	'..\\Communication_Files\\Com\\Can_Input\\CanInputCtrl.c',0,0,0,0,0
+.L114:
+	.byte	5,1,7,0,5,2
+	.word	.L17
+	.byte	3,33,1,7,9
+	.half	.L55-.L17
+	.byte	0,1,1
+.L112:
+	.sdecl	'.debug_ranges',debug,cluster('CanInput_500ms')
+	.sect	'.debug_ranges'
+.L54:
+	.word	-1,.L17,0,.L55-.L17,0,0
+	.sdecl	'.debug_info',debug,cluster('CanInput_1000ms')
+	.sect	'.debug_info'
+.L56:
+	.word	220
+	.half	3
+	.word	.L57
+	.byte	4,1
+	.byte	'..\\Communication_Files\\Com\\Can_Input\\CanInputCtrl.c',0
+	.byte	'TASKING VX-toolset for TriCore: C compiler',0
+	.byte	'D:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_1.9\\BMU_BOOT\\Debug\\',0,12,1
+	.word	.L59,.L58
+	.byte	2
+	.word	.L22
+	.byte	3
+	.byte	'CanInput_1000ms',0,1,36,6,1,1,1
+	.word	.L19,.L67,.L18
+	.byte	4
+	.word	.L19,.L67
+	.byte	0,0
+	.sdecl	'.debug_abbrev',debug,cluster('CanInput_1000ms')
+	.sect	'.debug_abbrev'
+.L57:
+	.byte	1,17,1,3,8,37,8,27,8,19,15,128,70,12,85,6,16,6,0,0,2,61,0,24,16,0,0,3,46,1,3,8,58,15,59,15,57,15,54,15
+	.byte	39,12,63,12,17,1,18,1,64,6,0,0,4,11,0,17,1,18,1,0,0,0
+	.sdecl	'.debug_line',debug,cluster('CanInput_1000ms')
+	.sect	'.debug_line'
+.L58:
+	.word	.L116-.L115
+.L115:
+	.half	3
+	.word	.L118-.L117
+.L117:
+	.byte	2,1,-4,9,10,0,1,1,1,1,0,0,0,1,0
+	.byte	'..\\Communication_Files\\Com\\Can_Input\\CanInputCtrl.c',0,0,0,0,0
+.L118:
+	.byte	5,1,7,0,5,2
+	.word	.L19
+	.byte	3,38,1,7,9
+	.half	.L60-.L19
+	.byte	0,1,1
+.L116:
+	.sdecl	'.debug_ranges',debug,cluster('CanInput_1000ms')
+	.sect	'.debug_ranges'
+.L59:
+	.word	-1,.L19,0,.L60-.L19,0,0
+	.sdecl	'.debug_loc',debug,cluster('CanInput_1000ms')
+	.sect	'.debug_loc'
+.L18:
+	.word	-1,.L19,0,.L67-.L19
+	.half	2
+	.byte	138,0
+	.word	0,0
+	.sdecl	'.debug_loc',debug,cluster('CanInput_100ms')
+	.sect	'.debug_loc'
+.L14:
+	.word	-1,.L15,0,.L65-.L15
+	.half	2
+	.byte	138,0
+	.word	0,0
+	.sdecl	'.debug_loc',debug,cluster('CanInput_10ms')
+	.sect	'.debug_loc'
+.L8:
+	.word	-1,.L9,0,.L62-.L9
+	.half	2
+	.byte	138,0
+	.word	0,0
+	.sdecl	'.debug_loc',debug,cluster('CanInput_20ms')
+	.sect	'.debug_loc'
+.L10:
+	.word	-1,.L11,0,.L63-.L11
+	.half	2
+	.byte	138,0
+	.word	0,0
+	.sdecl	'.debug_loc',debug,cluster('CanInput_500ms')
+	.sect	'.debug_loc'
+.L16:
+	.word	-1,.L17,0,.L66-.L17
+	.half	2
+	.byte	138,0
+	.word	0,0
+	.sdecl	'.debug_loc',debug,cluster('CanInput_50ms')
+	.sect	'.debug_loc'
+.L12:
+	.word	-1,.L13,0,.L64-.L13
+	.half	2
+	.byte	138,0
+	.word	0,0
+	.sdecl	'.debug_loc',debug,cluster('F_Input_Control')
+	.sect	'.debug_loc'
+.L20:
+	.word	-1,.L21,0,.L61-.L21
+	.half	2
+	.byte	138,0
+	.word	0,0
+	.sdecl	'.debug_frame',debug
+	.sect	'.debug_frame'
+.L119:
+	.word	48
+	.word	-1
+	.byte	3,0,2,1,27,12,26,0,8,26,8,27,8,30,8,29,8,28,8,16,8,17,8,24,8,25,8,31,8,32,8,33,8,34,8,35,8,36,8,37,8,38
+	.byte	8,39
+	.sdecl	'.debug_frame',debug,cluster('CanInput_10ms')
+	.sect	'.debug_frame'
+	.word	24
+	.word	.L119,.L9,.L62-.L9
+	.byte	8,18,8,19,8,20,8,21,8,22,8,23
+	.sdecl	'.debug_frame',debug,cluster('CanInput_20ms')
+	.sect	'.debug_frame'
+	.word	24
+	.word	.L119,.L11,.L63-.L11
+	.byte	8,18,8,19,8,20,8,21,8,22,8,23
+	.sdecl	'.debug_frame',debug,cluster('CanInput_50ms')
+	.sect	'.debug_frame'
+	.word	24
+	.word	.L119,.L13,.L64-.L13
+	.byte	8,18,8,19,8,20,8,21,8,22,8,23
+	.sdecl	'.debug_frame',debug,cluster('CanInput_100ms')
+	.sect	'.debug_frame'
+	.word	24
+	.word	.L119,.L15,.L65-.L15
+	.byte	8,18,8,19,8,20,8,21,8,22,8,23
+	.sdecl	'.debug_frame',debug,cluster('CanInput_500ms')
+	.sect	'.debug_frame'
+	.word	24
+	.word	.L119,.L17,.L66-.L17
+	.byte	8,18,8,19,8,20,8,21,8,22,8,23
+	.sdecl	'.debug_frame',debug,cluster('CanInput_1000ms')
+	.sect	'.debug_frame'
+	.word	24
+	.word	.L119,.L19,.L67-.L19
+	.byte	8,18,8,19,8,20,8,21,8,22,8,23
+	.sdecl	'.debug_frame',debug,cluster('F_Input_Control')
+	.sect	'.debug_frame'
+	.word	12
+	.word	.L119,.L21,.L61-.L21
+
+
+	; Module end

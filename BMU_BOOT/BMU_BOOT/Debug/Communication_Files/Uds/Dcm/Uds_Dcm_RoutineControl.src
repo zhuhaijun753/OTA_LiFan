@@ -1,0 +1,817 @@
+	; Module start
+	.compiler_version	"TASKING VX-toolset for TriCore: C compiler v4.3r1 Build 759 SN 00641831"
+	.compiler_invocation	"ctc -f cc4516a -c99 --dep-file=Communication_Files\\Uds\\Dcm\\.Uds_Dcm_RoutineControl.o.d -D__CPU__=tc1782 -D__CPU_TC1782__ --core=tc1.3.1 -F -ID:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_1.9\\BMU_BOOT -ID:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_1.9\\BMU_BOOT\\Communication_Files\\CanDrv -ID:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_1.9\\BMU_BOOT\\Communication_Files\\Com -ID:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_1.9\\BMU_BOOT\\Communication_Files\\Com\\Can_Input -ID:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_1.9\\BMU_BOOT\\Communication_Files\\Com\\Can_Output -ID:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_1.9\\BMU_BOOT\\Communication_Files\\Uds\\Dcm -ID:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_1.9\\BMU_BOOT\\Communication_Files\\Uds\\Dem -ID:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_1.9\\BMU_BOOT\\Communication_Files\\Uds\\Tp -ID:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_1.9\\BMU_BOOT\\Communication_Files\\Uds\\User -ID:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_1.9\\BMU_BOOT\\Complex_Files -ID:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_1.9\\BMU_BOOT\\Initiate_Files -ID:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_1.9\\BMU_BOOT\\Nvm_Files\\FlsDrv -ID:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_1.9\\BMU_BOOT\\Stand_Header -g2 --make-target=Communication_Files\\Uds\\Dcm\\Uds_Dcm_RoutineControl.o -t4 --language=-gcc,-volatile,+strings --default-near-size=0 -O2 --default-a1-size=0 --default-a0-size=0 --source --align=0 --compact-max-size=200 --switch=auto -o Communication_Files\\Uds\\Dcm\\Uds_Dcm_RoutineControl.src ..\\Communication_Files\\Uds\\Dcm\\Uds_Dcm_RoutineControl.c"
+	.compiler_name		"ctc"
+	.name	"Uds_Dcm_RoutineControl"
+
+	
+$TC131
+	
+	.sdecl	'.text.Uds_Dcm_RoutineControl.UdsFunc_SID_RC_Analysis',code,cluster('UdsFunc_SID_RC_Analysis')
+	.sect	'.text.Uds_Dcm_RoutineControl.UdsFunc_SID_RC_Analysis'
+	.align	2
+	
+	.global	UdsFunc_SID_RC_Analysis
+
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_RoutineControl.c	     1  
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_RoutineControl.c	     2  #include "MAIN.h"
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_RoutineControl.c	     3  
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_RoutineControl.c	     4  /*SID RC服务*/
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_RoutineControl.c	     5  const	Struct_Uds_SID_RC	st_Uds_SID_RC[UDS_SID_RC_SUBFUNC_NUMBER] =
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_RoutineControl.c	     6  {
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_RoutineControl.c	     7  		{
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_RoutineControl.c	     8  			0x01U,									/*子功能号*/
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_RoutineControl.c	     9  			0x0FU,
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_RoutineControl.c	    10  			0x00U,
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_RoutineControl.c	    11  			UdsFunc_SID_RC_SUBID_STR_Callback		/*回调函数*/
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_RoutineControl.c	    12  		},
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_RoutineControl.c	    13  
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_RoutineControl.c	    14  };
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_RoutineControl.c	    15  
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_RoutineControl.c	    16  /*************************************************************************/
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_RoutineControl.c	    17  /*
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_RoutineControl.c	    18  Function:		void UdsFunc_SID_RC_Analysis(uint8 *ui8_pInd, uint16 ui16_IndLen)
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_RoutineControl.c	    19  
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_RoutineControl.c	    20  Description: 	此函数用于解析SID_RC服务
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_RoutineControl.c	    21  
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_RoutineControl.c	    22  Parameters: 	ui8_pInd(不含SID)
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_RoutineControl.c	    23  				ui16_IndLen(不含SID)
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_RoutineControl.c	    24  
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_RoutineControl.c	    25  Return:       	void
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_RoutineControl.c	    26  
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_RoutineControl.c	    27  Return Values:  无
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_RoutineControl.c	    28  
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_RoutineControl.c	    29  Remarks:
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_RoutineControl.c	    30  
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_RoutineControl.c	    31  Example:
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_RoutineControl.c	    32  */
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_RoutineControl.c	    33  void UdsFunc_SID_RC_Analysis(uint8 *ui8_pInd, uint16 ui16_IndLen)
+; Function UdsFunc_SID_RC_Analysis
+.L14:
+UdsFunc_SID_RC_Analysis:	.type	func
+
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_RoutineControl.c	    34  {
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_RoutineControl.c	    35  	uint8	ui8_Loop_1;	/*循环计数器*/
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_RoutineControl.c	    36  	uint8	ui8_SubID;	/*子功能号*/
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_RoutineControl.c	    37  
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_RoutineControl.c	    38  	ui8_SubID = ui8_pInd[0U] & 0x7FU;	/*取子功能号*/
+	ld.bu	d15,[a4]
+.L65:
+
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_RoutineControl.c	    39  
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_RoutineControl.c	    40  	/*查询匹配子功能号*/
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_RoutineControl.c	    41  	for(ui8_Loop_1 = 0U; ui8_Loop_1 < UDS_SID_RC_SUBFUNC_NUMBER; ui8_Loop_1++)
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_RoutineControl.c	    42  	{
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_RoutineControl.c	    43  		if((ui8_SubID & 0x7FU) == st_Uds_SID_RC[ui8_Loop_1].ui8_SubID)
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_RoutineControl.c	    44  		{
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_RoutineControl.c	    45  			break;
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_RoutineControl.c	    46  		}
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_RoutineControl.c	    47  	}
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_RoutineControl.c	    48  
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_RoutineControl.c	    49  	if(ui8_Loop_1 < UDS_SID_RC_SUBFUNC_NUMBER)	/*查到符合的子功能号*/
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_RoutineControl.c	    50  	{
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_RoutineControl.c	    51  		/*判断Session是否支持*/
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_RoutineControl.c	    52  		if((st_Uds_SID_DSC_Info.ui8_Active_Session & st_Uds_SID_RC[ui8_Loop_1].ui8_Session_Support) != 0U)
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_RoutineControl.c	    53  		{
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_RoutineControl.c	    54  			/*判断服务无需密钥，或密钥已解锁*/
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_RoutineControl.c	    55  			if(((st_Uds_SID_RC[ui8_Loop_1].b_Security_En & st_Uds_SID_SA_Info.b_Security_Locked) != 0U) || (st_Uds_SID_RC[ui8_Loop_1].b_Security_En == 0U))
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_RoutineControl.c	    56  			{
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_RoutineControl.c	    57  				st_Uds_Dcm_Info.ui8_Cur_Task = UDS_TASK_SID_RC;	/*当前为 RoutineControl任务*/
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_RoutineControl.c	    58  			}
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_RoutineControl.c	    59  			else
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_RoutineControl.c	    60  			{
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_RoutineControl.c	    61  				st_Uds_Response.ui8_ResCode = UDS_RES_CODE_SAD;	/*服务密钥未解锁响应*/
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_RoutineControl.c	    62  			}
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_RoutineControl.c	    63  		}
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_RoutineControl.c	    64  		else
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_RoutineControl.c	    65  		{
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_RoutineControl.c	    66  			st_Uds_Response.ui8_ResCode = UDS_RES_CODE_SNSIAS;	/*服务在工作Session下不支持响应*/
+	and	d15,#127
+	movh.a	a2,#@his(st_Uds_Response)
+.L66:
+	eq	d15,d15,#1
+	lea	a2,[a2]@los(st_Uds_Response)
+.L67:
+	mov	d0,#0
+	ld.bu	d1,[a2]
+.L49:
+	cmovn	d0,d15,#1
+.L68:
+	jne	d0,#0,.L3				; predicted not taken
+.L69:
+	movh.a	a15,#@his(st_Uds_SID_DSC_Info)
+	lea	a15,[a15]@los(st_Uds_SID_DSC_Info)
+.L70:
+	ld.bu	d15,[a15]
+.L71:
+	and	d15,#15
+.L72:
+	jeq	d15,#0,.L4				; prediction unknown
+.L73:
+	movh.a	a15,#@his(st_Uds_Dcm_Info)
+	lea	a15,[a15]@los(st_Uds_Dcm_Info)
+.L74:
+	mov	d15,#12
+	st.b	[a15]4,d15
+.L75:
+	j	.L5
+.L4:
+	mov	d1,#127
+.L76:
+	j	.L6
+.L3:
+
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_RoutineControl.c	    67  		}
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_RoutineControl.c	    68  	}
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_RoutineControl.c	    69  	else
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_RoutineControl.c	    70  	{
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_RoutineControl.c	    71  		st_Uds_Response.ui8_ResCode = UDS_RES_CODE_SFNS;	/*子功能不支持响应*/
+	mov	d1,#18
+.L6:
+.L5:
+
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_RoutineControl.c	    72  	}
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_RoutineControl.c	    73  }
+	st.b	[a2],d1
+	ret
+.L33:
+	
+__UdsFunc_SID_RC_Analysis_function_end:
+	.size	UdsFunc_SID_RC_Analysis,__UdsFunc_SID_RC_Analysis_function_end-UdsFunc_SID_RC_Analysis
+.L25:
+	; End of function
+	
+	.sdecl	'.text.Uds_Dcm_RoutineControl.UdsFunc_SID_RC_Appl_Deal',code,cluster('UdsFunc_SID_RC_Appl_Deal')
+	.sect	'.text.Uds_Dcm_RoutineControl.UdsFunc_SID_RC_Appl_Deal'
+	.align	2
+	
+	.global	UdsFunc_SID_RC_Appl_Deal
+
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_RoutineControl.c	    74  
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_RoutineControl.c	    75  /*************************************************************************/
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_RoutineControl.c	    76  /*
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_RoutineControl.c	    77  Function:		boolean UdsFunc_SID_RC_Appl_Deal
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_RoutineControl.c	    78  				(uint8 *ui8_pInd, uint8 *ui8_pRes, uint16 *ui16_pResLen)
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_RoutineControl.c	    79  
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_RoutineControl.c	    80  Description: 	此函数用于处理SID_RC应用层任务
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_RoutineControl.c	    81  
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_RoutineControl.c	    82  Parameters: 	ui8_pInd(不含SID)
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_RoutineControl.c	    83  				ui8_pRes(不含SID)
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_RoutineControl.c	    84  				ui16_pResLen
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_RoutineControl.c	    85  
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_RoutineControl.c	    86  Return:       	boolean
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_RoutineControl.c	    87  
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_RoutineControl.c	    88  Return Values:  E_OK		任务完成
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_RoutineControl.c	    89  				E_NOT_OK	任务未完成
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_RoutineControl.c	    90  
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_RoutineControl.c	    91  Remarks:
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_RoutineControl.c	    92  
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_RoutineControl.c	    93  Example:
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_RoutineControl.c	    94  */
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_RoutineControl.c	    95  boolean UdsFunc_SID_RC_Appl_Deal(uint8 *ui8_pInd, uint8 *ui8_pRes, uint16 *ui16_pResLen)
+; Function UdsFunc_SID_RC_Appl_Deal
+.L16:
+UdsFunc_SID_RC_Appl_Deal:	.type	func
+	mov.aa	a12,a5
+.L52:
+	mov.aa	a13,a6
+.L53:
+
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_RoutineControl.c	    96  {
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_RoutineControl.c	    97  	uint8	ui8_Loop_1;	/*循环计数器*/
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_RoutineControl.c	    98  	uint8	ui8_SubID;	/*子功能号*/
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_RoutineControl.c	    99  	boolean	b_Return;
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_RoutineControl.c	   100  
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_RoutineControl.c	   101  	if((ui8_pInd[0U] & 0x80U) != 0U)	/*抑制位为TRUE*/
+	ld.bu	d15,[a4]
+.L81:
+	jz.t	d15:7,.L7				; predicted taken
+.L82:
+
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_RoutineControl.c	   102  	{
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_RoutineControl.c	   103  		st_Uds_Response.b_SuppressPosRspBit = TRUE;	/*抑制正回应位赋TRUE*/
+	movh.a	a15,#@his(st_Uds_Response)
+	lea	a15,[a15]@los(st_Uds_Response)
+.L83:
+	mov	d15,#1
+	st.b	[a15]1,d15
+.L7:
+
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_RoutineControl.c	   104  	}
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_RoutineControl.c	   105  
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_RoutineControl.c	   106  	ui8_SubID = ui8_pInd[0U] & 0x7FU;	/*取子功能号*/
+	ld.bu	d15,[a4]
+.L84:
+	and	d8,d15,#127
+	movh.a	a15,#@his(st_Uds_Response)
+.L54:
+
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_RoutineControl.c	   107  
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_RoutineControl.c	   108  	/*查询匹配子功能号*/
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_RoutineControl.c	   109  	for(ui8_Loop_1 = 0U; ui8_Loop_1 < UDS_SID_RC_SUBFUNC_NUMBER; ui8_Loop_1++)
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_RoutineControl.c	   110  	{
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_RoutineControl.c	   111  		if(ui8_SubID == st_Uds_SID_RC[ui8_Loop_1].ui8_SubID)
+	eq	d15,d8,#1
+	lea	a15,[a15]@los(st_Uds_Response)
+.L85:
+	mov	d0,#0
+.L55:
+	cmovn	d0,d15,#1
+.L86:
+
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_RoutineControl.c	   112  		{
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_RoutineControl.c	   113  			break;
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_RoutineControl.c	   114  		}
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_RoutineControl.c	   115  	}
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_RoutineControl.c	   116  
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_RoutineControl.c	   117  	if(ui8_Loop_1 < UDS_SID_RC_SUBFUNC_NUMBER)	/*查到符合的子功能号*/
+	jne	d0,#0,.L9				; predicted taken
+.L87:
+
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_RoutineControl.c	   118  	{
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_RoutineControl.c	   119  		b_Return = st_Uds_SID_RC[ui8_Loop_1].pFunc(&ui8_pInd[1U], &ui8_pRes[1U], &ui16_pResLen[0U]);	/*执行子功能任务*/
+	add.a	a4,#1
+.L88:
+	lea	a5,[a12]1
+.L51:
+	mov.aa	a6,a13
+	call	UdsFunc_SID_RC_SUBID_STR_Callback
+.L50:
+
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_RoutineControl.c	   120  
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_RoutineControl.c	   121  		if(st_Uds_Response.ui8_ResCode == UDS_RES_CODE_PR)	/*判断是否正响应*/
+	ld.bu	d15,[a15]
+.L89:
+	jne	d15,#0,.L10				; predicted taken
+.L90:
+
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_RoutineControl.c	   122  		{
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_RoutineControl.c	   123  			ui8_pRes[0U] = ui8_SubID;	/*回应子功能号*/
+	st.b	[a12],d8
+.L91:
+
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_RoutineControl.c	   124  			ui16_pResLen[0U] += 1U;		/*增加SubID字节长度*/
+	ld.hu	d15,[a13]0
+.L92:
+	add	d15,#1
+	st.h	[a13],d15
+.L10:
+
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_RoutineControl.c	   125  		}
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_RoutineControl.c	   126  	}
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_RoutineControl.c	   127  	else
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_RoutineControl.c	   128  	{
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_RoutineControl.c	   129  		st_Uds_Response.ui8_ResCode = UDS_RES_CODE_SFNS;	/*子功能不支持响应*/
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_RoutineControl.c	   130  		b_Return = E_OK;
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_RoutineControl.c	   131  	}
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_RoutineControl.c	   132  
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_RoutineControl.c	   133  	return b_Return;
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_RoutineControl.c	   134  }
+	ret
+.L9:
+	mov	d15,#18
+	st.b	[a15],d15
+.L93:
+	mov	d2,#0
+.L56:
+	ret
+.L40:
+	
+__UdsFunc_SID_RC_Appl_Deal_function_end:
+	.size	UdsFunc_SID_RC_Appl_Deal,__UdsFunc_SID_RC_Appl_Deal_function_end-UdsFunc_SID_RC_Appl_Deal
+.L30:
+	; End of function
+	
+	.sdecl	'.rodata.Uds_Dcm_RoutineControl.st_Uds_SID_RC',data,rom,cluster('st_Uds_SID_RC')
+	.sect	'.rodata.Uds_Dcm_RoutineControl.st_Uds_SID_RC'
+	.global	st_Uds_SID_RC
+	.align	4
+st_Uds_SID_RC:	.type	object
+	.size	st_Uds_SID_RC,8
+	.byte	1,15
+	.space	2
+	.word	UdsFunc_SID_RC_SUBID_STR_Callback
+	.calls	'__INDIRECT__','UdsFunc_SID_RC_SUBID_STR_Callback'
+	.calls	'UdsFunc_SID_RC_Appl_Deal','UdsFunc_SID_RC_SUBID_STR_Callback'
+	.calls	'UdsFunc_SID_RC_Analysis','',0
+	.extern	st_Uds_SID_DSC_Info
+	.extern	UdsFunc_SID_RC_SUBID_STR_Callback
+	.extern	st_Uds_Dcm_Info
+	.extern	st_Uds_Response
+	.extern	__INDIRECT__
+	.calls	'UdsFunc_SID_RC_Appl_Deal','',0
+	.sdecl	'.debug_info',debug
+	.sect	'.debug_info'
+.L18:
+	.word	1198
+	.half	3
+	.word	.L19
+	.byte	4
+.L17:
+	.byte	1
+	.byte	'..\\Communication_Files\\Uds\\Dcm\\Uds_Dcm_RoutineControl.c',0
+	.byte	'TASKING VX-toolset for TriCore: C compiler',0
+	.byte	'D:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_1.9\\BMU_BOOT\\Debug\\',0,12,1
+	.word	.L20
+.L38:
+	.byte	2
+	.byte	'unsigned char',0,1,8,3
+	.byte	'UdsFunc_SID_RC_SUBID_STR_Callback',0,1,51,16
+	.word	173
+	.byte	1,1,1,1
+.L34:
+	.byte	4
+	.word	173
+	.byte	5
+	.byte	'ui8_pInd',0,1,52,10
+	.word	236
+	.byte	5
+	.byte	'ui8_pRes',0,1,52,27
+	.word	236
+.L36:
+	.byte	2
+	.byte	'unsigned short int',0,2,7
+.L43:
+	.byte	4
+	.word	275
+	.byte	5
+	.byte	'ui16_pResLen',0,1,52,45
+	.word	297
+	.byte	0,6
+	.byte	'__INDIRECT__',0,2,1,1,1,1,1,7
+	.byte	'void',0,4
+	.word	344
+	.byte	8
+	.byte	'__prof_adm',0,2,1,1
+	.word	350
+	.byte	9,1,4
+	.word	374
+	.byte	8
+	.byte	'__codeptr',0,2,1,1
+	.word	376
+	.byte	8
+	.byte	'ubyte',0,3,78,24
+	.word	173
+	.byte	8
+	.byte	'ushort',0,3,80,24
+	.word	275
+	.byte	2
+	.byte	'unsigned int',0,4,7,8
+	.byte	'uword',0,3,82,24
+	.word	428
+	.byte	8
+	.byte	'uint8',0,4,87,29
+	.word	173
+	.byte	8
+	.byte	'uint16',0,4,89,29
+	.word	275
+	.byte	2
+	.byte	'long int',0,4,5,8
+	.byte	'sint32',0,4,90,29
+	.word	487
+	.byte	2
+	.byte	'unsigned long int',0,4,7,8
+	.byte	'uint32',0,4,91,27
+	.word	514
+	.byte	8
+	.byte	'boolean',0,4,102,29
+	.word	173
+	.byte	10,5,10,9,4,11
+	.byte	'ui8_Active_Session',0,1
+	.word	173
+	.byte	2,35,0,11
+	.byte	'ui16_Write_EEROM_Delay',0,2
+	.word	275
+	.byte	2,35,2,0,8
+	.byte	'Struct_Uds_SID_DSC_Info',0,5,14,2
+	.word	566
+	.byte	12
+	.byte	'st_Uds_SID_DSC_Info',0,5,15,32
+	.word	566
+	.byte	1,1,10,6,6,9,8,11
+	.byte	'ui8_SubID',0,1
+	.word	173
+	.byte	2,35,0,11
+	.byte	'ui8_Session_Support',0,1
+	.word	173
+	.byte	2,35,1,11
+	.byte	'b_Security_En',0,1
+	.word	173
+	.byte	2,35,2,13
+	.word	173
+	.byte	1,1,4
+	.word	173
+	.byte	14
+	.word	777
+	.byte	14
+	.word	777
+	.byte	4
+	.word	275
+	.byte	14
+	.word	792
+	.byte	0,4
+	.word	770
+	.byte	11
+	.byte	'pFunc',0,4
+	.word	803
+	.byte	2,35,4,0,8
+	.byte	'Struct_Uds_SID_RC',0,6,20,2
+	.word	694
+	.byte	10,7,75,9,6,11
+	.byte	'b_Service_Enable',0,1
+	.word	173
+	.byte	2,35,0,11
+	.byte	'ui16_S3_Timer',0,2
+	.word	275
+	.byte	2,35,2,11
+	.byte	'ui8_Cur_Task',0,1
+	.word	173
+	.byte	2,35,4,0,8
+	.byte	'Struct_Uds_Dcm_Info',0,7,80,2
+	.word	850
+	.byte	10,7,91,9,28,11
+	.byte	'ui8_ResCode',0,1
+	.word	173
+	.byte	2,35,0,11
+	.byte	'b_SuppressPosRspBit',0,1
+	.word	173
+	.byte	2,35,1,11
+	.byte	'ui8_pMsgData',0,4
+	.word	236
+	.byte	2,35,4,11
+	.byte	'ui16_pLength',0,4
+	.word	297
+	.byte	2,35,8,15,8
+	.word	173
+	.byte	16,7,0,11
+	.byte	'ui8_Neg78_Buf',0,8
+	.word	1054
+	.byte	2,35,12,11
+	.byte	'ui8_3E_Buf',0,8
+	.word	1054
+	.byte	2,35,20,0,8
+	.byte	'Struct_Uds_Response',0,7,99,2
+	.word	955
+	.byte	12
+	.byte	'st_Uds_Dcm_Info',0,7,124,29
+	.word	850
+	.byte	1,1,12
+	.byte	'st_Uds_Response',0,7,126,29
+	.word	955
+	.byte	1,1,15,8
+	.word	694
+	.byte	16,0,0
+.L48:
+	.byte	17
+	.word	1187
+	.byte	0
+	.sdecl	'.debug_abbrev',debug
+	.sect	'.debug_abbrev'
+.L19:
+	.byte	1,17,1,3,8,37,8,27,8,19,15,128,70,12,16,6,0,0,2,36,0,3,8,11,15,62,15,0,0,3,46,1,3,8,58,15,59,15,57,15
+	.byte	73,19,54,15,39,12,63,12,60,12,0,0,4,15,0,73,19,0,0,5,5,0,3,8,58,15,59,15,57,15,73,19,0,0,6,46,0,3,8,58
+	.byte	15,59,15,57,15,54,15,63,12,60,12,0,0,7,59,0,3,8,0,0,8,22,0,3,8,58,15,59,15,57,15,73,19,0,0,9,21,0,54,15
+	.byte	0,0,10,19,1,58,15,59,15,57,15,11,15,0,0,11,13,0,3,8,11,15,73,19,56,9,0,0,12,52,0,3,8,58,15,59,15,57,15
+	.byte	73,19,63,12,60,12,0,0,13,21,1,73,19,54,15,39,12,0,0,14,5,0,73,19,0,0,15,1,1,11,15,73,19,0,0,16,33,0,47
+	.byte	15,0,0,17,38,0,73,19,0,0,0
+	.sdecl	'.debug_line',debug
+	.sect	'.debug_line'
+.L20:
+	.word	.L58-.L57
+.L57:
+	.half	3
+	.word	.L60-.L59
+.L59:
+	.byte	2,1,-4,9,10,0,1,1,1,1,0,0,0,1
+	.byte	'D:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_1.9\\BMU_BOOT\\Communication_Files\\Uds\\User',0
+	.byte	'D:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_1.9\\BMU_BOOT\\Initiate_Files',0
+	.byte	'D:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_1.9\\BMU_BOOT\\Stand_Header',0
+	.byte	'D:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_1.9\\BMU_BOOT\\Communication_Files\\Uds\\Dcm',0,0
+	.byte	'Uds_User_RoutineControlCallback.h',0,1,0,0
+	.byte	'..\\Communication_Files\\Uds\\Dcm\\Uds_Dcm_RoutineControl.c',0,0,0,0
+	.byte	'MAIN.h',0,2,0,0
+	.byte	'Platform_Types.h',0,3,0,0
+	.byte	'Uds_User_DiagnosticSessionControlCallback.h',0,1,0,0
+	.byte	'Uds_Dcm_RoutineControl.h',0,4,0,0
+	.byte	'Uds_Dcm_Drv.h',0,4,0,0,0
+.L60:
+.L58:
+	.sdecl	'.debug_info',debug,cluster('UdsFunc_SID_RC_Analysis')
+	.sect	'.debug_info'
+.L21:
+	.word	301
+	.half	3
+	.word	.L22
+	.byte	4,1
+	.byte	'..\\Communication_Files\\Uds\\Dcm\\Uds_Dcm_RoutineControl.c',0
+	.byte	'TASKING VX-toolset for TriCore: C compiler',0
+	.byte	'D:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_1.9\\BMU_BOOT\\Debug\\',0,12,1
+	.word	.L24,.L23
+	.byte	2
+	.word	.L17
+	.byte	3
+	.byte	'UdsFunc_SID_RC_Analysis',0,1,33,6,1,1,1
+	.word	.L14,.L33,.L13
+	.byte	4
+	.byte	'ui8_pInd',0,1,33,37
+	.word	.L34,.L35
+	.byte	4
+	.byte	'ui16_IndLen',0,1,33,54
+	.word	.L36,.L37
+	.byte	5
+	.word	.L14,.L33
+	.byte	6
+	.byte	'ui8_Loop_1',0,1,35,8
+	.word	.L38,.L39
+	.byte	0,0,0
+	.sdecl	'.debug_abbrev',debug,cluster('UdsFunc_SID_RC_Analysis')
+	.sect	'.debug_abbrev'
+.L22:
+	.byte	1,17,1,3,8,37,8,27,8,19,15,128,70,12,85,6,16,6,0,0,2,61,0,24,16,0,0,3,46,1,3,8,58,15,59,15,57,15,54,15
+	.byte	39,12,63,12,17,1,18,1,64,6,0,0,4,5,0,3,8,58,15,59,15,57,15,73,16,2,6,0,0,5,11,1,17,1,18,1,0,0,6,52,0,3
+	.byte	8,58,15,59,15,57,15,73,16,2,6,0,0,0
+	.sdecl	'.debug_line',debug,cluster('UdsFunc_SID_RC_Analysis')
+	.sect	'.debug_line'
+.L23:
+	.word	.L62-.L61
+.L61:
+	.half	3
+	.word	.L64-.L63
+.L63:
+	.byte	2,1,-4,9,10,0,1,1,1,1,0,0,0,1,0
+	.byte	'..\\Communication_Files\\Uds\\Dcm\\Uds_Dcm_RoutineControl.c',0,0,0,0,0
+.L64:
+	.byte	5,22,7,0,5,2
+	.word	.L14
+	.byte	3,37,1,5,27,9
+	.half	.L65-.L14
+	.byte	1,5,4,3,28,1,5,3,9
+	.half	.L66-.L65
+	.byte	3,105,1,5,4,3,23,1,5,17,9
+	.half	.L67-.L66
+	.byte	3,103,1,5,19,3,25,1,5,73,9
+	.half	.L49-.L67
+	.byte	3,103,1,5,2,9
+	.half	.L68-.L49
+	.byte	3,8,1,5,7,7,9
+	.half	.L69-.L68
+	.byte	3,3,1,5,26,9
+	.half	.L70-.L69
+	.byte	1,5,46,9
+	.half	.L71-.L70
+	.byte	1,5,3,9
+	.half	.L72-.L71
+	.byte	1,5,5,7,9
+	.half	.L73-.L72
+	.byte	3,5,1,5,36,9
+	.half	.L74-.L73
+	.byte	1,5,34,1,5,51,9
+	.half	.L75-.L74
+	.byte	1,5,32,9
+	.half	.L4-.L75
+	.byte	3,9,1,5,3,9
+	.half	.L76-.L4
+	.byte	3,126,1,5,31,9
+	.half	.L3-.L76
+	.byte	3,7,1,5,1,9
+	.half	.L5-.L3
+	.byte	3,2,1,9
+	.half	.L25-.L5
+	.byte	0,1,1
+.L62:
+	.sdecl	'.debug_ranges',debug,cluster('UdsFunc_SID_RC_Analysis')
+	.sect	'.debug_ranges'
+.L24:
+	.word	-1,.L14,0,.L25-.L14,0,0
+	.sdecl	'.debug_info',debug,cluster('UdsFunc_SID_RC_Appl_Deal')
+	.sect	'.debug_info'
+.L26:
+	.word	371
+	.half	3
+	.word	.L27
+	.byte	4,1
+	.byte	'..\\Communication_Files\\Uds\\Dcm\\Uds_Dcm_RoutineControl.c',0
+	.byte	'TASKING VX-toolset for TriCore: C compiler',0
+	.byte	'D:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_1.9\\BMU_BOOT\\Debug\\',0,12,1
+	.word	.L29,.L28
+	.byte	2
+	.word	.L17
+	.byte	3
+	.byte	'UdsFunc_SID_RC_Appl_Deal',0,1,95,9
+	.word	.L38
+	.byte	1,1,1
+	.word	.L16,.L40,.L15
+	.byte	4
+	.byte	'ui8_pInd',0,1,95,41
+	.word	.L34,.L41
+	.byte	4
+	.byte	'ui8_pRes',0,1,95,58
+	.word	.L34,.L42
+	.byte	4
+	.byte	'ui16_pResLen',0,1,95,76
+	.word	.L43,.L44
+	.byte	5
+	.word	.L16,.L40
+	.byte	6
+	.byte	'ui8_Loop_1',0,1,97,8
+	.word	.L38,.L45
+	.byte	6
+	.byte	'ui8_SubID',0,1,98,8
+	.word	.L38,.L46
+	.byte	6
+	.byte	'b_Return',0,1,99,10
+	.word	.L38,.L47
+	.byte	0,0,0
+	.sdecl	'.debug_abbrev',debug,cluster('UdsFunc_SID_RC_Appl_Deal')
+	.sect	'.debug_abbrev'
+.L27:
+	.byte	1,17,1,3,8,37,8,27,8,19,15,128,70,12,85,6,16,6,0,0,2,61,0,24,16,0,0,3,46,1,3,8,58,15,59,15,57,15,73,16
+	.byte	54,15,39,12,63,12,17,1,18,1,64,6,0,0,4,5,0,3,8,58,15,59,15,57,15,73,16,2,6,0,0,5,11,1,17,1,18,1,0,0,6
+	.byte	52,0,3,8,58,15,59,15,57,15,73,16,2,6,0,0,0
+	.sdecl	'.debug_line',debug,cluster('UdsFunc_SID_RC_Appl_Deal')
+	.sect	'.debug_line'
+.L28:
+	.word	.L78-.L77
+.L77:
+	.half	3
+	.word	.L80-.L79
+.L79:
+	.byte	2,1,-4,9,10,0,1,1,1,1,0,0,0,1,0
+	.byte	'..\\Communication_Files\\Uds\\Dcm\\Uds_Dcm_RoutineControl.c',0,0,0,0,0
+.L80:
+	.byte	5,9,7,0,5,2
+	.word	.L16
+	.byte	3,222,0,1,5,14,9
+	.half	.L53-.L16
+	.byte	3,6,1,5,2,9
+	.half	.L81-.L53
+	.byte	1,5,3,7,9
+	.half	.L82-.L81
+	.byte	3,2,1,5,41,9
+	.half	.L83-.L82
+	.byte	1,5,39,1,5,22,9
+	.half	.L7-.L83
+	.byte	3,3,1,5,27,9
+	.half	.L84-.L7
+	.byte	1,5,3,3,125,1,9
+	.half	.L54-.L84
+	.byte	3,8,1,3,120,1,5,17,9
+	.half	.L85-.L54
+	.byte	3,6,1,5,73,9
+	.half	.L55-.L85
+	.byte	1,5,2,9
+	.half	.L86-.L55
+	.byte	3,8,1,5,55,7,9
+	.half	.L87-.L86
+	.byte	3,2,1,5,71,9
+	.half	.L88-.L87
+	.byte	1,5,77,9
+	.half	.L51-.L88
+	.byte	1,5,21,9
+	.half	.L50-.L51
+	.byte	3,2,1,5,3,9
+	.half	.L89-.L50
+	.byte	1,5,17,7,9
+	.half	.L90-.L89
+	.byte	3,2,1,5,16,9
+	.half	.L91-.L90
+	.byte	3,1,1,5,21,9
+	.half	.L92-.L91
+	.byte	1,5,1,9
+	.half	.L10-.L92
+	.byte	3,10,1,5,33,7,9
+	.half	.L9-.L10
+	.byte	3,123,1,5,31,1,5,12,9
+	.half	.L93-.L9
+	.byte	3,1,1,5,1,9
+	.half	.L56-.L93
+	.byte	3,4,1,7,9
+	.half	.L30-.L56
+	.byte	0,1,1
+.L78:
+	.sdecl	'.debug_ranges',debug,cluster('UdsFunc_SID_RC_Appl_Deal')
+	.sect	'.debug_ranges'
+.L29:
+	.word	-1,.L16,0,.L30-.L16,0,0
+	.sdecl	'.debug_info',debug,cluster('st_Uds_SID_RC')
+	.sect	'.debug_info'
+.L31:
+	.word	200
+	.half	3
+	.word	.L32
+	.byte	4,1
+	.byte	'..\\Communication_Files\\Uds\\Dcm\\Uds_Dcm_RoutineControl.c',0
+	.byte	'TASKING VX-toolset for TriCore: C compiler',0
+	.byte	'D:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_1.9\\BMU_BOOT\\Debug\\',0,12,1,2
+	.word	.L17
+	.byte	3
+	.byte	'st_Uds_SID_RC',0,2,5,25
+	.word	.L48
+	.byte	1,5,3
+	.word	st_Uds_SID_RC
+	.byte	0
+	.sdecl	'.debug_abbrev',debug,cluster('st_Uds_SID_RC')
+	.sect	'.debug_abbrev'
+.L32:
+	.byte	1,17,1,3,8,37,8,27,8,19,15,128,70,12,0,0,2,61,0,24,16,0,0,3,52,0,3,8,58,15,59,15,57,15,73,16,63,12,2,9
+	.byte	0,0,0
+	.sdecl	'.debug_loc',debug,cluster('UdsFunc_SID_RC_Analysis')
+	.sect	'.debug_loc'
+.L13:
+	.word	-1,.L14,0,.L33-.L14
+	.half	2
+	.byte	138,0
+	.word	0,0
+.L37:
+	.word	-1,.L14,0,.L33-.L14
+	.half	5
+	.byte	144,34,157,32,0
+	.word	0,0
+.L39:
+	.word	-1,.L14,.L49-.L14,.L33-.L14
+	.half	5
+	.byte	144,32,157,32,0
+	.word	0,0
+.L35:
+	.word	-1,.L14,0,.L33-.L14
+	.half	1
+	.byte	100
+	.word	0,0
+	.sdecl	'.debug_loc',debug,cluster('UdsFunc_SID_RC_Appl_Deal')
+	.sect	'.debug_loc'
+.L15:
+	.word	-1,.L16,0,.L40-.L16
+	.half	2
+	.byte	138,0
+	.word	0,0
+.L47:
+	.word	-1,.L16,.L50-.L16,.L9-.L16
+	.half	5
+	.byte	144,33,157,32,0
+	.word	.L56-.L16,.L40-.L16
+	.half	5
+	.byte	144,33,157,32,0
+	.word	0,0
+.L44:
+	.word	-1,.L16,0,.L50-.L16
+	.half	1
+	.byte	102
+	.word	.L53-.L16,.L40-.L16
+	.half	1
+	.byte	109
+	.word	.L9-.L16,.L40-.L16
+	.half	1
+	.byte	102
+	.word	0,0
+.L45:
+	.word	-1,.L16,.L55-.L16,.L50-.L16
+	.half	5
+	.byte	144,32,157,32,0
+	.word	.L9-.L16,.L40-.L16
+	.half	5
+	.byte	144,32,157,32,0
+	.word	0,0
+.L46:
+	.word	-1,.L16,.L54-.L16,.L40-.L16
+	.half	5
+	.byte	144,36,157,32,0
+	.word	0,0
+.L41:
+	.word	-1,.L16,0,.L50-.L16
+	.half	1
+	.byte	100
+	.word	.L9-.L16,.L40-.L16
+	.half	1
+	.byte	100
+	.word	0,0
+.L42:
+	.word	-1,.L16,0,.L51-.L16
+	.half	1
+	.byte	101
+	.word	.L52-.L16,.L40-.L16
+	.half	1
+	.byte	108
+	.word	.L9-.L16,.L40-.L16
+	.half	1
+	.byte	101
+	.word	0,0
+	.sdecl	'.debug_frame',debug
+	.sect	'.debug_frame'
+.L94:
+	.word	48
+	.word	-1
+	.byte	3,0,2,1,27,12,26,0,8,26,8,27,8,30,8,29,8,28,8,16,8,17,8,24,8,25,8,31,8,32,8,33,8,34,8,35,8,36,8,37,8,38
+	.byte	8,39
+	.sdecl	'.debug_frame',debug,cluster('UdsFunc_SID_RC_Analysis')
+	.sect	'.debug_frame'
+	.word	20
+	.word	.L94,.L14,.L33-.L14
+	.byte	8,19,8,21,8,22,8,23
+	.sdecl	'.debug_frame',debug,cluster('UdsFunc_SID_RC_Appl_Deal')
+	.sect	'.debug_frame'
+	.word	12
+	.word	.L94,.L16,.L40-.L16
+
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_RoutineControl.c	   135  
+
+	; Module end

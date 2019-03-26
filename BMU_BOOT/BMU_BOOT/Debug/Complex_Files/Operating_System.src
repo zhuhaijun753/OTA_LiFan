@@ -1,0 +1,3167 @@
+	; Module start
+	.compiler_version	"TASKING VX-toolset for TriCore: C compiler v4.3r1 Build 759 SN 00641831"
+	.compiler_invocation	"ctc -f cc8a -c99 --dep-file=Complex_Files\\.Operating_System.o.d -D__CPU__=tc1782 -D__CPU_TC1782__ --core=tc1.3.1 -F -ID:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_1.9\\BMU_BOOT -ID:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_1.9\\BMU_BOOT\\Communication_Files\\CanDrv -ID:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_1.9\\BMU_BOOT\\Communication_Files\\Com -ID:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_1.9\\BMU_BOOT\\Communication_Files\\Com\\Can_Input -ID:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_1.9\\BMU_BOOT\\Communication_Files\\Com\\Can_Output -ID:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_1.9\\BMU_BOOT\\Communication_Files\\Uds\\Dcm -ID:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_1.9\\BMU_BOOT\\Communication_Files\\Uds\\Dem -ID:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_1.9\\BMU_BOOT\\Communication_Files\\Uds\\Tp -ID:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_1.9\\BMU_BOOT\\Communication_Files\\Uds\\User -ID:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_1.9\\BMU_BOOT\\Complex_Files -ID:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_1.9\\BMU_BOOT\\Initiate_Files -ID:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_1.9\\BMU_BOOT\\Nvm_Files\\FlsDrv -ID:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_1.9\\BMU_BOOT\\Stand_Header -g2 --make-target=Complex_Files\\Operating_System.o -t4 --language=-gcc,-volatile,+strings --default-near-size=0 -O2 --default-a1-size=0 --default-a0-size=0 --source --align=0 --compact-max-size=200 --switch=auto -o Complex_Files\\Operating_System.src ..\\Complex_Files\\Operating_System.c"
+	.compiler_name		"ctc"
+	.name	"Operating_System"
+
+	
+$TC131
+	
+	.sdecl	'.text.Operating_System.os_init',code,cluster('os_init')
+	.sect	'.text.Operating_System.os_init'
+	.align	2
+	
+	.global	os_init
+
+; ..\Complex_Files\Operating_System.c	     1  /*
+; ..\Complex_Files\Operating_System.c	     2   * Operating_System.c
+; ..\Complex_Files\Operating_System.c	     3   *
+; ..\Complex_Files\Operating_System.c	     4   *  Created on: 2018-7-18
+; ..\Complex_Files\Operating_System.c	     5   *      Author: HSNE_WS04
+; ..\Complex_Files\Operating_System.c	     6   */
+; ..\Complex_Files\Operating_System.c	     7  
+; ..\Complex_Files\Operating_System.c	     8  
+; ..\Complex_Files\Operating_System.c	     9  #include "MAIN.h"
+; ..\Complex_Files\Operating_System.c	    10  
+; ..\Complex_Files\Operating_System.c	    11  unsigned char task_5ms = 0;
+; ..\Complex_Files\Operating_System.c	    12  unsigned char task_10ms = 0;
+; ..\Complex_Files\Operating_System.c	    13  unsigned char task_20ms = 0;
+; ..\Complex_Files\Operating_System.c	    14  unsigned char task_50ms = 0;
+; ..\Complex_Files\Operating_System.c	    15  unsigned char task_100ms = 0;
+; ..\Complex_Files\Operating_System.c	    16  unsigned char task_500ms = 0;
+; ..\Complex_Files\Operating_System.c	    17  
+; ..\Complex_Files\Operating_System.c	    18  uint8 Recv_HandShake[8];
+; ..\Complex_Files\Operating_System.c	    19  uint8 Boot_App_Flag = 0;
+; ..\Complex_Files\Operating_System.c	    20  uint32 Recv_ID;
+; ..\Complex_Files\Operating_System.c	    21  uint32 Update_Count = 0;
+; ..\Complex_Files\Operating_System.c	    22  
+; ..\Complex_Files\Operating_System.c	    23  uword OScounter = 0;
+; ..\Complex_Files\Operating_System.c	    24  uint8 HandShake[8] = {0x8F, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00};
+; ..\Complex_Files\Operating_System.c	    25  
+; ..\Complex_Files\Operating_System.c	    26  void os_init(void) {
+; Function os_init
+.L67:
+os_init:	.type	func
+
+; ..\Complex_Files\Operating_System.c	    27  
+; ..\Complex_Files\Operating_System.c	    28  	OScounter = 0;
+	movh.a	a15,#@his(OScounter)
+.L281:
+	mov	d15,#0
+	st.w	[a15]@los(OScounter),d15
+.L282:
+
+; ..\Complex_Files\Operating_System.c	    29  
+; ..\Complex_Files\Operating_System.c	    30  	Fls_Init();									/*FLS初始化*/
+	call	Fls_Init
+.L283:
+
+; ..\Complex_Files\Operating_System.c	    31  	CAN_Init();									/*CAN模块初始化*/
+	call	CAN_Init
+.L284:
+
+; ..\Complex_Files\Operating_System.c	    32  	crc32_init();
+	call	crc32_init
+.L285:
+
+; ..\Complex_Files\Operating_System.c	    33  
+; ..\Complex_Files\Operating_System.c	    34  	UdsFunc_Init();								/*uds初始化*/
+	j	UdsFunc_Init
+.L189:
+	
+__os_init_function_end:
+	.size	os_init,__os_init_function_end-os_init
+.L133:
+	; End of function
+	
+	.sdecl	'.text.Operating_System.os_schedule',code,cluster('os_schedule')
+	.sect	'.text.Operating_System.os_schedule'
+	.align	2
+	
+	.global	os_schedule
+
+; ..\Complex_Files\Operating_System.c	    35  
+; ..\Complex_Files\Operating_System.c	    36  }
+; ..\Complex_Files\Operating_System.c	    37  void os_schedule(void) {
+; Function os_schedule
+.L69:
+os_schedule:	.type	func
+
+; ..\Complex_Files\Operating_System.c	    38  
+; ..\Complex_Files\Operating_System.c	    39  	if (0 == OScounter % 5) {
+	movh.a	a12,#@his(OScounter)
+	lea	a12,[a12]@los(OScounter)
+.L290:
+	mov	d5,#5
+	ld.w	d8,[a12]
+.L291:
+	mov	d4,d8
+	call	__rt_udivmod
+.L292:
+	jne	d3,#0,.L2				; predicted taken
+.L293:
+
+; ..\Complex_Files\Operating_System.c	    40  		task_5ms = 1;
+	movh.a	a15,#@his(task_5ms)
+	lea	a15,[a15]@los(task_5ms)
+.L294:
+	mov	d15,#1
+	st.b	[a15],d15
+.L2:
+
+; ..\Complex_Files\Operating_System.c	    41  	}
+; ..\Complex_Files\Operating_System.c	    42  	if (1 == OScounter % 10) {
+	mov	d5,#10
+.L295:
+	mov	d4,d8
+	call	__rt_udivmod
+.L296:
+	jne	d3,#1,.L3				; predicted taken
+.L297:
+
+; ..\Complex_Files\Operating_System.c	    43  		task_10ms = 1;
+	movh.a	a15,#@his(task_10ms)
+	lea	a15,[a15]@los(task_10ms)
+.L298:
+	mov	d15,#1
+	st.b	[a15],d15
+.L3:
+
+; ..\Complex_Files\Operating_System.c	    44  	}
+; ..\Complex_Files\Operating_System.c	    45  	if (2 == OScounter % 20) {
+	mov	d5,#20
+.L299:
+	mov	d4,d8
+	call	__rt_udivmod
+.L300:
+	jne	d3,#2,.L4				; predicted taken
+.L301:
+
+; ..\Complex_Files\Operating_System.c	    46  		task_20ms = 1;
+	movh.a	a15,#@his(task_20ms)
+	lea	a15,[a15]@los(task_20ms)
+.L302:
+	mov	d15,#1
+	st.b	[a15],d15
+.L4:
+
+; ..\Complex_Files\Operating_System.c	    47  	}
+; ..\Complex_Files\Operating_System.c	    48  	if (3 == OScounter % 50) {
+	mov	d5,#50
+.L303:
+	mov	d4,d8
+	call	__rt_udivmod
+.L304:
+	jne	d3,#3,.L5				; predicted taken
+.L305:
+
+; ..\Complex_Files\Operating_System.c	    49  		task_50ms = 1;
+	movh.a	a15,#@his(task_50ms)
+	lea	a15,[a15]@los(task_50ms)
+.L306:
+	mov	d15,#1
+	st.b	[a15],d15
+.L5:
+
+; ..\Complex_Files\Operating_System.c	    50  	}
+; ..\Complex_Files\Operating_System.c	    51  	if (4 == OScounter % 100) {
+	mov	d5,#100
+.L307:
+	mov	d4,d8
+	call	__rt_udivmod
+.L308:
+	jne	d3,#4,.L6				; predicted taken
+.L309:
+
+; ..\Complex_Files\Operating_System.c	    52  		task_100ms = 1;
+	movh.a	a15,#@his(task_100ms)
+	lea	a15,[a15]@los(task_100ms)
+.L310:
+	mov	d15,#1
+	st.b	[a15],d15
+.L6:
+
+; ..\Complex_Files\Operating_System.c	    53  	}
+; ..\Complex_Files\Operating_System.c	    54  	if (7 == OScounter % 500) {
+	mov	d5,#500
+.L311:
+	mov	d4,d8
+	call	__rt_udivmod
+.L312:
+	jne	d3,#7,.L7				; predicted taken
+.L313:
+
+; ..\Complex_Files\Operating_System.c	    55  		task_500ms = 1;
+	movh.a	a15,#@his(task_500ms)
+	lea	a15,[a15]@los(task_500ms)
+.L314:
+	mov	d15,#1
+	st.b	[a15],d15
+.L7:
+
+; ..\Complex_Files\Operating_System.c	    56  	}
+; ..\Complex_Files\Operating_System.c	    57  	if (50000 == OScounter) {   //50s a cycle
+	mov.u	d15,#50000
+.L315:
+	eq	d15,d8,d15
+.L316:
+
+; ..\Complex_Files\Operating_System.c	    58  		OScounter = 0;
+	cmov	d8,d15,#0
+.L317:
+
+; ..\Complex_Files\Operating_System.c	    59  	}
+; ..\Complex_Files\Operating_System.c	    60  	OScounter++;
+; ..\Complex_Files\Operating_System.c	    61  	os_task_1ms();
+	add	d8,#1
+	st.w	[a12],d8
+.L318:
+	j	os_task_1ms
+.L190:
+	
+__os_schedule_function_end:
+	.size	os_schedule,__os_schedule_function_end-os_schedule
+.L138:
+	; End of function
+	
+	.sdecl	'.text.Operating_System.os_operate',code,cluster('os_operate')
+	.sect	'.text.Operating_System.os_operate'
+	.align	2
+	
+	.global	os_operate
+
+; ..\Complex_Files\Operating_System.c	    62  }
+; ..\Complex_Files\Operating_System.c	    63  
+; ..\Complex_Files\Operating_System.c	    64  void os_operate(void) {
+; Function os_operate
+.L71:
+os_operate:	.type	func
+
+; ..\Complex_Files\Operating_System.c	    65  	if (task_5ms) {
+	movh.a	a15,#@his(task_5ms)
+	lea	a15,[a15]@los(task_5ms)
+	ld.bu	d15,[a15]
+.L323:
+	jeq	d15,#0,.L9				; predicted taken
+.L324:
+
+; ..\Complex_Files\Operating_System.c	    66  		task_5ms = 0;
+	mov	d15,#0
+	st.b	[a15],d15
+.L325:
+
+; ..\Complex_Files\Operating_System.c	    67  
+; ..\Complex_Files\Operating_System.c	    68  		os_task_5ms();
+	call	os_task_5ms
+.L9:
+
+; ..\Complex_Files\Operating_System.c	    69  	}
+; ..\Complex_Files\Operating_System.c	    70  
+; ..\Complex_Files\Operating_System.c	    71  	if (task_10ms) {
+	movh.a	a15,#@his(task_10ms)
+	lea	a15,[a15]@los(task_10ms)
+	ld.bu	d15,[a15]
+.L326:
+	jeq	d15,#0,.L10				; predicted taken
+.L327:
+
+; ..\Complex_Files\Operating_System.c	    72  		task_10ms = 0;
+	mov	d15,#0
+	st.b	[a15],d15
+.L328:
+
+; ..\Complex_Files\Operating_System.c	    73  
+; ..\Complex_Files\Operating_System.c	    74  		os_task_10ms();
+	call	os_task_10ms
+.L10:
+
+; ..\Complex_Files\Operating_System.c	    75  	}
+; ..\Complex_Files\Operating_System.c	    76  
+; ..\Complex_Files\Operating_System.c	    77  	if (task_20ms) {
+	movh.a	a15,#@his(task_20ms)
+	lea	a15,[a15]@los(task_20ms)
+	ld.bu	d15,[a15]
+.L329:
+	jeq	d15,#0,.L11				; predicted taken
+.L330:
+
+; ..\Complex_Files\Operating_System.c	    78  		task_20ms = 0;
+	mov	d15,#0
+	st.b	[a15],d15
+.L331:
+
+; ..\Complex_Files\Operating_System.c	    79  
+; ..\Complex_Files\Operating_System.c	    80  		os_task_20ms();
+	call	os_task_20ms
+.L11:
+
+; ..\Complex_Files\Operating_System.c	    81  	}
+; ..\Complex_Files\Operating_System.c	    82  
+; ..\Complex_Files\Operating_System.c	    83  	if (task_50ms) {
+	movh.a	a15,#@his(task_50ms)
+	lea	a15,[a15]@los(task_50ms)
+	ld.bu	d15,[a15]
+.L332:
+	jeq	d15,#0,.L12				; predicted taken
+.L333:
+
+; ..\Complex_Files\Operating_System.c	    84  		task_50ms = 0;
+	mov	d15,#0
+	st.b	[a15],d15
+.L334:
+
+; ..\Complex_Files\Operating_System.c	    85  
+; ..\Complex_Files\Operating_System.c	    86  		os_task_50ms();
+	call	os_task_50ms
+.L12:
+
+; ..\Complex_Files\Operating_System.c	    87  	}
+; ..\Complex_Files\Operating_System.c	    88  
+; ..\Complex_Files\Operating_System.c	    89  	if (task_100ms) {
+	movh.a	a15,#@his(task_100ms)
+	lea	a15,[a15]@los(task_100ms)
+	ld.bu	d15,[a15]
+.L335:
+	jeq	d15,#0,.L13				; predicted taken
+.L336:
+
+; ..\Complex_Files\Operating_System.c	    90  		task_100ms = 0;
+	mov	d15,#0
+	st.b	[a15],d15
+.L337:
+
+; ..\Complex_Files\Operating_System.c	    91  
+; ..\Complex_Files\Operating_System.c	    92  		os_task_100ms();
+	call	os_task_100ms
+.L13:
+
+; ..\Complex_Files\Operating_System.c	    93  	}
+; ..\Complex_Files\Operating_System.c	    94  
+; ..\Complex_Files\Operating_System.c	    95  	if (task_500ms) {
+	movh.a	a15,#@his(task_500ms)
+	lea	a15,[a15]@los(task_500ms)
+	ld.bu	d15,[a15]
+.L338:
+	jeq	d15,#0,.L14				; predicted taken
+.L339:
+
+; ..\Complex_Files\Operating_System.c	    96  		task_500ms = 0;
+	mov	d15,#0
+	st.b	[a15],d15
+.L340:
+
+; ..\Complex_Files\Operating_System.c	    97  
+; ..\Complex_Files\Operating_System.c	    98  		os_task_500ms();
+	j	os_task_500ms
+.L14:
+
+; ..\Complex_Files\Operating_System.c	    99  	}
+; ..\Complex_Files\Operating_System.c	   100  }
+	ret
+.L191:
+	
+__os_operate_function_end:
+	.size	os_operate,__os_operate_function_end-os_operate
+.L143:
+	; End of function
+	
+	.sdecl	'.text.Operating_System.os_task_1ms',code,cluster('os_task_1ms')
+	.sect	'.text.Operating_System.os_task_1ms'
+	.align	2
+	
+	.global	os_task_1ms
+
+; ..\Complex_Files\Operating_System.c	   101  
+; ..\Complex_Files\Operating_System.c	   102  void os_task_1ms(void){
+; Function os_task_1ms
+.L73:
+os_task_1ms:	.type	func
+
+; ..\Complex_Files\Operating_System.c	   103  	UdsFunc_Receiver_Task();
+	call	UdsFunc_Receiver_Task
+.L206:
+
+; ..\Complex_Files\Operating_System.c	   104  	Fls_MainFunction();
+	j	Fls_MainFunction
+.L182:
+	
+__os_task_1ms_function_end:
+	.size	os_task_1ms,__os_task_1ms_function_end-os_task_1ms
+.L98:
+	; End of function
+	
+	.sdecl	'.text.Operating_System.os_task_5ms',code,cluster('os_task_5ms')
+	.sect	'.text.Operating_System.os_task_5ms'
+	.align	2
+	
+	.global	os_task_5ms
+
+; ..\Complex_Files\Operating_System.c	   105  
+; ..\Complex_Files\Operating_System.c	   106  }
+; ..\Complex_Files\Operating_System.c	   107  void os_task_5ms(void) {
+; Function os_task_5ms
+.L75:
+os_task_5ms:	.type	func
+
+; ..\Complex_Files\Operating_System.c	   108  	Recv_ID = 0xBBU;
+	movh.a	a4,#@his(Recv_ID)
+	lea	a4,[a4]@los(Recv_ID)
+.L211:
+	mov	d15,#187
+	st.w	[a4],d15
+.L212:
+
+; ..\Complex_Files\Operating_System.c	   109  
+; ..\Complex_Files\Operating_System.c	   110  	if(CAN_Read(124, &Recv_ID, Recv_HandShake) == TRUE)		/*接收上位机指令*/
+	movh.a	a15,#@his(Recv_HandShake)
+	lea	a15,[a15]@los(Recv_HandShake)
+.L213:
+	mov	d4,#124
+	mov.aa	a5,a15
+	call	CAN_Read
+.L214:
+	jne	d2,#1,.L15				; predicted not taken
+.L215:
+
+; ..\Complex_Files\Operating_System.c	   111  	{
+; ..\Complex_Files\Operating_System.c	   112  		ubgCommand = Recv_HandShake[0];
+	movh.a	a2,#@his(ubgCommand)
+	lea	a2,[a2]@los(ubgCommand)
+.L216:
+	ld.bu	d15,[a15]
+.L217:
+	st.b	[a2],d15
+.L218:
+
+; ..\Complex_Files\Operating_System.c	   113  		ubgCommand1 = Recv_HandShake[5];
+	movh.a	a4,#@his(ubgCommand1)
+	lea	a4,[a4]@los(ubgCommand1)
+.L219:
+	ld.bu	d15,[a15]5
+.L220:
+	st.b	[a4],d15
+.L221:
+
+; ..\Complex_Files\Operating_System.c	   114  		ubgCommand2 = Recv_HandShake[6];
+	movh.a	a5,#@his(ubgCommand2)
+	lea	a5,[a5]@los(ubgCommand2)
+.L222:
+	ld.bu	d15,[a15]6
+.L223:
+	st.b	[a5],d15
+.L224:
+
+; ..\Complex_Files\Operating_System.c	   115  		ubgCommand3 = Recv_HandShake[7];
+	movh.a	a6,#@his(ubgCommand3)
+	lea	a6,[a6]@los(ubgCommand3)
+.L225:
+	ld.bu	d0,[a15]7
+.L226:
+	st.b	[a6],d0
+.L227:
+
+; ..\Complex_Files\Operating_System.c	   116  
+; ..\Complex_Files\Operating_System.c	   117  		if(Boot_App_Flag == 0)
+	movh.a	a15,#@his(Boot_App_Flag)
+	lea	a15,[a15]@los(Boot_App_Flag)
+	ld.bu	d15,[a15]
+.L228:
+	jne	d15,#0,.L16				; prediction unknown
+.L229:
+
+; ..\Complex_Files\Operating_System.c	   118  		{
+; ..\Complex_Files\Operating_System.c	   119  			if((ubgCommand == 0xAA) && (ubgCommand1 == 0xFF) && (ubgCommand2 == 0xBB) && (ubgCommand3 == 0xAA))
+	mov	d1,#170
+	ld.bu	d15,[a2]
+.L230:
+	jne	d15,d1,.L17				; prediction unknown
+.L231:
+	mov	d15,#255
+	ld.bu	d2,[a4]
+.L232:
+	jne	d15,d2,.L18				; prediction unknown
+.L233:
+	mov	d15,#187
+	ld.bu	d2,[a5]
+.L234:
+	jne	d15,d2,.L19				; prediction unknown
+.L235:
+	jne	d0,d1,.L20				; unsupported prediction taken forward branch
+.L236:
+
+; ..\Complex_Files\Operating_System.c	   120  			{
+; ..\Complex_Files\Operating_System.c	   121  				Boot_App_Flag = 1;
+	mov	d15,#1
+	st.b	[a15],d15
+.L20:
+.L19:
+.L18:
+.L17:
+.L16:
+.L15:
+
+; ..\Complex_Files\Operating_System.c	   122  			}
+; ..\Complex_Files\Operating_System.c	   123  		}
+; ..\Complex_Files\Operating_System.c	   124  
+; ..\Complex_Files\Operating_System.c	   125  	}
+; ..\Complex_Files\Operating_System.c	   126  
+; ..\Complex_Files\Operating_System.c	   127  }
+	ret
+.L183:
+	
+__os_task_5ms_function_end:
+	.size	os_task_5ms,__os_task_5ms_function_end-os_task_5ms
+.L103:
+	; End of function
+	
+	.sdecl	'.text.Operating_System.os_task_10ms',code,cluster('os_task_10ms')
+	.sect	'.text.Operating_System.os_task_10ms'
+	.align	2
+	
+	.global	os_task_10ms
+
+; ..\Complex_Files\Operating_System.c	   128  void os_task_10ms(void) {
+; Function os_task_10ms
+.L77:
+os_task_10ms:	.type	func
+
+; ..\Complex_Files\Operating_System.c	   129  	BSW_SystemService_EcuM_HardReset();
+	call	BSW_SystemService_EcuM_HardReset
+.L241:
+
+; ..\Complex_Files\Operating_System.c	   130  //	UdsFunc_Receiver_Task();
+; ..\Complex_Files\Operating_System.c	   131  
+; ..\Complex_Files\Operating_System.c	   132  //	if(CAN_Read(124, &Recv_ID, Recv_HandShake) == TRUE)		/*接收上位机指令*/
+; ..\Complex_Files\Operating_System.c	   133  //	{
+; ..\Complex_Files\Operating_System.c	   134  //		ubgCommand = Recv_HandShake[0];
+; ..\Complex_Files\Operating_System.c	   135  //		ubgCommand1 = Recv_HandShake[5];
+; ..\Complex_Files\Operating_System.c	   136  //		ubgCommand2 = Recv_HandShake[6];
+; ..\Complex_Files\Operating_System.c	   137  //		ubgCommand3 = Recv_HandShake[7];
+; ..\Complex_Files\Operating_System.c	   138  //
+; ..\Complex_Files\Operating_System.c	   139  //		process_command();
+; ..\Complex_Files\Operating_System.c	   140  //	}
+; ..\Complex_Files\Operating_System.c	   141  
+; ..\Complex_Files\Operating_System.c	   142  	if(Boot_App_Flag == 1)			/*判断是否有上位机不跳转指令*/
+	movh.a	a15,#@his(Boot_App_Flag)
+	lea	a15,[a15]@los(Boot_App_Flag)
+	ld.bu	d15,[a15]
+.L242:
+	jne	d15,#1,.L21				; predicted taken
+.L243:
+
+; ..\Complex_Files\Operating_System.c	   143  	{
+; ..\Complex_Files\Operating_System.c	   144  		Boot_App_Flag = 2;
+	mov	d15,#2
+	st.b	[a15],d15
+.L244:
+
+; ..\Complex_Files\Operating_System.c	   145  		Fls_Erase(0xA0010000);
+	movh	d4,#40961
+	call	Fls_Erase
+.L245:
+	j	.L22
+.L21:
+
+; ..\Complex_Files\Operating_System.c	   146  	}
+; ..\Complex_Files\Operating_System.c	   147  	else if(Boot_App_Flag == 0)
+	jne	d15,#0,.L23				; prediction unknown
+.L246:
+
+; ..\Complex_Files\Operating_System.c	   148  	{
+; ..\Complex_Files\Operating_System.c	   149  		if(Boot_Flag[0] == 0xfe)
+	movh.a	a2,#@his(Boot_Flag)
+.L247:
+	mov	d15,#254
+	lea	a2,[a2]@los(Boot_Flag)
+.L248:
+	ld.bu	d0,[a2]
+.L249:
+	jne	d15,d0,.L24				; predicted taken
+.L250:
+
+; ..\Complex_Files\Operating_System.c	   150  		{
+; ..\Complex_Files\Operating_System.c	   151  			RunUserCode();
+	call	RunUserCode
+.L24:
+
+; ..\Complex_Files\Operating_System.c	   152  		}
+; ..\Complex_Files\Operating_System.c	   153  		Boot_App_Flag = 2;
+	mov	d15,#2
+	st.b	[a15],d15
+.L23:
+.L22:
+
+; ..\Complex_Files\Operating_System.c	   154  	}
+; ..\Complex_Files\Operating_System.c	   155  	if(Handflag == 2)
+	movh.a	a15,#@his(Handflag)
+	lea	a15,[a15]@los(Handflag)
+	ld.w	d15,[a15]
+.L251:
+	jne	d15,#2,.L25				; predicted not taken
+.L252:
+
+; ..\Complex_Files\Operating_System.c	   156  	{
+; ..\Complex_Files\Operating_System.c	   157  		Handflag = 0;
+	mov	d15,#0
+	st.w	[a15],d15
+.L25:
+
+; ..\Complex_Files\Operating_System.c	   158  	}
+; ..\Complex_Files\Operating_System.c	   159  
+; ..\Complex_Files\Operating_System.c	   160  	process_command();
+	j	process_command
+.L184:
+	
+__os_task_10ms_function_end:
+	.size	os_task_10ms,__os_task_10ms_function_end-os_task_10ms
+.L108:
+	; End of function
+	
+	.sdecl	'.text.Operating_System.os_task_20ms',code,cluster('os_task_20ms')
+	.sect	'.text.Operating_System.os_task_20ms'
+	.align	2
+	
+	.global	os_task_20ms
+
+; ..\Complex_Files\Operating_System.c	   161  }
+; ..\Complex_Files\Operating_System.c	   162  
+; ..\Complex_Files\Operating_System.c	   163  void os_task_20ms(void) {
+; Function os_task_20ms
+.L79:
+os_task_20ms:	.type	func
+
+; ..\Complex_Files\Operating_System.c	   164  
+; ..\Complex_Files\Operating_System.c	   165  }
+	ret
+.L185:
+	
+__os_task_20ms_function_end:
+	.size	os_task_20ms,__os_task_20ms_function_end-os_task_20ms
+.L113:
+	; End of function
+	
+	.sdecl	'.text.Operating_System.os_task_50ms',code,cluster('os_task_50ms')
+	.sect	'.text.Operating_System.os_task_50ms'
+	.align	2
+	
+	.global	os_task_50ms
+
+; ..\Complex_Files\Operating_System.c	   166  void os_task_50ms(void) {
+; Function os_task_50ms
+.L81:
+os_task_50ms:	.type	func
+
+; ..\Complex_Files\Operating_System.c	   167  
+; ..\Complex_Files\Operating_System.c	   168  }
+	ret
+.L186:
+	
+__os_task_50ms_function_end:
+	.size	os_task_50ms,__os_task_50ms_function_end-os_task_50ms
+.L118:
+	; End of function
+	
+	.sdecl	'.text.Operating_System.os_task_100ms',code,cluster('os_task_100ms')
+	.sect	'.text.Operating_System.os_task_100ms'
+	.align	2
+	
+	.global	os_task_100ms
+
+; ..\Complex_Files\Operating_System.c	   169  void os_task_100ms(void) {
+; Function os_task_100ms
+.L83:
+os_task_100ms:	.type	func
+
+; ..\Complex_Files\Operating_System.c	   170  	if(Update_Count == 100)
+	movh.a	a15,#@his(Update_Count)
+.L265:
+	mov	d0,#100
+	lea	a15,[a15]@los(Update_Count)
+	ld.w	d15,[a15]
+.L266:
+	jne	d15,d0,.L26				; predicted taken
+.L267:
+
+; ..\Complex_Files\Operating_System.c	   171  		st_Uds_SID_RC_Info.b_UpdateFlag = FALSE;
+	movh.a	a15,#@his(st_Uds_SID_RC_Info)
+	lea	a15,[a15]@los(st_Uds_SID_RC_Info)
+.L268:
+	mov	d15,#0
+	st.b	[a15]4,d15
+.L269:
+
+; ..\Complex_Files\Operating_System.c	   172  	else
+; ..\Complex_Files\Operating_System.c	   173  		Update_Count++;
+; ..\Complex_Files\Operating_System.c	   174  }
+	ret
+.L26:
+	add	d15,#1
+	st.w	[a15],d15
+.L270:
+	ret
+.L187:
+	
+__os_task_100ms_function_end:
+	.size	os_task_100ms,__os_task_100ms_function_end-os_task_100ms
+.L123:
+	; End of function
+	
+	.sdecl	'.text.Operating_System.os_task_500ms',code,cluster('os_task_500ms')
+	.sect	'.text.Operating_System.os_task_500ms'
+	.align	2
+	
+	.global	os_task_500ms
+
+; ..\Complex_Files\Operating_System.c	   175  void os_task_500ms(void) {
+; Function os_task_500ms
+.L85:
+os_task_500ms:	.type	func
+
+; ..\Complex_Files\Operating_System.c	   176  	if(Handflag == 0)
+	movh.a	a15,#@his(Handflag)
+	ld.w	d15,[a15]@los(Handflag)
+.L275:
+	jne	d15,#0,.L28				; predicted taken
+.L276:
+
+; ..\Complex_Files\Operating_System.c	   177  		CAN_Write(125, HandShake);
+	mov	d4,#125
+	movh.a	a4,#@his(HandShake)
+	lea	a4,[a4]@los(HandShake)
+	j	CAN_Write
+.L28:
+
+; ..\Complex_Files\Operating_System.c	   178  }
+	ret
+.L188:
+	
+__os_task_500ms_function_end:
+	.size	os_task_500ms,__os_task_500ms_function_end-os_task_500ms
+.L128:
+	; End of function
+	
+	.sdecl	'.text.Operating_System.BSW_SystemService_EcuM_HardReset',code,cluster('BSW_SystemService_EcuM_HardReset')
+	.sect	'.text.Operating_System.BSW_SystemService_EcuM_HardReset'
+	.align	2
+	
+	.global	BSW_SystemService_EcuM_HardReset
+
+; ..\Complex_Files\Operating_System.c	   179  
+; ..\Complex_Files\Operating_System.c	   180  /*
+; ..\Complex_Files\Operating_System.c	   181  Function:		void BSW_SystemService_EcuM_HardReset(void)
+; ..\Complex_Files\Operating_System.c	   182  Description: 	此函数用于进行UDS的硬件复位
+; ..\Complex_Files\Operating_System.c	   183  Input: 			None
+; ..\Complex_Files\Operating_System.c	   184  Output:       	None
+; ..\Complex_Files\Operating_System.c	   185  Return:        	Void
+; ..\Complex_Files\Operating_System.c	   186  Time:
+; ..\Complex_Files\Operating_System.c	   187  Others:
+; ..\Complex_Files\Operating_System.c	   188  Physical Test：
+; ..\Complex_Files\Operating_System.c	   189  */
+; ..\Complex_Files\Operating_System.c	   190  uint8 ui8_UpdateBackupFlag = 0;
+; ..\Complex_Files\Operating_System.c	   191  uint32 ui32_CodeAddressStar = 0;
+; ..\Complex_Files\Operating_System.c	   192  void BSW_SystemService_EcuM_HardReset(void)
+; Function BSW_SystemService_EcuM_HardReset
+.L87:
+BSW_SystemService_EcuM_HardReset:	.type	func
+
+; ..\Complex_Files\Operating_System.c	   193  {
+; ..\Complex_Files\Operating_System.c	   194  
+; ..\Complex_Files\Operating_System.c	   195  	if(st_Uds_SID_ER_Info.b_HardResetFlag == TRUE)	//是否复位标志成立，并且诊断仪在线？
+	movh.a	a12,#@his(st_Uds_SID_ER_Info)
+	lea	a12,[a12]@los(st_Uds_SID_ER_Info)
+.L345:
+	ld.bu	d15,[a12]
+.L346:
+	jne	d15,#1,.L29				; predicted taken
+.L347:
+
+; ..\Complex_Files\Operating_System.c	   196  	{
+; ..\Complex_Files\Operating_System.c	   197  		if((CAN_MOs_Transmit_Status(ui8_Uds_Cmd_Tx_MO) == E_OK) || (st_Uds_Response.b_SuppressPosRspBit == TRUE))	//MO已发送完成？
+	movh.a	a15,#@his(ui8_Uds_Cmd_Tx_MO)
+	lea	a15,[a15]@los(ui8_Uds_Cmd_Tx_MO)
+	ld.bu	d4,[a15]
+	call	CAN_MOs_Transmit_Status
+.L348:
+	jeq	d2,#0,.L30				; predicted not taken
+.L349:
+	movh.a	a15,#@his(st_Uds_Response)
+	lea	a15,[a15]@los(st_Uds_Response)
+.L350:
+	ld.bu	d15,[a15]1
+.L351:
+	jne	d15,#1,.L31				; predicted taken
+.L30:
+
+; ..\Complex_Files\Operating_System.c	   198  		{
+; ..\Complex_Files\Operating_System.c	   199  			MAIN_vResetENDINIT();
+	lea	a15,0xf00005f0
+	ld.w	d15,[a15]
+	insert	d4,d15,#0,#0,#1
+	call	MAIN_vWriteWDTCON0
+.L32:
+	ld.bu	d15,0xf00005f0
+	jnz.t	d15:0,.L32				; predicted taken
+.L352:
+
+; ..\Complex_Files\Operating_System.c	   200  			SCU_RSTCON = 0x000001A2U;
+	mov	d15,#418
+	st.w	0xf0000558,d15
+.L353:
+
+; ..\Complex_Files\Operating_System.c	   201  			SCU_SWRSTCON &= 0xFFFF00FF;
+	lea	a2,0xf0000560
+	ld.w	d15,[a2]
+.L354:
+	insert	d15,d15,#0,#8,#8
+	st.w	[a2],d15
+.L355:
+
+; ..\Complex_Files\Operating_System.c	   202  			SCU_SWRSTCON |= 0x0000C000;
+	ld.w	d15,[a2]
+.L356:
+	insert	d15,d15,#3,#14,#2
+	st.w	[a2],d15
+.L357:
+
+; ..\Complex_Files\Operating_System.c	   203  			SCU_SWRSTCON_SWBOOT = 1;
+	ld.bu	d15,[a2]
+.L358:
+	or	d15,#1
+	st.b	[a2],d15
+.L359:
+
+; ..\Complex_Files\Operating_System.c	   204  			SCU_SWRSTCON_SWRSTREQ = 1;
+	ld.bu	d15,[a2]
+.L360:
+	or	d15,#2
+	st.b	[a2],d15
+.L361:
+
+; ..\Complex_Files\Operating_System.c	   205  			MAIN_vSetENDINIT();
+	ld.w	d15,[a15]
+	or	d4,d15,#1
+	call	MAIN_vWriteWDTCON0
+.L31:
+.L29:
+
+; ..\Complex_Files\Operating_System.c	   206  		}
+; ..\Complex_Files\Operating_System.c	   207  	}
+; ..\Complex_Files\Operating_System.c	   208  
+; ..\Complex_Files\Operating_System.c	   209  	if(((st_Uds_SID_RC_Info.b_BackUpFlag == TRUE) && (ui32_KeepBSLState_Flag == SYS_KEEP_BSL_STATE)) || (ui32_KeepBSLState_Flag == SYS_BSL_RESET))			//备份成功以及是从应用层跳转而来
+	movh.a	a15,#@his(st_Uds_SID_RC_Info)
+	lea	a15,[a15]@los(st_Uds_SID_RC_Info)
+.L362:
+	ld.bu	d15,[a15]3
+.L363:
+	jne	d15,#1,.L33				; prediction unknown
+.L364:
+	mov.u	d0,#41377
+	movh.a	a14,#@his(ui32_KeepBSLState_Flag)
+.L365:
+	addih	d0,d0,#41377
+	lea	a14,[a14]@los(ui32_KeepBSLState_Flag)
+	ld.w	d15,[a14]
+.L366:
+	jeq	d15,d0,.L34				; prediction unknown
+.L33:
+	mov.u	d0,#41891
+	movh.a	a14,#@his(ui32_KeepBSLState_Flag)
+.L367:
+	addih	d0,d0,#41891
+	lea	a14,[a14]@los(ui32_KeepBSLState_Flag)
+.L368:
+	ld.w	d15,[a14]
+.L369:
+	jne	d15,d0,.L35				; predicted taken
+.L34:
+
+; ..\Complex_Files\Operating_System.c	   210  	{
+; ..\Complex_Files\Operating_System.c	   211  		if((st_Uds_SID_RC_Info.b_UpdateFlag == FALSE) || (ui32_KeepBSLState_Flag == SYS_BSL_RESET))	//如果升级失败，进行回刷服务
+	ld.bu	d15,[+a15]4
+.L370:
+	jeq	d15,#0,.L36				; predicted not taken
+.L371:
+	mov.u	d0,#41891
+	ld.w	d15,[a14]
+.L372:
+	addih	d0,d0,#41891
+.L373:
+	jne	d15,d0,.L37				; predicted taken
+.L36:
+
+; ..\Complex_Files\Operating_System.c	   212  		{
+; ..\Complex_Files\Operating_System.c	   213  			if((Fls_GetStatus() == FLS_TASK_IDLE_STATE) && (ui8_UpdateBackupFlag == 0))
+	call	Fls_GetStatus
+.L374:
+	jne	d2,#0,.L38				; predicted not taken
+.L375:
+	movh.a	a13,#@his(ui8_UpdateBackupFlag)
+	lea	a13,[a13]@los(ui8_UpdateBackupFlag)
+	ld.bu	d15,[a13]
+.L376:
+	jne	d15,#0,.L39				; predicted not taken
+.L377:
+
+; ..\Complex_Files\Operating_System.c	   214  			{
+; ..\Complex_Files\Operating_System.c	   215  				if(ui32_KeepBSLState_Flag == SYS_BSL_RESET)
+	mov.u	d0,#41891
+	ld.w	d15,[a14]
+.L378:
+	addih	d0,d0,#41891
+.L379:
+	jne	d15,d0,.L40				; predicted taken
+.L380:
+
+; ..\Complex_Files\Operating_System.c	   216  				{
+; ..\Complex_Files\Operating_System.c	   217  					Fls_Erase(0xA0010000);
+	movh	d4,#40961
+	call	Fls_Erase
+.L40:
+
+; ..\Complex_Files\Operating_System.c	   218  				}
+; ..\Complex_Files\Operating_System.c	   219  				ui32_CodeAddressStar = 0xA0020000;
+	movh.a	a15,#@his(ui32_CodeAddressStar)
+.L381:
+	movh	d15,#40962
+	st.w	[a15]@los(ui32_CodeAddressStar),d15
+.L382:
+
+; ..\Complex_Files\Operating_System.c	   220  				ui8_UpdateBackupFlag = 1;
+	mov	d15,#1
+	st.b	[a13],d15
+.L37:
+.L35:
+
+; ..\Complex_Files\Operating_System.c	   221  			}
+; ..\Complex_Files\Operating_System.c	   222  			else if((Fls_GetStatus() == FLS_TASK_IDLE_STATE) && (ui8_UpdateBackupFlag == 1))
+; ..\Complex_Files\Operating_System.c	   223  			{
+; ..\Complex_Files\Operating_System.c	   224  				switch(ui32_CodeAddressStar)
+; ..\Complex_Files\Operating_System.c	   225  				{
+; ..\Complex_Files\Operating_System.c	   226  				case 0xA0020000:
+; ..\Complex_Files\Operating_System.c	   227  					Fls_Erase(ui32_CodeAddressStar);
+; ..\Complex_Files\Operating_System.c	   228  					ui32_CodeAddressStar = 0xA0040000;
+; ..\Complex_Files\Operating_System.c	   229  					ui8_UpdateBackupFlag = 1;
+; ..\Complex_Files\Operating_System.c	   230  					break;
+; ..\Complex_Files\Operating_System.c	   231  				case 0xA0040000:
+; ..\Complex_Files\Operating_System.c	   232  					Fls_Erase(ui32_CodeAddressStar);
+; ..\Complex_Files\Operating_System.c	   233  					ui32_CodeAddressStar = 0xA00C0000;
+; ..\Complex_Files\Operating_System.c	   234  					ui8_UpdateBackupFlag = 1;
+; ..\Complex_Files\Operating_System.c	   235  					break;
+; ..\Complex_Files\Operating_System.c	   236  				case 0xA00C0000:
+; ..\Complex_Files\Operating_System.c	   237  					Fls_Erase(ui32_CodeAddressStar);
+; ..\Complex_Files\Operating_System.c	   238  					ui32_CodeAddressStar = 0xA01C0000;
+; ..\Complex_Files\Operating_System.c	   239  					ui8_UpdateBackupFlag = 2;
+; ..\Complex_Files\Operating_System.c	   240  					break;
+; ..\Complex_Files\Operating_System.c	   241  				}
+; ..\Complex_Files\Operating_System.c	   242  			}
+; ..\Complex_Files\Operating_System.c	   243  			else if((Fls_GetStatus() == FLS_TASK_IDLE_STATE) && (ui8_UpdateBackupFlag == 2))
+; ..\Complex_Files\Operating_System.c	   244  			{
+; ..\Complex_Files\Operating_System.c	   245  				memset(Boot_Flash, 0U, 256U);
+; ..\Complex_Files\Operating_System.c	   246  				Fls_Read(ui32_CodeAddressStar, &Boot_Flash[0], 256U);
+; ..\Complex_Files\Operating_System.c	   247  				if(ui32_CodeAddressStar >= 0xA0240000)
+; ..\Complex_Files\Operating_System.c	   248  				{
+; ..\Complex_Files\Operating_System.c	   249  					Fls_Write(ui32_CodeAddressStar - 0x180000, &Boot_Flash[0], 256U);
+; ..\Complex_Files\Operating_System.c	   250  				}
+; ..\Complex_Files\Operating_System.c	   251  				else if(ui32_CodeAddressStar >= 0xA01C0000)
+; ..\Complex_Files\Operating_System.c	   252  				{
+; ..\Complex_Files\Operating_System.c	   253  					Fls_Write(ui32_CodeAddressStar - 0x1A0000, &Boot_Flash[0], 256U);
+; ..\Complex_Files\Operating_System.c	   254  				}
+; ..\Complex_Files\Operating_System.c	   255  				ui8_UpdateBackupFlag = 3;
+; ..\Complex_Files\Operating_System.c	   256  			}
+; ..\Complex_Files\Operating_System.c	   257  			else if((Fls_GetStatus() == FLS_TASK_IDLE_STATE) && (ui8_UpdateBackupFlag == 3))		/*备份完成，进入下一页备份*/
+; ..\Complex_Files\Operating_System.c	   258  			{
+; ..\Complex_Files\Operating_System.c	   259  				if(ui32_CodeAddressStar == 0xA023FF00)								/*第一块恢复完成*/
+; ..\Complex_Files\Operating_System.c	   260  				{
+; ..\Complex_Files\Operating_System.c	   261  					ui32_CodeAddressStar = 0xA0240000;
+; ..\Complex_Files\Operating_System.c	   262  					ui8_UpdateBackupFlag = 2;
+; ..\Complex_Files\Operating_System.c	   263  				}
+; ..\Complex_Files\Operating_System.c	   264  				else if(ui32_CodeAddressStar == 0xA027FF00)							/*第二块恢复完成*/
+; ..\Complex_Files\Operating_System.c	   265  				{
+; ..\Complex_Files\Operating_System.c	   266  					memset(Boot_Flash, 0U, 256U);
+; ..\Complex_Files\Operating_System.c	   267  					Boot_Flash[0] = 0xFE;
+; ..\Complex_Files\Operating_System.c	   268  					Fls_Write(0xA0010000, &Boot_Flash[0], 256U);
+; ..\Complex_Files\Operating_System.c	   269  					ui8_UpdateBackupFlag = 4;
+; ..\Complex_Files\Operating_System.c	   270  				}
+; ..\Complex_Files\Operating_System.c	   271  				else
+; ..\Complex_Files\Operating_System.c	   272  				{
+; ..\Complex_Files\Operating_System.c	   273  					ui32_CodeAddressStar = ui32_CodeAddressStar + 256;
+; ..\Complex_Files\Operating_System.c	   274  					ui8_UpdateBackupFlag = 2;
+; ..\Complex_Files\Operating_System.c	   275  				}
+; ..\Complex_Files\Operating_System.c	   276  
+; ..\Complex_Files\Operating_System.c	   277  
+; ..\Complex_Files\Operating_System.c	   278  			}
+; ..\Complex_Files\Operating_System.c	   279  			else if((Fls_GetStatus() == FLS_TASK_IDLE_STATE) && (ui8_UpdateBackupFlag == 4))	/*回刷完成，重启操作*/
+; ..\Complex_Files\Operating_System.c	   280  			{
+; ..\Complex_Files\Operating_System.c	   281  				st_Uds_SID_ER_Info.b_HardResetFlag = TRUE;
+; ..\Complex_Files\Operating_System.c	   282  				ui32_KeepBSLState_Flag = SYS_POWER_ON_RESET;
+; ..\Complex_Files\Operating_System.c	   283  				ui8_UpdateBackupFlag = 0;
+; ..\Complex_Files\Operating_System.c	   284  				st_Uds_SID_RC_Info.b_UpdateFlag = TRUE;
+; ..\Complex_Files\Operating_System.c	   285  			}
+; ..\Complex_Files\Operating_System.c	   286  		}
+; ..\Complex_Files\Operating_System.c	   287  	}
+; ..\Complex_Files\Operating_System.c	   288  }
+	ret
+.L39:
+.L38:
+	call	Fls_GetStatus
+.L383:
+	jne	d2,#0,.L42				; predicted not taken
+.L384:
+	movh.a	a13,#@his(ui8_UpdateBackupFlag)
+	lea	a13,[a13]@los(ui8_UpdateBackupFlag)
+	ld.bu	d15,[a13]
+.L385:
+	jne	d15,#1,.L43				; predicted not taken
+.L386:
+	movh.a	a15,#@his(ui32_CodeAddressStar)
+.L387:
+	movh	d15,#40962
+	lea	a15,[a15]@los(ui32_CodeAddressStar)
+	ld.w	d0,[a15]
+.L388:
+	jeq	d15,d0,.L44				; prediction unknown
+.L389:
+	movh	d15,#40964
+	jeq	d15,d0,.L45				; prediction unknown
+.L390:
+	movh	d15,#40972
+	jeq	d15,d0,.L46				; prediction unknown
+.L391:
+	ret
+.L44:
+	movh	d4,#40962
+	call	Fls_Erase
+.L392:
+	movh	d15,#40964
+	st.w	[a15],d15
+.L393:
+	mov	d15,#1
+	st.b	[a13],d15
+.L394:
+	ret
+.L45:
+	movh	d4,#40964
+	call	Fls_Erase
+.L395:
+	movh	d15,#40972
+	st.w	[a15],d15
+.L396:
+	mov	d15,#1
+	st.b	[a13],d15
+.L397:
+	ret
+.L46:
+	movh	d4,#40972
+	call	Fls_Erase
+.L398:
+	movh	d15,#40988
+.L51:
+.L50:
+	st.w	[a15],d15
+.L399:
+	mov	d15,#2
+	st.b	[a13],d15
+.L400:
+	ret
+.L43:
+.L42:
+	call	Fls_GetStatus
+.L401:
+	jne	d2,#0,.L53				; predicted not taken
+.L402:
+	movh.a	a13,#@his(ui8_UpdateBackupFlag)
+	lea	a13,[a13]@los(ui8_UpdateBackupFlag)
+	ld.bu	d15,[a13]
+.L403:
+	jne	d15,#2,.L54				; predicted taken
+.L404:
+	movh.a	a15,#@his(Boot_Flash)
+	lea	a15,[a15]@los(Boot_Flash)
+.L405:
+	mov	d4,#0
+.L406:
+	mov	d5,#256
+	mov.aa	a4,a15
+	call	memset
+.L407:
+	mov	d5,#256
+	mov.aa	a4,a15
+.L408:
+	movh.a	a12,#@his(ui32_CodeAddressStar)
+	ld.w	d4,[a12]@los(ui32_CodeAddressStar)
+.L409:
+	call	Fls_Read
+.L410:
+	movh	d0,#40996
+	ld.w	d15,[a12]@los(ui32_CodeAddressStar)
+.L411:
+	jlt.u	d15,d0,.L55				; unsupported prediction taken forward branch
+.L412:
+	movh	d0,#24
+.L413:
+	j	.L56
+.L55:
+	movh	d0,#40988
+.L414:
+	jlt.u	d15,d0,.L57				; unsupported prediction taken forward branch
+.L415:
+	movh	d0,#26
+.L56:
+	sub	d4,d15,d0
+	mov.aa	a4,a15
+.L416:
+	mov	d5,#256
+.L417:
+	call	Fls_Write
+.L57:
+	mov	d15,#3
+	st.b	[a13],d15
+.L418:
+	ret
+.L54:
+.L53:
+	call	Fls_GetStatus
+.L419:
+	jne	d2,#0,.L59				; predicted not taken
+.L420:
+	movh.a	a13,#@his(ui8_UpdateBackupFlag)
+	lea	a13,[a13]@los(ui8_UpdateBackupFlag)
+	ld.bu	d15,[a13]
+.L421:
+	jne	d15,#3,.L60				; predicted not taken
+.L422:
+	mov.u	d15,#65280
+	movh.a	a15,#@his(ui32_CodeAddressStar)
+.L423:
+	addih	d15,d15,#40995
+	lea	a15,[a15]@los(ui32_CodeAddressStar)
+	ld.w	d0,[a15]
+.L424:
+	jne	d15,d0,.L61				; predicted taken
+.L425:
+	movh	d15,#40996
+.L426:
+	j	.L51
+.L61:
+	mov.u	d15,#65280
+	addih	d15,d15,#40999
+.L427:
+	jne	d15,d0,.L62				; predicted taken
+.L428:
+	movh.a	a15,#@his(Boot_Flash)
+	lea	a15,[a15]@los(Boot_Flash)
+.L429:
+	mov	d4,#0
+.L430:
+	mov	d5,#256
+	mov.aa	a4,a15
+	call	memset
+.L431:
+	mov	d15,#254
+	st.b	[a15],d15
+.L432:
+	movh	d4,#40961
+	mov.aa	a4,a15
+.L433:
+	mov	d5,#256
+.L434:
+	call	Fls_Write
+.L435:
+	mov	d15,#4
+	st.b	[a13],d15
+.L436:
+	ret
+.L62:
+	addi	d15,d0,#256
+.L437:
+	j	.L50
+.L60:
+.L59:
+	call	Fls_GetStatus
+.L438:
+	jne	d2,#0,.L64				; predicted taken
+.L439:
+	movh.a	a2,#@his(ui8_UpdateBackupFlag)
+	lea	a2,[a2]@los(ui8_UpdateBackupFlag)
+	ld.bu	d15,[a2]
+.L440:
+	jne	d15,#4,.L65				; predicted not taken
+.L441:
+	mov	d15,#1
+	st.b	[a12],d15
+.L442:
+	mov.u	d0,#41634
+.L443:
+	addih	d0,d0,#41634
+	st.w	[a14],d0
+.L444:
+	mov	d0,#0
+	st.b	[a2],d0
+.L445:
+	st.b	[a15],d15
+.L65:
+.L64:
+	ret
+.L192:
+	
+__BSW_SystemService_EcuM_HardReset_function_end:
+	.size	BSW_SystemService_EcuM_HardReset,__BSW_SystemService_EcuM_HardReset_function_end-BSW_SystemService_EcuM_HardReset
+.L148:
+	; End of function
+	
+	.sdecl	'.text.Operating_System.RunUserCode',code,cluster('RunUserCode')
+	.sect	'.text.Operating_System.RunUserCode'
+	.align	2
+	
+	.global	RunUserCode
+
+; ..\Complex_Files\Operating_System.c	   289  
+; ..\Complex_Files\Operating_System.c	   290  
+; ..\Complex_Files\Operating_System.c	   291  void RunUserCode(void)
+; Function RunUserCode
+.L89:
+RunUserCode:	.type	func
+
+; ..\Complex_Files\Operating_System.c	   292  {
+; ..\Complex_Files\Operating_System.c	   293      __asm("movh.a a15,#0xA002\n"			//load flash
+	movh.a a15,#0xA002
+	lea a15,[a15]0x0000
+	ji a15
+.L450:
+
+; ..\Complex_Files\Operating_System.c	   294      	"\tlea a15,[a15]0x0000\n"			//base address
+; ..\Complex_Files\Operating_System.c	   295      	"\tji a15");						//au revoir!
+; ..\Complex_Files\Operating_System.c	   296  
+; ..\Complex_Files\Operating_System.c	   297  }
+	ret
+.L193:
+	
+__RunUserCode_function_end:
+	.size	RunUserCode,__RunUserCode_function_end-RunUserCode
+.L153:
+	; End of function
+	
+	.sdecl	'.data.Operating_System.task_5ms',data,cluster('task_5ms')
+	.sect	'.data.Operating_System.task_5ms'
+	.global	task_5ms
+task_5ms:	.type	object
+	.size	task_5ms,1
+	.space	1
+	.sdecl	'.data.Operating_System.task_10ms',data,cluster('task_10ms')
+	.sect	'.data.Operating_System.task_10ms'
+	.global	task_10ms
+task_10ms:	.type	object
+	.size	task_10ms,1
+	.space	1
+	.sdecl	'.data.Operating_System.task_20ms',data,cluster('task_20ms')
+	.sect	'.data.Operating_System.task_20ms'
+	.global	task_20ms
+task_20ms:	.type	object
+	.size	task_20ms,1
+	.space	1
+	.sdecl	'.data.Operating_System.task_50ms',data,cluster('task_50ms')
+	.sect	'.data.Operating_System.task_50ms'
+	.global	task_50ms
+task_50ms:	.type	object
+	.size	task_50ms,1
+	.space	1
+	.sdecl	'.data.Operating_System.task_100ms',data,cluster('task_100ms')
+	.sect	'.data.Operating_System.task_100ms'
+	.global	task_100ms
+task_100ms:	.type	object
+	.size	task_100ms,1
+	.space	1
+	.sdecl	'.data.Operating_System.task_500ms',data,cluster('task_500ms')
+	.sect	'.data.Operating_System.task_500ms'
+	.global	task_500ms
+task_500ms:	.type	object
+	.size	task_500ms,1
+	.space	1
+	.sdecl	'.bss.Operating_System.Recv_HandShake',data,cluster('Recv_HandShake')
+	.sect	'.bss.Operating_System.Recv_HandShake'
+	.global	Recv_HandShake
+Recv_HandShake:	.type	object
+	.size	Recv_HandShake,8
+	.space	8
+	.sdecl	'.data.Operating_System.Boot_App_Flag',data,cluster('Boot_App_Flag')
+	.sect	'.data.Operating_System.Boot_App_Flag'
+	.global	Boot_App_Flag
+Boot_App_Flag:	.type	object
+	.size	Boot_App_Flag,1
+	.space	1
+	.sdecl	'.bss.Operating_System.Recv_ID',data,cluster('Recv_ID')
+	.sect	'.bss.Operating_System.Recv_ID'
+	.global	Recv_ID
+	.align	2
+Recv_ID:	.type	object
+	.size	Recv_ID,4
+	.space	4
+	.sdecl	'.data.Operating_System.Update_Count',data,cluster('Update_Count')
+	.sect	'.data.Operating_System.Update_Count'
+	.global	Update_Count
+	.align	2
+Update_Count:	.type	object
+	.size	Update_Count,4
+	.space	4
+	.sdecl	'.data.Operating_System.OScounter',data,cluster('OScounter')
+	.sect	'.data.Operating_System.OScounter'
+	.global	OScounter
+	.align	2
+OScounter:	.type	object
+	.size	OScounter,4
+	.space	4
+	.sdecl	'.data.Operating_System.HandShake',data,cluster('HandShake')
+	.sect	'.data.Operating_System.HandShake'
+	.global	HandShake
+HandShake:	.type	object
+	.size	HandShake,8
+	.byte	143
+	.space	7
+	.sdecl	'.data.Operating_System.ui8_UpdateBackupFlag',data,cluster('ui8_UpdateBackupFlag')
+	.sect	'.data.Operating_System.ui8_UpdateBackupFlag'
+	.global	ui8_UpdateBackupFlag
+ui8_UpdateBackupFlag:	.type	object
+	.size	ui8_UpdateBackupFlag,1
+	.space	1
+	.sdecl	'.data.Operating_System.ui32_CodeAddressStar',data,cluster('ui32_CodeAddressStar')
+	.sect	'.data.Operating_System.ui32_CodeAddressStar'
+	.global	ui32_CodeAddressStar
+	.align	2
+ui32_CodeAddressStar:	.type	object
+	.size	ui32_CodeAddressStar,4
+	.space	4
+	.calls	'os_schedule','__rt_udivmod'
+	.calls	'os_init','Fls_Init'
+	.calls	'os_init','CAN_Init'
+	.calls	'os_init','crc32_init'
+	.calls	'os_init','UdsFunc_Init'
+	.calls	'os_schedule','os_task_1ms'
+	.calls	'os_operate','os_task_5ms'
+	.calls	'os_operate','os_task_10ms'
+	.calls	'os_operate','os_task_20ms'
+	.calls	'os_operate','os_task_50ms'
+	.calls	'os_operate','os_task_100ms'
+	.calls	'os_operate','os_task_500ms'
+	.calls	'os_task_1ms','UdsFunc_Receiver_Task'
+	.calls	'os_task_1ms','Fls_MainFunction'
+	.calls	'os_task_5ms','CAN_Read'
+	.calls	'os_task_10ms','BSW_SystemService_EcuM_HardReset'
+	.calls	'os_task_10ms','Fls_Erase'
+	.calls	'os_task_10ms','RunUserCode'
+	.calls	'os_task_10ms','process_command'
+	.calls	'os_task_500ms','CAN_Write'
+	.calls	'BSW_SystemService_EcuM_HardReset','CAN_MOs_Transmit_Status'
+	.calls	'BSW_SystemService_EcuM_HardReset','MAIN_vWriteWDTCON0'
+	.calls	'BSW_SystemService_EcuM_HardReset','Fls_GetStatus'
+	.calls	'BSW_SystemService_EcuM_HardReset','Fls_Erase'
+	.calls	'BSW_SystemService_EcuM_HardReset','memset'
+	.calls	'BSW_SystemService_EcuM_HardReset','Fls_Read'
+	.calls	'BSW_SystemService_EcuM_HardReset','Fls_Write'
+	.calls	'os_init','',0
+	.calls	'os_schedule','',0
+	.calls	'os_operate','',0
+	.calls	'os_task_1ms','',0
+	.calls	'os_task_5ms','',0
+	.calls	'os_task_10ms','',0
+	.calls	'os_task_20ms','',0
+	.calls	'os_task_50ms','',0
+	.calls	'os_task_100ms','',0
+	.calls	'os_task_500ms','',0
+	.calls	'BSW_SystemService_EcuM_HardReset','',0
+	.extern	ui32_KeepBSLState_Flag
+	.extern	Boot_Flag
+	.extern	MAIN_vWriteWDTCON0
+	.extern	crc32_init
+	.extern	Fls_Init
+	.extern	Fls_Erase
+	.extern	Fls_Write
+	.extern	Fls_Read
+	.extern	Fls_GetStatus
+	.extern	Fls_MainFunction
+	.extern	CAN_Init
+	.extern	CAN_Read
+	.extern	CAN_Write
+	.extern	CAN_MOs_Transmit_Status
+	.extern	st_Uds_SID_ER_Info
+	.extern	st_Uds_SID_RC_Info
+	.extern	Boot_Flash
+	.extern	ui8_Uds_Cmd_Tx_MO
+	.extern	st_Uds_Response
+	.extern	UdsFunc_Init
+	.extern	UdsFunc_Receiver_Task
+	.extern	ubgCommand
+	.extern	ubgCommand1
+	.extern	ubgCommand2
+	.extern	ubgCommand3
+	.extern	Handflag
+	.extern	process_command
+	.extern	memset
+	.extern	__rt_udivmod
+	.calls	'RunUserCode','',0
+	.sdecl	'.debug_info',debug
+	.sect	'.debug_info'
+.L91:
+	.word	1889
+	.half	3
+	.word	.L92
+	.byte	4
+.L90:
+	.byte	1
+	.byte	'..\\Complex_Files\\Operating_System.c',0
+	.byte	'TASKING VX-toolset for TriCore: C compiler',0
+	.byte	'D:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_1.9\\BMU_BOOT\\Debug\\',0,12,1
+	.word	.L93
+	.byte	2
+	.byte	'MAIN_vWriteWDTCON0',0,1,148,1,6,1,1,1,1
+.L194:
+	.byte	3
+	.byte	'unsigned int',0,4,7,4
+	.byte	'uwValue',0,1,148,1,31
+	.word	181
+	.byte	0,5
+	.byte	'crc32_init',0,2,12,13,1,1,1,1,5
+	.byte	'Fls_Init',0,3,104,13,1,1,1,1
+.L196:
+	.byte	3
+	.byte	'unsigned char',0,1,8,6
+	.byte	'Fls_Erase',0,3,124,16
+	.word	251
+	.byte	1,1,1,1
+.L195:
+	.byte	3
+	.byte	'unsigned long int',0,4,7,4
+	.byte	'ui32_TargetAddr',0,3,124,33
+	.word	290
+	.byte	0,6
+	.byte	'Fls_Write',0,3,149,1,16
+	.word	251
+	.byte	1,1,1,1,4
+	.byte	'ui32_TA',0,3,149,1,33
+	.word	290
+	.byte	7
+	.word	251
+	.byte	4
+	.byte	'p_ui8_SA',0,3,149,1,49
+	.word	376
+	.byte	4
+	.byte	'ui32_Len',0,3,149,1,66
+	.word	290
+	.byte	0,6
+	.byte	'Fls_Read',0,3,172,1,16
+	.word	251
+	.byte	1,1,1,1,4
+	.byte	'ui32_SA',0,3,172,1,33
+	.word	290
+	.byte	4
+	.byte	'ui8_p_TA',0,3,172,1,49
+	.word	376
+	.byte	4
+	.byte	'ui32_Len',0,3,172,1,66
+	.word	290
+	.byte	0,8
+	.byte	'Fls_GetStatus',0,3,191,1,14
+	.word	251
+	.byte	1,1,1,1,5
+	.byte	'Fls_MainFunction',0,3,229,1,13,1,1,1,1,5
+	.byte	'CAN_Init',0,4,125,13,1,1,1,1,6
+	.byte	'CAN_Read',0,4,172,1,16
+	.word	251
+	.byte	1,1,1,1,4
+	.byte	'ui8_Obj',0,4,172,1,31
+	.word	251
+	.byte	7
+	.word	290
+	.byte	4
+	.byte	'p_ui32_ID',0,4,172,1,48
+	.word	603
+	.byte	4
+	.byte	'TargetAddressPtr',0,4,172,1,66
+	.word	376
+	.byte	0,6
+	.byte	'CAN_Write',0,4,195,1,16
+	.word	251
+	.byte	1,1,1,1,4
+	.byte	'ui8_Obj',0,4,195,1,32
+	.word	251
+	.byte	4
+	.byte	'SourceAddressPtr',0,4,195,1,48
+	.word	376
+	.byte	0,6
+	.byte	'CAN_MOs_Transmit_Status',0,4,231,1,14
+	.word	251
+	.byte	1,1,1,1,4
+	.byte	'ui8_Obj',0,4,231,1,44
+	.word	251
+	.byte	0,5
+	.byte	'UdsFunc_Init',0,5,18,13,1,1,1,1,5
+	.byte	'UdsFunc_Receiver_Task',0,5,36,13,1,1,1,1,5
+	.byte	'process_command',0,6,104,6,1,1,1,1,9
+	.byte	'void',0,7
+	.word	851
+	.byte	6
+	.byte	'memset',0,7,48,17
+	.word	857
+	.byte	1,1,1,1,10,7,48,33
+	.word	857
+	.byte	3
+	.byte	'int',0,4,5,10,7,48,36
+	.word	889
+	.byte	10,7,48,41
+	.word	181
+	.byte	0,11
+	.byte	'__prof_adm',0,8,1,1
+	.word	857
+	.byte	12,1,7
+	.word	932
+	.byte	11
+	.byte	'__codeptr',0,8,1,1
+	.word	934
+	.byte	13
+	.word	290
+	.byte	14
+	.byte	'ui32_KeepBSLState_Flag',0,1,39,31
+	.word	957
+	.byte	1,1,15,128,2
+	.word	251
+	.byte	16,255,1,0,14
+	.byte	'Boot_Flag',0,1,43,22
+	.word	995
+	.byte	1,1,11
+	.byte	'ubyte',0,1,78,24
+	.word	251
+	.byte	3
+	.byte	'unsigned short int',0,2,7,11
+	.byte	'ushort',0,1,80,24
+	.word	1040
+	.byte	11
+	.byte	'uword',0,1,82,24
+	.word	181
+	.byte	11
+	.byte	'uint8',0,9,87,29
+	.word	251
+	.byte	11
+	.byte	'uint16',0,9,89,29
+	.word	1040
+	.byte	3
+	.byte	'long int',0,4,5,11
+	.byte	'sint32',0,9,90,29
+	.word	1120
+	.byte	11
+	.byte	'uint32',0,9,91,27
+	.word	290
+	.byte	11
+	.byte	'boolean',0,9,102,29
+	.word	251
+	.byte	17,10,5,9,2,18
+	.byte	'b_HardResetFlag',0,1
+	.word	251
+	.byte	2,35,0,18
+	.byte	'b_SoftResetFlag',0,1
+	.word	251
+	.byte	2,35,1,0,11
+	.byte	'Struct_Uds_SID_ER_Info',0,10,9,2
+	.word	1178
+	.byte	14
+	.byte	'st_Uds_SID_ER_Info',0,10,10,31
+	.word	1178
+	.byte	1,1,17,11,21,9,6,18
+	.byte	'ui8_STR_Flag',0,1
+	.word	251
+	.byte	2,35,0,18
+	.byte	'ui8_DID_FF00_Task_FSM',0,1
+	.word	251
+	.byte	2,35,1,18
+	.byte	'b_PreProgrammingFlag',0,1
+	.word	251
+	.byte	2,35,2,18
+	.byte	'b_BackUpFlag',0,1
+	.word	251
+	.byte	2,35,3,18
+	.byte	'b_UpdateFlag',0,1
+	.word	251
+	.byte	2,35,4,0,11
+	.byte	'Struct_Uds_SID_RC_Info',0,11,28,2
+	.word	1294
+	.byte	14
+	.byte	'st_Uds_SID_RC_Info',0,11,29,31
+	.word	1294
+	.byte	1,1,15,128,2
+	.word	251
+	.byte	16,255,1,0,14
+	.byte	'Boot_Flash',0,12,2,14
+	.word	1487
+	.byte	1,1,17,13,91,9,28,18
+	.byte	'ui8_ResCode',0,1
+	.word	251
+	.byte	2,35,0,18
+	.byte	'b_SuppressPosRspBit',0,1
+	.word	251
+	.byte	2,35,1,18
+	.byte	'ui8_pMsgData',0,4
+	.word	376
+	.byte	2,35,4,7
+	.word	1040
+	.byte	18
+	.byte	'ui16_pLength',0,4
+	.word	1596
+	.byte	2,35,8
+.L197:
+	.byte	15,8
+	.word	251
+	.byte	16,7,0,18
+	.byte	'ui8_Neg78_Buf',0,8
+	.word	1623
+	.byte	2,35,12,18
+	.byte	'ui8_3E_Buf',0,8
+	.word	1623
+	.byte	2,35,20,0,11
+	.byte	'Struct_Uds_Response',0,13,99,2
+	.word	1519
+	.byte	14
+	.byte	'ui8_Uds_Cmd_Tx_MO',0,13,120,14
+	.word	251
+	.byte	1,1,14
+	.byte	'st_Uds_Response',0,13,126,29
+	.word	1519
+	.byte	1,1,11
+	.byte	'BYTE',0,6,12,28
+	.word	251
+	.byte	14
+	.byte	'ubgCommand',0,6,94,14
+	.word	251
+	.byte	1,1,14
+	.byte	'ubgCommand1',0,6,95,14
+	.word	251
+	.byte	1,1,14
+	.byte	'ubgCommand2',0,6,96,14
+	.word	251
+	.byte	1,1,14
+	.byte	'ubgCommand3',0,6,97,14
+	.word	251
+	.byte	1,1,14
+	.byte	'Handflag',0,6,98,21
+	.word	181
+	.byte	1,1,11
+	.byte	'size_t',0,7,20,25
+	.word	181
+	.byte	0
+	.sdecl	'.debug_abbrev',debug
+	.sect	'.debug_abbrev'
+.L92:
+	.byte	1,17,1,3,8,37,8,27,8,19,15,128,70,12,16,6,0,0,2,46,1,3,8,58,15,59,15,57,15,54,15,39,12,63,12,60,12,0,0
+	.byte	3,36,0,3,8,11,15,62,15,0,0,4,5,0,3,8,58,15,59,15,57,15,73,19,0,0,5,46,0,3,8,58,15,59,15,57,15,54,15,39
+	.byte	12,63,12,60,12,0,0,6,46,1,3,8,58,15,59,15,57,15,73,19,54,15,39,12,63,12,60,12,0,0,7,15,0,73,19,0,0,8,46
+	.byte	0,3,8,58,15,59,15,57,15,73,19,54,15,39,12,63,12,60,12,0,0,9,59,0,3,8,0,0,10,5,0,58,15,59,15,57,15,73,19
+	.byte	0,0,11,22,0,3,8,58,15,59,15,57,15,73,19,0,0,12,21,0,54,15,0,0,13,53,0,73,19,0,0,14,52,0,3,8,58,15,59,15
+	.byte	57,15,73,19,63,12,60,12,0,0,15,1,1,11,15,73,19,0,0,16,33,0,47,15,0,0,17,19,1,58,15,59,15,57,15,11,15,0
+	.byte	0,18,13,0,3,8,11,15,73,19,56,9,0,0,0
+	.sdecl	'.debug_line',debug
+	.sect	'.debug_line'
+.L93:
+	.word	.L199-.L198
+.L198:
+	.half	3
+	.word	.L201-.L200
+.L200:
+	.byte	2,1,-4,9,10,0,1,1,1,1,0,0,0,1
+	.byte	'D:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_1.9\\BMU_BOOT\\Initiate_Files',0
+	.byte	'D:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_1.9\\BMU_BOOT\\Complex_Files',0
+	.byte	'D:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_1.9\\BMU_BOOT\\Nvm_Files\\FlsDrv',0
+	.byte	'D:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_1.9\\BMU_BOOT\\Communication_Files\\CanDrv',0
+	.byte	'D:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_1.9\\BMU_BOOT\\Communication_Files\\Uds\\User',0
+	.byte	'D:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_1.9\\BMU_BOOT',0
+	.byte	'C:\\Program Files (x86)\\TASKING\\TriCore v4.3r1\\ctc\\include\\',0
+	.byte	'D:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_1.9\\BMU_BOOT\\Stand_Header',0
+	.byte	'D:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_1.9\\BMU_BOOT\\Communication_Files\\Uds\\Dcm',0,0
+	.byte	'MAIN.h',0,1,0,0
+	.byte	'Crc_Algorithm.h',0,2,0,0
+	.byte	'Flash_TC1782_Driver.h',0,3,0,0
+	.byte	'CanDrv_TC1782.h',0,4,0,0
+	.byte	'Uds_User_CallOut.h',0,5,0,0
+	.byte	'CANbootloader.h',0,6,0,0
+	.byte	'String.h',0,7,0,0
+	.byte	'..\\Complex_Files\\Operating_System.c',0,0,0,0
+	.byte	'Platform_Types.h',0,8,0,0
+	.byte	'Uds_User_ECUResetCallback.h',0,5,0,0
+	.byte	'Uds_User_RoutineControlCallback.h',0,5,0,0
+	.byte	'Uds_User_TransferDataCallback.h',0,5,0,0
+	.byte	'Uds_Dcm_Drv.h',0,9,0,0,0
+.L201:
+.L199:
+	.sdecl	'.debug_info',debug,cluster('os_task_1ms')
+	.sect	'.debug_info'
+.L94:
+	.word	200
+	.half	3
+	.word	.L95
+	.byte	4,1
+	.byte	'..\\Complex_Files\\Operating_System.c',0
+	.byte	'TASKING VX-toolset for TriCore: C compiler',0
+	.byte	'D:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_1.9\\BMU_BOOT\\Debug\\',0,12,1
+	.word	.L97,.L96
+	.byte	2
+	.word	.L90
+	.byte	3
+	.byte	'os_task_1ms',0,1,102,6,1,1,1
+	.word	.L73,.L182,.L72
+	.byte	4
+	.word	.L73,.L182
+	.byte	0,0
+	.sdecl	'.debug_abbrev',debug,cluster('os_task_1ms')
+	.sect	'.debug_abbrev'
+.L95:
+	.byte	1,17,1,3,8,37,8,27,8,19,15,128,70,12,85,6,16,6,0,0,2,61,0,24,16,0,0,3,46,1,3,8,58,15,59,15,57,15,54,15
+	.byte	39,12,63,12,17,1,18,1,64,6,0,0,4,11,0,17,1,18,1,0,0,0
+	.sdecl	'.debug_line',debug,cluster('os_task_1ms')
+	.sect	'.debug_line'
+.L96:
+	.word	.L203-.L202
+.L202:
+	.half	3
+	.word	.L205-.L204
+.L204:
+	.byte	2,1,-4,9,10,0,1,1,1,1,0,0,0,1,0
+	.byte	'..\\Complex_Files\\Operating_System.c',0,0,0,0,0
+.L205:
+	.byte	5,23,7,0,5,2
+	.word	.L73
+	.byte	3,230,0,1,5,18,9
+	.half	.L206-.L73
+	.byte	3,1,1,5,1,7,9
+	.half	.L98-.L206
+	.byte	3,2,0,1,1
+.L203:
+	.sdecl	'.debug_ranges',debug,cluster('os_task_1ms')
+	.sect	'.debug_ranges'
+.L97:
+	.word	-1,.L73,0,.L98-.L73,0,0
+	.sdecl	'.debug_info',debug,cluster('os_task_5ms')
+	.sect	'.debug_info'
+.L99:
+	.word	200
+	.half	3
+	.word	.L100
+	.byte	4,1
+	.byte	'..\\Complex_Files\\Operating_System.c',0
+	.byte	'TASKING VX-toolset for TriCore: C compiler',0
+	.byte	'D:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_1.9\\BMU_BOOT\\Debug\\',0,12,1
+	.word	.L102,.L101
+	.byte	2
+	.word	.L90
+	.byte	3
+	.byte	'os_task_5ms',0,1,107,6,1,1,1
+	.word	.L75,.L183,.L74
+	.byte	4
+	.word	.L75,.L183
+	.byte	0,0
+	.sdecl	'.debug_abbrev',debug,cluster('os_task_5ms')
+	.sect	'.debug_abbrev'
+.L100:
+	.byte	1,17,1,3,8,37,8,27,8,19,15,128,70,12,85,6,16,6,0,0,2,61,0,24,16,0,0,3,46,1,3,8,58,15,59,15,57,15,54,15
+	.byte	39,12,63,12,17,1,18,1,64,6,0,0,4,11,0,17,1,18,1,0,0,0
+	.sdecl	'.debug_line',debug,cluster('os_task_5ms')
+	.sect	'.debug_line'
+.L101:
+	.word	.L208-.L207
+.L207:
+	.half	3
+	.word	.L210-.L209
+.L209:
+	.byte	2,1,-4,9,10,0,1,1,1,1,0,0,0,1,0
+	.byte	'..\\Complex_Files\\Operating_System.c',0,0,0,0,0
+.L210:
+	.byte	5,2,7,0,5,2
+	.word	.L75
+	.byte	3,235,0,1,5,12,9
+	.half	.L211-.L75
+	.byte	1,5,10,1,5,29,9
+	.half	.L212-.L211
+	.byte	3,2,1,5,14,9
+	.half	.L213-.L212
+	.byte	1,5,29,1,5,2,9
+	.half	.L214-.L213
+	.byte	1,5,3,7,9
+	.half	.L215-.L214
+	.byte	3,2,1,5,30,9
+	.half	.L216-.L215
+	.byte	1,5,14,9
+	.half	.L217-.L216
+	.byte	1,5,3,9
+	.half	.L218-.L217
+	.byte	3,1,1,5,31,9
+	.half	.L219-.L218
+	.byte	1,5,15,9
+	.half	.L220-.L219
+	.byte	1,5,3,9
+	.half	.L221-.L220
+	.byte	3,1,1,5,31,9
+	.half	.L222-.L221
+	.byte	1,5,15,9
+	.half	.L223-.L222
+	.byte	1,5,3,9
+	.half	.L224-.L223
+	.byte	3,1,1,5,31,9
+	.half	.L225-.L224
+	.byte	1,5,15,9
+	.half	.L226-.L225
+	.byte	1,5,6,9
+	.half	.L227-.L226
+	.byte	3,2,1,5,3,9
+	.half	.L228-.L227
+	.byte	1,5,22,7,9
+	.half	.L229-.L228
+	.byte	3,2,1,5,8,1,5,7,9
+	.half	.L230-.L229
+	.byte	1,5,47,7,9
+	.half	.L231-.L230
+	.byte	1,5,32,1,5,44,9
+	.half	.L232-.L231
+	.byte	1,5,72,7,9
+	.half	.L233-.L232
+	.byte	1,5,57,1,5,69,9
+	.half	.L234-.L233
+	.byte	1,5,94,7,9
+	.half	.L235-.L234
+	.byte	1,5,21,7,9
+	.half	.L236-.L235
+	.byte	3,2,1,5,19,1,5,1,9
+	.half	.L15-.L236
+	.byte	3,6,1,7,9
+	.half	.L103-.L15
+	.byte	0,1,1
+.L208:
+	.sdecl	'.debug_ranges',debug,cluster('os_task_5ms')
+	.sect	'.debug_ranges'
+.L102:
+	.word	-1,.L75,0,.L103-.L75,0,0
+	.sdecl	'.debug_info',debug,cluster('os_task_10ms')
+	.sect	'.debug_info'
+.L104:
+	.word	202
+	.half	3
+	.word	.L105
+	.byte	4,1
+	.byte	'..\\Complex_Files\\Operating_System.c',0
+	.byte	'TASKING VX-toolset for TriCore: C compiler',0
+	.byte	'D:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_1.9\\BMU_BOOT\\Debug\\',0,12,1
+	.word	.L107,.L106
+	.byte	2
+	.word	.L90
+	.byte	3
+	.byte	'os_task_10ms',0,1,128,1,6,1,1,1
+	.word	.L77,.L184,.L76
+	.byte	4
+	.word	.L77,.L184
+	.byte	0,0
+	.sdecl	'.debug_abbrev',debug,cluster('os_task_10ms')
+	.sect	'.debug_abbrev'
+.L105:
+	.byte	1,17,1,3,8,37,8,27,8,19,15,128,70,12,85,6,16,6,0,0,2,61,0,24,16,0,0,3,46,1,3,8,58,15,59,15,57,15,54,15
+	.byte	39,12,63,12,17,1,18,1,64,6,0,0,4,11,0,17,1,18,1,0,0,0
+	.sdecl	'.debug_line',debug,cluster('os_task_10ms')
+	.sect	'.debug_line'
+.L106:
+	.word	.L238-.L237
+.L237:
+	.half	3
+	.word	.L240-.L239
+.L239:
+	.byte	2,1,-4,9,10,0,1,1,1,1,0,0,0,1,0
+	.byte	'..\\Complex_Files\\Operating_System.c',0,0,0,0,0
+.L240:
+	.byte	5,34,7,0,5,2
+	.word	.L77
+	.byte	3,128,1,1,5,5,9
+	.half	.L241-.L77
+	.byte	3,13,1,5,2,9
+	.half	.L242-.L241
+	.byte	1,5,19,7,9
+	.half	.L243-.L242
+	.byte	3,2,1,5,17,1,5,13,9
+	.half	.L244-.L243
+	.byte	3,1,1,5,20,9
+	.half	.L245-.L244
+	.byte	3,127,1,5,7,9
+	.half	.L21-.L245
+	.byte	3,3,1,5,6,7,9
+	.half	.L246-.L21
+	.byte	3,2,1,5,22,9
+	.half	.L247-.L246
+	.byte	1,5,6,1,5,15,9
+	.half	.L248-.L247
+	.byte	1,5,3,9
+	.half	.L249-.L248
+	.byte	1,5,15,7,9
+	.half	.L250-.L249
+	.byte	3,2,1,5,19,9
+	.half	.L24-.L250
+	.byte	3,2,1,5,17,1,5,5,9
+	.half	.L22-.L24
+	.byte	3,2,1,5,2,9
+	.half	.L251-.L22
+	.byte	1,5,14,7,9
+	.half	.L252-.L251
+	.byte	3,2,1,5,12,1,5,17,9
+	.half	.L25-.L252
+	.byte	3,3,1,5,1,7,9
+	.half	.L108-.L25
+	.byte	3,1,0,1,1
+.L238:
+	.sdecl	'.debug_ranges',debug,cluster('os_task_10ms')
+	.sect	'.debug_ranges'
+.L107:
+	.word	-1,.L77,0,.L108-.L77,0,0
+	.sdecl	'.debug_info',debug,cluster('os_task_20ms')
+	.sect	'.debug_info'
+.L109:
+	.word	202
+	.half	3
+	.word	.L110
+	.byte	4,1
+	.byte	'..\\Complex_Files\\Operating_System.c',0
+	.byte	'TASKING VX-toolset for TriCore: C compiler',0
+	.byte	'D:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_1.9\\BMU_BOOT\\Debug\\',0,12,1
+	.word	.L112,.L111
+	.byte	2
+	.word	.L90
+	.byte	3
+	.byte	'os_task_20ms',0,1,163,1,6,1,1,1
+	.word	.L79,.L185,.L78
+	.byte	4
+	.word	.L79,.L185
+	.byte	0,0
+	.sdecl	'.debug_abbrev',debug,cluster('os_task_20ms')
+	.sect	'.debug_abbrev'
+.L110:
+	.byte	1,17,1,3,8,37,8,27,8,19,15,128,70,12,85,6,16,6,0,0,2,61,0,24,16,0,0,3,46,1,3,8,58,15,59,15,57,15,54,15
+	.byte	39,12,63,12,17,1,18,1,64,6,0,0,4,11,0,17,1,18,1,0,0,0
+	.sdecl	'.debug_line',debug,cluster('os_task_20ms')
+	.sect	'.debug_line'
+.L111:
+	.word	.L254-.L253
+.L253:
+	.half	3
+	.word	.L256-.L255
+.L255:
+	.byte	2,1,-4,9,10,0,1,1,1,1,0,0,0,1,0
+	.byte	'..\\Complex_Files\\Operating_System.c',0,0,0,0,0
+.L256:
+	.byte	5,1,7,0,5,2
+	.word	.L79
+	.byte	3,164,1,1,7,9
+	.half	.L113-.L79
+	.byte	0,1,1
+.L254:
+	.sdecl	'.debug_ranges',debug,cluster('os_task_20ms')
+	.sect	'.debug_ranges'
+.L112:
+	.word	-1,.L79,0,.L113-.L79,0,0
+	.sdecl	'.debug_info',debug,cluster('os_task_50ms')
+	.sect	'.debug_info'
+.L114:
+	.word	202
+	.half	3
+	.word	.L115
+	.byte	4,1
+	.byte	'..\\Complex_Files\\Operating_System.c',0
+	.byte	'TASKING VX-toolset for TriCore: C compiler',0
+	.byte	'D:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_1.9\\BMU_BOOT\\Debug\\',0,12,1
+	.word	.L117,.L116
+	.byte	2
+	.word	.L90
+	.byte	3
+	.byte	'os_task_50ms',0,1,166,1,6,1,1,1
+	.word	.L81,.L186,.L80
+	.byte	4
+	.word	.L81,.L186
+	.byte	0,0
+	.sdecl	'.debug_abbrev',debug,cluster('os_task_50ms')
+	.sect	'.debug_abbrev'
+.L115:
+	.byte	1,17,1,3,8,37,8,27,8,19,15,128,70,12,85,6,16,6,0,0,2,61,0,24,16,0,0,3,46,1,3,8,58,15,59,15,57,15,54,15
+	.byte	39,12,63,12,17,1,18,1,64,6,0,0,4,11,0,17,1,18,1,0,0,0
+	.sdecl	'.debug_line',debug,cluster('os_task_50ms')
+	.sect	'.debug_line'
+.L116:
+	.word	.L258-.L257
+.L257:
+	.half	3
+	.word	.L260-.L259
+.L259:
+	.byte	2,1,-4,9,10,0,1,1,1,1,0,0,0,1,0
+	.byte	'..\\Complex_Files\\Operating_System.c',0,0,0,0,0
+.L260:
+	.byte	5,1,7,0,5,2
+	.word	.L81
+	.byte	3,167,1,1,7,9
+	.half	.L118-.L81
+	.byte	0,1,1
+.L258:
+	.sdecl	'.debug_ranges',debug,cluster('os_task_50ms')
+	.sect	'.debug_ranges'
+.L117:
+	.word	-1,.L81,0,.L118-.L81,0,0
+	.sdecl	'.debug_info',debug,cluster('os_task_100ms')
+	.sect	'.debug_info'
+.L119:
+	.word	203
+	.half	3
+	.word	.L120
+	.byte	4,1
+	.byte	'..\\Complex_Files\\Operating_System.c',0
+	.byte	'TASKING VX-toolset for TriCore: C compiler',0
+	.byte	'D:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_1.9\\BMU_BOOT\\Debug\\',0,12,1
+	.word	.L122,.L121
+	.byte	2
+	.word	.L90
+	.byte	3
+	.byte	'os_task_100ms',0,1,169,1,6,1,1,1
+	.word	.L83,.L187,.L82
+	.byte	4
+	.word	.L83,.L187
+	.byte	0,0
+	.sdecl	'.debug_abbrev',debug,cluster('os_task_100ms')
+	.sect	'.debug_abbrev'
+.L120:
+	.byte	1,17,1,3,8,37,8,27,8,19,15,128,70,12,85,6,16,6,0,0,2,61,0,24,16,0,0,3,46,1,3,8,58,15,59,15,57,15,54,15
+	.byte	39,12,63,12,17,1,18,1,64,6,0,0,4,11,0,17,1,18,1,0,0,0
+	.sdecl	'.debug_line',debug,cluster('os_task_100ms')
+	.sect	'.debug_line'
+.L121:
+	.word	.L262-.L261
+.L261:
+	.half	3
+	.word	.L264-.L263
+.L263:
+	.byte	2,1,-4,9,10,0,1,1,1,1,0,0,0,1,0
+	.byte	'..\\Complex_Files\\Operating_System.c',0,0,0,0,0
+.L264:
+	.byte	5,5,7,0,5,2
+	.word	.L83
+	.byte	3,169,1,1,5,21,9
+	.half	.L265-.L83
+	.byte	1,5,5,1,5,2,9
+	.half	.L266-.L265
+	.byte	1,5,3,7,9
+	.half	.L267-.L266
+	.byte	3,1,1,5,37,9
+	.half	.L268-.L267
+	.byte	1,5,35,1,5,1,9
+	.half	.L269-.L268
+	.byte	3,3,1,5,15,7,9
+	.half	.L26-.L269
+	.byte	3,127,1,5,1,9
+	.half	.L270-.L26
+	.byte	3,1,1,7,9
+	.half	.L123-.L270
+	.byte	0,1,1
+.L262:
+	.sdecl	'.debug_ranges',debug,cluster('os_task_100ms')
+	.sect	'.debug_ranges'
+.L122:
+	.word	-1,.L83,0,.L123-.L83,0,0
+	.sdecl	'.debug_info',debug,cluster('os_task_500ms')
+	.sect	'.debug_info'
+.L124:
+	.word	203
+	.half	3
+	.word	.L125
+	.byte	4,1
+	.byte	'..\\Complex_Files\\Operating_System.c',0
+	.byte	'TASKING VX-toolset for TriCore: C compiler',0
+	.byte	'D:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_1.9\\BMU_BOOT\\Debug\\',0,12,1
+	.word	.L127,.L126
+	.byte	2
+	.word	.L90
+	.byte	3
+	.byte	'os_task_500ms',0,1,175,1,6,1,1,1
+	.word	.L85,.L188,.L84
+	.byte	4
+	.word	.L85,.L188
+	.byte	0,0
+	.sdecl	'.debug_abbrev',debug,cluster('os_task_500ms')
+	.sect	'.debug_abbrev'
+.L125:
+	.byte	1,17,1,3,8,37,8,27,8,19,15,128,70,12,85,6,16,6,0,0,2,61,0,24,16,0,0,3,46,1,3,8,58,15,59,15,57,15,54,15
+	.byte	39,12,63,12,17,1,18,1,64,6,0,0,4,11,0,17,1,18,1,0,0,0
+	.sdecl	'.debug_line',debug,cluster('os_task_500ms')
+	.sect	'.debug_line'
+.L126:
+	.word	.L272-.L271
+.L271:
+	.half	3
+	.word	.L274-.L273
+.L273:
+	.byte	2,1,-4,9,10,0,1,1,1,1,0,0,0,1,0
+	.byte	'..\\Complex_Files\\Operating_System.c',0,0,0,0,0
+.L274:
+	.byte	5,5,7,0,5,2
+	.word	.L85
+	.byte	3,175,1,1,5,2,9
+	.half	.L275-.L85
+	.byte	1,5,13,7,9
+	.half	.L276-.L275
+	.byte	3,1,1,5,18,1,5,1,9
+	.half	.L28-.L276
+	.byte	3,1,1,7,9
+	.half	.L128-.L28
+	.byte	0,1,1
+.L272:
+	.sdecl	'.debug_ranges',debug,cluster('os_task_500ms')
+	.sect	'.debug_ranges'
+.L127:
+	.word	-1,.L85,0,.L128-.L85,0,0
+	.sdecl	'.debug_info',debug,cluster('os_init')
+	.sect	'.debug_info'
+.L129:
+	.word	196
+	.half	3
+	.word	.L130
+	.byte	4,1
+	.byte	'..\\Complex_Files\\Operating_System.c',0
+	.byte	'TASKING VX-toolset for TriCore: C compiler',0
+	.byte	'D:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_1.9\\BMU_BOOT\\Debug\\',0,12,1
+	.word	.L132,.L131
+	.byte	2
+	.word	.L90
+	.byte	3
+	.byte	'os_init',0,1,26,6,1,1,1
+	.word	.L67,.L189,.L66
+	.byte	4
+	.word	.L67,.L189
+	.byte	0,0
+	.sdecl	'.debug_abbrev',debug,cluster('os_init')
+	.sect	'.debug_abbrev'
+.L130:
+	.byte	1,17,1,3,8,37,8,27,8,19,15,128,70,12,85,6,16,6,0,0,2,61,0,24,16,0,0,3,46,1,3,8,58,15,59,15,57,15,54,15
+	.byte	39,12,63,12,17,1,18,1,64,6,0,0,4,11,0,17,1,18,1,0,0,0
+	.sdecl	'.debug_line',debug,cluster('os_init')
+	.sect	'.debug_line'
+.L131:
+	.word	.L278-.L277
+.L277:
+	.half	3
+	.word	.L280-.L279
+.L279:
+	.byte	2,1,-4,9,10,0,1,1,1,1,0,0,0,1,0
+	.byte	'..\\Complex_Files\\Operating_System.c',0,0,0,0,0
+.L280:
+	.byte	5,2,7,0,5,2
+	.word	.L67
+	.byte	3,27,1,5,14,9
+	.half	.L281-.L67
+	.byte	1,5,12,1,5,10,9
+	.half	.L282-.L281
+	.byte	3,2,1,9
+	.half	.L283-.L282
+	.byte	3,1,1,5,12,9
+	.half	.L284-.L283
+	.byte	3,1,1,5,14,9
+	.half	.L285-.L284
+	.byte	3,2,1,5,1,7,9
+	.half	.L133-.L285
+	.byte	3,2,0,1,1
+.L278:
+	.sdecl	'.debug_ranges',debug,cluster('os_init')
+	.sect	'.debug_ranges'
+.L132:
+	.word	-1,.L67,0,.L133-.L67,0,0
+	.sdecl	'.debug_info',debug,cluster('os_schedule')
+	.sect	'.debug_info'
+.L134:
+	.word	200
+	.half	3
+	.word	.L135
+	.byte	4,1
+	.byte	'..\\Complex_Files\\Operating_System.c',0
+	.byte	'TASKING VX-toolset for TriCore: C compiler',0
+	.byte	'D:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_1.9\\BMU_BOOT\\Debug\\',0,12,1
+	.word	.L137,.L136
+	.byte	2
+	.word	.L90
+	.byte	3
+	.byte	'os_schedule',0,1,37,6,1,1,1
+	.word	.L69,.L190,.L68
+	.byte	4
+	.word	.L69,.L190
+	.byte	0,0
+	.sdecl	'.debug_abbrev',debug,cluster('os_schedule')
+	.sect	'.debug_abbrev'
+.L135:
+	.byte	1,17,1,3,8,37,8,27,8,19,15,128,70,12,85,6,16,6,0,0,2,61,0,24,16,0,0,3,46,1,3,8,58,15,59,15,57,15,54,15
+	.byte	39,12,63,12,17,1,18,1,64,6,0,0,4,11,0,17,1,18,1,0,0,0
+	.sdecl	'.debug_line',debug,cluster('os_schedule')
+	.sect	'.debug_line'
+.L136:
+	.word	.L287-.L286
+.L286:
+	.half	3
+	.word	.L289-.L288
+.L288:
+	.byte	2,1,-4,9,10,0,1,1,1,1,0,0,0,1,0
+	.byte	'..\\Complex_Files\\Operating_System.c',0,0,0,0,0
+.L289:
+	.byte	5,11,7,0,5,2
+	.word	.L69
+	.byte	3,38,1,5,23,9
+	.half	.L290-.L69
+	.byte	1,5,11,1,5,21,9
+	.half	.L291-.L290
+	.byte	1,5,2,9
+	.half	.L292-.L291
+	.byte	1,5,3,7,9
+	.half	.L293-.L292
+	.byte	3,1,1,5,14,9
+	.half	.L294-.L293
+	.byte	1,5,12,1,5,23,9
+	.half	.L2-.L294
+	.byte	3,2,1,5,21,9
+	.half	.L295-.L2
+	.byte	1,5,2,9
+	.half	.L296-.L295
+	.byte	1,5,3,7,9
+	.half	.L297-.L296
+	.byte	3,1,1,5,15,9
+	.half	.L298-.L297
+	.byte	1,5,13,1,5,23,9
+	.half	.L3-.L298
+	.byte	3,2,1,5,21,9
+	.half	.L299-.L3
+	.byte	1,5,2,9
+	.half	.L300-.L299
+	.byte	1,5,3,7,9
+	.half	.L301-.L300
+	.byte	3,1,1,5,15,9
+	.half	.L302-.L301
+	.byte	1,5,13,1,5,23,9
+	.half	.L4-.L302
+	.byte	3,2,1,5,21,9
+	.half	.L303-.L4
+	.byte	1,5,2,9
+	.half	.L304-.L303
+	.byte	1,5,3,7,9
+	.half	.L305-.L304
+	.byte	3,1,1,5,15,9
+	.half	.L306-.L305
+	.byte	1,5,13,1,5,23,9
+	.half	.L5-.L306
+	.byte	3,2,1,5,21,9
+	.half	.L307-.L5
+	.byte	1,5,2,9
+	.half	.L308-.L307
+	.byte	1,5,3,7,9
+	.half	.L309-.L308
+	.byte	3,1,1,5,16,9
+	.half	.L310-.L309
+	.byte	1,5,14,1,5,23,9
+	.half	.L6-.L310
+	.byte	3,2,1,5,21,9
+	.half	.L311-.L6
+	.byte	1,5,2,9
+	.half	.L312-.L311
+	.byte	1,5,3,7,9
+	.half	.L313-.L312
+	.byte	3,1,1,5,16,9
+	.half	.L314-.L313
+	.byte	1,5,14,1,5,6,9
+	.half	.L7-.L314
+	.byte	3,2,1,5,2,9
+	.half	.L315-.L7
+	.byte	1,5,13,9
+	.half	.L316-.L315
+	.byte	3,1,1,5,11,9
+	.half	.L317-.L316
+	.byte	3,2,1,5,15,3,1,1,5,13,9
+	.half	.L318-.L317
+	.byte	1,5,1,7,9
+	.half	.L138-.L318
+	.byte	3,1,0,1,1
+.L287:
+	.sdecl	'.debug_ranges',debug,cluster('os_schedule')
+	.sect	'.debug_ranges'
+.L137:
+	.word	-1,.L69,0,.L138-.L69,0,0
+	.sdecl	'.debug_info',debug,cluster('os_operate')
+	.sect	'.debug_info'
+.L139:
+	.word	199
+	.half	3
+	.word	.L140
+	.byte	4,1
+	.byte	'..\\Complex_Files\\Operating_System.c',0
+	.byte	'TASKING VX-toolset for TriCore: C compiler',0
+	.byte	'D:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_1.9\\BMU_BOOT\\Debug\\',0,12,1
+	.word	.L142,.L141
+	.byte	2
+	.word	.L90
+	.byte	3
+	.byte	'os_operate',0,1,64,6,1,1,1
+	.word	.L71,.L191,.L70
+	.byte	4
+	.word	.L71,.L191
+	.byte	0,0
+	.sdecl	'.debug_abbrev',debug,cluster('os_operate')
+	.sect	'.debug_abbrev'
+.L140:
+	.byte	1,17,1,3,8,37,8,27,8,19,15,128,70,12,85,6,16,6,0,0,2,61,0,24,16,0,0,3,46,1,3,8,58,15,59,15,57,15,54,15
+	.byte	39,12,63,12,17,1,18,1,64,6,0,0,4,11,0,17,1,18,1,0,0,0
+	.sdecl	'.debug_line',debug,cluster('os_operate')
+	.sect	'.debug_line'
+.L141:
+	.word	.L320-.L319
+.L319:
+	.half	3
+	.word	.L322-.L321
+.L321:
+	.byte	2,1,-4,9,10,0,1,1,1,1,0,0,0,1,0
+	.byte	'..\\Complex_Files\\Operating_System.c',0,0,0,0,0
+.L322:
+	.byte	5,6,7,0,5,2
+	.word	.L71
+	.byte	3,192,0,1,5,2,9
+	.half	.L323-.L71
+	.byte	1,5,14,7,9
+	.half	.L324-.L323
+	.byte	3,1,1,5,12,1,5,14,9
+	.half	.L325-.L324
+	.byte	3,2,1,5,6,9
+	.half	.L9-.L325
+	.byte	3,3,1,5,2,9
+	.half	.L326-.L9
+	.byte	1,5,15,7,9
+	.half	.L327-.L326
+	.byte	3,1,1,5,13,1,5,15,9
+	.half	.L328-.L327
+	.byte	3,2,1,5,6,9
+	.half	.L10-.L328
+	.byte	3,3,1,5,2,9
+	.half	.L329-.L10
+	.byte	1,5,15,7,9
+	.half	.L330-.L329
+	.byte	3,1,1,5,13,1,5,15,9
+	.half	.L331-.L330
+	.byte	3,2,1,5,6,9
+	.half	.L11-.L331
+	.byte	3,3,1,5,2,9
+	.half	.L332-.L11
+	.byte	1,5,15,7,9
+	.half	.L333-.L332
+	.byte	3,1,1,5,13,1,5,15,9
+	.half	.L334-.L333
+	.byte	3,2,1,5,6,9
+	.half	.L12-.L334
+	.byte	3,3,1,5,2,9
+	.half	.L335-.L12
+	.byte	1,5,16,7,9
+	.half	.L336-.L335
+	.byte	3,1,1,5,14,1,5,16,9
+	.half	.L337-.L336
+	.byte	3,2,1,5,6,9
+	.half	.L13-.L337
+	.byte	3,3,1,5,2,9
+	.half	.L338-.L13
+	.byte	1,5,16,7,9
+	.half	.L339-.L338
+	.byte	3,1,1,5,14,1,5,16,9
+	.half	.L340-.L339
+	.byte	3,2,1,5,1,7,9
+	.half	.L14-.L340
+	.byte	3,2,1,7,9
+	.half	.L143-.L14
+	.byte	0,1,1
+.L320:
+	.sdecl	'.debug_ranges',debug,cluster('os_operate')
+	.sect	'.debug_ranges'
+.L142:
+	.word	-1,.L71,0,.L143-.L71,0,0
+	.sdecl	'.debug_info',debug,cluster('BSW_SystemService_EcuM_HardReset')
+	.sect	'.debug_info'
+.L144:
+	.word	222
+	.half	3
+	.word	.L145
+	.byte	4,1
+	.byte	'..\\Complex_Files\\Operating_System.c',0
+	.byte	'TASKING VX-toolset for TriCore: C compiler',0
+	.byte	'D:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_1.9\\BMU_BOOT\\Debug\\',0,12,1
+	.word	.L147,.L146
+	.byte	2
+	.word	.L90
+	.byte	3
+	.byte	'BSW_SystemService_EcuM_HardReset',0,1,192,1,6,1,1,1
+	.word	.L87,.L192,.L86
+	.byte	4
+	.word	.L87,.L192
+	.byte	0,0
+	.sdecl	'.debug_abbrev',debug,cluster('BSW_SystemService_EcuM_HardReset')
+	.sect	'.debug_abbrev'
+.L145:
+	.byte	1,17,1,3,8,37,8,27,8,19,15,128,70,12,85,6,16,6,0,0,2,61,0,24,16,0,0,3,46,1,3,8,58,15,59,15,57,15,54,15
+	.byte	39,12,63,12,17,1,18,1,64,6,0,0,4,11,0,17,1,18,1,0,0,0
+	.sdecl	'.debug_line',debug,cluster('BSW_SystemService_EcuM_HardReset')
+	.sect	'.debug_line'
+.L146:
+	.word	.L342-.L341
+.L341:
+	.half	3
+	.word	.L344-.L343
+.L343:
+	.byte	2,1,-4,9,10,0,1,1,1,1,0,0,0,1,0
+	.byte	'..\\Complex_Files\\Operating_System.c',0,0,0,0,0
+.L344:
+	.byte	5,5,7,0,5,2
+	.word	.L87
+	.byte	3,194,1,1,5,23,9
+	.half	.L345-.L87
+	.byte	1,5,2,9
+	.half	.L346-.L345
+	.byte	1,5,31,7,9
+	.half	.L347-.L346
+	.byte	3,2,1,5,6,9
+	.half	.L348-.L347
+	.byte	1,5,63,7,9
+	.half	.L349-.L348
+	.byte	1,5,78,9
+	.half	.L350-.L349
+	.byte	1,5,99,9
+	.half	.L351-.L350
+	.byte	1,5,4,7,9
+	.half	.L30-.L351
+	.byte	3,2,1,5,17,9
+	.half	.L352-.L30
+	.byte	3,1,1,5,15,1,5,4,9
+	.half	.L353-.L352
+	.byte	3,1,1,5,17,9
+	.half	.L354-.L353
+	.byte	1,5,4,9
+	.half	.L355-.L354
+	.byte	3,1,1,5,17,9
+	.half	.L356-.L355
+	.byte	1,5,4,9
+	.half	.L357-.L356
+	.byte	3,1,1,5,24,9
+	.half	.L358-.L357
+	.byte	1,5,4,9
+	.half	.L359-.L358
+	.byte	3,1,1,5,26,9
+	.half	.L360-.L359
+	.byte	1,5,4,9
+	.half	.L361-.L360
+	.byte	3,1,1,5,7,9
+	.half	.L29-.L361
+	.byte	3,4,1,5,25,9
+	.half	.L362-.L29
+	.byte	1,5,6,9
+	.half	.L363-.L362
+	.byte	1,5,78,7,9
+	.half	.L364-.L363
+	.byte	1,5,52,1,5,78,9
+	.half	.L365-.L364
+	.byte	1,5,52,1,5,75,9
+	.half	.L366-.L365
+	.byte	1,5,129,1,7,9
+	.half	.L33-.L366
+	.byte	1,5,52,1,5,129,1,9
+	.half	.L367-.L33
+	.byte	1,5,52,1,5,103,9
+	.half	.L368-.L367
+	.byte	1,5,126,9
+	.half	.L369-.L368
+	.byte	1,5,25,7,9
+	.half	.L34-.L369
+	.byte	3,2,1,5,6,9
+	.half	.L370-.L34
+	.byte	1,5,79,7,9
+	.half	.L371-.L370
+	.byte	1,5,53,1,5,79,9
+	.half	.L372-.L371
+	.byte	1,5,76,9
+	.half	.L373-.L372
+	.byte	1,5,21,7,9
+	.half	.L36-.L373
+	.byte	3,2,1,5,7,9
+	.half	.L374-.L36
+	.byte	1,5,52,7,9
+	.half	.L375-.L374
+	.byte	1,5,73,9
+	.half	.L376-.L375
+	.byte	1,5,34,7,9
+	.half	.L377-.L376
+	.byte	3,2,1,5,8,1,5,34,9
+	.half	.L378-.L377
+	.byte	1,5,5,9
+	.half	.L379-.L378
+	.byte	1,5,16,7,9
+	.half	.L380-.L379
+	.byte	3,2,1,5,5,9
+	.half	.L40-.L380
+	.byte	3,2,1,5,28,9
+	.half	.L381-.L40
+	.byte	1,5,26,1,5,28,9
+	.half	.L382-.L381
+	.byte	3,1,1,5,26,1,5,1,9
+	.half	.L35-.L382
+	.byte	3,196,0,1,5,26,7,9
+	.half	.L38-.L35
+	.byte	3,190,127,1,5,12,9
+	.half	.L383-.L38
+	.byte	1,5,57,7,9
+	.half	.L384-.L383
+	.byte	1,5,78,9
+	.half	.L385-.L384
+	.byte	1,5,12,7,9
+	.half	.L386-.L385
+	.byte	3,2,1,5,10,9
+	.half	.L387-.L386
+	.byte	3,2,1,5,12,3,126,1,5,10,9
+	.half	.L388-.L387
+	.byte	3,2,1,7,9
+	.half	.L389-.L388
+	.byte	3,5,1,9
+	.half	.L390-.L389
+	.byte	3,5,1,5,1,9
+	.half	.L391-.L390
+	.byte	3,52,1,5,16,7,9
+	.half	.L44-.L391
+	.byte	3,67,1,5,29,9
+	.half	.L392-.L44
+	.byte	3,1,1,5,27,1,5,29,9
+	.half	.L393-.L392
+	.byte	3,1,1,5,27,1,5,1,9
+	.half	.L394-.L393
+	.byte	3,59,1,5,16,7,9
+	.half	.L45-.L394
+	.byte	3,72,1,5,29,9
+	.half	.L395-.L45
+	.byte	3,1,1,5,27,1,5,29,9
+	.half	.L396-.L395
+	.byte	3,1,1,5,27,1,5,1,9
+	.half	.L397-.L396
+	.byte	3,54,1,5,16,7,9
+	.half	.L46-.L397
+	.byte	3,77,1,5,29,9
+	.half	.L398-.L46
+	.byte	3,1,1,5,27,9
+	.half	.L50-.L398
+	.byte	1,5,29,9
+	.half	.L399-.L50
+	.byte	3,1,1,5,27,1,5,1,9
+	.half	.L400-.L399
+	.byte	3,49,1,5,26,7,9
+	.half	.L42-.L400
+	.byte	3,83,1,5,12,9
+	.half	.L401-.L42
+	.byte	1,5,57,7,9
+	.half	.L402-.L401
+	.byte	1,5,78,9
+	.half	.L403-.L402
+	.byte	1,5,12,7,9
+	.half	.L404-.L403
+	.byte	3,2,1,5,24,9
+	.half	.L405-.L404
+	.byte	1,5,28,9
+	.half	.L406-.L405
+	.byte	1,5,52,9
+	.half	.L407-.L406
+	.byte	3,1,1,5,14,9
+	.half	.L408-.L407
+	.byte	1,5,52,9
+	.half	.L409-.L408
+	.byte	1,5,32,9
+	.half	.L410-.L409
+	.byte	3,1,1,5,8,1,5,5,9
+	.half	.L411-.L410
+	.byte	1,5,39,7,9
+	.half	.L412-.L411
+	.byte	3,2,1,5,70,9
+	.half	.L413-.L412
+	.byte	1,5,37,9
+	.half	.L55-.L413
+	.byte	3,2,1,5,10,9
+	.half	.L414-.L55
+	.byte	1,5,39,7,9
+	.half	.L415-.L414
+	.byte	3,2,1,5,37,9
+	.half	.L56-.L415
+	.byte	1,5,65,1,5,52,9
+	.half	.L416-.L56
+	.byte	3,121,1,5,65,9
+	.half	.L417-.L416
+	.byte	3,7,1,5,28,9
+	.half	.L57-.L417
+	.byte	3,2,1,5,26,1,5,1,9
+	.half	.L418-.L57
+	.byte	3,33,1,5,26,7,9
+	.half	.L53-.L418
+	.byte	3,97,1,5,12,9
+	.half	.L419-.L53
+	.byte	1,5,57,7,9
+	.half	.L420-.L419
+	.byte	1,5,78,9
+	.half	.L421-.L420
+	.byte	1,5,32,7,9
+	.half	.L422-.L421
+	.byte	3,2,1,5,8,1,5,32,9
+	.half	.L423-.L422
+	.byte	1,5,8,1,5,5,9
+	.half	.L424-.L423
+	.byte	1,5,29,7,9
+	.half	.L425-.L424
+	.byte	3,2,1,5,39,9
+	.half	.L426-.L425
+	.byte	1,5,37,9
+	.half	.L61-.L426
+	.byte	3,3,1,5,10,9
+	.half	.L427-.L61
+	.byte	1,5,13,7,9
+	.half	.L428-.L427
+	.byte	3,2,1,5,25,9
+	.half	.L429-.L428
+	.byte	1,5,10,9
+	.half	.L430-.L429
+	.byte	3,126,1,5,29,3,2,1,5,22,9
+	.half	.L431-.L430
+	.byte	3,1,1,5,20,1,5,16,9
+	.half	.L432-.L431
+	.byte	3,1,1,5,44,1,5,10,9
+	.half	.L433-.L432
+	.byte	3,124,1,5,44,9
+	.half	.L434-.L433
+	.byte	3,4,1,5,29,9
+	.half	.L435-.L434
+	.byte	3,1,1,5,27,1,5,1,9
+	.half	.L436-.L435
+	.byte	3,19,1,5,50,7,9
+	.half	.L62-.L436
+	.byte	3,113,1,5,5,9
+	.half	.L437-.L62
+	.byte	3,119,1,5,26,9
+	.half	.L59-.L437
+	.byte	3,15,1,5,12,9
+	.half	.L438-.L59
+	.byte	1,5,57,7,9
+	.half	.L439-.L438
+	.byte	1,5,78,9
+	.half	.L440-.L439
+	.byte	1,5,42,7,9
+	.half	.L441-.L440
+	.byte	3,2,1,5,40,1,5,30,9
+	.half	.L442-.L441
+	.byte	3,1,1,5,28,9
+	.half	.L443-.L442
+	.byte	1,9
+	.half	.L444-.L443
+	.byte	3,1,1,5,26,1,5,37,9
+	.half	.L445-.L444
+	.byte	3,1,1,5,1,9
+	.half	.L64-.L445
+	.byte	3,4,1,7,9
+	.half	.L148-.L64
+	.byte	0,1,1
+.L342:
+	.sdecl	'.debug_ranges',debug,cluster('BSW_SystemService_EcuM_HardReset')
+	.sect	'.debug_ranges'
+.L147:
+	.word	-1,.L87,0,.L148-.L87,0,0
+	.sdecl	'.debug_info',debug,cluster('RunUserCode')
+	.sect	'.debug_info'
+.L149:
+	.word	201
+	.half	3
+	.word	.L150
+	.byte	4,1
+	.byte	'..\\Complex_Files\\Operating_System.c',0
+	.byte	'TASKING VX-toolset for TriCore: C compiler',0
+	.byte	'D:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_1.9\\BMU_BOOT\\Debug\\',0,12,1
+	.word	.L152,.L151
+	.byte	2
+	.word	.L90
+	.byte	3
+	.byte	'RunUserCode',0,1,163,2,6,1,1,1
+	.word	.L89,.L193,.L88
+	.byte	4
+	.word	.L89,.L193
+	.byte	0,0
+	.sdecl	'.debug_abbrev',debug,cluster('RunUserCode')
+	.sect	'.debug_abbrev'
+.L150:
+	.byte	1,17,1,3,8,37,8,27,8,19,15,128,70,12,85,6,16,6,0,0,2,61,0,24,16,0,0,3,46,1,3,8,58,15,59,15,57,15,54,15
+	.byte	39,12,63,12,17,1,18,1,64,6,0,0,4,11,0,17,1,18,1,0,0,0
+	.sdecl	'.debug_line',debug,cluster('RunUserCode')
+	.sect	'.debug_line'
+.L151:
+	.word	.L447-.L446
+.L446:
+	.half	3
+	.word	.L449-.L448
+.L448:
+	.byte	2,1,-4,9,10,0,1,1,1,1,0,0,0,1,0
+	.byte	'..\\Complex_Files\\Operating_System.c',0,0,0,0,0
+.L449:
+	.byte	5,5,7,0,5,2
+	.word	.L89
+	.byte	3,164,2,1,5,1,9
+	.half	.L450-.L89
+	.byte	3,4,1,7,9
+	.half	.L153-.L450
+	.byte	0,1,1
+.L447:
+	.sdecl	'.debug_ranges',debug,cluster('RunUserCode')
+	.sect	'.debug_ranges'
+.L152:
+	.word	-1,.L89,0,.L153-.L89,0,0
+	.sdecl	'.debug_info',debug,cluster('OScounter')
+	.sect	'.debug_info'
+.L154:
+	.word	176
+	.half	3
+	.word	.L155
+	.byte	4,1
+	.byte	'..\\Complex_Files\\Operating_System.c',0
+	.byte	'TASKING VX-toolset for TriCore: C compiler',0
+	.byte	'D:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_1.9\\BMU_BOOT\\Debug\\',0,12,1,2
+	.word	.L90
+	.byte	3
+	.byte	'OScounter',0,8,23,7
+	.word	.L194
+	.byte	1,5,3
+	.word	OScounter
+	.byte	0
+	.sdecl	'.debug_abbrev',debug,cluster('OScounter')
+	.sect	'.debug_abbrev'
+.L155:
+	.byte	1,17,1,3,8,37,8,27,8,19,15,128,70,12,0,0,2,61,0,24,16,0,0,3,52,0,3,8,58,15,59,15,57,15,73,16,63,12,2,9
+	.byte	0,0,0
+	.sdecl	'.debug_info',debug,cluster('Update_Count')
+	.sect	'.debug_info'
+.L156:
+	.word	179
+	.half	3
+	.word	.L157
+	.byte	4,1
+	.byte	'..\\Complex_Files\\Operating_System.c',0
+	.byte	'TASKING VX-toolset for TriCore: C compiler',0
+	.byte	'D:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_1.9\\BMU_BOOT\\Debug\\',0,12,1,2
+	.word	.L90
+	.byte	3
+	.byte	'Update_Count',0,8,21,8
+	.word	.L195
+	.byte	1,5,3
+	.word	Update_Count
+	.byte	0
+	.sdecl	'.debug_abbrev',debug,cluster('Update_Count')
+	.sect	'.debug_abbrev'
+.L157:
+	.byte	1,17,1,3,8,37,8,27,8,19,15,128,70,12,0,0,2,61,0,24,16,0,0,3,52,0,3,8,58,15,59,15,57,15,73,16,63,12,2,9
+	.byte	0,0,0
+	.sdecl	'.debug_info',debug,cluster('task_5ms')
+	.sect	'.debug_info'
+.L158:
+	.word	175
+	.half	3
+	.word	.L159
+	.byte	4,1
+	.byte	'..\\Complex_Files\\Operating_System.c',0
+	.byte	'TASKING VX-toolset for TriCore: C compiler',0
+	.byte	'D:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_1.9\\BMU_BOOT\\Debug\\',0,12,1,2
+	.word	.L90
+	.byte	3
+	.byte	'task_5ms',0,8,11,15
+	.word	.L196
+	.byte	1,5,3
+	.word	task_5ms
+	.byte	0
+	.sdecl	'.debug_abbrev',debug,cluster('task_5ms')
+	.sect	'.debug_abbrev'
+.L159:
+	.byte	1,17,1,3,8,37,8,27,8,19,15,128,70,12,0,0,2,61,0,24,16,0,0,3,52,0,3,8,58,15,59,15,57,15,73,16,63,12,2,9
+	.byte	0,0,0
+	.sdecl	'.debug_info',debug,cluster('task_10ms')
+	.sect	'.debug_info'
+.L160:
+	.word	176
+	.half	3
+	.word	.L161
+	.byte	4,1
+	.byte	'..\\Complex_Files\\Operating_System.c',0
+	.byte	'TASKING VX-toolset for TriCore: C compiler',0
+	.byte	'D:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_1.9\\BMU_BOOT\\Debug\\',0,12,1,2
+	.word	.L90
+	.byte	3
+	.byte	'task_10ms',0,8,12,15
+	.word	.L196
+	.byte	1,5,3
+	.word	task_10ms
+	.byte	0
+	.sdecl	'.debug_abbrev',debug,cluster('task_10ms')
+	.sect	'.debug_abbrev'
+.L161:
+	.byte	1,17,1,3,8,37,8,27,8,19,15,128,70,12,0,0,2,61,0,24,16,0,0,3,52,0,3,8,58,15,59,15,57,15,73,16,63,12,2,9
+	.byte	0,0,0
+	.sdecl	'.debug_info',debug,cluster('task_20ms')
+	.sect	'.debug_info'
+.L162:
+	.word	176
+	.half	3
+	.word	.L163
+	.byte	4,1
+	.byte	'..\\Complex_Files\\Operating_System.c',0
+	.byte	'TASKING VX-toolset for TriCore: C compiler',0
+	.byte	'D:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_1.9\\BMU_BOOT\\Debug\\',0,12,1,2
+	.word	.L90
+	.byte	3
+	.byte	'task_20ms',0,8,13,15
+	.word	.L196
+	.byte	1,5,3
+	.word	task_20ms
+	.byte	0
+	.sdecl	'.debug_abbrev',debug,cluster('task_20ms')
+	.sect	'.debug_abbrev'
+.L163:
+	.byte	1,17,1,3,8,37,8,27,8,19,15,128,70,12,0,0,2,61,0,24,16,0,0,3,52,0,3,8,58,15,59,15,57,15,73,16,63,12,2,9
+	.byte	0,0,0
+	.sdecl	'.debug_info',debug,cluster('task_50ms')
+	.sect	'.debug_info'
+.L164:
+	.word	176
+	.half	3
+	.word	.L165
+	.byte	4,1
+	.byte	'..\\Complex_Files\\Operating_System.c',0
+	.byte	'TASKING VX-toolset for TriCore: C compiler',0
+	.byte	'D:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_1.9\\BMU_BOOT\\Debug\\',0,12,1,2
+	.word	.L90
+	.byte	3
+	.byte	'task_50ms',0,8,14,15
+	.word	.L196
+	.byte	1,5,3
+	.word	task_50ms
+	.byte	0
+	.sdecl	'.debug_abbrev',debug,cluster('task_50ms')
+	.sect	'.debug_abbrev'
+.L165:
+	.byte	1,17,1,3,8,37,8,27,8,19,15,128,70,12,0,0,2,61,0,24,16,0,0,3,52,0,3,8,58,15,59,15,57,15,73,16,63,12,2,9
+	.byte	0,0,0
+	.sdecl	'.debug_info',debug,cluster('task_100ms')
+	.sect	'.debug_info'
+.L166:
+	.word	177
+	.half	3
+	.word	.L167
+	.byte	4,1
+	.byte	'..\\Complex_Files\\Operating_System.c',0
+	.byte	'TASKING VX-toolset for TriCore: C compiler',0
+	.byte	'D:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_1.9\\BMU_BOOT\\Debug\\',0,12,1,2
+	.word	.L90
+	.byte	3
+	.byte	'task_100ms',0,8,15,15
+	.word	.L196
+	.byte	1,5,3
+	.word	task_100ms
+	.byte	0
+	.sdecl	'.debug_abbrev',debug,cluster('task_100ms')
+	.sect	'.debug_abbrev'
+.L167:
+	.byte	1,17,1,3,8,37,8,27,8,19,15,128,70,12,0,0,2,61,0,24,16,0,0,3,52,0,3,8,58,15,59,15,57,15,73,16,63,12,2,9
+	.byte	0,0,0
+	.sdecl	'.debug_info',debug,cluster('task_500ms')
+	.sect	'.debug_info'
+.L168:
+	.word	177
+	.half	3
+	.word	.L169
+	.byte	4,1
+	.byte	'..\\Complex_Files\\Operating_System.c',0
+	.byte	'TASKING VX-toolset for TriCore: C compiler',0
+	.byte	'D:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_1.9\\BMU_BOOT\\Debug\\',0,12,1,2
+	.word	.L90
+	.byte	3
+	.byte	'task_500ms',0,8,16,15
+	.word	.L196
+	.byte	1,5,3
+	.word	task_500ms
+	.byte	0
+	.sdecl	'.debug_abbrev',debug,cluster('task_500ms')
+	.sect	'.debug_abbrev'
+.L169:
+	.byte	1,17,1,3,8,37,8,27,8,19,15,128,70,12,0,0,2,61,0,24,16,0,0,3,52,0,3,8,58,15,59,15,57,15,73,16,63,12,2,9
+	.byte	0,0,0
+	.sdecl	'.debug_info',debug,cluster('Recv_HandShake')
+	.sect	'.debug_info'
+.L170:
+	.word	181
+	.half	3
+	.word	.L171
+	.byte	4,1
+	.byte	'..\\Complex_Files\\Operating_System.c',0
+	.byte	'TASKING VX-toolset for TriCore: C compiler',0
+	.byte	'D:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_1.9\\BMU_BOOT\\Debug\\',0,12,1,2
+	.word	.L90
+	.byte	3
+	.byte	'Recv_HandShake',0,8,18,7
+	.word	.L197
+	.byte	1,5,3
+	.word	Recv_HandShake
+	.byte	0
+	.sdecl	'.debug_abbrev',debug,cluster('Recv_HandShake')
+	.sect	'.debug_abbrev'
+.L171:
+	.byte	1,17,1,3,8,37,8,27,8,19,15,128,70,12,0,0,2,61,0,24,16,0,0,3,52,0,3,8,58,15,59,15,57,15,73,16,63,12,2,9
+	.byte	0,0,0
+	.sdecl	'.debug_info',debug,cluster('Boot_App_Flag')
+	.sect	'.debug_info'
+.L172:
+	.word	180
+	.half	3
+	.word	.L173
+	.byte	4,1
+	.byte	'..\\Complex_Files\\Operating_System.c',0
+	.byte	'TASKING VX-toolset for TriCore: C compiler',0
+	.byte	'D:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_1.9\\BMU_BOOT\\Debug\\',0,12,1,2
+	.word	.L90
+	.byte	3
+	.byte	'Boot_App_Flag',0,8,19,7
+	.word	.L196
+	.byte	1,5,3
+	.word	Boot_App_Flag
+	.byte	0
+	.sdecl	'.debug_abbrev',debug,cluster('Boot_App_Flag')
+	.sect	'.debug_abbrev'
+.L173:
+	.byte	1,17,1,3,8,37,8,27,8,19,15,128,70,12,0,0,2,61,0,24,16,0,0,3,52,0,3,8,58,15,59,15,57,15,73,16,63,12,2,9
+	.byte	0,0,0
+	.sdecl	'.debug_info',debug,cluster('Recv_ID')
+	.sect	'.debug_info'
+.L174:
+	.word	174
+	.half	3
+	.word	.L175
+	.byte	4,1
+	.byte	'..\\Complex_Files\\Operating_System.c',0
+	.byte	'TASKING VX-toolset for TriCore: C compiler',0
+	.byte	'D:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_1.9\\BMU_BOOT\\Debug\\',0,12,1,2
+	.word	.L90
+	.byte	3
+	.byte	'Recv_ID',0,8,20,8
+	.word	.L195
+	.byte	1,5,3
+	.word	Recv_ID
+	.byte	0
+	.sdecl	'.debug_abbrev',debug,cluster('Recv_ID')
+	.sect	'.debug_abbrev'
+.L175:
+	.byte	1,17,1,3,8,37,8,27,8,19,15,128,70,12,0,0,2,61,0,24,16,0,0,3,52,0,3,8,58,15,59,15,57,15,73,16,63,12,2,9
+	.byte	0,0,0
+	.sdecl	'.debug_info',debug,cluster('HandShake')
+	.sect	'.debug_info'
+.L176:
+	.word	176
+	.half	3
+	.word	.L177
+	.byte	4,1
+	.byte	'..\\Complex_Files\\Operating_System.c',0
+	.byte	'TASKING VX-toolset for TriCore: C compiler',0
+	.byte	'D:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_1.9\\BMU_BOOT\\Debug\\',0,12,1,2
+	.word	.L90
+	.byte	3
+	.byte	'HandShake',0,8,24,7
+	.word	.L197
+	.byte	1,5,3
+	.word	HandShake
+	.byte	0
+	.sdecl	'.debug_abbrev',debug,cluster('HandShake')
+	.sect	'.debug_abbrev'
+.L177:
+	.byte	1,17,1,3,8,37,8,27,8,19,15,128,70,12,0,0,2,61,0,24,16,0,0,3,52,0,3,8,58,15,59,15,57,15,73,16,63,12,2,9
+	.byte	0,0,0
+	.sdecl	'.debug_info',debug,cluster('ui8_UpdateBackupFlag')
+	.sect	'.debug_info'
+.L178:
+	.word	188
+	.half	3
+	.word	.L179
+	.byte	4,1
+	.byte	'..\\Complex_Files\\Operating_System.c',0
+	.byte	'TASKING VX-toolset for TriCore: C compiler',0
+	.byte	'D:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_1.9\\BMU_BOOT\\Debug\\',0,12,1,2
+	.word	.L90
+	.byte	3
+	.byte	'ui8_UpdateBackupFlag',0,8,190,1,7
+	.word	.L196
+	.byte	1,5,3
+	.word	ui8_UpdateBackupFlag
+	.byte	0
+	.sdecl	'.debug_abbrev',debug,cluster('ui8_UpdateBackupFlag')
+	.sect	'.debug_abbrev'
+.L179:
+	.byte	1,17,1,3,8,37,8,27,8,19,15,128,70,12,0,0,2,61,0,24,16,0,0,3,52,0,3,8,58,15,59,15,57,15,73,16,63,12,2,9
+	.byte	0,0,0
+	.sdecl	'.debug_info',debug,cluster('ui32_CodeAddressStar')
+	.sect	'.debug_info'
+.L180:
+	.word	188
+	.half	3
+	.word	.L181
+	.byte	4,1
+	.byte	'..\\Complex_Files\\Operating_System.c',0
+	.byte	'TASKING VX-toolset for TriCore: C compiler',0
+	.byte	'D:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_1.9\\BMU_BOOT\\Debug\\',0,12,1,2
+	.word	.L90
+	.byte	3
+	.byte	'ui32_CodeAddressStar',0,8,191,1,8
+	.word	.L195
+	.byte	1,5,3
+	.word	ui32_CodeAddressStar
+	.byte	0
+	.sdecl	'.debug_abbrev',debug,cluster('ui32_CodeAddressStar')
+	.sect	'.debug_abbrev'
+.L181:
+	.byte	1,17,1,3,8,37,8,27,8,19,15,128,70,12,0,0,2,61,0,24,16,0,0,3,52,0,3,8,58,15,59,15,57,15,73,16,63,12,2,9
+	.byte	0,0,0
+	.sdecl	'.debug_loc',debug,cluster('BSW_SystemService_EcuM_HardReset')
+	.sect	'.debug_loc'
+.L86:
+	.word	-1,.L87,0,.L192-.L87
+	.half	2
+	.byte	138,0
+	.word	0,0
+	.sdecl	'.debug_loc',debug,cluster('RunUserCode')
+	.sect	'.debug_loc'
+.L88:
+	.word	-1,.L89,0,.L193-.L89
+	.half	2
+	.byte	138,0
+	.word	0,0
+	.sdecl	'.debug_loc',debug,cluster('os_init')
+	.sect	'.debug_loc'
+.L66:
+	.word	-1,.L67,0,.L189-.L67
+	.half	2
+	.byte	138,0
+	.word	0,0
+	.sdecl	'.debug_loc',debug,cluster('os_operate')
+	.sect	'.debug_loc'
+.L70:
+	.word	-1,.L71,0,.L191-.L71
+	.half	2
+	.byte	138,0
+	.word	0,0
+	.sdecl	'.debug_loc',debug,cluster('os_schedule')
+	.sect	'.debug_loc'
+.L68:
+	.word	-1,.L69,0,.L190-.L69
+	.half	2
+	.byte	138,0
+	.word	0,0
+	.sdecl	'.debug_loc',debug,cluster('os_task_100ms')
+	.sect	'.debug_loc'
+.L82:
+	.word	-1,.L83,0,.L187-.L83
+	.half	2
+	.byte	138,0
+	.word	0,0
+	.sdecl	'.debug_loc',debug,cluster('os_task_10ms')
+	.sect	'.debug_loc'
+.L76:
+	.word	-1,.L77,0,.L184-.L77
+	.half	2
+	.byte	138,0
+	.word	0,0
+	.sdecl	'.debug_loc',debug,cluster('os_task_1ms')
+	.sect	'.debug_loc'
+.L72:
+	.word	-1,.L73,0,.L182-.L73
+	.half	2
+	.byte	138,0
+	.word	0,0
+	.sdecl	'.debug_loc',debug,cluster('os_task_20ms')
+	.sect	'.debug_loc'
+.L78:
+	.word	-1,.L79,0,.L185-.L79
+	.half	2
+	.byte	138,0
+	.word	0,0
+	.sdecl	'.debug_loc',debug,cluster('os_task_500ms')
+	.sect	'.debug_loc'
+.L84:
+	.word	-1,.L85,0,.L188-.L85
+	.half	2
+	.byte	138,0
+	.word	0,0
+	.sdecl	'.debug_loc',debug,cluster('os_task_50ms')
+	.sect	'.debug_loc'
+.L80:
+	.word	-1,.L81,0,.L186-.L81
+	.half	2
+	.byte	138,0
+	.word	0,0
+	.sdecl	'.debug_loc',debug,cluster('os_task_5ms')
+	.sect	'.debug_loc'
+.L74:
+	.word	-1,.L75,0,.L183-.L75
+	.half	2
+	.byte	138,0
+	.word	0,0
+	.sdecl	'.debug_frame',debug
+	.sect	'.debug_frame'
+.L451:
+	.word	48
+	.word	-1
+	.byte	3,0,2,1,27,12,26,0,8,26,8,27,8,30,8,29,8,28,8,16,8,17,8,24,8,25,8,31,8,32,8,33,8,34,8,35,8,36,8,37,8,38
+	.byte	8,39
+	.sdecl	'.debug_frame',debug,cluster('os_init')
+	.sect	'.debug_frame'
+	.word	12
+	.word	.L451,.L67,.L189-.L67
+	.sdecl	'.debug_frame',debug,cluster('os_schedule')
+	.sect	'.debug_frame'
+	.word	12
+	.word	.L451,.L69,.L190-.L69
+	.sdecl	'.debug_frame',debug,cluster('os_operate')
+	.sect	'.debug_frame'
+	.word	12
+	.word	.L451,.L71,.L191-.L71
+	.sdecl	'.debug_frame',debug,cluster('os_task_1ms')
+	.sect	'.debug_frame'
+	.word	12
+	.word	.L451,.L73,.L182-.L73
+	.sdecl	'.debug_frame',debug,cluster('os_task_5ms')
+	.sect	'.debug_frame'
+	.word	12
+	.word	.L451,.L75,.L183-.L75
+	.sdecl	'.debug_frame',debug,cluster('os_task_10ms')
+	.sect	'.debug_frame'
+	.word	12
+	.word	.L451,.L77,.L184-.L77
+	.sdecl	'.debug_frame',debug,cluster('os_task_20ms')
+	.sect	'.debug_frame'
+	.word	24
+	.word	.L451,.L79,.L185-.L79
+	.byte	8,18,8,19,8,20,8,21,8,22,8,23
+	.sdecl	'.debug_frame',debug,cluster('os_task_50ms')
+	.sect	'.debug_frame'
+	.word	24
+	.word	.L451,.L81,.L186-.L81
+	.byte	8,18,8,19,8,20,8,21,8,22,8,23
+	.sdecl	'.debug_frame',debug,cluster('os_task_100ms')
+	.sect	'.debug_frame'
+	.word	24
+	.word	.L451,.L83,.L187-.L83
+	.byte	8,18,8,19,8,20,8,21,8,22,8,23
+	.sdecl	'.debug_frame',debug,cluster('os_task_500ms')
+	.sect	'.debug_frame'
+	.word	12
+	.word	.L451,.L85,.L188-.L85
+	.sdecl	'.debug_frame',debug,cluster('BSW_SystemService_EcuM_HardReset')
+	.sect	'.debug_frame'
+	.word	12
+	.word	.L451,.L87,.L192-.L87
+	.sdecl	'.debug_frame',debug,cluster('RunUserCode')
+	.sect	'.debug_frame'
+	.word	24
+	.word	.L451,.L89,.L193-.L89
+	.byte	8,18,8,19,8,20,8,21,8,22,8,23
+
+; ..\Complex_Files\Operating_System.c	   298  
+
+	; Module end

@@ -1,0 +1,3 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">&#x0A;<refactoring comment="Delete 2 resources" deleteContents="false" description="Delete 2 resources" element1="/BMU_BOOT/LFBMU.hex" element2="/BMU_BOOT/读取hex3.hex" flags="7" id="org.eclipse.ltk.core.refactoring.delete.resources" resources="2" stamp="1552549989820"/>&#x0A;<refactoring comment="Delete 2 resources" deleteContents="false" description="Delete 2 resources" element1="/BMU_BOOT/刷写成功hex.hex" element2="/BMU_BOOT/刷写失败hex.hex" flags="7" id="org.eclipse.ltk.core.refactoring.delete.resources" resources="2" stamp="1552552458423"/>
+</session>

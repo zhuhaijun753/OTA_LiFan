@@ -1,0 +1,1433 @@
+	; Module start
+	.compiler_version	"TASKING VX-toolset for TriCore: C compiler v4.3r1 Build 759 SN 00641831"
+	.compiler_invocation	"ctc -f cc5104a -c99 --dep-file=Communication_Files\\Uds\\User\\.Uds_User_DiagnosticSessionControlCallback.o.d -D__CPU__=tc1782 -D__CPU_TC1782__ --core=tc1.3.1 -F -ID:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_1.9\\BMU_BOOT -ID:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_1.9\\BMU_BOOT\\Communication_Files\\CanDrv -ID:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_1.9\\BMU_BOOT\\Communication_Files\\Com -ID:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_1.9\\BMU_BOOT\\Communication_Files\\Com\\Can_Input -ID:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_1.9\\BMU_BOOT\\Communication_Files\\Com\\Can_Output -ID:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_1.9\\BMU_BOOT\\Communication_Files\\Uds\\Dcm -ID:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_1.9\\BMU_BOOT\\Communication_Files\\Uds\\Dem -ID:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_1.9\\BMU_BOOT\\Communication_Files\\Uds\\Tp -ID:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_1.9\\BMU_BOOT\\Communication_Files\\Uds\\User -ID:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_1.9\\BMU_BOOT\\Complex_Files -ID:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_1.9\\BMU_BOOT\\Initiate_Files -ID:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_1.9\\BMU_BOOT\\Nvm_Files\\FlsDrv -ID:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_1.9\\BMU_BOOT\\Stand_Header -g2 --make-target=Communication_Files\\Uds\\User\\Uds_User_DiagnosticSessionControlCallback.o -t4 --language=-gcc,-volatile,+strings --default-near-size=0 -O2 --default-a1-size=0 --default-a0-size=0 --source --align=0 --compact-max-size=200 --switch=auto -o Communication_Files\\Uds\\User\\Uds_User_DiagnosticSessionControlCallback.src ..\\Communication_Files\\Uds\\User\\Uds_User_DiagnosticSessionControlCallback.c"
+	.compiler_name		"ctc"
+	.name	"Uds_User_DiagnosticSessionControlCallback"
+
+	
+$TC131
+	
+	.sdecl	'.text.Uds_User_DiagnosticSessionControlCallback.UdsFunc_ChangeSession_Init',code,cluster('UdsFunc_ChangeSession_Init')
+	.sect	'.text.Uds_User_DiagnosticSessionControlCallback.UdsFunc_ChangeSession_Init'
+	.align	2
+	
+	.global	UdsFunc_ChangeSession_Init
+
+; ..\Communication_Files\Uds\User\Uds_User_DiagnosticSessionControlCallback.c	     1  
+; ..\Communication_Files\Uds\User\Uds_User_DiagnosticSessionControlCallback.c	     2  #include "MAIN.h"
+; ..\Communication_Files\Uds\User\Uds_User_DiagnosticSessionControlCallback.c	     3  
+; ..\Communication_Files\Uds\User\Uds_User_DiagnosticSessionControlCallback.c	     4  Struct_Uds_SID_DSC_Info	st_Uds_SID_DSC_Info;	/*UDS SID_DSC信息*/
+; ..\Communication_Files\Uds\User\Uds_User_DiagnosticSessionControlCallback.c	     5  
+; ..\Communication_Files\Uds\User\Uds_User_DiagnosticSessionControlCallback.c	     6  
+; ..\Communication_Files\Uds\User\Uds_User_DiagnosticSessionControlCallback.c	     7  void UdsFunc_ChangeSession_Init(void)
+; Function UdsFunc_ChangeSession_Init
+.L6:
+UdsFunc_ChangeSession_Init:	.type	func
+
+; ..\Communication_Files\Uds\User\Uds_User_DiagnosticSessionControlCallback.c	     8  {
+; ..\Communication_Files\Uds\User\Uds_User_DiagnosticSessionControlCallback.c	     9  	st_Uds_SID_SA_Info.b_Security_Locked = 0x00;		/*初始化密钥为锁定状态*/
+	movh.a	a15,#@his(st_Uds_SID_SA_Info)
+	lea	a15,[a15]@los(st_Uds_SID_SA_Info)
+.L69:
+	mov	d15,#0
+	st.b	[a15],d15
+.L70:
+
+; ..\Communication_Files\Uds\User\Uds_User_DiagnosticSessionControlCallback.c	    10  	st_Uds_SID_SA_Info.b_RequestSeedFlag = 0x00;		/*初始化request seed标志FALSE*/
+	st.b	[a15]1,d15
+.L71:
+
+; ..\Communication_Files\Uds\User\Uds_User_DiagnosticSessionControlCallback.c	    11  	st_Uds_SID_CC_Info.ui8_CommuCtrlFlag = UDS_EN_RX_TX_NCM;  //初始化为使能发送使能接收
+	movh.a	a15,#@his(st_Uds_SID_CC_Info)
+	lea	a15,[a15]@los(st_Uds_SID_CC_Info)
+.L72:
+	st.b	[a15],d15
+.L73:
+
+; ..\Communication_Files\Uds\User\Uds_User_DiagnosticSessionControlCallback.c	    12  //	st_Uds_SID_CDTCS_Info.ui8_DTCSettingType = UDS_CDTCS_ON;  //恢复DTC
+; ..\Communication_Files\Uds\User\Uds_User_DiagnosticSessionControlCallback.c	    13  
+; ..\Communication_Files\Uds\User\Uds_User_DiagnosticSessionControlCallback.c	    14  #if ECU_TYPE == ECU_VCU
+; ..\Communication_Files\Uds\User\Uds_User_DiagnosticSessionControlCallback.c	    15  			if(255 != UDS_VEHSTATE_ENUM)
+; ..\Communication_Files\Uds\User\Uds_User_DiagnosticSessionControlCallback.c	    16         		{
+; ..\Communication_Files\Uds\User\Uds_User_DiagnosticSessionControlCallback.c	    17         		  CAN0_Tx_flag = 1;
+; ..\Communication_Files\Uds\User\Uds_User_DiagnosticSessionControlCallback.c	    18         		  CAN1_Tx_flag = 1;
+; ..\Communication_Files\Uds\User\Uds_User_DiagnosticSessionControlCallback.c	    19         		  CAN2_Tx_flag = 1;
+; ..\Communication_Files\Uds\User\Uds_User_DiagnosticSessionControlCallback.c	    20         		}
+; ..\Communication_Files\Uds\User\Uds_User_DiagnosticSessionControlCallback.c	    21  			VINP_DiagShutOffReq_flg = 0;
+; ..\Communication_Files\Uds\User\Uds_User_DiagnosticSessionControlCallback.c	    22  
+; ..\Communication_Files\Uds\User\Uds_User_DiagnosticSessionControlCallback.c	    23  #elif ECU_TYPE == ECU_VBU
+; ..\Communication_Files\Uds\User\Uds_User_DiagnosticSessionControlCallback.c	    24  			if(255 != UDS_VEHSTATE_ENUM)
+; ..\Communication_Files\Uds\User\Uds_User_DiagnosticSessionControlCallback.c	    25         		{
+; ..\Communication_Files\Uds\User\Uds_User_DiagnosticSessionControlCallback.c	    26         		  CAN0_Tx_flag = 1;
+; ..\Communication_Files\Uds\User\Uds_User_DiagnosticSessionControlCallback.c	    27         		  CAN1_Tx_flag = 1;
+; ..\Communication_Files\Uds\User\Uds_User_DiagnosticSessionControlCallback.c	    28         		  CAN2_Tx_flag = 1;
+; ..\Communication_Files\Uds\User\Uds_User_DiagnosticSessionControlCallback.c	    29         		}
+; ..\Communication_Files\Uds\User\Uds_User_DiagnosticSessionControlCallback.c	    30  			VINP_DiagShutOffReq_flg = 0;
+; ..\Communication_Files\Uds\User\Uds_User_DiagnosticSessionControlCallback.c	    31  
+; ..\Communication_Files\Uds\User\Uds_User_DiagnosticSessionControlCallback.c	    32  #elif ECU_TYPE == ECU_BMS
+; ..\Communication_Files\Uds\User\Uds_User_DiagnosticSessionControlCallback.c	    33  //			BMSIN_MLIF_ComptrLink_enum = 0;                                         //测试用上位机连接标志归零
+; ..\Communication_Files\Uds\User\Uds_User_DiagnosticSessionControlCallback.c	    34  //			BMSIN_MLIF_PrgrmFlash_flg = 0;                                          //恢复模型诊断
+; ..\Communication_Files\Uds\User\Uds_User_DiagnosticSessionControlCallback.c	    35  			
+; ..\Communication_Files\Uds\User\Uds_User_DiagnosticSessionControlCallback.c	    36  #elif ECU_TYPE == ECU_MCU
+; ..\Communication_Files\Uds\User\Uds_User_DiagnosticSessionControlCallback.c	    37  			if(255 != UDS_VEHSTATE_ENUM)
+; ..\Communication_Files\Uds\User\Uds_User_DiagnosticSessionControlCallback.c	    38         		{
+; ..\Communication_Files\Uds\User\Uds_User_DiagnosticSessionControlCallback.c	    39  //       		  CAN0_Tx_flag = 1;
+; ..\Communication_Files\Uds\User\Uds_User_DiagnosticSessionControlCallback.c	    40         		  	  CAN1_Tx_flag = 1;
+; ..\Communication_Files\Uds\User\Uds_User_DiagnosticSessionControlCallback.c	    41  //       		  CAN2_Tx_flag = 1;
+; ..\Communication_Files\Uds\User\Uds_User_DiagnosticSessionControlCallback.c	    42         		}
+; ..\Communication_Files\Uds\User\Uds_User_DiagnosticSessionControlCallback.c	    43  			VINP_SHUTOFF_DIAG = 0;                                                  //恢复模型诊断                                          
+; ..\Communication_Files\Uds\User\Uds_User_DiagnosticSessionControlCallback.c	    44  
+; ..\Communication_Files\Uds\User\Uds_User_DiagnosticSessionControlCallback.c	    45  #elif ECU_TYPE == ECU_BMS_FRWK_3
+; ..\Communication_Files\Uds\User\Uds_User_DiagnosticSessionControlCallback.c	    46  			BMSIN_MLIF_ComptrLink_enum = 0;                                         //测试用上位机连接标志归零
+; ..\Communication_Files\Uds\User\Uds_User_DiagnosticSessionControlCallback.c	    47  
+; ..\Communication_Files\Uds\User\Uds_User_DiagnosticSessionControlCallback.c	    48  			VINP_DiagShutOffReq_flg = 0;                                            //恢复VCU模型诊断			
+; ..\Communication_Files\Uds\User\Uds_User_DiagnosticSessionControlCallback.c	    49  			BMSIN_MLIF_PrgrmFlash_flg = 0;                                          //恢复模型诊断
+; ..\Communication_Files\Uds\User\Uds_User_DiagnosticSessionControlCallback.c	    50  #endif
+; ..\Communication_Files\Uds\User\Uds_User_DiagnosticSessionControlCallback.c	    51  }
+	ret
+.L39:
+	
+__UdsFunc_ChangeSession_Init_function_end:
+	.size	UdsFunc_ChangeSession_Init,__UdsFunc_ChangeSession_Init_function_end-UdsFunc_ChangeSession_Init
+.L21:
+	; End of function
+	
+	.sdecl	'.text.Uds_User_DiagnosticSessionControlCallback.UdsFunc_SID_DSC_SUBID_DS_Callback',code,cluster('UdsFunc_SID_DSC_SUBID_DS_Callback')
+	.sect	'.text.Uds_User_DiagnosticSessionControlCallback.UdsFunc_SID_DSC_SUBID_DS_Callback'
+	.align	2
+	
+	.global	UdsFunc_SID_DSC_SUBID_DS_Callback
+
+; ..\Communication_Files\Uds\User\Uds_User_DiagnosticSessionControlCallback.c	    52  
+; ..\Communication_Files\Uds\User\Uds_User_DiagnosticSessionControlCallback.c	    53  #if ECU_TYPE == ECU_VCU
+; ..\Communication_Files\Uds\User\Uds_User_DiagnosticSessionControlCallback.c	    54  boolean UdsFunc_SID_DSC_SUBID_DS_Callback
+; ..\Communication_Files\Uds\User\Uds_User_DiagnosticSessionControlCallback.c	    55  	(uint8 *ui8_pRes, uint16 *ui16_pResLen)
+; ..\Communication_Files\Uds\User\Uds_User_DiagnosticSessionControlCallback.c	    56  {
+; ..\Communication_Files\Uds\User\Uds_User_DiagnosticSessionControlCallback.c	    57  	boolean	b_Return;
+; ..\Communication_Files\Uds\User\Uds_User_DiagnosticSessionControlCallback.c	    58  
+; ..\Communication_Files\Uds\User\Uds_User_DiagnosticSessionControlCallback.c	    59  	UdsFunc_ChangeSession_Init();	/*切换session初始化*/
+; ..\Communication_Files\Uds\User\Uds_User_DiagnosticSessionControlCallback.c	    60  	st_Uds_SID_DSC_Info.ui8_Active_Session = UDS_DEFAULT_SESSION_ACTIVE;
+; ..\Communication_Files\Uds\User\Uds_User_DiagnosticSessionControlCallback.c	    61  	BMSIN_MLIF_ComptrLink_enum = 0;          //测试用上位机连接标志归零
+; ..\Communication_Files\Uds\User\Uds_User_DiagnosticSessionControlCallback.c	    62  
+; ..\Communication_Files\Uds\User\Uds_User_DiagnosticSessionControlCallback.c	    63  	/*回应数据*/
+; ..\Communication_Files\Uds\User\Uds_User_DiagnosticSessionControlCallback.c	    64  	ui16_pResLen[0U] = 4U;
+; ..\Communication_Files\Uds\User\Uds_User_DiagnosticSessionControlCallback.c	    65  	ui8_pRes[0U] = (uint8)(UDS_P2_SERVER_MAX / 0x100U);
+; ..\Communication_Files\Uds\User\Uds_User_DiagnosticSessionControlCallback.c	    66  	ui8_pRes[1U] = (uint8)(UDS_P2_SERVER_MAX);
+; ..\Communication_Files\Uds\User\Uds_User_DiagnosticSessionControlCallback.c	    67  	ui8_pRes[2U] = (uint8)(UDS_P2EX_SERVER_MAX / 0x100U);
+; ..\Communication_Files\Uds\User\Uds_User_DiagnosticSessionControlCallback.c	    68  	ui8_pRes[3U] = (uint8)(UDS_P2EX_SERVER_MAX);
+; ..\Communication_Files\Uds\User\Uds_User_DiagnosticSessionControlCallback.c	    69  	st_Uds_Response.ui8_ResCode = UDS_RES_CODE_PR;	/*正响应*/
+; ..\Communication_Files\Uds\User\Uds_User_DiagnosticSessionControlCallback.c	    70  
+; ..\Communication_Files\Uds\User\Uds_User_DiagnosticSessionControlCallback.c	    71  	b_Return = E_OK;
+; ..\Communication_Files\Uds\User\Uds_User_DiagnosticSessionControlCallback.c	    72  
+; ..\Communication_Files\Uds\User\Uds_User_DiagnosticSessionControlCallback.c	    73  	return	b_Return;
+; ..\Communication_Files\Uds\User\Uds_User_DiagnosticSessionControlCallback.c	    74  }
+; ..\Communication_Files\Uds\User\Uds_User_DiagnosticSessionControlCallback.c	    75  
+; ..\Communication_Files\Uds\User\Uds_User_DiagnosticSessionControlCallback.c	    76  
+; ..\Communication_Files\Uds\User\Uds_User_DiagnosticSessionControlCallback.c	    77  boolean UdsFunc_SID_DSC_SUBID_PRGS_Callback
+; ..\Communication_Files\Uds\User\Uds_User_DiagnosticSessionControlCallback.c	    78  	(uint8 *ui8_pRes, uint16 *ui16_pResLen)
+; ..\Communication_Files\Uds\User\Uds_User_DiagnosticSessionControlCallback.c	    79  {
+; ..\Communication_Files\Uds\User\Uds_User_DiagnosticSessionControlCallback.c	    80  	boolean	b_Return = E_NOT_OK;
+; ..\Communication_Files\Uds\User\Uds_User_DiagnosticSessionControlCallback.c	    81  
+; ..\Communication_Files\Uds\User\Uds_User_DiagnosticSessionControlCallback.c	    82  	//UdsFunc_ChangeSession_Init();	/*切换session初始化*/
+; ..\Communication_Files\Uds\User\Uds_User_DiagnosticSessionControlCallback.c	    83  	st_Uds_SID_DSC_Info.ui8_Active_Session = UDS_PROGRAMMING_SESSION_ACTIVE;
+; ..\Communication_Files\Uds\User\Uds_User_DiagnosticSessionControlCallback.c	    84  
+; ..\Communication_Files\Uds\User\Uds_User_DiagnosticSessionControlCallback.c	    85  	//ui32_KeepBSLState_Flag = SYS_KEEP_BSL_STATE;	/*系统保持BSL状态*/
+; ..\Communication_Files\Uds\User\Uds_User_DiagnosticSessionControlCallback.c	    86  
+; ..\Communication_Files\Uds\User\Uds_User_DiagnosticSessionControlCallback.c	    87  	 if(Boot_7C2_flg == 2)
+; ..\Communication_Files\Uds\User\Uds_User_DiagnosticSessionControlCallback.c	    88  	 {
+; ..\Communication_Files\Uds\User\Uds_User_DiagnosticSessionControlCallback.c	    89  		 if(st_Uds_SID_DSC_Info.ui16_Write_EEROM_Delay == UDS_BOOT_STATE_DELAY_TIME)
+; ..\Communication_Files\Uds\User\Uds_User_DiagnosticSessionControlCallback.c	    90  		 {
+; ..\Communication_Files\Uds\User\Uds_User_DiagnosticSessionControlCallback.c	    91  			 VCU_BMS_WriteToEE();
+; ..\Communication_Files\Uds\User\Uds_User_DiagnosticSessionControlCallback.c	    92  		 }
+; ..\Communication_Files\Uds\User\Uds_User_DiagnosticSessionControlCallback.c	    93  	     Task_CheckEepromWriteStatus();
+; ..\Communication_Files\Uds\User\Uds_User_DiagnosticSessionControlCallback.c	    94  	     if(FALSE == b_Eeprom_WriteOperation_Vaild)
+; ..\Communication_Files\Uds\User\Uds_User_DiagnosticSessionControlCallback.c	    95  	     {
+; ..\Communication_Files\Uds\User\Uds_User_DiagnosticSessionControlCallback.c	    96  
+; ..\Communication_Files\Uds\User\Uds_User_DiagnosticSessionControlCallback.c	    97  	    	 Boot_7C2_flg = 4;
+; ..\Communication_Files\Uds\User\Uds_User_DiagnosticSessionControlCallback.c	    98  		     VCUReset_flg = 1 ;
+; ..\Communication_Files\Uds\User\Uds_User_DiagnosticSessionControlCallback.c	    99  		     st_Uds_SID_DSC_Info.ui16_Write_EEROM_Delay = UDS_BOOT_STATE_DELAY_TIME;
+; ..\Communication_Files\Uds\User\Uds_User_DiagnosticSessionControlCallback.c	   100  		 	ui16_pResLen[0U] = 4U;
+; ..\Communication_Files\Uds\User\Uds_User_DiagnosticSessionControlCallback.c	   101  		 	ui8_pRes[0U] = (uint8)(UDS_P2_SERVER_MAX / 0x100U);
+; ..\Communication_Files\Uds\User\Uds_User_DiagnosticSessionControlCallback.c	   102  		 	ui8_pRes[1U] = (uint8)(UDS_P2_SERVER_MAX);
+; ..\Communication_Files\Uds\User\Uds_User_DiagnosticSessionControlCallback.c	   103  		 	ui8_pRes[2U] = (uint8)(UDS_P2EX_SERVER_MAX / 0x100U);
+; ..\Communication_Files\Uds\User\Uds_User_DiagnosticSessionControlCallback.c	   104  		 	ui8_pRes[3U] = (uint8)(UDS_P2EX_SERVER_MAX);
+; ..\Communication_Files\Uds\User\Uds_User_DiagnosticSessionControlCallback.c	   105  		 	st_Uds_Response.ui8_ResCode = UDS_RES_CODE_PR;	/*正响应*/
+; ..\Communication_Files\Uds\User\Uds_User_DiagnosticSessionControlCallback.c	   106  		 	b_Return = E_OK;
+; ..\Communication_Files\Uds\User\Uds_User_DiagnosticSessionControlCallback.c	   107  	     }
+; ..\Communication_Files\Uds\User\Uds_User_DiagnosticSessionControlCallback.c	   108  	     else
+; ..\Communication_Files\Uds\User\Uds_User_DiagnosticSessionControlCallback.c	   109  	     {
+; ..\Communication_Files\Uds\User\Uds_User_DiagnosticSessionControlCallback.c	   110  	    	 st_Uds_SID_DSC_Info.ui16_Write_EEROM_Delay --;
+; ..\Communication_Files\Uds\User\Uds_User_DiagnosticSessionControlCallback.c	   111  
+; ..\Communication_Files\Uds\User\Uds_User_DiagnosticSessionControlCallback.c	   112  				if(st_Uds_SID_DSC_Info.ui16_Write_EEROM_Delay != 0U)
+; ..\Communication_Files\Uds\User\Uds_User_DiagnosticSessionControlCallback.c	   113  				{
+; ..\Communication_Files\Uds\User\Uds_User_DiagnosticSessionControlCallback.c	   114  					if((st_Uds_SID_DSC_Info.ui16_Write_EEROM_Delay & 0x7FU) == 0U)
+; ..\Communication_Files\Uds\User\Uds_User_DiagnosticSessionControlCallback.c	   115  					{
+; ..\Communication_Files\Uds\User\Uds_User_DiagnosticSessionControlCallback.c	   116  						st_Uds_Response.ui8_ResCode = UDS_RES_CODE_RCRRP;	/*请求挂起响应*/
+; ..\Communication_Files\Uds\User\Uds_User_DiagnosticSessionControlCallback.c	   117  					}
+; ..\Communication_Files\Uds\User\Uds_User_DiagnosticSessionControlCallback.c	   118  				}
+; ..\Communication_Files\Uds\User\Uds_User_DiagnosticSessionControlCallback.c	   119  				else
+; ..\Communication_Files\Uds\User\Uds_User_DiagnosticSessionControlCallback.c	   120  				{
+; ..\Communication_Files\Uds\User\Uds_User_DiagnosticSessionControlCallback.c	   121  					Boot_7C2_flg = 5;
+; ..\Communication_Files\Uds\User\Uds_User_DiagnosticSessionControlCallback.c	   122  
+; ..\Communication_Files\Uds\User\Uds_User_DiagnosticSessionControlCallback.c	   123  					st_Uds_SID_DSC_Info.ui16_Write_EEROM_Delay = UDS_BOOT_STATE_DELAY_TIME;	/*初始化Boot State255等待时间*/
+; ..\Communication_Files\Uds\User\Uds_User_DiagnosticSessionControlCallback.c	   124  					st_Uds_Response.ui8_ResCode = UDS_RES_CODE_CNC;
+; ..\Communication_Files\Uds\User\Uds_User_DiagnosticSessionControlCallback.c	   125  					b_Return = E_OK;
+; ..\Communication_Files\Uds\User\Uds_User_DiagnosticSessionControlCallback.c	   126  				}
+; ..\Communication_Files\Uds\User\Uds_User_DiagnosticSessionControlCallback.c	   127  	     }
+; ..\Communication_Files\Uds\User\Uds_User_DiagnosticSessionControlCallback.c	   128  
+; ..\Communication_Files\Uds\User\Uds_User_DiagnosticSessionControlCallback.c	   129  
+; ..\Communication_Files\Uds\User\Uds_User_DiagnosticSessionControlCallback.c	   130  	 }
+; ..\Communication_Files\Uds\User\Uds_User_DiagnosticSessionControlCallback.c	   131  	 else
+; ..\Communication_Files\Uds\User\Uds_User_DiagnosticSessionControlCallback.c	   132  	 {
+; ..\Communication_Files\Uds\User\Uds_User_DiagnosticSessionControlCallback.c	   133  	     Boot_7C2_flg = 5;
+; ..\Communication_Files\Uds\User\Uds_User_DiagnosticSessionControlCallback.c	   134  	     st_Uds_Response.ui8_ResCode = UDS_RES_CODE_CNC;
+; ..\Communication_Files\Uds\User\Uds_User_DiagnosticSessionControlCallback.c	   135  	     b_Return = E_OK;
+; ..\Communication_Files\Uds\User\Uds_User_DiagnosticSessionControlCallback.c	   136  	 }
+; ..\Communication_Files\Uds\User\Uds_User_DiagnosticSessionControlCallback.c	   137  
+; ..\Communication_Files\Uds\User\Uds_User_DiagnosticSessionControlCallback.c	   138  	/*回应数据*/
+; ..\Communication_Files\Uds\User\Uds_User_DiagnosticSessionControlCallback.c	   139  
+; ..\Communication_Files\Uds\User\Uds_User_DiagnosticSessionControlCallback.c	   140  	return	b_Return;
+; ..\Communication_Files\Uds\User\Uds_User_DiagnosticSessionControlCallback.c	   141  }
+; ..\Communication_Files\Uds\User\Uds_User_DiagnosticSessionControlCallback.c	   142  
+; ..\Communication_Files\Uds\User\Uds_User_DiagnosticSessionControlCallback.c	   143  
+; ..\Communication_Files\Uds\User\Uds_User_DiagnosticSessionControlCallback.c	   144  boolean UdsFunc_SID_DSC_SUBID_EXTDS_Callback
+; ..\Communication_Files\Uds\User\Uds_User_DiagnosticSessionControlCallback.c	   145  	(uint8 *ui8_pRes, uint16 *ui16_pResLen)
+; ..\Communication_Files\Uds\User\Uds_User_DiagnosticSessionControlCallback.c	   146  {
+; ..\Communication_Files\Uds\User\Uds_User_DiagnosticSessionControlCallback.c	   147  	boolean	b_Return;
+; ..\Communication_Files\Uds\User\Uds_User_DiagnosticSessionControlCallback.c	   148  
+; ..\Communication_Files\Uds\User\Uds_User_DiagnosticSessionControlCallback.c	   149  	UdsFunc_ChangeSession_Init();	/*切换session初始化*/
+; ..\Communication_Files\Uds\User\Uds_User_DiagnosticSessionControlCallback.c	   150  	st_Uds_SID_DSC_Info.ui8_Active_Session = UDS_EXTENDED_SESSION_ACTIVE;
+; ..\Communication_Files\Uds\User\Uds_User_DiagnosticSessionControlCallback.c	   151  
+; ..\Communication_Files\Uds\User\Uds_User_DiagnosticSessionControlCallback.c	   152  
+; ..\Communication_Files\Uds\User\Uds_User_DiagnosticSessionControlCallback.c	   153  		Boot_7C2_flg = 0 ;
+; ..\Communication_Files\Uds\User\Uds_User_DiagnosticSessionControlCallback.c	   154  		Boot_7DF_flg = 1 ;
+; ..\Communication_Files\Uds\User\Uds_User_DiagnosticSessionControlCallback.c	   155  		/*回应数据*/
+; ..\Communication_Files\Uds\User\Uds_User_DiagnosticSessionControlCallback.c	   156  		ui16_pResLen[0U] = 4U;
+; ..\Communication_Files\Uds\User\Uds_User_DiagnosticSessionControlCallback.c	   157  		ui8_pRes[0U] = (uint8)(UDS_P2_SERVER_MAX / 0x100U);
+; ..\Communication_Files\Uds\User\Uds_User_DiagnosticSessionControlCallback.c	   158  		ui8_pRes[1U] = (uint8)(UDS_P2_SERVER_MAX);
+; ..\Communication_Files\Uds\User\Uds_User_DiagnosticSessionControlCallback.c	   159  		ui8_pRes[2U] = (uint8)(UDS_P2EX_SERVER_MAX / 0x100U);
+; ..\Communication_Files\Uds\User\Uds_User_DiagnosticSessionControlCallback.c	   160  		ui8_pRes[3U] = (uint8)(UDS_P2EX_SERVER_MAX);
+; ..\Communication_Files\Uds\User\Uds_User_DiagnosticSessionControlCallback.c	   161  		st_Uds_Response.ui8_ResCode = UDS_RES_CODE_PR;	/*正响应*/
+; ..\Communication_Files\Uds\User\Uds_User_DiagnosticSessionControlCallback.c	   162  
+; ..\Communication_Files\Uds\User\Uds_User_DiagnosticSessionControlCallback.c	   163  		b_Return = E_OK;
+; ..\Communication_Files\Uds\User\Uds_User_DiagnosticSessionControlCallback.c	   164  
+; ..\Communication_Files\Uds\User\Uds_User_DiagnosticSessionControlCallback.c	   165  	return	b_Return;
+; ..\Communication_Files\Uds\User\Uds_User_DiagnosticSessionControlCallback.c	   166  }
+; ..\Communication_Files\Uds\User\Uds_User_DiagnosticSessionControlCallback.c	   167  #elif ECU_TYPE == ECU_VBU
+; ..\Communication_Files\Uds\User\Uds_User_DiagnosticSessionControlCallback.c	   168  boolean UdsFunc_SID_DSC_SUBID_DS_Callback
+; ..\Communication_Files\Uds\User\Uds_User_DiagnosticSessionControlCallback.c	   169  	(uint8 *ui8_pRes, uint16 *ui16_pResLen)
+; ..\Communication_Files\Uds\User\Uds_User_DiagnosticSessionControlCallback.c	   170  {
+; ..\Communication_Files\Uds\User\Uds_User_DiagnosticSessionControlCallback.c	   171  	boolean	b_Return;
+; ..\Communication_Files\Uds\User\Uds_User_DiagnosticSessionControlCallback.c	   172  
+; ..\Communication_Files\Uds\User\Uds_User_DiagnosticSessionControlCallback.c	   173  	UdsFunc_ChangeSession_Init();	/*切换session初始化*/
+; ..\Communication_Files\Uds\User\Uds_User_DiagnosticSessionControlCallback.c	   174  	st_Uds_SID_DSC_Info.ui8_Active_Session = UDS_DEFAULT_SESSION_ACTIVE;
+; ..\Communication_Files\Uds\User\Uds_User_DiagnosticSessionControlCallback.c	   175  	BMSIN_MLIF_ComptrLink_enum = 0;          //测试用上位机连接标志归零
+; ..\Communication_Files\Uds\User\Uds_User_DiagnosticSessionControlCallback.c	   176  
+; ..\Communication_Files\Uds\User\Uds_User_DiagnosticSessionControlCallback.c	   177  	/*回应数据*/
+; ..\Communication_Files\Uds\User\Uds_User_DiagnosticSessionControlCallback.c	   178  	ui16_pResLen[0U] = 4U;
+; ..\Communication_Files\Uds\User\Uds_User_DiagnosticSessionControlCallback.c	   179  	ui8_pRes[0U] = (uint8)(UDS_P2_SERVER_MAX / 0x100U);
+; ..\Communication_Files\Uds\User\Uds_User_DiagnosticSessionControlCallback.c	   180  	ui8_pRes[1U] = (uint8)(UDS_P2_SERVER_MAX);
+; ..\Communication_Files\Uds\User\Uds_User_DiagnosticSessionControlCallback.c	   181  	ui8_pRes[2U] = (uint8)(UDS_P2EX_SERVER_MAX / 0x100U);
+; ..\Communication_Files\Uds\User\Uds_User_DiagnosticSessionControlCallback.c	   182  	ui8_pRes[3U] = (uint8)(UDS_P2EX_SERVER_MAX);
+; ..\Communication_Files\Uds\User\Uds_User_DiagnosticSessionControlCallback.c	   183  	st_Uds_Response.ui8_ResCode = UDS_RES_CODE_PR;	/*正响应*/
+; ..\Communication_Files\Uds\User\Uds_User_DiagnosticSessionControlCallback.c	   184  
+; ..\Communication_Files\Uds\User\Uds_User_DiagnosticSessionControlCallback.c	   185  	b_Return = E_OK;
+; ..\Communication_Files\Uds\User\Uds_User_DiagnosticSessionControlCallback.c	   186  
+; ..\Communication_Files\Uds\User\Uds_User_DiagnosticSessionControlCallback.c	   187  	return	b_Return;
+; ..\Communication_Files\Uds\User\Uds_User_DiagnosticSessionControlCallback.c	   188  }
+; ..\Communication_Files\Uds\User\Uds_User_DiagnosticSessionControlCallback.c	   189  
+; ..\Communication_Files\Uds\User\Uds_User_DiagnosticSessionControlCallback.c	   190  
+; ..\Communication_Files\Uds\User\Uds_User_DiagnosticSessionControlCallback.c	   191  boolean UdsFunc_SID_DSC_SUBID_PRGS_Callback
+; ..\Communication_Files\Uds\User\Uds_User_DiagnosticSessionControlCallback.c	   192  	(uint8 *ui8_pRes, uint16 *ui16_pResLen)
+; ..\Communication_Files\Uds\User\Uds_User_DiagnosticSessionControlCallback.c	   193  {
+; ..\Communication_Files\Uds\User\Uds_User_DiagnosticSessionControlCallback.c	   194  	boolean	b_Return = E_NOT_OK;
+; ..\Communication_Files\Uds\User\Uds_User_DiagnosticSessionControlCallback.c	   195  
+; ..\Communication_Files\Uds\User\Uds_User_DiagnosticSessionControlCallback.c	   196  	//UdsFunc_ChangeSession_Init();	/*切换session初始化*/
+; ..\Communication_Files\Uds\User\Uds_User_DiagnosticSessionControlCallback.c	   197  	st_Uds_SID_DSC_Info.ui8_Active_Session = UDS_PROGRAMMING_SESSION_ACTIVE;
+; ..\Communication_Files\Uds\User\Uds_User_DiagnosticSessionControlCallback.c	   198  
+; ..\Communication_Files\Uds\User\Uds_User_DiagnosticSessionControlCallback.c	   199  	//ui32_KeepBSLState_Flag = SYS_KEEP_BSL_STATE;	/*系统保持BSL状态*/
+; ..\Communication_Files\Uds\User\Uds_User_DiagnosticSessionControlCallback.c	   200  
+; ..\Communication_Files\Uds\User\Uds_User_DiagnosticSessionControlCallback.c	   201  	 if(Boot_7C2_flg == 2)
+; ..\Communication_Files\Uds\User\Uds_User_DiagnosticSessionControlCallback.c	   202  	 {
+; ..\Communication_Files\Uds\User\Uds_User_DiagnosticSessionControlCallback.c	   203  		 if(st_Uds_SID_DSC_Info.ui16_Write_EEROM_Delay == UDS_BOOT_STATE_DELAY_TIME)
+; ..\Communication_Files\Uds\User\Uds_User_DiagnosticSessionControlCallback.c	   204  		 {
+; ..\Communication_Files\Uds\User\Uds_User_DiagnosticSessionControlCallback.c	   205  			 VCU_BMS_WriteToEE();
+; ..\Communication_Files\Uds\User\Uds_User_DiagnosticSessionControlCallback.c	   206  		 }
+; ..\Communication_Files\Uds\User\Uds_User_DiagnosticSessionControlCallback.c	   207  	     Task_CheckEepromWriteStatus();
+; ..\Communication_Files\Uds\User\Uds_User_DiagnosticSessionControlCallback.c	   208  	     if(FALSE == b_Eeprom_WriteOperation_Vaild)
+; ..\Communication_Files\Uds\User\Uds_User_DiagnosticSessionControlCallback.c	   209  	     {
+; ..\Communication_Files\Uds\User\Uds_User_DiagnosticSessionControlCallback.c	   210  
+; ..\Communication_Files\Uds\User\Uds_User_DiagnosticSessionControlCallback.c	   211  	    	 Boot_7C2_flg = 4;
+; ..\Communication_Files\Uds\User\Uds_User_DiagnosticSessionControlCallback.c	   212  		     VCUReset_flg = 1 ;
+; ..\Communication_Files\Uds\User\Uds_User_DiagnosticSessionControlCallback.c	   213  		     st_Uds_SID_DSC_Info.ui16_Write_EEROM_Delay = UDS_BOOT_STATE_DELAY_TIME;
+; ..\Communication_Files\Uds\User\Uds_User_DiagnosticSessionControlCallback.c	   214  		 	ui16_pResLen[0U] = 4U;
+; ..\Communication_Files\Uds\User\Uds_User_DiagnosticSessionControlCallback.c	   215  		 	ui8_pRes[0U] = (uint8)(UDS_P2_SERVER_MAX / 0x100U);
+; ..\Communication_Files\Uds\User\Uds_User_DiagnosticSessionControlCallback.c	   216  		 	ui8_pRes[1U] = (uint8)(UDS_P2_SERVER_MAX);
+; ..\Communication_Files\Uds\User\Uds_User_DiagnosticSessionControlCallback.c	   217  		 	ui8_pRes[2U] = (uint8)(UDS_P2EX_SERVER_MAX / 0x100U);
+; ..\Communication_Files\Uds\User\Uds_User_DiagnosticSessionControlCallback.c	   218  		 	ui8_pRes[3U] = (uint8)(UDS_P2EX_SERVER_MAX);
+; ..\Communication_Files\Uds\User\Uds_User_DiagnosticSessionControlCallback.c	   219  		 	st_Uds_Response.ui8_ResCode = UDS_RES_CODE_PR;	/*正响应*/
+; ..\Communication_Files\Uds\User\Uds_User_DiagnosticSessionControlCallback.c	   220  		 	b_Return = E_OK;
+; ..\Communication_Files\Uds\User\Uds_User_DiagnosticSessionControlCallback.c	   221  	     }
+; ..\Communication_Files\Uds\User\Uds_User_DiagnosticSessionControlCallback.c	   222  	     else
+; ..\Communication_Files\Uds\User\Uds_User_DiagnosticSessionControlCallback.c	   223  	     {
+; ..\Communication_Files\Uds\User\Uds_User_DiagnosticSessionControlCallback.c	   224  	    	 st_Uds_SID_DSC_Info.ui16_Write_EEROM_Delay --;
+; ..\Communication_Files\Uds\User\Uds_User_DiagnosticSessionControlCallback.c	   225  
+; ..\Communication_Files\Uds\User\Uds_User_DiagnosticSessionControlCallback.c	   226  				if(st_Uds_SID_DSC_Info.ui16_Write_EEROM_Delay != 0U)
+; ..\Communication_Files\Uds\User\Uds_User_DiagnosticSessionControlCallback.c	   227  				{
+; ..\Communication_Files\Uds\User\Uds_User_DiagnosticSessionControlCallback.c	   228  					if((st_Uds_SID_DSC_Info.ui16_Write_EEROM_Delay & 0x7FU) == 0U)
+; ..\Communication_Files\Uds\User\Uds_User_DiagnosticSessionControlCallback.c	   229  					{
+; ..\Communication_Files\Uds\User\Uds_User_DiagnosticSessionControlCallback.c	   230  						st_Uds_Response.ui8_ResCode = UDS_RES_CODE_RCRRP;	/*请求挂起响应*/
+; ..\Communication_Files\Uds\User\Uds_User_DiagnosticSessionControlCallback.c	   231  					}
+; ..\Communication_Files\Uds\User\Uds_User_DiagnosticSessionControlCallback.c	   232  				}
+; ..\Communication_Files\Uds\User\Uds_User_DiagnosticSessionControlCallback.c	   233  				else
+; ..\Communication_Files\Uds\User\Uds_User_DiagnosticSessionControlCallback.c	   234  				{
+; ..\Communication_Files\Uds\User\Uds_User_DiagnosticSessionControlCallback.c	   235  					Boot_7C2_flg = 5;
+; ..\Communication_Files\Uds\User\Uds_User_DiagnosticSessionControlCallback.c	   236  
+; ..\Communication_Files\Uds\User\Uds_User_DiagnosticSessionControlCallback.c	   237  					st_Uds_SID_DSC_Info.ui16_Write_EEROM_Delay = UDS_BOOT_STATE_DELAY_TIME;	/*初始化Boot State255等待时间*/
+; ..\Communication_Files\Uds\User\Uds_User_DiagnosticSessionControlCallback.c	   238  					st_Uds_Response.ui8_ResCode = UDS_RES_CODE_CNC;
+; ..\Communication_Files\Uds\User\Uds_User_DiagnosticSessionControlCallback.c	   239  					b_Return = E_OK;
+; ..\Communication_Files\Uds\User\Uds_User_DiagnosticSessionControlCallback.c	   240  				}
+; ..\Communication_Files\Uds\User\Uds_User_DiagnosticSessionControlCallback.c	   241  	     }
+; ..\Communication_Files\Uds\User\Uds_User_DiagnosticSessionControlCallback.c	   242  
+; ..\Communication_Files\Uds\User\Uds_User_DiagnosticSessionControlCallback.c	   243  
+; ..\Communication_Files\Uds\User\Uds_User_DiagnosticSessionControlCallback.c	   244  	 }
+; ..\Communication_Files\Uds\User\Uds_User_DiagnosticSessionControlCallback.c	   245  	 else
+; ..\Communication_Files\Uds\User\Uds_User_DiagnosticSessionControlCallback.c	   246  	 {
+; ..\Communication_Files\Uds\User\Uds_User_DiagnosticSessionControlCallback.c	   247  	     Boot_7C2_flg = 5;
+; ..\Communication_Files\Uds\User\Uds_User_DiagnosticSessionControlCallback.c	   248  	     st_Uds_Response.ui8_ResCode = UDS_RES_CODE_CNC;
+; ..\Communication_Files\Uds\User\Uds_User_DiagnosticSessionControlCallback.c	   249  	     b_Return = E_OK;
+; ..\Communication_Files\Uds\User\Uds_User_DiagnosticSessionControlCallback.c	   250  	 }
+; ..\Communication_Files\Uds\User\Uds_User_DiagnosticSessionControlCallback.c	   251  
+; ..\Communication_Files\Uds\User\Uds_User_DiagnosticSessionControlCallback.c	   252  	/*回应数据*/
+; ..\Communication_Files\Uds\User\Uds_User_DiagnosticSessionControlCallback.c	   253  
+; ..\Communication_Files\Uds\User\Uds_User_DiagnosticSessionControlCallback.c	   254  	return	b_Return;
+; ..\Communication_Files\Uds\User\Uds_User_DiagnosticSessionControlCallback.c	   255  }
+; ..\Communication_Files\Uds\User\Uds_User_DiagnosticSessionControlCallback.c	   256  
+; ..\Communication_Files\Uds\User\Uds_User_DiagnosticSessionControlCallback.c	   257  
+; ..\Communication_Files\Uds\User\Uds_User_DiagnosticSessionControlCallback.c	   258  boolean UdsFunc_SID_DSC_SUBID_EXTDS_Callback
+; ..\Communication_Files\Uds\User\Uds_User_DiagnosticSessionControlCallback.c	   259  	(uint8 *ui8_pRes, uint16 *ui16_pResLen)
+; ..\Communication_Files\Uds\User\Uds_User_DiagnosticSessionControlCallback.c	   260  {
+; ..\Communication_Files\Uds\User\Uds_User_DiagnosticSessionControlCallback.c	   261  	boolean	b_Return;
+; ..\Communication_Files\Uds\User\Uds_User_DiagnosticSessionControlCallback.c	   262  
+; ..\Communication_Files\Uds\User\Uds_User_DiagnosticSessionControlCallback.c	   263  	UdsFunc_ChangeSession_Init();	/*切换session初始化*/
+; ..\Communication_Files\Uds\User\Uds_User_DiagnosticSessionControlCallback.c	   264  	st_Uds_SID_DSC_Info.ui8_Active_Session = UDS_EXTENDED_SESSION_ACTIVE;
+; ..\Communication_Files\Uds\User\Uds_User_DiagnosticSessionControlCallback.c	   265  
+; ..\Communication_Files\Uds\User\Uds_User_DiagnosticSessionControlCallback.c	   266  
+; ..\Communication_Files\Uds\User\Uds_User_DiagnosticSessionControlCallback.c	   267  		Boot_7C2_flg = 0 ;
+; ..\Communication_Files\Uds\User\Uds_User_DiagnosticSessionControlCallback.c	   268  		Boot_7DF_flg = 1 ;
+; ..\Communication_Files\Uds\User\Uds_User_DiagnosticSessionControlCallback.c	   269  		/*回应数据*/
+; ..\Communication_Files\Uds\User\Uds_User_DiagnosticSessionControlCallback.c	   270  		ui16_pResLen[0U] = 4U;
+; ..\Communication_Files\Uds\User\Uds_User_DiagnosticSessionControlCallback.c	   271  		ui8_pRes[0U] = (uint8)(UDS_P2_SERVER_MAX / 0x100U);
+; ..\Communication_Files\Uds\User\Uds_User_DiagnosticSessionControlCallback.c	   272  		ui8_pRes[1U] = (uint8)(UDS_P2_SERVER_MAX);
+; ..\Communication_Files\Uds\User\Uds_User_DiagnosticSessionControlCallback.c	   273  		ui8_pRes[2U] = (uint8)(UDS_P2EX_SERVER_MAX / 0x100U);
+; ..\Communication_Files\Uds\User\Uds_User_DiagnosticSessionControlCallback.c	   274  		ui8_pRes[3U] = (uint8)(UDS_P2EX_SERVER_MAX);
+; ..\Communication_Files\Uds\User\Uds_User_DiagnosticSessionControlCallback.c	   275  		st_Uds_Response.ui8_ResCode = UDS_RES_CODE_PR;	/*正响应*/
+; ..\Communication_Files\Uds\User\Uds_User_DiagnosticSessionControlCallback.c	   276  
+; ..\Communication_Files\Uds\User\Uds_User_DiagnosticSessionControlCallback.c	   277  		b_Return = E_OK;
+; ..\Communication_Files\Uds\User\Uds_User_DiagnosticSessionControlCallback.c	   278  
+; ..\Communication_Files\Uds\User\Uds_User_DiagnosticSessionControlCallback.c	   279  	return	b_Return;
+; ..\Communication_Files\Uds\User\Uds_User_DiagnosticSessionControlCallback.c	   280  }
+; ..\Communication_Files\Uds\User\Uds_User_DiagnosticSessionControlCallback.c	   281  
+; ..\Communication_Files\Uds\User\Uds_User_DiagnosticSessionControlCallback.c	   282  #elif ECU_TYPE == ECU_BMS
+; ..\Communication_Files\Uds\User\Uds_User_DiagnosticSessionControlCallback.c	   283  boolean UdsFunc_SID_DSC_SUBID_DS_Callback
+; Function UdsFunc_SID_DSC_SUBID_DS_Callback
+.L8:
+UdsFunc_SID_DSC_SUBID_DS_Callback:	.type	func
+	mov.aa	a15,a4
+.L54:
+	mov.aa	a12,a5
+.L56:
+
+; ..\Communication_Files\Uds\User\Uds_User_DiagnosticSessionControlCallback.c	   284  	(uint8 *ui8_pRes, uint16 *ui16_pResLen)
+; ..\Communication_Files\Uds\User\Uds_User_DiagnosticSessionControlCallback.c	   285  {
+; ..\Communication_Files\Uds\User\Uds_User_DiagnosticSessionControlCallback.c	   286  	boolean	b_Return;
+; ..\Communication_Files\Uds\User\Uds_User_DiagnosticSessionControlCallback.c	   287  
+; ..\Communication_Files\Uds\User\Uds_User_DiagnosticSessionControlCallback.c	   288  	UdsFunc_ChangeSession_Init();	/*切换session初始化*/
+	call	UdsFunc_ChangeSession_Init
+.L53:
+
+; ..\Communication_Files\Uds\User\Uds_User_DiagnosticSessionControlCallback.c	   289  	st_Uds_SID_DSC_Info.ui8_Active_Session = UDS_DEFAULT_SESSION_ACTIVE;
+	movh.a	a2,#@his(st_Uds_SID_DSC_Info)
+	lea	a2,[a2]@los(st_Uds_SID_DSC_Info)
+.L78:
+	mov	d0,#1
+	st.b	[a2],d0
+.L79:
+
+; ..\Communication_Files\Uds\User\Uds_User_DiagnosticSessionControlCallback.c	   290  
+; ..\Communication_Files\Uds\User\Uds_User_DiagnosticSessionControlCallback.c	   291  	/*回应数据*/
+; ..\Communication_Files\Uds\User\Uds_User_DiagnosticSessionControlCallback.c	   292  	ui16_pResLen[0U] = 4U;
+	mov	d15,#4
+	st.h	[a12],d15
+.L80:
+
+; ..\Communication_Files\Uds\User\Uds_User_DiagnosticSessionControlCallback.c	   293  	ui8_pRes[0U] = (uint8)(UDS_P2_SERVER_MAX / 0x100U);
+	mov	d2,#0
+	st.b	[a15],d2
+.L81:
+
+; ..\Communication_Files\Uds\User\Uds_User_DiagnosticSessionControlCallback.c	   294  	ui8_pRes[1U] = (uint8)(UDS_P2_SERVER_MAX);
+	mov	d15,#50
+	st.b	[a15]1,d15
+.L82:
+
+; ..\Communication_Files\Uds\User\Uds_User_DiagnosticSessionControlCallback.c	   295  	//wxc20180622
+; ..\Communication_Files\Uds\User\Uds_User_DiagnosticSessionControlCallback.c	   296  	ui8_pRes[2U] = (uint8)(UDS_P2EX_SERVER_MAX /10U / 0x100U);
+	st.b	[a15]2,d0
+.L83:
+
+; ..\Communication_Files\Uds\User\Uds_User_DiagnosticSessionControlCallback.c	   297  	ui8_pRes[3U] = (uint8)(UDS_P2EX_SERVER_MAX /10);
+	mov	d15,#244
+	st.b	[a15]3,d15
+.L84:
+
+; ..\Communication_Files\Uds\User\Uds_User_DiagnosticSessionControlCallback.c	   298  	st_Uds_Response.ui8_ResCode = UDS_RES_CODE_PR;	/*正响应*/
+	movh.a	a15,#@his(st_Uds_Response)
+.L55:
+	lea	a15,[a15]@los(st_Uds_Response)
+.L85:
+	st.b	[a15],d2
+.L86:
+
+; ..\Communication_Files\Uds\User\Uds_User_DiagnosticSessionControlCallback.c	   299  
+; ..\Communication_Files\Uds\User\Uds_User_DiagnosticSessionControlCallback.c	   300  	b_Return = E_OK;
+; ..\Communication_Files\Uds\User\Uds_User_DiagnosticSessionControlCallback.c	   301  
+; ..\Communication_Files\Uds\User\Uds_User_DiagnosticSessionControlCallback.c	   302  	return	b_Return;
+; ..\Communication_Files\Uds\User\Uds_User_DiagnosticSessionControlCallback.c	   303  }
+	ret
+.L41:
+	
+__UdsFunc_SID_DSC_SUBID_DS_Callback_function_end:
+	.size	UdsFunc_SID_DSC_SUBID_DS_Callback,__UdsFunc_SID_DSC_SUBID_DS_Callback_function_end-UdsFunc_SID_DSC_SUBID_DS_Callback
+.L26:
+	; End of function
+	
+	.sdecl	'.text.Uds_User_DiagnosticSessionControlCallback.UdsFunc_SID_DSC_SUBID_PRGS_Callback',code,cluster('UdsFunc_SID_DSC_SUBID_PRGS_Callback')
+	.sect	'.text.Uds_User_DiagnosticSessionControlCallback.UdsFunc_SID_DSC_SUBID_PRGS_Callback'
+	.align	2
+	
+	.global	UdsFunc_SID_DSC_SUBID_PRGS_Callback
+
+; ..\Communication_Files\Uds\User\Uds_User_DiagnosticSessionControlCallback.c	   304  
+; ..\Communication_Files\Uds\User\Uds_User_DiagnosticSessionControlCallback.c	   305  
+; ..\Communication_Files\Uds\User\Uds_User_DiagnosticSessionControlCallback.c	   306  boolean UdsFunc_SID_DSC_SUBID_PRGS_Callback
+; Function UdsFunc_SID_DSC_SUBID_PRGS_Callback
+.L10:
+UdsFunc_SID_DSC_SUBID_PRGS_Callback:	.type	func
+
+; ..\Communication_Files\Uds\User\Uds_User_DiagnosticSessionControlCallback.c	   307  	(uint8 *ui8_pRes, uint16 *ui16_pResLen)
+; ..\Communication_Files\Uds\User\Uds_User_DiagnosticSessionControlCallback.c	   308  {
+; ..\Communication_Files\Uds\User\Uds_User_DiagnosticSessionControlCallback.c	   309  	boolean	b_Return;
+; ..\Communication_Files\Uds\User\Uds_User_DiagnosticSessionControlCallback.c	   310  
+; ..\Communication_Files\Uds\User\Uds_User_DiagnosticSessionControlCallback.c	   311  	//UdsFunc_ChangeSession_Init();	/*切换session初始化*/
+; ..\Communication_Files\Uds\User\Uds_User_DiagnosticSessionControlCallback.c	   312  	st_Uds_SID_DSC_Info.ui8_Active_Session = UDS_PROGRAMMING_SESSION_ACTIVE;
+	movh.a	a15,#@his(st_Uds_SID_DSC_Info)
+.L91:
+	mov	d15,#2
+	lea	a15,[a15]@los(st_Uds_SID_DSC_Info)
+.L92:
+	st.b	[a15],d15
+.L93:
+
+; ..\Communication_Files\Uds\User\Uds_User_DiagnosticSessionControlCallback.c	   313  
+; ..\Communication_Files\Uds\User\Uds_User_DiagnosticSessionControlCallback.c	   314  //	if(st_Uds_SID_RC_Info.b_PreProgrammingFlag == TRUE)
+; ..\Communication_Files\Uds\User\Uds_User_DiagnosticSessionControlCallback.c	   315  //	{
+; ..\Communication_Files\Uds\User\Uds_User_DiagnosticSessionControlCallback.c	   316  		ui32_KeepBSLState_Flag = SYS_POWER_ON_RESET;	/*系统保持BSL状态，因是boot层注释此行，无需重启*/
+	mov.u	d15,#41634
+	movh.a	a15,#@his(ui32_KeepBSLState_Flag)
+.L94:
+	addih	d15,d15,#41634
+	st.w	[a15]@los(ui32_KeepBSLState_Flag),d15
+.L95:
+
+; ..\Communication_Files\Uds\User\Uds_User_DiagnosticSessionControlCallback.c	   317  //	}
+; ..\Communication_Files\Uds\User\Uds_User_DiagnosticSessionControlCallback.c	   318  
+; ..\Communication_Files\Uds\User\Uds_User_DiagnosticSessionControlCallback.c	   319  	st_Uds_SID_ER_Info.b_HardResetFlag = TRUE;
+	movh.a	a15,#@his(st_Uds_SID_ER_Info)
+.L96:
+	mov	d0,#1
+	lea	a15,[a15]@los(st_Uds_SID_ER_Info)
+.L97:
+
+; ..\Communication_Files\Uds\User\Uds_User_DiagnosticSessionControlCallback.c	   320  
+; ..\Communication_Files\Uds\User\Uds_User_DiagnosticSessionControlCallback.c	   321  	/*回应数据*/
+; ..\Communication_Files\Uds\User\Uds_User_DiagnosticSessionControlCallback.c	   322  	ui16_pResLen[0U] = 4U;
+	mov	d15,#4
+	st.b	[a15],d0
+.L98:
+
+; ..\Communication_Files\Uds\User\Uds_User_DiagnosticSessionControlCallback.c	   323  	ui8_pRes[0U] = (uint8)(UDS_P2_SERVER_MAX / 0x100U);
+	mov	d1,#0
+	st.h	[a5],d15
+.L99:
+
+; ..\Communication_Files\Uds\User\Uds_User_DiagnosticSessionControlCallback.c	   324  	ui8_pRes[1U] = (uint8)(UDS_P2_SERVER_MAX);
+	mov	d15,#50
+	st.b	[a4],d1
+.L100:
+	st.b	[a4]1,d15
+.L101:
+
+; ..\Communication_Files\Uds\User\Uds_User_DiagnosticSessionControlCallback.c	   325  	ui8_pRes[2U] = (uint8)(UDS_P2EX_SERVER_MAX / 10U / 0x100U);
+; ..\Communication_Files\Uds\User\Uds_User_DiagnosticSessionControlCallback.c	   326  	ui8_pRes[3U] = (uint8)(UDS_P2EX_SERVER_MAX / 10U);
+	mov	d15,#244
+	st.b	[a4]2,d0
+.L102:
+
+; ..\Communication_Files\Uds\User\Uds_User_DiagnosticSessionControlCallback.c	   327  	st_Uds_Response.ui8_ResCode = UDS_RES_CODE_PR;	/*正响应*/
+	movh.a	a15,#@his(st_Uds_Response)
+.L103:
+	st.b	[a4]3,d15
+.L104:
+
+; ..\Communication_Files\Uds\User\Uds_User_DiagnosticSessionControlCallback.c	   328  
+; ..\Communication_Files\Uds\User\Uds_User_DiagnosticSessionControlCallback.c	   329  	b_Return = E_OK;
+; ..\Communication_Files\Uds\User\Uds_User_DiagnosticSessionControlCallback.c	   330  
+; ..\Communication_Files\Uds\User\Uds_User_DiagnosticSessionControlCallback.c	   331  	return	b_Return;
+	mov	d2,#0
+	lea	a15,[a15]@los(st_Uds_Response)
+.L105:
+	st.b	[a15],d1
+.L106:
+
+; ..\Communication_Files\Uds\User\Uds_User_DiagnosticSessionControlCallback.c	   332  }
+	ret
+.L46:
+	
+__UdsFunc_SID_DSC_SUBID_PRGS_Callback_function_end:
+	.size	UdsFunc_SID_DSC_SUBID_PRGS_Callback,__UdsFunc_SID_DSC_SUBID_PRGS_Callback_function_end-UdsFunc_SID_DSC_SUBID_PRGS_Callback
+.L31:
+	; End of function
+	
+	.sdecl	'.text.Uds_User_DiagnosticSessionControlCallback.UdsFunc_SID_DSC_SUBID_EXTDS_Callback',code,cluster('UdsFunc_SID_DSC_SUBID_EXTDS_Callback')
+	.sect	'.text.Uds_User_DiagnosticSessionControlCallback.UdsFunc_SID_DSC_SUBID_EXTDS_Callback'
+	.align	2
+	
+	.global	UdsFunc_SID_DSC_SUBID_EXTDS_Callback
+
+; ..\Communication_Files\Uds\User\Uds_User_DiagnosticSessionControlCallback.c	   333  
+; ..\Communication_Files\Uds\User\Uds_User_DiagnosticSessionControlCallback.c	   334  
+; ..\Communication_Files\Uds\User\Uds_User_DiagnosticSessionControlCallback.c	   335  boolean UdsFunc_SID_DSC_SUBID_EXTDS_Callback
+; Function UdsFunc_SID_DSC_SUBID_EXTDS_Callback
+.L12:
+UdsFunc_SID_DSC_SUBID_EXTDS_Callback:	.type	func
+	mov.aa	a15,a4
+.L58:
+	mov.aa	a12,a5
+.L60:
+
+; ..\Communication_Files\Uds\User\Uds_User_DiagnosticSessionControlCallback.c	   336  	(uint8 *ui8_pRes, uint16 *ui16_pResLen)
+; ..\Communication_Files\Uds\User\Uds_User_DiagnosticSessionControlCallback.c	   337  {
+; ..\Communication_Files\Uds\User\Uds_User_DiagnosticSessionControlCallback.c	   338  	boolean	b_Return;
+; ..\Communication_Files\Uds\User\Uds_User_DiagnosticSessionControlCallback.c	   339  
+; ..\Communication_Files\Uds\User\Uds_User_DiagnosticSessionControlCallback.c	   340  //	b_Return = E_NOT_OK;	/*回调函数未执行完毕*/
+; ..\Communication_Files\Uds\User\Uds_User_DiagnosticSessionControlCallback.c	   341  
+; ..\Communication_Files\Uds\User\Uds_User_DiagnosticSessionControlCallback.c	   342  	UdsFunc_ChangeSession_Init();	/*切换session初始化*/
+	call	UdsFunc_ChangeSession_Init
+.L57:
+
+; ..\Communication_Files\Uds\User\Uds_User_DiagnosticSessionControlCallback.c	   343  	st_Uds_SID_DSC_Info.ui8_Active_Session = UDS_EXTENDED_SESSION_ACTIVE;
+	movh.a	a2,#@his(st_Uds_SID_DSC_Info)
+	lea	a2,[a2]@los(st_Uds_SID_DSC_Info)
+.L111:
+	mov	d15,#4
+	st.b	[a2],d15
+.L112:
+
+; ..\Communication_Files\Uds\User\Uds_User_DiagnosticSessionControlCallback.c	   344  
+; ..\Communication_Files\Uds\User\Uds_User_DiagnosticSessionControlCallback.c	   345  //	if(st_N_USData_Indication.ui8_N_TAtype == UDS_ADDR_TYPE_PHY)
+; ..\Communication_Files\Uds\User\Uds_User_DiagnosticSessionControlCallback.c	   346  //	{
+; ..\Communication_Files\Uds\User\Uds_User_DiagnosticSessionControlCallback.c	   347  		/*回应数据*/
+; ..\Communication_Files\Uds\User\Uds_User_DiagnosticSessionControlCallback.c	   348  		ui16_pResLen[0U] = 4U;
+	st.h	[a12],d15
+.L113:
+
+; ..\Communication_Files\Uds\User\Uds_User_DiagnosticSessionControlCallback.c	   349  		ui8_pRes[0U] = (uint8)(UDS_P2_SERVER_MAX / 0x100U);
+	mov	d2,#0
+	st.b	[a15],d2
+.L114:
+
+; ..\Communication_Files\Uds\User\Uds_User_DiagnosticSessionControlCallback.c	   350  		ui8_pRes[1U] = (uint8)(UDS_P2_SERVER_MAX);
+	mov	d15,#50
+	st.b	[a15]1,d15
+.L115:
+
+; ..\Communication_Files\Uds\User\Uds_User_DiagnosticSessionControlCallback.c	   351  		ui8_pRes[2U] = (uint8)(UDS_P2EX_SERVER_MAX / 10U / 0x100U);
+	mov	d15,#1
+	st.b	[a15]2,d15
+.L116:
+
+; ..\Communication_Files\Uds\User\Uds_User_DiagnosticSessionControlCallback.c	   352  		ui8_pRes[3U] = (uint8)(UDS_P2EX_SERVER_MAX / 10U);
+	mov	d15,#244
+	st.b	[a15]3,d15
+.L117:
+
+; ..\Communication_Files\Uds\User\Uds_User_DiagnosticSessionControlCallback.c	   353  		st_Uds_Response.ui8_ResCode = UDS_RES_CODE_PR;	/*正响应*/
+	movh.a	a15,#@his(st_Uds_Response)
+.L59:
+	lea	a15,[a15]@los(st_Uds_Response)
+.L118:
+	st.b	[a15],d2
+.L119:
+
+; ..\Communication_Files\Uds\User\Uds_User_DiagnosticSessionControlCallback.c	   354  
+; ..\Communication_Files\Uds\User\Uds_User_DiagnosticSessionControlCallback.c	   355  		b_Return = E_OK;
+; ..\Communication_Files\Uds\User\Uds_User_DiagnosticSessionControlCallback.c	   356  //	}
+; ..\Communication_Files\Uds\User\Uds_User_DiagnosticSessionControlCallback.c	   357  //	else if(st_N_USData_Indication.ui8_N_TAtype == UDS_ADDR_TYPE_FUNC)
+; ..\Communication_Files\Uds\User\Uds_User_DiagnosticSessionControlCallback.c	   358  //	{
+; ..\Communication_Files\Uds\User\Uds_User_DiagnosticSessionControlCallback.c	   359  //		b_Return = E_OK;
+; ..\Communication_Files\Uds\User\Uds_User_DiagnosticSessionControlCallback.c	   360  //	}
+; ..\Communication_Files\Uds\User\Uds_User_DiagnosticSessionControlCallback.c	   361  
+; ..\Communication_Files\Uds\User\Uds_User_DiagnosticSessionControlCallback.c	   362  	return	b_Return;
+; ..\Communication_Files\Uds\User\Uds_User_DiagnosticSessionControlCallback.c	   363  }
+	ret
+.L49:
+	
+__UdsFunc_SID_DSC_SUBID_EXTDS_Callback_function_end:
+	.size	UdsFunc_SID_DSC_SUBID_EXTDS_Callback,__UdsFunc_SID_DSC_SUBID_EXTDS_Callback_function_end-UdsFunc_SID_DSC_SUBID_EXTDS_Callback
+.L36:
+	; End of function
+	
+	.sdecl	'.bss.Uds_User_DiagnosticSessionControlCallback.st_Uds_SID_DSC_Info',data,cluster('st_Uds_SID_DSC_Info')
+	.sect	'.bss.Uds_User_DiagnosticSessionControlCallback.st_Uds_SID_DSC_Info'
+	.global	st_Uds_SID_DSC_Info
+	.align	2
+st_Uds_SID_DSC_Info:	.type	object
+	.size	st_Uds_SID_DSC_Info,4
+	.space	4
+	.calls	'UdsFunc_SID_DSC_SUBID_DS_Callback','UdsFunc_ChangeSession_Init'
+	.calls	'UdsFunc_SID_DSC_SUBID_EXTDS_Callback','UdsFunc_ChangeSession_Init'
+	.calls	'UdsFunc_ChangeSession_Init','',0
+	.calls	'UdsFunc_SID_DSC_SUBID_DS_Callback','',0
+	.calls	'UdsFunc_SID_DSC_SUBID_PRGS_Callback','',0
+	.extern	ui32_KeepBSLState_Flag
+	.extern	st_Uds_SID_ER_Info
+	.extern	st_Uds_SID_SA_Info
+	.extern	st_Uds_SID_CC_Info
+	.extern	st_Uds_Response
+	.calls	'UdsFunc_SID_DSC_SUBID_EXTDS_Callback','',0
+	.sdecl	'.debug_info',debug
+	.sect	'.debug_info'
+.L14:
+	.word	1266
+	.half	3
+	.word	.L15
+	.byte	4
+.L13:
+	.byte	1
+	.byte	'..\\Communication_Files\\Uds\\User\\Uds_User_DiagnosticSessionControlCallback.c',0
+	.byte	'TASKING VX-toolset for TriCore: C compiler',0
+	.byte	'D:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_1.9\\BMU_BOOT\\Debug\\',0,12,1
+	.word	.L16
+.L40:
+	.byte	2
+	.byte	'unsigned char',0,1,8
+.L42:
+	.byte	3
+	.word	193
+	.byte	2
+	.byte	'unsigned short int',0,2,7
+.L44:
+	.byte	3
+	.word	215
+	.byte	4
+	.byte	'void',0,3
+	.word	242
+	.byte	5
+	.byte	'__prof_adm',0,1,1,1
+	.word	248
+	.byte	6,1,3
+	.word	272
+	.byte	5
+	.byte	'__codeptr',0,1,1,1
+	.word	274
+	.byte	2
+	.byte	'unsigned long int',0,4,7,7
+	.word	297
+	.byte	8
+	.byte	'ui32_KeepBSLState_Flag',0,2,39,31
+	.word	318
+	.byte	1,1,5
+	.byte	'ubyte',0,2,78,24
+	.word	193
+	.byte	5
+	.byte	'ushort',0,2,80,24
+	.word	215
+	.byte	2
+	.byte	'unsigned int',0,4,7,5
+	.byte	'uword',0,2,82,24
+	.word	385
+	.byte	5
+	.byte	'uint8',0,3,87,29
+	.word	193
+	.byte	5
+	.byte	'uint16',0,3,89,29
+	.word	215
+	.byte	2
+	.byte	'long int',0,4,5,5
+	.byte	'sint32',0,3,90,29
+	.word	444
+	.byte	5
+	.byte	'uint32',0,3,91,27
+	.word	297
+	.byte	5
+	.byte	'boolean',0,3,102,29
+	.word	193
+.L52:
+	.byte	9,4,10,9,4,10
+	.byte	'ui8_Active_Session',0,1
+	.word	193
+	.byte	2,35,0,10
+	.byte	'ui16_Write_EEROM_Delay',0,2
+	.word	215
+	.byte	2,35,2,0,5
+	.byte	'Struct_Uds_SID_DSC_Info',0,4,14,2
+	.word	502
+	.byte	9,5,5,9,2,10
+	.byte	'b_HardResetFlag',0,1
+	.word	193
+	.byte	2,35,0,10
+	.byte	'b_SoftResetFlag',0,1
+	.word	193
+	.byte	2,35,1,0,5
+	.byte	'Struct_Uds_SID_ER_Info',0,5,9,2
+	.word	600
+	.byte	8
+	.byte	'st_Uds_SID_ER_Info',0,5,10,31
+	.word	600
+	.byte	1,1,9,6,5,9,8,10
+	.byte	'b_Security_Locked',0,1
+	.word	193
+	.byte	2,35,0,10
+	.byte	'b_RequestSeedFlag',0,1
+	.word	193
+	.byte	2,35,1,10
+	.byte	'SA_Counter',0,1
+	.word	193
+	.byte	2,35,2,10
+	.byte	'SeedKeyFlag',0,1
+	.word	193
+	.byte	2,35,3,10
+	.byte	'ui32_Boot_State255_Delay',0,4
+	.word	297
+	.byte	2,35,4,0,5
+	.byte	'Struct_Uds_SID_SA_Info',0,6,20,2
+	.word	716
+	.byte	8
+	.byte	'st_Uds_SID_SA_Info',0,6,21,31
+	.word	716
+	.byte	1,1,9,7,14,9,6,10
+	.byte	'ui8_CommuCtrlFlag',0,1
+	.word	193
+	.byte	2,35,0,10
+	.byte	'ui8_NetCtrlFlag',0,1
+	.word	193
+	.byte	2,35,1,10
+	.byte	'ui32_Boot_State255_Delay',0,4
+	.word	297
+	.byte	2,35,2,0,5
+	.byte	'Struct_Uds_SID_CC_Info',0,7,19,2
+	.word	911
+	.byte	8
+	.byte	'st_Uds_SID_CC_Info',0,7,20,31
+	.word	911
+	.byte	1,1,9,8,91,9,28,10
+	.byte	'ui8_ResCode',0,1
+	.word	193
+	.byte	2,35,0,10
+	.byte	'b_SuppressPosRspBit',0,1
+	.word	193
+	.byte	2,35,1,10
+	.byte	'ui8_pMsgData',0,4
+	.word	210
+	.byte	2,35,4,10
+	.byte	'ui16_pLength',0,4
+	.word	237
+	.byte	2,35,8,11,8
+	.word	193
+	.byte	12,7,0,10
+	.byte	'ui8_Neg78_Buf',0,8
+	.word	1162
+	.byte	2,35,12,10
+	.byte	'ui8_3E_Buf',0,8
+	.word	1162
+	.byte	2,35,20,0,5
+	.byte	'Struct_Uds_Response',0,8,99,2
+	.word	1063
+	.byte	8
+	.byte	'st_Uds_Response',0,8,126,29
+	.word	1063
+	.byte	1,1,0
+	.sdecl	'.debug_abbrev',debug
+	.sect	'.debug_abbrev'
+.L15:
+	.byte	1,17,1,3,8,37,8,27,8,19,15,128,70,12,16,6,0,0,2,36,0,3,8,11,15,62,15,0,0,3,15,0,73,19,0,0,4,59,0,3,8,0
+	.byte	0,5,22,0,3,8,58,15,59,15,57,15,73,19,0,0,6,21,0,54,15,0,0,7,53,0,73,19,0,0,8,52,0,3,8,58,15,59,15,57,15
+	.byte	73,19,63,12,60,12,0,0,9,19,1,58,15,59,15,57,15,11,15,0,0,10,13,0,3,8,11,15,73,19,56,9,0,0,11,1,1,11,15
+	.byte	73,19,0,0,12,33,0,47,15,0,0,0
+	.sdecl	'.debug_line',debug
+	.sect	'.debug_line'
+.L16:
+	.word	.L62-.L61
+.L61:
+	.half	3
+	.word	.L64-.L63
+.L63:
+	.byte	2,1,-4,9,10,0,1,1,1,1,0,0,0,1
+	.byte	'D:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_1.9\\BMU_BOOT\\Initiate_Files',0
+	.byte	'D:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_1.9\\BMU_BOOT\\Stand_Header',0
+	.byte	'D:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_1.9\\BMU_BOOT\\Communication_Files\\Uds\\User',0
+	.byte	'D:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_1.9\\BMU_BOOT\\Communication_Files\\Uds\\Dcm',0,0
+	.byte	'..\\Communication_Files\\Uds\\User\\Uds_User_DiagnosticSessionControlCallback.c',0,0,0,0
+	.byte	'MAIN.h',0,1,0,0
+	.byte	'Platform_Types.h',0,2,0,0
+	.byte	'Uds_User_DiagnosticSessionControlCallback.h',0,3,0,0
+	.byte	'Uds_User_ECUResetCallback.h',0,3,0,0
+	.byte	'Uds_User_SecurityAccessCallback.h',0,3,0,0
+	.byte	'Uds_User_CommunicationControlCallback.h',0,3,0,0
+	.byte	'Uds_Dcm_Drv.h',0,4,0,0,0
+.L64:
+.L62:
+	.sdecl	'.debug_info',debug,cluster('UdsFunc_ChangeSession_Init')
+	.sect	'.debug_info'
+.L17:
+	.word	255
+	.half	3
+	.word	.L18
+	.byte	4,1
+	.byte	'..\\Communication_Files\\Uds\\User\\Uds_User_DiagnosticSessionControlCallback.c',0
+	.byte	'TASKING VX-toolset for TriCore: C compiler',0
+	.byte	'D:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_1.9\\BMU_BOOT\\Debug\\',0,12,1
+	.word	.L20,.L19
+	.byte	2
+	.word	.L13
+	.byte	3
+	.byte	'UdsFunc_ChangeSession_Init',0,1,7,6,1,1,1
+	.word	.L6,.L39,.L5
+	.byte	4
+	.word	.L6,.L39
+	.byte	0,0
+	.sdecl	'.debug_abbrev',debug,cluster('UdsFunc_ChangeSession_Init')
+	.sect	'.debug_abbrev'
+.L18:
+	.byte	1,17,1,3,8,37,8,27,8,19,15,128,70,12,85,6,16,6,0,0,2,61,0,24,16,0,0,3,46,1,3,8,58,15,59,15,57,15,54,15
+	.byte	39,12,63,12,17,1,18,1,64,6,0,0,4,11,0,17,1,18,1,0,0,0
+	.sdecl	'.debug_line',debug,cluster('UdsFunc_ChangeSession_Init')
+	.sect	'.debug_line'
+.L19:
+	.word	.L66-.L65
+.L65:
+	.half	3
+	.word	.L68-.L67
+.L67:
+	.byte	2,1,-4,9,10,0,1,1,1,1,0,0,0,1,0
+	.byte	'..\\Communication_Files\\Uds\\User\\Uds_User_DiagnosticSessionControlCallback.c',0,0,0,0,0
+.L68:
+	.byte	5,2,7,0,5,2
+	.word	.L6
+	.byte	3,8,1,5,41,9
+	.half	.L69-.L6
+	.byte	1,5,39,1,9
+	.half	.L70-.L69
+	.byte	3,1,1,5,2,9
+	.half	.L71-.L70
+	.byte	3,1,1,5,39,9
+	.half	.L72-.L71
+	.byte	1,5,1,9
+	.half	.L73-.L72
+	.byte	3,40,1,7,9
+	.half	.L21-.L73
+	.byte	0,1,1
+.L66:
+	.sdecl	'.debug_ranges',debug,cluster('UdsFunc_ChangeSession_Init')
+	.sect	'.debug_ranges'
+.L20:
+	.word	-1,.L6,0,.L21-.L6,0,0
+	.sdecl	'.debug_info',debug,cluster('UdsFunc_SID_DSC_SUBID_DS_Callback')
+	.sect	'.debug_info'
+.L22:
+	.word	315
+	.half	3
+	.word	.L23
+	.byte	4,1
+	.byte	'..\\Communication_Files\\Uds\\User\\Uds_User_DiagnosticSessionControlCallback.c',0
+	.byte	'TASKING VX-toolset for TriCore: C compiler',0
+	.byte	'D:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_1.9\\BMU_BOOT\\Debug\\',0,12,1
+	.word	.L25,.L24
+	.byte	2
+	.word	.L13
+	.byte	3
+	.byte	'UdsFunc_SID_DSC_SUBID_DS_Callback',0,1,155,2,9
+	.word	.L40
+	.byte	1,1,1
+	.word	.L8,.L41,.L7
+	.byte	4
+	.byte	'ui8_pRes',0,1,156,2,10
+	.word	.L42,.L43
+	.byte	4
+	.byte	'ui16_pResLen',0,1,156,2,28
+	.word	.L44,.L45
+	.byte	5
+	.word	.L8,.L41
+	.byte	0,0
+	.sdecl	'.debug_abbrev',debug,cluster('UdsFunc_SID_DSC_SUBID_DS_Callback')
+	.sect	'.debug_abbrev'
+.L23:
+	.byte	1,17,1,3,8,37,8,27,8,19,15,128,70,12,85,6,16,6,0,0,2,61,0,24,16,0,0,3,46,1,3,8,58,15,59,15,57,15,73,16
+	.byte	54,15,39,12,63,12,17,1,18,1,64,6,0,0,4,5,0,3,8,58,15,59,15,57,15,73,16,2,6,0,0,5,11,0,17,1,18,1,0,0,0
+	.sdecl	'.debug_line',debug,cluster('UdsFunc_SID_DSC_SUBID_DS_Callback')
+	.sect	'.debug_line'
+.L24:
+	.word	.L75-.L74
+.L74:
+	.half	3
+	.word	.L77-.L76
+.L76:
+	.byte	2,1,-4,9,10,0,1,1,1,1,0,0,0,1,0
+	.byte	'..\\Communication_Files\\Uds\\User\\Uds_User_DiagnosticSessionControlCallback.c',0,0,0,0,0
+.L77:
+	.byte	5,9,7,0,5,2
+	.word	.L8
+	.byte	3,154,2,1,5,28,9
+	.half	.L56-.L8
+	.byte	3,5,1,5,2,9
+	.half	.L53-.L56
+	.byte	3,1,1,5,43,9
+	.half	.L78-.L53
+	.byte	1,5,41,1,5,21,9
+	.half	.L79-.L78
+	.byte	3,3,1,5,19,1,5,17,9
+	.half	.L80-.L79
+	.byte	3,1,1,5,15,1,5,17,9
+	.half	.L81-.L80
+	.byte	3,1,1,5,15,1,9
+	.half	.L82-.L81
+	.byte	3,2,1,5,17,9
+	.half	.L83-.L82
+	.byte	3,1,1,5,15,1,5,2,9
+	.half	.L84-.L83
+	.byte	3,1,1,5,30,9
+	.half	.L85-.L84
+	.byte	1,5,1,9
+	.half	.L86-.L85
+	.byte	3,5,1,7,9
+	.half	.L26-.L86
+	.byte	0,1,1
+.L75:
+	.sdecl	'.debug_ranges',debug,cluster('UdsFunc_SID_DSC_SUBID_DS_Callback')
+	.sect	'.debug_ranges'
+.L25:
+	.word	-1,.L8,0,.L26-.L8,0,0
+	.sdecl	'.debug_info',debug,cluster('UdsFunc_SID_DSC_SUBID_PRGS_Callback')
+	.sect	'.debug_info'
+.L27:
+	.word	317
+	.half	3
+	.word	.L28
+	.byte	4,1
+	.byte	'..\\Communication_Files\\Uds\\User\\Uds_User_DiagnosticSessionControlCallback.c',0
+	.byte	'TASKING VX-toolset for TriCore: C compiler',0
+	.byte	'D:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_1.9\\BMU_BOOT\\Debug\\',0,12,1
+	.word	.L30,.L29
+	.byte	2
+	.word	.L13
+	.byte	3
+	.byte	'UdsFunc_SID_DSC_SUBID_PRGS_Callback',0,1,178,2,9
+	.word	.L40
+	.byte	1,1,1
+	.word	.L10,.L46,.L9
+	.byte	4
+	.byte	'ui8_pRes',0,1,179,2,10
+	.word	.L42,.L47
+	.byte	4
+	.byte	'ui16_pResLen',0,1,179,2,28
+	.word	.L44,.L48
+	.byte	5
+	.word	.L10,.L46
+	.byte	0,0
+	.sdecl	'.debug_abbrev',debug,cluster('UdsFunc_SID_DSC_SUBID_PRGS_Callback')
+	.sect	'.debug_abbrev'
+.L28:
+	.byte	1,17,1,3,8,37,8,27,8,19,15,128,70,12,85,6,16,6,0,0,2,61,0,24,16,0,0,3,46,1,3,8,58,15,59,15,57,15,73,16
+	.byte	54,15,39,12,63,12,17,1,18,1,64,6,0,0,4,5,0,3,8,58,15,59,15,57,15,73,16,2,6,0,0,5,11,0,17,1,18,1,0,0,0
+	.sdecl	'.debug_line',debug,cluster('UdsFunc_SID_DSC_SUBID_PRGS_Callback')
+	.sect	'.debug_line'
+.L29:
+	.word	.L88-.L87
+.L87:
+	.half	3
+	.word	.L90-.L89
+.L89:
+	.byte	2,1,-4,9,10,0,1,1,1,1,0,0,0,1,0
+	.byte	'..\\Communication_Files\\Uds\\User\\Uds_User_DiagnosticSessionControlCallback.c',0,0,0,0,0
+.L90:
+	.byte	5,2,7,0,5,2
+	.word	.L10
+	.byte	3,183,2,1,5,43,9
+	.half	.L91-.L10
+	.byte	1,5,2,1,5,41,9
+	.half	.L92-.L91
+	.byte	1,5,28,9
+	.half	.L93-.L92
+	.byte	3,4,1,5,3,1,5,28,9
+	.half	.L94-.L93
+	.byte	1,5,26,1,5,2,9
+	.half	.L95-.L94
+	.byte	3,3,1,5,39,9
+	.half	.L96-.L95
+	.byte	1,5,2,1,5,21,9
+	.half	.L97-.L96
+	.byte	3,3,1,5,37,3,125,1,5,17,9
+	.half	.L98-.L97
+	.byte	3,4,1,5,19,3,127,1,5,17,9
+	.half	.L99-.L98
+	.byte	3,2,1,5,15,3,127,1,9
+	.half	.L100-.L99
+	.byte	3,1,1,5,17,9
+	.half	.L101-.L100
+	.byte	3,2,1,5,15,3,127,1,5,2,9
+	.half	.L102-.L101
+	.byte	3,2,1,5,15,9
+	.half	.L103-.L102
+	.byte	3,127,1,5,9,9
+	.half	.L104-.L103
+	.byte	3,5,1,5,2,3,124,1,5,30,9
+	.half	.L105-.L104
+	.byte	1,5,1,9
+	.half	.L106-.L105
+	.byte	3,5,1,7,9
+	.half	.L31-.L106
+	.byte	0,1,1
+.L88:
+	.sdecl	'.debug_ranges',debug,cluster('UdsFunc_SID_DSC_SUBID_PRGS_Callback')
+	.sect	'.debug_ranges'
+.L30:
+	.word	-1,.L10,0,.L31-.L10,0,0
+	.sdecl	'.debug_info',debug,cluster('UdsFunc_SID_DSC_SUBID_EXTDS_Callback')
+	.sect	'.debug_info'
+.L32:
+	.word	318
+	.half	3
+	.word	.L33
+	.byte	4,1
+	.byte	'..\\Communication_Files\\Uds\\User\\Uds_User_DiagnosticSessionControlCallback.c',0
+	.byte	'TASKING VX-toolset for TriCore: C compiler',0
+	.byte	'D:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_1.9\\BMU_BOOT\\Debug\\',0,12,1
+	.word	.L35,.L34
+	.byte	2
+	.word	.L13
+	.byte	3
+	.byte	'UdsFunc_SID_DSC_SUBID_EXTDS_Callback',0,1,207,2,9
+	.word	.L40
+	.byte	1,1,1
+	.word	.L12,.L49,.L11
+	.byte	4
+	.byte	'ui8_pRes',0,1,208,2,10
+	.word	.L42,.L50
+	.byte	4
+	.byte	'ui16_pResLen',0,1,208,2,28
+	.word	.L44,.L51
+	.byte	5
+	.word	.L12,.L49
+	.byte	0,0
+	.sdecl	'.debug_abbrev',debug,cluster('UdsFunc_SID_DSC_SUBID_EXTDS_Callback')
+	.sect	'.debug_abbrev'
+.L33:
+	.byte	1,17,1,3,8,37,8,27,8,19,15,128,70,12,85,6,16,6,0,0,2,61,0,24,16,0,0,3,46,1,3,8,58,15,59,15,57,15,73,16
+	.byte	54,15,39,12,63,12,17,1,18,1,64,6,0,0,4,5,0,3,8,58,15,59,15,57,15,73,16,2,6,0,0,5,11,0,17,1,18,1,0,0,0
+	.sdecl	'.debug_line',debug,cluster('UdsFunc_SID_DSC_SUBID_EXTDS_Callback')
+	.sect	'.debug_line'
+.L34:
+	.word	.L108-.L107
+.L107:
+	.half	3
+	.word	.L110-.L109
+.L109:
+	.byte	2,1,-4,9,10,0,1,1,1,1,0,0,0,1,0
+	.byte	'..\\Communication_Files\\Uds\\User\\Uds_User_DiagnosticSessionControlCallback.c',0,0,0,0,0
+.L110:
+	.byte	5,9,7,0,5,2
+	.word	.L12
+	.byte	3,206,2,1,5,28,9
+	.half	.L60-.L12
+	.byte	3,7,1,5,2,9
+	.half	.L57-.L60
+	.byte	3,1,1,5,43,9
+	.half	.L111-.L57
+	.byte	1,5,41,1,5,20,9
+	.half	.L112-.L111
+	.byte	3,5,1,5,18,9
+	.half	.L113-.L112
+	.byte	3,1,1,5,16,1,5,18,9
+	.half	.L114-.L113
+	.byte	3,1,1,5,16,1,5,18,9
+	.half	.L115-.L114
+	.byte	3,1,1,5,16,1,5,18,9
+	.half	.L116-.L115
+	.byte	3,1,1,5,16,1,5,3,9
+	.half	.L117-.L116
+	.byte	3,1,1,5,31,9
+	.half	.L118-.L117
+	.byte	1,5,1,9
+	.half	.L119-.L118
+	.byte	3,10,1,7,9
+	.half	.L36-.L119
+	.byte	0,1,1
+.L108:
+	.sdecl	'.debug_ranges',debug,cluster('UdsFunc_SID_DSC_SUBID_EXTDS_Callback')
+	.sect	'.debug_ranges'
+.L35:
+	.word	-1,.L12,0,.L36-.L12,0,0
+	.sdecl	'.debug_info',debug,cluster('st_Uds_SID_DSC_Info')
+	.sect	'.debug_info'
+.L37:
+	.word	226
+	.half	3
+	.word	.L38
+	.byte	4,1
+	.byte	'..\\Communication_Files\\Uds\\User\\Uds_User_DiagnosticSessionControlCallback.c',0
+	.byte	'TASKING VX-toolset for TriCore: C compiler',0
+	.byte	'D:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_1.9\\BMU_BOOT\\Debug\\',0,12,1,2
+	.word	.L13
+	.byte	3
+	.byte	'st_Uds_SID_DSC_Info',0,1,4,25
+	.word	.L52
+	.byte	1,5,3
+	.word	st_Uds_SID_DSC_Info
+	.byte	0
+	.sdecl	'.debug_abbrev',debug,cluster('st_Uds_SID_DSC_Info')
+	.sect	'.debug_abbrev'
+.L38:
+	.byte	1,17,1,3,8,37,8,27,8,19,15,128,70,12,0,0,2,61,0,24,16,0,0,3,52,0,3,8,58,15,59,15,57,15,73,16,63,12,2,9
+	.byte	0,0,0
+	.sdecl	'.debug_loc',debug,cluster('UdsFunc_ChangeSession_Init')
+	.sect	'.debug_loc'
+.L5:
+	.word	-1,.L6,0,.L39-.L6
+	.half	2
+	.byte	138,0
+	.word	0,0
+	.sdecl	'.debug_loc',debug,cluster('UdsFunc_SID_DSC_SUBID_DS_Callback')
+	.sect	'.debug_loc'
+.L7:
+	.word	-1,.L8,0,.L41-.L8
+	.half	2
+	.byte	138,0
+	.word	0,0
+.L45:
+	.word	-1,.L8,0,.L53-.L8
+	.half	1
+	.byte	101
+	.word	.L56-.L8,.L41-.L8
+	.half	1
+	.byte	108
+	.word	0,0
+.L43:
+	.word	-1,.L8,0,.L53-.L8
+	.half	1
+	.byte	100
+	.word	.L54-.L8,.L55-.L8
+	.half	1
+	.byte	111
+	.word	0,0
+	.sdecl	'.debug_loc',debug,cluster('UdsFunc_SID_DSC_SUBID_EXTDS_Callback')
+	.sect	'.debug_loc'
+.L11:
+	.word	-1,.L12,0,.L49-.L12
+	.half	2
+	.byte	138,0
+	.word	0,0
+.L51:
+	.word	-1,.L12,0,.L57-.L12
+	.half	1
+	.byte	101
+	.word	.L60-.L12,.L49-.L12
+	.half	1
+	.byte	108
+	.word	0,0
+.L50:
+	.word	-1,.L12,0,.L57-.L12
+	.half	1
+	.byte	100
+	.word	.L58-.L12,.L59-.L12
+	.half	1
+	.byte	111
+	.word	0,0
+	.sdecl	'.debug_loc',debug,cluster('UdsFunc_SID_DSC_SUBID_PRGS_Callback')
+	.sect	'.debug_loc'
+.L9:
+	.word	-1,.L10,0,.L46-.L10
+	.half	2
+	.byte	138,0
+	.word	0,0
+.L48:
+	.word	-1,.L10,0,.L46-.L10
+	.half	1
+	.byte	101
+	.word	0,0
+.L47:
+	.word	-1,.L10,0,.L46-.L10
+	.half	1
+	.byte	100
+	.word	0,0
+	.sdecl	'.debug_frame',debug
+	.sect	'.debug_frame'
+.L120:
+	.word	48
+	.word	-1
+	.byte	3,0,2,1,27,12,26,0,8,26,8,27,8,30,8,29,8,28,8,16,8,17,8,24,8,25,8,31,8,32,8,33,8,34,8,35,8,36,8,37,8,38
+	.byte	8,39
+	.sdecl	'.debug_frame',debug,cluster('UdsFunc_ChangeSession_Init')
+	.sect	'.debug_frame'
+	.word	24
+	.word	.L120,.L6,.L39-.L6
+	.byte	8,18,8,19,8,20,8,21,8,22,8,23
+	.sdecl	'.debug_frame',debug,cluster('UdsFunc_SID_DSC_SUBID_DS_Callback')
+	.sect	'.debug_frame'
+	.word	12
+	.word	.L120,.L8,.L41-.L8
+	.sdecl	'.debug_frame',debug,cluster('UdsFunc_SID_DSC_SUBID_PRGS_Callback')
+	.sect	'.debug_frame'
+	.word	20
+	.word	.L120,.L10,.L46-.L10
+	.byte	8,18,8,19,8,22,8,23
+	.sdecl	'.debug_frame',debug,cluster('UdsFunc_SID_DSC_SUBID_EXTDS_Callback')
+	.sect	'.debug_frame'
+	.word	12
+	.word	.L120,.L12,.L49-.L12
+
+; ..\Communication_Files\Uds\User\Uds_User_DiagnosticSessionControlCallback.c	   364  #elif ECU_TYPE == ECU_MCU
+; ..\Communication_Files\Uds\User\Uds_User_DiagnosticSessionControlCallback.c	   365  boolean UdsFunc_SID_DSC_SUBID_DS_Callback
+; ..\Communication_Files\Uds\User\Uds_User_DiagnosticSessionControlCallback.c	   366  	(uint8 *ui8_pRes, uint16 *ui16_pResLen)
+; ..\Communication_Files\Uds\User\Uds_User_DiagnosticSessionControlCallback.c	   367  {
+; ..\Communication_Files\Uds\User\Uds_User_DiagnosticSessionControlCallback.c	   368  	boolean	b_Return;
+; ..\Communication_Files\Uds\User\Uds_User_DiagnosticSessionControlCallback.c	   369  
+; ..\Communication_Files\Uds\User\Uds_User_DiagnosticSessionControlCallback.c	   370  	UdsFunc_ChangeSession_Init();	/*切换session初始化*/
+; ..\Communication_Files\Uds\User\Uds_User_DiagnosticSessionControlCallback.c	   371  	st_Uds_SID_DSC_Info.ui8_Active_Session = UDS_DEFAULT_SESSION_ACTIVE;
+; ..\Communication_Files\Uds\User\Uds_User_DiagnosticSessionControlCallback.c	   372  //	BMSIN_MLIF_ComptrLink_enum = 0;          //测试用上位机连接标志归零
+; ..\Communication_Files\Uds\User\Uds_User_DiagnosticSessionControlCallback.c	   373  
+; ..\Communication_Files\Uds\User\Uds_User_DiagnosticSessionControlCallback.c	   374  	/*回应数据*/
+; ..\Communication_Files\Uds\User\Uds_User_DiagnosticSessionControlCallback.c	   375  	ui16_pResLen[0U] = 4U;
+; ..\Communication_Files\Uds\User\Uds_User_DiagnosticSessionControlCallback.c	   376  	ui8_pRes[0U] = (uint8)(UDS_P2_SERVER_MAX / 0x100U);
+; ..\Communication_Files\Uds\User\Uds_User_DiagnosticSessionControlCallback.c	   377  	ui8_pRes[1U] = (uint8)(UDS_P2_SERVER_MAX);
+; ..\Communication_Files\Uds\User\Uds_User_DiagnosticSessionControlCallback.c	   378  	ui8_pRes[2U] = (uint8)(UDS_P2EX_SERVER_MAX / 0x100U);
+; ..\Communication_Files\Uds\User\Uds_User_DiagnosticSessionControlCallback.c	   379  	ui8_pRes[3U] = (uint8)(UDS_P2EX_SERVER_MAX);
+; ..\Communication_Files\Uds\User\Uds_User_DiagnosticSessionControlCallback.c	   380  	st_Uds_Response.ui8_ResCode = UDS_RES_CODE_PR;	/*正响应*/
+; ..\Communication_Files\Uds\User\Uds_User_DiagnosticSessionControlCallback.c	   381  
+; ..\Communication_Files\Uds\User\Uds_User_DiagnosticSessionControlCallback.c	   382  	b_Return = E_OK;
+; ..\Communication_Files\Uds\User\Uds_User_DiagnosticSessionControlCallback.c	   383  
+; ..\Communication_Files\Uds\User\Uds_User_DiagnosticSessionControlCallback.c	   384  	return	b_Return;
+; ..\Communication_Files\Uds\User\Uds_User_DiagnosticSessionControlCallback.c	   385  }
+; ..\Communication_Files\Uds\User\Uds_User_DiagnosticSessionControlCallback.c	   386  
+; ..\Communication_Files\Uds\User\Uds_User_DiagnosticSessionControlCallback.c	   387  
+; ..\Communication_Files\Uds\User\Uds_User_DiagnosticSessionControlCallback.c	   388  boolean UdsFunc_SID_DSC_SUBID_PRGS_Callback
+; ..\Communication_Files\Uds\User\Uds_User_DiagnosticSessionControlCallback.c	   389  	(uint8 *ui8_pRes, uint16 *ui16_pResLen)
+; ..\Communication_Files\Uds\User\Uds_User_DiagnosticSessionControlCallback.c	   390  {
+; ..\Communication_Files\Uds\User\Uds_User_DiagnosticSessionControlCallback.c	   391  	boolean	b_Return = E_NOT_OK;
+; ..\Communication_Files\Uds\User\Uds_User_DiagnosticSessionControlCallback.c	   392  
+; ..\Communication_Files\Uds\User\Uds_User_DiagnosticSessionControlCallback.c	   393  	//UdsFunc_ChangeSession_Init();	/*切换session初始化*/
+; ..\Communication_Files\Uds\User\Uds_User_DiagnosticSessionControlCallback.c	   394  	st_Uds_SID_DSC_Info.ui8_Active_Session = UDS_PROGRAMMING_SESSION_ACTIVE;
+; ..\Communication_Files\Uds\User\Uds_User_DiagnosticSessionControlCallback.c	   395  
+; ..\Communication_Files\Uds\User\Uds_User_DiagnosticSessionControlCallback.c	   396  	//ui32_KeepBSLState_Flag = SYS_KEEP_BSL_STATE;	/*系统保持BSL状态*/
+; ..\Communication_Files\Uds\User\Uds_User_DiagnosticSessionControlCallback.c	   397  
+; ..\Communication_Files\Uds\User\Uds_User_DiagnosticSessionControlCallback.c	   398  	 if(Boot_MCU_flg == 2)
+; ..\Communication_Files\Uds\User\Uds_User_DiagnosticSessionControlCallback.c	   399  	 {
+; ..\Communication_Files\Uds\User\Uds_User_DiagnosticSessionControlCallback.c	   400  		 if(st_Uds_SID_DSC_Info.ui16_Write_EEROM_Delay == UDS_BOOT_STATE_DELAY_TIME)
+; ..\Communication_Files\Uds\User\Uds_User_DiagnosticSessionControlCallback.c	   401  		 {
+; ..\Communication_Files\Uds\User\Uds_User_DiagnosticSessionControlCallback.c	   402  			 VCU_BMS_WriteToEE();
+; ..\Communication_Files\Uds\User\Uds_User_DiagnosticSessionControlCallback.c	   403  		 }
+; ..\Communication_Files\Uds\User\Uds_User_DiagnosticSessionControlCallback.c	   404  	     Task_CheckEepromWriteStatus();
+; ..\Communication_Files\Uds\User\Uds_User_DiagnosticSessionControlCallback.c	   405  	     if(FALSE == b_Eeprom_WriteOperation_Vaild)
+; ..\Communication_Files\Uds\User\Uds_User_DiagnosticSessionControlCallback.c	   406  	     {
+; ..\Communication_Files\Uds\User\Uds_User_DiagnosticSessionControlCallback.c	   407  
+; ..\Communication_Files\Uds\User\Uds_User_DiagnosticSessionControlCallback.c	   408  	    	 Boot_MCU_flg = 4;
+; ..\Communication_Files\Uds\User\Uds_User_DiagnosticSessionControlCallback.c	   409  		     VCUReset_flg = 1 ;
+; ..\Communication_Files\Uds\User\Uds_User_DiagnosticSessionControlCallback.c	   410  		     st_Uds_SID_DSC_Info.ui16_Write_EEROM_Delay = UDS_BOOT_STATE_DELAY_TIME;
+; ..\Communication_Files\Uds\User\Uds_User_DiagnosticSessionControlCallback.c	   411  		 	ui16_pResLen[0U] = 4U;
+; ..\Communication_Files\Uds\User\Uds_User_DiagnosticSessionControlCallback.c	   412  		 	ui8_pRes[0U] = (uint8)(UDS_P2_SERVER_MAX / 0x100U);
+; ..\Communication_Files\Uds\User\Uds_User_DiagnosticSessionControlCallback.c	   413  		 	ui8_pRes[1U] = (uint8)(UDS_P2_SERVER_MAX);
+; ..\Communication_Files\Uds\User\Uds_User_DiagnosticSessionControlCallback.c	   414  		 	ui8_pRes[2U] = (uint8)(UDS_P2EX_SERVER_MAX / 0x100U);
+; ..\Communication_Files\Uds\User\Uds_User_DiagnosticSessionControlCallback.c	   415  		 	ui8_pRes[3U] = (uint8)(UDS_P2EX_SERVER_MAX);
+; ..\Communication_Files\Uds\User\Uds_User_DiagnosticSessionControlCallback.c	   416  		 	st_Uds_Response.ui8_ResCode = UDS_RES_CODE_PR;	/*正响应*/
+; ..\Communication_Files\Uds\User\Uds_User_DiagnosticSessionControlCallback.c	   417  		 	b_Return = E_OK;
+; ..\Communication_Files\Uds\User\Uds_User_DiagnosticSessionControlCallback.c	   418  	     }
+; ..\Communication_Files\Uds\User\Uds_User_DiagnosticSessionControlCallback.c	   419  	     else
+; ..\Communication_Files\Uds\User\Uds_User_DiagnosticSessionControlCallback.c	   420  	     {
+; ..\Communication_Files\Uds\User\Uds_User_DiagnosticSessionControlCallback.c	   421  	    	 st_Uds_SID_DSC_Info.ui16_Write_EEROM_Delay --;
+; ..\Communication_Files\Uds\User\Uds_User_DiagnosticSessionControlCallback.c	   422  
+; ..\Communication_Files\Uds\User\Uds_User_DiagnosticSessionControlCallback.c	   423  				if(st_Uds_SID_DSC_Info.ui16_Write_EEROM_Delay != 0U)
+; ..\Communication_Files\Uds\User\Uds_User_DiagnosticSessionControlCallback.c	   424  				{
+; ..\Communication_Files\Uds\User\Uds_User_DiagnosticSessionControlCallback.c	   425  					if((st_Uds_SID_DSC_Info.ui16_Write_EEROM_Delay & 0x7FU) == 0U)
+; ..\Communication_Files\Uds\User\Uds_User_DiagnosticSessionControlCallback.c	   426  					{
+; ..\Communication_Files\Uds\User\Uds_User_DiagnosticSessionControlCallback.c	   427  						st_Uds_Response.ui8_ResCode = UDS_RES_CODE_RCRRP;	/*请求挂起响应*/
+; ..\Communication_Files\Uds\User\Uds_User_DiagnosticSessionControlCallback.c	   428  					}
+; ..\Communication_Files\Uds\User\Uds_User_DiagnosticSessionControlCallback.c	   429  				}
+; ..\Communication_Files\Uds\User\Uds_User_DiagnosticSessionControlCallback.c	   430  				else
+; ..\Communication_Files\Uds\User\Uds_User_DiagnosticSessionControlCallback.c	   431  				{
+; ..\Communication_Files\Uds\User\Uds_User_DiagnosticSessionControlCallback.c	   432  					Boot_MCU_flg = 5;
+; ..\Communication_Files\Uds\User\Uds_User_DiagnosticSessionControlCallback.c	   433  
+; ..\Communication_Files\Uds\User\Uds_User_DiagnosticSessionControlCallback.c	   434  					st_Uds_SID_DSC_Info.ui16_Write_EEROM_Delay = UDS_BOOT_STATE_DELAY_TIME;	/*初始化Boot State255等待时间*/
+; ..\Communication_Files\Uds\User\Uds_User_DiagnosticSessionControlCallback.c	   435  					st_Uds_Response.ui8_ResCode = UDS_RES_CODE_CNC;
+; ..\Communication_Files\Uds\User\Uds_User_DiagnosticSessionControlCallback.c	   436  					b_Return = E_OK;
+; ..\Communication_Files\Uds\User\Uds_User_DiagnosticSessionControlCallback.c	   437  				}
+; ..\Communication_Files\Uds\User\Uds_User_DiagnosticSessionControlCallback.c	   438  	     }
+; ..\Communication_Files\Uds\User\Uds_User_DiagnosticSessionControlCallback.c	   439  
+; ..\Communication_Files\Uds\User\Uds_User_DiagnosticSessionControlCallback.c	   440  
+; ..\Communication_Files\Uds\User\Uds_User_DiagnosticSessionControlCallback.c	   441  	 }
+; ..\Communication_Files\Uds\User\Uds_User_DiagnosticSessionControlCallback.c	   442  	 else
+; ..\Communication_Files\Uds\User\Uds_User_DiagnosticSessionControlCallback.c	   443  	 {
+; ..\Communication_Files\Uds\User\Uds_User_DiagnosticSessionControlCallback.c	   444  		 Boot_MCU_flg = 5;
+; ..\Communication_Files\Uds\User\Uds_User_DiagnosticSessionControlCallback.c	   445  	     st_Uds_Response.ui8_ResCode = UDS_RES_CODE_CNC;
+; ..\Communication_Files\Uds\User\Uds_User_DiagnosticSessionControlCallback.c	   446  	     b_Return = E_OK;
+; ..\Communication_Files\Uds\User\Uds_User_DiagnosticSessionControlCallback.c	   447  	 }
+; ..\Communication_Files\Uds\User\Uds_User_DiagnosticSessionControlCallback.c	   448  
+; ..\Communication_Files\Uds\User\Uds_User_DiagnosticSessionControlCallback.c	   449  	/*回应数据*/
+; ..\Communication_Files\Uds\User\Uds_User_DiagnosticSessionControlCallback.c	   450  
+; ..\Communication_Files\Uds\User\Uds_User_DiagnosticSessionControlCallback.c	   451  	return	b_Return;
+; ..\Communication_Files\Uds\User\Uds_User_DiagnosticSessionControlCallback.c	   452  }
+; ..\Communication_Files\Uds\User\Uds_User_DiagnosticSessionControlCallback.c	   453  
+; ..\Communication_Files\Uds\User\Uds_User_DiagnosticSessionControlCallback.c	   454  
+; ..\Communication_Files\Uds\User\Uds_User_DiagnosticSessionControlCallback.c	   455  boolean UdsFunc_SID_DSC_SUBID_EXTDS_Callback
+; ..\Communication_Files\Uds\User\Uds_User_DiagnosticSessionControlCallback.c	   456  	(uint8 *ui8_pRes, uint16 *ui16_pResLen)
+; ..\Communication_Files\Uds\User\Uds_User_DiagnosticSessionControlCallback.c	   457  {
+; ..\Communication_Files\Uds\User\Uds_User_DiagnosticSessionControlCallback.c	   458  	boolean	b_Return;
+; ..\Communication_Files\Uds\User\Uds_User_DiagnosticSessionControlCallback.c	   459  
+; ..\Communication_Files\Uds\User\Uds_User_DiagnosticSessionControlCallback.c	   460  	UdsFunc_ChangeSession_Init();	/*切换session初始化*/
+; ..\Communication_Files\Uds\User\Uds_User_DiagnosticSessionControlCallback.c	   461  	st_Uds_SID_DSC_Info.ui8_Active_Session = UDS_EXTENDED_SESSION_ACTIVE;
+; ..\Communication_Files\Uds\User\Uds_User_DiagnosticSessionControlCallback.c	   462  
+; ..\Communication_Files\Uds\User\Uds_User_DiagnosticSessionControlCallback.c	   463  
+; ..\Communication_Files\Uds\User\Uds_User_DiagnosticSessionControlCallback.c	   464  	    Boot_MCU_flg = 0 ;
+; ..\Communication_Files\Uds\User\Uds_User_DiagnosticSessionControlCallback.c	   465  		Boot_7DF_flg = 1 ;
+; ..\Communication_Files\Uds\User\Uds_User_DiagnosticSessionControlCallback.c	   466  		/*回应数据*/
+; ..\Communication_Files\Uds\User\Uds_User_DiagnosticSessionControlCallback.c	   467  		ui16_pResLen[0U] = 4U;
+; ..\Communication_Files\Uds\User\Uds_User_DiagnosticSessionControlCallback.c	   468  		ui8_pRes[0U] = (uint8)(UDS_P2_SERVER_MAX / 0x100U);
+; ..\Communication_Files\Uds\User\Uds_User_DiagnosticSessionControlCallback.c	   469  		ui8_pRes[1U] = (uint8)(UDS_P2_SERVER_MAX);
+; ..\Communication_Files\Uds\User\Uds_User_DiagnosticSessionControlCallback.c	   470  		ui8_pRes[2U] = (uint8)(UDS_P2EX_SERVER_MAX / 0x100U);
+; ..\Communication_Files\Uds\User\Uds_User_DiagnosticSessionControlCallback.c	   471  		ui8_pRes[3U] = (uint8)(UDS_P2EX_SERVER_MAX);
+; ..\Communication_Files\Uds\User\Uds_User_DiagnosticSessionControlCallback.c	   472  		st_Uds_Response.ui8_ResCode = UDS_RES_CODE_PR;	/*正响应*/
+; ..\Communication_Files\Uds\User\Uds_User_DiagnosticSessionControlCallback.c	   473  
+; ..\Communication_Files\Uds\User\Uds_User_DiagnosticSessionControlCallback.c	   474  		b_Return = E_OK;
+; ..\Communication_Files\Uds\User\Uds_User_DiagnosticSessionControlCallback.c	   475  
+; ..\Communication_Files\Uds\User\Uds_User_DiagnosticSessionControlCallback.c	   476  	return	b_Return;
+; ..\Communication_Files\Uds\User\Uds_User_DiagnosticSessionControlCallback.c	   477  }
+; ..\Communication_Files\Uds\User\Uds_User_DiagnosticSessionControlCallback.c	   478  
+; ..\Communication_Files\Uds\User\Uds_User_DiagnosticSessionControlCallback.c	   479  #elif ECU_TYPE == ECU_BMS_FRWK_3
+; ..\Communication_Files\Uds\User\Uds_User_DiagnosticSessionControlCallback.c	   480  boolean UdsFunc_SID_DSC_SUBID_DS_Callback
+; ..\Communication_Files\Uds\User\Uds_User_DiagnosticSessionControlCallback.c	   481  	(uint8 *ui8_pRes, uint16 *ui16_pResLen)
+; ..\Communication_Files\Uds\User\Uds_User_DiagnosticSessionControlCallback.c	   482  {
+; ..\Communication_Files\Uds\User\Uds_User_DiagnosticSessionControlCallback.c	   483  	boolean	b_Return;
+; ..\Communication_Files\Uds\User\Uds_User_DiagnosticSessionControlCallback.c	   484  
+; ..\Communication_Files\Uds\User\Uds_User_DiagnosticSessionControlCallback.c	   485  	UdsFunc_ChangeSession_Init();	/*切换session初始化*/
+; ..\Communication_Files\Uds\User\Uds_User_DiagnosticSessionControlCallback.c	   486  	st_Uds_SID_DSC_Info.ui8_Active_Session = UDS_DEFAULT_SESSION_ACTIVE;
+; ..\Communication_Files\Uds\User\Uds_User_DiagnosticSessionControlCallback.c	   487  	BMSIN_MLIF_ComptrLink_enum = 0;          //测试用上位机连接标志归零
+; ..\Communication_Files\Uds\User\Uds_User_DiagnosticSessionControlCallback.c	   488  
+; ..\Communication_Files\Uds\User\Uds_User_DiagnosticSessionControlCallback.c	   489  	/*回应数据*/
+; ..\Communication_Files\Uds\User\Uds_User_DiagnosticSessionControlCallback.c	   490  	ui16_pResLen[0U] = 4U;
+; ..\Communication_Files\Uds\User\Uds_User_DiagnosticSessionControlCallback.c	   491  	ui8_pRes[0U] = (uint8)(UDS_P2_SERVER_MAX / 0x100U);
+; ..\Communication_Files\Uds\User\Uds_User_DiagnosticSessionControlCallback.c	   492  	ui8_pRes[1U] = (uint8)(UDS_P2_SERVER_MAX);
+; ..\Communication_Files\Uds\User\Uds_User_DiagnosticSessionControlCallback.c	   493  	ui8_pRes[2U] = (uint8)(UDS_P2EX_SERVER_MAX / 0x100U);
+; ..\Communication_Files\Uds\User\Uds_User_DiagnosticSessionControlCallback.c	   494  	ui8_pRes[3U] = (uint8)(UDS_P2EX_SERVER_MAX);
+; ..\Communication_Files\Uds\User\Uds_User_DiagnosticSessionControlCallback.c	   495  	st_Uds_Response.ui8_ResCode = UDS_RES_CODE_PR;	/*正响应*/
+; ..\Communication_Files\Uds\User\Uds_User_DiagnosticSessionControlCallback.c	   496  
+; ..\Communication_Files\Uds\User\Uds_User_DiagnosticSessionControlCallback.c	   497  	b_Return = E_OK;
+; ..\Communication_Files\Uds\User\Uds_User_DiagnosticSessionControlCallback.c	   498  
+; ..\Communication_Files\Uds\User\Uds_User_DiagnosticSessionControlCallback.c	   499  	return	b_Return;
+; ..\Communication_Files\Uds\User\Uds_User_DiagnosticSessionControlCallback.c	   500  }
+; ..\Communication_Files\Uds\User\Uds_User_DiagnosticSessionControlCallback.c	   501  
+; ..\Communication_Files\Uds\User\Uds_User_DiagnosticSessionControlCallback.c	   502  
+; ..\Communication_Files\Uds\User\Uds_User_DiagnosticSessionControlCallback.c	   503  boolean UdsFunc_SID_DSC_SUBID_PRGS_Callback
+; ..\Communication_Files\Uds\User\Uds_User_DiagnosticSessionControlCallback.c	   504  	(uint8 *ui8_pRes, uint16 *ui16_pResLen)
+; ..\Communication_Files\Uds\User\Uds_User_DiagnosticSessionControlCallback.c	   505  {
+; ..\Communication_Files\Uds\User\Uds_User_DiagnosticSessionControlCallback.c	   506  	boolean	b_Return = E_NOT_OK;
+; ..\Communication_Files\Uds\User\Uds_User_DiagnosticSessionControlCallback.c	   507  
+; ..\Communication_Files\Uds\User\Uds_User_DiagnosticSessionControlCallback.c	   508  	//UdsFunc_ChangeSession_Init();	/*切换session初始化*/
+; ..\Communication_Files\Uds\User\Uds_User_DiagnosticSessionControlCallback.c	   509  
+; ..\Communication_Files\Uds\User\Uds_User_DiagnosticSessionControlCallback.c	   510  	 if(STATE_CCTRL == BL_GetCurState(BL_NODE1))
+; ..\Communication_Files\Uds\User\Uds_User_DiagnosticSessionControlCallback.c	   511  	 {
+; ..\Communication_Files\Uds\User\Uds_User_DiagnosticSessionControlCallback.c	   512  		 if(st_Uds_SID_DSC_Info.ui16_Write_EEROM_Delay == UDS_BOOT_STATE_DELAY_TIME)
+; ..\Communication_Files\Uds\User\Uds_User_DiagnosticSessionControlCallback.c	   513  		 {
+; ..\Communication_Files\Uds\User\Uds_User_DiagnosticSessionControlCallback.c	   514  			 WriteRamToEE();
+; ..\Communication_Files\Uds\User\Uds_User_DiagnosticSessionControlCallback.c	   515  		 }
+; ..\Communication_Files\Uds\User\Uds_User_DiagnosticSessionControlCallback.c	   516  	     Task_CheckEepromWriteStatus();
+; ..\Communication_Files\Uds\User\Uds_User_DiagnosticSessionControlCallback.c	   517  	     if(FALSE == b_Eeprom_WriteOperation_Vaild)
+; ..\Communication_Files\Uds\User\Uds_User_DiagnosticSessionControlCallback.c	   518  	     {
+; ..\Communication_Files\Uds\User\Uds_User_DiagnosticSessionControlCallback.c	   519  	    	st_Uds_SID_DSC_Info.ui8_Active_Session = UDS_PROGRAMMING_SESSION_ACTIVE;
+; ..\Communication_Files\Uds\User\Uds_User_DiagnosticSessionControlCallback.c	   520  
+; ..\Communication_Files\Uds\User\Uds_User_DiagnosticSessionControlCallback.c	   521  	    	BL_SetState(BL_IDLE,BL_NODE1);        //流程走完，回复初始状态
+; ..\Communication_Files\Uds\User\Uds_User_DiagnosticSessionControlCallback.c	   522  	 		BL_SetProgFlag(BL_false,BL_NODE1);
+; ..\Communication_Files\Uds\User\Uds_User_DiagnosticSessionControlCallback.c	   523  
+; ..\Communication_Files\Uds\User\Uds_User_DiagnosticSessionControlCallback.c	   524  	 		VCUReset_flg = 1 ;
+; ..\Communication_Files\Uds\User\Uds_User_DiagnosticSessionControlCallback.c	   525  		    st_Uds_SID_DSC_Info.ui16_Write_EEROM_Delay = UDS_BOOT_STATE_DELAY_TIME;
+; ..\Communication_Files\Uds\User\Uds_User_DiagnosticSessionControlCallback.c	   526  		 	ui16_pResLen[0U] = 4U;
+; ..\Communication_Files\Uds\User\Uds_User_DiagnosticSessionControlCallback.c	   527  		 	ui8_pRes[0U] = (uint8)(UDS_P2_SERVER_MAX / 0x100U);
+; ..\Communication_Files\Uds\User\Uds_User_DiagnosticSessionControlCallback.c	   528  		 	ui8_pRes[1U] = (uint8)(UDS_P2_SERVER_MAX);
+; ..\Communication_Files\Uds\User\Uds_User_DiagnosticSessionControlCallback.c	   529  		 	ui8_pRes[2U] = (uint8)(UDS_P2EX_SERVER_MAX / 0x100U);
+; ..\Communication_Files\Uds\User\Uds_User_DiagnosticSessionControlCallback.c	   530  		 	ui8_pRes[3U] = (uint8)(UDS_P2EX_SERVER_MAX);
+; ..\Communication_Files\Uds\User\Uds_User_DiagnosticSessionControlCallback.c	   531  		 	st_Uds_Response.ui8_ResCode = UDS_RES_CODE_PR;	/*正响应*/
+; ..\Communication_Files\Uds\User\Uds_User_DiagnosticSessionControlCallback.c	   532  		 	b_Return = E_OK;
+; ..\Communication_Files\Uds\User\Uds_User_DiagnosticSessionControlCallback.c	   533  	     }
+; ..\Communication_Files\Uds\User\Uds_User_DiagnosticSessionControlCallback.c	   534  	     else
+; ..\Communication_Files\Uds\User\Uds_User_DiagnosticSessionControlCallback.c	   535  	     {
+; ..\Communication_Files\Uds\User\Uds_User_DiagnosticSessionControlCallback.c	   536  	    	 st_Uds_SID_DSC_Info.ui16_Write_EEROM_Delay --;
+; ..\Communication_Files\Uds\User\Uds_User_DiagnosticSessionControlCallback.c	   537  
+; ..\Communication_Files\Uds\User\Uds_User_DiagnosticSessionControlCallback.c	   538  				if(st_Uds_SID_DSC_Info.ui16_Write_EEROM_Delay != 0U)
+; ..\Communication_Files\Uds\User\Uds_User_DiagnosticSessionControlCallback.c	   539  				{
+; ..\Communication_Files\Uds\User\Uds_User_DiagnosticSessionControlCallback.c	   540  					if((st_Uds_SID_DSC_Info.ui16_Write_EEROM_Delay & 0x7FU) == 0U)
+; ..\Communication_Files\Uds\User\Uds_User_DiagnosticSessionControlCallback.c	   541  					{
+; ..\Communication_Files\Uds\User\Uds_User_DiagnosticSessionControlCallback.c	   542  						st_Uds_Response.ui8_ResCode = UDS_RES_CODE_RCRRP;	/*请求挂起响应*/
+; ..\Communication_Files\Uds\User\Uds_User_DiagnosticSessionControlCallback.c	   543  					}
+; ..\Communication_Files\Uds\User\Uds_User_DiagnosticSessionControlCallback.c	   544  				}
+; ..\Communication_Files\Uds\User\Uds_User_DiagnosticSessionControlCallback.c	   545  				else
+; ..\Communication_Files\Uds\User\Uds_User_DiagnosticSessionControlCallback.c	   546  				{
+; ..\Communication_Files\Uds\User\Uds_User_DiagnosticSessionControlCallback.c	   547  			 		BL_SetState(BL_IDLE,BL_NODE1);        //流程错误，回复初始状态
+; ..\Communication_Files\Uds\User\Uds_User_DiagnosticSessionControlCallback.c	   548  				 	BL_SetProgFlag(BL_false,BL_NODE1);
+; ..\Communication_Files\Uds\User\Uds_User_DiagnosticSessionControlCallback.c	   549  
+; ..\Communication_Files\Uds\User\Uds_User_DiagnosticSessionControlCallback.c	   550  					st_Uds_SID_DSC_Info.ui16_Write_EEROM_Delay = UDS_BOOT_STATE_DELAY_TIME;	/*初始化Boot State255等待时间*/
+; ..\Communication_Files\Uds\User\Uds_User_DiagnosticSessionControlCallback.c	   551  					st_Uds_Response.ui8_ResCode = UDS_RES_CODE_CNC;
+; ..\Communication_Files\Uds\User\Uds_User_DiagnosticSessionControlCallback.c	   552  					b_Return = E_OK;
+; ..\Communication_Files\Uds\User\Uds_User_DiagnosticSessionControlCallback.c	   553  				}
+; ..\Communication_Files\Uds\User\Uds_User_DiagnosticSessionControlCallback.c	   554  	     }
+; ..\Communication_Files\Uds\User\Uds_User_DiagnosticSessionControlCallback.c	   555  	 }
+; ..\Communication_Files\Uds\User\Uds_User_DiagnosticSessionControlCallback.c	   556  	 else
+; ..\Communication_Files\Uds\User\Uds_User_DiagnosticSessionControlCallback.c	   557  	 {
+; ..\Communication_Files\Uds\User\Uds_User_DiagnosticSessionControlCallback.c	   558  	 	BL_SetState(BL_IDLE,BL_NODE1);        //流程错误，回复初始状态
+; ..\Communication_Files\Uds\User\Uds_User_DiagnosticSessionControlCallback.c	   559  		BL_SetProgFlag(BL_false,BL_NODE1);
+; ..\Communication_Files\Uds\User\Uds_User_DiagnosticSessionControlCallback.c	   560  
+; ..\Communication_Files\Uds\User\Uds_User_DiagnosticSessionControlCallback.c	   561  		st_Uds_SID_DSC_Info.ui16_Write_EEROM_Delay = UDS_BOOT_STATE_DELAY_TIME;	/*初始化Boot State255等待时间*/
+; ..\Communication_Files\Uds\User\Uds_User_DiagnosticSessionControlCallback.c	   562  	    st_Uds_Response.ui8_ResCode = UDS_RES_CODE_CNC;
+; ..\Communication_Files\Uds\User\Uds_User_DiagnosticSessionControlCallback.c	   563  	    b_Return = E_OK;
+; ..\Communication_Files\Uds\User\Uds_User_DiagnosticSessionControlCallback.c	   564  	 }
+; ..\Communication_Files\Uds\User\Uds_User_DiagnosticSessionControlCallback.c	   565  
+; ..\Communication_Files\Uds\User\Uds_User_DiagnosticSessionControlCallback.c	   566  	/*回应数据*/
+; ..\Communication_Files\Uds\User\Uds_User_DiagnosticSessionControlCallback.c	   567  
+; ..\Communication_Files\Uds\User\Uds_User_DiagnosticSessionControlCallback.c	   568  	return	b_Return;
+; ..\Communication_Files\Uds\User\Uds_User_DiagnosticSessionControlCallback.c	   569  }
+; ..\Communication_Files\Uds\User\Uds_User_DiagnosticSessionControlCallback.c	   570  
+; ..\Communication_Files\Uds\User\Uds_User_DiagnosticSessionControlCallback.c	   571  
+; ..\Communication_Files\Uds\User\Uds_User_DiagnosticSessionControlCallback.c	   572  boolean UdsFunc_SID_DSC_SUBID_EXTDS_Callback
+; ..\Communication_Files\Uds\User\Uds_User_DiagnosticSessionControlCallback.c	   573  	(uint8 *ui8_pRes, uint16 *ui16_pResLen)
+; ..\Communication_Files\Uds\User\Uds_User_DiagnosticSessionControlCallback.c	   574  {
+; ..\Communication_Files\Uds\User\Uds_User_DiagnosticSessionControlCallback.c	   575  	boolean	b_Return ;
+; ..\Communication_Files\Uds\User\Uds_User_DiagnosticSessionControlCallback.c	   576  
+; ..\Communication_Files\Uds\User\Uds_User_DiagnosticSessionControlCallback.c	   577  	UdsFunc_ChangeSession_Init();	/*切换session初始化*/
+; ..\Communication_Files\Uds\User\Uds_User_DiagnosticSessionControlCallback.c	   578  	st_Uds_SID_DSC_Info.ui8_Active_Session = UDS_EXTENDED_SESSION_ACTIVE;
+; ..\Communication_Files\Uds\User\Uds_User_DiagnosticSessionControlCallback.c	   579  
+; ..\Communication_Files\Uds\User\Uds_User_DiagnosticSessionControlCallback.c	   580  	if(st_N_USData_Indication.ui8_N_TAtype == UDS_ADDR_TYPE_FUNC)
+; ..\Communication_Files\Uds\User\Uds_User_DiagnosticSessionControlCallback.c	   581  	{
+; ..\Communication_Files\Uds\User\Uds_User_DiagnosticSessionControlCallback.c	   582  		BL_SetState(STATE_EX_MODE,BL_NODE1);
+; ..\Communication_Files\Uds\User\Uds_User_DiagnosticSessionControlCallback.c	   583  		BL_SetProgFlag(BL_false,BL_NODE1);
+; ..\Communication_Files\Uds\User\Uds_User_DiagnosticSessionControlCallback.c	   584  	}
+; ..\Communication_Files\Uds\User\Uds_User_DiagnosticSessionControlCallback.c	   585  
+; ..\Communication_Files\Uds\User\Uds_User_DiagnosticSessionControlCallback.c	   586  	ui16_pResLen[0U] = 4U;
+; ..\Communication_Files\Uds\User\Uds_User_DiagnosticSessionControlCallback.c	   587  	ui8_pRes[0U] = (uint8)(UDS_P2_SERVER_MAX / 0x100U);
+; ..\Communication_Files\Uds\User\Uds_User_DiagnosticSessionControlCallback.c	   588  	ui8_pRes[1U] = (uint8)(UDS_P2_SERVER_MAX);
+; ..\Communication_Files\Uds\User\Uds_User_DiagnosticSessionControlCallback.c	   589  	ui8_pRes[2U] = (uint8)(UDS_P2EX_SERVER_MAX / 0x100U);
+; ..\Communication_Files\Uds\User\Uds_User_DiagnosticSessionControlCallback.c	   590  	ui8_pRes[3U] = (uint8)(UDS_P2EX_SERVER_MAX);
+; ..\Communication_Files\Uds\User\Uds_User_DiagnosticSessionControlCallback.c	   591  	st_Uds_Response.ui8_ResCode = UDS_RES_CODE_PR;	/*正响应*/
+; ..\Communication_Files\Uds\User\Uds_User_DiagnosticSessionControlCallback.c	   592  	b_Return = E_OK;
+; ..\Communication_Files\Uds\User\Uds_User_DiagnosticSessionControlCallback.c	   593  
+; ..\Communication_Files\Uds\User\Uds_User_DiagnosticSessionControlCallback.c	   594  	return	b_Return;
+; ..\Communication_Files\Uds\User\Uds_User_DiagnosticSessionControlCallback.c	   595  }
+; ..\Communication_Files\Uds\User\Uds_User_DiagnosticSessionControlCallback.c	   596  #endif
+
+	; Module end

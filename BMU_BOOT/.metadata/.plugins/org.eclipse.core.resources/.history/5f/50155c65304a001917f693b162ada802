@@ -1,0 +1,46 @@
+
+#include "MAIN.h"
+
+Struct_Uds_SID_RDD_Info st_Uds_SID_RDD_Info;	/*UDS SID_RDD信息*/
+/*************************************************************************/
+/*
+Function:		void UdsFunc_SID_RTDD_AG_Callback
+				(uint8 *ui8_pRes, uint16 *ui16_pResLen)
+
+Description: 	此函数用于SID_CDTCI_RTDD_AG服务回调
+
+Parameters: 	ui8_pRes(不含SID和SubID)
+				ui16_pResLen
+
+Return:       	boolean
+
+Return Values:  E_OK		任务完成
+				E_NOT_OK	任务未完成
+
+Remarks:
+
+Example:
+*/
+boolean UdsFunc_SID_RTDD_AG_Callback
+	(uint8 *ui8_pInd, uint8 *ui8_pRes, uint16 *ui16_pResLen)
+{
+	boolean	b_Return;
+
+	st_Uds_SID_RDD_Info.ui8_pageFlag = 0;
+	st_Uds_SID_RDD_Info.ui16_pageCount = 0;
+	st_Uds_SID_RDD_Info.ui32_memoryAddress = (uint32)(ui8_pInd[1] * 0x100U * 0x100U * 0x100U + ui8_pInd[2] * 0x100U * 0x100U + ui8_pInd[3] * 0x100U + ui8_pInd[4]);
+	st_Uds_SID_RDD_Info.ui32_memorySize = (uint32)(ui8_pInd[5] * 0x100U * 0x100U * 0x100U + ui8_pInd[6] * 0x100U * 0x100U + ui8_pInd[7] * 0x100U + ui8_pInd[8]);
+
+
+	/*回应数据*/
+	ui16_pResLen[0U] = 3U;
+	ui8_pRes[0U] = 0x20U;	/*长度格式标识符*/
+	ui8_pRes[1U] = 0x00U;	/*数据长度最大值，依据本身硬件设置更改*/
+	ui8_pRes[2U] = 0xFFU;
+	st_Uds_Response.ui8_ResCode = UDS_RES_CODE_PR;	/*正响应*/
+
+	b_Return = E_OK;
+
+	return	b_Return;
+}
+

@@ -1,0 +1,2138 @@
+	; Module start
+	.compiler_version	"TASKING VX-toolset for TriCore: C compiler v4.3r1 Build 759 SN 00641831"
+	.compiler_invocation	"ctc -f cc384a -c99 --dep-file=Communication_Files\\CanDrv\\.CanDrv_TC1782_User.o.d -D__CPU__=tc1782 -D__CPU_TC1782__ --core=tc1.3.1 -F -ID:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_1.9\\BMU_BOOT -ID:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_1.9\\BMU_BOOT\\Communication_Files\\CanDrv -ID:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_1.9\\BMU_BOOT\\Communication_Files\\Com -ID:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_1.9\\BMU_BOOT\\Communication_Files\\Com\\Can_Input -ID:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_1.9\\BMU_BOOT\\Communication_Files\\Com\\Can_Output -ID:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_1.9\\BMU_BOOT\\Communication_Files\\Uds\\Dcm -ID:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_1.9\\BMU_BOOT\\Communication_Files\\Uds\\Dem -ID:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_1.9\\BMU_BOOT\\Communication_Files\\Uds\\Tp -ID:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_1.9\\BMU_BOOT\\Communication_Files\\Uds\\User -ID:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_1.9\\BMU_BOOT\\Complex_Files -ID:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_1.9\\BMU_BOOT\\Initiate_Files -ID:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_1.9\\BMU_BOOT\\Nvm_Files\\FlsDrv -ID:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_1.9\\BMU_BOOT\\Stand_Header -g2 --make-target=Communication_Files\\CanDrv\\CanDrv_TC1782_User.o -t4 --language=-gcc,-volatile,+strings --default-near-size=0 -O2 --default-a1-size=0 --default-a0-size=0 --source --align=0 --compact-max-size=200 --switch=auto -o Communication_Files\\CanDrv\\CanDrv_TC1782_User.src ..\\Communication_Files\\CanDrv\\CanDrv_TC1782_User.c"
+	.compiler_name		"ctc"
+	.name	"CanDrv_TC1782_User"
+
+	
+$TC131
+	
+	.sdecl	'.data.CanDrv_TC1782_User.st_CAN_Node',data,cluster('st_CAN_Node')
+	.sect	'.data.CanDrv_TC1782_User.st_CAN_Node'
+	.global	st_CAN_Node
+	.align	4
+st_CAN_Node:	.type	object
+	.size	st_CAN_Node,60
+	.byte	1
+	.space	1
+	.word	40000000,500000
+	.byte	7,2,2
+	.space	1
+	.word	5
+	.space	4
+	.word	40000000,500000
+	.byte	7,2,2
+	.space	1
+	.word	5
+	.space	4
+	.word	40000000,250000
+	.byte	7,2,2
+	.space	1
+	.word	5
+	.space	2
+	.sdecl	'.rodata.CanDrv_TC1782_User.st_CAN_Object',data,rom,cluster('st_CAN_Object')
+	.sect	'.rodata.CanDrv_TC1782_User.st_CAN_Object'
+	.global	st_CAN_Object
+	.align	4
+st_CAN_Object:	.type	object
+	.size	st_CAN_Object,2560
+	.space	5
+	.byte	8
+	.space	2
+	.word	1760,2047
+	.byte	1
+	.space	5
+	.byte	1
+	.space	1
+	.byte	1,8
+	.space	2
+	.word	1776,2047
+	.byte	1
+	.space	6
+	.byte	1
+	.space	1
+	.byte	8
+	.space	2
+	.word	1792,2047
+	.byte	1
+	.space	5
+	.byte	1,1,1,8
+	.space	2
+	.word	1778,2047
+	.byte	1
+	.space	4
+	.byte	1
+	.space	3
+	.byte	8,1
+	.space	1
+	.word	503316479,536870911
+	.byte	1
+	.space	4
+	.byte	1
+	.space	3
+	.byte	8,1
+	.space	1
+	.word	520028170,536870911
+	.byte	1
+	.space	4
+	.byte	1,1
+	.space	2
+	.byte	8,1
+	.space	1
+	.word	519962634,536870911
+	.byte	1
+	.space	8
+	.byte	8
+	.space	2
+	.word	1811,2047
+	.byte	1
+	.space	5
+	.byte	1
+	.space	2
+	.byte	8
+	.space	2
+	.word	1819,2047
+	.byte	1
+	.space	8
+	.byte	8
+	.space	2
+	.word	2015,2047
+	.byte	1
+	.space	6
+	.byte	1
+	.space	1
+	.byte	8
+	.space	2
+	.word	270,2047
+	.byte	1
+	.space	8
+	.byte	8
+	.space	2
+	.word	641,2047
+	.byte	1
+	.space	8
+	.byte	8
+	.space	2
+	.word	904,2047
+	.byte	1
+	.space	8
+	.byte	8
+	.space	2
+	.word	699,2047
+	.byte	1
+	.space	8
+	.byte	8
+	.space	2
+	.word	700,2047
+	.byte	1
+	.space	8
+	.byte	8
+	.space	2
+	.word	714,2047
+	.byte	1
+	.space	8
+	.byte	8
+	.space	2
+	.word	1076,2047
+	.byte	1
+	.space	8
+	.byte	8
+	.space	2
+	.word	136,2047
+	.byte	1
+	.space	8
+	.byte	8
+	.space	2
+	.word	144,2047
+	.byte	1
+	.space	8
+	.byte	8
+	.space	2
+	.word	752,2047
+	.byte	1
+	.space	8
+	.byte	8
+	.space	2
+	.word	147,2047
+	.byte	1
+	.space	8
+	.byte	8
+	.space	2
+	.word	1696,2047
+	.byte	1
+	.space	8
+	.byte	8
+	.space	2
+	.word	1711,2047
+	.byte	1
+	.space	5
+	.byte	1
+	.space	2
+	.byte	8
+	.space	2
+	.word	688,2047
+	.byte	1
+	.space	5
+	.byte	1
+	.space	2
+	.byte	8
+	.space	2
+	.word	1969,2047
+	.byte	1
+	.space	5
+	.byte	1
+	.space	2
+	.byte	8
+	.space	2
+	.word	690,2047
+	.byte	1
+	.space	5
+	.byte	1
+	.space	2
+	.byte	8
+	.space	2
+	.word	691,2047
+	.byte	1
+	.space	5
+	.byte	1
+	.space	2
+	.byte	8
+	.space	2
+	.word	692,2047
+	.byte	1
+	.space	5
+	.byte	1
+	.space	2
+	.byte	8
+	.space	2
+	.word	693,2047
+	.byte	1
+	.space	5
+	.byte	1
+	.space	2
+	.byte	8
+	.space	2
+	.word	694,2047
+	.byte	1
+	.space	5
+	.byte	1
+	.space	2
+	.byte	8
+	.space	2
+	.word	695,2047
+	.byte	1
+	.space	5
+	.byte	1
+	.space	2
+	.byte	8
+	.space	2
+	.word	696,2047
+	.byte	1
+	.space	5
+	.byte	1
+	.space	2
+	.byte	8
+	.space	2
+	.word	697,2047
+	.byte	1
+	.space	5
+	.byte	1
+	.space	2
+	.byte	8
+	.space	2
+	.word	708,2047
+	.byte	1
+	.space	5
+	.byte	1
+	.space	2
+	.byte	8
+	.space	2
+	.word	706,2047
+	.byte	1
+	.space	5
+	.byte	1
+	.space	2
+	.byte	8
+	.space	2
+	.word	707,2047
+	.byte	1
+	.space	5
+	.byte	1
+	.space	2
+	.byte	8
+	.space	2
+	.word	772,2047
+	.byte	1
+	.space	5
+	.byte	1
+	.space	2
+	.byte	8
+	.space	2
+	.word	1046,2047
+	.byte	1
+	.space	5
+	.byte	1
+	.space	2
+	.byte	8
+	.space	2
+	.word	1047,2047
+	.byte	1
+	.space	5
+	.byte	1
+	.space	2
+	.byte	8
+	.space	2
+	.word	1048,2047
+	.byte	1
+	.space	5
+	.byte	1
+	.space	2
+	.byte	8
+	.space	2
+	.word	1049,2047
+	.byte	1
+	.space	5
+	.byte	1
+	.space	2
+	.byte	8
+	.space	2
+	.word	1056,2047
+	.byte	1
+	.space	5
+	.byte	1
+	.space	2
+	.byte	8
+	.space	2
+	.word	1057,2047
+	.byte	1
+	.space	5
+	.byte	1
+	.space	2
+	.byte	8
+	.space	2
+	.word	1058,2047
+	.byte	1
+	.space	5
+	.byte	1
+	.space	2
+	.byte	8
+	.space	2
+	.word	1059,2047
+	.byte	1
+	.space	5
+	.byte	1
+	.space	2
+	.byte	8
+	.space	2
+	.word	1060,2047
+	.byte	1
+	.space	5
+	.byte	1
+	.space	2
+	.byte	8
+	.space	2
+	.word	1061,2047
+	.byte	1
+	.space	5
+	.byte	1
+	.space	2
+	.byte	8
+	.space	2
+	.word	1062,2047
+	.byte	1
+	.space	5
+	.byte	1
+	.space	2
+	.byte	8
+	.space	2
+	.word	1063,2047
+	.byte	1
+	.space	5
+	.byte	1
+	.space	2
+	.byte	8
+	.space	2
+	.word	1064,2047
+	.byte	1
+	.space	5
+	.byte	1
+	.space	2
+	.byte	8
+	.space	2
+	.word	1065,2047
+	.byte	1
+	.space	5
+	.byte	1
+	.space	2
+	.byte	8
+	.space	2
+	.word	1072,2047
+	.byte	1
+	.space	5
+	.byte	1
+	.space	2
+	.byte	8
+	.space	2
+	.word	1073,2047
+	.byte	1
+	.space	5
+	.byte	1
+	.space	2
+	.byte	8
+	.space	2
+	.word	1074,2047
+	.byte	1
+	.space	5
+	.byte	1
+	.space	2
+	.byte	8
+	.space	2
+	.word	1075,2047
+	.byte	1
+	.space	5
+	.byte	1
+	.space	2
+	.byte	8
+	.space	2
+	.word	1043,2047
+	.byte	1
+	.space	5
+	.byte	1
+	.space	2
+	.byte	8
+	.space	2
+	.word	1045,2047
+	.byte	1
+	.space	5
+	.byte	1
+	.space	2
+	.byte	8
+	.space	2
+	.word	130,2047
+	.byte	1
+	.space	5
+	.byte	1
+	.space	2
+	.byte	8
+	.space	2
+	.word	1442,2047
+	.byte	1
+	.space	5
+	.byte	1
+	.space	2
+	.byte	8
+	.space	2
+	.word	1443,2047
+	.byte	1
+	.space	5
+	.byte	1
+	.space	2
+	.byte	8
+	.space	2
+	.word	1444,2047
+	.byte	1
+	.space	5
+	.byte	1
+	.space	2
+	.byte	8
+	.space	2
+	.word	1445,2047
+	.byte	1
+	.space	5
+	.byte	1
+	.space	2
+	.byte	8
+	.space	2
+	.word	1426,2047
+	.byte	1
+	.space	5
+	.byte	1
+	.space	2
+	.byte	8
+	.space	2
+	.word	1427,2047
+	.byte	1
+	.space	5
+	.byte	1
+	.space	2
+	.byte	8
+	.space	2
+	.word	1421,2047
+	.byte	1
+	.space	5
+	.byte	1
+	.space	2
+	.byte	8
+	.space	2
+	.word	1422,2047
+	.byte	1
+	.space	5
+	.byte	1
+	.space	2
+	.byte	8
+	.space	2
+	.word	1423,2047
+	.byte	1
+	.space	5
+	.byte	1
+	.space	2
+	.byte	8
+	.space	2
+	.word	1424,2047
+	.byte	1
+	.space	5
+	.byte	1
+	.space	2
+	.byte	8
+	.space	2
+	.word	1425,2047
+	.byte	1
+	.space	5
+	.byte	1
+	.space	2
+	.byte	8
+	.space	2
+	.word	564,2047
+	.byte	1
+	.space	5
+	.byte	1
+	.space	2
+	.byte	8
+	.space	2
+	.word	1332,2047
+	.byte	1
+	.space	5
+	.byte	1
+	.space	2
+	.byte	8
+	.space	2
+	.word	786,2047
+	.byte	1
+	.space	5
+	.byte	1
+	.space	2
+	.byte	8
+	.space	2
+	.word	1104,2047
+	.byte	1
+	.space	5
+	.byte	1
+	.space	2
+	.byte	8
+	.space	2
+	.word	1105,2047
+	.byte	1
+	.space	5
+	.byte	1
+	.space	2
+	.byte	8
+	.space	2
+	.word	2015,2047
+	.byte	1
+	.space	5
+	.byte	1
+	.space	2
+	.byte	8
+	.space	2
+	.word	2047,2047
+	.byte	1
+	.space	5
+	.byte	1
+	.space	2
+	.byte	8
+	.space	2
+	.word	2047,2047
+	.byte	1
+	.space	5
+	.byte	1
+	.space	2
+	.byte	8
+	.space	2
+	.word	2047,2047
+	.byte	1
+	.space	5
+	.byte	1
+	.space	2
+	.byte	8
+	.space	2
+	.word	2047,2047
+	.byte	1
+	.space	5
+	.byte	1
+	.space	2
+	.byte	8
+	.space	2
+	.word	2047,2047
+	.byte	1
+	.space	4
+	.byte	1
+	.space	1
+	.byte	1
+	.space	1
+	.byte	8,1
+	.space	1
+	.word	417333248,535887871
+	.byte	1
+	.space	4
+	.byte	1
+	.space	1
+	.byte	1
+	.space	1
+	.byte	8,1
+	.space	1
+	.word	417333249,535887871
+	.byte	1
+	.space	4
+	.byte	1
+	.space	1
+	.byte	1
+	.space	1
+	.byte	8,1
+	.space	1
+	.word	417333250,535887871
+	.byte	1
+	.space	4
+	.byte	1
+	.space	1
+	.byte	1
+	.space	1
+	.byte	8,1
+	.space	1
+	.word	417333251,535887871
+	.byte	1
+	.space	4
+	.byte	1
+	.space	1
+	.byte	1
+	.space	1
+	.byte	8,1
+	.space	1
+	.word	417333252,535887871
+	.byte	1
+	.space	4
+	.byte	1
+	.space	1
+	.byte	1
+	.space	1
+	.byte	8,1
+	.space	1
+	.word	417333253,535887871
+	.byte	1
+	.space	4
+	.byte	1
+	.space	1
+	.byte	1
+	.space	1
+	.byte	8,1
+	.space	1
+	.word	417333254,535887871
+	.byte	1
+	.space	4
+	.byte	1
+	.space	1
+	.byte	1
+	.space	1
+	.byte	8,1
+	.space	1
+	.word	417333255,535887871
+	.byte	1
+	.space	4
+	.byte	1
+	.space	1
+	.byte	1
+	.space	1
+	.byte	8,1
+	.space	1
+	.word	417333256,535887871
+	.byte	1
+	.space	4
+	.byte	1
+	.space	1
+	.byte	1
+	.space	1
+	.byte	8,1
+	.space	1
+	.word	417333257,535887871
+	.byte	1
+	.space	4
+	.byte	1
+	.space	1
+	.byte	1
+	.space	1
+	.byte	8,1
+	.space	1
+	.word	417333258,535887871
+	.byte	1
+	.space	4
+	.byte	1
+	.space	1
+	.byte	1
+	.space	1
+	.byte	8,1
+	.space	1
+	.word	417333259,535887871
+	.byte	1
+	.space	4
+	.byte	1
+	.space	1
+	.byte	1
+	.space	1
+	.byte	8,1
+	.space	1
+	.word	417333260,536412159
+	.byte	1
+	.space	4
+	.byte	1
+	.space	1
+	.byte	1
+	.space	1
+	.byte	8,1
+	.space	1
+	.word	417333261,536412159
+	.byte	1
+	.space	4
+	.byte	1
+	.space	1
+	.byte	1
+	.space	1
+	.byte	8,1
+	.space	1
+	.word	417333262,536412159
+	.byte	1
+	.space	4
+	.byte	1
+	.space	1
+	.byte	1
+	.space	1
+	.byte	8,1
+	.space	1
+	.word	417333263,536412159
+	.byte	1
+	.space	4
+	.byte	1,1
+	.space	2
+	.byte	8,1
+	.space	1
+	.word	270532609,536870911
+	.byte	1
+	.space	4
+	.byte	1
+	.space	3
+	.byte	8
+	.space	2
+	.word	481,2047
+	.byte	1
+	.space	4
+	.byte	1,1
+	.space	2
+	.byte	8
+	.space	2
+	.word	489,2047
+	.byte	1
+	.space	4
+	.byte	1
+	.space	3
+	.byte	8
+	.space	2
+	.word	479,2047
+	.byte	1
+	.space	4
+	.byte	2,1
+	.space	2
+	.byte	8,1
+	.space	1
+	.word	536870911,536870911
+	.byte	1
+	.space	4
+	.byte	2,1
+	.space	2
+	.byte	8,1
+	.space	1
+	.word	536870911,536870911
+	.byte	1
+	.space	4
+	.byte	2,1
+	.space	2
+	.byte	8,1
+	.space	1
+	.word	536870911,536870911
+	.byte	1
+	.space	4
+	.byte	2,1
+	.space	2
+	.byte	8,1
+	.space	1
+	.word	536870911,536870911
+	.byte	1
+	.space	4
+	.byte	2,1
+	.space	2
+	.byte	8,1
+	.space	1
+	.word	536870911,536870911
+	.byte	1
+	.space	4
+	.byte	2,1
+	.space	2
+	.byte	8,1
+	.space	1
+	.word	536870911,536870911
+	.byte	1
+	.space	4
+	.byte	2,1
+	.space	2
+	.byte	8,1
+	.space	1
+	.word	536870911,536870911
+	.byte	1
+	.space	4
+	.byte	2,1
+	.space	2
+	.byte	8,1
+	.space	1
+	.word	536870911,536870911
+	.byte	1
+	.space	4
+	.byte	2,1
+	.space	2
+	.byte	8,1
+	.space	1
+	.word	485250804,536870911
+	.byte	1
+	.space	4
+	.byte	2,1
+	.space	2
+	.byte	8,1
+	.space	1
+	.word	485185268,536870911
+	.byte	1
+	.space	4
+	.byte	2,1
+	.space	2
+	.byte	1,1
+	.space	1
+	.word	269047540,536870911
+	.byte	1
+	.space	4
+	.byte	2,1
+	.space	2
+	.byte	8,1
+	.space	1
+	.word	485250815,536870911
+	.byte	1
+	.space	4
+	.byte	2,1
+	.space	2
+	.byte	5,1
+	.space	1
+	.word	403724020,536870911
+	.byte	1
+	.space	4
+	.byte	2,1
+	.space	2
+	.byte	7,1
+	.space	1
+	.word	403920628,536870911
+	.byte	1
+	.space	4
+	.byte	2,1
+	.space	2
+	.byte	4,1
+	.space	1
+	.word	270096116,536870911
+	.byte	1
+	.space	4
+	.byte	2,1
+	.space	2
+	.byte	7,1
+	.space	1
+	.word	404510452,536870911
+	.byte	1
+	.space	4
+	.byte	2,1
+	.space	2
+	.byte	8,1
+	.space	1
+	.word	136206068,536870911
+	.byte	1
+	.space	4
+	.byte	2,1
+	.space	2
+	.byte	2,1
+	.space	1
+	.word	405231348,536870911
+	.byte	1
+	.space	4
+	.byte	2
+	.space	3
+	.byte	8,1
+	.space	1
+	.word	402781270,536870911
+	.byte	1
+	.space	4
+	.byte	2
+	.space	3
+	.byte	8,1
+	.space	1
+	.word	403174486,536870911
+	.byte	1
+	.space	4
+	.byte	2
+	.space	3
+	.byte	8,1
+	.space	1
+	.word	403240022,536870911
+	.byte	1
+	.space	3
+	.byte	1
+	.space	4
+	.byte	8
+	.space	2
+	.word	1921,2047
+	.byte	1
+	.space	3
+	.byte	1
+	.space	1
+	.byte	1
+	.space	2
+	.byte	8
+	.space	2
+	.word	1929,2047
+	.byte	1
+	.space	3
+	.byte	1
+	.space	4
+	.byte	8
+	.space	2
+	.word	2015,2047
+	.byte	1
+	.space	3
+	.byte	1
+	.space	4
+	.byte	8
+	.space	2
+	.word	187,2047
+	.byte	1
+	.space	3
+	.byte	1
+	.space	1
+	.byte	1
+	.space	2
+	.byte	8
+	.space	2
+	.word	170,2047
+	.byte	1
+	.space	3
+	.byte	1
+	.space	1
+	.byte	1
+	.space	2
+	.byte	8
+	.space	2
+	.word	204,2047
+	.byte	1
+	.space	4
+	.byte	2
+	.space	3
+	.byte	8,1
+	.space	1
+	.word	405206102,536870911
+	.byte	1
+	.space	3
+	.sdecl	'.data.CanDrv_TC1782_User.st_CAN_Rx_By_ID',data,cluster('st_CAN_Rx_By_ID')
+	.sect	'.data.CanDrv_TC1782_User.st_CAN_Rx_By_ID'
+	.global	st_CAN_Rx_By_ID
+	.align	4
+st_CAN_Rx_By_ID:	.type	object
+	.size	st_CAN_Rx_By_ID,1920
+	.byte	1
+	.space	1
+	.word	417333248
+	.byte	1
+	.space	9
+	.byte	1
+	.space	1
+	.word	417398784
+	.byte	1
+	.space	9
+	.byte	1
+	.space	1
+	.word	417464320
+	.byte	1
+	.space	9
+	.byte	1
+	.space	1
+	.word	417529856
+	.byte	1
+	.space	9
+	.byte	1
+	.space	1
+	.word	417595392
+	.byte	1
+	.space	9
+	.byte	1
+	.space	1
+	.word	417660928
+	.byte	1
+	.space	9
+	.byte	1
+	.space	1
+	.word	417726464
+	.byte	1
+	.space	9
+	.byte	1
+	.space	1
+	.word	417792000
+	.byte	1
+	.space	9
+	.byte	1
+	.space	1
+	.word	417857536
+	.byte	1
+	.space	9
+	.byte	1
+	.space	1
+	.word	417923072
+	.byte	1
+	.space	9
+	.byte	1
+	.space	1
+	.word	417333249
+	.byte	1
+	.space	9
+	.byte	1
+	.space	1
+	.word	417398785
+	.byte	1
+	.space	9
+	.byte	1
+	.space	1
+	.word	417464321
+	.byte	1
+	.space	9
+	.byte	1
+	.space	1
+	.word	417529857
+	.byte	1
+	.space	9
+	.byte	1
+	.space	1
+	.word	417595393
+	.byte	1
+	.space	9
+	.byte	1
+	.space	1
+	.word	417660929
+	.byte	1
+	.space	9
+	.byte	1
+	.space	1
+	.word	417726465
+	.byte	1
+	.space	9
+	.byte	1
+	.space	1
+	.word	417792001
+	.byte	1
+	.space	9
+	.byte	1
+	.space	1
+	.word	417857537
+	.byte	1
+	.space	9
+	.byte	1
+	.space	1
+	.word	417923073
+	.byte	1
+	.space	9
+	.byte	1
+	.space	1
+	.word	417333250
+	.byte	1
+	.space	9
+	.byte	1
+	.space	1
+	.word	417398786
+	.byte	1
+	.space	9
+	.byte	1
+	.space	1
+	.word	417464322
+	.byte	1
+	.space	9
+	.byte	1
+	.space	1
+	.word	417529858
+	.byte	1
+	.space	9
+	.byte	1
+	.space	1
+	.word	417595394
+	.byte	1
+	.space	9
+	.byte	1
+	.space	1
+	.word	417660930
+	.byte	1
+	.space	9
+	.byte	1
+	.space	1
+	.word	417726466
+	.byte	1
+	.space	9
+	.byte	1
+	.space	1
+	.word	417792002
+	.byte	1
+	.space	9
+	.byte	1
+	.space	1
+	.word	417857538
+	.byte	1
+	.space	9
+	.byte	1
+	.space	1
+	.word	417923074
+	.byte	1
+	.space	9
+	.byte	1
+	.space	1
+	.word	417333251
+	.byte	1
+	.space	9
+	.byte	1
+	.space	1
+	.word	417398787
+	.byte	1
+	.space	9
+	.byte	1
+	.space	1
+	.word	417464323
+	.byte	1
+	.space	9
+	.byte	1
+	.space	1
+	.word	417529859
+	.byte	1
+	.space	9
+	.byte	1
+	.space	1
+	.word	417595395
+	.byte	1
+	.space	9
+	.byte	1
+	.space	1
+	.word	417660931
+	.byte	1
+	.space	9
+	.byte	1
+	.space	1
+	.word	417726467
+	.byte	1
+	.space	9
+	.byte	1
+	.space	1
+	.word	417792003
+	.byte	1
+	.space	9
+	.byte	1
+	.space	1
+	.word	417857539
+	.byte	1
+	.space	9
+	.byte	1
+	.space	1
+	.word	417923075
+	.byte	1
+	.space	9
+	.byte	1
+	.space	1
+	.word	417333252
+	.byte	1
+	.space	9
+	.byte	1
+	.space	1
+	.word	417398788
+	.byte	1
+	.space	9
+	.byte	1
+	.space	1
+	.word	417464324
+	.byte	1
+	.space	9
+	.byte	1
+	.space	1
+	.word	417529860
+	.byte	1
+	.space	9
+	.byte	1
+	.space	1
+	.word	417595396
+	.byte	1
+	.space	9
+	.byte	1
+	.space	1
+	.word	417660932
+	.byte	1
+	.space	9
+	.byte	1
+	.space	1
+	.word	417726468
+	.byte	1
+	.space	9
+	.byte	1
+	.space	1
+	.word	417792004
+	.byte	1
+	.space	9
+	.byte	1
+	.space	1
+	.word	417857540
+	.byte	1
+	.space	9
+	.byte	1
+	.space	1
+	.word	417923076
+	.byte	1
+	.space	9
+	.byte	1
+	.space	1
+	.word	417333253
+	.byte	1
+	.space	9
+	.byte	1
+	.space	1
+	.word	417398789
+	.byte	1
+	.space	9
+	.byte	1
+	.space	1
+	.word	417464325
+	.byte	1
+	.space	9
+	.byte	1
+	.space	1
+	.word	417529861
+	.byte	1
+	.space	9
+	.byte	1
+	.space	1
+	.word	417595397
+	.byte	1
+	.space	9
+	.byte	1
+	.space	1
+	.word	417660933
+	.byte	1
+	.space	9
+	.byte	1
+	.space	1
+	.word	417726469
+	.byte	1
+	.space	9
+	.byte	1
+	.space	1
+	.word	417792005
+	.byte	1
+	.space	9
+	.byte	1
+	.space	1
+	.word	417857541
+	.byte	1
+	.space	9
+	.byte	1
+	.space	1
+	.word	417923077
+	.byte	1
+	.space	9
+	.byte	1
+	.space	1
+	.word	417333254
+	.byte	1
+	.space	9
+	.byte	1
+	.space	1
+	.word	417398790
+	.byte	1
+	.space	9
+	.byte	1
+	.space	1
+	.word	417464326
+	.byte	1
+	.space	9
+	.byte	1
+	.space	1
+	.word	417529862
+	.byte	1
+	.space	9
+	.byte	1
+	.space	1
+	.word	417595398
+	.byte	1
+	.space	9
+	.byte	1
+	.space	1
+	.word	417660934
+	.byte	1
+	.space	9
+	.byte	1
+	.space	1
+	.word	417726470
+	.byte	1
+	.space	9
+	.byte	1
+	.space	1
+	.word	417792006
+	.byte	1
+	.space	9
+	.byte	1
+	.space	1
+	.word	417857542
+	.byte	1
+	.space	9
+	.byte	1
+	.space	1
+	.word	417923078
+	.byte	1
+	.space	9
+	.byte	1
+	.space	1
+	.word	417333255
+	.byte	1
+	.space	9
+	.byte	1
+	.space	1
+	.word	417398791
+	.byte	1
+	.space	9
+	.byte	1
+	.space	1
+	.word	417464327
+	.byte	1
+	.space	9
+	.byte	1
+	.space	1
+	.word	417529863
+	.byte	1
+	.space	9
+	.byte	1
+	.space	1
+	.word	417595399
+	.byte	1
+	.space	9
+	.byte	1
+	.space	1
+	.word	417660935
+	.byte	1
+	.space	9
+	.byte	1
+	.space	1
+	.word	417726471
+	.byte	1
+	.space	9
+	.byte	1
+	.space	1
+	.word	417792007
+	.byte	1
+	.space	9
+	.byte	1
+	.space	1
+	.word	417857543
+	.byte	1
+	.space	9
+	.byte	1
+	.space	1
+	.word	417923079
+	.byte	1
+	.space	9
+	.byte	1
+	.space	1
+	.word	417333256
+	.byte	1
+	.space	9
+	.byte	1
+	.space	1
+	.word	417398792
+	.byte	1
+	.space	9
+	.byte	1
+	.space	1
+	.word	417464328
+	.byte	1
+	.space	9
+	.byte	1
+	.space	1
+	.word	417529864
+	.byte	1
+	.space	9
+	.byte	1
+	.space	1
+	.word	417595400
+	.byte	1
+	.space	9
+	.byte	1
+	.space	1
+	.word	417660936
+	.byte	1
+	.space	9
+	.byte	1
+	.space	1
+	.word	417726472
+	.byte	1
+	.space	9
+	.byte	1
+	.space	1
+	.word	417792008
+	.byte	1
+	.space	9
+	.byte	1
+	.space	1
+	.word	417857544
+	.byte	1
+	.space	9
+	.byte	1
+	.space	1
+	.word	417923080
+	.byte	1
+	.space	9
+	.byte	1
+	.space	1
+	.word	417333257
+	.byte	1
+	.space	9
+	.byte	1
+	.space	1
+	.word	417398793
+	.byte	1
+	.space	9
+	.byte	1
+	.space	1
+	.word	417464329
+	.byte	1
+	.space	9
+	.byte	1
+	.space	1
+	.word	417529865
+	.byte	1
+	.space	9
+	.byte	1
+	.space	1
+	.word	417595401
+	.byte	1
+	.space	9
+	.byte	1
+	.space	1
+	.word	417660937
+	.byte	1
+	.space	9
+	.byte	1
+	.space	1
+	.word	417726473
+	.byte	1
+	.space	9
+	.byte	1
+	.space	1
+	.word	417792009
+	.byte	1
+	.space	9
+	.byte	1
+	.space	1
+	.word	417857545
+	.byte	1
+	.space	9
+	.byte	1
+	.space	1
+	.word	417923081
+	.byte	1
+	.space	9
+	.byte	1
+	.space	1
+	.word	417333258
+	.byte	1
+	.space	9
+	.byte	1
+	.space	1
+	.word	417398794
+	.byte	1
+	.space	9
+	.byte	1
+	.space	1
+	.word	417464330
+	.byte	1
+	.space	9
+	.byte	1
+	.space	1
+	.word	417529866
+	.byte	1
+	.space	9
+	.byte	1
+	.space	1
+	.word	417595402
+	.byte	1
+	.space	9
+	.byte	1
+	.space	1
+	.word	417660938
+	.byte	1
+	.space	9
+	.byte	1
+	.space	1
+	.word	417726474
+	.byte	1
+	.space	9
+	.byte	1
+	.space	1
+	.word	417792010
+	.byte	1
+	.space	9
+	.byte	1
+	.space	1
+	.word	417857546
+	.byte	1
+	.space	9
+	.byte	1
+	.space	1
+	.word	417923082
+	.byte	1
+	.space	9
+	.byte	1
+	.space	1
+	.word	417333259
+	.byte	1
+	.space	9
+	.byte	1
+	.space	1
+	.word	417398795
+	.byte	1
+	.space	9
+	.byte	1
+	.space	1
+	.word	417464331
+	.byte	1
+	.space	9
+	.byte	1
+	.space	1
+	.word	417529867
+	.byte	1
+	.space	9
+	.byte	1
+	.space	1
+	.word	417595403
+	.byte	1
+	.space	9
+	.byte	1
+	.space	1
+	.word	417660939
+	.byte	1
+	.space	9
+	.byte	1
+	.space	1
+	.word	417726475
+	.byte	1
+	.space	9
+	.byte	1
+	.space	1
+	.word	417792011
+	.byte	1
+	.space	9
+	.byte	1
+	.space	1
+	.word	417857547
+	.byte	1
+	.space	9
+	.byte	1
+	.space	1
+	.word	417923083
+	.byte	1
+	.space	9
+	.sdecl	'.debug_info',debug
+	.sect	'.debug_info'
+.L3:
+	.word	956
+	.half	3
+	.word	.L4
+	.byte	4
+.L2:
+	.byte	1
+	.byte	'..\\Communication_Files\\CanDrv\\CanDrv_TC1782_User.c',0
+	.byte	'TASKING VX-toolset for TriCore: C compiler',0
+	.byte	'D:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_1.9\\BMU_BOOT\\Debug\\',0,12,1
+	.word	.L5
+	.byte	2
+	.byte	'void',0,3
+	.word	168
+	.byte	4
+	.byte	'__prof_adm',0,1,1,1
+	.word	174
+	.byte	5,1,3
+	.word	198
+	.byte	4
+	.byte	'__codeptr',0,1,1,1
+	.word	200
+	.byte	6
+	.byte	'unsigned char',0,1,8,4
+	.byte	'ubyte',0,2,78,24
+	.word	223
+	.byte	6
+	.byte	'unsigned short int',0,2,7,4
+	.byte	'ushort',0,2,80,24
+	.word	254
+	.byte	6
+	.byte	'unsigned int',0,4,7,4
+	.byte	'uword',0,2,82,24
+	.word	291
+	.byte	4
+	.byte	'uint8',0,3,87,29
+	.word	223
+	.byte	4
+	.byte	'uint16',0,3,89,29
+	.word	254
+	.byte	6
+	.byte	'long int',0,4,5,4
+	.byte	'sint32',0,3,90,29
+	.word	350
+	.byte	6
+	.byte	'unsigned long int',0,4,7,4
+	.byte	'uint32',0,3,91,27
+	.word	377
+	.byte	4
+	.byte	'boolean',0,3,102,29
+	.word	223
+	.byte	7,4,36,9,20,8
+	.byte	'b_Enable',0,1
+	.word	223
+	.byte	2,35,0,8
+	.byte	'ui32_CAN_Clock',0,4
+	.word	377
+	.byte	2,35,2,8
+	.byte	'ui32_BaudRate',0,4
+	.word	377
+	.byte	2,35,6,8
+	.byte	'ui8_TSEG1',0,1
+	.word	223
+	.byte	2,35,10,8
+	.byte	'ui8_TSEG2',0,1
+	.word	223
+	.byte	2,35,11,8
+	.byte	'ui8_SJW',0,1
+	.word	223
+	.byte	2,35,12,8
+	.byte	'ui32_BOFF_Dealy',0,4
+	.word	377
+	.byte	2,35,14,0,4
+	.byte	'Struct_CAN_Node',0,4,45,2
+	.word	429
+.L12:
+	.byte	9,60
+	.word	429
+	.byte	10,2,0,7,4,48,9,20,8
+	.byte	'b_Enable',0,1
+	.word	223
+	.byte	2,35,0,8
+	.byte	'ui8_Node',0,1
+	.word	223
+	.byte	2,35,1,8
+	.byte	'b_Dir',0,1
+	.word	223
+	.byte	2,35,2,8
+	.byte	'b_RxIRQ',0,1
+	.word	223
+	.byte	2,35,3,8
+	.byte	'b_TxIRQ',0,1
+	.word	223
+	.byte	2,35,4,8
+	.byte	'ui8_DLC',0,1
+	.word	223
+	.byte	2,35,5,8
+	.byte	'b_IDE',0,1
+	.word	223
+	.byte	2,35,6,8
+	.byte	'ui32_ID',0,4
+	.word	377
+	.byte	2,35,8,8
+	.byte	'ui32_Mask',0,4
+	.word	377
+	.byte	2,35,12,8
+	.byte	'ui8_CallCycle',0,1
+	.word	223
+	.byte	2,35,16,0,4
+	.byte	'Struct_CAN_Object',0,4,60,2
+	.word	613
+	.byte	9,128,20
+	.word	613
+	.byte	10,127,0
+.L13:
+	.byte	11
+	.word	821
+	.byte	7,4,63,9,16,8
+	.byte	'b_Enable',0,1
+	.word	223
+	.byte	2,35,0,8
+	.byte	'ui32_ID',0,4
+	.word	377
+	.byte	2,35,2,8
+	.byte	'b_Empty',0,1
+	.word	223
+	.byte	2,35,6,9,8
+	.word	223
+	.byte	10,7,0,8
+	.byte	'ui8_Data',0,8
+	.word	893
+	.byte	2,35,7,0,4
+	.byte	'Struct_CAN_Rx_By_ID',0,4,69,2
+	.word	836
+.L14:
+	.byte	9,128,15
+	.word	836
+	.byte	10,119,0,0
+	.sdecl	'.debug_abbrev',debug
+	.sect	'.debug_abbrev'
+.L4:
+	.byte	1,17,1,3,8,37,8,27,8,19,15,128,70,12,16,6,0,0,2,59,0,3,8,0,0,3,15,0,73,19,0,0,4,22,0,3,8,58,15,59,15,57
+	.byte	15,73,19,0,0,5,21,0,54,15,0,0,6,36,0,3,8,11,15,62,15,0,0,7,19,1,58,15,59,15,57,15,11,15,0,0,8,13,0,3,8
+	.byte	11,15,73,19,56,9,0,0,9,1,1,11,15,73,19,0,0,10,33,0,47,15,0,0,11,38,0,73,19,0,0,0
+	.sdecl	'.debug_line',debug
+	.sect	'.debug_line'
+.L5:
+	.word	.L16-.L15
+.L15:
+	.half	3
+	.word	.L18-.L17
+.L17:
+	.byte	2,1,-4,9,10,0,1,1,1,1,0,0,0,1
+	.byte	'D:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_1.9\\BMU_BOOT\\Initiate_Files',0
+	.byte	'D:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_1.9\\BMU_BOOT\\Stand_Header',0
+	.byte	'D:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_1.9\\BMU_BOOT\\Communication_Files\\CanDrv',0,0
+	.byte	'..\\Communication_Files\\CanDrv\\CanDrv_TC1782_User.c',0,0,0,0
+	.byte	'MAIN.h',0,1,0,0
+	.byte	'Platform_Types.h',0,2,0,0
+	.byte	'CanDrv_TC1782_User.h',0,3,0,0,0
+.L18:
+.L16:
+	.sdecl	'.debug_info',debug,cluster('st_CAN_Node')
+	.sect	'.debug_info'
+.L6:
+	.word	193
+	.half	3
+	.word	.L7
+	.byte	4,1
+	.byte	'..\\Communication_Files\\CanDrv\\CanDrv_TC1782_User.c',0
+	.byte	'TASKING VX-toolset for TriCore: C compiler',0
+	.byte	'D:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_1.9\\BMU_BOOT\\Debug\\',0,12,1,2
+	.word	.L2
+	.byte	3
+	.byte	'st_CAN_Node',0,1,35,18
+	.word	.L12
+	.byte	1,5,3
+	.word	st_CAN_Node
+	.byte	0
+	.sdecl	'.debug_abbrev',debug,cluster('st_CAN_Node')
+	.sect	'.debug_abbrev'
+.L7:
+	.byte	1,17,1,3,8,37,8,27,8,19,15,128,70,12,0,0,2,61,0,24,16,0,0,3,52,0,3,8,58,15,59,15,57,15,73,16,63,12,2,9
+	.byte	0,0,0
+	.sdecl	'.debug_info',debug,cluster('st_CAN_Object')
+	.sect	'.debug_info'
+.L8:
+	.word	195
+	.half	3
+	.word	.L9
+	.byte	4,1
+	.byte	'..\\Communication_Files\\CanDrv\\CanDrv_TC1782_User.c',0
+	.byte	'TASKING VX-toolset for TriCore: C compiler',0
+	.byte	'D:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_1.9\\BMU_BOOT\\Debug\\',0,12,1,2
+	.word	.L2
+	.byte	3
+	.byte	'st_CAN_Object',0,1,44,25
+	.word	.L13
+	.byte	1,5,3
+	.word	st_CAN_Object
+	.byte	0
+	.sdecl	'.debug_abbrev',debug,cluster('st_CAN_Object')
+	.sect	'.debug_abbrev'
+.L9:
+	.byte	1,17,1,3,8,37,8,27,8,19,15,128,70,12,0,0,2,61,0,24,16,0,0,3,52,0,3,8,58,15,59,15,57,15,73,16,63,12,2,9
+	.byte	0,0,0
+	.sdecl	'.debug_info',debug,cluster('st_CAN_Rx_By_ID')
+	.sect	'.debug_info'
+.L10:
+	.word	198
+	.half	3
+	.word	.L11
+	.byte	4,1
+	.byte	'..\\Communication_Files\\CanDrv\\CanDrv_TC1782_User.c',0
+	.byte	'TASKING VX-toolset for TriCore: C compiler',0
+	.byte	'D:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_1.9\\BMU_BOOT\\Debug\\',0,12,1,2
+	.word	.L2
+	.byte	3
+	.byte	'st_CAN_Rx_By_ID',0,1,222,1,21
+	.word	.L14
+	.byte	1,5,3
+	.word	st_CAN_Rx_By_ID
+	.byte	0
+	.sdecl	'.debug_abbrev',debug,cluster('st_CAN_Rx_By_ID')
+	.sect	'.debug_abbrev'
+.L11:
+	.byte	1,17,1,3,8,37,8,27,8,19,15,128,70,12,0,0,2,61,0,24,16,0,0,3,52,0,3,8,58,15,59,15,57,15,73,16,63,12,2,9
+	.byte	0,0,0
+
+; ..\Communication_Files\CanDrv\CanDrv_TC1782_User.c	     1  /*----------------------------------------------------------------------------------------------------*/
+; ..\Communication_Files\CanDrv\CanDrv_TC1782_User.c	     2  /*
+; ..\Communication_Files\CanDrv\CanDrv_TC1782_User.c	     3  File Name：  	CanDrv_TC1782_User.c
+; ..\Communication_Files\CanDrv\CanDrv_TC1782_User.c	     4  Version：      	V1.00.0005
+; ..\Communication_Files\CanDrv\CanDrv_TC1782_User.c	     5  Comment：  	CAN驱动
+; ..\Communication_Files\CanDrv\CanDrv_TC1782_User.c	     6  			MISRA_2004去除:
+; ..\Communication_Files\CanDrv\CanDrv_TC1782_User.c	     7  			R1.1：     不允许C语言扩展；
+; ..\Communication_Files\CanDrv\CanDrv_TC1782_User.c	     8  			R2.2：     不允许使用”//“；
+; ..\Communication_Files\CanDrv\CanDrv_TC1782_User.c	     9  			R5.1：     不允许使用超过31个字符；
+; ..\Communication_Files\CanDrv\CanDrv_TC1782_User.c	    10  			R7.1：     不能使用8进制数；
+; ..\Communication_Files\CanDrv\CanDrv_TC1782_User.c	    11  			R10.1：	整型数值不应隐式转换；
+; ..\Communication_Files\CanDrv\CanDrv_TC1782_User.c	    12  			R10.3：	强制转换到更窄的类型；
+; ..\Communication_Files\CanDrv\CanDrv_TC1782_User.c	    13  			R10.5：	位运算符强制转换；
+; ..\Communication_Files\CanDrv\CanDrv_TC1782_User.c	    14  			R10.6：   需要定义数值后加”U“；
+; ..\Communication_Files\CanDrv\CanDrv_TC1782_User.c	    15  			R12.2：	表达值不同；
+; ..\Communication_Files\CanDrv\CanDrv_TC1782_User.c	    16  			R12.7：	不能使用无符号型；
+; ..\Communication_Files\CanDrv\CanDrv_TC1782_User.c	    17  			R14.3：	在预处理之前，空语句只能出现在一行上；
+; ..\Communication_Files\CanDrv\CanDrv_TC1782_User.c	    18  			R14.8：   应该是复合语句
+; ..\Communication_Files\CanDrv\CanDrv_TC1782_User.c	    19  			R17.4：	数组的索引；
+; ..\Communication_Files\CanDrv\CanDrv_TC1782_User.c	    20  			R19.4：   宏定义相关；
+; ..\Communication_Files\CanDrv\CanDrv_TC1782_User.c	    21  			R19.10： 宏定义相关；
+; ..\Communication_Files\CanDrv\CanDrv_TC1782_User.c	    22  			R20.1：   需保留关键字（头文件防止重复调用问题）；
+; ..\Communication_Files\CanDrv\CanDrv_TC1782_User.c	    23  History：
+; ..\Communication_Files\CanDrv\CanDrv_TC1782_User.c	    24  			V1.00.0000		20140509	初始版本
+; ..\Communication_Files\CanDrv\CanDrv_TC1782_User.c	    25  			v1.00.0001		20140618	增加BusOff快速，慢速恢复功能
+; ..\Communication_Files\CanDrv\CanDrv_TC1782_User.c	    26  			V1.00.0002		20140621	修改接口函数注释
+; ..\Communication_Files\CanDrv\CanDrv_TC1782_User.c	    27  			V1.00.0003		20140624	调整BusOff恢复时间
+; ..\Communication_Files\CanDrv\CanDrv_TC1782_User.c	    28  			V1.00.0004		20140713	增加CAN接收发送中断配置，增加通过ID号读取数据函数
+; ..\Communication_Files\CanDrv\CanDrv_TC1782_User.c	    29  			V1.00.0005		20150427	修改CAN TSEG1,	TSEG2,	SJW参数配置
+; ..\Communication_Files\CanDrv\CanDrv_TC1782_User.c	    30  */
+; ..\Communication_Files\CanDrv\CanDrv_TC1782_User.c	    31  
+; ..\Communication_Files\CanDrv\CanDrv_TC1782_User.c	    32  #include "MAIN.h"
+; ..\Communication_Files\CanDrv\CanDrv_TC1782_User.c	    33  
+; ..\Communication_Files\CanDrv\CanDrv_TC1782_User.c	    34  //用户配置Node信息
+; ..\Communication_Files\CanDrv\CanDrv_TC1782_User.c	    35  Struct_CAN_Node		st_CAN_Node[MAX_NODE_NUM] =
+; ..\Communication_Files\CanDrv\CanDrv_TC1782_User.c	    36  {
+; ..\Communication_Files\CanDrv\CanDrv_TC1782_User.c	    37  		//En,   Clock,    	BaudRate,	TSEG1,	TSEG2,	SJW,	BOFFDelay
+; ..\Communication_Files\CanDrv\CanDrv_TC1782_User.c	    38  		{TRUE, 	40000000,	500000U,	7U,		2U,		2U,		BUS_OFF_DEALY_FAST},		//CAN Node0   EV
+; ..\Communication_Files\CanDrv\CanDrv_TC1782_User.c	    39  		{FALSE,	40000000,	500000U,	7U,		2U,		2U,		BUS_OFF_DEALY_FAST},		//CAN Node1	  INBUS
+; ..\Communication_Files\CanDrv\CanDrv_TC1782_User.c	    40  		{FALSE,	40000000,	250000U,	7U,		2U,		2U,		BUS_OFF_DEALY_FAST},		//CAN Node2   FCBUS
+; ..\Communication_Files\CanDrv\CanDrv_TC1782_User.c	    41  };
+; ..\Communication_Files\CanDrv\CanDrv_TC1782_User.c	    42  
+; ..\Communication_Files\CanDrv\CanDrv_TC1782_User.c	    43  //用户配置MO信息
+; ..\Communication_Files\CanDrv\CanDrv_TC1782_User.c	    44  const Struct_CAN_Object	st_CAN_Object[MAX_OBJECT_NUM] =
+; ..\Communication_Files\CanDrv\CanDrv_TC1782_User.c	    45  {		//En,		Nodex,	DIR, 		RxIRQ,	TxIRQ,	DLC,	IDE,		CAN ID,		Mask,	CallCycle		MO_n
+; ..\Communication_Files\CanDrv\CanDrv_TC1782_User.c	    46  		{FALSE, 		0U, 	CAN_RX_DIR, FALSE,	FALSE,	8U,		CAN_STD_ID,	0x6E0U,		0x7FF,	1U},		//Object 0	XCP命令接收
+; ..\Communication_Files\CanDrv\CanDrv_TC1782_User.c	    47  		{FALSE, 		0U, 	CAN_TX_DIR, FALSE,	TRUE,	8U,		CAN_STD_ID,	0x6F0U,	    0x7FF,	1U},		//Object 1	XCP命令发送
+; ..\Communication_Files\CanDrv\CanDrv_TC1782_User.c	    48  		{FALSE, 	0U, 	CAN_RX_DIR, TRUE,	FALSE,	8U,		CAN_STD_ID,	0x700U,  	0x7FF,	1U},		//Object 2	XCP DAQ0上传
+; ..\Communication_Files\CanDrv\CanDrv_TC1782_User.c	    49  		{FALSE, 	0U, 	CAN_TX_DIR, TRUE,	TRUE,	8U,		CAN_STD_ID,	0x6F2U,	    0x7FF,	1U},		//Object 3	XCP DAQ1上传
+; ..\Communication_Files\CanDrv\CanDrv_TC1782_User.c	    50  
+; ..\Communication_Files\CanDrv\CanDrv_TC1782_User.c	    51  		{FALSE, 		1U, 	CAN_RX_DIR, FALSE,	FALSE,	8U,		CAN_EXT_ID,	0x1DFFFFFFU,	0x1FFFFFFF,	1U},		//Object 4	UDS接收
+; ..\Communication_Files\CanDrv\CanDrv_TC1782_User.c	    52  		{FALSE, 		1U, 	CAN_RX_DIR, FALSE,	FALSE,	8U,		CAN_EXT_ID,	0x1EFF000AU,	0x1FFFFFFF,	1U},		//Object 5	UDS接收
+; ..\Communication_Files\CanDrv\CanDrv_TC1782_User.c	    53  		{FALSE, 		1U, 	CAN_TX_DIR, FALSE,	FALSE,	8U,		CAN_EXT_ID,	0x1EFE000AU,	0x1FFFFFFF,	1U},		//Object 6	UDS发送
+; ..\Communication_Files\CanDrv\CanDrv_TC1782_User.c	    54  //wxc20180608
+; ..\Communication_Files\CanDrv\CanDrv_TC1782_User.c	    55  //		{TRUE, 		0U, 	CAN_RX_DIR, FALSE,	FALSE,	8U,		CAN_STD_ID,	0x7E1U,	0x7FF,	1U},		//Object 7
+; ..\Communication_Files\CanDrv\CanDrv_TC1782_User.c	    56  //		{TRUE, 		0U, 	CAN_TX_DIR, FALSE,	FALSE,	8U,		CAN_STD_ID,	0x7E9U,	0x7FF,	1U},		//Object 8
+; ..\Communication_Files\CanDrv\CanDrv_TC1782_User.c	    57  		{FALSE, 	0U, 	CAN_RX_DIR, FALSE,	FALSE,	8U,		CAN_STD_ID,	0x713U,	0x7FF,	1U},		//Object 7
+; ..\Communication_Files\CanDrv\CanDrv_TC1782_User.c	    58  		{FALSE, 	0U, 	CAN_TX_DIR, FALSE,	FALSE,	8U,		CAN_STD_ID,	0x71BU,	0x7FF,	1U},		//Object 8
+; ..\Communication_Files\CanDrv\CanDrv_TC1782_User.c	    59  		{FALSE,  	0U, 	CAN_RX_DIR, FALSE,	FALSE,	8U,		CAN_STD_ID,	0x7DFU,	0x7FF,	1U},		//Object 9	发送 DIO输入相关内容
+; ..\Communication_Files\CanDrv\CanDrv_TC1782_User.c	    60  //================================================================================================================================================
+; ..\Communication_Files\CanDrv\CanDrv_TC1782_User.c	    61  		//----------------------------------EVBUS RX-------------------------------------------------------------------------
+; ..\Communication_Files\CanDrv\CanDrv_TC1782_User.c	    62  		{FALSE, 	0U, 	CAN_RX_DIR, TRUE,	FALSE,	8U,		CAN_STD_ID,	0x10EU,	0x7FF,	1U},		//Object 10
+; ..\Communication_Files\CanDrv\CanDrv_TC1782_User.c	    63  		{FALSE, 	0U, 	CAN_RX_DIR, FALSE,	FALSE,	8U,		CAN_STD_ID,	0x281U,	0x7FF,	1U},		//Object 11
+; ..\Communication_Files\CanDrv\CanDrv_TC1782_User.c	    64  		{FALSE, 	0U, 	CAN_RX_DIR, FALSE,	FALSE,	8U,		CAN_STD_ID,	0x388U,	0x7FF,	1U},		//Object 12
+; ..\Communication_Files\CanDrv\CanDrv_TC1782_User.c	    65  		{FALSE, 	0U, 	CAN_RX_DIR, FALSE,	FALSE,	8U,		CAN_STD_ID,	0x2BBU,	0x7FF,	1U},		//Object 13
+; ..\Communication_Files\CanDrv\CanDrv_TC1782_User.c	    66  		{FALSE, 	0U, 	CAN_RX_DIR, FALSE,	FALSE,	8U,		CAN_STD_ID,	0x2BCU,	0x7FF,	1U},		//Object 14
+; ..\Communication_Files\CanDrv\CanDrv_TC1782_User.c	    67  		{FALSE, 	0U, 	CAN_RX_DIR, FALSE,	FALSE,	8U,		CAN_STD_ID,	0x2CAU,	0x7FF,	1U},		//Object 15
+; ..\Communication_Files\CanDrv\CanDrv_TC1782_User.c	    68  		{FALSE, 	0U, 	CAN_RX_DIR, FALSE,	FALSE,	8U,		CAN_STD_ID,	0x434U,	0x7FF,	1U},		//Object 16
+; ..\Communication_Files\CanDrv\CanDrv_TC1782_User.c	    69  		{FALSE, 	0U, 	CAN_RX_DIR, FALSE,	FALSE,	8U,		CAN_STD_ID,	0x88U,	0x7FF,	1U},		//Object 17
+; ..\Communication_Files\CanDrv\CanDrv_TC1782_User.c	    70  		{FALSE, 	0U, 	CAN_RX_DIR, FALSE,	FALSE,	8U,		CAN_STD_ID,	0x90U,	0x7FF,	1U},		//Object 18
+; ..\Communication_Files\CanDrv\CanDrv_TC1782_User.c	    71  
+; ..\Communication_Files\CanDrv\CanDrv_TC1782_User.c	    72  		//----------------------------------useless-------------------------------------------------------------------------
+; ..\Communication_Files\CanDrv\CanDrv_TC1782_User.c	    73  
+; ..\Communication_Files\CanDrv\CanDrv_TC1782_User.c	    74  //		{FALSE, 	0U, 	CAN_RX_DIR, FALSE,	FALSE,	8U,		CAN_STD_ID,	0x412U,	0x7FF,	1U},		//Object 19 +623
+; ..\Communication_Files\CanDrv\CanDrv_TC1782_User.c	    75  //		{FALSE, 	0U, 	CAN_RX_DIR, FALSE,	FALSE,	8U,		CAN_STD_ID,	0x624U,	0x7FF,	1U},		//Object 20
+; ..\Communication_Files\CanDrv\CanDrv_TC1782_User.c	    76  		{FALSE, 	0U, 	CAN_RX_DIR, FALSE,	FALSE,	8U,		CAN_STD_ID,	0x2F0U,	0x7FF,	1U},		//Object 19 +623
+; ..\Communication_Files\CanDrv\CanDrv_TC1782_User.c	    77  		{FALSE, 	0U, 	CAN_RX_DIR, FALSE,	FALSE,	8U,		CAN_STD_ID,	0x93U,	0x7FF,	1U},		//Object 20
+; ..\Communication_Files\CanDrv\CanDrv_TC1782_User.c	    78  		{FALSE,  0U, 	CAN_RX_DIR, FALSE,	FALSE,	8U,		CAN_STD_ID,	0x6A0U,	0x7FF,	1U},		//Object 21
+; ..\Communication_Files\CanDrv\CanDrv_TC1782_User.c	    79  
+; ..\Communication_Files\CanDrv\CanDrv_TC1782_User.c	    80  		///VIN
+; ..\Communication_Files\CanDrv\CanDrv_TC1782_User.c	    81  		/*
+; ..\Communication_Files\CanDrv\CanDrv_TC1782_User.c	    82  		{TRUE, 	0U, 	CAN_RX_DIR, FALSE,	FALSE,	8U,		CAN_STD_ID,	0x410U,	0x7FF,	1U},		//Object 19
+; ..\Communication_Files\CanDrv\CanDrv_TC1782_User.c	    83  		{TRUE, 	0U, 	CAN_RX_DIR, FALSE,	FALSE,	8U,		CAN_STD_ID,	0x411U,	0x7FF,	1U},		//Object 20
+; ..\Communication_Files\CanDrv\CanDrv_TC1782_User.c	    84  		{TRUE, 	0U, 	CAN_RX_DIR, FALSE,	FALSE,	8U,		CAN_STD_ID,	0x412U,	0x7FF,	1U},		//Object 21
+; ..\Communication_Files\CanDrv\CanDrv_TC1782_User.c	    85  		 */
+; ..\Communication_Files\CanDrv\CanDrv_TC1782_User.c	    86  
+; ..\Communication_Files\CanDrv\CanDrv_TC1782_User.c	    87  		{FALSE,  0U, 	CAN_RX_DIR, FALSE,	FALSE,	8U,		CAN_STD_ID,	0x6AFU,	0x7FF,	1U},		//Object 22
+; ..\Communication_Files\CanDrv\CanDrv_TC1782_User.c	    88  
+; ..\Communication_Files\CanDrv\CanDrv_TC1782_User.c	    89  		//----------------------------------EVBUS TX------------------------------------------------------------------------
+; ..\Communication_Files\CanDrv\CanDrv_TC1782_User.c	    90  
+; ..\Communication_Files\CanDrv\CanDrv_TC1782_User.c	    91  		{FALSE,  0U, 	CAN_TX_DIR, FALSE,	FALSE,	8U,		CAN_STD_ID,	0x2B0U,	0x7FF,	1U},		//Object 23
+; ..\Communication_Files\CanDrv\CanDrv_TC1782_User.c	    92  		{FALSE,  0U, 	CAN_TX_DIR, FALSE,	FALSE,	8U,		CAN_STD_ID,	0x7B1U,	0x7FF,	1U},		//Object 24
+; ..\Communication_Files\CanDrv\CanDrv_TC1782_User.c	    93  		{FALSE,  0U, 	CAN_TX_DIR, FALSE,	FALSE,	8U,		CAN_STD_ID,	0x2B2U,	0x7FF,	1U},		//Object 25
+; ..\Communication_Files\CanDrv\CanDrv_TC1782_User.c	    94  		{FALSE,  0U, 	CAN_TX_DIR, FALSE,	FALSE,	8U,		CAN_STD_ID,	0x2B3U,	0x7FF,	1U},		//Object 26
+; ..\Communication_Files\CanDrv\CanDrv_TC1782_User.c	    95  		{FALSE,  0U, 	CAN_TX_DIR, FALSE,	FALSE,	8U,		CAN_STD_ID,	0x2B4U,	0x7FF,	1U},		//Object 27
+; ..\Communication_Files\CanDrv\CanDrv_TC1782_User.c	    96  		{FALSE,  0U, 	CAN_TX_DIR, FALSE,	FALSE,	8U,		CAN_STD_ID,	0x2B5U,	0x7FF,	1U},		//Object 28
+; ..\Communication_Files\CanDrv\CanDrv_TC1782_User.c	    97  		{FALSE,  0U, 	CAN_TX_DIR, FALSE,	FALSE,	8U,		CAN_STD_ID,	0x2B6U,	0x7FF,	1U},		//Object 29
+; ..\Communication_Files\CanDrv\CanDrv_TC1782_User.c	    98  		{FALSE,  0U, 	CAN_TX_DIR, FALSE,	FALSE,	8U,		CAN_STD_ID,	0x2B7U,	0x7FF,	1U},		//Object 30
+; ..\Communication_Files\CanDrv\CanDrv_TC1782_User.c	    99  		{FALSE,  0U, 	CAN_TX_DIR, FALSE,	FALSE,	8U,		CAN_STD_ID,	0x2B8U,	0x7FF,	1U},		//Object 31
+; ..\Communication_Files\CanDrv\CanDrv_TC1782_User.c	   100  		{FALSE,  0U, 	CAN_TX_DIR, FALSE,	FALSE,	8U,		CAN_STD_ID,	0x2B9U,	0x7FF,	1U},		//Object 32
+; ..\Communication_Files\CanDrv\CanDrv_TC1782_User.c	   101  		{FALSE,  0U, 	CAN_TX_DIR, FALSE,	FALSE,	8U,		CAN_STD_ID,	0x2C4U,	0x7FF,	1U},		//Object 33
+; ..\Communication_Files\CanDrv\CanDrv_TC1782_User.c	   102  		{FALSE,  0U, 	CAN_TX_DIR, FALSE,	FALSE,	8U,		CAN_STD_ID,	0x2C2U,	0x7FF,	1U},		//Object 34
+; ..\Communication_Files\CanDrv\CanDrv_TC1782_User.c	   103  		{FALSE,  0U, 	CAN_TX_DIR, FALSE,	FALSE,	8U,		CAN_STD_ID,	0x2C3U,	0x7FF,	1U},		//Object 35
+; ..\Communication_Files\CanDrv\CanDrv_TC1782_User.c	   104  		{FALSE,  0U, 	CAN_TX_DIR, FALSE,	FALSE,	8U,		CAN_STD_ID,	0x304U,	0x7FF,	1U},		//Object 36
+; ..\Communication_Files\CanDrv\CanDrv_TC1782_User.c	   105  		{FALSE,  0U, 	CAN_TX_DIR, FALSE,	FALSE,	8U,		CAN_STD_ID,	0x416U,	0x7FF,	1U},		//Object 37
+; ..\Communication_Files\CanDrv\CanDrv_TC1782_User.c	   106  		{FALSE,  0U, 	CAN_TX_DIR, FALSE,	FALSE,	8U,		CAN_STD_ID,	0x417U,	0x7FF,	1U},		//Object 38
+; ..\Communication_Files\CanDrv\CanDrv_TC1782_User.c	   107  		{FALSE,  0U, 	CAN_TX_DIR, FALSE,	FALSE,	8U,		CAN_STD_ID,	0x418U,	0x7FF,	1U},		//Object 39
+; ..\Communication_Files\CanDrv\CanDrv_TC1782_User.c	   108  		{FALSE,  0U, 	CAN_TX_DIR, FALSE,	FALSE,	8U,		CAN_STD_ID,	0x419U,	0x7FF,	1U},		//Object 40
+; ..\Communication_Files\CanDrv\CanDrv_TC1782_User.c	   109  		{FALSE,  0U, 	CAN_TX_DIR, FALSE,	FALSE,	8U,		CAN_STD_ID,	0x420U,	0x7FF,	1U},		//Object 41
+; ..\Communication_Files\CanDrv\CanDrv_TC1782_User.c	   110  		{FALSE,  0U, 	CAN_TX_DIR, FALSE,	FALSE,	8U,		CAN_STD_ID,	0x421U,	0x7FF,	1U},		//Object 42
+; ..\Communication_Files\CanDrv\CanDrv_TC1782_User.c	   111  		{FALSE,  0U, 	CAN_TX_DIR, FALSE,	FALSE,	8U,		CAN_STD_ID,	0x422U,	0x7FF,	1U},		//Object 43
+; ..\Communication_Files\CanDrv\CanDrv_TC1782_User.c	   112  		{FALSE,  0U, 	CAN_TX_DIR, FALSE,	FALSE,	8U,		CAN_STD_ID,	0x423U,	0x7FF,	1U},		//Object 44
+; ..\Communication_Files\CanDrv\CanDrv_TC1782_User.c	   113  		{FALSE,  0U, 	CAN_TX_DIR, FALSE,	FALSE,	8U,		CAN_STD_ID,	0x424U,	0x7FF,	1U},		//Object 45
+; ..\Communication_Files\CanDrv\CanDrv_TC1782_User.c	   114  		{FALSE,  0U, 	CAN_TX_DIR, FALSE,	FALSE,	8U,		CAN_STD_ID,	0x425U,	0x7FF,	1U},		//Object 46
+; ..\Communication_Files\CanDrv\CanDrv_TC1782_User.c	   115  		{FALSE,  0U, 	CAN_TX_DIR, FALSE,	FALSE,	8U,		CAN_STD_ID,	0x426U,	0x7FF,	1U},		//Object 47
+; ..\Communication_Files\CanDrv\CanDrv_TC1782_User.c	   116  		{FALSE,  0U, 	CAN_TX_DIR, FALSE,	FALSE,	8U,		CAN_STD_ID,	0x427U,	0x7FF,	1U},		//Object 48
+; ..\Communication_Files\CanDrv\CanDrv_TC1782_User.c	   117  		{FALSE,  0U, 	CAN_TX_DIR, FALSE,	FALSE,	8U,		CAN_STD_ID,	0x428U,	0x7FF,	1U},		//Object 49
+; ..\Communication_Files\CanDrv\CanDrv_TC1782_User.c	   118  		{FALSE,  0U, 	CAN_TX_DIR, FALSE,	FALSE,	8U,		CAN_STD_ID,	0x429U,	0x7FF,	1U},		//Object 50
+; ..\Communication_Files\CanDrv\CanDrv_TC1782_User.c	   119  		{FALSE,  0U, 	CAN_TX_DIR, FALSE,	FALSE,	8U,		CAN_STD_ID,	0x430U,	0x7FF,	1U},		//Object 51
+; ..\Communication_Files\CanDrv\CanDrv_TC1782_User.c	   120  		{FALSE,  0U, 	CAN_TX_DIR, FALSE,	FALSE,	8U,		CAN_STD_ID,	0x431U,	0x7FF,	1U},		//Object 52
+; ..\Communication_Files\CanDrv\CanDrv_TC1782_User.c	   121  		{FALSE,  0U, 	CAN_TX_DIR, FALSE,	FALSE,	8U,		CAN_STD_ID,	0x432U,	0x7FF,	1U},		//Object 53
+; ..\Communication_Files\CanDrv\CanDrv_TC1782_User.c	   122  		{FALSE,  0U, 	CAN_TX_DIR, FALSE,	FALSE,	8U,		CAN_STD_ID,	0x433U,	0x7FF,	1U},		//Object 54
+; ..\Communication_Files\CanDrv\CanDrv_TC1782_User.c	   123  		{FALSE,  0U, 	CAN_TX_DIR, FALSE,	FALSE,	8U,		CAN_STD_ID,	0x413U,	0x7FF,	1U},		//Object 55
+; ..\Communication_Files\CanDrv\CanDrv_TC1782_User.c	   124  		{FALSE,  0U, 	CAN_TX_DIR, FALSE,	FALSE,	8U,		CAN_STD_ID,	0x415U,	0x7FF,	1U},		//Object 56
+; ..\Communication_Files\CanDrv\CanDrv_TC1782_User.c	   125  		{FALSE,  0U, 	CAN_TX_DIR, FALSE,	FALSE,	8U,		CAN_STD_ID,	0x82U,	0x7FF,	1U},		//Object 57
+; ..\Communication_Files\CanDrv\CanDrv_TC1782_User.c	   126  
+; ..\Communication_Files\CanDrv\CanDrv_TC1782_User.c	   127  		//----------------------------------useless-------------------------------------------------------------------------
+; ..\Communication_Files\CanDrv\CanDrv_TC1782_User.c	   128  
+; ..\Communication_Files\CanDrv\CanDrv_TC1782_User.c	   129  		{FALSE,  0U, 	CAN_TX_DIR, FALSE,	FALSE,	8U,		CAN_STD_ID,	0x5A2U,	0x7FF,	1U},		//Object 58
+; ..\Communication_Files\CanDrv\CanDrv_TC1782_User.c	   130  		{FALSE,  0U, 	CAN_TX_DIR, FALSE,	FALSE,	8U,		CAN_STD_ID,	0x5A3U,	0x7FF,	1U},		//Object 59
+; ..\Communication_Files\CanDrv\CanDrv_TC1782_User.c	   131  		{FALSE,  0U, 	CAN_TX_DIR, FALSE,	FALSE,	8U,		CAN_STD_ID,	0x5A4U,	0x7FF,	1U},		//Object 60
+; ..\Communication_Files\CanDrv\CanDrv_TC1782_User.c	   132  
+; ..\Communication_Files\CanDrv\CanDrv_TC1782_User.c	   133  		{FALSE,  0U, 	CAN_TX_DIR, FALSE,	FALSE,	8U,		CAN_STD_ID,	0x5A5U,	0x7FF,	1U},		//Object 61
+; ..\Communication_Files\CanDrv\CanDrv_TC1782_User.c	   134  		{FALSE,  0U, 	CAN_TX_DIR, FALSE,	FALSE,	8U,		CAN_STD_ID,	0x592U,	0x7FF,	1U},		//Object 62
+; ..\Communication_Files\CanDrv\CanDrv_TC1782_User.c	   135  		{FALSE,  0U, 	CAN_TX_DIR, FALSE,	FALSE,	8U,		CAN_STD_ID,	0x593U,	0x7FF,	1U},		//Object 63
+; ..\Communication_Files\CanDrv\CanDrv_TC1782_User.c	   136  
+; ..\Communication_Files\CanDrv\CanDrv_TC1782_User.c	   137  		{FALSE,  0U, 	CAN_TX_DIR, FALSE,	FALSE,	8U,		CAN_STD_ID,	0x58DU,	0x7FF,	1U},		//Object 64
+; ..\Communication_Files\CanDrv\CanDrv_TC1782_User.c	   138  		{FALSE,  0U, 	CAN_TX_DIR, FALSE,	FALSE,	8U,		CAN_STD_ID,	0x58EU,	0x7FF,	1U},		//Object 65
+; ..\Communication_Files\CanDrv\CanDrv_TC1782_User.c	   139  
+; ..\Communication_Files\CanDrv\CanDrv_TC1782_User.c	   140  		{FALSE,  0U, 	CAN_TX_DIR, FALSE,	FALSE,	8U,		CAN_STD_ID,	0x58FU,	0x7FF,	1U},		//Object 66
+; ..\Communication_Files\CanDrv\CanDrv_TC1782_User.c	   141  		{FALSE,  0U, 	CAN_TX_DIR, FALSE,	FALSE,	8U,		CAN_STD_ID,	0x590U,	0x7FF,	1U},		//Object 67
+; ..\Communication_Files\CanDrv\CanDrv_TC1782_User.c	   142  		{FALSE,  0U, 	CAN_TX_DIR, FALSE,	FALSE,	8U,		CAN_STD_ID,	0x591U,	0x7FF,	1U},		//Object 68
+; ..\Communication_Files\CanDrv\CanDrv_TC1782_User.c	   143  
+; ..\Communication_Files\CanDrv\CanDrv_TC1782_User.c	   144  		{FALSE,  0U, 	CAN_TX_DIR, FALSE,	FALSE,	8U,		CAN_STD_ID,	0x234U,	0x7FF,	1U},		//Object 69
+; ..\Communication_Files\CanDrv\CanDrv_TC1782_User.c	   145  		{FALSE,  0U, 	CAN_TX_DIR, FALSE,	FALSE,	8U,		CAN_STD_ID,	0x534U,	0x7FF,	1U},		//Object 70
+; ..\Communication_Files\CanDrv\CanDrv_TC1782_User.c	   146  		{FALSE,  0U, 	CAN_TX_DIR, FALSE,	FALSE,	8U,		CAN_STD_ID,	0x312U,	0x7FF,	1U},		//Object 71
+; ..\Communication_Files\CanDrv\CanDrv_TC1782_User.c	   147  		{FALSE,  0U, 	CAN_TX_DIR, FALSE,	FALSE,	8U,		CAN_STD_ID,	0x450U,	0x7FF,	1U},		//Object 72
+; ..\Communication_Files\CanDrv\CanDrv_TC1782_User.c	   148  		{FALSE,  0U, 	CAN_TX_DIR, FALSE,	FALSE,	8U,		CAN_STD_ID,	0x451U,	0x7FF,	1U},		//Object 73
+; ..\Communication_Files\CanDrv\CanDrv_TC1782_User.c	   149  
+; ..\Communication_Files\CanDrv\CanDrv_TC1782_User.c	   150  
+; ..\Communication_Files\CanDrv\CanDrv_TC1782_User.c	   151  		{FALSE,  0U, 	CAN_TX_DIR, FALSE,	FALSE,	8U,		CAN_STD_ID,	0x7DFU,	0x7FF,	1U},		//Object 74	发送 DIO输入相关内容
+; ..\Communication_Files\CanDrv\CanDrv_TC1782_User.c	   152  
+; ..\Communication_Files\CanDrv\CanDrv_TC1782_User.c	   153  		//----------------------------------useless-------------------------------------------------------------------------
+; ..\Communication_Files\CanDrv\CanDrv_TC1782_User.c	   154  
+; ..\Communication_Files\CanDrv\CanDrv_TC1782_User.c	   155  		{FALSE, 0U, 	CAN_TX_DIR, FALSE,	FALSE,	8U,		CAN_STD_ID,	0x7FFU,	0x7FF,	1U},		//Object 75
+; ..\Communication_Files\CanDrv\CanDrv_TC1782_User.c	   156  		{FALSE, 0U, 	CAN_TX_DIR, FALSE,	FALSE,	8U,		CAN_STD_ID,	0x7FFU,	0x7FF,	1U},		//Object 76
+; ..\Communication_Files\CanDrv\CanDrv_TC1782_User.c	   157  		{FALSE, 0U, 	CAN_TX_DIR, FALSE,	FALSE,	8U,		CAN_STD_ID,	0x7FFU,	0x7FF,	1U},		//Object 77
+; ..\Communication_Files\CanDrv\CanDrv_TC1782_User.c	   158  		{FALSE, 0U, 	CAN_TX_DIR, FALSE,	FALSE,	8U,		CAN_STD_ID,	0x7FFU,	0x7FF,	1U},		//Object 78
+; ..\Communication_Files\CanDrv\CanDrv_TC1782_User.c	   159  		{FALSE, 0U, 	CAN_TX_DIR, FALSE,	FALSE,	8U,		CAN_STD_ID,	0x7FFU,	0x7FF,	1U},		//Object 79
+; ..\Communication_Files\CanDrv\CanDrv_TC1782_User.c	   160  
+; ..\Communication_Files\CanDrv\CanDrv_TC1782_User.c	   161  		//------------------------------------INBUS ----------------------------------------------------------------------------------------------------
+; ..\Communication_Files\CanDrv\CanDrv_TC1782_User.c	   162  
+; ..\Communication_Files\CanDrv\CanDrv_TC1782_User.c	   163  		{FALSE, 	1U, 	CAN_RX_DIR, TRUE,	FALSE,	8U,		CAN_EXT_ID,	0x18E00000U,	0x1FF0FFFF,	1U},		//Object 80
+; ..\Communication_Files\CanDrv\CanDrv_TC1782_User.c	   164  		{FALSE, 	1U, 	CAN_RX_DIR, TRUE,	FALSE,	8U,		CAN_EXT_ID,	0x18E00001U,	0x1FF0FFFF,	1U},		//Object 81
+; ..\Communication_Files\CanDrv\CanDrv_TC1782_User.c	   165  		{FALSE, 	1U, 	CAN_RX_DIR, TRUE,	FALSE,	8U,		CAN_EXT_ID,	0x18E00002U,	0x1FF0FFFF,	1U},		//Object 82
+; ..\Communication_Files\CanDrv\CanDrv_TC1782_User.c	   166  		{FALSE, 	1U, 	CAN_RX_DIR, TRUE,	FALSE,	8U,		CAN_EXT_ID,	0x18E00003U,	0x1FF0FFFF,	1U},		//Object 83
+; ..\Communication_Files\CanDrv\CanDrv_TC1782_User.c	   167  		{FALSE, 	1U, 	CAN_RX_DIR, TRUE,	FALSE,	8U,		CAN_EXT_ID,	0x18E00004U,	0x1FF0FFFF,	1U},		//Object 84
+; ..\Communication_Files\CanDrv\CanDrv_TC1782_User.c	   168  		{FALSE, 	1U, 	CAN_RX_DIR, TRUE,	FALSE,	8U,		CAN_EXT_ID,	0x18E00005U,	0x1FF0FFFF,	1U},		//Object 85
+; ..\Communication_Files\CanDrv\CanDrv_TC1782_User.c	   169  		{FALSE, 	1U, 	CAN_RX_DIR, TRUE,	FALSE,	8U,		CAN_EXT_ID,	0x18E00006U,	0x1FF0FFFF,	1U},		//Object 86
+; ..\Communication_Files\CanDrv\CanDrv_TC1782_User.c	   170  		{FALSE, 	1U, 	CAN_RX_DIR, TRUE,	FALSE,	8U,		CAN_EXT_ID,	0x18E00007U,	0x1FF0FFFF,	1U},		//Object 87
+; ..\Communication_Files\CanDrv\CanDrv_TC1782_User.c	   171  		{FALSE, 	1U, 	CAN_RX_DIR, TRUE,	FALSE,	8U,		CAN_EXT_ID,	0x18E00008U,	0x1FF0FFFF,	1U},		//Object 88
+; ..\Communication_Files\CanDrv\CanDrv_TC1782_User.c	   172  		{FALSE, 	1U, 	CAN_RX_DIR, TRUE,	FALSE,	8U,		CAN_EXT_ID,	0x18E00009U,	0x1FF0FFFF,	1U},		//Object 89
+; ..\Communication_Files\CanDrv\CanDrv_TC1782_User.c	   173  		{FALSE, 	1U, 	CAN_RX_DIR, TRUE,	FALSE,	8U,		CAN_EXT_ID,	0x18E0000AU,	0x1FF0FFFF,	1U},		//Object 90
+; ..\Communication_Files\CanDrv\CanDrv_TC1782_User.c	   174  		{FALSE, 	1U, 	CAN_RX_DIR, TRUE,	FALSE,	8U,		CAN_EXT_ID,	0x18E0000BU,	0x1FF0FFFF,	1U},		//Object 91
+; ..\Communication_Files\CanDrv\CanDrv_TC1782_User.c	   175  		{FALSE, 	1U, 	CAN_RX_DIR, TRUE,	FALSE,	8U,		CAN_EXT_ID,	0x18E0000CU,	0x1FF8FFFF,	1U},		//Object 92
+; ..\Communication_Files\CanDrv\CanDrv_TC1782_User.c	   176  		{FALSE, 	1U, 	CAN_RX_DIR, TRUE,	FALSE,	8U,		CAN_EXT_ID,	0x18E0000DU,	0x1FF8FFFF,	1U},		//Object 93
+; ..\Communication_Files\CanDrv\CanDrv_TC1782_User.c	   177  		{FALSE, 	1U, 	CAN_RX_DIR, TRUE,	FALSE,	8U,		CAN_EXT_ID,	0x18E0000EU,	0x1FF8FFFF,	1U},		//Object 94
+; ..\Communication_Files\CanDrv\CanDrv_TC1782_User.c	   178  		{FALSE, 	1U, 	CAN_RX_DIR, TRUE,	FALSE,	8U,		CAN_EXT_ID,	0x18E0000FU,	0x1FF8FFFF,	1U},		//Object 95
+; ..\Communication_Files\CanDrv\CanDrv_TC1782_User.c	   179  
+; ..\Communication_Files\CanDrv\CanDrv_TC1782_User.c	   180  		{FALSE, 	1U, 	CAN_TX_DIR, FALSE,	FALSE,	8U,		CAN_EXT_ID,	0x10200001U,	0x1FFFFFFF,	1U},		//Object 96
+; ..\Communication_Files\CanDrv\CanDrv_TC1782_User.c	   181  
+; ..\Communication_Files\CanDrv\CanDrv_TC1782_User.c	   182  		{FALSE, 		1U, 	CAN_RX_DIR, FALSE,	FALSE,	8U,		CAN_STD_ID,	0x1E1U,	0x7FF,	1U},		//Object 97
+; ..\Communication_Files\CanDrv\CanDrv_TC1782_User.c	   183  		{FALSE, 		1U, 	CAN_TX_DIR, FALSE,	FALSE,	8U,		CAN_STD_ID,	0x1E9U,	0x7FF,	1U},		//Object 98
+; ..\Communication_Files\CanDrv\CanDrv_TC1782_User.c	   184  		{FALSE,  	1U, 	CAN_RX_DIR, FALSE,	FALSE,	8U,		CAN_STD_ID,	0x1DFU,	0x7FF,	1U},		//Object 99	发送 DIO输入相关内容
+; ..\Communication_Files\CanDrv\CanDrv_TC1782_User.c	   185  
+; ..\Communication_Files\CanDrv\CanDrv_TC1782_User.c	   186  		//-----------------------------------FCBUS -------------------------------------------------------------------------------------
+; ..\Communication_Files\CanDrv\CanDrv_TC1782_User.c	   187  		{FALSE, 	2U, 	CAN_TX_DIR, FALSE,	FALSE,	8U,		CAN_EXT_ID,	0x1FFFFFFF,	0x1FFFFFFF,	1U},		//Object 100
+; ..\Communication_Files\CanDrv\CanDrv_TC1782_User.c	   188  		{FALSE, 	2U, 	CAN_TX_DIR, FALSE,	FALSE,	8U,		CAN_EXT_ID,	0x1FFFFFFF,	0x1FFFFFFF,	1U},		//Object 101
+; ..\Communication_Files\CanDrv\CanDrv_TC1782_User.c	   189  		{FALSE, 	2U, 	CAN_TX_DIR, FALSE,	FALSE,	8U,		CAN_EXT_ID,	0x1FFFFFFF,	0x1FFFFFFF,	1U},		//Object 102
+; ..\Communication_Files\CanDrv\CanDrv_TC1782_User.c	   190  		{FALSE, 	2U, 	CAN_TX_DIR, FALSE,	FALSE,	8U,		CAN_EXT_ID,	0x1FFFFFFF,	0x1FFFFFFF,	1U},		//Object 103
+; ..\Communication_Files\CanDrv\CanDrv_TC1782_User.c	   191  		{FALSE, 	2U, 	CAN_TX_DIR, FALSE,	FALSE,	8U,		CAN_EXT_ID,	0x1FFFFFFF,	0x1FFFFFFF,	1U},		//Object 104
+; ..\Communication_Files\CanDrv\CanDrv_TC1782_User.c	   192  		{FALSE, 	2U, 	CAN_TX_DIR, FALSE,	FALSE,	8U,		CAN_EXT_ID,	0x1FFFFFFF,	0x1FFFFFFF,	1U},		//Object 105
+; ..\Communication_Files\CanDrv\CanDrv_TC1782_User.c	   193  		{FALSE, 	2U, 	CAN_TX_DIR, FALSE,	FALSE,	8U,		CAN_EXT_ID,	0x1FFFFFFF,	0x1FFFFFFF,	1U},		//Object 106
+; ..\Communication_Files\CanDrv\CanDrv_TC1782_User.c	   194  		{FALSE, 	2U, 	CAN_TX_DIR, FALSE,	FALSE,	8U,		CAN_EXT_ID,	0x1FFFFFFF,	0x1FFFFFFF,	1U},		//Object 107
+; ..\Communication_Files\CanDrv\CanDrv_TC1782_User.c	   195  
+; ..\Communication_Files\CanDrv\CanDrv_TC1782_User.c	   196  
+; ..\Communication_Files\CanDrv\CanDrv_TC1782_User.c	   197  		{FALSE, 	2U, 	CAN_TX_DIR, FALSE,	FALSE,	8U,		CAN_EXT_ID,	0x1CEC56F4U,	0x1FFFFFFF,	1U},		//Object 108
+; ..\Communication_Files\CanDrv\CanDrv_TC1782_User.c	   198  		{FALSE, 	2U, 	CAN_TX_DIR, FALSE,	FALSE,	8U,		CAN_EXT_ID,	0x1CEB56F4U,	0x1FFFFFFF,	1U},		//Object 109
+; ..\Communication_Files\CanDrv\CanDrv_TC1782_User.c	   199  		{FALSE, 	2U, 	CAN_TX_DIR, FALSE,	FALSE,	1U,		CAN_EXT_ID,	0x100956F4U,	0x1FFFFFFF,	1U},		//Object 110
+; ..\Communication_Files\CanDrv\CanDrv_TC1782_User.c	   200  		{FALSE, 	2U, 	CAN_TX_DIR, FALSE,	FALSE,	8U,		CAN_EXT_ID,	0x1CEC56FFU,	0x1FFFFFFF,	1U},		//Object 111
+; ..\Communication_Files\CanDrv\CanDrv_TC1782_User.c	   201  		{FALSE, 	2U, 	CAN_TX_DIR, FALSE,	FALSE,	5U,		CAN_EXT_ID,	0x181056F4U,	0x1FFFFFFF,	1U},		//Object 112
+; ..\Communication_Files\CanDrv\CanDrv_TC1782_User.c	   202  		{FALSE, 	2U, 	CAN_TX_DIR, FALSE,	FALSE,	7U,		CAN_EXT_ID,	0x181356F4U,	0x1FFFFFFF,	1U},		//Object 113
+; ..\Communication_Files\CanDrv\CanDrv_TC1782_User.c	   203  		{FALSE, 	2U, 	CAN_TX_DIR, FALSE,	FALSE,	4U,		CAN_EXT_ID,	0x101956F4U,	0x1FFFFFFF,	1U},		//Object 114
+; ..\Communication_Files\CanDrv\CanDrv_TC1782_User.c	   204  		{FALSE, 	2U, 	CAN_TX_DIR, FALSE,	FALSE,	7U,		CAN_EXT_ID,	0x181C56F4U,	0x1FFFFFFF,	1U},		//Object 115
+; ..\Communication_Files\CanDrv\CanDrv_TC1782_User.c	   205  		{FALSE, 	2U, 	CAN_TX_DIR, FALSE,	FALSE,	8U,		CAN_EXT_ID,	0x081E56F4U,	0x1FFFFFFF,	1U},		//Object 116
+; ..\Communication_Files\CanDrv\CanDrv_TC1782_User.c	   206  		{FALSE, 	2U, 	CAN_TX_DIR, FALSE,	FALSE,	2U,		CAN_EXT_ID,	0x182756F4U,	0x1FFFFFFF,	1U},		//Object 117
+; ..\Communication_Files\CanDrv\CanDrv_TC1782_User.c	   207  
+; ..\Communication_Files\CanDrv\CanDrv_TC1782_User.c	   208  		{FALSE, 	2U, 	CAN_RX_DIR, FALSE,	FALSE,	8U,		CAN_EXT_ID,	0x1801F456U,	0x1FFFFFFF,	1U},		//Object 118
+; ..\Communication_Files\CanDrv\CanDrv_TC1782_User.c	   209  		{FALSE, 	2U, 	CAN_RX_DIR, FALSE,	FALSE,	8U,		CAN_EXT_ID,	0x1807F456U,	0x1FFFFFFF,	1U},		//Object 119
+; ..\Communication_Files\CanDrv\CanDrv_TC1782_User.c	   210  		{FALSE, 	2U, 	CAN_RX_DIR, FALSE,	FALSE,	8U,		CAN_EXT_ID,	0x1808F456U,	0x1FFFFFFF,	1U},		//Object 120
+; ..\Communication_Files\CanDrv\CanDrv_TC1782_User.c	   211  		{TRUE, 		0U, 	CAN_RX_DIR, FALSE,	FALSE,	8U,		CAN_STD_ID,	0x781U,	0x7FF,	1U},		//Object 121
+; ..\Communication_Files\CanDrv\CanDrv_TC1782_User.c	   212  		{TRUE, 		0U, 	CAN_TX_DIR, FALSE,	FALSE,	8U,		CAN_STD_ID,	0x789U,	0x7FF,	1U},		//Object 122
+; ..\Communication_Files\CanDrv\CanDrv_TC1782_User.c	   213  		{TRUE,  	0U, 	CAN_RX_DIR, FALSE,	FALSE,	8U,		CAN_STD_ID,	0x7DFU,	0x7FF,	1U},		//Object 123	发送 DIO输入相关内容
+; ..\Communication_Files\CanDrv\CanDrv_TC1782_User.c	   214  
+; ..\Communication_Files\CanDrv\CanDrv_TC1782_User.c	   215  		{TRUE, 	0U, 	CAN_RX_DIR, FALSE,	FALSE,	8U,		CAN_STD_ID,	0xBBU,	0x7FF,	1U},		//Object 124
+; ..\Communication_Files\CanDrv\CanDrv_TC1782_User.c	   216  		{TRUE, 	0U, 	CAN_TX_DIR, FALSE,	FALSE,	8U,		CAN_STD_ID,	0xAAU,	0x7FF,	1U},		//Object 125
+; ..\Communication_Files\CanDrv\CanDrv_TC1782_User.c	   217  		{TRUE, 	0U, 	CAN_TX_DIR, FALSE,	FALSE,	8U,		CAN_STD_ID,	0xCCU,	0x7FF,	1U},		//Object 126
+; ..\Communication_Files\CanDrv\CanDrv_TC1782_User.c	   218  		{FALSE, 	2U, 	CAN_RX_DIR, FALSE,	FALSE,	8U,		CAN_EXT_ID,	0x1826F456U,	0x1FFFFFFF,	1U},		//Object 127
+; ..\Communication_Files\CanDrv\CanDrv_TC1782_User.c	   219  };
+; ..\Communication_Files\CanDrv\CanDrv_TC1782_User.c	   220  
+; ..\Communication_Files\CanDrv\CanDrv_TC1782_User.c	   221  //用户配置CAN ID接收信息
+; ..\Communication_Files\CanDrv\CanDrv_TC1782_User.c	   222  Struct_CAN_Rx_By_ID	st_CAN_Rx_By_ID[MAX_CAN_RX_BY_ID_NUM] =
+; ..\Communication_Files\CanDrv\CanDrv_TC1782_User.c	   223  {
+; ..\Communication_Files\CanDrv\CanDrv_TC1782_User.c	   224  		//En,	ID,				Empty,	Data,
+; ..\Communication_Files\CanDrv\CanDrv_TC1782_User.c	   225  //============================0=========================================
+; ..\Communication_Files\CanDrv\CanDrv_TC1782_User.c	   226  		{TRUE,	0x18E00000U,	TRUE,	{0}},		//1
+; ..\Communication_Files\CanDrv\CanDrv_TC1782_User.c	   227  		{TRUE,	0x18E10000U,	TRUE,	{0}},		//2
+; ..\Communication_Files\CanDrv\CanDrv_TC1782_User.c	   228  		{TRUE,	0x18E20000U,	TRUE,	{0}},		//3
+; ..\Communication_Files\CanDrv\CanDrv_TC1782_User.c	   229  		{TRUE,	0x18E30000U,	TRUE,	{0}},		//4
+; ..\Communication_Files\CanDrv\CanDrv_TC1782_User.c	   230  		{TRUE,	0x18E40000U,	TRUE,	{0}},		//5
+; ..\Communication_Files\CanDrv\CanDrv_TC1782_User.c	   231  		{TRUE,	0x18E50000U,	TRUE,	{0}},		//6
+; ..\Communication_Files\CanDrv\CanDrv_TC1782_User.c	   232  		{TRUE,	0x18E60000U,	TRUE,	{0}},		//7
+; ..\Communication_Files\CanDrv\CanDrv_TC1782_User.c	   233  		{TRUE,	0x18E70000U,	TRUE,	{0}},		//8
+; ..\Communication_Files\CanDrv\CanDrv_TC1782_User.c	   234  		{TRUE,	0x18E80000U,	TRUE,	{0}},		//9
+; ..\Communication_Files\CanDrv\CanDrv_TC1782_User.c	   235  		{TRUE,	0x18E90000U,	TRUE,	{0}},		//10
+; ..\Communication_Files\CanDrv\CanDrv_TC1782_User.c	   236  //============================1=========================================
+; ..\Communication_Files\CanDrv\CanDrv_TC1782_User.c	   237  		{TRUE,	0x18E00001U,	TRUE,	{0}},		//1
+; ..\Communication_Files\CanDrv\CanDrv_TC1782_User.c	   238  		{TRUE,	0x18E10001U,	TRUE,	{0}},		//2
+; ..\Communication_Files\CanDrv\CanDrv_TC1782_User.c	   239  		{TRUE,	0x18E20001U,	TRUE,	{0}},		//3
+; ..\Communication_Files\CanDrv\CanDrv_TC1782_User.c	   240  		{TRUE,	0x18E30001U,	TRUE,	{0}},		//4
+; ..\Communication_Files\CanDrv\CanDrv_TC1782_User.c	   241  		{TRUE,	0x18E40001U,	TRUE,	{0}},		//5
+; ..\Communication_Files\CanDrv\CanDrv_TC1782_User.c	   242  		{TRUE,	0x18E50001U,	TRUE,	{0}},		//6
+; ..\Communication_Files\CanDrv\CanDrv_TC1782_User.c	   243  		{TRUE,	0x18E60001U,	TRUE,	{0}},		//7
+; ..\Communication_Files\CanDrv\CanDrv_TC1782_User.c	   244  		{TRUE,	0x18E70001U,	TRUE,	{0}},		//8
+; ..\Communication_Files\CanDrv\CanDrv_TC1782_User.c	   245  		{TRUE,	0x18E80001U,	TRUE,	{0}},		//9
+; ..\Communication_Files\CanDrv\CanDrv_TC1782_User.c	   246  		{TRUE,	0x18E90001U,	TRUE,	{0}},		//10
+; ..\Communication_Files\CanDrv\CanDrv_TC1782_User.c	   247  //============================2=========================================
+; ..\Communication_Files\CanDrv\CanDrv_TC1782_User.c	   248  		{TRUE,	0x18E00002U,	TRUE,	{0}},		//1
+; ..\Communication_Files\CanDrv\CanDrv_TC1782_User.c	   249  		{TRUE,	0x18E10002U,	TRUE,	{0}},		//2
+; ..\Communication_Files\CanDrv\CanDrv_TC1782_User.c	   250  		{TRUE,	0x18E20002U,	TRUE,	{0}},		//3
+; ..\Communication_Files\CanDrv\CanDrv_TC1782_User.c	   251  		{TRUE,	0x18E30002U,	TRUE,	{0}},		//4
+; ..\Communication_Files\CanDrv\CanDrv_TC1782_User.c	   252  		{TRUE,	0x18E40002U,	TRUE,	{0}},		//5
+; ..\Communication_Files\CanDrv\CanDrv_TC1782_User.c	   253  		{TRUE,	0x18E50002U,	TRUE,	{0}},		//6
+; ..\Communication_Files\CanDrv\CanDrv_TC1782_User.c	   254  		{TRUE,	0x18E60002U,	TRUE,	{0}},		//7
+; ..\Communication_Files\CanDrv\CanDrv_TC1782_User.c	   255  		{TRUE,	0x18E70002U,	TRUE,	{0}},		//8
+; ..\Communication_Files\CanDrv\CanDrv_TC1782_User.c	   256  		{TRUE,	0x18E80002U,	TRUE,	{0}},		//9
+; ..\Communication_Files\CanDrv\CanDrv_TC1782_User.c	   257  		{TRUE,	0x18E90002U,	TRUE,	{0}},		//10
+; ..\Communication_Files\CanDrv\CanDrv_TC1782_User.c	   258  //============================3=========================================
+; ..\Communication_Files\CanDrv\CanDrv_TC1782_User.c	   259  		{TRUE,	0x18E00003U,	TRUE,	{0}},		//1
+; ..\Communication_Files\CanDrv\CanDrv_TC1782_User.c	   260  		{TRUE,	0x18E10003U,	TRUE,	{0}},		//2
+; ..\Communication_Files\CanDrv\CanDrv_TC1782_User.c	   261  		{TRUE,	0x18E20003U,	TRUE,	{0}},		//3
+; ..\Communication_Files\CanDrv\CanDrv_TC1782_User.c	   262  		{TRUE,	0x18E30003U,	TRUE,	{0}},		//4
+; ..\Communication_Files\CanDrv\CanDrv_TC1782_User.c	   263  		{TRUE,	0x18E40003U,	TRUE,	{0}},		//5
+; ..\Communication_Files\CanDrv\CanDrv_TC1782_User.c	   264  		{TRUE,	0x18E50003U,	TRUE,	{0}},		//6
+; ..\Communication_Files\CanDrv\CanDrv_TC1782_User.c	   265  		{TRUE,	0x18E60003U,	TRUE,	{0}},		//7
+; ..\Communication_Files\CanDrv\CanDrv_TC1782_User.c	   266  		{TRUE,	0x18E70003U,	TRUE,	{0}},		//8
+; ..\Communication_Files\CanDrv\CanDrv_TC1782_User.c	   267  		{TRUE,	0x18E80003U,	TRUE,	{0}},		//9
+; ..\Communication_Files\CanDrv\CanDrv_TC1782_User.c	   268  		{TRUE,	0x18E90003U,	TRUE,	{0}},		//10
+; ..\Communication_Files\CanDrv\CanDrv_TC1782_User.c	   269  //============================4=========================================
+; ..\Communication_Files\CanDrv\CanDrv_TC1782_User.c	   270  		{TRUE,	0x18E00004U,	TRUE,	{0}},		//1
+; ..\Communication_Files\CanDrv\CanDrv_TC1782_User.c	   271  		{TRUE,	0x18E10004U,	TRUE,	{0}},		//2
+; ..\Communication_Files\CanDrv\CanDrv_TC1782_User.c	   272  		{TRUE,	0x18E20004U,	TRUE,	{0}},		//3
+; ..\Communication_Files\CanDrv\CanDrv_TC1782_User.c	   273  		{TRUE,	0x18E30004U,	TRUE,	{0}},		//4
+; ..\Communication_Files\CanDrv\CanDrv_TC1782_User.c	   274  		{TRUE,	0x18E40004U,	TRUE,	{0}},		//5
+; ..\Communication_Files\CanDrv\CanDrv_TC1782_User.c	   275  		{TRUE,	0x18E50004U,	TRUE,	{0}},		//6
+; ..\Communication_Files\CanDrv\CanDrv_TC1782_User.c	   276  		{TRUE,	0x18E60004U,	TRUE,	{0}},		//7
+; ..\Communication_Files\CanDrv\CanDrv_TC1782_User.c	   277  		{TRUE,	0x18E70004U,	TRUE,	{0}},		//8
+; ..\Communication_Files\CanDrv\CanDrv_TC1782_User.c	   278  		{TRUE,	0x18E80004U,	TRUE,	{0}},		//9
+; ..\Communication_Files\CanDrv\CanDrv_TC1782_User.c	   279  		{TRUE,	0x18E90004U,	TRUE,	{0}},		//10
+; ..\Communication_Files\CanDrv\CanDrv_TC1782_User.c	   280  //============================5=========================================
+; ..\Communication_Files\CanDrv\CanDrv_TC1782_User.c	   281  		{TRUE,	0x18E00005U,	TRUE,	{0}},		//1
+; ..\Communication_Files\CanDrv\CanDrv_TC1782_User.c	   282  		{TRUE,	0x18E10005U,	TRUE,	{0}},		//2
+; ..\Communication_Files\CanDrv\CanDrv_TC1782_User.c	   283  		{TRUE,	0x18E20005U,	TRUE,	{0}},		//3
+; ..\Communication_Files\CanDrv\CanDrv_TC1782_User.c	   284  		{TRUE,	0x18E30005U,	TRUE,	{0}},		//4
+; ..\Communication_Files\CanDrv\CanDrv_TC1782_User.c	   285  		{TRUE,	0x18E40005U,	TRUE,	{0}},		//5
+; ..\Communication_Files\CanDrv\CanDrv_TC1782_User.c	   286  		{TRUE,	0x18E50005U,	TRUE,	{0}},		//6
+; ..\Communication_Files\CanDrv\CanDrv_TC1782_User.c	   287  		{TRUE,	0x18E60005U,	TRUE,	{0}},		//7
+; ..\Communication_Files\CanDrv\CanDrv_TC1782_User.c	   288  		{TRUE,	0x18E70005U,	TRUE,	{0}},		//8
+; ..\Communication_Files\CanDrv\CanDrv_TC1782_User.c	   289  		{TRUE,	0x18E80005U,	TRUE,	{0}},		//9
+; ..\Communication_Files\CanDrv\CanDrv_TC1782_User.c	   290  		{TRUE,	0x18E90005U,	TRUE,	{0}},		//10
+; ..\Communication_Files\CanDrv\CanDrv_TC1782_User.c	   291  //============================6=========================================
+; ..\Communication_Files\CanDrv\CanDrv_TC1782_User.c	   292  		{TRUE,	0x18E00006U,	TRUE,	{0}},		//1
+; ..\Communication_Files\CanDrv\CanDrv_TC1782_User.c	   293  		{TRUE,	0x18E10006U,	TRUE,	{0}},		//2
+; ..\Communication_Files\CanDrv\CanDrv_TC1782_User.c	   294  		{TRUE,	0x18E20006U,	TRUE,	{0}},		//3
+; ..\Communication_Files\CanDrv\CanDrv_TC1782_User.c	   295  		{TRUE,	0x18E30006U,	TRUE,	{0}},		//4
+; ..\Communication_Files\CanDrv\CanDrv_TC1782_User.c	   296  		{TRUE,	0x18E40006U,	TRUE,	{0}},		//5
+; ..\Communication_Files\CanDrv\CanDrv_TC1782_User.c	   297  		{TRUE,	0x18E50006U,	TRUE,	{0}},		//6
+; ..\Communication_Files\CanDrv\CanDrv_TC1782_User.c	   298  		{TRUE,	0x18E60006U,	TRUE,	{0}},		//7
+; ..\Communication_Files\CanDrv\CanDrv_TC1782_User.c	   299  		{TRUE,	0x18E70006U,	TRUE,	{0}},		//8
+; ..\Communication_Files\CanDrv\CanDrv_TC1782_User.c	   300  		{TRUE,	0x18E80006U,	TRUE,	{0}},		//9
+; ..\Communication_Files\CanDrv\CanDrv_TC1782_User.c	   301  		{TRUE,	0x18E90006U,	TRUE,	{0}},		//10
+; ..\Communication_Files\CanDrv\CanDrv_TC1782_User.c	   302  //============================7=========================================
+; ..\Communication_Files\CanDrv\CanDrv_TC1782_User.c	   303  		{TRUE,	0x18E00007U,	TRUE,	{0}},		//1
+; ..\Communication_Files\CanDrv\CanDrv_TC1782_User.c	   304  		{TRUE,	0x18E10007U,	TRUE,	{0}},		//2
+; ..\Communication_Files\CanDrv\CanDrv_TC1782_User.c	   305  		{TRUE,	0x18E20007U,	TRUE,	{0}},		//3
+; ..\Communication_Files\CanDrv\CanDrv_TC1782_User.c	   306  		{TRUE,	0x18E30007U,	TRUE,	{0}},		//4
+; ..\Communication_Files\CanDrv\CanDrv_TC1782_User.c	   307  		{TRUE,	0x18E40007U,	TRUE,	{0}},		//5
+; ..\Communication_Files\CanDrv\CanDrv_TC1782_User.c	   308  		{TRUE,	0x18E50007U,	TRUE,	{0}},		//6
+; ..\Communication_Files\CanDrv\CanDrv_TC1782_User.c	   309  		{TRUE,	0x18E60007U,	TRUE,	{0}},		//7
+; ..\Communication_Files\CanDrv\CanDrv_TC1782_User.c	   310  		{TRUE,	0x18E70007U,	TRUE,	{0}},		//8
+; ..\Communication_Files\CanDrv\CanDrv_TC1782_User.c	   311  		{TRUE,	0x18E80007U,	TRUE,	{0}},		//9
+; ..\Communication_Files\CanDrv\CanDrv_TC1782_User.c	   312  		{TRUE,	0x18E90007U,	TRUE,	{0}},		//10
+; ..\Communication_Files\CanDrv\CanDrv_TC1782_User.c	   313  //============================8=========================================
+; ..\Communication_Files\CanDrv\CanDrv_TC1782_User.c	   314  		{TRUE,	0x18E00008U,	TRUE,	{0}},		//1
+; ..\Communication_Files\CanDrv\CanDrv_TC1782_User.c	   315  		{TRUE,	0x18E10008U,	TRUE,	{0}},		//2
+; ..\Communication_Files\CanDrv\CanDrv_TC1782_User.c	   316  		{TRUE,	0x18E20008U,	TRUE,	{0}},		//3
+; ..\Communication_Files\CanDrv\CanDrv_TC1782_User.c	   317  		{TRUE,	0x18E30008U,	TRUE,	{0}},		//4
+; ..\Communication_Files\CanDrv\CanDrv_TC1782_User.c	   318  		{TRUE,	0x18E40008U,	TRUE,	{0}},		//5
+; ..\Communication_Files\CanDrv\CanDrv_TC1782_User.c	   319  		{TRUE,	0x18E50008U,	TRUE,	{0}},		//6
+; ..\Communication_Files\CanDrv\CanDrv_TC1782_User.c	   320  		{TRUE,	0x18E60008U,	TRUE,	{0}},		//7
+; ..\Communication_Files\CanDrv\CanDrv_TC1782_User.c	   321  		{TRUE,	0x18E70008U,	TRUE,	{0}},		//8
+; ..\Communication_Files\CanDrv\CanDrv_TC1782_User.c	   322  		{TRUE,	0x18E80008U,	TRUE,	{0}},		//9
+; ..\Communication_Files\CanDrv\CanDrv_TC1782_User.c	   323  		{TRUE,	0x18E90008U,	TRUE,	{0}},		//10
+; ..\Communication_Files\CanDrv\CanDrv_TC1782_User.c	   324  //============================9=========================================
+; ..\Communication_Files\CanDrv\CanDrv_TC1782_User.c	   325  		{TRUE,	0x18E00009U,	TRUE,	{0}},		//1
+; ..\Communication_Files\CanDrv\CanDrv_TC1782_User.c	   326  		{TRUE,	0x18E10009U,	TRUE,	{0}},		//2
+; ..\Communication_Files\CanDrv\CanDrv_TC1782_User.c	   327  		{TRUE,	0x18E20009U,	TRUE,	{0}},		//3
+; ..\Communication_Files\CanDrv\CanDrv_TC1782_User.c	   328  		{TRUE,	0x18E30009U,	TRUE,	{0}},		//4
+; ..\Communication_Files\CanDrv\CanDrv_TC1782_User.c	   329  		{TRUE,	0x18E40009U,	TRUE,	{0}},		//5
+; ..\Communication_Files\CanDrv\CanDrv_TC1782_User.c	   330  		{TRUE,	0x18E50009U,	TRUE,	{0}},		//6
+; ..\Communication_Files\CanDrv\CanDrv_TC1782_User.c	   331  		{TRUE,	0x18E60009U,	TRUE,	{0}},		//7
+; ..\Communication_Files\CanDrv\CanDrv_TC1782_User.c	   332  		{TRUE,	0x18E70009U,	TRUE,	{0}},		//8
+; ..\Communication_Files\CanDrv\CanDrv_TC1782_User.c	   333  		{TRUE,	0x18E80009U,	TRUE,	{0}},		//9
+; ..\Communication_Files\CanDrv\CanDrv_TC1782_User.c	   334  		{TRUE,	0x18E90009U,	TRUE,	{0}},		//10
+; ..\Communication_Files\CanDrv\CanDrv_TC1782_User.c	   335  //============================A=========================================
+; ..\Communication_Files\CanDrv\CanDrv_TC1782_User.c	   336  		{TRUE,	0x18E0000AU,	TRUE,	{0}},		//1
+; ..\Communication_Files\CanDrv\CanDrv_TC1782_User.c	   337  		{TRUE,	0x18E1000AU,	TRUE,	{0}},		//2
+; ..\Communication_Files\CanDrv\CanDrv_TC1782_User.c	   338  		{TRUE,	0x18E2000AU,	TRUE,	{0}},		//3
+; ..\Communication_Files\CanDrv\CanDrv_TC1782_User.c	   339  		{TRUE,	0x18E3000AU,	TRUE,	{0}},		//4
+; ..\Communication_Files\CanDrv\CanDrv_TC1782_User.c	   340  		{TRUE,	0x18E4000AU,	TRUE,	{0}},		//5
+; ..\Communication_Files\CanDrv\CanDrv_TC1782_User.c	   341  		{TRUE,	0x18E5000AU,	TRUE,	{0}},		//6
+; ..\Communication_Files\CanDrv\CanDrv_TC1782_User.c	   342  		{TRUE,	0x18E6000AU,	TRUE,	{0}},		//7
+; ..\Communication_Files\CanDrv\CanDrv_TC1782_User.c	   343  		{TRUE,	0x18E7000AU,	TRUE,	{0}},		//8
+; ..\Communication_Files\CanDrv\CanDrv_TC1782_User.c	   344  		{TRUE,	0x18E8000AU,	TRUE,	{0}},		//9
+; ..\Communication_Files\CanDrv\CanDrv_TC1782_User.c	   345  		{TRUE,	0x18E9000AU,	TRUE,	{0}},		//10
+; ..\Communication_Files\CanDrv\CanDrv_TC1782_User.c	   346  //============================B=========================================
+; ..\Communication_Files\CanDrv\CanDrv_TC1782_User.c	   347  		{TRUE,	0x18E0000BU,	TRUE,	{0}},		//1
+; ..\Communication_Files\CanDrv\CanDrv_TC1782_User.c	   348  		{TRUE,	0x18E1000BU,	TRUE,	{0}},		//2
+; ..\Communication_Files\CanDrv\CanDrv_TC1782_User.c	   349  		{TRUE,	0x18E2000BU,	TRUE,	{0}},		//3
+; ..\Communication_Files\CanDrv\CanDrv_TC1782_User.c	   350  		{TRUE,	0x18E3000BU,	TRUE,	{0}},		//4
+; ..\Communication_Files\CanDrv\CanDrv_TC1782_User.c	   351  		{TRUE,	0x18E4000BU,	TRUE,	{0}},		//4
+; ..\Communication_Files\CanDrv\CanDrv_TC1782_User.c	   352  		{TRUE,	0x18E5000BU,	TRUE,	{0}},		//6
+; ..\Communication_Files\CanDrv\CanDrv_TC1782_User.c	   353  		{TRUE,	0x18E6000BU,	TRUE,	{0}},		//7
+; ..\Communication_Files\CanDrv\CanDrv_TC1782_User.c	   354  		{TRUE,	0x18E7000BU,	TRUE,	{0}},		//8
+; ..\Communication_Files\CanDrv\CanDrv_TC1782_User.c	   355  		{TRUE,	0x18E8000BU,	TRUE,	{0}},		//9
+; ..\Communication_Files\CanDrv\CanDrv_TC1782_User.c	   356  		{TRUE,	0x18E9000BU,	TRUE,	{0}},		//10
+; ..\Communication_Files\CanDrv\CanDrv_TC1782_User.c	   357  };
+; ..\Communication_Files\CanDrv\CanDrv_TC1782_User.c	   358  
+
+	; Module end

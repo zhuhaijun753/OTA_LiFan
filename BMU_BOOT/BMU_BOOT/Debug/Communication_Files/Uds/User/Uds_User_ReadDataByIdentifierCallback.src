@@ -1,0 +1,1330 @@
+	; Module start
+	.compiler_version	"TASKING VX-toolset for TriCore: C compiler v4.3r1 Build 759 SN 00641831"
+	.compiler_invocation	"ctc -f cc9048a -c99 --dep-file=Communication_Files\\Uds\\User\\.Uds_User_ReadDataByIdentifierCallback.o.d -D__CPU__=tc1782 -D__CPU_TC1782__ --core=tc1.3.1 -F -ID:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_1.9\\BMU_BOOT -ID:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_1.9\\BMU_BOOT\\Communication_Files\\CanDrv -ID:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_1.9\\BMU_BOOT\\Communication_Files\\Com -ID:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_1.9\\BMU_BOOT\\Communication_Files\\Com\\Can_Input -ID:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_1.9\\BMU_BOOT\\Communication_Files\\Com\\Can_Output -ID:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_1.9\\BMU_BOOT\\Communication_Files\\Uds\\Dcm -ID:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_1.9\\BMU_BOOT\\Communication_Files\\Uds\\Dem -ID:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_1.9\\BMU_BOOT\\Communication_Files\\Uds\\Tp -ID:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_1.9\\BMU_BOOT\\Communication_Files\\Uds\\User -ID:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_1.9\\BMU_BOOT\\Complex_Files -ID:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_1.9\\BMU_BOOT\\Initiate_Files -ID:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_1.9\\BMU_BOOT\\Nvm_Files\\FlsDrv -ID:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_1.9\\BMU_BOOT\\Stand_Header -g2 --make-target=Communication_Files\\Uds\\User\\Uds_User_ReadDataByIdentifierCallback.o -t4 --language=-gcc,-volatile,+strings --default-near-size=0 -O2 --default-a1-size=0 --default-a0-size=0 --source --align=0 --compact-max-size=200 --switch=auto -o Communication_Files\\Uds\\User\\Uds_User_ReadDataByIdentifierCallback.src ..\\Communication_Files\\Uds\\User\\Uds_User_ReadDataByIdentifierCallback.c"
+	.compiler_name		"ctc"
+	.name	"Uds_User_ReadDataByIdentifierCallback"
+
+	
+$TC131
+	
+	.sdecl	'.text.Uds_User_ReadDataByIdentifierCallback.UdsFunc_SID_RDBI_DID_F180_Callback',code,cluster('UdsFunc_SID_RDBI_DID_F180_Callback')
+	.sect	'.text.Uds_User_ReadDataByIdentifierCallback.UdsFunc_SID_RDBI_DID_F180_Callback'
+	.align	2
+	
+	.global	UdsFunc_SID_RDBI_DID_F180_Callback
+
+; ..\Communication_Files\Uds\User\Uds_User_ReadDataByIdentifierCallback.c	     1  
+; ..\Communication_Files\Uds\User\Uds_User_ReadDataByIdentifierCallback.c	     2  #include "MAIN.h"
+; ..\Communication_Files\Uds\User\Uds_User_ReadDataByIdentifierCallback.c	     3  
+; ..\Communication_Files\Uds\User\Uds_User_ReadDataByIdentifierCallback.c	     4  uint8 ui8_SID_RDBI_DID_F180_RAM[SID_RDBI_DID_F180_LEN];
+; ..\Communication_Files\Uds\User\Uds_User_ReadDataByIdentifierCallback.c	     5  
+; ..\Communication_Files\Uds\User\Uds_User_ReadDataByIdentifierCallback.c	     6  uint8 ui8_SID_RDBI_DID_F193_RAM[SID_RDBI_DID_F193_LEN];
+; ..\Communication_Files\Uds\User\Uds_User_ReadDataByIdentifierCallback.c	     7  
+; ..\Communication_Files\Uds\User\Uds_User_ReadDataByIdentifierCallback.c	     8  uint8 ui8_SID_RDBI_DID_F194_RAM[SID_RDBI_DID_F194_LEN];
+; ..\Communication_Files\Uds\User\Uds_User_ReadDataByIdentifierCallback.c	     9  
+; ..\Communication_Files\Uds\User\Uds_User_ReadDataByIdentifierCallback.c	    10  uint8 ui8_SID_RDBI_DID_F195_RAM[SID_RDBI_DID_F195_LEN];
+; ..\Communication_Files\Uds\User\Uds_User_ReadDataByIdentifierCallback.c	    11  
+; ..\Communication_Files\Uds\User\Uds_User_ReadDataByIdentifierCallback.c	    12  #if ECU_TYPE == ECU_VCU
+; ..\Communication_Files\Uds\User\Uds_User_ReadDataByIdentifierCallback.c	    13  
+; ..\Communication_Files\Uds\User\Uds_User_ReadDataByIdentifierCallback.c	    14  #elif ECU_TYPE == ECU_VBU
+; ..\Communication_Files\Uds\User\Uds_User_ReadDataByIdentifierCallback.c	    15  
+; ..\Communication_Files\Uds\User\Uds_User_ReadDataByIdentifierCallback.c	    16  #elif ECU_TYPE == ECU_BMS
+; ..\Communication_Files\Uds\User\Uds_User_ReadDataByIdentifierCallback.c	    17  
+; ..\Communication_Files\Uds\User\Uds_User_ReadDataByIdentifierCallback.c	    18  boolean UdsFunc_SID_RDBI_DID_F180_Callback
+; Function UdsFunc_SID_RDBI_DID_F180_Callback
+.L23:
+UdsFunc_SID_RDBI_DID_F180_Callback:	.type	func
+
+; ..\Communication_Files\Uds\User\Uds_User_ReadDataByIdentifierCallback.c	    19  	(uint8 *ui8_pRes, uint16 *ui16_pResLen)
+; ..\Communication_Files\Uds\User\Uds_User_ReadDataByIdentifierCallback.c	    20  {
+; ..\Communication_Files\Uds\User\Uds_User_ReadDataByIdentifierCallback.c	    21  	uint8	ui8_Loop_1;	/*循环计数器*/
+; ..\Communication_Files\Uds\User\Uds_User_ReadDataByIdentifierCallback.c	    22  	boolean	b_Return; uint16 tmpvar = *ui16_pResLen ;
+; ..\Communication_Files\Uds\User\Uds_User_ReadDataByIdentifierCallback.c	    23  
+; ..\Communication_Files\Uds\User\Uds_User_ReadDataByIdentifierCallback.c	    24  	if(E_OK == Fls_Read(BOOTLOADER_VERSION_ADDR, &ui8_SID_RDBI_DID_F180_RAM[0U], SID_RDBI_DID_F180_LEN))	/*如果读Flash成功*/
+	movh.a	a13,#@his(ui8_SID_RDBI_DID_F180_RAM)
+.L131:
+	mov.u	d4,#32768
+	lea	a13,[a13]@los(ui8_SID_RDBI_DID_F180_RAM)
+.L132:
+	addih	d4,d4,#32768
+	mov.aa	a15,a4
+.L99:
+	mov	d5,#9
+	mov.aa	a4,a13
+.L98:
+	mov.aa	a12,a5
+.L101:
+	ld.hu	d8,[a12]0
+.L102:
+	call	Fls_Read
+.L97:
+	jne	d2,#0,.L2				; predicted not taken
+.L133:
+
+; ..\Communication_Files\Uds\User\Uds_User_ReadDataByIdentifierCallback.c	    25  	{
+; ..\Communication_Files\Uds\User\Uds_User_ReadDataByIdentifierCallback.c	    26  		/*回应数据*/
+; ..\Communication_Files\Uds\User\Uds_User_ReadDataByIdentifierCallback.c	    27  		ui16_pResLen[0U] = SID_RDBI_DID_F180_LEN;									/*将正确的长度返回*/
+	mov	d15,#9
+	st.h	[a12],d15
+.L134:
+
+; ..\Communication_Files\Uds\User\Uds_User_ReadDataByIdentifierCallback.c	    28  		for(ui8_Loop_1 = 0U; ui8_Loop_1 < SID_RDBI_DID_F180_LEN; ui8_Loop_1++)
+	mov.a	a2,#8
+.L3:
+
+; ..\Communication_Files\Uds\User\Uds_User_ReadDataByIdentifierCallback.c	    29  		{
+; ..\Communication_Files\Uds\User\Uds_User_ReadDataByIdentifierCallback.c	    30  			ui8_pRes[ui8_Loop_1] = ui8_SID_RDBI_DID_F180_RAM[ui8_Loop_1];			/*将Flash中读出来的值返回*/
+	ld.bu	d15,[a13+]
+.L135:
+	st.b	[a15+],d15
+.L136:
+	loop	a2,.L3				; predicted taken
+.L137:
+
+; ..\Communication_Files\Uds\User\Uds_User_ReadDataByIdentifierCallback.c	    31  		}
+; ..\Communication_Files\Uds\User\Uds_User_ReadDataByIdentifierCallback.c	    32  
+; ..\Communication_Files\Uds\User\Uds_User_ReadDataByIdentifierCallback.c	    33  		if(tmpvar == 0x22){st_Uds_Response.ui8_ResCode = UDS_RES_CODE_PR;}	/*正响应*/
+	mov	d15,#34
+.L138:
+	jne	d15,d8,.L4				; predicted taken
+.L139:
+	mov	d15,#0
+	movh.a	a15,#@his(st_Uds_Response)
+.L100:
+	lea	a15,[a15]@los(st_Uds_Response)
+.L140:
+	j	.L5
+.L2:
+
+; ..\Communication_Files\Uds\User\Uds_User_ReadDataByIdentifierCallback.c	    34  	}
+; ..\Communication_Files\Uds\User\Uds_User_ReadDataByIdentifierCallback.c	    35  	else
+; ..\Communication_Files\Uds\User\Uds_User_ReadDataByIdentifierCallback.c	    36  	{
+; ..\Communication_Files\Uds\User\Uds_User_ReadDataByIdentifierCallback.c	    37  		st_Uds_Response.ui8_ResCode = UDS_RES_CODE_CNC;	/*条件错误响应*/
+	mov	d15,#34
+	movh.a	a15,#@his(st_Uds_Response)
+.L103:
+	lea	a15,[a15]@los(st_Uds_Response)
+.L5:
+	st.b	[a15],d15
+.L4:
+
+; ..\Communication_Files\Uds\User\Uds_User_ReadDataByIdentifierCallback.c	    38  	}
+; ..\Communication_Files\Uds\User\Uds_User_ReadDataByIdentifierCallback.c	    39  
+; ..\Communication_Files\Uds\User\Uds_User_ReadDataByIdentifierCallback.c	    40  	b_Return = E_OK;
+; ..\Communication_Files\Uds\User\Uds_User_ReadDataByIdentifierCallback.c	    41  
+; ..\Communication_Files\Uds\User\Uds_User_ReadDataByIdentifierCallback.c	    42  	return	b_Return;
+	mov	d2,#0
+.L141:
+
+; ..\Communication_Files\Uds\User\Uds_User_ReadDataByIdentifierCallback.c	    43  }
+	ret
+.L70:
+	
+__UdsFunc_SID_RDBI_DID_F180_Callback_function_end:
+	.size	UdsFunc_SID_RDBI_DID_F180_Callback,__UdsFunc_SID_RDBI_DID_F180_Callback_function_end-UdsFunc_SID_RDBI_DID_F180_Callback
+.L40:
+	; End of function
+	
+	.sdecl	'.text.Uds_User_ReadDataByIdentifierCallback.UdsFunc_SID_RDBI_DID_F193_Callback',code,cluster('UdsFunc_SID_RDBI_DID_F193_Callback')
+	.sect	'.text.Uds_User_ReadDataByIdentifierCallback.UdsFunc_SID_RDBI_DID_F193_Callback'
+	.align	2
+	
+	.global	UdsFunc_SID_RDBI_DID_F193_Callback
+
+; ..\Communication_Files\Uds\User\Uds_User_ReadDataByIdentifierCallback.c	    44  
+; ..\Communication_Files\Uds\User\Uds_User_ReadDataByIdentifierCallback.c	    45  boolean UdsFunc_SID_RDBI_DID_F193_Callback
+; Function UdsFunc_SID_RDBI_DID_F193_Callback
+.L25:
+UdsFunc_SID_RDBI_DID_F193_Callback:	.type	func
+
+; ..\Communication_Files\Uds\User\Uds_User_ReadDataByIdentifierCallback.c	    46  	(uint8 *ui8_pRes, uint16 *ui16_pResLen)
+; ..\Communication_Files\Uds\User\Uds_User_ReadDataByIdentifierCallback.c	    47  {
+; ..\Communication_Files\Uds\User\Uds_User_ReadDataByIdentifierCallback.c	    48  	uint8	ui8_Loop_1;	/*循环计数器*/
+; ..\Communication_Files\Uds\User\Uds_User_ReadDataByIdentifierCallback.c	    49  	boolean	b_Return; uint16 tmpvar = *ui16_pResLen ;
+; ..\Communication_Files\Uds\User\Uds_User_ReadDataByIdentifierCallback.c	    50  
+; ..\Communication_Files\Uds\User\Uds_User_ReadDataByIdentifierCallback.c	    51  	if(E_OK == Fls_Read(PROGRAM_HARDDATA_ADDR, &ui8_SID_RDBI_DID_F193_RAM[0U], SID_RDBI_DID_F193_LEN))	/*如果读Flash成功*/
+	movh.a	a13,#@his(ui8_SID_RDBI_DID_F193_RAM)
+.L146:
+	mov.u	d4,#33280
+	lea	a13,[a13]@los(ui8_SID_RDBI_DID_F193_RAM)
+.L147:
+	addih	d4,d4,#32768
+	mov.aa	a15,a4
+.L106:
+	mov	d5,#5
+	mov.aa	a4,a13
+.L105:
+	mov.aa	a12,a5
+.L108:
+	ld.hu	d8,[a12]0
+.L109:
+	call	Fls_Read
+.L104:
+	jne	d2,#0,.L7				; predicted not taken
+.L148:
+
+; ..\Communication_Files\Uds\User\Uds_User_ReadDataByIdentifierCallback.c	    52  	{
+; ..\Communication_Files\Uds\User\Uds_User_ReadDataByIdentifierCallback.c	    53  		/*回应数据*/
+; ..\Communication_Files\Uds\User\Uds_User_ReadDataByIdentifierCallback.c	    54  		ui16_pResLen[0U] = SID_RDBI_DID_F193_LEN;									/*将正确的长度返回*/
+	mov	d15,#5
+	st.h	[a12],d15
+.L149:
+
+; ..\Communication_Files\Uds\User\Uds_User_ReadDataByIdentifierCallback.c	    55  		for(ui8_Loop_1 = 0U; ui8_Loop_1 < SID_RDBI_DID_F193_LEN; ui8_Loop_1++)
+	mov.a	a2,#4
+.L8:
+
+; ..\Communication_Files\Uds\User\Uds_User_ReadDataByIdentifierCallback.c	    56  		{
+; ..\Communication_Files\Uds\User\Uds_User_ReadDataByIdentifierCallback.c	    57  			ui8_pRes[ui8_Loop_1] = ui8_SID_RDBI_DID_F193_RAM[ui8_Loop_1];			/*将Flash中读出来的值返回*/
+	ld.bu	d15,[a13+]
+.L150:
+	st.b	[a15+],d15
+.L151:
+	loop	a2,.L8				; predicted taken
+.L152:
+
+; ..\Communication_Files\Uds\User\Uds_User_ReadDataByIdentifierCallback.c	    58  		}
+; ..\Communication_Files\Uds\User\Uds_User_ReadDataByIdentifierCallback.c	    59  
+; ..\Communication_Files\Uds\User\Uds_User_ReadDataByIdentifierCallback.c	    60  		if(tmpvar == 0x22){st_Uds_Response.ui8_ResCode = UDS_RES_CODE_PR;}	/*正响应*/
+	mov	d15,#34
+.L153:
+	jne	d15,d8,.L9				; predicted taken
+.L154:
+	mov	d15,#0
+	movh.a	a15,#@his(st_Uds_Response)
+.L107:
+	lea	a15,[a15]@los(st_Uds_Response)
+.L155:
+	j	.L10
+.L7:
+
+; ..\Communication_Files\Uds\User\Uds_User_ReadDataByIdentifierCallback.c	    61  	}
+; ..\Communication_Files\Uds\User\Uds_User_ReadDataByIdentifierCallback.c	    62  	else
+; ..\Communication_Files\Uds\User\Uds_User_ReadDataByIdentifierCallback.c	    63  	{
+; ..\Communication_Files\Uds\User\Uds_User_ReadDataByIdentifierCallback.c	    64  		st_Uds_Response.ui8_ResCode = UDS_RES_CODE_CNC;	/*条件错误响应*/
+	mov	d15,#34
+	movh.a	a15,#@his(st_Uds_Response)
+.L110:
+	lea	a15,[a15]@los(st_Uds_Response)
+.L10:
+	st.b	[a15],d15
+.L9:
+
+; ..\Communication_Files\Uds\User\Uds_User_ReadDataByIdentifierCallback.c	    65  	}
+; ..\Communication_Files\Uds\User\Uds_User_ReadDataByIdentifierCallback.c	    66  
+; ..\Communication_Files\Uds\User\Uds_User_ReadDataByIdentifierCallback.c	    67  	b_Return = E_OK;
+; ..\Communication_Files\Uds\User\Uds_User_ReadDataByIdentifierCallback.c	    68  
+; ..\Communication_Files\Uds\User\Uds_User_ReadDataByIdentifierCallback.c	    69  	return	b_Return;
+	mov	d2,#0
+.L156:
+
+; ..\Communication_Files\Uds\User\Uds_User_ReadDataByIdentifierCallback.c	    70  }
+	ret
+.L78:
+	
+__UdsFunc_SID_RDBI_DID_F193_Callback_function_end:
+	.size	UdsFunc_SID_RDBI_DID_F193_Callback,__UdsFunc_SID_RDBI_DID_F193_Callback_function_end-UdsFunc_SID_RDBI_DID_F193_Callback
+.L45:
+	; End of function
+	
+	.sdecl	'.text.Uds_User_ReadDataByIdentifierCallback.UdsFunc_SID_RDBI_DID_F194_Callback',code,cluster('UdsFunc_SID_RDBI_DID_F194_Callback')
+	.sect	'.text.Uds_User_ReadDataByIdentifierCallback.UdsFunc_SID_RDBI_DID_F194_Callback'
+	.align	2
+	
+	.global	UdsFunc_SID_RDBI_DID_F194_Callback
+
+; ..\Communication_Files\Uds\User\Uds_User_ReadDataByIdentifierCallback.c	    71  
+; ..\Communication_Files\Uds\User\Uds_User_ReadDataByIdentifierCallback.c	    72  boolean UdsFunc_SID_RDBI_DID_F194_Callback
+; Function UdsFunc_SID_RDBI_DID_F194_Callback
+.L27:
+UdsFunc_SID_RDBI_DID_F194_Callback:	.type	func
+
+; ..\Communication_Files\Uds\User\Uds_User_ReadDataByIdentifierCallback.c	    73  	(uint8 *ui8_pRes, uint16 *ui16_pResLen)
+; ..\Communication_Files\Uds\User\Uds_User_ReadDataByIdentifierCallback.c	    74  {
+; ..\Communication_Files\Uds\User\Uds_User_ReadDataByIdentifierCallback.c	    75  	uint8	ui8_Loop_1;	/*循环计数器*/
+; ..\Communication_Files\Uds\User\Uds_User_ReadDataByIdentifierCallback.c	    76  	boolean	b_Return; uint16 tmpvar = *ui16_pResLen ;
+; ..\Communication_Files\Uds\User\Uds_User_ReadDataByIdentifierCallback.c	    77  
+; ..\Communication_Files\Uds\User\Uds_User_ReadDataByIdentifierCallback.c	    78  	/*回应数据*/
+; ..\Communication_Files\Uds\User\Uds_User_ReadDataByIdentifierCallback.c	    79  	if(E_OK == Fls_Read(PROGRAM_SOFEDATA_ADDR, &ui8_SID_RDBI_DID_F194_RAM[0U], SID_RDBI_DID_F194_LEN))									/*如果读Flash成功*/
+	movh.a	a13,#@his(ui8_SID_RDBI_DID_F194_RAM)
+.L161:
+	mov.u	d4,#33024
+	lea	a13,[a13]@los(ui8_SID_RDBI_DID_F194_RAM)
+.L162:
+	mov.aa	a15,a4
+.L112:
+	mov.aa	a12,a5
+.L118:
+	ld.hu	d8,[a12]0
+.L117:
+	movh.a	a14,#@his(.L185)
+	lea	a14,[a14]@los(.L185)
+	j	.cocofun_1
+.L185:
+.L111:
+
+; ..\Communication_Files\Uds\User\Uds_User_ReadDataByIdentifierCallback.c	    80  	{
+; ..\Communication_Files\Uds\User\Uds_User_ReadDataByIdentifierCallback.c	    81  		ui16_pResLen[0U] = SID_RDBI_DID_F194_LEN;										/*将正确的长度返回*/
+; ..\Communication_Files\Uds\User\Uds_User_ReadDataByIdentifierCallback.c	    82  		for(ui8_Loop_1 = 0U; ui8_Loop_1 < SID_RDBI_DID_F194_LEN; ui8_Loop_1++)
+; ..\Communication_Files\Uds\User\Uds_User_ReadDataByIdentifierCallback.c	    83  		{
+; ..\Communication_Files\Uds\User\Uds_User_ReadDataByIdentifierCallback.c	    84  			ui8_pRes[ui8_Loop_1] = ui8_SID_RDBI_DID_F194_RAM[ui8_Loop_1];				/*将Flash中读出来的值返回*/
+; ..\Communication_Files\Uds\User\Uds_User_ReadDataByIdentifierCallback.c	    85  		}
+; ..\Communication_Files\Uds\User\Uds_User_ReadDataByIdentifierCallback.c	    86  
+; ..\Communication_Files\Uds\User\Uds_User_ReadDataByIdentifierCallback.c	    87  		if(tmpvar == 0x22){st_Uds_Response.ui8_ResCode = UDS_RES_CODE_PR;}	/*正响应*/
+; ..\Communication_Files\Uds\User\Uds_User_ReadDataByIdentifierCallback.c	    88  	}
+; ..\Communication_Files\Uds\User\Uds_User_ReadDataByIdentifierCallback.c	    89  	else
+; ..\Communication_Files\Uds\User\Uds_User_ReadDataByIdentifierCallback.c	    90  	{
+; ..\Communication_Files\Uds\User\Uds_User_ReadDataByIdentifierCallback.c	    91  		st_Uds_Response.ui8_ResCode = UDS_RES_CODE_CNC;	/*条件错误响应*/
+; ..\Communication_Files\Uds\User\Uds_User_ReadDataByIdentifierCallback.c	    92  	}
+; ..\Communication_Files\Uds\User\Uds_User_ReadDataByIdentifierCallback.c	    93  
+; ..\Communication_Files\Uds\User\Uds_User_ReadDataByIdentifierCallback.c	    94  	b_Return = E_OK;
+; ..\Communication_Files\Uds\User\Uds_User_ReadDataByIdentifierCallback.c	    95  
+; ..\Communication_Files\Uds\User\Uds_User_ReadDataByIdentifierCallback.c	    96  
+; ..\Communication_Files\Uds\User\Uds_User_ReadDataByIdentifierCallback.c	    97  	return	b_Return;
+; ..\Communication_Files\Uds\User\Uds_User_ReadDataByIdentifierCallback.c	    98  }
+	ret
+.L83:
+	
+__UdsFunc_SID_RDBI_DID_F194_Callback_function_end:
+	.size	UdsFunc_SID_RDBI_DID_F194_Callback,__UdsFunc_SID_RDBI_DID_F194_Callback_function_end-UdsFunc_SID_RDBI_DID_F194_Callback
+.L50:
+	; End of function
+	
+	.sdecl	'.text.Uds_User_ReadDataByIdentifierCallback..cocofun_1',code,cluster('.cocofun_1')
+	.sect	'.text.Uds_User_ReadDataByIdentifierCallback..cocofun_1'
+	.align	2
+; Function .cocofun_1
+.L29:
+.cocofun_1:	.type	func
+; Function body .cocofun_1, coco_iter:0
+	addih	d4,d4,#32768
+.L173:
+	mov	d5,#6
+	mov.aa	a4,a13
+.L115:
+	call	Fls_Read
+.L113:
+	jne	d2,#0,.L12				; predicted not taken
+.L174:
+	mov	d15,#6
+	st.h	[a12],d15
+.L175:
+	mov.a	a2,#5
+.L13:
+	ld.bu	d15,[a13+]
+.L176:
+	st.b	[a15+],d15
+.L177:
+	loop	a2,.L13				; predicted taken
+.L178:
+	mov	d15,#34
+.L179:
+	jne	d15,d8,.L14				; predicted taken
+.L180:
+	mov	d15,#0
+	movh.a	a15,#@his(st_Uds_Response)
+.L114:
+	lea	a15,[a15]@los(st_Uds_Response)
+.L181:
+	j	.L15
+.L12:
+	mov	d15,#34
+	movh.a	a15,#@his(st_Uds_Response)
+.L116:
+	lea	a15,[a15]@los(st_Uds_Response)
+.L15:
+	st.b	[a15],d15
+.L14:
+	mov	d2,#0
+.L182:
+	ji	a14
+.L60:
+	; End of function
+	.sdecl	'.text.Uds_User_ReadDataByIdentifierCallback.UdsFunc_SID_RDBI_DID_F195_Callback',code,cluster('UdsFunc_SID_RDBI_DID_F195_Callback')
+	.sect	'.text.Uds_User_ReadDataByIdentifierCallback.UdsFunc_SID_RDBI_DID_F195_Callback'
+	.align	2
+	
+	.global	UdsFunc_SID_RDBI_DID_F195_Callback
+
+; ..\Communication_Files\Uds\User\Uds_User_ReadDataByIdentifierCallback.c	    99  
+; ..\Communication_Files\Uds\User\Uds_User_ReadDataByIdentifierCallback.c	   100  boolean UdsFunc_SID_RDBI_DID_F195_Callback
+; Function UdsFunc_SID_RDBI_DID_F195_Callback
+.L31:
+UdsFunc_SID_RDBI_DID_F195_Callback:	.type	func
+
+; ..\Communication_Files\Uds\User\Uds_User_ReadDataByIdentifierCallback.c	   101  	(uint8 *ui8_pRes, uint16 *ui16_pResLen)
+; ..\Communication_Files\Uds\User\Uds_User_ReadDataByIdentifierCallback.c	   102  {
+; ..\Communication_Files\Uds\User\Uds_User_ReadDataByIdentifierCallback.c	   103  	uint8	ui8_Loop_1;	/*循环计数器*/
+; ..\Communication_Files\Uds\User\Uds_User_ReadDataByIdentifierCallback.c	   104  	boolean	b_Return; uint16 tmpvar = *ui16_pResLen ;
+; ..\Communication_Files\Uds\User\Uds_User_ReadDataByIdentifierCallback.c	   105  
+; ..\Communication_Files\Uds\User\Uds_User_ReadDataByIdentifierCallback.c	   106  	/*回应数据*/
+; ..\Communication_Files\Uds\User\Uds_User_ReadDataByIdentifierCallback.c	   107  	if(E_OK == Fls_Read(PROGRAM_DATE_ADDR, &ui8_SID_RDBI_DID_F195_RAM[0U], SID_RDBI_DID_F195_LEN))									/*如果读Flash成功*/
+	movh.a	a13,#@his(ui8_SID_RDBI_DID_F195_RAM)
+.L167:
+	mov.u	d4,#33536
+	lea	a13,[a13]@los(ui8_SID_RDBI_DID_F195_RAM)
+.L168:
+	mov.aa	a15,a4
+.L120:
+	mov.aa	a12,a5
+.L122:
+	ld.hu	d8,[a12]0
+.L121:
+	movh.a	a14,#@his(.L186)
+	lea	a14,[a14]@los(.L186)
+	j	.cocofun_1
+.L186:
+.L119:
+
+; ..\Communication_Files\Uds\User\Uds_User_ReadDataByIdentifierCallback.c	   108  	{
+; ..\Communication_Files\Uds\User\Uds_User_ReadDataByIdentifierCallback.c	   109  		ui16_pResLen[0U] = SID_RDBI_DID_F195_LEN;										/*将正确的长度返回*/
+; ..\Communication_Files\Uds\User\Uds_User_ReadDataByIdentifierCallback.c	   110  		for(ui8_Loop_1 = 0U; ui8_Loop_1 < SID_RDBI_DID_F195_LEN; ui8_Loop_1++)
+; ..\Communication_Files\Uds\User\Uds_User_ReadDataByIdentifierCallback.c	   111  		{
+; ..\Communication_Files\Uds\User\Uds_User_ReadDataByIdentifierCallback.c	   112  			ui8_pRes[ui8_Loop_1] = ui8_SID_RDBI_DID_F195_RAM[ui8_Loop_1];				/*将Flash中读出来的值返回*/
+; ..\Communication_Files\Uds\User\Uds_User_ReadDataByIdentifierCallback.c	   113  		}
+; ..\Communication_Files\Uds\User\Uds_User_ReadDataByIdentifierCallback.c	   114  
+; ..\Communication_Files\Uds\User\Uds_User_ReadDataByIdentifierCallback.c	   115  		if(tmpvar == 0x22){st_Uds_Response.ui8_ResCode = UDS_RES_CODE_PR;}	/*正响应*/
+; ..\Communication_Files\Uds\User\Uds_User_ReadDataByIdentifierCallback.c	   116  	}
+; ..\Communication_Files\Uds\User\Uds_User_ReadDataByIdentifierCallback.c	   117  	else
+; ..\Communication_Files\Uds\User\Uds_User_ReadDataByIdentifierCallback.c	   118  	{
+; ..\Communication_Files\Uds\User\Uds_User_ReadDataByIdentifierCallback.c	   119  		st_Uds_Response.ui8_ResCode = UDS_RES_CODE_CNC;	/*条件错误响应*/
+; ..\Communication_Files\Uds\User\Uds_User_ReadDataByIdentifierCallback.c	   120  	}
+; ..\Communication_Files\Uds\User\Uds_User_ReadDataByIdentifierCallback.c	   121  
+; ..\Communication_Files\Uds\User\Uds_User_ReadDataByIdentifierCallback.c	   122  	b_Return = E_OK;
+; ..\Communication_Files\Uds\User\Uds_User_ReadDataByIdentifierCallback.c	   123  
+; ..\Communication_Files\Uds\User\Uds_User_ReadDataByIdentifierCallback.c	   124  	return	b_Return;
+; ..\Communication_Files\Uds\User\Uds_User_ReadDataByIdentifierCallback.c	   125  }
+	ret
+.L89:
+	
+__UdsFunc_SID_RDBI_DID_F195_Callback_function_end:
+	.size	UdsFunc_SID_RDBI_DID_F195_Callback,__UdsFunc_SID_RDBI_DID_F195_Callback_function_end-UdsFunc_SID_RDBI_DID_F195_Callback
+.L55:
+	; End of function
+	
+	.sdecl	'.bss.Uds_User_ReadDataByIdentifierCallback.ui8_SID_RDBI_DID_F180_RAM',data,cluster('ui8_SID_RDBI_DID_F180_RAM')
+	.sect	'.bss.Uds_User_ReadDataByIdentifierCallback.ui8_SID_RDBI_DID_F180_RAM'
+	.global	ui8_SID_RDBI_DID_F180_RAM
+ui8_SID_RDBI_DID_F180_RAM:	.type	object
+	.size	ui8_SID_RDBI_DID_F180_RAM,9
+	.space	9
+	.sdecl	'.bss.Uds_User_ReadDataByIdentifierCallback.ui8_SID_RDBI_DID_F193_RAM',data,cluster('ui8_SID_RDBI_DID_F193_RAM')
+	.sect	'.bss.Uds_User_ReadDataByIdentifierCallback.ui8_SID_RDBI_DID_F193_RAM'
+	.global	ui8_SID_RDBI_DID_F193_RAM
+ui8_SID_RDBI_DID_F193_RAM:	.type	object
+	.size	ui8_SID_RDBI_DID_F193_RAM,5
+	.space	5
+	.sdecl	'.bss.Uds_User_ReadDataByIdentifierCallback.ui8_SID_RDBI_DID_F194_RAM',data,cluster('ui8_SID_RDBI_DID_F194_RAM')
+	.sect	'.bss.Uds_User_ReadDataByIdentifierCallback.ui8_SID_RDBI_DID_F194_RAM'
+	.global	ui8_SID_RDBI_DID_F194_RAM
+ui8_SID_RDBI_DID_F194_RAM:	.type	object
+	.size	ui8_SID_RDBI_DID_F194_RAM,6
+	.space	6
+	.sdecl	'.bss.Uds_User_ReadDataByIdentifierCallback.ui8_SID_RDBI_DID_F195_RAM',data,cluster('ui8_SID_RDBI_DID_F195_RAM')
+	.sect	'.bss.Uds_User_ReadDataByIdentifierCallback.ui8_SID_RDBI_DID_F195_RAM'
+	.global	ui8_SID_RDBI_DID_F195_RAM
+ui8_SID_RDBI_DID_F195_RAM:	.type	object
+	.size	ui8_SID_RDBI_DID_F195_RAM,6
+	.space	6
+	.calls	'UdsFunc_SID_RDBI_DID_F180_Callback','Fls_Read'
+	.calls	'UdsFunc_SID_RDBI_DID_F193_Callback','Fls_Read'
+	.calls	'UdsFunc_SID_RDBI_DID_F194_Callback','Fls_Read'
+	.calls	'UdsFunc_SID_RDBI_DID_F195_Callback','Fls_Read'
+	.calls	'UdsFunc_SID_RDBI_DID_F194_Callback','.cocofun_1'
+	.calls	'UdsFunc_SID_RDBI_DID_F195_Callback','.cocofun_1'
+	.calls	'UdsFunc_SID_RDBI_DID_F180_Callback','',0
+	.calls	'UdsFunc_SID_RDBI_DID_F193_Callback','',0
+	.calls	'UdsFunc_SID_RDBI_DID_F194_Callback','',0
+	.calls	'.cocofun_1','',0
+	.extern	Fls_Read
+	.extern	st_Uds_Response
+	.calls	'UdsFunc_SID_RDBI_DID_F195_Callback','',0
+	.sdecl	'.debug_info',debug
+	.sect	'.debug_info'
+.L33:
+	.word	766
+	.half	3
+	.word	.L34
+	.byte	4
+.L32:
+	.byte	1
+	.byte	'..\\Communication_Files\\Uds\\User\\Uds_User_ReadDataByIdentifierCallback.c',0
+	.byte	'TASKING VX-toolset for TriCore: C compiler',0
+	.byte	'D:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_1.9\\BMU_BOOT\\Debug\\',0,12,1
+	.word	.L35
+.L69:
+	.byte	2
+	.byte	'unsigned char',0,1,8,3
+	.byte	'Fls_Read',0,1,172,1,16
+	.word	189
+	.byte	1,1,1,1,2
+	.byte	'unsigned long int',0,4,7,4
+	.byte	'ui32_SA',0,1,172,1,33
+	.word	228
+.L71:
+	.byte	5
+	.word	189
+	.byte	4
+	.byte	'ui8_p_TA',0,1,172,1,49
+	.word	266
+	.byte	4
+	.byte	'ui32_Len',0,1,172,1,66
+	.word	228
+	.byte	0
+.L76:
+	.byte	2
+	.byte	'unsigned short int',0,2,7
+.L73:
+	.byte	5
+	.word	308
+	.byte	6
+	.byte	'void',0,5
+	.word	335
+	.byte	7
+	.byte	'__prof_adm',0,2,1,1
+	.word	341
+	.byte	8,1,5
+	.word	365
+	.byte	7
+	.byte	'__codeptr',0,2,1,1
+	.word	367
+	.byte	7
+	.byte	'ubyte',0,3,78,24
+	.word	189
+	.byte	7
+	.byte	'ushort',0,3,80,24
+	.word	308
+	.byte	2
+	.byte	'unsigned int',0,4,7,7
+	.byte	'uword',0,3,82,24
+	.word	419
+	.byte	7
+	.byte	'uint8',0,4,87,29
+	.word	189
+	.byte	7
+	.byte	'uint16',0,4,89,29
+	.word	308
+	.byte	2
+	.byte	'long int',0,4,5,7
+	.byte	'sint32',0,4,90,29
+	.word	478
+	.byte	7
+	.byte	'uint32',0,4,91,27
+	.word	228
+	.byte	7
+	.byte	'boolean',0,4,102,29
+	.word	189
+	.byte	9,5,91,9,28,10
+	.byte	'ui8_ResCode',0,1
+	.word	189
+	.byte	2,35,0,10
+	.byte	'b_SuppressPosRspBit',0,1
+	.word	189
+	.byte	2,35,1,10
+	.byte	'ui8_pMsgData',0,4
+	.word	266
+	.byte	2,35,4,10
+	.byte	'ui16_pLength',0,4
+	.word	330
+	.byte	2,35,8,11,8
+	.word	189
+	.byte	12,7,0,10
+	.byte	'ui8_Neg78_Buf',0,8
+	.word	635
+	.byte	2,35,12,10
+	.byte	'ui8_3E_Buf',0,8
+	.word	635
+	.byte	2,35,20,0,7
+	.byte	'Struct_Uds_Response',0,5,99,2
+	.word	536
+	.byte	13
+	.byte	'st_Uds_Response',0,5,126,29
+	.word	536
+	.byte	1,1
+.L94:
+	.byte	11,9
+	.word	189
+	.byte	12,8,0
+.L95:
+	.byte	11,5
+	.word	189
+	.byte	12,4,0
+.L96:
+	.byte	11,6
+	.word	189
+	.byte	12,5,0,0
+	.sdecl	'.debug_abbrev',debug
+	.sect	'.debug_abbrev'
+.L34:
+	.byte	1,17,1,3,8,37,8,27,8,19,15,128,70,12,16,6,0,0,2,36,0,3,8,11,15,62,15,0,0,3,46,1,3,8,58,15,59,15,57,15
+	.byte	73,19,54,15,39,12,63,12,60,12,0,0,4,5,0,3,8,58,15,59,15,57,15,73,19,0,0,5,15,0,73,19,0,0,6,59,0,3,8,0
+	.byte	0,7,22,0,3,8,58,15,59,15,57,15,73,19,0,0,8,21,0,54,15,0,0,9,19,1,58,15,59,15,57,15,11,15,0,0,10,13,0,3
+	.byte	8,11,15,73,19,56,9,0,0,11,1,1,11,15,73,19,0,0,12,33,0,47,15,0,0,13,52,0,3,8,58,15,59,15,57,15,73,19,63
+	.byte	12,60,12,0,0,0
+	.sdecl	'.debug_line',debug
+	.sect	'.debug_line'
+.L35:
+	.word	.L124-.L123
+.L123:
+	.half	3
+	.word	.L126-.L125
+.L125:
+	.byte	2,1,-4,9,10,0,1,1,1,1,0,0,0,1
+	.byte	'D:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_1.9\\BMU_BOOT\\Nvm_Files\\FlsDrv',0
+	.byte	'D:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_1.9\\BMU_BOOT\\Initiate_Files',0
+	.byte	'D:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_1.9\\BMU_BOOT\\Stand_Header',0
+	.byte	'D:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_1.9\\BMU_BOOT\\Communication_Files\\Uds\\Dcm',0,0
+	.byte	'Flash_TC1782_Driver.h',0,1,0,0
+	.byte	'..\\Communication_Files\\Uds\\User\\Uds_User_ReadDataByIdentifierCallback.c',0,0,0,0
+	.byte	'MAIN.h',0,2,0,0
+	.byte	'Platform_Types.h',0,3,0,0
+	.byte	'Uds_Dcm_Drv.h',0,4,0,0,0
+.L126:
+.L124:
+	.sdecl	'.debug_info',debug,cluster('UdsFunc_SID_RDBI_DID_F180_Callback')
+	.sect	'.debug_info'
+.L36:
+	.word	352
+	.half	3
+	.word	.L37
+	.byte	4,1
+	.byte	'..\\Communication_Files\\Uds\\User\\Uds_User_ReadDataByIdentifierCallback.c',0
+	.byte	'TASKING VX-toolset for TriCore: C compiler',0
+	.byte	'D:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_1.9\\BMU_BOOT\\Debug\\',0,12,1
+	.word	.L39,.L38
+	.byte	2
+	.word	.L32
+	.byte	3
+	.byte	'UdsFunc_SID_RDBI_DID_F180_Callback',0,1,18,9
+	.word	.L69
+	.byte	1,1,1
+	.word	.L23,.L70,.L22
+	.byte	4
+	.byte	'ui8_pRes',0,1,19,10
+	.word	.L71,.L72
+	.byte	4
+	.byte	'ui16_pResLen',0,1,19,28
+	.word	.L73,.L74
+	.byte	5
+	.word	.L23,.L70
+	.byte	6
+	.byte	'ui8_Loop_1',0,1,21,8
+	.word	.L69,.L75
+	.byte	6
+	.byte	'tmpvar',0,1,22,27
+	.word	.L76,.L77
+	.byte	0,0,0
+	.sdecl	'.debug_abbrev',debug,cluster('UdsFunc_SID_RDBI_DID_F180_Callback')
+	.sect	'.debug_abbrev'
+.L37:
+	.byte	1,17,1,3,8,37,8,27,8,19,15,128,70,12,85,6,16,6,0,0,2,61,0,24,16,0,0,3,46,1,3,8,58,15,59,15,57,15,73,16
+	.byte	54,15,39,12,63,12,17,1,18,1,64,6,0,0,4,5,0,3,8,58,15,59,15,57,15,73,16,2,6,0,0,5,11,1,17,1,18,1,0,0,6
+	.byte	52,0,3,8,58,15,59,15,57,15,73,16,2,6,0,0,0
+	.sdecl	'.debug_line',debug,cluster('UdsFunc_SID_RDBI_DID_F180_Callback')
+	.sect	'.debug_line'
+.L38:
+	.word	.L128-.L127
+.L127:
+	.half	3
+	.word	.L130-.L129
+.L129:
+	.byte	2,1,-4,9,10,0,1,1,1,1,0,0,0,1,0
+	.byte	'..\\Communication_Files\\Uds\\User\\Uds_User_ReadDataByIdentifierCallback.c',0,0,0,0,0
+.L130:
+	.byte	5,48,7,0,5,2
+	.word	.L23
+	.byte	3,23,1,5,22,9
+	.half	.L131-.L23
+	.byte	1,5,48,1,5,22,9
+	.half	.L132-.L131
+	.byte	1,5,9,3,122,1,5,79,9
+	.half	.L99-.L132
+	.byte	3,6,1,5,9,9
+	.half	.L98-.L99
+	.byte	3,122,1,5,36,9
+	.half	.L101-.L98
+	.byte	3,4,1,5,79,9
+	.half	.L102-.L101
+	.byte	3,2,1,5,2,9
+	.half	.L97-.L102
+	.byte	1,5,22,7,9
+	.half	.L133-.L97
+	.byte	3,3,1,5,20,1,5,58,9
+	.half	.L134-.L133
+	.byte	3,1,1,5,52,9
+	.half	.L3-.L134
+	.byte	3,2,1,5,25,9
+	.half	.L135-.L3
+	.byte	1,5,58,9
+	.half	.L136-.L135
+	.byte	3,126,1,5,16,7,9
+	.half	.L137-.L136
+	.byte	3,5,1,5,3,9
+	.half	.L138-.L137
+	.byte	1,5,52,7,9
+	.half	.L139-.L138
+	.byte	1,5,22,1,5,3,9
+	.half	.L140-.L139
+	.byte	1,5,33,9
+	.half	.L2-.L140
+	.byte	3,4,1,5,3,1,5,31,9
+	.half	.L5-.L2
+	.byte	1,5,9,9
+	.half	.L4-.L5
+	.byte	3,5,1,5,1,9
+	.half	.L141-.L4
+	.byte	3,1,1,7,9
+	.half	.L40-.L141
+	.byte	0,1,1
+.L128:
+	.sdecl	'.debug_ranges',debug,cluster('UdsFunc_SID_RDBI_DID_F180_Callback')
+	.sect	'.debug_ranges'
+.L39:
+	.word	-1,.L23,0,.L40-.L23,0,0
+	.sdecl	'.debug_info',debug,cluster('UdsFunc_SID_RDBI_DID_F193_Callback')
+	.sect	'.debug_info'
+.L41:
+	.word	352
+	.half	3
+	.word	.L42
+	.byte	4,1
+	.byte	'..\\Communication_Files\\Uds\\User\\Uds_User_ReadDataByIdentifierCallback.c',0
+	.byte	'TASKING VX-toolset for TriCore: C compiler',0
+	.byte	'D:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_1.9\\BMU_BOOT\\Debug\\',0,12,1
+	.word	.L44,.L43
+	.byte	2
+	.word	.L32
+	.byte	3
+	.byte	'UdsFunc_SID_RDBI_DID_F193_Callback',0,1,45,9
+	.word	.L69
+	.byte	1,1,1
+	.word	.L25,.L78,.L24
+	.byte	4
+	.byte	'ui8_pRes',0,1,46,10
+	.word	.L71,.L79
+	.byte	4
+	.byte	'ui16_pResLen',0,1,46,28
+	.word	.L73,.L80
+	.byte	5
+	.word	.L25,.L78
+	.byte	6
+	.byte	'ui8_Loop_1',0,1,48,8
+	.word	.L69,.L81
+	.byte	6
+	.byte	'tmpvar',0,1,49,27
+	.word	.L76,.L82
+	.byte	0,0,0
+	.sdecl	'.debug_abbrev',debug,cluster('UdsFunc_SID_RDBI_DID_F193_Callback')
+	.sect	'.debug_abbrev'
+.L42:
+	.byte	1,17,1,3,8,37,8,27,8,19,15,128,70,12,85,6,16,6,0,0,2,61,0,24,16,0,0,3,46,1,3,8,58,15,59,15,57,15,73,16
+	.byte	54,15,39,12,63,12,17,1,18,1,64,6,0,0,4,5,0,3,8,58,15,59,15,57,15,73,16,2,6,0,0,5,11,1,17,1,18,1,0,0,6
+	.byte	52,0,3,8,58,15,59,15,57,15,73,16,2,6,0,0,0
+	.sdecl	'.debug_line',debug,cluster('UdsFunc_SID_RDBI_DID_F193_Callback')
+	.sect	'.debug_line'
+.L43:
+	.word	.L143-.L142
+.L142:
+	.half	3
+	.word	.L145-.L144
+.L144:
+	.byte	2,1,-4,9,10,0,1,1,1,1,0,0,0,1,0
+	.byte	'..\\Communication_Files\\Uds\\User\\Uds_User_ReadDataByIdentifierCallback.c',0,0,0,0,0
+.L145:
+	.byte	5,46,7,0,5,2
+	.word	.L25
+	.byte	3,50,1,5,22,9
+	.half	.L146-.L25
+	.byte	1,5,46,1,5,22,9
+	.half	.L147-.L146
+	.byte	1,5,9,3,122,1,5,77,9
+	.half	.L106-.L147
+	.byte	3,6,1,5,9,9
+	.half	.L105-.L106
+	.byte	3,122,1,5,36,9
+	.half	.L108-.L105
+	.byte	3,4,1,5,77,9
+	.half	.L109-.L108
+	.byte	3,2,1,5,2,9
+	.half	.L104-.L109
+	.byte	1,5,22,7,9
+	.half	.L148-.L104
+	.byte	3,3,1,5,20,1,5,58,9
+	.half	.L149-.L148
+	.byte	3,1,1,5,52,9
+	.half	.L8-.L149
+	.byte	3,2,1,5,25,9
+	.half	.L150-.L8
+	.byte	1,5,58,9
+	.half	.L151-.L150
+	.byte	3,126,1,5,16,7,9
+	.half	.L152-.L151
+	.byte	3,5,1,5,3,9
+	.half	.L153-.L152
+	.byte	1,5,52,7,9
+	.half	.L154-.L153
+	.byte	1,5,22,1,5,3,9
+	.half	.L155-.L154
+	.byte	1,5,33,9
+	.half	.L7-.L155
+	.byte	3,4,1,5,3,1,5,31,9
+	.half	.L10-.L7
+	.byte	1,5,9,9
+	.half	.L9-.L10
+	.byte	3,5,1,5,1,9
+	.half	.L156-.L9
+	.byte	3,1,1,7,9
+	.half	.L45-.L156
+	.byte	0,1,1
+.L143:
+	.sdecl	'.debug_ranges',debug,cluster('UdsFunc_SID_RDBI_DID_F193_Callback')
+	.sect	'.debug_ranges'
+.L44:
+	.word	-1,.L25,0,.L45-.L25,0,0
+	.sdecl	'.debug_info',debug,cluster('UdsFunc_SID_RDBI_DID_F194_Callback')
+	.sect	'.debug_info'
+.L46:
+	.word	348
+	.half	3
+	.word	.L47
+	.byte	4,1
+	.byte	'..\\Communication_Files\\Uds\\User\\Uds_User_ReadDataByIdentifierCallback.c',0
+	.byte	'TASKING VX-toolset for TriCore: C compiler',0
+	.byte	'D:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_1.9\\BMU_BOOT\\Debug\\',0,12,1
+	.word	.L49,.L48
+	.byte	2
+	.word	.L32
+	.byte	3
+	.byte	'UdsFunc_SID_RDBI_DID_F194_Callback',0,1,72,9
+	.word	.L69
+	.byte	1,1,1
+	.word	.L27,.L83,.L26
+	.byte	4
+	.byte	'ui8_pRes',0,1,73,10
+	.word	.L71,.L84
+	.byte	4
+	.byte	'ui16_pResLen',0,1,73,28
+	.word	.L73,.L85
+	.byte	5
+	.word	.L86
+	.byte	6
+	.byte	'ui8_Loop_1',0,1,75,8
+	.word	.L69,.L87
+	.byte	6
+	.byte	'tmpvar',0,1,76,27
+	.word	.L76,.L88
+	.byte	0,0,0
+	.sdecl	'.debug_abbrev',debug,cluster('UdsFunc_SID_RDBI_DID_F194_Callback')
+	.sect	'.debug_abbrev'
+.L47:
+	.byte	1,17,1,3,8,37,8,27,8,19,15,128,70,12,85,6,16,6,0,0,2,61,0,24,16,0,0,3,46,1,3,8,58,15,59,15,57,15,73,16
+	.byte	54,15,39,12,63,12,17,1,18,1,64,6,0,0,4,5,0,3,8,58,15,59,15,57,15,73,16,2,6,0,0,5,11,1,85,6,0,0,6,52,0
+	.byte	3,8,58,15,59,15,57,15,73,16,2,6,0,0,0
+	.sdecl	'.debug_line',debug,cluster('UdsFunc_SID_RDBI_DID_F194_Callback')
+	.sect	'.debug_line'
+.L48:
+	.word	.L158-.L157
+.L157:
+	.half	3
+	.word	.L160-.L159
+.L159:
+	.byte	2,1,-4,9,10,0,1,1,1,1,0,0,0,1,0
+	.byte	'..\\Communication_Files\\Uds\\User\\Uds_User_ReadDataByIdentifierCallback.c',0,0,0,0,0
+.L160:
+	.byte	5,46,7,0,5,2
+	.word	.L27
+	.byte	3,206,0,1,5,22,9
+	.half	.L161-.L27
+	.byte	1,5,46,1,5,9,9
+	.half	.L162-.L161
+	.byte	3,121,1,5,36,9
+	.half	.L118-.L162
+	.byte	3,4,1,5,22,9
+	.half	.L117-.L118
+	.byte	3,3,1,5,1,9
+	.half	.L111-.L117
+	.byte	3,19,1,7,9
+	.half	.L50-.L111
+	.byte	0,1,1
+.L158:
+	.sdecl	'.debug_ranges',debug,cluster('UdsFunc_SID_RDBI_DID_F194_Callback')
+	.sect	'.debug_ranges'
+.L49:
+	.word	-1,.L27,0,.L50-.L27,0,0
+.L86:
+	.word	-1,.L27,0,.L83-.L27,-1,.L29,0,.L60-.L29,0,0
+	.sdecl	'.debug_info',debug,cluster('UdsFunc_SID_RDBI_DID_F195_Callback')
+	.sect	'.debug_info'
+.L51:
+	.word	352
+	.half	3
+	.word	.L52
+	.byte	4,1
+	.byte	'..\\Communication_Files\\Uds\\User\\Uds_User_ReadDataByIdentifierCallback.c',0
+	.byte	'TASKING VX-toolset for TriCore: C compiler',0
+	.byte	'D:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_1.9\\BMU_BOOT\\Debug\\',0,12,1
+	.word	.L54,.L53
+	.byte	2
+	.word	.L32
+	.byte	3
+	.byte	'UdsFunc_SID_RDBI_DID_F195_Callback',0,1,100,9
+	.word	.L69
+	.byte	1,1,1
+	.word	.L31,.L89,.L30
+	.byte	4
+	.byte	'ui8_pRes',0,1,101,10
+	.word	.L71,.L90
+	.byte	4
+	.byte	'ui16_pResLen',0,1,101,28
+	.word	.L73,.L91
+	.byte	5
+	.word	.L31,.L89
+	.byte	6
+	.byte	'ui8_Loop_1',0,1,103,8
+	.word	.L69,.L92
+	.byte	6
+	.byte	'tmpvar',0,1,104,27
+	.word	.L76,.L93
+	.byte	0,0,0
+	.sdecl	'.debug_abbrev',debug,cluster('UdsFunc_SID_RDBI_DID_F195_Callback')
+	.sect	'.debug_abbrev'
+.L52:
+	.byte	1,17,1,3,8,37,8,27,8,19,15,128,70,12,85,6,16,6,0,0,2,61,0,24,16,0,0,3,46,1,3,8,58,15,59,15,57,15,73,16
+	.byte	54,15,39,12,63,12,17,1,18,1,64,6,0,0,4,5,0,3,8,58,15,59,15,57,15,73,16,2,6,0,0,5,11,1,17,1,18,1,0,0,6
+	.byte	52,0,3,8,58,15,59,15,57,15,73,16,2,6,0,0,0
+	.sdecl	'.debug_line',debug,cluster('UdsFunc_SID_RDBI_DID_F195_Callback')
+	.sect	'.debug_line'
+.L53:
+	.word	.L164-.L163
+.L163:
+	.half	3
+	.word	.L166-.L165
+.L165:
+	.byte	2,1,-4,9,10,0,1,1,1,1,0,0,0,1,0
+	.byte	'..\\Communication_Files\\Uds\\User\\Uds_User_ReadDataByIdentifierCallback.c',0,0,0,0,0
+.L166:
+	.byte	5,42,7,0,5,2
+	.word	.L31
+	.byte	3,234,0,1,5,22,9
+	.half	.L167-.L31
+	.byte	1,5,42,1,5,9,9
+	.half	.L168-.L167
+	.byte	3,121,1,5,36,9
+	.half	.L122-.L168
+	.byte	3,4,1,5,22,9
+	.half	.L121-.L122
+	.byte	3,3,1,5,1,9
+	.half	.L119-.L121
+	.byte	3,18,1,7,9
+	.half	.L55-.L119
+	.byte	0,1,1
+.L164:
+	.sdecl	'.debug_ranges',debug,cluster('UdsFunc_SID_RDBI_DID_F195_Callback')
+	.sect	'.debug_ranges'
+.L54:
+	.word	-1,.L31,0,.L55-.L31,0,0
+	.sdecl	'.debug_info',debug,cluster('.cocofun_1')
+	.sect	'.debug_info'
+.L56:
+	.word	223
+	.half	3
+	.word	.L57
+	.byte	4,1
+	.byte	'..\\Communication_Files\\Uds\\User\\Uds_User_ReadDataByIdentifierCallback.c',0
+	.byte	'TASKING VX-toolset for TriCore: C compiler',0
+	.byte	'D:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_1.9\\BMU_BOOT\\Debug\\',0,12,1
+	.word	.L59,.L58
+	.byte	2
+	.word	.L32
+	.byte	3
+	.byte	'.cocofun_1',0,1,72,9,1
+	.word	.L29,.L60,.L28
+	.byte	0
+	.sdecl	'.debug_abbrev',debug,cluster('.cocofun_1')
+	.sect	'.debug_abbrev'
+.L57:
+	.byte	1,17,1,3,8,37,8,27,8,19,15,128,70,12,85,6,16,6,0,0,2,61,0,24,16,0,0,3,46,0,3,8,58,15,59,15,57,15,54,15
+	.byte	17,1,18,1,64,6,0,0,0
+	.sdecl	'.debug_line',debug,cluster('.cocofun_1')
+	.sect	'.debug_line'
+.L58:
+	.word	.L170-.L169
+.L169:
+	.half	3
+	.word	.L172-.L171
+.L171:
+	.byte	2,1,-4,9,10,0,1,1,1,1,0,0,0,1,0
+	.byte	'..\\Communication_Files\\Uds\\User\\Uds_User_ReadDataByIdentifierCallback.c',0,0,0,0,0
+.L172:
+	.byte	5,22,7,0,5,2
+	.word	.L29
+	.byte	3,206,0,1,5,77,9
+	.half	.L173-.L29
+	.byte	1,5,2,9
+	.half	.L113-.L173
+	.byte	1,5,22,7,9
+	.half	.L174-.L113
+	.byte	3,2,1,5,20,1,5,58,9
+	.half	.L175-.L174
+	.byte	3,1,1,5,52,9
+	.half	.L13-.L175
+	.byte	3,2,1,5,25,9
+	.half	.L176-.L13
+	.byte	1,5,58,9
+	.half	.L177-.L176
+	.byte	3,126,1,5,16,7,9
+	.half	.L178-.L177
+	.byte	3,5,1,5,3,9
+	.half	.L179-.L178
+	.byte	1,5,52,7,9
+	.half	.L180-.L179
+	.byte	1,5,22,1,5,3,9
+	.half	.L181-.L180
+	.byte	1,5,33,9
+	.half	.L12-.L181
+	.byte	3,4,1,5,3,1,5,31,9
+	.half	.L15-.L12
+	.byte	1,5,9,9
+	.half	.L14-.L15
+	.byte	3,6,1,9
+	.half	.L60-.L14
+	.byte	0,1,1,5,22,0,5,2
+	.word	.L29
+	.byte	3,234,0,1,5,73,9
+	.half	.L173-.L29
+	.byte	1,5,2,9
+	.half	.L113-.L173
+	.byte	1,5,22,7,9
+	.half	.L174-.L113
+	.byte	3,2,1,5,20,1,5,58,9
+	.half	.L175-.L174
+	.byte	3,1,1,5,52,9
+	.half	.L13-.L175
+	.byte	3,2,1,5,25,9
+	.half	.L176-.L13
+	.byte	1,5,58,9
+	.half	.L177-.L176
+	.byte	3,126,1,5,16,7,9
+	.half	.L178-.L177
+	.byte	3,5,1,5,3,9
+	.half	.L179-.L178
+	.byte	1,5,52,7,9
+	.half	.L180-.L179
+	.byte	1,5,22,1,5,3,9
+	.half	.L181-.L180
+	.byte	1,5,33,9
+	.half	.L12-.L181
+	.byte	3,4,1,5,3,1,5,31,9
+	.half	.L15-.L12
+	.byte	1,5,9,9
+	.half	.L14-.L15
+	.byte	3,5,1,9
+	.half	.L182-.L14
+	.byte	3,101,1,7,9
+	.half	.L60-.L182
+	.byte	0,1,1
+.L170:
+	.sdecl	'.debug_ranges',debug,cluster('.cocofun_1')
+	.sect	'.debug_ranges'
+.L59:
+	.word	-1,.L29,0,.L60-.L29,0,0
+	.sdecl	'.debug_info',debug,cluster('ui8_SID_RDBI_DID_F180_RAM')
+	.sect	'.debug_info'
+.L61:
+	.word	228
+	.half	3
+	.word	.L62
+	.byte	4,1
+	.byte	'..\\Communication_Files\\Uds\\User\\Uds_User_ReadDataByIdentifierCallback.c',0
+	.byte	'TASKING VX-toolset for TriCore: C compiler',0
+	.byte	'D:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_1.9\\BMU_BOOT\\Debug\\',0,12,1,2
+	.word	.L32
+	.byte	3
+	.byte	'ui8_SID_RDBI_DID_F180_RAM',0,2,4,7
+	.word	.L94
+	.byte	1,5,3
+	.word	ui8_SID_RDBI_DID_F180_RAM
+	.byte	0
+	.sdecl	'.debug_abbrev',debug,cluster('ui8_SID_RDBI_DID_F180_RAM')
+	.sect	'.debug_abbrev'
+.L62:
+	.byte	1,17,1,3,8,37,8,27,8,19,15,128,70,12,0,0,2,61,0,24,16,0,0,3,52,0,3,8,58,15,59,15,57,15,73,16,63,12,2,9
+	.byte	0,0,0
+	.sdecl	'.debug_info',debug,cluster('ui8_SID_RDBI_DID_F193_RAM')
+	.sect	'.debug_info'
+.L63:
+	.word	228
+	.half	3
+	.word	.L64
+	.byte	4,1
+	.byte	'..\\Communication_Files\\Uds\\User\\Uds_User_ReadDataByIdentifierCallback.c',0
+	.byte	'TASKING VX-toolset for TriCore: C compiler',0
+	.byte	'D:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_1.9\\BMU_BOOT\\Debug\\',0,12,1,2
+	.word	.L32
+	.byte	3
+	.byte	'ui8_SID_RDBI_DID_F193_RAM',0,2,6,7
+	.word	.L95
+	.byte	1,5,3
+	.word	ui8_SID_RDBI_DID_F193_RAM
+	.byte	0
+	.sdecl	'.debug_abbrev',debug,cluster('ui8_SID_RDBI_DID_F193_RAM')
+	.sect	'.debug_abbrev'
+.L64:
+	.byte	1,17,1,3,8,37,8,27,8,19,15,128,70,12,0,0,2,61,0,24,16,0,0,3,52,0,3,8,58,15,59,15,57,15,73,16,63,12,2,9
+	.byte	0,0,0
+	.sdecl	'.debug_info',debug,cluster('ui8_SID_RDBI_DID_F194_RAM')
+	.sect	'.debug_info'
+.L65:
+	.word	228
+	.half	3
+	.word	.L66
+	.byte	4,1
+	.byte	'..\\Communication_Files\\Uds\\User\\Uds_User_ReadDataByIdentifierCallback.c',0
+	.byte	'TASKING VX-toolset for TriCore: C compiler',0
+	.byte	'D:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_1.9\\BMU_BOOT\\Debug\\',0,12,1,2
+	.word	.L32
+	.byte	3
+	.byte	'ui8_SID_RDBI_DID_F194_RAM',0,2,8,7
+	.word	.L96
+	.byte	1,5,3
+	.word	ui8_SID_RDBI_DID_F194_RAM
+	.byte	0
+	.sdecl	'.debug_abbrev',debug,cluster('ui8_SID_RDBI_DID_F194_RAM')
+	.sect	'.debug_abbrev'
+.L66:
+	.byte	1,17,1,3,8,37,8,27,8,19,15,128,70,12,0,0,2,61,0,24,16,0,0,3,52,0,3,8,58,15,59,15,57,15,73,16,63,12,2,9
+	.byte	0,0,0
+	.sdecl	'.debug_info',debug,cluster('ui8_SID_RDBI_DID_F195_RAM')
+	.sect	'.debug_info'
+.L67:
+	.word	228
+	.half	3
+	.word	.L68
+	.byte	4,1
+	.byte	'..\\Communication_Files\\Uds\\User\\Uds_User_ReadDataByIdentifierCallback.c',0
+	.byte	'TASKING VX-toolset for TriCore: C compiler',0
+	.byte	'D:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_1.9\\BMU_BOOT\\Debug\\',0,12,1,2
+	.word	.L32
+	.byte	3
+	.byte	'ui8_SID_RDBI_DID_F195_RAM',0,2,10,7
+	.word	.L96
+	.byte	1,5,3
+	.word	ui8_SID_RDBI_DID_F195_RAM
+	.byte	0
+	.sdecl	'.debug_abbrev',debug,cluster('ui8_SID_RDBI_DID_F195_RAM')
+	.sect	'.debug_abbrev'
+.L68:
+	.byte	1,17,1,3,8,37,8,27,8,19,15,128,70,12,0,0,2,61,0,24,16,0,0,3,52,0,3,8,58,15,59,15,57,15,73,16,63,12,2,9
+	.byte	0,0,0
+	.sdecl	'.debug_loc',debug,cluster('.cocofun_1')
+	.sect	'.debug_loc'
+.L28:
+	.word	-1,.L29,0,.L60-.L29
+	.half	2
+	.byte	138,0
+	.word	0,0
+	.sdecl	'.debug_loc',debug,cluster('UdsFunc_SID_RDBI_DID_F180_Callback')
+	.sect	'.debug_loc'
+.L22:
+	.word	-1,.L23,0,.L70-.L23
+	.half	2
+	.byte	138,0
+	.word	0,0
+.L77:
+	.word	-1,.L23,.L102-.L23,.L70-.L23
+	.half	5
+	.byte	144,36,157,32,0
+	.word	0,0
+.L74:
+	.word	-1,.L23,0,.L97-.L23
+	.half	1
+	.byte	101
+	.word	.L101-.L23,.L70-.L23
+	.half	1
+	.byte	108
+	.word	0,0
+.L75:
+	.word	0,0
+.L72:
+	.word	-1,.L23,0,.L98-.L23
+	.half	1
+	.byte	100
+	.word	.L99-.L23,.L100-.L23
+	.half	1
+	.byte	111
+	.word	.L2-.L23,.L103-.L23
+	.half	1
+	.byte	111
+	.word	0,0
+	.sdecl	'.debug_loc',debug,cluster('UdsFunc_SID_RDBI_DID_F193_Callback')
+	.sect	'.debug_loc'
+.L24:
+	.word	-1,.L25,0,.L78-.L25
+	.half	2
+	.byte	138,0
+	.word	0,0
+.L82:
+	.word	-1,.L25,.L109-.L25,.L78-.L25
+	.half	5
+	.byte	144,36,157,32,0
+	.word	0,0
+.L80:
+	.word	-1,.L25,0,.L104-.L25
+	.half	1
+	.byte	101
+	.word	.L108-.L25,.L78-.L25
+	.half	1
+	.byte	108
+	.word	0,0
+.L81:
+	.word	0,0
+.L79:
+	.word	-1,.L25,0,.L105-.L25
+	.half	1
+	.byte	100
+	.word	.L106-.L25,.L107-.L25
+	.half	1
+	.byte	111
+	.word	.L7-.L25,.L110-.L25
+	.half	1
+	.byte	111
+	.word	0,0
+	.sdecl	'.debug_loc',debug,cluster('UdsFunc_SID_RDBI_DID_F194_Callback')
+	.sect	'.debug_loc'
+.L26:
+	.word	-1,.L27,0,.L83-.L27
+	.half	2
+	.byte	138,0
+	.word	0,0
+.L88:
+	.word	-1,.L27,.L29-.L27,.L60-.L27
+	.half	5
+	.byte	144,36,157,32,0
+	.word	.L117-.L27,.L83-.L27
+	.half	5
+	.byte	144,36,157,32,0
+	.word	0,0
+.L85:
+	.word	-1,.L27,0,.L111-.L27
+	.half	1
+	.byte	101
+	.word	.L29-.L27,.L60-.L27
+	.half	1
+	.byte	108
+	.word	.L29-.L27,.L113-.L27
+	.half	1
+	.byte	101
+	.word	.L118-.L27,.L83-.L27
+	.half	1
+	.byte	108
+	.word	0,0
+.L87:
+	.word	0,0
+.L84:
+	.word	-1,.L27,0,.L111-.L27
+	.half	1
+	.byte	100
+	.word	.L112-.L27,.L111-.L27
+	.half	1
+	.byte	111
+	.word	.L29-.L27,.L114-.L27
+	.half	1
+	.byte	111
+	.word	.L29-.L27,.L115-.L27
+	.half	1
+	.byte	100
+	.word	.L12-.L27,.L116-.L27
+	.half	1
+	.byte	111
+	.word	0,0
+	.sdecl	'.debug_loc',debug,cluster('UdsFunc_SID_RDBI_DID_F195_Callback')
+	.sect	'.debug_loc'
+.L30:
+	.word	-1,.L31,0,.L89-.L31
+	.half	2
+	.byte	138,0
+	.word	0,0
+.L93:
+	.word	-1,.L31,.L29-.L31,.L60-.L31
+	.half	5
+	.byte	144,36,157,32,0
+	.word	.L121-.L31,.L89-.L31
+	.half	5
+	.byte	144,36,157,32,0
+	.word	0,0
+.L91:
+	.word	-1,.L31,0,.L119-.L31
+	.half	1
+	.byte	101
+	.word	.L29-.L31,.L60-.L31
+	.half	1
+	.byte	108
+	.word	.L29-.L31,.L113-.L31
+	.half	1
+	.byte	101
+	.word	.L122-.L31,.L89-.L31
+	.half	1
+	.byte	108
+	.word	0,0
+.L92:
+	.word	0,0
+.L90:
+	.word	-1,.L31,0,.L119-.L31
+	.half	1
+	.byte	100
+	.word	.L120-.L31,.L119-.L31
+	.half	1
+	.byte	111
+	.word	.L29-.L31,.L114-.L31
+	.half	1
+	.byte	111
+	.word	.L29-.L31,.L115-.L31
+	.half	1
+	.byte	100
+	.word	.L12-.L31,.L116-.L31
+	.half	1
+	.byte	111
+	.word	0,0
+	.sdecl	'.debug_frame',debug
+	.sect	'.debug_frame'
+.L183:
+	.word	48
+	.word	-1
+	.byte	3,0,2,1,27,12,26,0,8,26,8,27,8,30,8,29,8,28,8,16,8,17,8,24,8,25,8,31,8,32,8,33,8,34,8,35,8,36,8,37,8,38
+	.byte	8,39
+	.sdecl	'.debug_frame',debug,cluster('UdsFunc_SID_RDBI_DID_F180_Callback')
+	.sect	'.debug_frame'
+	.word	12
+	.word	.L183,.L23,.L70-.L23
+	.sdecl	'.debug_frame',debug,cluster('UdsFunc_SID_RDBI_DID_F193_Callback')
+	.sect	'.debug_frame'
+	.word	12
+	.word	.L183,.L25,.L78-.L25
+	.sdecl	'.debug_frame',debug,cluster('UdsFunc_SID_RDBI_DID_F194_Callback')
+	.sect	'.debug_frame'
+	.word	12
+	.word	.L183,.L27,.L83-.L27
+	.sdecl	'.debug_frame',debug,cluster('UdsFunc_SID_RDBI_DID_F195_Callback')
+	.sect	'.debug_frame'
+	.word	12
+	.word	.L183,.L31,.L89-.L31
+	.sdecl	'.debug_frame',debug
+	.sect	'.debug_frame'
+.L184:
+	.word	48
+	.word	-1
+	.byte	3,0,2,1,30,12,26,0,8,26,8,27,8,30,8,29,8,28,8,16,8,17,8,24,8,25,8,31,8,32,8,33,8,34,8,35,8,36,8,37,8,38
+	.byte	8,39
+	.sdecl	'.debug_frame',debug,cluster('.cocofun_1')
+	.sect	'.debug_frame'
+	.word	24
+	.word	.L184,.L29,.L60-.L29
+	.byte	8,18,8,19,8,20,8,21,8,22,8,23
+
+; ..\Communication_Files\Uds\User\Uds_User_ReadDataByIdentifierCallback.c	   126  
+; ..\Communication_Files\Uds\User\Uds_User_ReadDataByIdentifierCallback.c	   127  #elif ECU_TYPE == ECU_MCU
+; ..\Communication_Files\Uds\User\Uds_User_ReadDataByIdentifierCallback.c	   128  
+; ..\Communication_Files\Uds\User\Uds_User_ReadDataByIdentifierCallback.c	   129  #endif
+; ..\Communication_Files\Uds\User\Uds_User_ReadDataByIdentifierCallback.c	   130  
+
+	; Module end

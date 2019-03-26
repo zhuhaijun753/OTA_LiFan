@@ -1,0 +1,56 @@
+################################################################################
+# Automatically-generated file. Do not edit!
+################################################################################
+
+PROJ 	= BMU_BOOT
+PRODDIR = C:\Program Files (x86)\TASKING\TriCore v4.3r1\ctc
+
+-include "..\makefile.init"
+
+all :
+
+-include "subdir.mk"
+-include "Communication_Files\CanDrv\subdir.mk"
+-include "Communication_Files\Com\subdir.mk"
+-include "Communication_Files\Com\Can_Input\subdir.mk"
+-include "Communication_Files\Com\Can_Output\subdir.mk"
+-include "Communication_Files\Uds\Dcm\subdir.mk"
+-include "Communication_Files\Uds\Tp\subdir.mk"
+-include "Communication_Files\Uds\User\subdir.mk"
+-include "Complex_Files\subdir.mk"
+-include "Initiate_Files\subdir.mk"
+-include "Nvm_Files\FlsDrv\subdir.mk"
+-include "..\makefile.defs"
+
+PCP_FILES :=
+EXT_LIBRARIES =
+
+all : "BMU_BOOT.elf"
+
+"BMU_BOOT.elf" : $(OBJ_FILES) $(EXT_LIBRARIES) ".BMU_BOOT.elf.opt"
+	@echo Linking to ${@F}
+	@"${PRODDIR}\bin\cctc" -f ".BMU_BOOT.elf.opt"
+
+".BMU_BOOT.elf.opt" : .refresh
+	@argfile ".BMU_BOOT.elf.opt" -o "BMU_BOOT.elf" $(OBJ_FILES) $(EXT_LIBRARIES) $(PCP_FILES)  -Ctc1782 -t -I"\\hsne220-pc\work\003_Microvast\OTA\boot\BMU_BOOT_1.8\BMU_BOOT" -Wl-o"${PROJ}.hex":IHEX:4 --hex-format=s "../BMU_BOOT.lsl" -Wl-OtxycL --no-map-file -Wl--map-file="${PROJ}.mapxml":XML -Wl-mcrfiklSmNOduQ -Wl--error-limit=42 -g -Wl--dep-file=".BMU_BOOT.elf.d" -Wl--make-target="BMU_BOOT.elf"
+DEPENDENCY_FILES += ".BMU_BOOT.elf.d"
+-include $(DEPENDENCY_FILES)
+
+$(EXT_LIBRARIES) : .dummy
+
+GENERATED_FILES += "BMU_BOOT.elf" "BMU_BOOT*.sre" "BMU_BOOT*.hex" "BMU_BOOT.map*" "BMU_BOOT.mdf" ".BMU_BOOT.elf.opt" ".BMU_BOOT.elf.d"
+-include "..\makefile.targets"
+
+
+clean : ".clean.opt"
+	@echo Cleaning
+	@"${PRODDIR}\bin\rm" -f -m ".clean.opt"
+
+".clean.opt" : .refresh
+	@argfile ".clean.opt" $(GENERATED_FILES) $(OPTIONAL_FILES)
+
+GENERATED_FILES += ".clean.opt"
+OPTIONAL_FILES +=  "*.pre" "*.lst" "*.p.o" "*.p.a"
+
+
+.PHONY : .dummy .refresh

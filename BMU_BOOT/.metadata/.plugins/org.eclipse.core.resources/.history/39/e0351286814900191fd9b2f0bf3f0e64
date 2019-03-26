@@ -1,0 +1,563 @@
+//****************************************************************************
+// @Module        Project Settings
+// @Filename      MAIN.c
+// @Project       HBCU_0926.dav
+//----------------------------------------------------------------------------
+// @Controller    Infineon TC1782
+//
+// @Compiler      Tasking 3.5r1
+//
+// @Codegenerator 1.0
+//
+// @Description   This file contains the project initialization function.
+//
+//----------------------------------------------------------------------------
+// @Date          2019-1-11 17:50:17
+//
+//****************************************************************************
+
+// USER CODE BEGIN (MAIN_General,1)
+
+// USER CODE END
+
+
+
+//****************************************************************************
+// @Project Includes
+//****************************************************************************
+
+#include "MAIN.h"
+
+// USER CODE BEGIN (MAIN_General,2)
+/*ui32_SysPowerOnOrBSLReset_Flag*/
+#pragma noclear
+volatile uint32 ui32_KeepBSLState_Flag __at(0xD001B000 - 12);
+volatile uint8 ui8_Appl_Start_Magic_Flag[4] __at(0xD001B000 - 8);
+volatile uint32 ui32_SysPowerOnOrBSLReset_Flag __at(0xD001B000 - 4);
+#pragma clear
+// USER CODE END
+
+
+//****************************************************************************
+// @Macros
+//****************************************************************************
+
+// USER CODE BEGIN (MAIN_General,3)
+
+// USER CODE END
+
+
+//****************************************************************************
+// @Defines
+//****************************************************************************
+
+#define RESET_INDICATOR     ((SCU_RSTSTAT & ((uword)(0x0001001B))))
+#define WATCHDOG_RESET      ((uword)0x00000008)
+#define SOFTWARE_RESET      ((uword)0x00000010)
+#define ESR0_RESET          ((uword)0x00000001)
+#define ESR1_RESET          ((uword)0x00000002)
+#define POWERON_RESET       ((uword)0x00010000)
+
+// USER CODE BEGIN (MAIN_General,4)
+
+// USER CODE END
+
+
+//****************************************************************************
+// @Typedefs
+//****************************************************************************
+
+// USER CODE BEGIN (MAIN_General,5)
+
+// USER CODE END
+
+
+//****************************************************************************
+// @Imported Global Variables
+//****************************************************************************
+
+// USER CODE BEGIN (MAIN_General,6)
+
+// USER CODE END
+
+
+//****************************************************************************
+// @Global Variables
+//****************************************************************************
+volatile unsigned int DummyToForceRead; 
+
+// USER CODE BEGIN (MAIN_General,7)
+ volatile unsigned char uc_Cnt5ms = 180;
+// USER CODE END
+
+
+//****************************************************************************
+// @External Prototypes
+//****************************************************************************
+
+// USER CODE BEGIN (MAIN_General,8)
+
+// USER CODE END
+
+
+//****************************************************************************
+// @Prototypes Of Local Functions
+//****************************************************************************
+
+// USER CODE BEGIN (MAIN_General,9)
+
+// USER CODE END
+
+
+//****************************************************************************
+// @Function      void MAIN_vInit(void) 
+//
+//----------------------------------------------------------------------------
+// @Description   This function initializes the microcontroller.
+//
+//----------------------------------------------------------------------------
+// @Returnvalue   None
+//
+//----------------------------------------------------------------------------
+// @Parameters    None
+//
+//----------------------------------------------------------------------------
+// @Date          2019-1-11
+//
+//****************************************************************************
+
+// USER CODE BEGIN (Init,1)
+
+// USER CODE END
+
+void MAIN_vInit(void)
+{
+  // USER CODE BEGIN (Init,2)
+
+  // USER CODE END
+
+  //// -----------------------------------------------------------------------
+  //// Begin of Important Settings for the Start-Up File
+  //// -----------------------------------------------------------------------
+  ///  All following settings must be set in the start-up file. You can use 
+  ///  DAvE's project file (*.dpt) to include this register values into your 
+  ///  compiler EDE.
+
+    ///  ---------------------------------------------------------------------
+    ///  System Peripheral Bus Control Unit (SBCU):
+    ///  ---------------------------------------------------------------------
+    ///  SBCU starvation protection is enabled
+    ///  the debug trace is enabled. Error information is captured in 
+    ///  register SBCU_EADD, SBCU_EDAT and SBCU_ECON
+    ///  sample period of request for starvation protection: 64
+    ///  SBCU bus time-out value: 65536 cycles
+
+    //// this register must be set in the start-up file
+    //// SBCU_CON  =  0x4009FFFF;
+
+    ///  ---------------------------------------------------------------------
+    ///  LMB External Bus Unit (EBU):
+    ///  ---------------------------------------------------------------------
+    ///  - enable the EBU module clock
+    ///  - disable EndInit Protection of the CLC Register
+    ///  - request EBU to run off input clock divided by 1
+
+    //// this register must be set in the start-up file
+    //// EBU_CLC  =  0x00110000;
+
+    ///  External Arbitration:
+    ///  - EBU is disabled
+
+    //// this register must be set in the start-up file
+    //// EBU_MODCON  =  0x00000000;
+
+    ///  ---------------------------------------------------------------------
+    ///  Data Memory Interface (DMI):
+    ///  ---------------------------------------------------------------------
+    ///  - No Data Cache
+    ///  - 128 Kbyte Data Memory
+
+    //// this register must be set in the start-up file
+    //// DMI_CON  =  0x08000802;
+
+    ///  ---------------------------------------------------------------------
+    ///  Program Memory Interface (PMI):
+    ///  ---------------------------------------------------------------------
+    ///  - No Instruction Cache
+    ///  - 40 Kbyte Program Memory
+
+    //// this register must be set in the start-up file
+    //// PMI_CON2  =  0x02800284;
+
+  //// -----------------------------------------------------------------------
+  //// End of Important Settings for the Start-Up File
+  //// -----------------------------------------------------------------------
+
+  ///  -----------------------------------------------------------------------
+  ///  Clock System:
+  ///  -----------------------------------------------------------------------
+  ///  - external clock frequency: 20.00 MHz
+  ///  - input divider (PDIV): 2
+  ///  - PLL operation (VCOBYP = 0)
+  ///  - VCO range: 700 MHz - 800 MHz
+  ///  - feedback divider (NDIV): 64
+  //// - the VCO output frequency is too LOW (640.00 MHz)
+  ///  - output divider (KDIV): 8
+  ///  - CPU clock: 80.00 MHz
+  ///  - the ratio fcpu /ffpi is  2 / 1
+  ///  - the ratio fcpu /flmb is  1 / 1
+  ///  - the ratio fcpu /fpcp is  1 / 1
+  ///  - system clock: 40.00 MHz
+
+
+   /// Comparing with the Compiler settings
+   if(((SCU_PLLCON0  & 0X1017E00) != 0X1017E00) || ((SCU_PLLCON1 & 0X20007) != 0X20007) \
+       || ((SCU_CCUCON0 & 0X1) != 0X1))
+   {
+
+  //// - after a software reset PLL refuse to lock again unless oscillator is 
+  ////   disconnected first
+
+    MAIN_vResetENDINIT();
+    SCU_PLLCON0_VCOBYP  =  0;    // reset VCO bypass
+    SCU_PLLCON0_SETFINDIS  =  1; // disconnect OSC from PLL
+    MAIN_vSetENDINIT();
+
+
+  if (MAIN_vResetCheck())
+  {
+    if (!SCU_PLLSTAT_PWDSTAT)
+    {
+      MAIN_vResetENDINIT();
+      SCU_CCUCON0  =  0x00000001; // set FPI,LMB and PCP dividers
+      SCU_PLLCON0_VCOBYP  =  1;  // set VCO bypass (goto Prescaler Mode)
+      while (!SCU_PLLSTAT_VCOBYST);// wait for prescaler mode
+      SCU_PLLCON0  =  0x01057E21; // set P,N divider, connect OSC
+      SCU_PLLCON1  =  0x00020007; // set K1,K2 divider
+      MAIN_vSetENDINIT();
+      while (SCU_PLLSTAT_VCOLOCK == 0);// wait for LOCK
+      MAIN_vResetENDINIT();
+      SCU_PLLCON0_VCOBYP  =  0;  // Reset VCO bypass (Leave Prescaler Mode)
+      MAIN_vSetENDINIT();
+    }
+   }
+  }
+
+  ///  -----------------------------------------------------------------------
+  ///  Interrupt System:
+  ///  -----------------------------------------------------------------------
+  ///  - four arbitration cycles (max. 255 interrupt sources)
+  ///  - two clocks per arbitration cycle
+
+  MTCR(0xFE2C,  0x00000000);     // load CPU interrupt control register
+  ISYNC();
+
+  ///  -----------------------------------------------------------------------
+  ///  Peripheral Control Processor (PCP):
+  ///  -----------------------------------------------------------------------
+  ///  - stop the PCP internal clock when PCP is idle
+
+  ///  - use Full Context save area (R[0] - R[7])
+  ///  - start progam counter as left by last invocation
+  ///  - channel watchdog is disabled
+  ///  - maximum channel number checking is disabled
+
+  MAIN_vResetENDINIT();
+  PCP_CLC        =  0x00000000;  // load PCP clock control register
+  PCP_CS         =  0x00000200;  // load PCP control and status register
+  MAIN_vSetENDINIT();
+
+  ///  - four arbitration cycles (max. 255 PCP channels)
+  ///  - two clocks per arbitration cycle
+  PCP_ICR        =  0x00000000;  // load PCP interrupt control register
+
+  ///  - the PCP warning mechanism is disabled
+  PCP_ITR        =  0x00000000;  // load PCP interrupt threshold register
+
+  ///  - type of service of PCP node 4 is CPU interrupt
+  PCP_SRC4       =  0x00001000;  // load service request control register 4
+
+  ///  - type of service of PCP node 5 is CPU interrupt
+  PCP_SRC5       =  0x00001000;  // load service request control register 5
+
+  ///  - type of service of PCP node 6 is CPU interrupt
+  PCP_SRC6       =  0x00001000;  // load service request control register 6
+
+  ///  - type of service of PCP node 7 is CPU interrupt
+  PCP_SRC7       =  0x00001000;  // load service request control register 7
+
+  ///  - type of service of PCP node 8 is CPU interrupt
+  PCP_SRC8       =  0x00001000;  // load service request control register 8
+
+  ///  -----------------------------------------------------------------------
+  ///  Configuration of the DMA Module Clock:
+  ///  -----------------------------------------------------------------------
+  ///  - enable the DMA module
+
+  MAIN_vResetENDINIT();
+  DMA_CLC        =  0x00000008;  // DMA clock control register
+  DummyToForceRead  =  DMA_CLC;  // read it back to ensure it is read
+  MAIN_vSetENDINIT();
+
+  //   -----------------------------------------------------------------------
+  //   Initialization of the Peripherals:
+  //   -----------------------------------------------------------------------
+  //   initializes the Parallel Ports
+  IO_vInit();
+
+  //   initializes the System Control Unit (SCU)
+  SCU_vInit();
+
+  //   initializes the System Timer (STM)
+  STM_vInit();
+
+
+  // USER CODE BEGIN (Init,3)
+  os_init();
+  // USER CODE END
+
+  ///  -----------------------------------------------------------------------
+  ///  System Start Conditions:
+  ///  -----------------------------------------------------------------------
+
+  //// - the CPU interrupt system is globally disabled
+  DISABLE();
+
+  //// - the PCP interrupt system is globally disabled
+
+
+  // USER CODE BEGIN (Init,4)
+
+  // USER CODE END
+
+} //  End of function MAIN_vInit
+
+
+//****************************************************************************
+// @Function      void MAIN_vWriteWDTCON0(uword uwValue) 
+//
+//----------------------------------------------------------------------------
+// @Description   This function writes the parameter uwValue to the WDT_CON0 
+//                register which is password protected. 
+//
+//----------------------------------------------------------------------------
+// @Returnvalue   None
+//
+//----------------------------------------------------------------------------
+// @Parameters    uwValue: 
+//                Value for the WDTCON0 register
+//
+//----------------------------------------------------------------------------
+// @Date          2019-1-11
+//
+//****************************************************************************
+
+// USER CODE BEGIN (WriteWDTCON0,1)
+
+// USER CODE END
+
+void MAIN_vWriteWDTCON0(uword uwValue)
+{
+  uword uwDummy;
+
+  uwDummy        =  WDT_CON0;   
+  uwDummy |=  0x000000F0;       //  set HWPW1 = 1111b
+
+  if(WDT_CON1_DR)
+  {
+    uwDummy |=  0x00000008;     //  set HWPW0 = WDTDR
+  }
+  else
+  {
+    uwDummy &= ~0x00000008;     //  set HWPW0 = WDTDR
+  }
+  if(WDT_CON1_IR)
+  {
+    uwDummy |=  0x00000004;     //  set HWPW0 = WDTIR
+  }
+  else
+  {
+    uwDummy &= ~0x00000004;     //  set HWPW0 = WDTIR
+  }
+
+  uwDummy &= ~0x00000002;       //  set WDTLCK = 0
+  WDT_CON0 =  uwDummy;          //  unlock access
+
+  uwValue  |=  0x000000F2;      //  set HWPW1 = 1111b and WDTLCK = 1
+  uwValue  &= ~0x0000000C;      //  set HWPW0 = 00b
+  WDT_CON0  =  uwValue;         //  write access and lock
+
+} //  End of function MAIN_vWriteWDTCON0
+
+
+
+//****************************************************************************
+// @Function         ubyte MAIN_vResetCheck(void)
+//
+//----------------------------------------------------------------------------
+// @Description   
+//      This function checks the reset types (application/system).
+//
+//----------------------------------------------------------------------------
+// @Returnvalue   1 on system reset
+//                0 on application reset
+//
+//----------------------------------------------------------------------------
+// @Parameters    None
+//
+//----------------------------------------------------------------------------
+// @Date          2019-1-11
+//
+//****************************************************************************
+
+ubyte MAIN_vResetCheck(void)
+{
+  ubyte ubWDTAppReset,ubESR0AppReset,ubESR1AppReset,ubSWAppReset;
+  ubyte ubWDTSysReset,ubESR1SysReset,ubSWSysReset;
+  ubyte ubChkAppReset,ubEsr0Chk,ubOtherSysReset;
+  uword uwReset,uwOtherReset;
+
+  ubWDTAppReset = ((SCU_RSTCON & (uword)(0X00000080)) && (SCU_RSTSTAT & (uword)(0X00000008)));
+  ubSWAppReset = ((SCU_RSTCON & (uword)(0X00000200)) && (SCU_RSTSTAT & (uword)(0X00000010)));
+  ubESR0AppReset = ((SCU_RSTCON & (uword)(0X00000002)) && (SCU_RSTSTAT & (uword)(0X00000001)));
+  ubESR1AppReset = ((SCU_RSTCON & (uword)(0X00000008)) && (SCU_RSTSTAT & (uword)(0X00000002)));
+  ubChkAppReset = (!(ubWDTAppReset || ubSWAppReset || ubESR1AppReset));
+  ubEsr0Chk = ((SCU_RSTCON & (uword)(0X00000003)) && (SCU_RSTSTAT & (uword)(0X0000001B)));
+
+  ubWDTSysReset = ((SCU_RSTCON & (uword)(0X00000040)) && (SCU_RSTSTAT & (uword)(0X00000008)));
+  ubSWSysReset = ((SCU_RSTCON & (uword)(0X00000100)) && (SCU_RSTSTAT & (uword)(0X00000010)));
+  ubESR1SysReset = ((SCU_RSTCON & (uword)(0X00000004)) && (SCU_RSTSTAT & (uword)(0X00000002)));
+  ubOtherSysReset = ( ((ubWDTSysReset || ubSWSysReset || ubESR1SysReset))&& (SCU_RSTSTAT & (uword)(0X00000001)));
+
+  uwReset =  (((ubChkAppReset & !ubEsr0Chk)||(ubChkAppReset & ubEsr0Chk) && (!(ubESR0AppReset)|| ubOtherSysReset)));
+  uwOtherReset = (SCU_RSTSTAT & (uword)(0X003F0000)) ;
+  if(uwReset || uwOtherReset)
+  {
+    return 1;
+  }
+  else
+  {
+    return 0;
+  }
+
+} //  End of function MAIN_vResetCheck
+
+
+//****************************************************************************
+// @Function      sword main(void) 
+//
+//----------------------------------------------------------------------------
+// @Description   This is the main function.
+//
+//----------------------------------------------------------------------------
+// @Returnvalue   Returns an sword value
+//
+//----------------------------------------------------------------------------
+// @Parameters    None
+//
+//----------------------------------------------------------------------------
+// @Date          2019-1-11
+//
+//****************************************************************************
+
+// USER CODE BEGIN (Main,1)
+uint8 Boot_Flag[256] = {0};
+// USER CODE END
+
+sword main(void)
+{
+  sword swReturn;
+
+  // USER CODE BEGIN (Main,2)
+  switch(ui32_KeepBSLState_Flag)
+  {
+  case SYS_KEEP_BSL_STATE:								/*应用层跳转底层，刷程序*/
+
+	  break;
+  case SYS_BSL_RESET:									/*应用程序与硬件不兼容，进行回刷操作*/
+	  ui32_KeepBSLState_Flag = SYS_BSL_RESET;
+	  break;
+  case SYS_POWER_ON_RESET:
+
+  default:
+	  Fls_Read(0xA0010000, &Boot_Flag[0], 2U);
+	  if(Boot_Flag[0] == 0xfe)
+	  {
+	  	RunUserCode();
+	  }
+	  break;
+  }
+
+  // USER CODE END
+
+  swReturn = 0;
+
+  switch(RESET_INDICATOR)
+  {
+    case WATCHDOG_RESET:         //  the last reset was a watchdog triggered
+                                 //  (hardware) reset
+
+         // USER CODE BEGIN (Main,3)
+
+         // USER CODE END
+
+    case SOFTWARE_RESET:         //  the last reset was an internally 
+                                 //  triggered software reset
+
+         // USER CODE BEGIN (Main,4)
+
+         // USER CODE END
+
+    case ESR0_RESET:             //  the last reset was an externally 
+                                 //  triggered hardware reset (#ESR0 pin)
+
+         // USER CODE BEGIN (Main,4.1)
+
+         // USER CODE END
+
+    case ESR1_RESET:             //  the last reset was an externally 
+                                 //  triggered hardware reset (#ESR1 pin)
+
+         // USER CODE BEGIN (Main,4.2)
+
+         // USER CODE END
+
+    case POWERON_RESET:          //  the last reset was an externally
+                                 //  triggered power on reset (#POR pin)
+
+         // USER CODE BEGIN (Main,5)
+
+         // USER CODE END
+
+    default:
+
+         // USER CODE BEGIN (Main,6)
+
+         // USER CODE END
+
+         MAIN_vInit();
+  }
+
+
+         // USER CODE BEGIN (Main,7)
+
+
+			ENABLE();									//使能总中断
+
+  		  while(1)
+  		  {
+ 			  os_operate();
+  			  __nop();
+  		  }
+         // USER CODE END
+
+  return(swReturn);
+
+} //  End of function main
+
+
+
+// USER CODE BEGIN (MAIN_General,10)
+
+// USER CODE END
+

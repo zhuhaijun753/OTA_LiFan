@@ -1,0 +1,355 @@
+	; Module start
+	.compiler_version	"TASKING VX-toolset for TriCore: C compiler v4.3r1 Build 759 SN 00641831"
+	.compiler_invocation	"ctc -f cc10308a -c99 --dep-file=Communication_Files\\Uds\\User\\.Uds_User_ECUResetCallback.o.d -D__CPU__=tc1782 -D__CPU_TC1782__ --core=tc1.3.1 -F -ID:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_1.9\\BMU_BOOT -ID:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_1.9\\BMU_BOOT\\Communication_Files\\CanDrv -ID:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_1.9\\BMU_BOOT\\Communication_Files\\Com -ID:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_1.9\\BMU_BOOT\\Communication_Files\\Com\\Can_Input -ID:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_1.9\\BMU_BOOT\\Communication_Files\\Com\\Can_Output -ID:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_1.9\\BMU_BOOT\\Communication_Files\\Uds\\Dcm -ID:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_1.9\\BMU_BOOT\\Communication_Files\\Uds\\Dem -ID:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_1.9\\BMU_BOOT\\Communication_Files\\Uds\\Tp -ID:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_1.9\\BMU_BOOT\\Communication_Files\\Uds\\User -ID:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_1.9\\BMU_BOOT\\Complex_Files -ID:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_1.9\\BMU_BOOT\\Initiate_Files -ID:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_1.9\\BMU_BOOT\\Nvm_Files\\FlsDrv -ID:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_1.9\\BMU_BOOT\\Stand_Header -g2 --make-target=Communication_Files\\Uds\\User\\Uds_User_ECUResetCallback.o -t4 --language=-gcc,-volatile,+strings --default-near-size=0 -O2 --default-a1-size=0 --default-a0-size=0 --source --align=0 --compact-max-size=200 --switch=auto -o Communication_Files\\Uds\\User\\Uds_User_ECUResetCallback.src ..\\Communication_Files\\Uds\\User\\Uds_User_ECUResetCallback.c"
+	.compiler_name		"ctc"
+	.name	"Uds_User_ECUResetCallback"
+
+	
+$TC131
+	
+	.sdecl	'.text.Uds_User_ECUResetCallback.UdsFunc_SID_ER_SUBID_HR_Callback',code,cluster('UdsFunc_SID_ER_SUBID_HR_Callback')
+	.sect	'.text.Uds_User_ECUResetCallback.UdsFunc_SID_ER_SUBID_HR_Callback'
+	.align	2
+	
+	.global	UdsFunc_SID_ER_SUBID_HR_Callback
+
+; ..\Communication_Files\Uds\User\Uds_User_ECUResetCallback.c	     1  
+; ..\Communication_Files\Uds\User\Uds_User_ECUResetCallback.c	     2  #include "MAIN.h"
+; ..\Communication_Files\Uds\User\Uds_User_ECUResetCallback.c	     3  
+; ..\Communication_Files\Uds\User\Uds_User_ECUResetCallback.c	     4  Struct_Uds_SID_ER_Info	st_Uds_SID_ER_Info;	/*UDS SID_ER信息*/
+; ..\Communication_Files\Uds\User\Uds_User_ECUResetCallback.c	     5  
+; ..\Communication_Files\Uds\User\Uds_User_ECUResetCallback.c	     6  /*************************************************************************/
+; ..\Communication_Files\Uds\User\Uds_User_ECUResetCallback.c	     7  /*
+; ..\Communication_Files\Uds\User\Uds_User_ECUResetCallback.c	     8  Function:		void UdsFunc_SID_ER_SUBID_HR_Callback
+; ..\Communication_Files\Uds\User\Uds_User_ECUResetCallback.c	     9  				(uint8 *ui8_pRes, uint16 *ui16_pResLen)
+; ..\Communication_Files\Uds\User\Uds_User_ECUResetCallback.c	    10  
+; ..\Communication_Files\Uds\User\Uds_User_ECUResetCallback.c	    11  Description: 	此函数用于SID_ER_SUBID_HR服务回调
+; ..\Communication_Files\Uds\User\Uds_User_ECUResetCallback.c	    12  
+; ..\Communication_Files\Uds\User\Uds_User_ECUResetCallback.c	    13  Parameters: 	ui8_pRes(不含SID和SubID)
+; ..\Communication_Files\Uds\User\Uds_User_ECUResetCallback.c	    14  				ui16_pResLen
+; ..\Communication_Files\Uds\User\Uds_User_ECUResetCallback.c	    15  
+; ..\Communication_Files\Uds\User\Uds_User_ECUResetCallback.c	    16  Return:       	boolean
+; ..\Communication_Files\Uds\User\Uds_User_ECUResetCallback.c	    17  
+; ..\Communication_Files\Uds\User\Uds_User_ECUResetCallback.c	    18  Return Values:  E_OK		任务完成
+; ..\Communication_Files\Uds\User\Uds_User_ECUResetCallback.c	    19  				E_NOT_OK	任务未完成
+; ..\Communication_Files\Uds\User\Uds_User_ECUResetCallback.c	    20  
+; ..\Communication_Files\Uds\User\Uds_User_ECUResetCallback.c	    21  Remarks:
+; ..\Communication_Files\Uds\User\Uds_User_ECUResetCallback.c	    22  
+; ..\Communication_Files\Uds\User\Uds_User_ECUResetCallback.c	    23  Example:
+; ..\Communication_Files\Uds\User\Uds_User_ECUResetCallback.c	    24  */
+; ..\Communication_Files\Uds\User\Uds_User_ECUResetCallback.c	    25  boolean UdsFunc_SID_ER_SUBID_HR_Callback
+; Function UdsFunc_SID_ER_SUBID_HR_Callback
+.L4:
+UdsFunc_SID_ER_SUBID_HR_Callback:	.type	func
+	mov.aa	a15,a5
+.L24:
+
+; ..\Communication_Files\Uds\User\Uds_User_ECUResetCallback.c	    26  	(uint8 *ui8_pRes, uint16 *ui16_pResLen)
+; ..\Communication_Files\Uds\User\Uds_User_ECUResetCallback.c	    27  {
+; ..\Communication_Files\Uds\User\Uds_User_ECUResetCallback.c	    28  	boolean	b_Return;
+; ..\Communication_Files\Uds\User\Uds_User_ECUResetCallback.c	    29  
+; ..\Communication_Files\Uds\User\Uds_User_ECUResetCallback.c	    30  	UdsFunc_ChangeSession_Init();
+	call	UdsFunc_ChangeSession_Init
+.L23:
+
+; ..\Communication_Files\Uds\User\Uds_User_ECUResetCallback.c	    31  
+; ..\Communication_Files\Uds\User\Uds_User_ECUResetCallback.c	    32  	/*复位*/
+; ..\Communication_Files\Uds\User\Uds_User_ECUResetCallback.c	    33  	st_Uds_SID_ER_Info.b_HardResetFlag = TRUE;		/*软件复位标志有效*/
+	movh.a	a2,#@his(st_Uds_SID_ER_Info)
+	lea	a2,[a2]@los(st_Uds_SID_ER_Info)
+.L34:
+	mov	d15,#1
+	st.b	[a2],d15
+.L35:
+
+; ..\Communication_Files\Uds\User\Uds_User_ECUResetCallback.c	    34  
+; ..\Communication_Files\Uds\User\Uds_User_ECUResetCallback.c	    35  	/*回应数据*/
+; ..\Communication_Files\Uds\User\Uds_User_ECUResetCallback.c	    36  	ui16_pResLen[0U] = 0U;
+	mov	d2,#0
+	st.h	[a15],d2
+.L36:
+
+; ..\Communication_Files\Uds\User\Uds_User_ECUResetCallback.c	    37  	st_Uds_Response.ui8_ResCode = UDS_RES_CODE_PR;	/*正响应*/
+	movh.a	a15,#@his(st_Uds_Response)
+.L25:
+	lea	a15,[a15]@los(st_Uds_Response)
+.L37:
+	st.b	[a15],d2
+.L38:
+
+; ..\Communication_Files\Uds\User\Uds_User_ECUResetCallback.c	    38  
+; ..\Communication_Files\Uds\User\Uds_User_ECUResetCallback.c	    39  	b_Return = E_OK;
+; ..\Communication_Files\Uds\User\Uds_User_ECUResetCallback.c	    40  
+; ..\Communication_Files\Uds\User\Uds_User_ECUResetCallback.c	    41  	return	b_Return;
+; ..\Communication_Files\Uds\User\Uds_User_ECUResetCallback.c	    42  }
+	ret
+.L17:
+	
+__UdsFunc_SID_ER_SUBID_HR_Callback_function_end:
+	.size	UdsFunc_SID_ER_SUBID_HR_Callback,__UdsFunc_SID_ER_SUBID_HR_Callback_function_end-UdsFunc_SID_ER_SUBID_HR_Callback
+.L13:
+	; End of function
+	
+	.sdecl	'.bss.Uds_User_ECUResetCallback.st_Uds_SID_ER_Info',data,cluster('st_Uds_SID_ER_Info')
+	.sect	'.bss.Uds_User_ECUResetCallback.st_Uds_SID_ER_Info'
+	.global	st_Uds_SID_ER_Info
+	.align	2
+st_Uds_SID_ER_Info:	.type	object
+	.size	st_Uds_SID_ER_Info,2
+	.space	2
+	.calls	'UdsFunc_SID_ER_SUBID_HR_Callback','UdsFunc_ChangeSession_Init'
+	.extern	UdsFunc_ChangeSession_Init
+	.extern	st_Uds_Response
+	.calls	'UdsFunc_SID_ER_SUBID_HR_Callback','',0
+	.sdecl	'.debug_info',debug
+	.sect	'.debug_info'
+.L6:
+	.word	773
+	.half	3
+	.word	.L7
+	.byte	4
+.L5:
+	.byte	1
+	.byte	'..\\Communication_Files\\Uds\\User\\Uds_User_ECUResetCallback.c',0
+	.byte	'TASKING VX-toolset for TriCore: C compiler',0
+	.byte	'D:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_1.9\\BMU_BOOT\\Debug\\',0,12,1
+	.word	.L8
+	.byte	2
+	.byte	'UdsFunc_ChangeSession_Init',0,1,33,13,1,1,1,1
+.L16:
+	.byte	3
+	.byte	'unsigned char',0,1,8
+.L18:
+	.byte	4
+	.word	212
+	.byte	3
+	.byte	'unsigned short int',0,2,7
+.L20:
+	.byte	4
+	.word	234
+	.byte	5
+	.byte	'void',0,4
+	.word	261
+	.byte	6
+	.byte	'__prof_adm',0,2,1,1
+	.word	267
+	.byte	7,1,4
+	.word	291
+	.byte	6
+	.byte	'__codeptr',0,2,1,1
+	.word	293
+	.byte	6
+	.byte	'ubyte',0,3,78,24
+	.word	212
+	.byte	6
+	.byte	'ushort',0,3,80,24
+	.word	234
+	.byte	3
+	.byte	'unsigned int',0,4,7,6
+	.byte	'uword',0,3,82,24
+	.word	345
+	.byte	6
+	.byte	'uint8',0,4,87,29
+	.word	212
+	.byte	6
+	.byte	'uint16',0,4,89,29
+	.word	234
+	.byte	3
+	.byte	'long int',0,4,5,6
+	.byte	'sint32',0,4,90,29
+	.word	404
+	.byte	3
+	.byte	'unsigned long int',0,4,7,6
+	.byte	'uint32',0,4,91,27
+	.word	431
+	.byte	6
+	.byte	'boolean',0,4,102,29
+	.word	212
+.L22:
+	.byte	8,5,5,9,2,9
+	.byte	'b_HardResetFlag',0,1
+	.word	212
+	.byte	2,35,0,9
+	.byte	'b_SoftResetFlag',0,1
+	.word	212
+	.byte	2,35,1,0,6
+	.byte	'Struct_Uds_SID_ER_Info',0,5,9,2
+	.word	483
+	.byte	8,6,91,9,28,9
+	.byte	'ui8_ResCode',0,1
+	.word	212
+	.byte	2,35,0,9
+	.byte	'b_SuppressPosRspBit',0,1
+	.word	212
+	.byte	2,35,1,9
+	.byte	'ui8_pMsgData',0,4
+	.word	229
+	.byte	2,35,4,9
+	.byte	'ui16_pLength',0,4
+	.word	256
+	.byte	2,35,8,10,8
+	.word	212
+	.byte	11,7,0,9
+	.byte	'ui8_Neg78_Buf',0,8
+	.word	669
+	.byte	2,35,12,9
+	.byte	'ui8_3E_Buf',0,8
+	.word	669
+	.byte	2,35,20,0,6
+	.byte	'Struct_Uds_Response',0,6,99,2
+	.word	570
+	.byte	12
+	.byte	'st_Uds_Response',0,6,126,29
+	.word	570
+	.byte	1,1,0
+	.sdecl	'.debug_abbrev',debug
+	.sect	'.debug_abbrev'
+.L7:
+	.byte	1,17,1,3,8,37,8,27,8,19,15,128,70,12,16,6,0,0,2,46,0,3,8,58,15,59,15,57,15,54,15,39,12,63,12,60,12,0,0
+	.byte	3,36,0,3,8,11,15,62,15,0,0,4,15,0,73,19,0,0,5,59,0,3,8,0,0,6,22,0,3,8,58,15,59,15,57,15,73,19,0,0,7,21
+	.byte	0,54,15,0,0,8,19,1,58,15,59,15,57,15,11,15,0,0,9,13,0,3,8,11,15,73,19,56,9,0,0,10,1,1,11,15,73,19,0,0
+	.byte	11,33,0,47,15,0,0,12,52,0,3,8,58,15,59,15,57,15,73,19,63,12,60,12,0,0,0
+	.sdecl	'.debug_line',debug
+	.sect	'.debug_line'
+.L8:
+	.word	.L27-.L26
+.L26:
+	.half	3
+	.word	.L29-.L28
+.L28:
+	.byte	2,1,-4,9,10,0,1,1,1,1,0,0,0,1
+	.byte	'D:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_1.9\\BMU_BOOT\\Communication_Files\\Uds\\User',0
+	.byte	'D:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_1.9\\BMU_BOOT\\Initiate_Files',0
+	.byte	'D:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_1.9\\BMU_BOOT\\Stand_Header',0
+	.byte	'D:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_1.9\\BMU_BOOT\\Communication_Files\\Uds\\Dcm',0,0
+	.byte	'Uds_User_DiagnosticSessionControlCallback.h',0,1,0,0
+	.byte	'..\\Communication_Files\\Uds\\User\\Uds_User_ECUResetCallback.c',0,0,0,0
+	.byte	'MAIN.h',0,2,0,0
+	.byte	'Platform_Types.h',0,3,0,0
+	.byte	'Uds_User_ECUResetCallback.h',0,1,0,0
+	.byte	'Uds_Dcm_Drv.h',0,4,0,0,0
+.L29:
+.L27:
+	.sdecl	'.debug_info',debug,cluster('UdsFunc_SID_ER_SUBID_HR_Callback')
+	.sect	'.debug_info'
+.L9:
+	.word	295
+	.half	3
+	.word	.L10
+	.byte	4,1
+	.byte	'..\\Communication_Files\\Uds\\User\\Uds_User_ECUResetCallback.c',0
+	.byte	'TASKING VX-toolset for TriCore: C compiler',0
+	.byte	'D:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_1.9\\BMU_BOOT\\Debug\\',0,12,1
+	.word	.L12,.L11
+	.byte	2
+	.word	.L5
+	.byte	3
+	.byte	'UdsFunc_SID_ER_SUBID_HR_Callback',0,1,25,9
+	.word	.L16
+	.byte	1,1,1
+	.word	.L4,.L17,.L3
+	.byte	4
+	.byte	'ui8_pRes',0,1,26,10
+	.word	.L18,.L19
+	.byte	4
+	.byte	'ui16_pResLen',0,1,26,28
+	.word	.L20,.L21
+	.byte	5
+	.word	.L4,.L17
+	.byte	0,0
+	.sdecl	'.debug_abbrev',debug,cluster('UdsFunc_SID_ER_SUBID_HR_Callback')
+	.sect	'.debug_abbrev'
+.L10:
+	.byte	1,17,1,3,8,37,8,27,8,19,15,128,70,12,85,6,16,6,0,0,2,61,0,24,16,0,0,3,46,1,3,8,58,15,59,15,57,15,73,16
+	.byte	54,15,39,12,63,12,17,1,18,1,64,6,0,0,4,5,0,3,8,58,15,59,15,57,15,73,16,2,6,0,0,5,11,0,17,1,18,1,0,0,0
+	.sdecl	'.debug_line',debug,cluster('UdsFunc_SID_ER_SUBID_HR_Callback')
+	.sect	'.debug_line'
+.L11:
+	.word	.L31-.L30
+.L30:
+	.half	3
+	.word	.L33-.L32
+.L32:
+	.byte	2,1,-4,9,10,0,1,1,1,1,0,0,0,1,0
+	.byte	'..\\Communication_Files\\Uds\\User\\Uds_User_ECUResetCallback.c',0,0,0,0,0
+.L33:
+	.byte	5,9,7,0,5,2
+	.word	.L4
+	.byte	3,24,1,5,28,9
+	.half	.L24-.L4
+	.byte	3,5,1,5,2,9
+	.half	.L23-.L24
+	.byte	3,3,1,5,39,9
+	.half	.L34-.L23
+	.byte	1,5,37,1,5,21,9
+	.half	.L35-.L34
+	.byte	3,3,1,5,19,1,5,2,9
+	.half	.L36-.L35
+	.byte	3,1,1,5,30,9
+	.half	.L37-.L36
+	.byte	1,5,1,9
+	.half	.L38-.L37
+	.byte	3,5,1,7,9
+	.half	.L13-.L38
+	.byte	0,1,1
+.L31:
+	.sdecl	'.debug_ranges',debug,cluster('UdsFunc_SID_ER_SUBID_HR_Callback')
+	.sect	'.debug_ranges'
+.L12:
+	.word	-1,.L4,0,.L13-.L4,0,0
+	.sdecl	'.debug_info',debug,cluster('st_Uds_SID_ER_Info')
+	.sect	'.debug_info'
+.L14:
+	.word	209
+	.half	3
+	.word	.L15
+	.byte	4,1
+	.byte	'..\\Communication_Files\\Uds\\User\\Uds_User_ECUResetCallback.c',0
+	.byte	'TASKING VX-toolset for TriCore: C compiler',0
+	.byte	'D:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_1.9\\BMU_BOOT\\Debug\\',0,12,1,2
+	.word	.L5
+	.byte	3
+	.byte	'st_Uds_SID_ER_Info',0,2,4,24
+	.word	.L22
+	.byte	1,5,3
+	.word	st_Uds_SID_ER_Info
+	.byte	0
+	.sdecl	'.debug_abbrev',debug,cluster('st_Uds_SID_ER_Info')
+	.sect	'.debug_abbrev'
+.L15:
+	.byte	1,17,1,3,8,37,8,27,8,19,15,128,70,12,0,0,2,61,0,24,16,0,0,3,52,0,3,8,58,15,59,15,57,15,73,16,63,12,2,9
+	.byte	0,0,0
+	.sdecl	'.debug_loc',debug,cluster('UdsFunc_SID_ER_SUBID_HR_Callback')
+	.sect	'.debug_loc'
+.L3:
+	.word	-1,.L4,0,.L17-.L4
+	.half	2
+	.byte	138,0
+	.word	0,0
+.L21:
+	.word	-1,.L4,0,.L23-.L4
+	.half	1
+	.byte	101
+	.word	.L24-.L4,.L25-.L4
+	.half	1
+	.byte	111
+	.word	0,0
+.L19:
+	.word	-1,.L4,0,.L23-.L4
+	.half	1
+	.byte	100
+	.word	0,0
+	.sdecl	'.debug_frame',debug
+	.sect	'.debug_frame'
+.L39:
+	.word	48
+	.word	-1
+	.byte	3,0,2,1,27,12,26,0,8,26,8,27,8,30,8,29,8,28,8,16,8,17,8,24,8,25,8,31,8,32,8,33,8,34,8,35,8,36,8,37,8,38
+	.byte	8,39
+	.sdecl	'.debug_frame',debug,cluster('UdsFunc_SID_ER_SUBID_HR_Callback')
+	.sect	'.debug_frame'
+	.word	12
+	.word	.L39,.L4,.L17-.L4
+
+
+	; Module end

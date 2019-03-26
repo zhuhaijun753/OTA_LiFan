@@ -1,0 +1,95 @@
+	; Module start
+	.compiler_version	"TASKING VX-toolset for TriCore: C compiler v4.3r1 Build 759 SN 00641831"
+	.compiler_invocation	"ctc -f cc6908a -c99 --dep-file=Communication_Files\\Com\\Can_Input\\.InBusInput.o.d -D__CPU__=tc1782 -D__CPU_TC1782__ --core=tc1.3.1 -F -ID:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_1.9\\BMU_BOOT -ID:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_1.9\\BMU_BOOT\\Communication_Files\\CanDrv -ID:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_1.9\\BMU_BOOT\\Communication_Files\\Com -ID:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_1.9\\BMU_BOOT\\Communication_Files\\Com\\Can_Input -ID:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_1.9\\BMU_BOOT\\Communication_Files\\Com\\Can_Output -ID:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_1.9\\BMU_BOOT\\Communication_Files\\Uds\\Dcm -ID:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_1.9\\BMU_BOOT\\Communication_Files\\Uds\\Dem -ID:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_1.9\\BMU_BOOT\\Communication_Files\\Uds\\Tp -ID:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_1.9\\BMU_BOOT\\Communication_Files\\Uds\\User -ID:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_1.9\\BMU_BOOT\\Complex_Files -ID:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_1.9\\BMU_BOOT\\Initiate_Files -ID:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_1.9\\BMU_BOOT\\Nvm_Files\\FlsDrv -ID:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_1.9\\BMU_BOOT\\Stand_Header -g2 --make-target=Communication_Files\\Com\\Can_Input\\InBusInput.o -t4 --language=-gcc,-volatile,+strings --default-near-size=0 -O2 --default-a1-size=0 --default-a0-size=0 --source --align=0 --compact-max-size=200 --switch=auto -o Communication_Files\\Com\\Can_Input\\InBusInput.src ..\\Communication_Files\\Com\\Can_Input\\InBusInput.c"
+	.compiler_name		"ctc"
+	.name	"InBusInput"
+
+	
+$TC131
+	
+	.sdecl	'.debug_info',debug
+	.sect	'.debug_info'
+.L3:
+	.word	425
+	.half	3
+	.word	.L4
+	.byte	4
+.L2:
+	.byte	1
+	.byte	'..\\Communication_Files\\Com\\Can_Input\\InBusInput.c',0
+	.byte	'TASKING VX-toolset for TriCore: C compiler',0
+	.byte	'D:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_1.9\\BMU_BOOT\\Debug\\',0,12,1
+	.word	.L5
+	.byte	2
+	.byte	'void',0,3
+	.word	167
+	.byte	4
+	.byte	'__prof_adm',0,1,1,1
+	.word	173
+	.byte	5,1,3
+	.word	197
+	.byte	4
+	.byte	'__codeptr',0,1,1,1
+	.word	199
+	.byte	6
+	.byte	'unsigned char',0,1,8,4
+	.byte	'ubyte',0,2,78,24
+	.word	222
+	.byte	6
+	.byte	'unsigned short int',0,2,7,4
+	.byte	'ushort',0,2,80,24
+	.word	253
+	.byte	6
+	.byte	'unsigned int',0,4,7,4
+	.byte	'uword',0,2,82,24
+	.word	290
+	.byte	4
+	.byte	'uint8',0,3,87,29
+	.word	222
+	.byte	4
+	.byte	'uint16',0,3,89,29
+	.word	253
+	.byte	6
+	.byte	'long int',0,4,5,4
+	.byte	'sint32',0,3,90,29
+	.word	349
+	.byte	6
+	.byte	'unsigned long int',0,4,7,4
+	.byte	'uint32',0,3,91,27
+	.word	376
+	.byte	4
+	.byte	'boolean',0,3,102,29
+	.word	222
+	.byte	0
+	.sdecl	'.debug_abbrev',debug
+	.sect	'.debug_abbrev'
+.L4:
+	.byte	1,17,1,3,8,37,8,27,8,19,15,128,70,12,16,6,0,0,2,59,0,3,8,0,0,3,15,0,73,19,0,0,4,22,0,3,8,58,15,59,15,57
+	.byte	15,73,19,0,0,5,21,0,54,15,0,0,6,36,0,3,8,11,15,62,15,0,0,0
+	.sdecl	'.debug_line',debug
+	.sect	'.debug_line'
+.L5:
+	.word	.L7-.L6
+.L6:
+	.half	3
+	.word	.L9-.L8
+.L8:
+	.byte	2,1,-4,9,10,0,1,1,1,1,0,0,0,1
+	.byte	'D:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_1.9\\BMU_BOOT\\Initiate_Files',0
+	.byte	'D:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_1.9\\BMU_BOOT\\Stand_Header',0,0
+	.byte	'..\\Communication_Files\\Com\\Can_Input\\InBusInput.c',0,0,0,0
+	.byte	'MAIN.h',0,1,0,0
+	.byte	'Platform_Types.h',0,2,0,0,0
+.L9:
+.L7:
+
+; ..\Communication_Files\Com\Can_Input\InBusInput.c	     1  /*
+; ..\Communication_Files\Com\Can_Input\InBusInput.c	     2   * InBusInput.c
+; ..\Communication_Files\Com\Can_Input\InBusInput.c	     3   *  Created on: 2016-3-11
+; ..\Communication_Files\Com\Can_Input\InBusInput.c	     4   *
+; ..\Communication_Files\Com\Can_Input\InBusInput.c	     5   */
+; ..\Communication_Files\Com\Can_Input\InBusInput.c	     6  
+; ..\Communication_Files\Com\Can_Input\InBusInput.c	     7  #include "MAIN.h"
+; ..\Communication_Files\Com\Can_Input\InBusInput.c	     8  
+
+	; Module end

@@ -1,0 +1,1579 @@
+	; Module start
+	.compiler_version	"TASKING VX-toolset for TriCore: C compiler v4.3r1 Build 759 SN 00641831"
+	.compiler_invocation	"ctc -f cc10560a -c99 --dep-file=Communication_Files\\Uds\\User\\.Uds_User_CommunicationControlCallback.o.d -D__CPU__=tc1782 -D__CPU_TC1782__ --core=tc1.3.1 -F -ID:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_1.9\\BMU_BOOT -ID:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_1.9\\BMU_BOOT\\Communication_Files\\CanDrv -ID:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_1.9\\BMU_BOOT\\Communication_Files\\Com -ID:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_1.9\\BMU_BOOT\\Communication_Files\\Com\\Can_Input -ID:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_1.9\\BMU_BOOT\\Communication_Files\\Com\\Can_Output -ID:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_1.9\\BMU_BOOT\\Communication_Files\\Uds\\Dcm -ID:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_1.9\\BMU_BOOT\\Communication_Files\\Uds\\Dem -ID:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_1.9\\BMU_BOOT\\Communication_Files\\Uds\\Tp -ID:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_1.9\\BMU_BOOT\\Communication_Files\\Uds\\User -ID:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_1.9\\BMU_BOOT\\Complex_Files -ID:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_1.9\\BMU_BOOT\\Initiate_Files -ID:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_1.9\\BMU_BOOT\\Nvm_Files\\FlsDrv -ID:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_1.9\\BMU_BOOT\\Stand_Header -g2 --make-target=Communication_Files\\Uds\\User\\Uds_User_CommunicationControlCallback.o -t4 --language=-gcc,-volatile,+strings --default-near-size=0 -O2 --default-a1-size=0 --default-a0-size=0 --source --align=0 --compact-max-size=200 --switch=auto -o Communication_Files\\Uds\\User\\Uds_User_CommunicationControlCallback.src ..\\Communication_Files\\Uds\\User\\Uds_User_CommunicationControlCallback.c"
+	.compiler_name		"ctc"
+	.name	"Uds_User_CommunicationControlCallback"
+
+	
+$TC131
+	
+	.sdecl	'.text.Uds_User_CommunicationControlCallback.UdsFunc_SID_CC_SUBID_ERXTX_Callback',code,cluster('UdsFunc_SID_CC_SUBID_ERXTX_Callback')
+	.sect	'.text.Uds_User_CommunicationControlCallback.UdsFunc_SID_CC_SUBID_ERXTX_Callback'
+	.align	2
+	
+	.global	UdsFunc_SID_CC_SUBID_ERXTX_Callback
+
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	     1  
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	     2  #include "MAIN.h"
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	     3  
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	     4  Struct_Uds_SID_CC_Info	st_Uds_SID_CC_Info;	/*UDS SID_CC信息*/
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	     5  
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	     6  
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	     7  #if ECU_TYPE == ECU_VCU
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	     8  boolean UdsFunc_SID_CC_SUBID_ERXTX_Callback
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	     9  	(uint8 *ui8_pInd, uint8 *ui8_pRes, uint16 *ui16_pResLen)
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	    10  {
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	    11  	boolean	b_Return;
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	    12  	uint8	ui8_CommuType;		/*Communication Type*/
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	    13  
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	    14  	ui8_CommuType = ui8_pInd[0U];	/*从TP层取Communication Type*/
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	    15  
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	    16  	switch(ui8_CommuType)
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	    17  	{
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	    18  
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	    19  		case UDS_CTP_NCM:
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	    20  		{
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	    21  			st_Uds_SID_CC_Info.ui8_CommuCtrlFlag = UDS_EN_RX_TX_NCM;	/*Normal使能Rx和Tx标志建立*/
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	    22  
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	    23  			if(255 != UDS_VEHSTATE_ENUM)
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	    24         		{
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	    25         		  CAN0_Tx_flag = 1;
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	    26         		  CAN1_Tx_flag = 1;
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	    27         		  CAN2_Tx_flag = 1;
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	    28         		}
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	    29  
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	    30  			/*回应数据*/
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	    31  			ui16_pResLen[0U] = 0U;
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	    32  			st_Uds_Response.ui8_ResCode = UDS_RES_CODE_PR;	/*正响应*/
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	    33  			break;
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	    34  		}
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	    35  
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	    36  		default:
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	    37  		{
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	    38  			st_Uds_Response.ui8_ResCode = UDS_RES_CODE_ROOR;	/*数据越界错误响应*/
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	    39  			break;
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	    40  		}
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	    41  	}
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	    42  
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	    43  	b_Return = E_OK;	/*回调函数执行完毕*/
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	    44  
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	    45  	return	b_Return;
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	    46  }
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	    47  
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	    48  boolean UdsFunc_SID_CC_SUBID_DRXTX_Callback
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	    49  	(uint8 *ui8_pInd, uint8 *ui8_pRes, uint16 *ui16_pResLen)
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	    50  {
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	    51  	boolean	b_Return;
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	    52  	uint8	ui8_CommuType;		/*Communication Type*/
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	    53  
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	    54  	ui8_CommuType = ui8_pInd[0U];	/*从TP层取Communication Type*/
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	    55  
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	    56  	b_Return = E_NOT_OK;	/*回调函数未执行完毕*/
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	    57  
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	    58  	switch(ui8_CommuType)
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	    59  	{
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	    60  		case UDS_CTP_NCM:
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	    61  		{
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	    62  	     	CAN0_Tx_flag = 2;
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	    63  	        CAN1_Tx_flag = 2;
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	    64  	        CAN2_Tx_flag = 2;
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	    65  			st_Uds_SID_CC_Info.ui8_CommuCtrlFlag = UDS_DIS_RX_DIS_TX_NCM;	/*Normal使能Rx，关闭Tx标志建立*/
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	    66  
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	    67  	        if(Boot_7DF_flg == 2)
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	    68  	        {
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	    69  	        	Boot_7DF_flg = 3 ;
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	    70  	        	VINP_DIAG_BootReq_flg = 1;
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	    71  	        	Boot_7C2_flg = 1;
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	    72  	        }
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	    73  
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	    74  	    	if(Boot_7C2_flg == 1)
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	    75  	    	{
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	    76  	    			if(st_Uds_SID_RC_Info.b_PreProgrammingFlag == FALSE)
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	    77  	    			{
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	    78  	    				/*回应数据*/
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	    79  	    				Boot_7C2_flg = 0;      //本控制器无需刷写
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	    80  	    				Boot_7DF_flg = 0;
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	    81  
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	    82  	    				ui16_pResLen[0U] = 0U;
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	    83  	    				st_Uds_Response.ui8_ResCode = UDS_RES_CODE_PR;	/*正响应*/
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	    84  
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	    85  	    				b_Return = E_OK;	/*回调函数执行完毕*/
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	    86  
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	    87  	    				__nop();
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	    88  
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	    89  	    			}
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	    90  	    			else
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	    91  	    			{
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	    92  	    				if(UDS_VEHSTATE_ENUM == 255U)	/*判断是否255状态*/
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	    93  	    				{
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	    94  	    					st_Uds_SID_CC_Info.ui32_Boot_State255_Delay = UDS_BOOT_STATE_DELAY_TIME;	/*初始化Boot State255等待时间*/
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	    95  
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	    96  	    					Boot_7C2_flg = 2;
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	    97  
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	    98  	    					/*回应数据*/
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	    99  	    					ui16_pResLen[0U] = 0U;
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	   100  	    					st_Uds_Response.ui8_ResCode = UDS_RES_CODE_PR;	/*正响应*/
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	   101  	    					b_Return = E_OK;	/*回调函数执行完毕*/
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	   102  
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	   103  	    				}
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	   104  	    				else
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	   105  	    				{
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	   106  	    					st_Uds_SID_CC_Info.ui32_Boot_State255_Delay--;
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	   107  
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	   108  	    					if(st_Uds_SID_CC_Info.ui32_Boot_State255_Delay != 0U)
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	   109  	    					{
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	   110  	    						if((st_Uds_SID_CC_Info.ui32_Boot_State255_Delay & 0x7FU) == 0U)
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	   111  	    						{
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	   112  	    							st_Uds_Response.ui8_ResCode = UDS_RES_CODE_RCRRP;	/*请求挂起响应*/
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	   113  	    						}
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	   114  	    					}
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	   115  	    					else
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	   116  	    					{
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	   117  
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	   118  	    						Boot_7C2_flg = 3;
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	   119  
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	   120  	    						st_Uds_SID_CC_Info.ui32_Boot_State255_Delay = UDS_BOOT_STATE_DELAY_TIME;	/*初始化Boot State255等待时间*/
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	   121  	    						st_Uds_Response.ui8_ResCode = UDS_RES_CODE_CNC;
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	   122  	    						b_Return = E_OK;
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	   123  	    						__nop();
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	   124  	    					}
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	   125  	    				}
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	   126  	    			}
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	   127  	    	}
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	   128  	        else                                                     //无需刷写
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	   129  	    	{
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	   130  	    	    Boot_7DF_flg = 0;
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	   131  	    	    Boot_7C2_flg = 0;
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	   132  	    	    ui16_pResLen[0U] = 0U;
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	   133  	    	    st_Uds_Response.ui8_ResCode = UDS_RES_CODE_PR;	/*正响应*/
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	   134  	    	    b_Return = E_OK;	/*回调函数执行完毕*/
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	   135  
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	   136  	    	    __nop();
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	   137  	    	}
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	   138  	        break;
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	   139  		}
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	   140  		default:
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	   141  		{
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	   142          	Boot_7DF_flg = 0;
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	   143  	        Boot_7C2_flg = 0;
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	   144  			st_Uds_Response.ui8_ResCode = UDS_RES_CODE_ROOR;	/*数据越界错误响应*/
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	   145  
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	   146  			b_Return = E_OK;	/*回调函数执行完毕*/
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	   147  			break;
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	   148  		}
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	   149  	}
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	   150  
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	   151  	return	b_Return;
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	   152  }
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	   153  #elif ECU_TYPE == ECU_VBU
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	   154  boolean UdsFunc_SID_CC_SUBID_ERXTX_Callback
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	   155  	(uint8 *ui8_pInd, uint8 *ui8_pRes, uint16 *ui16_pResLen)
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	   156  {
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	   157  	boolean	b_Return;
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	   158  	uint8	ui8_CommuType;		/*Communication Type*/
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	   159  
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	   160  	ui8_CommuType = ui8_pInd[0U];	/*从TP层取Communication Type*/
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	   161  
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	   162  	switch(ui8_CommuType)
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	   163  	{
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	   164  
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	   165  		case UDS_CTP_NCM:
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	   166  		{
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	   167  			st_Uds_SID_CC_Info.ui8_CommuCtrlFlag = UDS_EN_RX_TX_NCM;	/*Normal使能Rx和Tx标志建立*/
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	   168  
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	   169  			if(255 != UDS_VEHSTATE_ENUM)
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	   170         		{
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	   171         		  CAN0_Tx_flag = 1;
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	   172         		  CAN1_Tx_flag = 1;
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	   173         		  CAN2_Tx_flag = 1;
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	   174         		}
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	   175  
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	   176  			/*回应数据*/
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	   177  			ui16_pResLen[0U] = 0U;
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	   178  			st_Uds_Response.ui8_ResCode = UDS_RES_CODE_PR;	/*正响应*/
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	   179  			break;
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	   180  		}
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	   181  
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	   182  		default:
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	   183  		{
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	   184  			st_Uds_Response.ui8_ResCode = UDS_RES_CODE_ROOR;	/*数据越界错误响应*/
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	   185  			break;
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	   186  		}
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	   187  	}
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	   188  
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	   189  	b_Return = E_OK;	/*回调函数执行完毕*/
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	   190  
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	   191  	return	b_Return;
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	   192  }
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	   193  
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	   194  boolean UdsFunc_SID_CC_SUBID_DRXTX_Callback
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	   195  	(uint8 *ui8_pInd, uint8 *ui8_pRes, uint16 *ui16_pResLen)
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	   196  {
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	   197  	boolean	b_Return;
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	   198  	uint8	ui8_CommuType;		/*Communication Type*/
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	   199  
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	   200  	ui8_CommuType = ui8_pInd[0U];	/*从TP层取Communication Type*/
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	   201  
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	   202  	b_Return = E_NOT_OK;	/*回调函数未执行完毕*/
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	   203  
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	   204  	switch(ui8_CommuType)
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	   205  	{
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	   206  		case UDS_CTP_NCM:
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	   207  		{
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	   208  	     	CAN0_Tx_flag = 2;
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	   209  	        CAN1_Tx_flag = 2;
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	   210  	        CAN2_Tx_flag = 2;
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	   211  			st_Uds_SID_CC_Info.ui8_CommuCtrlFlag = UDS_DIS_RX_DIS_TX_NCM;	/*Normal使能Rx，关闭Tx标志建立*/
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	   212  
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	   213  	        if(Boot_7DF_flg == 2)
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	   214  	        {
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	   215  	        	Boot_7DF_flg = 3 ;
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	   216  	        	VINP_DIAG_BootReq_flg = 1;
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	   217  	        	Boot_7C2_flg = 1;
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	   218  	        }
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	   219  
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	   220  	    	if(Boot_7C2_flg == 1)
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	   221  	    	{
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	   222  	    			if(st_Uds_SID_RC_Info.b_PreProgrammingFlag == FALSE)
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	   223  	    			{
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	   224  	    				/*回应数据*/
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	   225  	    				Boot_7C2_flg = 0;      //本控制器无需刷写
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	   226  	    				Boot_7DF_flg = 0;
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	   227  
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	   228  	    				ui16_pResLen[0U] = 0U;
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	   229  	    				st_Uds_Response.ui8_ResCode = UDS_RES_CODE_PR;	/*正响应*/
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	   230  
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	   231  	    				b_Return = E_OK;	/*回调函数执行完毕*/
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	   232  
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	   233  	    				__nop();
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	   234  
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	   235  	    			}
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	   236  	    			else
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	   237  	    			{
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	   238  	    				if(UDS_VEHSTATE_ENUM == 255U)	/*判断是否255状态*/
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	   239  	    				{
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	   240  	    					st_Uds_SID_CC_Info.ui32_Boot_State255_Delay = UDS_BOOT_STATE_DELAY_TIME;	/*初始化Boot State255等待时间*/
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	   241  
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	   242  	    					Boot_7C2_flg = 2;
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	   243  
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	   244  	    					/*回应数据*/
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	   245  	    					ui16_pResLen[0U] = 0U;
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	   246  	    					st_Uds_Response.ui8_ResCode = UDS_RES_CODE_PR;	/*正响应*/
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	   247  	    					b_Return = E_OK;	/*回调函数执行完毕*/
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	   248  
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	   249  	    				}
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	   250  	    				else
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	   251  	    				{
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	   252  	    					st_Uds_SID_CC_Info.ui32_Boot_State255_Delay--;
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	   253  
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	   254  	    					if(st_Uds_SID_CC_Info.ui32_Boot_State255_Delay != 0U)
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	   255  	    					{
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	   256  	    						if((st_Uds_SID_CC_Info.ui32_Boot_State255_Delay & 0x7FU) == 0U)
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	   257  	    						{
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	   258  	    							st_Uds_Response.ui8_ResCode = UDS_RES_CODE_RCRRP;	/*请求挂起响应*/
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	   259  	    						}
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	   260  	    					}
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	   261  	    					else
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	   262  	    					{
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	   263  
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	   264  	    						Boot_7C2_flg = 3;
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	   265  
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	   266  	    						st_Uds_SID_CC_Info.ui32_Boot_State255_Delay = UDS_BOOT_STATE_DELAY_TIME;	/*初始化Boot State255等待时间*/
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	   267  	    						st_Uds_Response.ui8_ResCode = UDS_RES_CODE_CNC;
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	   268  	    						b_Return = E_OK;
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	   269  	    						__nop();
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	   270  	    					}
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	   271  	    				}
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	   272  	    			}
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	   273  	    	}
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	   274  	        else                                                     //无需刷写
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	   275  	    	{
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	   276  	    	    Boot_7DF_flg = 0;
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	   277  	    	    Boot_7C2_flg = 0;
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	   278  	    	    ui16_pResLen[0U] = 0U;
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	   279  	    	    st_Uds_Response.ui8_ResCode = UDS_RES_CODE_PR;	/*正响应*/
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	   280  	    	    b_Return = E_OK;	/*回调函数执行完毕*/
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	   281  
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	   282  	    	    __nop();
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	   283  	    	}
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	   284  	        break;
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	   285  		}
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	   286  		default:
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	   287  		{
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	   288          	Boot_7DF_flg = 0;
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	   289  	        Boot_7C2_flg = 0;
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	   290  			st_Uds_Response.ui8_ResCode = UDS_RES_CODE_ROOR;	/*数据越界错误响应*/
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	   291  
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	   292  			b_Return = E_OK;	/*回调函数执行完毕*/
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	   293  			break;
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	   294  		}
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	   295  	}
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	   296  
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	   297  	return	b_Return;
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	   298  }
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	   299  
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	   300  #elif ECU_TYPE == ECU_BMS
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	   301  boolean UdsFunc_SID_CC_SUBID_ERXTX_Callback
+; Function UdsFunc_SID_CC_SUBID_ERXTX_Callback
+.L21:
+UdsFunc_SID_CC_SUBID_ERXTX_Callback:	.type	func
+
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	   302  	(uint8 *ui8_pInd, uint8 *ui8_pRes, uint16 *ui16_pResLen)
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	   303  {
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	   304  	boolean	b_Return;
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	   305  	uint8	ui8_CommuType;		/*Communication Type*/
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	   306  
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	   307  	ui8_CommuType = ui8_pInd[0U];	/*从TP层取Communication Type*/
+	ld.bu	d15,[a4]
+.L71:
+
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	   308  
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	   309  	switch(ui8_CommuType)
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	   310  	{
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	   311  
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	   312  		case UDS_CTP_NCM:
+	jeq	d15,#1,.L2				; prediction unknown
+.L72:
+
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	   313  		{
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	   314  			st_Uds_SID_CC_Info.ui8_CommuCtrlFlag = UDS_EN_RX_TX_NCM;	/*Normal使能Rx和Tx标志建立*/
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	   315  
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	   316  			/*回应数据*/
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	   317  			ui16_pResLen[0U] = 0U;
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	   318  			st_Uds_Response.ui8_ResCode = UDS_RES_CODE_PR;	/*正响应*/
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	   319  			break;
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	   320  		}
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	   321  
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	   322  		case UDS_CTP_NWMCM:
+	jeq	d15,#2,.L3				; prediction unknown
+.L73:
+
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	   323  		{
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	   324  			st_Uds_SID_CC_Info.ui8_NetCtrlFlag = UDS_EN_RX_TX_NCM;	/*Net使能Rx和Tx标志建立*/
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	   325  
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	   326  			/*回应数据*/
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	   327  			ui16_pResLen[0U] = 0U;
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	   328  			st_Uds_Response.ui8_ResCode = UDS_RES_CODE_PR;	/*正响应*/
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	   329  			break;
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	   330  		}
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	   331  
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	   332  		case UDS_CTP_NCM_NWMCM:
+	jeq	d15,#3,.L4				; prediction unknown
+.L74:
+	j	.L5
+.L2:
+	movh.a	a15,#@his(st_Uds_SID_CC_Info)
+	lea	a15,[a15]@los(st_Uds_SID_CC_Info)
+.L75:
+	mov	d15,#0
+	st.b	[a15],d15
+.L76:
+	st.h	[a6],d15
+.L77:
+	movh.a	a15,#@his(st_Uds_Response)
+	lea	a15,[a15]@los(st_Uds_Response)
+.L78:
+	j	.L6
+.L4:
+
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	   333  		{
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	   334  			st_Uds_SID_CC_Info.ui8_CommuCtrlFlag = UDS_EN_RX_TX_NCM;	/*Normal,Net使能Rx和Tx标志建立*/
+	movh.a	a15,#@his(st_Uds_SID_CC_Info)
+	lea	a15,[a15]@los(st_Uds_SID_CC_Info)
+.L79:
+	mov	d15,#0
+	st.b	[a15],d15
+.L3:
+
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	   335  			st_Uds_SID_CC_Info.ui8_NetCtrlFlag = UDS_EN_RX_TX_NCM;		/*Net使能Rx和Tx标志建立*/
+	movh.a	a15,#@his(st_Uds_SID_CC_Info)
+	lea	a15,[a15]@los(st_Uds_SID_CC_Info)
+.L80:
+	mov	d15,#0
+	st.b	[a15]1,d15
+.L81:
+
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	   336  
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	   337  			/*回应数据*/
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	   338  			ui16_pResLen[0U] = 0U;
+	st.h	[a6],d15
+.L82:
+
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	   339  			st_Uds_Response.ui8_ResCode = UDS_RES_CODE_PR;	/*正响应*/
+	movh.a	a15,#@his(st_Uds_Response)
+	lea	a15,[a15]@los(st_Uds_Response)
+.L83:
+
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	   340  			break;
+	j	.L7
+
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	   341  		}
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	   342  
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	   343  
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	   344  		default:
+.L5:
+
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	   345  		{
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	   346  			st_Uds_Response.ui8_ResCode = UDS_RES_CODE_ROOR;	/*数据越界错误响应*/
+	mov	d15,#49
+	movh.a	a15,#@his(st_Uds_Response)
+	lea	a15,[a15]@los(st_Uds_Response)
+
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	   347  			break;
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	   348  		}
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	   349  	}
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	   350  
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	   351  	b_Return = E_OK;	/*回调函数执行完毕*/
+.L6:
+.L7:
+
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	   352  
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	   353  	return	b_Return;
+	mov	d2,#0
+	st.b	[a15],d15
+.L84:
+
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	   354  }
+	ret
+.L48:
+	
+__UdsFunc_SID_CC_SUBID_ERXTX_Callback_function_end:
+	.size	UdsFunc_SID_CC_SUBID_ERXTX_Callback,__UdsFunc_SID_CC_SUBID_ERXTX_Callback_function_end-UdsFunc_SID_CC_SUBID_ERXTX_Callback
+.L34:
+	; End of function
+	
+	.sdecl	'.text.Uds_User_CommunicationControlCallback.UdsFunc_SID_CC_SUBID_ERXDTX_Callback',code,cluster('UdsFunc_SID_CC_SUBID_ERXDTX_Callback')
+	.sect	'.text.Uds_User_CommunicationControlCallback.UdsFunc_SID_CC_SUBID_ERXDTX_Callback'
+	.align	2
+	
+	.global	UdsFunc_SID_CC_SUBID_ERXDTX_Callback
+
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	   355  
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	   356  
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	   357  boolean UdsFunc_SID_CC_SUBID_ERXDTX_Callback
+; Function UdsFunc_SID_CC_SUBID_ERXDTX_Callback
+.L23:
+UdsFunc_SID_CC_SUBID_ERXDTX_Callback:	.type	func
+
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	   358  	(uint8 *ui8_pInd, uint8 *ui8_pRes, uint16 *ui16_pResLen)
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	   359  {
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	   360  	boolean	b_Return;
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	   361  	uint8	ui8_CommuType;		/*Communication Type*/
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	   362  
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	   363  	ui8_CommuType = ui8_pInd[0U];	/*从TP层取Communication Type*/
+	ld.bu	d15,[a4]
+.L89:
+
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	   364  
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	   365  	switch(ui8_CommuType)
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	   366  	{
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	   367  		case UDS_CTP_NCM:
+	jeq	d15,#1,.L9				; prediction unknown
+.L90:
+
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	   368  		{
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	   369  			st_Uds_SID_CC_Info.ui8_CommuCtrlFlag = UDS_EN_RX_DIS_TX_NCM;	/*Normal使能Rx，关闭Tx标志建立*/
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	   370  
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	   371  			/*回应数据*/
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	   372  			ui16_pResLen[0U] = 0U;
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	   373  			st_Uds_Response.ui8_ResCode = UDS_RES_CODE_PR;	/*正响应*/
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	   374  			break;
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	   375  		}
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	   376  
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	   377  		//wxc20180612
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	   378  		case UDS_CTP_NWMCM:
+	jeq	d15,#2,.L10				; prediction unknown
+.L91:
+
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	   379  		{
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	   380  			st_Uds_SID_CC_Info.ui8_NetCtrlFlag = UDS_EN_RX_DIS_TX_NCM;	/*Net使能Rx，关闭Tx标志建立*/
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	   381  
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	   382  			/*回应数据*/
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	   383  			ui16_pResLen[0U] = 0U;
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	   384  			st_Uds_Response.ui8_ResCode = UDS_RES_CODE_PR;	/*正响应*/
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	   385  			break;
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	   386  		}
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	   387  
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	   388  		case UDS_CTP_NCM_NWMCM:
+	jeq	d15,#3,.L11				; prediction unknown
+.L92:
+	j	.L12
+.L9:
+	movh.a	a15,#@his(st_Uds_SID_CC_Info)
+	lea	a15,[a15]@los(st_Uds_SID_CC_Info)
+.L93:
+	mov	d15,#1
+	st.b	[a15],d15
+.L94:
+	mov	d15,#0
+	st.h	[a6],d15
+.L95:
+	movh.a	a15,#@his(st_Uds_Response)
+	lea	a15,[a15]@los(st_Uds_Response)
+.L96:
+	j	.L13
+.L11:
+
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	   389  		{
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	   390  			st_Uds_SID_CC_Info.ui8_CommuCtrlFlag = UDS_EN_RX_DIS_TX_NCM;	/*Normal,Net使能Rx，关闭Tx标志建立*/
+	movh.a	a15,#@his(st_Uds_SID_CC_Info)
+	lea	a15,[a15]@los(st_Uds_SID_CC_Info)
+.L97:
+	mov	d15,#1
+	st.b	[a15],d15
+.L10:
+
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	   391  			st_Uds_SID_CC_Info.ui8_NetCtrlFlag = UDS_EN_RX_DIS_TX_NCM;	/*Net使能Rx，关闭Tx标志建立*/
+	movh.a	a15,#@his(st_Uds_SID_CC_Info)
+	lea	a15,[a15]@los(st_Uds_SID_CC_Info)
+.L98:
+	mov	d15,#1
+	st.b	[a15]1,d15
+.L99:
+
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	   392  
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	   393  			/*回应数据*/
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	   394  			ui16_pResLen[0U] = 0U;
+	mov	d15,#0
+	st.h	[a6],d15
+.L100:
+
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	   395  			st_Uds_Response.ui8_ResCode = UDS_RES_CODE_PR;	/*正响应*/
+	movh.a	a15,#@his(st_Uds_Response)
+	lea	a15,[a15]@los(st_Uds_Response)
+.L101:
+
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	   396  			break;
+	j	.L14
+
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	   397  		}
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	   398  
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	   399  		default:
+.L12:
+
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	   400  		{
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	   401  			st_Uds_Response.ui8_ResCode = UDS_RES_CODE_ROOR;	/*数据越界错误响应*/
+	mov	d15,#49
+	movh.a	a15,#@his(st_Uds_Response)
+	lea	a15,[a15]@los(st_Uds_Response)
+
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	   402  			break;
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	   403  		}
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	   404  	}
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	   405  
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	   406  	b_Return = E_OK;	/*回调函数执行完毕*/
+.L13:
+.L14:
+
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	   407  
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	   408  	return	b_Return;
+	mov	d2,#0
+	st.b	[a15],d15
+.L102:
+
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	   409  }
+	ret
+.L54:
+	
+__UdsFunc_SID_CC_SUBID_ERXDTX_Callback_function_end:
+	.size	UdsFunc_SID_CC_SUBID_ERXDTX_Callback,__UdsFunc_SID_CC_SUBID_ERXDTX_Callback_function_end-UdsFunc_SID_CC_SUBID_ERXDTX_Callback
+.L39:
+	; End of function
+	
+	.sdecl	'.text.Uds_User_CommunicationControlCallback.UdsFunc_SID_CC_SUBID_DRXTX_Callback',code,cluster('UdsFunc_SID_CC_SUBID_DRXTX_Callback')
+	.sect	'.text.Uds_User_CommunicationControlCallback.UdsFunc_SID_CC_SUBID_DRXTX_Callback'
+	.align	2
+	
+	.global	UdsFunc_SID_CC_SUBID_DRXTX_Callback
+
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	   410  
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	   411  
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	   412  boolean UdsFunc_SID_CC_SUBID_DRXTX_Callback
+; Function UdsFunc_SID_CC_SUBID_DRXTX_Callback
+.L25:
+UdsFunc_SID_CC_SUBID_DRXTX_Callback:	.type	func
+
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	   413  	(uint8 *ui8_pInd, uint8 *ui8_pRes, uint16 *ui16_pResLen)
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	   414  {
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	   415  	boolean	b_Return;
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	   416  	uint8	ui8_CommuType;		/*Communication Type*/
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	   417  
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	   418  	ui8_CommuType = ui8_pInd[0U];	/*从TP层取Communication Type*/
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	   419  
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	   420  	b_Return = E_NOT_OK;	/*回调函数未执行完毕*/
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	   421  
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	   422  	switch(ui8_CommuType)
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	   423  	{
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	   424  		case UDS_CTP_NCM:
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	   425  		{
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	   426  			if(st_Uds_SID_RC_Info.b_PreProgrammingFlag == FALSE)
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	   427  			{
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	   428  				st_Uds_SID_CC_Info.ui8_CommuCtrlFlag = UDS_DIS_RX_DIS_TX_NCM;	/*Normal使能Rx，关闭Tx标志建立*/
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	   429  
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	   430  				/*回应数据*/
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	   431  				ui16_pResLen[0U] = 0U;
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	   432  				st_Uds_Response.ui8_ResCode = UDS_RES_CODE_PR;	/*正响应*/
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	   433  
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	   434  				b_Return = E_OK;	/*回调函数执行完毕*/
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	   435  			}
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	   436  			else
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	   437  			{
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	   438  //				if(UDS_VEHSTATE_ENUM == 255U)	/*判断是否255状态*/
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	   439  //				{
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	   440  					st_Uds_SID_CC_Info.ui8_CommuCtrlFlag = UDS_DIS_RX_DIS_TX_NCM;	/*Normal使能Rx，关闭Tx标志建立*/
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	   441  					st_Uds_SID_CC_Info.ui32_Boot_State255_Delay = UDS_BOOT_STATE_DELAY_TIME;	/*初始化Boot State255等待时间*/
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	   442  
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	   443  					/*回应数据*/
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	   444  					ui16_pResLen[0U] = 0U;
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	   445  					st_Uds_Response.ui8_ResCode = UDS_RES_CODE_PR;	/*正响应*/
+	movh.a	a2,#@his(st_Uds_Response)
+	lea	a2,[a2]@los(st_Uds_Response)
+.L107:
+	ld.bu	d15,[a4]
+.L108:
+	jne	d15,#1,.L16				; predicted not taken
+.L109:
+	movh.a	a15,#@his(st_Uds_SID_RC_Info)
+	lea	a15,[a15]@los(st_Uds_SID_RC_Info)
+.L110:
+	ld.bu	d15,[a15]2
+.L111:
+	jeq	d15,#0,.L17				; predicted taken
+.L112:
+	movh.a	a15,#@his(st_Uds_SID_CC_Info+2)
+.L113:
+	mov	d15,#1000
+	st.w	[a15]@los(st_Uds_SID_CC_Info+2),d15
+.L17:
+	movh.a	a15,#@his(st_Uds_SID_CC_Info)
+	lea	a15,[a15]@los(st_Uds_SID_CC_Info)
+.L114:
+	mov	d15,#3
+	st.b	[a15],d15
+.L115:
+	mov	d15,#0
+	st.h	[a6],d15
+.L116:
+
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	   446  
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	   447  					b_Return = E_OK;	/*回调函数执行完毕*/
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	   448  //				}
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	   449  //				else
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	   450  //				{
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	   451  //					st_Uds_SID_CC_Info.ui32_Boot_State255_Delay--;
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	   452  //
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	   453  //					if(st_Uds_SID_CC_Info.ui32_Boot_State255_Delay != 0U)
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	   454  //					{
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	   455  //						if((st_Uds_SID_CC_Info.ui32_Boot_State255_Delay & 0x7FU) == 0U)
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	   456  //						{
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	   457  //							st_Uds_Response.ui8_ResCode = UDS_RES_CODE_RCRRP;	/*请求挂起响应*/
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	   458  //						}
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	   459  //					}
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	   460  //					else
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	   461  //					{
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	   462  //						st_Uds_SID_CC_Info.ui32_Boot_State255_Delay = UDS_BOOT_STATE_DELAY_TIME;	/*初始化Boot State255等待时间*/
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	   463  //						b_Return = E_OK;
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	   464  //					}
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	   465  //				}
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	   466  			}
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	   467  			break;
+	j	.L18
+
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	   468  		}
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	   469  
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	   470  		default:
+.L16:
+
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	   471  		{
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	   472  			st_Uds_Response.ui8_ResCode = UDS_RES_CODE_ROOR;	/*数据越界错误响应*/
+	mov	d15,#49
+
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	   473  
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	   474  			b_Return = E_OK;	/*回调函数执行完毕*/
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	   475  			break;
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	   476  		}
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	   477  	}
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	   478  
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	   479  	return	b_Return;
+.L18:
+	mov	d2,#0
+	st.b	[a2],d15
+.L117:
+
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	   480  }
+	ret
+.L58:
+	
+__UdsFunc_SID_CC_SUBID_DRXTX_Callback_function_end:
+	.size	UdsFunc_SID_CC_SUBID_DRXTX_Callback,__UdsFunc_SID_CC_SUBID_DRXTX_Callback_function_end-UdsFunc_SID_CC_SUBID_DRXTX_Callback
+.L44:
+	; End of function
+	
+	.sdecl	'.bss.Uds_User_CommunicationControlCallback.st_Uds_SID_CC_Info',data,cluster('st_Uds_SID_CC_Info')
+	.sect	'.bss.Uds_User_CommunicationControlCallback.st_Uds_SID_CC_Info'
+	.global	st_Uds_SID_CC_Info
+	.align	2
+st_Uds_SID_CC_Info:	.type	object
+	.size	st_Uds_SID_CC_Info,6
+	.space	6
+	.calls	'UdsFunc_SID_CC_SUBID_ERXTX_Callback','',0
+	.calls	'UdsFunc_SID_CC_SUBID_ERXDTX_Callback','',0
+	.extern	st_Uds_SID_RC_Info
+	.extern	st_Uds_Response
+	.calls	'UdsFunc_SID_CC_SUBID_DRXTX_Callback','',0
+	.sdecl	'.debug_info',debug
+	.sect	'.debug_info'
+.L27:
+	.word	979
+	.half	3
+	.word	.L28
+	.byte	4
+.L26:
+	.byte	1
+	.byte	'..\\Communication_Files\\Uds\\User\\Uds_User_CommunicationControlCallback.c',0
+	.byte	'TASKING VX-toolset for TriCore: C compiler',0
+	.byte	'D:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_1.9\\BMU_BOOT\\Debug\\',0,12,1
+	.word	.L29
+.L47:
+	.byte	2
+	.byte	'unsigned char',0,1,8
+.L49:
+	.byte	3
+	.word	189
+	.byte	2
+	.byte	'unsigned short int',0,2,7
+.L52:
+	.byte	3
+	.word	211
+	.byte	4
+	.byte	'void',0,3
+	.word	238
+	.byte	5
+	.byte	'__prof_adm',0,1,1,1
+	.word	244
+	.byte	6,1,3
+	.word	268
+	.byte	5
+	.byte	'__codeptr',0,1,1,1
+	.word	270
+	.byte	5
+	.byte	'ubyte',0,2,78,24
+	.word	189
+	.byte	5
+	.byte	'ushort',0,2,80,24
+	.word	211
+	.byte	2
+	.byte	'unsigned int',0,4,7,5
+	.byte	'uword',0,2,82,24
+	.word	322
+	.byte	5
+	.byte	'uint8',0,3,87,29
+	.word	189
+	.byte	5
+	.byte	'uint16',0,3,89,29
+	.word	211
+	.byte	2
+	.byte	'long int',0,4,5,5
+	.byte	'sint32',0,3,90,29
+	.word	381
+	.byte	2
+	.byte	'unsigned long int',0,4,7,5
+	.byte	'uint32',0,3,91,27
+	.word	408
+	.byte	5
+	.byte	'boolean',0,3,102,29
+	.word	189
+.L62:
+	.byte	7,4,14,9,6,8
+	.byte	'ui8_CommuCtrlFlag',0,1
+	.word	189
+	.byte	2,35,0,8
+	.byte	'ui8_NetCtrlFlag',0,1
+	.word	189
+	.byte	2,35,1,8
+	.byte	'ui32_Boot_State255_Delay',0,4
+	.word	408
+	.byte	2,35,2,0,5
+	.byte	'Struct_Uds_SID_CC_Info',0,4,19,2
+	.word	460
+	.byte	7,5,21,9,6,8
+	.byte	'ui8_STR_Flag',0,1
+	.word	189
+	.byte	2,35,0,8
+	.byte	'ui8_DID_FF00_Task_FSM',0,1
+	.word	189
+	.byte	2,35,1,8
+	.byte	'b_PreProgrammingFlag',0,1
+	.word	189
+	.byte	2,35,2,8
+	.byte	'b_BackUpFlag',0,1
+	.word	189
+	.byte	2,35,3,8
+	.byte	'b_UpdateFlag',0,1
+	.word	189
+	.byte	2,35,4,0,5
+	.byte	'Struct_Uds_SID_RC_Info',0,5,28,2
+	.word	583
+	.byte	9
+	.byte	'st_Uds_SID_RC_Info',0,5,29,31
+	.word	583
+	.byte	1,1,7,6,91,9,28,8
+	.byte	'ui8_ResCode',0,1
+	.word	189
+	.byte	2,35,0,8
+	.byte	'b_SuppressPosRspBit',0,1
+	.word	189
+	.byte	2,35,1,8
+	.byte	'ui8_pMsgData',0,4
+	.word	206
+	.byte	2,35,4,8
+	.byte	'ui16_pLength',0,4
+	.word	233
+	.byte	2,35,8,10,8
+	.word	189
+	.byte	11,7,0,8
+	.byte	'ui8_Neg78_Buf',0,8
+	.word	875
+	.byte	2,35,12,8
+	.byte	'ui8_3E_Buf',0,8
+	.word	875
+	.byte	2,35,20,0,5
+	.byte	'Struct_Uds_Response',0,6,99,2
+	.word	776
+	.byte	9
+	.byte	'st_Uds_Response',0,6,126,29
+	.word	776
+	.byte	1,1,0
+	.sdecl	'.debug_abbrev',debug
+	.sect	'.debug_abbrev'
+.L28:
+	.byte	1,17,1,3,8,37,8,27,8,19,15,128,70,12,16,6,0,0,2,36,0,3,8,11,15,62,15,0,0,3,15,0,73,19,0,0,4,59,0,3,8,0
+	.byte	0,5,22,0,3,8,58,15,59,15,57,15,73,19,0,0,6,21,0,54,15,0,0,7,19,1,58,15,59,15,57,15,11,15,0,0,8,13,0,3
+	.byte	8,11,15,73,19,56,9,0,0,9,52,0,3,8,58,15,59,15,57,15,73,19,63,12,60,12,0,0,10,1,1,11,15,73,19,0,0,11,33
+	.byte	0,47,15,0,0,0
+	.sdecl	'.debug_line',debug
+	.sect	'.debug_line'
+.L29:
+	.word	.L64-.L63
+.L63:
+	.half	3
+	.word	.L66-.L65
+.L65:
+	.byte	2,1,-4,9,10,0,1,1,1,1,0,0,0,1
+	.byte	'D:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_1.9\\BMU_BOOT\\Initiate_Files',0
+	.byte	'D:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_1.9\\BMU_BOOT\\Stand_Header',0
+	.byte	'D:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_1.9\\BMU_BOOT\\Communication_Files\\Uds\\User',0
+	.byte	'D:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_1.9\\BMU_BOOT\\Communication_Files\\Uds\\Dcm',0,0
+	.byte	'..\\Communication_Files\\Uds\\User\\Uds_User_CommunicationControlCallback.c',0,0,0,0
+	.byte	'MAIN.h',0,1,0,0
+	.byte	'Platform_Types.h',0,2,0,0
+	.byte	'Uds_User_CommunicationControlCallback.h',0,3,0,0
+	.byte	'Uds_User_RoutineControlCallback.h',0,3,0,0
+	.byte	'Uds_Dcm_Drv.h',0,4,0,0,0
+.L66:
+.L64:
+	.sdecl	'.debug_info',debug,cluster('UdsFunc_SID_CC_SUBID_ERXTX_Callback')
+	.sect	'.debug_info'
+.L30:
+	.word	335
+	.half	3
+	.word	.L31
+	.byte	4,1
+	.byte	'..\\Communication_Files\\Uds\\User\\Uds_User_CommunicationControlCallback.c',0
+	.byte	'TASKING VX-toolset for TriCore: C compiler',0
+	.byte	'D:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_1.9\\BMU_BOOT\\Debug\\',0,12,1
+	.word	.L33,.L32
+	.byte	2
+	.word	.L26
+	.byte	3
+	.byte	'UdsFunc_SID_CC_SUBID_ERXTX_Callback',0,1,173,2,9
+	.word	.L47
+	.byte	1,1,1
+	.word	.L21,.L48,.L20
+	.byte	4
+	.byte	'ui8_pInd',0,1,174,2,10
+	.word	.L49,.L50
+	.byte	4
+	.byte	'ui8_pRes',0,1,174,2,27
+	.word	.L49,.L51
+	.byte	4
+	.byte	'ui16_pResLen',0,1,174,2,45
+	.word	.L52,.L53
+	.byte	5
+	.word	.L21,.L48
+	.byte	0,0
+	.sdecl	'.debug_abbrev',debug,cluster('UdsFunc_SID_CC_SUBID_ERXTX_Callback')
+	.sect	'.debug_abbrev'
+.L31:
+	.byte	1,17,1,3,8,37,8,27,8,19,15,128,70,12,85,6,16,6,0,0,2,61,0,24,16,0,0,3,46,1,3,8,58,15,59,15,57,15,73,16
+	.byte	54,15,39,12,63,12,17,1,18,1,64,6,0,0,4,5,0,3,8,58,15,59,15,57,15,73,16,2,6,0,0,5,11,0,17,1,18,1,0,0,0
+	.sdecl	'.debug_line',debug,cluster('UdsFunc_SID_CC_SUBID_ERXTX_Callback')
+	.sect	'.debug_line'
+.L32:
+	.word	.L68-.L67
+.L67:
+	.half	3
+	.word	.L70-.L69
+.L69:
+	.byte	2,1,-4,9,10,0,1,1,1,1,0,0,0,1,0
+	.byte	'..\\Communication_Files\\Uds\\User\\Uds_User_CommunicationControlCallback.c',0,0,0,0,0
+.L70:
+	.byte	5,26,7,0,5,2
+	.word	.L21
+	.byte	3,178,2,1,5,8,9
+	.half	.L71-.L21
+	.byte	3,5,1,7,9
+	.half	.L72-.L71
+	.byte	3,10,1,7,9
+	.half	.L73-.L72
+	.byte	3,10,1,7,9
+	.half	.L74-.L73
+	.byte	1,5,4,9
+	.half	.L2-.L74
+	.byte	3,110,1,5,43,9
+	.half	.L75-.L2
+	.byte	1,5,41,1,5,21,9
+	.half	.L76-.L75
+	.byte	3,3,1,5,4,9
+	.half	.L77-.L76
+	.byte	3,1,1,9
+	.half	.L78-.L77
+	.byte	3,1,1,9
+	.half	.L4-.L78
+	.byte	3,15,1,5,43,9
+	.half	.L79-.L4
+	.byte	1,5,41,1,5,4,9
+	.half	.L3-.L79
+	.byte	3,1,1,5,41,9
+	.half	.L80-.L3
+	.byte	1,5,39,1,5,21,9
+	.half	.L81-.L80
+	.byte	3,3,1,5,4,9
+	.half	.L82-.L81
+	.byte	3,1,1,9
+	.half	.L83-.L82
+	.byte	3,1,1,5,34,9
+	.half	.L5-.L83
+	.byte	3,6,1,5,4,1,5,9,9
+	.half	.L7-.L5
+	.byte	3,7,1,5,32,3,121,1,5,1,9
+	.half	.L84-.L7
+	.byte	3,8,1,7,9
+	.half	.L34-.L84
+	.byte	0,1,1
+.L68:
+	.sdecl	'.debug_ranges',debug,cluster('UdsFunc_SID_CC_SUBID_ERXTX_Callback')
+	.sect	'.debug_ranges'
+.L33:
+	.word	-1,.L21,0,.L34-.L21,0,0
+	.sdecl	'.debug_info',debug,cluster('UdsFunc_SID_CC_SUBID_ERXDTX_Callback')
+	.sect	'.debug_info'
+.L35:
+	.word	336
+	.half	3
+	.word	.L36
+	.byte	4,1
+	.byte	'..\\Communication_Files\\Uds\\User\\Uds_User_CommunicationControlCallback.c',0
+	.byte	'TASKING VX-toolset for TriCore: C compiler',0
+	.byte	'D:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_1.9\\BMU_BOOT\\Debug\\',0,12,1
+	.word	.L38,.L37
+	.byte	2
+	.word	.L26
+	.byte	3
+	.byte	'UdsFunc_SID_CC_SUBID_ERXDTX_Callback',0,1,229,2,9
+	.word	.L47
+	.byte	1,1,1
+	.word	.L23,.L54,.L22
+	.byte	4
+	.byte	'ui8_pInd',0,1,230,2,10
+	.word	.L49,.L55
+	.byte	4
+	.byte	'ui8_pRes',0,1,230,2,27
+	.word	.L49,.L56
+	.byte	4
+	.byte	'ui16_pResLen',0,1,230,2,45
+	.word	.L52,.L57
+	.byte	5
+	.word	.L23,.L54
+	.byte	0,0
+	.sdecl	'.debug_abbrev',debug,cluster('UdsFunc_SID_CC_SUBID_ERXDTX_Callback')
+	.sect	'.debug_abbrev'
+.L36:
+	.byte	1,17,1,3,8,37,8,27,8,19,15,128,70,12,85,6,16,6,0,0,2,61,0,24,16,0,0,3,46,1,3,8,58,15,59,15,57,15,73,16
+	.byte	54,15,39,12,63,12,17,1,18,1,64,6,0,0,4,5,0,3,8,58,15,59,15,57,15,73,16,2,6,0,0,5,11,0,17,1,18,1,0,0,0
+	.sdecl	'.debug_line',debug,cluster('UdsFunc_SID_CC_SUBID_ERXDTX_Callback')
+	.sect	'.debug_line'
+.L37:
+	.word	.L86-.L85
+.L85:
+	.half	3
+	.word	.L88-.L87
+.L87:
+	.byte	2,1,-4,9,10,0,1,1,1,1,0,0,0,1,0
+	.byte	'..\\Communication_Files\\Uds\\User\\Uds_User_CommunicationControlCallback.c',0,0,0,0,0
+.L88:
+	.byte	5,26,7,0,5,2
+	.word	.L23
+	.byte	3,234,2,1,5,8,9
+	.half	.L89-.L23
+	.byte	3,4,1,7,9
+	.half	.L90-.L89
+	.byte	3,11,1,7,9
+	.half	.L91-.L90
+	.byte	3,10,1,7,9
+	.half	.L92-.L91
+	.byte	1,5,4,9
+	.half	.L9-.L92
+	.byte	3,109,1,5,43,9
+	.half	.L93-.L9
+	.byte	1,5,41,1,5,23,9
+	.half	.L94-.L93
+	.byte	3,3,1,5,21,1,5,4,9
+	.half	.L95-.L94
+	.byte	3,1,1,9
+	.half	.L96-.L95
+	.byte	3,1,1,9
+	.half	.L11-.L96
+	.byte	3,16,1,5,43,9
+	.half	.L97-.L11
+	.byte	1,5,41,1,5,4,9
+	.half	.L10-.L97
+	.byte	3,1,1,5,41,9
+	.half	.L98-.L10
+	.byte	1,5,39,1,5,23,9
+	.half	.L99-.L98
+	.byte	3,3,1,5,21,1,5,4,9
+	.half	.L100-.L99
+	.byte	3,1,1,9
+	.half	.L101-.L100
+	.byte	3,1,1,5,34,9
+	.half	.L12-.L101
+	.byte	3,5,1,5,4,1,5,9,9
+	.half	.L14-.L12
+	.byte	3,7,1,5,32,3,121,1,5,1,9
+	.half	.L102-.L14
+	.byte	3,8,1,7,9
+	.half	.L39-.L102
+	.byte	0,1,1
+.L86:
+	.sdecl	'.debug_ranges',debug,cluster('UdsFunc_SID_CC_SUBID_ERXDTX_Callback')
+	.sect	'.debug_ranges'
+.L38:
+	.word	-1,.L23,0,.L39-.L23,0,0
+	.sdecl	'.debug_info',debug,cluster('UdsFunc_SID_CC_SUBID_DRXTX_Callback')
+	.sect	'.debug_info'
+.L40:
+	.word	335
+	.half	3
+	.word	.L41
+	.byte	4,1
+	.byte	'..\\Communication_Files\\Uds\\User\\Uds_User_CommunicationControlCallback.c',0
+	.byte	'TASKING VX-toolset for TriCore: C compiler',0
+	.byte	'D:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_1.9\\BMU_BOOT\\Debug\\',0,12,1
+	.word	.L43,.L42
+	.byte	2
+	.word	.L26
+	.byte	3
+	.byte	'UdsFunc_SID_CC_SUBID_DRXTX_Callback',0,1,156,3,9
+	.word	.L47
+	.byte	1,1,1
+	.word	.L25,.L58,.L24
+	.byte	4
+	.byte	'ui8_pInd',0,1,157,3,10
+	.word	.L49,.L59
+	.byte	4
+	.byte	'ui8_pRes',0,1,157,3,27
+	.word	.L49,.L60
+	.byte	4
+	.byte	'ui16_pResLen',0,1,157,3,45
+	.word	.L52,.L61
+	.byte	5
+	.word	.L25,.L58
+	.byte	0,0
+	.sdecl	'.debug_abbrev',debug,cluster('UdsFunc_SID_CC_SUBID_DRXTX_Callback')
+	.sect	'.debug_abbrev'
+.L41:
+	.byte	1,17,1,3,8,37,8,27,8,19,15,128,70,12,85,6,16,6,0,0,2,61,0,24,16,0,0,3,46,1,3,8,58,15,59,15,57,15,73,16
+	.byte	54,15,39,12,63,12,17,1,18,1,64,6,0,0,4,5,0,3,8,58,15,59,15,57,15,73,16,2,6,0,0,5,11,0,17,1,18,1,0,0,0
+	.sdecl	'.debug_line',debug,cluster('UdsFunc_SID_CC_SUBID_DRXTX_Callback')
+	.sect	'.debug_line'
+.L42:
+	.word	.L104-.L103
+.L103:
+	.half	3
+	.word	.L106-.L105
+.L105:
+	.byte	2,1,-4,9,10,0,1,1,1,1,0,0,0,1,0
+	.byte	'..\\Communication_Files\\Uds\\User\\Uds_User_CommunicationControlCallback.c',0,0,0,0,0
+.L106:
+	.byte	5,6,7,0,5,2
+	.word	.L25
+	.byte	3,188,3,1,5,26,9
+	.half	.L107-.L25
+	.byte	3,101,1,5,2,9
+	.half	.L108-.L107
+	.byte	3,4,1,5,7,7,9
+	.half	.L109-.L108
+	.byte	3,4,1,5,25,9
+	.half	.L110-.L109
+	.byte	1,5,4,9
+	.half	.L111-.L110
+	.byte	1,5,6,7,9
+	.half	.L112-.L111
+	.byte	3,15,1,5,52,9
+	.half	.L113-.L112
+	.byte	1,5,50,1,5,5,9
+	.half	.L17-.L113
+	.byte	3,115,1,5,27,9
+	.half	.L114-.L17
+	.byte	3,16,1,5,25,9
+	.half	.L115-.L114
+	.byte	1,5,23,1,5,4,9
+	.half	.L116-.L115
+	.byte	3,23,1,5,34,9
+	.half	.L16-.L116
+	.byte	3,5,1,5,9,9
+	.half	.L18-.L16
+	.byte	3,7,1,5,32,3,121,1,5,1,9
+	.half	.L117-.L18
+	.byte	3,8,1,7,9
+	.half	.L44-.L117
+	.byte	0,1,1
+.L104:
+	.sdecl	'.debug_ranges',debug,cluster('UdsFunc_SID_CC_SUBID_DRXTX_Callback')
+	.sect	'.debug_ranges'
+.L43:
+	.word	-1,.L25,0,.L44-.L25,0,0
+	.sdecl	'.debug_info',debug,cluster('st_Uds_SID_CC_Info')
+	.sect	'.debug_info'
+.L45:
+	.word	221
+	.half	3
+	.word	.L46
+	.byte	4,1
+	.byte	'..\\Communication_Files\\Uds\\User\\Uds_User_CommunicationControlCallback.c',0
+	.byte	'TASKING VX-toolset for TriCore: C compiler',0
+	.byte	'D:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_1.9\\BMU_BOOT\\Debug\\',0,12,1,2
+	.word	.L26
+	.byte	3
+	.byte	'st_Uds_SID_CC_Info',0,1,4,24
+	.word	.L62
+	.byte	1,5,3
+	.word	st_Uds_SID_CC_Info
+	.byte	0
+	.sdecl	'.debug_abbrev',debug,cluster('st_Uds_SID_CC_Info')
+	.sect	'.debug_abbrev'
+.L46:
+	.byte	1,17,1,3,8,37,8,27,8,19,15,128,70,12,0,0,2,61,0,24,16,0,0,3,52,0,3,8,58,15,59,15,57,15,73,16,63,12,2,9
+	.byte	0,0,0
+	.sdecl	'.debug_loc',debug,cluster('UdsFunc_SID_CC_SUBID_DRXTX_Callback')
+	.sect	'.debug_loc'
+.L24:
+	.word	-1,.L25,0,.L58-.L25
+	.half	2
+	.byte	138,0
+	.word	0,0
+.L61:
+	.word	-1,.L25,0,.L58-.L25
+	.half	1
+	.byte	102
+	.word	0,0
+.L59:
+	.word	-1,.L25,0,.L58-.L25
+	.half	1
+	.byte	100
+	.word	0,0
+.L60:
+	.word	-1,.L25,0,.L58-.L25
+	.half	1
+	.byte	101
+	.word	0,0
+	.sdecl	'.debug_loc',debug,cluster('UdsFunc_SID_CC_SUBID_ERXDTX_Callback')
+	.sect	'.debug_loc'
+.L22:
+	.word	-1,.L23,0,.L54-.L23
+	.half	2
+	.byte	138,0
+	.word	0,0
+.L57:
+	.word	-1,.L23,0,.L54-.L23
+	.half	1
+	.byte	102
+	.word	0,0
+.L55:
+	.word	-1,.L23,0,.L54-.L23
+	.half	1
+	.byte	100
+	.word	0,0
+.L56:
+	.word	-1,.L23,0,.L54-.L23
+	.half	1
+	.byte	101
+	.word	0,0
+	.sdecl	'.debug_loc',debug,cluster('UdsFunc_SID_CC_SUBID_ERXTX_Callback')
+	.sect	'.debug_loc'
+.L20:
+	.word	-1,.L21,0,.L48-.L21
+	.half	2
+	.byte	138,0
+	.word	0,0
+.L53:
+	.word	-1,.L21,0,.L48-.L21
+	.half	1
+	.byte	102
+	.word	0,0
+.L50:
+	.word	-1,.L21,0,.L48-.L21
+	.half	1
+	.byte	100
+	.word	0,0
+.L51:
+	.word	-1,.L21,0,.L48-.L21
+	.half	1
+	.byte	101
+	.word	0,0
+	.sdecl	'.debug_frame',debug
+	.sect	'.debug_frame'
+.L118:
+	.word	48
+	.word	-1
+	.byte	3,0,2,1,27,12,26,0,8,26,8,27,8,30,8,29,8,28,8,16,8,17,8,24,8,25,8,31,8,32,8,33,8,34,8,35,8,36,8,37,8,38
+	.byte	8,39
+	.sdecl	'.debug_frame',debug,cluster('UdsFunc_SID_CC_SUBID_ERXTX_Callback')
+	.sect	'.debug_frame'
+	.word	20
+	.word	.L118,.L21,.L48-.L21
+	.byte	8,18,8,19,8,21,8,23
+	.sdecl	'.debug_frame',debug,cluster('UdsFunc_SID_CC_SUBID_ERXDTX_Callback')
+	.sect	'.debug_frame'
+	.word	20
+	.word	.L118,.L23,.L54-.L23
+	.byte	8,18,8,19,8,21,8,23
+	.sdecl	'.debug_frame',debug,cluster('UdsFunc_SID_CC_SUBID_DRXTX_Callback')
+	.sect	'.debug_frame'
+	.word	20
+	.word	.L118,.L25,.L58-.L25
+	.byte	8,19,8,21,8,23,0,0
+
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	   481  #elif ECU_TYPE == ECU_MCU
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	   482  boolean UdsFunc_SID_CC_SUBID_ERXTX_Callback
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	   483  	(uint8 *ui8_pInd, uint8 *ui8_pRes, uint16 *ui16_pResLen)
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	   484  {
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	   485  	boolean	b_Return;
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	   486  	uint8	ui8_CommuType;		/*Communication Type*/
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	   487  
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	   488  	ui8_CommuType = ui8_pInd[0U];	/*从TP层取Communication Type*/
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	   489  
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	   490  	switch(ui8_CommuType)
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	   491  	{
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	   492  
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	   493  		case UDS_CTP_NCM:
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	   494  		{
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	   495  			st_Uds_SID_CC_Info.ui8_CommuCtrlFlag = UDS_EN_RX_TX_NCM;	/*Normal使能Rx和Tx标志建立*/
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	   496  
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	   497  			if(255 != UDS_VEHSTATE_ENUM)
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	   498         		{
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	   499         		  CAN0_Tx_flag = 1;
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	   500         		  CAN1_Tx_flag = 1;
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	   501         		  CAN2_Tx_flag = 1;
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	   502         		}
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	   503  
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	   504  			/*回应数据*/
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	   505  			ui16_pResLen[0U] = 0U;
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	   506  			st_Uds_Response.ui8_ResCode = UDS_RES_CODE_PR;	/*正响应*/
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	   507  			break;
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	   508  		}
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	   509  
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	   510  		default:
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	   511  		{
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	   512  			st_Uds_Response.ui8_ResCode = UDS_RES_CODE_ROOR;	/*数据越界错误响应*/
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	   513  			break;
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	   514  		}
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	   515  	}
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	   516  
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	   517  	b_Return = E_OK;	/*回调函数执行完毕*/
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	   518  
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	   519  	return	b_Return;
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	   520  }
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	   521  
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	   522  boolean UdsFunc_SID_CC_SUBID_DRXTX_Callback
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	   523  	(uint8 *ui8_pInd, uint8 *ui8_pRes, uint16 *ui16_pResLen)
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	   524  {
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	   525  	boolean	b_Return;
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	   526  	uint8	ui8_CommuType;		/*Communication Type*/
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	   527  
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	   528  	ui8_CommuType = ui8_pInd[0U];	/*从TP层取Communication Type*/
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	   529  
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	   530  	b_Return = E_NOT_OK;	/*回调函数未执行完毕*/
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	   531  
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	   532  	switch(ui8_CommuType)
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	   533  	{
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	   534  		case UDS_CTP_NCM:
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	   535  		{
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	   536  	     	CAN0_Tx_flag = 2;
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	   537  	        CAN1_Tx_flag = 2;
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	   538  	        CAN2_Tx_flag = 2;
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	   539  			st_Uds_SID_CC_Info.ui8_CommuCtrlFlag = UDS_DIS_RX_DIS_TX_NCM;	/*Normal使能Rx，关闭Tx标志建立*/
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	   540  
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	   541  	        if(Boot_7DF_flg == 2)
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	   542  	        {
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	   543  	        	Boot_7DF_flg = 3 ;
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	   544  //	        	VINP_DIAG_BootReq_flg = 1;
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	   545  	        	Boot_MCU_flg = 1;
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	   546  	        }
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	   547  
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	   548  	    	if(Boot_MCU_flg == 1)
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	   549  	    	{
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	   550  	    			if(st_Uds_SID_RC_Info.b_PreProgrammingFlag == FALSE)
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	   551  	    			{
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	   552  	    				/*回应数据*/
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	   553  	    				Boot_MCU_flg = 0;      //本控制器无需刷写
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	   554  	    				Boot_7DF_flg = 0;
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	   555  
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	   556  	    				ui16_pResLen[0U] = 0U;
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	   557  	    				st_Uds_Response.ui8_ResCode = UDS_RES_CODE_PR;	/*正响应*/
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	   558  
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	   559  	    				b_Return = E_OK;	/*回调函数执行完毕*/
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	   560  
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	   561  	    				__nop();
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	   562  
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	   563  	    			}
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	   564  	    			else
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	   565  	    			{
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	   566  	    				if(UDS_VEHSTATE_ENUM == 255U||UDS_VEHSTATE_ENUM == 0U)	/*判断是否255状态*/
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	   567  	    				{
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	   568  	    					st_Uds_SID_CC_Info.ui32_Boot_State255_Delay = UDS_BOOT_STATE_DELAY_TIME;	/*初始化Boot State255等待时间*/
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	   569  
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	   570  	    					Boot_MCU_flg = 2;
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	   571  
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	   572  	    					/*回应数据*/
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	   573  	    					ui16_pResLen[0U] = 0U;
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	   574  	    					st_Uds_Response.ui8_ResCode = UDS_RES_CODE_PR;	/*正响应*/
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	   575  	    					b_Return = E_OK;	/*回调函数执行完毕*/
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	   576  
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	   577  	    				}
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	   578  	    				else
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	   579  	    				{
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	   580  	    					st_Uds_SID_CC_Info.ui32_Boot_State255_Delay--;
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	   581  
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	   582  	    					if(st_Uds_SID_CC_Info.ui32_Boot_State255_Delay != 0U)
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	   583  	    					{
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	   584  	    						if((st_Uds_SID_CC_Info.ui32_Boot_State255_Delay & 0x7FU) == 0U)
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	   585  	    						{
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	   586  	    							st_Uds_Response.ui8_ResCode = UDS_RES_CODE_RCRRP;	/*请求挂起响应*/
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	   587  	    						}
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	   588  	    					}
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	   589  	    					else
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	   590  	    					{
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	   591  
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	   592  	    						Boot_MCU_flg = 3;
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	   593  
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	   594  	    						st_Uds_SID_CC_Info.ui32_Boot_State255_Delay = UDS_BOOT_STATE_DELAY_TIME;	/*初始化Boot State255等待时间*/
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	   595  	    						st_Uds_Response.ui8_ResCode = UDS_RES_CODE_CNC;
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	   596  	    						b_Return = E_OK;
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	   597  	    						__nop();
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	   598  	    					}
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	   599  	    				}
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	   600  	    			}
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	   601  	    	}
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	   602  	        else                                                     //无需刷写
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	   603  	    	{
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	   604  	    	    Boot_7DF_flg = 0;
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	   605  	    	    Boot_MCU_flg = 0;
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	   606  	    	    ui16_pResLen[0U] = 0U;
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	   607  	    	    st_Uds_Response.ui8_ResCode = UDS_RES_CODE_PR;	/*正响应*/
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	   608  	    	    b_Return = E_OK;	/*回调函数执行完毕*/
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	   609  
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	   610  	    	    __nop();
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	   611  	    	}
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	   612  	        break;
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	   613  		}
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	   614  		default:
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	   615  		{
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	   616          	Boot_7DF_flg = 0;
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	   617          	Boot_MCU_flg = 0;
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	   618  			st_Uds_Response.ui8_ResCode = UDS_RES_CODE_ROOR;	/*数据越界错误响应*/
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	   619  
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	   620  			b_Return = E_OK;	/*回调函数执行完毕*/
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	   621  			break;
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	   622  		}
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	   623  	}
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	   624  
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	   625  	return	b_Return;
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	   626  }
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	   627  
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	   628  #elif ECU_TYPE == ECU_BMS_FRWK_3
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	   629  boolean UdsFunc_SID_CC_SUBID_ERXTX_Callback
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	   630  	(uint8 *ui8_pInd, uint8 *ui8_pRes, uint16 *ui16_pResLen)
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	   631  {
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	   632  	boolean	b_Return;
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	   633  	uint8	ui8_CommuType;		/*Communication Type*/
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	   634  
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	   635  	ui8_CommuType = ui8_pInd[0U];	/*从TP层取Communication Type*/
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	   636  
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	   637  	switch(ui8_CommuType)
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	   638  	{
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	   639  
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	   640  		case UDS_CTP_NCM:
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	   641  		{
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	   642  			st_Uds_SID_CC_Info.ui8_CommuCtrlFlag = UDS_EN_RX_TX_NCM;	/*Normal使能Rx和Tx标志建立*/
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	   643  
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	   644  			/*回应数据*/
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	   645  			ui16_pResLen[0U] = 0U;
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	   646  			st_Uds_Response.ui8_ResCode = UDS_RES_CODE_PR;	/*正响应*/
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	   647  			break;
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	   648  		}
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	   649  
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	   650  		default:
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	   651  		{
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	   652  			st_Uds_Response.ui8_ResCode = UDS_RES_CODE_ROOR;	/*数据越界错误响应*/
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	   653  			break;
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	   654  		}
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	   655  	}
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	   656  
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	   657  	b_Return = E_OK;	/*回调函数执行完毕*/
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	   658  
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	   659  	return	b_Return;
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	   660  }
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	   661  
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	   662  
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	   663  boolean UdsFunc_SID_CC_SUBID_ERXDTX_Callback
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	   664  	(uint8 *ui8_pInd, uint8 *ui8_pRes, uint16 *ui16_pResLen)
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	   665  {
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	   666  	boolean	b_Return;
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	   667  	uint8	ui8_CommuType;		/*Communication Type*/
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	   668  
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	   669  	ui8_CommuType = ui8_pInd[0U];	/*从TP层取Communication Type*/
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	   670  
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	   671  	switch(ui8_CommuType)
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	   672  	{
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	   673  		case UDS_CTP_NCM:
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	   674  		{
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	   675  			st_Uds_SID_CC_Info.ui8_CommuCtrlFlag = UDS_EN_RX_DIS_TX_NCM;	/*Normal使能Rx，关闭Tx标志建立*/
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	   676  
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	   677  			/*回应数据*/
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	   678  			ui16_pResLen[0U] = 0U;
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	   679  			st_Uds_Response.ui8_ResCode = UDS_RES_CODE_PR;	/*正响应*/
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	   680  			break;
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	   681  		}
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	   682  
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	   683  		default:
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	   684  		{
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	   685  			st_Uds_Response.ui8_ResCode = UDS_RES_CODE_ROOR;	/*数据越界错误响应*/
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	   686  			break;
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	   687  		}
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	   688  	}
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	   689  
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	   690  	b_Return = E_OK;	/*回调函数执行完毕*/
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	   691  
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	   692  	return	b_Return;
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	   693  }
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	   694  
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	   695  
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	   696  boolean UdsFunc_SID_CC_SUBID_DRXTX_Callback
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	   697  	(uint8 *ui8_pInd, uint8 *ui8_pRes, uint16 *ui16_pResLen)
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	   698  {
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	   699  	boolean	b_Return;
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	   700  	uint8	ui8_CommuType;		/*Communication Type*/
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	   701  
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	   702  	ui8_CommuType = ui8_pInd[0U];	/*从TP层取Communication Type*/
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	   703  
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	   704  	b_Return = E_NOT_OK;	/*回调函数未执行完毕*/
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	   705  
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	   706  	switch(ui8_CommuType)
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	   707  	{
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	   708  		case UDS_CTP_NCM:
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	   709  		{
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	   710  			st_Uds_SID_CC_Info.ui8_CommuCtrlFlag = UDS_DIS_RX_DIS_TX_NCM;	/*Normal使能Rx，关闭Tx标志建立*/
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	   711  
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	   712  			if(st_N_USData_Indication.ui8_N_TAtype == UDS_ADDR_TYPE_FUNC)
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	   713  			{
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	   714  				if(BL_GetCurState(BL_NODE1) == STATE_DTC_SETING)
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	   715  		        {
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	   716  		        	VINP_DIAG_BootReq_flg = 1;
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	   717  					if(BL_false == BL_GetPreProgFlag(BL_NODE1))
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	   718  					{
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	   719  						BL_SetState(BL_IDLE, BL_NODE1);            //无刷新需求，引导后恢复空闲模式
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	   720  
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	   721  						/*回应数据*/
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	   722  						ui16_pResLen[0U] = 0U;
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	   723  						st_Uds_Response.ui8_ResCode = UDS_RES_CODE_PR;	/*正响应*/
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	   724  
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	   725  						b_Return = E_OK;	/*回调函数执行完毕*/
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	   726  					}
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	   727  					else
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	   728  					{
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	   729  						if(UDS_VEHSTATE_ENUM == 255U)	/*判断是否255状态*/
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	   730  						{
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	   731  							st_Uds_SID_CC_Info.ui32_Boot_State255_Delay = UDS_BOOT_STATE_DELAY_TIME;	/*初始化Boot State255等待时间*/
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	   732  							BL_SetState(STATE_CCTRL,BL_NODE1);
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	   733  							ui16_pResLen[0U] = 0U;
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	   734  							st_Uds_Response.ui8_ResCode = UDS_RES_CODE_PR;	/*正响应*/
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	   735  
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	   736  							/*回应数据*/
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	   737  
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	   738  							b_Return = E_OK;	/*回调函数执行完毕*/
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	   739  						}
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	   740  						else
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	   741  						{
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	   742  							st_Uds_SID_CC_Info.ui32_Boot_State255_Delay--;
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	   743  
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	   744  							if(st_Uds_SID_CC_Info.ui32_Boot_State255_Delay != 0U)
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	   745  							{
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	   746  								if((st_Uds_SID_CC_Info.ui32_Boot_State255_Delay & 0x3FU) == 0U)
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	   747  								{
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	   748  									st_Uds_Response.ui8_ResCode = UDS_RES_CODE_RCRRP;	/*请求挂起响应*/
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	   749  								}
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	   750  							}
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	   751  							else
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	   752  							{
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	   753  								st_Uds_SID_CC_Info.ui32_Boot_State255_Delay = UDS_BOOT_STATE_DELAY_TIME;	/*初始化Boot State255等待时间*/
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	   754  								BL_SetState(BL_IDLE, BL_NODE1);   //指定时间内，未能进入255状态，恢复空闲
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	   755  								BL_SetProgFlag(BL_false, BL_NODE1);
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	   756  								//BL_SetState255Send(BL_false, EV_BUS);
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	   757  								st_Uds_Response.ui8_ResCode = UDS_RES_CODE_CNC;
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	   758  								b_Return = E_OK;
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	   759  							}
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	   760  						}
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	   761  					}
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	   762  		        }
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	   763  		        else
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	   764  		        {
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	   765  		        	st_Uds_SID_CC_Info.ui32_Boot_State255_Delay = UDS_BOOT_STATE_DELAY_TIME;	/*初始化Boot State255等待时间*/
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	   766  		        	BL_SetState(BL_IDLE,BL_NODE1);  //逻辑错误，恢复空闲模式
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	   767  		        	BL_SetProgFlag(BL_false,BL_NODE1);
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	   768  		        	ui16_pResLen[0U] = 0U;
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	   769  		        	st_Uds_Response.ui8_ResCode = UDS_RES_CODE_PR;
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	   770  		        	b_Return = E_OK;
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	   771  		        }
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	   772  			}
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	   773  			else
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	   774  			{
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	   775  				BL_SetState(BL_IDLE, BL_NODE1);            //无刷新需求，引导后恢复空闲模式
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	   776  				BL_SetProgFlag(BL_false, BL_NODE1);
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	   777  				/*回应数据*/
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	   778  				ui16_pResLen[0U] = 0U;
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	   779  				st_Uds_Response.ui8_ResCode = UDS_RES_CODE_PR;	/*正响应*/
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	   780  
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	   781  				b_Return = E_OK;	/*回调函数执行完毕*/
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	   782  			}
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	   783  
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	   784  			break;
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	   785  		}
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	   786  		default:
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	   787  		{
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	   788          	st_Uds_SID_CC_Info.ui32_Boot_State255_Delay = UDS_BOOT_STATE_DELAY_TIME;	/*初始化Boot State255等待时间*/
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	   789          	BL_SetState(BL_IDLE,BL_NODE1);  //逻辑错误，恢复空闲模式
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	   790          	BL_SetProgFlag(BL_false,BL_NODE1);
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	   791          	ui16_pResLen[0U] = 0U;
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	   792          	st_Uds_Response.ui8_ResCode = UDS_RES_CODE_PR;
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	   793          	b_Return = E_OK;
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	   794  			break;
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	   795  		}
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	   796  	}
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	   797  
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	   798  	return	b_Return;
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	   799  }
+; ..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c	   800  #endif
+
+	; Module end

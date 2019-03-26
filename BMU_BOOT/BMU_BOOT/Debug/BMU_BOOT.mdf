@@ -1,0 +1,43 @@
+# space <name> <id> <mau size>
+space	spe:tc:abs24	2	8
+space	spe:tc:linear	1	8
+space	spe:tc:csa	4	8
+space	spe:tc:pcp_code	8	16
+space	spe:tc:pcp_data	9	32
+space	spe:tc:abs18	3	8
+# chip <name> <id> <mau size> <size> <type>
+chip	spe:dflash1	2	8	65536	nvram
+chip	spe:dflash0	1	8	65536	nvram
+chip	spe:ovram	3	8	8192	ram
+chip	spe:brom	4	8	16384	rom
+chip	spe:ldram	5	8	126976	ram
+chip	spe:spram	6	8	24576	ram
+chip	spe:pram	7	8	16384	ram
+chip	spe:pcode	8	8	32768	ram
+chip	spe:pflash	0	8	2560000	rom
+# map <space id> <start in space> <size in space> <chip id> <start on chip>
+map	1	2147483648	2560000	0	0
+map	2	2147483648	2097152	0	0
+map	3	2147483648	16384	0	0
+map	1	2684354560	2560000	0	0
+map	2	2684354560	2097152	0	0
+map	3	2684354560	16384	0	0
+map	1	2413821952	65536	1	0
+map	1	2950692864	65536	1	0
+map	1	2413887488	65536	2	0
+map	1	2950758400	65536	2	0
+map	1	2414346240	8192	3	0
+map	1	2951217152	8192	3	0
+map	1	2415902720	16384	4	0
+map	1	2952773632	16384	4	0
+map	1	3489660928	126976	5	0
+map	2	3489660928	126976	5	0
+map	3	3489660928	16384	5	0
+map	4	3489660928	126976	5	0
+map	1	3556769792	24576	6	0
+map	1	4026859520	16384	7	0
+map	2	4026859520	16384	7	0
+map	9	0	4096	7	0
+map	1	4026925056	32768	8	0
+map	2	4026925056	32768	8	0
+map	8	0	16384	8	0

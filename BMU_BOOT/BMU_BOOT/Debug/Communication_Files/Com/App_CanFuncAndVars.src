@@ -1,0 +1,696 @@
+	; Module start
+	.compiler_version	"TASKING VX-toolset for TriCore: C compiler v4.3r1 Build 759 SN 00641831"
+	.compiler_invocation	"ctc -f cc8052a -c99 --dep-file=Communication_Files\\Com\\.App_CanFuncAndVars.o.d -D__CPU__=tc1782 -D__CPU_TC1782__ --core=tc1.3.1 -F -ID:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_1.9\\BMU_BOOT -ID:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_1.9\\BMU_BOOT\\Communication_Files\\CanDrv -ID:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_1.9\\BMU_BOOT\\Communication_Files\\Com -ID:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_1.9\\BMU_BOOT\\Communication_Files\\Com\\Can_Input -ID:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_1.9\\BMU_BOOT\\Communication_Files\\Com\\Can_Output -ID:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_1.9\\BMU_BOOT\\Communication_Files\\Uds\\Dcm -ID:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_1.9\\BMU_BOOT\\Communication_Files\\Uds\\Dem -ID:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_1.9\\BMU_BOOT\\Communication_Files\\Uds\\Tp -ID:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_1.9\\BMU_BOOT\\Communication_Files\\Uds\\User -ID:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_1.9\\BMU_BOOT\\Complex_Files -ID:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_1.9\\BMU_BOOT\\Initiate_Files -ID:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_1.9\\BMU_BOOT\\Nvm_Files\\FlsDrv -ID:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_1.9\\BMU_BOOT\\Stand_Header -g2 --make-target=Communication_Files\\Com\\App_CanFuncAndVars.o -t4 --language=-gcc,-volatile,+strings --default-near-size=0 -O2 --default-a1-size=0 --default-a0-size=0 --source --align=0 --compact-max-size=200 --switch=auto -o Communication_Files\\Com\\App_CanFuncAndVars.src ..\\Communication_Files\\Com\\App_CanFuncAndVars.c"
+	.compiler_name		"ctc"
+	.name	"App_CanFuncAndVars"
+
+	
+$TC131
+	
+	.sdecl	'.text.App_CanFuncAndVars.CanInputByteShift',code,cluster('CanInputByteShift')
+	.sect	'.text.App_CanFuncAndVars.CanInputByteShift'
+	.align	2
+	
+	.global	CanInputByteShift
+
+; ..\Communication_Files\Com\App_CanFuncAndVars.c	     1  #include "MAIN.h"
+; ..\Communication_Files\Com\App_CanFuncAndVars.c	     2  
+; ..\Communication_Files\Com\App_CanFuncAndVars.c	     3  unsigned char CanInputByteShift(unsigned char uc_CANBUS_Data,unsigned char uc_CANBUS_Posn,unsigned char uc_RightVarib)
+; Function CanInputByteShift
+.L7:
+CanInputByteShift:	.type	func
+
+; ..\Communication_Files\Com\App_CanFuncAndVars.c	     4  {
+; ..\Communication_Files\Com\App_CanFuncAndVars.c	     5     	unsigned char uc_CANFlag_return;
+; ..\Communication_Files\Com\App_CanFuncAndVars.c	     6  
+; ..\Communication_Files\Com\App_CanFuncAndVars.c	     7     	uc_CANFlag_return = (unsigned char)((uc_CANBUS_Data & uc_CANBUS_Posn) >> uc_RightVarib);
+	and	d4,d5
+.L59:
+	rsub	d6,#0
+	sha	d2,d4,d6
+.L70:
+
+; ..\Communication_Files\Com\App_CanFuncAndVars.c	     8  
+; ..\Communication_Files\Com\App_CanFuncAndVars.c	     9  	return(uc_CANFlag_return);
+; ..\Communication_Files\Com\App_CanFuncAndVars.c	    10  }
+	ret
+.L39:
+	
+__CanInputByteShift_function_end:
+	.size	CanInputByteShift,__CanInputByteShift_function_end-CanInputByteShift
+.L22:
+	; End of function
+	
+	.sdecl	'.text.App_CanFuncAndVars.CanInputResOffset',code,cluster('CanInputResOffset')
+	.sect	'.text.App_CanFuncAndVars.CanInputResOffset'
+	.align	2
+	
+	.global	CanInputResOffset
+
+; ..\Communication_Files\Com\App_CanFuncAndVars.c	    11  
+; ..\Communication_Files\Com\App_CanFuncAndVars.c	    12  float CanInputResOffset(unsigned int ush_CANData,float fl_Resolution,float fl_offset)  //数据CAN解析
+; Function CanInputResOffset
+.L9:
+CanInputResOffset:	.type	func
+
+; ..\Communication_Files\Com\App_CanFuncAndVars.c	    13  {
+; ..\Communication_Files\Com\App_CanFuncAndVars.c	    14     	float fl_CANValue_return;
+; ..\Communication_Files\Com\App_CanFuncAndVars.c	    15     	fl_CANValue_return =  (((float)(ush_CANData))*fl_Resolution) + fl_offset;
+	utof	d15,d4
+.L75:
+	madd.f	d2,d6,d15,d5
+.L76:
+
+; ..\Communication_Files\Com\App_CanFuncAndVars.c	    16  	return(fl_CANValue_return);
+; ..\Communication_Files\Com\App_CanFuncAndVars.c	    17  }
+	ret
+.L44:
+	
+__CanInputResOffset_function_end:
+	.size	CanInputResOffset,__CanInputResOffset_function_end-CanInputResOffset
+.L27:
+	; End of function
+	
+	.sdecl	'.text.App_CanFuncAndVars.CanOutputByteShift',code,cluster('CanOutputByteShift')
+	.sect	'.text.App_CanFuncAndVars.CanOutputByteShift'
+	.align	2
+	
+	.global	CanOutputByteShift
+
+; ..\Communication_Files\Com\App_CanFuncAndVars.c	    18  
+; ..\Communication_Files\Com\App_CanFuncAndVars.c	    19  
+; ..\Communication_Files\Com\App_CanFuncAndVars.c	    20  unsigned char CanOutputByteShift(unsigned char uc_CANBUS_Data,unsigned char uc_CANBUS_Posn,unsigned char uc_LeftVarib)
+; Function CanOutputByteShift
+.L11:
+CanOutputByteShift:	.type	func
+
+; ..\Communication_Files\Com\App_CanFuncAndVars.c	    21  {
+; ..\Communication_Files\Com\App_CanFuncAndVars.c	    22     	unsigned char uc_CANFlag_return;
+; ..\Communication_Files\Com\App_CanFuncAndVars.c	    23     	uc_CANFlag_return = (unsigned char)((uc_CANBUS_Data & uc_CANBUS_Posn) << uc_LeftVarib);
+	and	d4,d5
+.L60:
+	sha	d4,d4,d6
+.L81:
+	extr.u	d2,d4,#0,#8
+.L82:
+
+; ..\Communication_Files\Com\App_CanFuncAndVars.c	    24  	return(uc_CANFlag_return);
+; ..\Communication_Files\Com\App_CanFuncAndVars.c	    25  }
+	ret
+.L49:
+	
+__CanOutputByteShift_function_end:
+	.size	CanOutputByteShift,__CanOutputByteShift_function_end-CanOutputByteShift
+.L32:
+	; End of function
+	
+	.sdecl	'.text.App_CanFuncAndVars.CanOutputResOffset',code,cluster('CanOutputResOffset')
+	.sect	'.text.App_CanFuncAndVars.CanOutputResOffset'
+	.align	2
+	
+	.global	CanOutputResOffset
+
+; ..\Communication_Files\Com\App_CanFuncAndVars.c	    26  
+; ..\Communication_Files\Com\App_CanFuncAndVars.c	    27  
+; ..\Communication_Files\Com\App_CanFuncAndVars.c	    28  CHG_8_16_32 CanOutputResOffset(float signal,float fl_Resolution,float fl_offset)  //数据CAN解析
+; Function CanOutputResOffset
+.L13:
+CanOutputResOffset:	.type	func
+	sub.a	a10,#8
+.L61:
+
+; ..\Communication_Files\Com\App_CanFuncAndVars.c	    29  {
+; ..\Communication_Files\Com\App_CanFuncAndVars.c	    30  	CHG_8_16_32 ret = {0};
+	movh.a	a15,#@his(.1.ini)
+	ld.w	d15,[a15]@los(.1.ini)
+.L87:
+	st.w	[a10],d15
+.L88:
+
+; ..\Communication_Files\Com\App_CanFuncAndVars.c	    31     	ret._U32 =  (unsigned int) ((signal - fl_offset) /  fl_Resolution);
+	sub.f	d15,d4,d6
+.L89:
+	div.f	d15,d15,d5
+.L90:
+	ftouz	d2,d15
+	st.w	[a10],d2
+.L91:
+
+; ..\Communication_Files\Com\App_CanFuncAndVars.c	    32  	return(ret);
+; ..\Communication_Files\Com\App_CanFuncAndVars.c	    33  }
+	ret
+.L54:
+	
+__CanOutputResOffset_function_end:
+	.size	CanOutputResOffset,__CanOutputResOffset_function_end-CanOutputResOffset
+.L37:
+	; End of function
+	
+	.sdecl	'.rodata.App_CanFuncAndVars..1.ini',data,rom
+	.sect	'.rodata.App_CanFuncAndVars..1.ini'
+	.align	2
+.1.ini:	.type	object
+	.size	.1.ini,4
+	.space	4
+	.calls	'CanInputByteShift','',0
+	.calls	'CanInputResOffset','',0
+	.calls	'CanOutputByteShift','',0
+	.calls	'CanOutputResOffset','',8
+	.sdecl	'.debug_info',debug
+	.sect	'.debug_info'
+.L15:
+	.word	587
+	.half	3
+	.word	.L16
+	.byte	4
+.L14:
+	.byte	1
+	.byte	'..\\Communication_Files\\Com\\App_CanFuncAndVars.c',0
+	.byte	'TASKING VX-toolset for TriCore: C compiler',0
+	.byte	'D:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_1.9\\BMU_BOOT\\Debug\\',0,12,1
+	.word	.L17
+.L38:
+	.byte	2
+	.byte	'unsigned char',0,1,8
+.L43:
+	.byte	2
+	.byte	'float',0,4,4
+.L45:
+	.byte	2
+	.byte	'unsigned int',0,4,7
+.L53:
+	.byte	3,1,16,9,4,4
+	.byte	'_U32',0,4
+	.word	191
+	.byte	2,35,0,2
+	.byte	'unsigned short int',0,2,7,5,4
+	.word	226
+	.byte	6,1,0,4
+	.byte	'_U16',0,4
+	.word	248
+	.byte	2,35,0,5,4
+	.word	165
+	.byte	6,3,0,4
+	.byte	'_U8',0,4
+	.word	271
+	.byte	2,35,0,7,1,20,5,4,4
+	.byte	'u18',0,1
+	.word	165
+	.byte	2,35,0,4
+	.byte	'u28',0,1
+	.word	165
+	.byte	2,35,1,4
+	.byte	'u38',0,1
+	.word	165
+	.byte	2,35,2,4
+	.byte	'u48',0,1
+	.word	165
+	.byte	2,35,3,0,4
+	.byte	'st',0,4
+	.word	293
+	.byte	2,35,0,0,8
+	.byte	'void',0,9
+	.word	364
+	.byte	10
+	.byte	'__prof_adm',0,2,1,1
+	.word	370
+	.byte	11,1,9
+	.word	394
+	.byte	10
+	.byte	'__codeptr',0,2,1,1
+	.word	396
+	.byte	10
+	.byte	'ubyte',0,3,78,24
+	.word	165
+	.byte	10
+	.byte	'ushort',0,3,80,24
+	.word	226
+	.byte	10
+	.byte	'uword',0,3,82,24
+	.word	191
+	.byte	10
+	.byte	'uint8',0,4,87,29
+	.word	165
+	.byte	10
+	.byte	'uint16',0,4,89,29
+	.word	226
+	.byte	2
+	.byte	'long int',0,4,5,10
+	.byte	'sint32',0,4,90,29
+	.word	491
+	.byte	2
+	.byte	'unsigned long int',0,4,7,10
+	.byte	'uint32',0,4,91,27
+	.word	518
+	.byte	10
+	.byte	'boolean',0,4,102,29
+	.word	165
+	.byte	10
+	.byte	'CHG_8_16_32',0,1,26,2
+	.word	207
+	.byte	0
+	.sdecl	'.debug_abbrev',debug
+	.sect	'.debug_abbrev'
+.L16:
+	.byte	1,17,1,3,8,37,8,27,8,19,15,128,70,12,16,6,0,0,2,36,0,3,8,11,15,62,15,0,0,3,23,1,58,15,59,15,57,15,11,15
+	.byte	0,0,4,13,0,3,8,11,15,73,19,56,9,0,0,5,1,1,11,15,73,19,0,0,6,33,0,47,15,0,0,7,19,1,58,15,59,15,57,15,11
+	.byte	15,0,0,8,59,0,3,8,0,0,9,15,0,73,19,0,0,10,22,0,3,8,58,15,59,15,57,15,73,19,0,0,11,21,0,54,15,0,0,0
+	.sdecl	'.debug_line',debug
+	.sect	'.debug_line'
+.L17:
+	.word	.L63-.L62
+.L62:
+	.half	3
+	.word	.L65-.L64
+.L64:
+	.byte	2,1,-4,9,10,0,1,1,1,1,0,0,0,1
+	.byte	'D:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_1.9\\BMU_BOOT\\Communication_Files\\Com',0
+	.byte	'D:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_1.9\\BMU_BOOT\\Initiate_Files',0
+	.byte	'D:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_1.9\\BMU_BOOT\\Stand_Header',0,0
+	.byte	'App_CanFuncAndVars.h',0,1,0,0
+	.byte	'..\\Communication_Files\\Com\\App_CanFuncAndVars.c',0,0,0,0
+	.byte	'MAIN.h',0,2,0,0
+	.byte	'Platform_Types.h',0,3,0,0,0
+.L65:
+.L63:
+	.sdecl	'.debug_info',debug,cluster('CanInputByteShift')
+	.sect	'.debug_info'
+.L18:
+	.word	302
+	.half	3
+	.word	.L19
+	.byte	4,1
+	.byte	'..\\Communication_Files\\Com\\App_CanFuncAndVars.c',0
+	.byte	'TASKING VX-toolset for TriCore: C compiler',0
+	.byte	'D:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_1.9\\BMU_BOOT\\Debug\\',0,12,1
+	.word	.L21,.L20
+	.byte	2
+	.word	.L14
+	.byte	3
+	.byte	'CanInputByteShift',0,1,3,15
+	.word	.L38
+	.byte	1,1,1
+	.word	.L7,.L39,.L6
+	.byte	4
+	.byte	'uc_CANBUS_Data',0,1,3,47
+	.word	.L38,.L40
+	.byte	4
+	.byte	'uc_CANBUS_Posn',0,1,3,76
+	.word	.L38,.L41
+	.byte	4
+	.byte	'uc_RightVarib',0,1,3,105
+	.word	.L38,.L42
+	.byte	5
+	.word	.L7,.L39
+	.byte	0,0
+	.sdecl	'.debug_abbrev',debug,cluster('CanInputByteShift')
+	.sect	'.debug_abbrev'
+.L19:
+	.byte	1,17,1,3,8,37,8,27,8,19,15,128,70,12,85,6,16,6,0,0,2,61,0,24,16,0,0,3,46,1,3,8,58,15,59,15,57,15,73,16
+	.byte	54,15,39,12,63,12,17,1,18,1,64,6,0,0,4,5,0,3,8,58,15,59,15,57,15,73,16,2,6,0,0,5,11,0,17,1,18,1,0,0,0
+	.sdecl	'.debug_line',debug,cluster('CanInputByteShift')
+	.sect	'.debug_line'
+.L20:
+	.word	.L67-.L66
+.L66:
+	.half	3
+	.word	.L69-.L68
+.L68:
+	.byte	2,1,-4,9,10,0,1,1,1,1,0,0,0,1,0
+	.byte	'..\\Communication_Files\\Com\\App_CanFuncAndVars.c',0,0,0,0,0
+.L69:
+	.byte	5,57,7,0,5,2
+	.word	.L7
+	.byte	3,6,1,5,75,9
+	.half	.L59-.L7
+	.byte	1,5,1,9
+	.half	.L70-.L59
+	.byte	3,3,1,7,9
+	.half	.L22-.L70
+	.byte	0,1,1
+.L67:
+	.sdecl	'.debug_ranges',debug,cluster('CanInputByteShift')
+	.sect	'.debug_ranges'
+.L21:
+	.word	-1,.L7,0,.L22-.L7,0,0
+	.sdecl	'.debug_info',debug,cluster('CanInputResOffset')
+	.sect	'.debug_info'
+.L23:
+	.word	294
+	.half	3
+	.word	.L24
+	.byte	4,1
+	.byte	'..\\Communication_Files\\Com\\App_CanFuncAndVars.c',0
+	.byte	'TASKING VX-toolset for TriCore: C compiler',0
+	.byte	'D:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_1.9\\BMU_BOOT\\Debug\\',0,12,1
+	.word	.L26,.L25
+	.byte	2
+	.word	.L14
+	.byte	3
+	.byte	'CanInputResOffset',0,1,12,7
+	.word	.L43
+	.byte	1,1,1
+	.word	.L9,.L44,.L8
+	.byte	4
+	.byte	'ush_CANData',0,1,12,38
+	.word	.L45,.L46
+	.byte	4
+	.byte	'fl_Resolution',0,1,12,56
+	.word	.L43,.L47
+	.byte	4
+	.byte	'fl_offset',0,1,12,76
+	.word	.L43,.L48
+	.byte	5
+	.word	.L9,.L44
+	.byte	0,0
+	.sdecl	'.debug_abbrev',debug,cluster('CanInputResOffset')
+	.sect	'.debug_abbrev'
+.L24:
+	.byte	1,17,1,3,8,37,8,27,8,19,15,128,70,12,85,6,16,6,0,0,2,61,0,24,16,0,0,3,46,1,3,8,58,15,59,15,57,15,73,16
+	.byte	54,15,39,12,63,12,17,1,18,1,64,6,0,0,4,5,0,3,8,58,15,59,15,57,15,73,16,2,6,0,0,5,11,0,17,1,18,1,0,0,0
+	.sdecl	'.debug_line',debug,cluster('CanInputResOffset')
+	.sect	'.debug_line'
+.L25:
+	.word	.L72-.L71
+.L71:
+	.half	3
+	.word	.L74-.L73
+.L73:
+	.byte	2,1,-4,9,10,0,1,1,1,1,0,0,0,1,0
+	.byte	'..\\Communication_Files\\Com\\App_CanFuncAndVars.c',0,0,0,0,0
+.L74:
+	.byte	5,29,7,0,5,2
+	.word	.L9
+	.byte	3,14,1,5,66,9
+	.half	.L75-.L9
+	.byte	1,5,1,9
+	.half	.L76-.L75
+	.byte	3,2,1,7,9
+	.half	.L27-.L76
+	.byte	0,1,1
+.L72:
+	.sdecl	'.debug_ranges',debug,cluster('CanInputResOffset')
+	.sect	'.debug_ranges'
+.L26:
+	.word	-1,.L9,0,.L27-.L9,0,0
+	.sdecl	'.debug_info',debug,cluster('CanOutputByteShift')
+	.sect	'.debug_info'
+.L28:
+	.word	302
+	.half	3
+	.word	.L29
+	.byte	4,1
+	.byte	'..\\Communication_Files\\Com\\App_CanFuncAndVars.c',0
+	.byte	'TASKING VX-toolset for TriCore: C compiler',0
+	.byte	'D:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_1.9\\BMU_BOOT\\Debug\\',0,12,1
+	.word	.L31,.L30
+	.byte	2
+	.word	.L14
+	.byte	3
+	.byte	'CanOutputByteShift',0,1,20,15
+	.word	.L38
+	.byte	1,1,1
+	.word	.L11,.L49,.L10
+	.byte	4
+	.byte	'uc_CANBUS_Data',0,1,20,48
+	.word	.L38,.L50
+	.byte	4
+	.byte	'uc_CANBUS_Posn',0,1,20,77
+	.word	.L38,.L51
+	.byte	4
+	.byte	'uc_LeftVarib',0,1,20,106
+	.word	.L38,.L52
+	.byte	5
+	.word	.L11,.L49
+	.byte	0,0
+	.sdecl	'.debug_abbrev',debug,cluster('CanOutputByteShift')
+	.sect	'.debug_abbrev'
+.L29:
+	.byte	1,17,1,3,8,37,8,27,8,19,15,128,70,12,85,6,16,6,0,0,2,61,0,24,16,0,0,3,46,1,3,8,58,15,59,15,57,15,73,16
+	.byte	54,15,39,12,63,12,17,1,18,1,64,6,0,0,4,5,0,3,8,58,15,59,15,57,15,73,16,2,6,0,0,5,11,0,17,1,18,1,0,0,0
+	.sdecl	'.debug_line',debug,cluster('CanOutputByteShift')
+	.sect	'.debug_line'
+.L30:
+	.word	.L78-.L77
+.L77:
+	.half	3
+	.word	.L80-.L79
+.L79:
+	.byte	2,1,-4,9,10,0,1,1,1,1,0,0,0,1,0
+	.byte	'..\\Communication_Files\\Com\\App_CanFuncAndVars.c',0,0,0,0,0
+.L80:
+	.byte	5,57,7,0,5,2
+	.word	.L11
+	.byte	3,22,1,5,75,9
+	.half	.L60-.L11
+	.byte	1,5,25,9
+	.half	.L81-.L60
+	.byte	1,5,1,9
+	.half	.L82-.L81
+	.byte	3,2,1,7,9
+	.half	.L32-.L82
+	.byte	0,1,1
+.L78:
+	.sdecl	'.debug_ranges',debug,cluster('CanOutputByteShift')
+	.sect	'.debug_ranges'
+.L31:
+	.word	-1,.L11,0,.L32-.L11,0,0
+	.sdecl	'.debug_info',debug,cluster('CanOutputResOffset')
+	.sect	'.debug_info'
+.L33:
+	.word	307
+	.half	3
+	.word	.L34
+	.byte	4,1
+	.byte	'..\\Communication_Files\\Com\\App_CanFuncAndVars.c',0
+	.byte	'TASKING VX-toolset for TriCore: C compiler',0
+	.byte	'D:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_1.9\\BMU_BOOT\\Debug\\',0,12,1
+	.word	.L36,.L35
+	.byte	2
+	.word	.L14
+	.byte	3
+	.byte	'CanOutputResOffset',0,1,28,13
+	.word	.L53
+	.byte	1,1,1
+	.word	.L13,.L54,.L12
+	.byte	4
+	.byte	'signal',0,1,28,38
+	.word	.L43,.L55
+	.byte	4
+	.byte	'fl_Resolution',0,1,28,51
+	.word	.L43,.L56
+	.byte	4
+	.byte	'fl_offset',0,1,28,71
+	.word	.L43,.L57
+	.byte	5
+	.word	.L13,.L54
+	.byte	6
+	.byte	'ret',0,1,30,14
+	.word	.L53,.L58
+	.byte	0,0,0
+	.sdecl	'.debug_abbrev',debug,cluster('CanOutputResOffset')
+	.sect	'.debug_abbrev'
+.L34:
+	.byte	1,17,1,3,8,37,8,27,8,19,15,128,70,12,85,6,16,6,0,0,2,61,0,24,16,0,0,3,46,1,3,8,58,15,59,15,57,15,73,16
+	.byte	54,15,39,12,63,12,17,1,18,1,64,6,0,0,4,5,0,3,8,58,15,59,15,57,15,73,16,2,6,0,0,5,11,1,17,1,18,1,0,0,6
+	.byte	52,0,3,8,58,15,59,15,57,15,73,16,2,6,0,0,0
+	.sdecl	'.debug_line',debug,cluster('CanOutputResOffset')
+	.sect	'.debug_line'
+.L35:
+	.word	.L84-.L83
+.L83:
+	.half	3
+	.word	.L86-.L85
+.L85:
+	.byte	2,1,-4,9,10,0,1,1,1,1,0,0,0,1,0
+	.byte	'..\\Communication_Files\\Com\\App_CanFuncAndVars.c',0,0,0,0,0
+.L86:
+	.byte	5,13,7,0,5,2
+	.word	.L13
+	.byte	3,27,1,5,20,9
+	.half	.L61-.L13
+	.byte	3,2,1,5,18,9
+	.half	.L87-.L61
+	.byte	1,5,41,9
+	.half	.L88-.L87
+	.byte	3,1,1,5,54,9
+	.half	.L89-.L88
+	.byte	1,5,17,9
+	.half	.L90-.L89
+	.byte	1,5,14,1,5,1,9
+	.half	.L91-.L90
+	.byte	3,2,1,7,9
+	.half	.L37-.L91
+	.byte	0,1,1
+.L84:
+	.sdecl	'.debug_ranges',debug,cluster('CanOutputResOffset')
+	.sect	'.debug_ranges'
+.L36:
+	.word	-1,.L13,0,.L37-.L13,0,0
+	.sdecl	'.debug_loc',debug,cluster('CanInputByteShift')
+	.sect	'.debug_loc'
+.L6:
+	.word	-1,.L7,0,.L39-.L7
+	.half	2
+	.byte	138,0
+	.word	0,0
+.L40:
+	.word	-1,.L7,0,.L59-.L7
+	.half	5
+	.byte	144,34,157,32,0
+	.word	0,0
+.L41:
+	.word	-1,.L7,0,.L39-.L7
+	.half	5
+	.byte	144,34,157,32,32
+	.word	0,0
+.L42:
+	.word	-1,.L7,0,.L39-.L7
+	.half	5
+	.byte	144,35,157,32,0
+	.word	0,0
+	.sdecl	'.debug_loc',debug,cluster('CanInputResOffset')
+	.sect	'.debug_loc'
+.L8:
+	.word	-1,.L9,0,.L44-.L9
+	.half	2
+	.byte	138,0
+	.word	0,0
+.L47:
+	.word	-1,.L9,0,.L44-.L9
+	.half	5
+	.byte	144,34,157,32,32
+	.word	0,0
+.L48:
+	.word	-1,.L9,0,.L44-.L9
+	.half	5
+	.byte	144,35,157,32,0
+	.word	0,0
+.L46:
+	.word	-1,.L9,0,.L44-.L9
+	.half	5
+	.byte	144,34,157,32,0
+	.word	0,0
+	.sdecl	'.debug_loc',debug,cluster('CanOutputByteShift')
+	.sect	'.debug_loc'
+.L10:
+	.word	-1,.L11,0,.L49-.L11
+	.half	2
+	.byte	138,0
+	.word	0,0
+.L50:
+	.word	-1,.L11,0,.L60-.L11
+	.half	5
+	.byte	144,34,157,32,0
+	.word	0,0
+.L51:
+	.word	-1,.L11,0,.L49-.L11
+	.half	5
+	.byte	144,34,157,32,32
+	.word	0,0
+.L52:
+	.word	-1,.L11,0,.L49-.L11
+	.half	5
+	.byte	144,35,157,32,0
+	.word	0,0
+	.sdecl	'.debug_loc',debug,cluster('CanOutputResOffset')
+	.sect	'.debug_loc'
+.L12:
+	.word	-1,.L13,0,.L61-.L13
+	.half	2
+	.byte	138,0
+	.word	.L61-.L13,.L54-.L13
+	.half	2
+	.byte	138,8
+	.word	.L54-.L13,.L54-.L13
+	.half	2
+	.byte	138,0
+	.word	0,0
+.L56:
+	.word	-1,.L13,0,.L54-.L13
+	.half	5
+	.byte	144,34,157,32,32
+	.word	0,0
+.L57:
+	.word	-1,.L13,0,.L54-.L13
+	.half	5
+	.byte	144,35,157,32,0
+	.word	0,0
+.L58:
+	.word	-1,.L13,0,.L54-.L13
+	.half	2
+	.byte	145,120
+	.word	0,0
+.L55:
+	.word	-1,.L13,0,.L54-.L13
+	.half	5
+	.byte	144,34,157,32,0
+	.word	0,0
+	.sdecl	'.debug_frame',debug
+	.sect	'.debug_frame'
+.L92:
+	.word	48
+	.word	-1
+	.byte	3,0,2,1,27,12,26,0,8,26,8,27,8,30,8,29,8,28,8,16,8,17,8,24,8,25,8,31,8,32,8,33,8,34,8,35,8,36,8,37,8,38
+	.byte	8,39
+	.sdecl	'.debug_frame',debug,cluster('CanInputByteShift')
+	.sect	'.debug_frame'
+	.word	24
+	.word	.L92,.L7,.L39-.L7
+	.byte	8,18,8,19,8,20,8,21,8,22,8,23
+	.sdecl	'.debug_frame',debug,cluster('CanInputResOffset')
+	.sect	'.debug_frame'
+	.word	24
+	.word	.L92,.L9,.L44-.L9
+	.byte	8,18,8,19,8,20,8,21,8,22,8,23
+	.sdecl	'.debug_frame',debug,cluster('CanOutputByteShift')
+	.sect	'.debug_frame'
+	.word	24
+	.word	.L92,.L11,.L49-.L11
+	.byte	8,18,8,19,8,20,8,21,8,22,8,23
+	.sdecl	'.debug_frame',debug,cluster('CanOutputResOffset')
+	.sect	'.debug_frame'
+	.word	48
+	.word	.L92,.L13,.L54-.L13
+	.byte	8,18,8,19,8,20,8,21,8,22,8,23,4
+	.word	(.L61-.L13)/2
+	.byte	19,8,22,26,3,19,138,8,4
+	.word	(.L54-.L61)/2
+	.byte	19,0,8,26,0,0
+
+; ..\Communication_Files\Com\App_CanFuncAndVars.c	    34  
+; ..\Communication_Files\Com\App_CanFuncAndVars.c	    35  
+; ..\Communication_Files\Com\App_CanFuncAndVars.c	    36  
+; ..\Communication_Files\Com\App_CanFuncAndVars.c	    37  
+; ..\Communication_Files\Com\App_CanFuncAndVars.c	    38  
+; ..\Communication_Files\Com\App_CanFuncAndVars.c	    39  
+; ..\Communication_Files\Com\App_CanFuncAndVars.c	    40  
+; ..\Communication_Files\Com\App_CanFuncAndVars.c	    41  
+; ..\Communication_Files\Com\App_CanFuncAndVars.c	    42  
+; ..\Communication_Files\Com\App_CanFuncAndVars.c	    43  
+; ..\Communication_Files\Com\App_CanFuncAndVars.c	    44  
+; ..\Communication_Files\Com\App_CanFuncAndVars.c	    45  
+; ..\Communication_Files\Com\App_CanFuncAndVars.c	    46  
+; ..\Communication_Files\Com\App_CanFuncAndVars.c	    47  
+; ..\Communication_Files\Com\App_CanFuncAndVars.c	    48  
+; ..\Communication_Files\Com\App_CanFuncAndVars.c	    49  
+; ..\Communication_Files\Com\App_CanFuncAndVars.c	    50  
+; ..\Communication_Files\Com\App_CanFuncAndVars.c	    51  
+; ..\Communication_Files\Com\App_CanFuncAndVars.c	    52  
+; ..\Communication_Files\Com\App_CanFuncAndVars.c	    53  
+; ..\Communication_Files\Com\App_CanFuncAndVars.c	    54  
+; ..\Communication_Files\Com\App_CanFuncAndVars.c	    55  
+; ..\Communication_Files\Com\App_CanFuncAndVars.c	    56  
+; ..\Communication_Files\Com\App_CanFuncAndVars.c	    57  
+; ..\Communication_Files\Com\App_CanFuncAndVars.c	    58  
+; ..\Communication_Files\Com\App_CanFuncAndVars.c	    59  
+; ..\Communication_Files\Com\App_CanFuncAndVars.c	    60  
+; ..\Communication_Files\Com\App_CanFuncAndVars.c	    61  
+; ..\Communication_Files\Com\App_CanFuncAndVars.c	    62  
+; ..\Communication_Files\Com\App_CanFuncAndVars.c	    63  
+; ..\Communication_Files\Com\App_CanFuncAndVars.c	    64  
+; ..\Communication_Files\Com\App_CanFuncAndVars.c	    65  
+; ..\Communication_Files\Com\App_CanFuncAndVars.c	    66  
+; ..\Communication_Files\Com\App_CanFuncAndVars.c	    67  
+
+	; Module end

@@ -1,0 +1,46 @@
+################################################################################
+# Automatically-generated file. Do not edit!
+################################################################################
+
+C_FILES += "..\Initiate_Files\IO.c"
+OBJ_FILES += "Initiate_Files\IO.o"
+"Initiate_Files\IO.o" : "..\Initiate_Files\IO.c" "Initiate_Files\.IO.o.opt"
+	@echo Compiling ${<F}
+	@"${PRODDIR}\bin\cctc" -f "Initiate_Files\.IO.o.opt"
+
+"Initiate_Files\.IO.o.opt" : .refresh
+	@argfile "Initiate_Files\.IO.o.opt" -o "Initiate_Files\IO.o" "..\Initiate_Files\IO.c" -Ctc1782 -t -I"\\hsne220-pc\work\003_Microvast\OTA\boot\BMU_BOOT_1.8\BMU_BOOT" -Wa-H"sfr/regtc1782.def" -Wa-gAHLs --emit-locals=-equ,-symbols -Wa-Ogs -Wa--error-limit=42 -I"\\hsne220-pc\work\003_Microvast\OTA\boot\BMU_BOOT_1.8\BMU_BOOT\Communication_Files\CanDrv" -I"\\hsne220-pc\work\003_Microvast\OTA\boot\BMU_BOOT_1.8\BMU_BOOT\Communication_Files\Com" -I"\\hsne220-pc\work\003_Microvast\OTA\boot\BMU_BOOT_1.8\BMU_BOOT\Communication_Files\Com\Can_Input" -I"\\hsne220-pc\work\003_Microvast\OTA\boot\BMU_BOOT_1.8\BMU_BOOT\Communication_Files\Com\Can_Output" -I"\\hsne220-pc\work\003_Microvast\OTA\boot\BMU_BOOT_1.8\BMU_BOOT\Communication_Files\Uds\Dcm" -I"\\hsne220-pc\work\003_Microvast\OTA\boot\BMU_BOOT_1.8\BMU_BOOT\Communication_Files\Uds\Dem" -I"\\hsne220-pc\work\003_Microvast\OTA\boot\BMU_BOOT_1.8\BMU_BOOT\Communication_Files\Uds\Tp" -I"\\hsne220-pc\work\003_Microvast\OTA\boot\BMU_BOOT_1.8\BMU_BOOT\Communication_Files\Uds\User" -I"\\hsne220-pc\work\003_Microvast\OTA\boot\BMU_BOOT_1.8\BMU_BOOT\Complex_Files" -I"\\hsne220-pc\work\003_Microvast\OTA\boot\BMU_BOOT_1.8\BMU_BOOT\Initiate_Files" -I"\\hsne220-pc\work\003_Microvast\OTA\boot\BMU_BOOT_1.8\BMU_BOOT\Nvm_Files\FlsDrv" -I"\\hsne220-pc\work\003_Microvast\OTA\boot\BMU_BOOT_1.8\BMU_BOOT\Stand_Header" --iso=99 --language=-gcc,-volatile,+strings --switch=auto --align=0 --default-near-size=0 --default-a0-size=0 --default-a1-size=0 -O2 --tradeoff=4 --compact-max-size=200 -g --source -c --dep-file="Initiate_Files\.IO.o.d" -Wc--make-target="Initiate_Files\IO.o"
+DEPENDENCY_FILES += "Initiate_Files\.IO.o.d"
+
+C_FILES += "..\Initiate_Files\MAIN.c"
+OBJ_FILES += "Initiate_Files\MAIN.o"
+"Initiate_Files\MAIN.o" : "..\Initiate_Files\MAIN.c" "Initiate_Files\.MAIN.o.opt"
+	@echo Compiling ${<F}
+	@"${PRODDIR}\bin\cctc" -f "Initiate_Files\.MAIN.o.opt"
+
+"Initiate_Files\.MAIN.o.opt" : .refresh
+	@argfile "Initiate_Files\.MAIN.o.opt" -o "Initiate_Files\MAIN.o" "..\Initiate_Files\MAIN.c" -Ctc1782 -t -I"\\hsne220-pc\work\003_Microvast\OTA\boot\BMU_BOOT_1.8\BMU_BOOT" -Wa-H"sfr/regtc1782.def" -Wa-gAHLs --emit-locals=-equ,-symbols -Wa-Ogs -Wa--error-limit=42 -I"\\hsne220-pc\work\003_Microvast\OTA\boot\BMU_BOOT_1.8\BMU_BOOT\Communication_Files\CanDrv" -I"\\hsne220-pc\work\003_Microvast\OTA\boot\BMU_BOOT_1.8\BMU_BOOT\Communication_Files\Com" -I"\\hsne220-pc\work\003_Microvast\OTA\boot\BMU_BOOT_1.8\BMU_BOOT\Communication_Files\Com\Can_Input" -I"\\hsne220-pc\work\003_Microvast\OTA\boot\BMU_BOOT_1.8\BMU_BOOT\Communication_Files\Com\Can_Output" -I"\\hsne220-pc\work\003_Microvast\OTA\boot\BMU_BOOT_1.8\BMU_BOOT\Communication_Files\Uds\Dcm" -I"\\hsne220-pc\work\003_Microvast\OTA\boot\BMU_BOOT_1.8\BMU_BOOT\Communication_Files\Uds\Dem" -I"\\hsne220-pc\work\003_Microvast\OTA\boot\BMU_BOOT_1.8\BMU_BOOT\Communication_Files\Uds\Tp" -I"\\hsne220-pc\work\003_Microvast\OTA\boot\BMU_BOOT_1.8\BMU_BOOT\Communication_Files\Uds\User" -I"\\hsne220-pc\work\003_Microvast\OTA\boot\BMU_BOOT_1.8\BMU_BOOT\Complex_Files" -I"\\hsne220-pc\work\003_Microvast\OTA\boot\BMU_BOOT_1.8\BMU_BOOT\Initiate_Files" -I"\\hsne220-pc\work\003_Microvast\OTA\boot\BMU_BOOT_1.8\BMU_BOOT\Nvm_Files\FlsDrv" -I"\\hsne220-pc\work\003_Microvast\OTA\boot\BMU_BOOT_1.8\BMU_BOOT\Stand_Header" --iso=99 --language=-gcc,-volatile,+strings --switch=auto --align=0 --default-near-size=0 --default-a0-size=0 --default-a1-size=0 -O2 --tradeoff=4 --compact-max-size=200 -g --source -c --dep-file="Initiate_Files\.MAIN.o.d" -Wc--make-target="Initiate_Files\MAIN.o"
+DEPENDENCY_FILES += "Initiate_Files\.MAIN.o.d"
+
+C_FILES += "..\Initiate_Files\SCU.c"
+OBJ_FILES += "Initiate_Files\SCU.o"
+"Initiate_Files\SCU.o" : "..\Initiate_Files\SCU.c" "Initiate_Files\.SCU.o.opt"
+	@echo Compiling ${<F}
+	@"${PRODDIR}\bin\cctc" -f "Initiate_Files\.SCU.o.opt"
+
+"Initiate_Files\.SCU.o.opt" : .refresh
+	@argfile "Initiate_Files\.SCU.o.opt" -o "Initiate_Files\SCU.o" "..\Initiate_Files\SCU.c" -Ctc1782 -t -I"\\hsne220-pc\work\003_Microvast\OTA\boot\BMU_BOOT_1.8\BMU_BOOT" -Wa-H"sfr/regtc1782.def" -Wa-gAHLs --emit-locals=-equ,-symbols -Wa-Ogs -Wa--error-limit=42 -I"\\hsne220-pc\work\003_Microvast\OTA\boot\BMU_BOOT_1.8\BMU_BOOT\Communication_Files\CanDrv" -I"\\hsne220-pc\work\003_Microvast\OTA\boot\BMU_BOOT_1.8\BMU_BOOT\Communication_Files\Com" -I"\\hsne220-pc\work\003_Microvast\OTA\boot\BMU_BOOT_1.8\BMU_BOOT\Communication_Files\Com\Can_Input" -I"\\hsne220-pc\work\003_Microvast\OTA\boot\BMU_BOOT_1.8\BMU_BOOT\Communication_Files\Com\Can_Output" -I"\\hsne220-pc\work\003_Microvast\OTA\boot\BMU_BOOT_1.8\BMU_BOOT\Communication_Files\Uds\Dcm" -I"\\hsne220-pc\work\003_Microvast\OTA\boot\BMU_BOOT_1.8\BMU_BOOT\Communication_Files\Uds\Dem" -I"\\hsne220-pc\work\003_Microvast\OTA\boot\BMU_BOOT_1.8\BMU_BOOT\Communication_Files\Uds\Tp" -I"\\hsne220-pc\work\003_Microvast\OTA\boot\BMU_BOOT_1.8\BMU_BOOT\Communication_Files\Uds\User" -I"\\hsne220-pc\work\003_Microvast\OTA\boot\BMU_BOOT_1.8\BMU_BOOT\Complex_Files" -I"\\hsne220-pc\work\003_Microvast\OTA\boot\BMU_BOOT_1.8\BMU_BOOT\Initiate_Files" -I"\\hsne220-pc\work\003_Microvast\OTA\boot\BMU_BOOT_1.8\BMU_BOOT\Nvm_Files\FlsDrv" -I"\\hsne220-pc\work\003_Microvast\OTA\boot\BMU_BOOT_1.8\BMU_BOOT\Stand_Header" --iso=99 --language=-gcc,-volatile,+strings --switch=auto --align=0 --default-near-size=0 --default-a0-size=0 --default-a1-size=0 -O2 --tradeoff=4 --compact-max-size=200 -g --source -c --dep-file="Initiate_Files\.SCU.o.d" -Wc--make-target="Initiate_Files\SCU.o"
+DEPENDENCY_FILES += "Initiate_Files\.SCU.o.d"
+
+C_FILES += "..\Initiate_Files\STM.c"
+OBJ_FILES += "Initiate_Files\STM.o"
+"Initiate_Files\STM.o" : "..\Initiate_Files\STM.c" "Initiate_Files\.STM.o.opt"
+	@echo Compiling ${<F}
+	@"${PRODDIR}\bin\cctc" -f "Initiate_Files\.STM.o.opt"
+
+"Initiate_Files\.STM.o.opt" : .refresh
+	@argfile "Initiate_Files\.STM.o.opt" -o "Initiate_Files\STM.o" "..\Initiate_Files\STM.c" -Ctc1782 -t -I"\\hsne220-pc\work\003_Microvast\OTA\boot\BMU_BOOT_1.8\BMU_BOOT" -Wa-H"sfr/regtc1782.def" -Wa-gAHLs --emit-locals=-equ,-symbols -Wa-Ogs -Wa--error-limit=42 -I"\\hsne220-pc\work\003_Microvast\OTA\boot\BMU_BOOT_1.8\BMU_BOOT\Communication_Files\CanDrv" -I"\\hsne220-pc\work\003_Microvast\OTA\boot\BMU_BOOT_1.8\BMU_BOOT\Communication_Files\Com" -I"\\hsne220-pc\work\003_Microvast\OTA\boot\BMU_BOOT_1.8\BMU_BOOT\Communication_Files\Com\Can_Input" -I"\\hsne220-pc\work\003_Microvast\OTA\boot\BMU_BOOT_1.8\BMU_BOOT\Communication_Files\Com\Can_Output" -I"\\hsne220-pc\work\003_Microvast\OTA\boot\BMU_BOOT_1.8\BMU_BOOT\Communication_Files\Uds\Dcm" -I"\\hsne220-pc\work\003_Microvast\OTA\boot\BMU_BOOT_1.8\BMU_BOOT\Communication_Files\Uds\Dem" -I"\\hsne220-pc\work\003_Microvast\OTA\boot\BMU_BOOT_1.8\BMU_BOOT\Communication_Files\Uds\Tp" -I"\\hsne220-pc\work\003_Microvast\OTA\boot\BMU_BOOT_1.8\BMU_BOOT\Communication_Files\Uds\User" -I"\\hsne220-pc\work\003_Microvast\OTA\boot\BMU_BOOT_1.8\BMU_BOOT\Complex_Files" -I"\\hsne220-pc\work\003_Microvast\OTA\boot\BMU_BOOT_1.8\BMU_BOOT\Initiate_Files" -I"\\hsne220-pc\work\003_Microvast\OTA\boot\BMU_BOOT_1.8\BMU_BOOT\Nvm_Files\FlsDrv" -I"\\hsne220-pc\work\003_Microvast\OTA\boot\BMU_BOOT_1.8\BMU_BOOT\Stand_Header" --iso=99 --language=-gcc,-volatile,+strings --switch=auto --align=0 --default-near-size=0 --default-a0-size=0 --default-a1-size=0 -O2 --tradeoff=4 --compact-max-size=200 -g --source -c --dep-file="Initiate_Files\.STM.o.d" -Wc--make-target="Initiate_Files\STM.o"
+DEPENDENCY_FILES += "Initiate_Files\.STM.o.d"
+
+
+GENERATED_FILES += "Initiate_Files\IO.o" "Initiate_Files\.IO.o.opt" "Initiate_Files\.IO.o.d" "Initiate_Files\IO.src" "Initiate_Files\IO.lst" "Initiate_Files\MAIN.o" "Initiate_Files\.MAIN.o.opt" "Initiate_Files\.MAIN.o.d" "Initiate_Files\MAIN.src" "Initiate_Files\MAIN.lst" "Initiate_Files\SCU.o" "Initiate_Files\.SCU.o.opt" "Initiate_Files\.SCU.o.d" "Initiate_Files\SCU.src" "Initiate_Files\SCU.lst" "Initiate_Files\STM.o" "Initiate_Files\.STM.o.opt" "Initiate_Files\.STM.o.d" "Initiate_Files\STM.src" "Initiate_Files\STM.lst"

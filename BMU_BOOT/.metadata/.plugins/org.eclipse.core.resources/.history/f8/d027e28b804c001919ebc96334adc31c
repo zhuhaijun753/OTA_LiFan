@@ -1,0 +1,668 @@
+/*----------------------------------------------------------------------------------------------------*/
+/*
+File Name：  	Flash_1782_Driver.c
+Author：        	任智强
+Version：      	V1.01.0001
+Comment：  	Flash驱动
+History：
+			V1.01.0001			20150731		调整FLS_TIMING_ERASE和FLS_TIMING_WRITE时间参数，避免擦写FLASH时间不够
+			V1.01.0000			20150206		FLS擦除和写函数调整成异步操作
+			V1.00.0006			20140722		修改擦除，读，写接口函数
+			V1.00.0005			20140621		修改接口函数注释
+			V1.00.0004			20140612		驱动增加判断读写buffer指针是否为空，调整写函数长度判断
+			V1.00.0003			20131028		改写驱动，并添加详细注释
+			V1.00.0002			20130305		修改成TC1782的FLASH驱动
+			V1.00.0001			20121207		L51，L63删除(dwSectorAddr>=0xA0020000)判断
+			V1.00.0000
+
+*/
+
+#include "MAIN.h"
+
+uint32 ui32_Fls_SectorBaseAddr[FLS_SECTOR_NUMBER] =
+{
+	0xA0000000U,	//S0
+	0xA0004000U,	//S1
+	0xA0008000U,	//S2
+	0xA000C000U,	//S3
+	0xA0010000U,	//S4
+	0xA0014000U,	//S5
+	0xA0018000U,	//S6
+	0xA001C000U,	//S7
+	0xA0020000U,	//S8
+	0xA0040000U,	//S9
+	0xA0080000U,	//S10
+	0xA00C0000U,	//S11
+	0xA0100000U,	//S12
+	0xA0140000U,	//S13
+	0xA0180000U,	//S14
+	0xA01C0000U,	//S15
+	0xA0200000U,	//S16
+	0xA0240000U,	//S17
+	0xAFE00000U,	//DS0
+	0xAFE10000U,	//DS1
+};
+
+Struct_Fls_Info	st_Fls_Info;			/*Fls信息*/
+
+/*----------------------------------------------------------------------------------------------------*/
+/*
+Function:		void Fls_EraseSectorStart(void)
+Description:	flash sector擦除函数
+Input:			void
+Output:  		void
+Return:			void
+Time:
+Others:
+Physical Test：
+
+*/
+void Fls_EraseSectorStart(void)
+{
+	uint32 dwAddr = st_Fls_Info.ui32_Erase_TA;
+	//**************************************************************
+
+	if(st_Fls_Info.ui8_Type == FLS_TYPE_PFLASH)
+	{
+		dwAddr = st_Fls_Info.ui32_Erase_TA & PFLS_BASE_MASK;		/*获取Pflash基地址0x80000000*/
+	}
+	else
+	{
+		dwAddr = st_Fls_Info.ui32_Erase_TA & DFLS_BASE_MASK;		/*获取Dflash基地址0x8FE00000或0x8FE10000*/
+	}
+
+	/*prepare magic pointers，参考手册Pg5-30*/
+	uint32* pdwAddr5554=(uint32*)(dwAddr+0x5554);
+	uint32* pdwAddrAAA8=(uint32*)(dwAddr+0xAAA8);
+
+
+	/*擦除状态寄存器*/
+	*pdwAddr5554=0x000000F5;
+
+	/*erase physical sector*/
+	*pdwAddr5554=0x000000AA;
+	*pdwAddrAAA8=0x00000055;
+	*pdwAddr5554=0x00000080;
+	*pdwAddr5554=0x000000AA;
+	*pdwAddrAAA8=0x00000055;
+
+	if(st_Fls_Info.ui8_Type == FLS_TYPE_PFLASH)
+	{
+		*((uint32*)st_Fls_Info.ui32_Erase_TA)=0x00000030;   /*erase logical sector*/
+	}
+	else
+	{
+		*((uint32*)st_Fls_Info.ui32_Erase_TA)=0x00000040;   /*erase physical sector 只能擦除DS0，DS1，PS0，PS4*/
+	}
+}
+
+/*----------------------------------------------------------------------------------------------------*/
+/*
+Function:		void Fls_ProgramPageStart(void)
+Description:	flash编程函数
+Input:			void
+Output:  		void
+Return:			void
+Time:
+Others:
+Physical Test：
+
+*/
+void Fls_ProgramPageStart(void)
+{
+	uint16	ui16_Loop_1;		/*循环计数器*/
+	uint32 	dwFlashBaseAddr;	/*FLS基址*/
+	uint16	ui16_PageSize;
+
+	if(st_Fls_Info.ui8_Type == FLS_TYPE_PFLASH)
+	{
+		dwFlashBaseAddr = st_Fls_Info.ui32_Write_TA & PFLS_BASE_MASK;	/*获取Pflash基地址0xA0000000*/
+		ui16_PageSize = PFLS_PAGE_SIZE;
+	}
+	else
+	{
+		dwFlashBaseAddr=st_Fls_Info.ui32_Write_TA & DFLS_BASE_MASK;	/*获取Dflash基地址0xAFE00000或0xAFE10000*/
+		ui16_PageSize = DFLS_PAGE_SIZE;
+	}
+
+	/* prepare magic pointers，参考手册Pg5-30*/
+	uint32* pdwAddr5554 = (uint32*)(dwFlashBaseAddr+0x5554);
+	uint32* pdwAddrAAA8 = (uint32*)(dwFlashBaseAddr+0xAAA8);
+	QWORD* pqwAddr55F0 = (QWORD*)(dwFlashBaseAddr+0x55F0);
+
+	/* clear status register*/
+	*pdwAddr5554 = 0x000000F5;
+
+	/* enter page mode*/
+	if(st_Fls_Info.ui8_Type == FLS_TYPE_PFLASH)
+	{
+		*pdwAddr5554 = 0x00000050;  /* program FLASH*/
+	}
+	else
+	{
+		*pdwAddr5554 = 0x0000005D;  /* data FLASH*/
+	}
+
+	/* load assembly buffer*/
+	for(ui16_Loop_1 = 0U; ui16_Loop_1 < ui16_PageSize; ui16_Loop_1 += 8U)			/*Pflash装载256字节*/
+	{
+		QWORD qw = (QWORD)(st_Fls_Info.ui8_p_Write_SA[ui16_Loop_1] & 0xFFU);
+		qw      += ((QWORD)(st_Fls_Info.ui8_p_Write_SA[1U + ui16_Loop_1] & 0xFFU) << 8U);
+		qw      += ((QWORD)(st_Fls_Info.ui8_p_Write_SA[2U + ui16_Loop_1] & 0xFFU) << 16U);
+		qw      += ((QWORD)(st_Fls_Info.ui8_p_Write_SA[3U + ui16_Loop_1] & 0xFFU) << 24U);
+
+		qw      += ((QWORD)(st_Fls_Info.ui8_p_Write_SA[4U + ui16_Loop_1] & 0xFFU) << 32U);
+		qw      += ((QWORD)(st_Fls_Info.ui8_p_Write_SA[5U + ui16_Loop_1] & 0xFFU) << 40U);
+		qw      += ((QWORD)(st_Fls_Info.ui8_p_Write_SA[6U + ui16_Loop_1] & 0xFFU) << 48U);
+		qw      += ((QWORD)(st_Fls_Info.ui8_p_Write_SA[7U + ui16_Loop_1] & 0xFFU) << 56U);
+
+		*pqwAddr55F0 = qw;
+	}
+
+	// write page
+	*pdwAddr5554 = 0x000000AA;
+	*pdwAddrAAA8 = 0x00000055;
+	*pdwAddr5554 = 0x000000A0;
+	*((uint32*)st_Fls_Info.ui32_Write_TA) = 0x000000AA;
+
+	if(st_Fls_Info.ui32_Write_Len >= ui16_PageSize)
+	{
+		st_Fls_Info.ui32_Write_Len -= ui16_PageSize;
+	}
+	else
+	{
+		st_Fls_Info.ui32_Write_Len = 0U;
+	}
+
+	if(st_Fls_Info.ui32_Write_Len != 0U)
+	{
+		st_Fls_Info.ui32_Write_TA += ui16_PageSize;	/*目标地址加一页*/
+		st_Fls_Info.ui8_p_Write_SA += ui16_PageSize;	/*源地址指针加一页*/
+	}
+}
+
+/*----------------------------------------------------------------------------------------------------*/
+/*
+Function:		boolean Fls_OperateWait(void)
+Description:	flash操作等待函数
+Input:			void
+Output:  		void
+Return:			boolean
+Time:
+Others:
+Physical Test：
+
+*/
+boolean Fls_OperateWait(void)
+{
+	boolean	b_Return;
+
+	/*poll status register*/
+	volatile uint32* pdwFsr;
+
+	pdwFsr=(uint32*)PFLS_FSR;			/*TC1782只有一个控制器*/
+
+	if((*pdwFsr & FLS_BUSY_MASK) == 0U)	/*判断FLS是否操作完成,参考手册Pg5-46*/
+	{
+		b_Return = E_OK;
+	}
+	else
+	{
+		b_Return = E_NOT_OK;
+	}
+	return	b_Return;
+}
+
+/*************************************************************************/
+/*
+Function:		void Fls_Init(void)
+
+Description: 	FLASH初始化函数
+
+Parameters: 	void
+
+Return:       	void
+
+Return Values:
+
+Remarks:		用户在初始化时调用此函数。
+
+Example:		初始化时调用：
+				Fls_Init();
+*/
+void Fls_Init(void)
+{
+	st_Fls_Info.ui8_Job_Status = FLS_JOB_OK;		/*FLS任务状态初始化完成*/
+	st_Fls_Info.ui8_Task_FSM = FLS_TASK_IDLE_STATE;	/*FLS状态机初始化空闲状态*/
+}
+
+/*************************************************************************/
+/*
+Function:		boolean Fls_Erase(uint32 ui32_TargetAddr)
+
+Description: 	擦除指定Flash Sector（异步）
+
+Parameters: 	ui32_TargetAddr	flash的Sector首地址，(FLASH地址参考TC1782用户手册)
+
+Return:       	boolean			用户可根据返回值判断FLASH是否擦除成功
+
+Return Values:  E_OK			接受擦除命令
+				E_NOT_OK		拒绝擦除命令
+
+Remarks:		用户在中间层需要擦除FLASH时调用此函数。
+
+Example:		擦除DFLASH 0xAFE00000地址64k FLASH
+				ret_val = Fls_Erase(0xAFE00000U);
+*/
+boolean Fls_Erase(uint32 ui32_TargetAddr)
+{
+	uint8 	ui8_Loop_1;			/*循环计数器*/
+	boolean	b_Return;
+
+	if(st_Fls_Info.ui8_Task_FSM == FLS_TASK_IDLE_STATE)		/*判断FLS状态是否空闲*/
+	{
+		if(ui32_TargetAddr < 0xA0000000U)	/*cached地址转换成non-cached地址,flash操作只能在non-cached*/
+		{
+			ui32_TargetAddr += 0x20000000U;
+		}
+
+		if((ui32_TargetAddr >= PFLS_ADDR_START) && (ui32_TargetAddr <= PFLS_ADDR_END)) /*地址属于PFlash，参考手册Pg5-27*/
+		{
+			st_Fls_Info.ui8_Type = FLS_TYPE_PFLASH;	/*FLS类型为PFLASH*/
+		}
+		else if((ui32_TargetAddr == DFLS0_ADDR_START) || (ui32_TargetAddr == DFLS1_ADDR_START)) /*地址属于DFlash，参考手册Pg5-27*/
+		{
+			st_Fls_Info.ui8_Type = FLS_TYPE_DFLASH;	/*FLS类型为DFLASH*/
+		}
+		else
+		{
+			st_Fls_Info.ui8_Type = FLS_TYPE_INVALID;/*FLS类型为无效*/
+		}
+
+		if(st_Fls_Info.ui8_Type != FLS_TYPE_INVALID)	/*判断FLS类型是否有效*/
+		{
+			for(ui8_Loop_1 = 0U; ui8_Loop_1 < FLS_SECTOR_NUMBER; ui8_Loop_1++)	/*检查擦除地址是否有效*/
+			{
+				if(ui32_TargetAddr == ui32_Fls_SectorBaseAddr[ui8_Loop_1])
+				{
+					break;
+				}
+			}
+
+			if(ui8_Loop_1 < FLS_SECTOR_NUMBER)	/*地址有效*/
+			{
+				st_Fls_Info.ui32_Erase_TA = ui32_TargetAddr;
+				st_Fls_Info.ui8_Job_Status = FLS_JOB_PENDING;		/*任务挂起*/
+				st_Fls_Info.ui8_Task_FSM = FLS_TASK_ERASE_START_STATE;	/*FLS状态机进入擦除启动状态*/
+				b_Return = E_OK;
+			}
+			else
+			{
+				b_Return = E_NOT_OK;
+			}
+		}
+		else
+		{
+			b_Return = E_NOT_OK;
+		}
+	}
+	else
+	{
+		b_Return = E_NOT_OK;
+	}
+
+	return b_Return;
+}
+
+/*************************************************************************/
+/*
+Function:		boolean Fls_Write(uint32 ui32_TA, uint8 *p_ui8_SA, uint32 ui32_Len)
+
+Description: 	向FLASH内指定地址写入指定长度的数据(异步)
+
+Parameters: 	ui32_TA				写入flash的目标地址，PFLASH以256字节align,
+									DFLASH以128字节align(FLASH地址参考TC1782用户手册)。
+				p_ui8_SA			指针数据(指向的数组长度不小于Length)。
+				ui32_Len				被写入的数据的字节数，PFLASH以256（PAGE_SIZE）字节为单位写入，
+									DFLASH以128（DFLS_PAGE_SIZE）字节为单位写入。
+
+Return:       	boolean				用户可根据返回值判断FLASH是否写成功
+
+Return Values:  E_OK				接受写命令
+				E_NOT_OK			拒绝写命令
+
+Remarks:		用户在中间层需要写FLASH时调用此函数。
+				写DFLASH(128字节耗时5ms)，写PFLASH(256字节耗时5ms)。
+
+Example:		将buffer数组128字节写入DFLASH 0xAFE00000地址中
+				ret_val = Fls_Write(0xAFE00000U, &buffer[0U], 128U);
+*/
+boolean Fls_Write(uint32 ui32_TA, uint8 *p_ui8_SA, uint32 ui32_Len)
+{
+	boolean	b_Return;
+
+	if(st_Fls_Info.ui8_Task_FSM == FLS_TASK_IDLE_STATE)		/*判断FLS状态是否空闲*/
+	{
+		if((p_ui8_SA != ((void *)0)) && (ui32_Len != 0U))	/*判断源地址指针和长度是否有效*/
+		{
+			if(ui32_TA < 0xA0000000U)	/*cached地址转换成non-cached地址,flash操作只能在non-cached*/
+			{
+				ui32_TA += 0x20000000U;
+			}
+
+			st_Fls_Info.ui8_Type = FLS_TYPE_INVALID;	/*写类型无效*/
+			if((ui32_TA >= PFLS_ADDR_START) && ((ui32_TA + ui32_Len - 1U) <= PFLS_ADDR_END)) /*地址属于PFlash，参考手册Pg5-27*/
+			{
+				if((ui32_Len & PFLS_PAGE_ALIGN_MASK)== 0U)			/*长度为256字节的倍数，参考手册Pg5-14*/
+				{
+					st_Fls_Info.ui8_Type = FLS_TYPE_PFLASH;	/*写类型为PFLASH*/
+				}
+			}
+			else if((ui32_TA >= DFLS0_ADDR_START) && ((ui32_TA + ui32_Len - 1U) <= DFLS0_ADDR_END)) /*地址属于DFlash0，参考手册Pg5-27*/
+			{
+				if((ui32_Len & DFLS_PAGE_ALIGN_MASK) == 0U)	/*长度为128字节的倍数，参考手册Pg5-14*/
+				{
+					st_Fls_Info.ui8_Type = FLS_TYPE_DFLASH;	/*写类型为PFLASH*/
+				}
+			}
+			else if((ui32_TA >= DFLS1_ADDR_START) && ((ui32_TA + ui32_Len - 1U) <= DFLS1_ADDR_END)) /*地址属于DFlash1，参考手册Pg5-27*/
+			{
+				if((ui32_Len & DFLS_PAGE_ALIGN_MASK) == 0U)	/*长度为128字节的倍数，参考手册Pg5-14*/
+				{
+					st_Fls_Info.ui8_Type = FLS_TYPE_DFLASH;	/*写类型为DFLASH*/
+				}
+			}
+
+			if(st_Fls_Info.ui8_Type != FLS_TYPE_INVALID)	/*判断地址长度是否有效*/
+			{
+				st_Fls_Info.ui32_Write_TA = ui32_TA;				/*写目标地址*/
+				st_Fls_Info.ui8_p_Write_SA = p_ui8_SA;				/*写源地址*/
+				st_Fls_Info.ui32_Write_Len = ui32_Len;				/*写长度*/
+				st_Fls_Info.ui8_Job_Status = FLS_JOB_PENDING;		/*任务挂起*/
+				st_Fls_Info.ui8_Task_FSM = FLS_TASK_WRITE_START_STATE;	/*FLS状态机进入写启动状态*/
+				b_Return = E_OK;
+			}
+			else
+			{
+				b_Return = E_NOT_OK;
+			}
+		}
+		else
+		{
+			b_Return = E_NOT_OK;
+		}
+	}
+	else
+	{
+		b_Return = E_NOT_OK;
+	}
+
+	return b_Return;
+}
+
+/*************************************************************************/
+/*
+Function:		boolean Fls_Read( uint32 ui32_SA, uint8 *ui8_p_TA, uint32 ui32_Len)
+
+Description: 	从FLASH内指定地址读取指定长度的数据到RAM中(同步)
+
+Parameters: 	ui32_SA		读取数据在flash的目标地址(FLASH地址参考TC1782用户手册)。
+				ui8_p_TA	数据存放指针(指向的数组长度不小于ui32_Len)。
+				ui32_Len	被读取数据的字节数(大于0并且读取范围不超过FLASH硬件限制)
+
+Return:       	boolean				用户可根据返回值判断FLASH是否读取成功
+
+Return Values:  E_OK				读取成功
+				E_NOT_OK			读取失败
+
+Remarks:		用户在中间层需要读取FLASH时调用此函数。
+				读取DFLASH(128字节耗时10us)，读取PFLASH(256字节耗时13us)。
+
+Example:		读取DFLASH 0xAFE00000地址128字节数据到buffer数组
+				ret_val = Fls_Read(0xAFE00000U, &buffer[0U], 128U);
+*/
+boolean Fls_Read( uint32 ui32_SA, uint8 *ui8_p_TA, uint32 ui32_Len)
+{
+	uint32 	ui32_Loop_1;
+	boolean	b_Return;
+
+	b_Return = E_NOT_OK;
+
+	if(st_Fls_Info.ui8_Task_FSM == FLS_TASK_IDLE_STATE)		/*判断FLS状态是否空闲*/
+	{
+		if((ui8_p_TA != ((void *)0)) && (ui32_Len != 0U))	/*判断目标地址指针和长度是否有效*/
+		{
+			if(ui32_SA < 0xA0000000U)	//cached地址转换成non-cached地址,flash操作只能在non-cached
+			{
+				ui32_SA += 0x20000000U;
+			}
+
+			if((ui32_SA >= PFLS_ADDR_START) && ((ui32_SA + ui32_Len - 1U) <= PFLS_ADDR_END)) /*地址属于PFlash，参考手册Pg5-27*/
+			{
+				st_Fls_Info.ui8_Type = FLS_TYPE_PFLASH;	/*FLS类型为PFLASH*/
+			}
+			else if((ui32_SA >= DFLS0_ADDR_START) && ((ui32_SA + ui32_Len - 1U) <= DFLS0_ADDR_END)) /*地址属于DFlash0，参考手册Pg5-27*/
+			{
+				st_Fls_Info.ui8_Type = FLS_TYPE_DFLASH;	/*FLS类型为DFLASH*/
+			}
+			else if((ui32_SA >= DFLS1_ADDR_START) && ((ui32_SA + ui32_Len - 1U) <= DFLS1_ADDR_END)) /*地址属于DFlash1，参考手册Pg5-27*/
+			{
+				st_Fls_Info.ui8_Type = FLS_TYPE_DFLASH;	/*FLS类型为DFLASH*/
+			}
+			else
+			{
+				st_Fls_Info.ui8_Type = FLS_TYPE_INVALID;/*FLS类型为无效*/
+			}
+
+			if(st_Fls_Info.ui8_Type != FLS_TYPE_INVALID)	/*判断FLS类型是否有效*/
+			{
+				uint8* ui8_Memory_Point = (uint8*)(ui32_SA);	/*指向被读取的地址*/
+				/*读取数据至目标Buffer*/
+				for(ui32_Loop_1 = 0U; ui32_Loop_1 < ui32_Len; ui32_Loop_1++)
+				{
+					*(ui8_p_TA + ui32_Loop_1) = *ui8_Memory_Point;
+					ui8_Memory_Point++;
+				}
+				b_Return = E_OK;
+			}
+		}
+	}
+	return b_Return;
+}
+
+/*************************************************************************/
+/*
+Function:		uint8 Fls_GetStatus(void)
+
+Description: 	FLASH获取状态函数
+
+Parameters: 	void
+
+Return:       	uint8
+
+Return Values:
+
+Remarks:		用户在中间层需要获取FLS状态时调用此函数。
+
+Example:		获取FLS状态时调用：
+				ret_val = Fls_GetStatus();
+*/
+uint8 Fls_GetStatus(void)
+{
+	return st_Fls_Info.ui8_Task_FSM;
+}
+
+/*************************************************************************/
+/*
+Function:		uint8 Fls_GetJobResult(void)
+
+Description: 	FLASH获取结果函数
+
+Parameters: 	void
+
+Return:       	uint8
+
+Return Values:
+
+Remarks:		用户在中间层需要获取FLS操作结果时调用此函数。
+
+Example:		获取FLS结果时调用：
+				ret_val = Fls_GetJobResult();
+*/
+uint8 Fls_GetJobResult(void)
+{
+	return st_Fls_Info.ui8_Job_Status;
+}
+
+/*************************************************************************/
+/*
+Function:		void Fls_MainFunction(void)
+
+Description: 	FLASH操作循环周期函数
+
+Parameters: 	void
+
+Return:       	void
+
+Return Values:
+
+Remarks:		用户在固定任务周期中调用此函数。
+
+Example:		10ms任务周期调用：
+				Fls_MainFunction();
+*/
+uint32 ui32_5s = 0;
+void Fls_MainFunction(void)
+{
+	boolean	b_Return;
+
+	switch(st_Fls_Info.ui8_Task_FSM)
+	{
+		case FLS_TASK_IDLE_STATE:	/*空闲状态*/
+		{
+			ui32_5s = 0;
+			break;
+		}
+
+		case FLS_TASK_ERASE_START_STATE:	/*擦除启动状态*/
+		{
+			Fls_EraseSectorStart();	/*启动sector擦除*/
+			st_Fls_Info.ui8_Timing_Erase = FLS_TIMING_ERASE;		/*初始化擦除Timing计数器*/
+			st_Fls_Info.ui8_Task_FSM = FLS_TASK_ERASE_WAIT_STATE;	/*FLS状态机进入擦除等待状态*/
+
+			break;
+		}
+
+		case FLS_TASK_ERASE_WAIT_STATE:		/*擦除等待状态*/
+		{
+			b_Return = Fls_OperateWait();	/*擦除等待完成*/
+
+			if(b_Return == E_OK)
+			{
+				st_Fls_Info.ui8_Job_Status = FLS_JOB_OK;			/*任务完成*/
+				st_Fls_Info.ui8_Task_FSM = FLS_TASK_IDLE_STATE;		/*FLS状态机进入空闲状态*/
+			}
+			else
+			{
+				/*超时处理*/
+				if(st_Fls_Info.ui8_Timing_Erase != 0U)
+				{
+					st_Fls_Info.ui8_Timing_Erase--;
+				}
+
+				if(st_Fls_Info.ui8_Timing_Erase == 0U)	/*Timing超时*/
+				{
+					st_Fls_Info.ui8_Job_Status = FLS_JOB_FAILED;	/*任务失败*/
+					st_Fls_Info.ui8_Task_FSM = FLS_TASK_IDLE_STATE;	/*FLS状态机进入空闲状态*/
+				}
+			}
+
+			break;
+		}
+
+		case FLS_TASK_WRITE_START_STATE:	/*写启动状态*/
+		{
+			Fls_ProgramPageStart();	/*启动写*/
+			st_Fls_Info.ui8_Timing_Write = FLS_TIMING_WRITE;		/*初始化写Timing计数器*/
+			st_Fls_Info.ui8_Task_FSM = FLS_TASK_WRITE_WAIT_STATE;	/*FLS状态机进入写等待状态*/
+			break;
+		}
+
+		case FLS_TASK_WRITE_WAIT_STATE:
+		{
+			b_Return = Fls_OperateWait();	/*写等待完成*/
+			if(b_Return == E_OK)
+			{
+				if(st_Fls_Info.ui32_Write_Len != 0U)
+				{
+					st_Fls_Info.ui8_Task_FSM = FLS_TASK_WRITE_START_STATE;	/*FLS状态机进入写启动状态*/
+				}
+				else
+				{
+					st_Fls_Info.ui8_Job_Status = FLS_JOB_OK;			/*任务完成*/
+					st_Fls_Info.ui8_Task_FSM = FLS_TASK_IDLE_STATE;		/*FLS状态机进入空闲状态*/
+				}
+			}
+			else
+			{
+				/*超时处理*/
+				if(st_Fls_Info.ui8_Timing_Write != 0U)
+				{
+					st_Fls_Info.ui8_Timing_Write--;
+				}
+
+				if(st_Fls_Info.ui8_Timing_Write == 0U)	/*Timing超时*/
+				{
+					st_Fls_Info.ui8_Job_Status = FLS_JOB_FAILED;	/*任务失败*/
+					st_Fls_Info.ui8_Task_FSM = FLS_TASK_IDLE_STATE;	/*FLS状态机进入空闲状态*/
+				}
+			}
+			break;
+		}
+
+		default:
+		{
+			st_Fls_Info.ui8_Job_Status = FLS_JOB_OK;			/*任务完成*/
+			st_Fls_Info.ui8_Task_FSM = FLS_TASK_IDLE_STATE;		/*FLS状态机进入空闲状态*/
+			break;
+		}
+	}
+}
+
+
+//******************************************************************************
+// Function      void ProgramSPRAMPage(DWORD dwPageAddr)
+//
+//------------------------------------------------------------------------------
+// Description   This function will program SPRAM
+//
+//------------------------------------------------------------------------------
+// Return value  None
+//
+//------------------------------------------------------------------------------
+// Parameters    dwPageAddr :  the start address to be programmed
+//
+//------------------------------------------------------------------------------
+// Date          2011-7-4
+//
+//******************************************************************************
+void ProgramSPRAMPage(uint32 ui32_TA, uint8 *p_ui8_SA, uint32 ui32_Len)
+{
+	//4 byte aligned address?
+	if (ui32_TA & 0x03)
+	{
+		return;
+	}
+
+	uint32 *dest_ptr = (uint32 *) (ui32_TA);
+	uint32 ui;
+
+	for (ui=0; ui<ui32_Len; ui+=4)
+	{
+		uint32 dw = (uint32)(p_ui8_SA[0+ui] & 0xFF);
+		dw      += ((uint32)(p_ui8_SA[1+ui] & 0xFF) << 8);
+		dw      += ((uint32)(p_ui8_SA[2+ui] & 0xFF) << 16);
+		dw      += ((uint32)(p_ui8_SA[3+ui] & 0xFF) << 24);
+		*dest_ptr++ = dw;
+	}
+}

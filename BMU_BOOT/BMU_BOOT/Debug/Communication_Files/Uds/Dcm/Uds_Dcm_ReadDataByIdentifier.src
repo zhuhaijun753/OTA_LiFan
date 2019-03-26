@@ -1,0 +1,1764 @@
+	; Module start
+	.compiler_version	"TASKING VX-toolset for TriCore: C compiler v4.3r1 Build 759 SN 00641831"
+	.compiler_invocation	"ctc -f cc7860a -c99 --dep-file=Communication_Files\\Uds\\Dcm\\.Uds_Dcm_ReadDataByIdentifier.o.d -D__CPU__=tc1782 -D__CPU_TC1782__ --core=tc1.3.1 -F -ID:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_1.9\\BMU_BOOT -ID:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_1.9\\BMU_BOOT\\Communication_Files\\CanDrv -ID:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_1.9\\BMU_BOOT\\Communication_Files\\Com -ID:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_1.9\\BMU_BOOT\\Communication_Files\\Com\\Can_Input -ID:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_1.9\\BMU_BOOT\\Communication_Files\\Com\\Can_Output -ID:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_1.9\\BMU_BOOT\\Communication_Files\\Uds\\Dcm -ID:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_1.9\\BMU_BOOT\\Communication_Files\\Uds\\Dem -ID:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_1.9\\BMU_BOOT\\Communication_Files\\Uds\\Tp -ID:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_1.9\\BMU_BOOT\\Communication_Files\\Uds\\User -ID:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_1.9\\BMU_BOOT\\Complex_Files -ID:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_1.9\\BMU_BOOT\\Initiate_Files -ID:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_1.9\\BMU_BOOT\\Nvm_Files\\FlsDrv -ID:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_1.9\\BMU_BOOT\\Stand_Header -g2 --make-target=Communication_Files\\Uds\\Dcm\\Uds_Dcm_ReadDataByIdentifier.o -t4 --language=-gcc,-volatile,+strings --default-near-size=0 -O2 --default-a1-size=0 --default-a0-size=0 --source --align=0 --compact-max-size=200 --switch=auto -o Communication_Files\\Uds\\Dcm\\Uds_Dcm_ReadDataByIdentifier.src ..\\Communication_Files\\Uds\\Dcm\\Uds_Dcm_ReadDataByIdentifier.c"
+	.compiler_name		"ctc"
+	.name	"Uds_Dcm_ReadDataByIdentifier"
+
+	
+$TC131
+	
+	.sdecl	'.text.Uds_Dcm_ReadDataByIdentifier.UdsFunc_SID_RDBI_Analysis',code,cluster('UdsFunc_SID_RDBI_Analysis')
+	.sect	'.text.Uds_Dcm_ReadDataByIdentifier.UdsFunc_SID_RDBI_Analysis'
+	.align	2
+	
+	.global	UdsFunc_SID_RDBI_Analysis
+
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_ReadDataByIdentifier.c	     1  
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_ReadDataByIdentifier.c	     2  #include "MAIN.h"
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_ReadDataByIdentifier.c	     3  
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_ReadDataByIdentifier.c	     4  uint16 ui16_SID_RDBI_DID_Buf[UDS_SID_RDBI_DID_NUMBER1];	/*DID Buffer*/
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_ReadDataByIdentifier.c	     5  
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_ReadDataByIdentifier.c	     6  /*SID RDBI服务*/
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_ReadDataByIdentifier.c	     7  const	Struct_Uds_SID_RDBI	st_Uds_SID_RDBI[] =
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_ReadDataByIdentifier.c	     8  {
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_ReadDataByIdentifier.c	     9  #if ECU_TYPE == ECU_VCU
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_ReadDataByIdentifier.c	    10  
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_ReadDataByIdentifier.c	    11  				{0xF183, UdsFunc_SID_RDBI_DID_F183_Callback},     /*Bootloader版本号*/
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_ReadDataByIdentifier.c	    12  				{0xF184, UdsFunc_SID_RDBI_DID_F184_Callback},     /*应用软件指纹*/
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_ReadDataByIdentifier.c	    13  				{0xF187, UdsFunc_SID_RDBI_DID_F187_Callback},     /*零件号*/
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_ReadDataByIdentifier.c	    14  				{0xF18A, UdsFunc_SID_RDBI_DID_F18A_Callback},     /*供应商代码*/
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_ReadDataByIdentifier.c	    15  				{0xF190, UdsFunc_SID_RDBI_DID_F190_Callback},     /*VIN*/
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_ReadDataByIdentifier.c	    16  				{0xF191, UdsFunc_SID_RDBI_DID_F191_Callback},     /*ECU硬件版本号*/
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_ReadDataByIdentifier.c	    17  				{0xF195, UdsFunc_SID_RDBI_DID_F195_Callback},     /*ECU软件版本号*/
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_ReadDataByIdentifier.c	    18  				{0xF199, UdsFunc_SID_RDBI_DID_F199_Callback},     /*编程日期*/
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_ReadDataByIdentifier.c	    19  				{0x0100, UdsFunc_SID_RDBI_DID_0100_Callback},
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_ReadDataByIdentifier.c	    20  				{0x0101, UdsFunc_SID_RDBI_DID_0101_Callback},
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_ReadDataByIdentifier.c	    21  				{0x0102, UdsFunc_SID_RDBI_DID_0102_Callback},
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_ReadDataByIdentifier.c	    22  				{0x0103, UdsFunc_SID_RDBI_DID_0103_Callback},
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_ReadDataByIdentifier.c	    23  				{0x0104, UdsFunc_SID_RDBI_DID_0104_Callback},
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_ReadDataByIdentifier.c	    24  				{0x0106, UdsFunc_SID_RDBI_DID_0106_Callback},
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_ReadDataByIdentifier.c	    25  				{0x0107, UdsFunc_SID_RDBI_DID_0107_Callback},
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_ReadDataByIdentifier.c	    26  				{0x0108, UdsFunc_SID_RDBI_DID_0108_Callback},
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_ReadDataByIdentifier.c	    27  				{0x0109, UdsFunc_SID_RDBI_DID_0109_Callback},
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_ReadDataByIdentifier.c	    28  				{0x010A, UdsFunc_SID_RDBI_DID_010A_Callback},
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_ReadDataByIdentifier.c	    29  				{0x010B, UdsFunc_SID_RDBI_DID_010B_Callback},
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_ReadDataByIdentifier.c	    30  				{0x010C, UdsFunc_SID_RDBI_DID_010C_Callback},
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_ReadDataByIdentifier.c	    31  				{0x010D, UdsFunc_SID_RDBI_DID_010D_Callback},
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_ReadDataByIdentifier.c	    32  				{0x010E, UdsFunc_SID_RDBI_DID_010E_Callback},
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_ReadDataByIdentifier.c	    33  				{0x0110, UdsFunc_SID_RDBI_DID_0110_Callback},
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_ReadDataByIdentifier.c	    34  				{0x0112, UdsFunc_SID_RDBI_DID_0112_Callback},
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_ReadDataByIdentifier.c	    35  				{0x0113, UdsFunc_SID_RDBI_DID_0113_Callback},
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_ReadDataByIdentifier.c	    36  				{0x0114, UdsFunc_SID_RDBI_DID_0114_Callback},
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_ReadDataByIdentifier.c	    37  				{0x0115, UdsFunc_SID_RDBI_DID_0115_Callback},
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_ReadDataByIdentifier.c	    38  				{0x0116, UdsFunc_SID_RDBI_DID_0116_Callback},
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_ReadDataByIdentifier.c	    39  				{0x0117, UdsFunc_SID_RDBI_DID_0117_Callback},
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_ReadDataByIdentifier.c	    40  				{0x0118, UdsFunc_SID_RDBI_DID_0118_Callback},
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_ReadDataByIdentifier.c	    41  				{0x0119, UdsFunc_SID_RDBI_DID_0119_Callback},
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_ReadDataByIdentifier.c	    42  				{0x011A, UdsFunc_SID_RDBI_DID_011A_Callback},
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_ReadDataByIdentifier.c	    43  				{0x011B, UdsFunc_SID_RDBI_DID_011B_Callback},
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_ReadDataByIdentifier.c	    44  				{0x011C, UdsFunc_SID_RDBI_DID_011C_Callback},
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_ReadDataByIdentifier.c	    45  				{0x011D, UdsFunc_SID_RDBI_DID_011D_Callback},
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_ReadDataByIdentifier.c	    46  				{0x011F, UdsFunc_SID_RDBI_DID_011F_Callback},
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_ReadDataByIdentifier.c	    47  				{0x0120, UdsFunc_SID_RDBI_DID_0120_Callback},
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_ReadDataByIdentifier.c	    48  				{0x0121, UdsFunc_SID_RDBI_DID_0121_Callback},
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_ReadDataByIdentifier.c	    49  				{0x0122, UdsFunc_SID_RDBI_DID_0122_Callback},
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_ReadDataByIdentifier.c	    50  				{0x0123, UdsFunc_SID_RDBI_DID_0123_Callback},
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_ReadDataByIdentifier.c	    51  				{0x0124, UdsFunc_SID_RDBI_DID_0124_Callback},
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_ReadDataByIdentifier.c	    52  				{0x0125, UdsFunc_SID_RDBI_DID_0125_Callback},
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_ReadDataByIdentifier.c	    53  				{0x0126, UdsFunc_SID_RDBI_DID_0126_Callback},
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_ReadDataByIdentifier.c	    54  				{0x0128, UdsFunc_SID_RDBI_DID_0128_Callback},
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_ReadDataByIdentifier.c	    55  				{0x0129, UdsFunc_SID_RDBI_DID_0129_Callback},
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_ReadDataByIdentifier.c	    56  				{0x0137, UdsFunc_SID_RDBI_DID_0137_Callback},
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_ReadDataByIdentifier.c	    57  				{0x013D, UdsFunc_SID_RDBI_DID_013D_Callback},
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_ReadDataByIdentifier.c	    58  				{0x013F, UdsFunc_SID_RDBI_DID_013F_Callback},
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_ReadDataByIdentifier.c	    59  				{0x0140, UdsFunc_SID_RDBI_DID_0140_Callback},
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_ReadDataByIdentifier.c	    60  				{0x014B, UdsFunc_SID_RDBI_DID_014B_Callback},
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_ReadDataByIdentifier.c	    61  				{0x014C, UdsFunc_SID_RDBI_DID_014C_Callback},
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_ReadDataByIdentifier.c	    62  				{0x014D, UdsFunc_SID_RDBI_DID_014D_Callback},
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_ReadDataByIdentifier.c	    63  				{0x014E, UdsFunc_SID_RDBI_DID_014E_Callback},
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_ReadDataByIdentifier.c	    64  				{0x014F, UdsFunc_SID_RDBI_DID_014F_Callback},
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_ReadDataByIdentifier.c	    65  				{0x0150, UdsFunc_SID_RDBI_DID_0150_Callback},
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_ReadDataByIdentifier.c	    66  				{0x0151, UdsFunc_SID_RDBI_DID_0151_Callback},
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_ReadDataByIdentifier.c	    67  				{0x0152, UdsFunc_SID_RDBI_DID_0152_Callback},
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_ReadDataByIdentifier.c	    68  				{0x0153, UdsFunc_SID_RDBI_DID_0153_Callback},
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_ReadDataByIdentifier.c	    69  				{0x0154, UdsFunc_SID_RDBI_DID_0154_Callback},
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_ReadDataByIdentifier.c	    70  				{0x0156, UdsFunc_SID_RDBI_DID_0156_Callback},
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_ReadDataByIdentifier.c	    71  				{0x0157, UdsFunc_SID_RDBI_DID_0157_Callback},
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_ReadDataByIdentifier.c	    72  				{0x0158, UdsFunc_SID_RDBI_DID_0158_Callback},
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_ReadDataByIdentifier.c	    73  				{0x015B, UdsFunc_SID_RDBI_DID_015B_Callback},
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_ReadDataByIdentifier.c	    74  				{0x015C, UdsFunc_SID_RDBI_DID_015C_Callback},
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_ReadDataByIdentifier.c	    75  				{0x015F, UdsFunc_SID_RDBI_DID_015F_Callback},
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_ReadDataByIdentifier.c	    76  				{0x0160, UdsFunc_SID_RDBI_DID_0160_Callback},
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_ReadDataByIdentifier.c	    77  				{0x0163, UdsFunc_SID_RDBI_DID_0163_Callback},
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_ReadDataByIdentifier.c	    78  				{0x0164, UdsFunc_SID_RDBI_DID_0164_Callback},
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_ReadDataByIdentifier.c	    79  				{0x0165, UdsFunc_SID_RDBI_DID_0165_Callback},
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_ReadDataByIdentifier.c	    80  				{0x0166, UdsFunc_SID_RDBI_DID_0166_Callback},
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_ReadDataByIdentifier.c	    81  				{0x0167, UdsFunc_SID_RDBI_DID_0167_Callback},
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_ReadDataByIdentifier.c	    82  				{0x0168, UdsFunc_SID_RDBI_DID_0168_Callback},
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_ReadDataByIdentifier.c	    83  				{0x0169, UdsFunc_SID_RDBI_DID_0169_Callback},
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_ReadDataByIdentifier.c	    84  				{0x016A, UdsFunc_SID_RDBI_DID_016A_Callback},
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_ReadDataByIdentifier.c	    85  				{0x016B, UdsFunc_SID_RDBI_DID_016B_Callback},
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_ReadDataByIdentifier.c	    86  #elif ECU_TYPE == ECU_VBU
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_ReadDataByIdentifier.c	    87  		{0xF183, UdsFunc_SID_RDBI_DID_F183_Callback},     /*Bootloader版本号*/
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_ReadDataByIdentifier.c	    88  		{0xF184, UdsFunc_SID_RDBI_DID_F184_Callback},     /*应用软件指纹*/
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_ReadDataByIdentifier.c	    89  		{0xF187, UdsFunc_SID_RDBI_DID_F187_Callback},     /*零件号*/
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_ReadDataByIdentifier.c	    90  		{0xF18A, UdsFunc_SID_RDBI_DID_F18A_Callback},     /*供应商代码*/
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_ReadDataByIdentifier.c	    91  		{0xF190, UdsFunc_SID_RDBI_DID_F190_Callback},     /*VIN*/
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_ReadDataByIdentifier.c	    92  		{0xF191, UdsFunc_SID_RDBI_DID_F191_Callback},     /*ECU硬件版本号*/
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_ReadDataByIdentifier.c	    93  		{0xF195, UdsFunc_SID_RDBI_DID_F195_Callback},     /*ECU软件版本号*/
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_ReadDataByIdentifier.c	    94  		{0xF199, UdsFunc_SID_RDBI_DID_F199_Callback},     /*编程日期*/
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_ReadDataByIdentifier.c	    95  		{0x0100, UdsFunc_SID_RDBI_DID_0100_Callback},
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_ReadDataByIdentifier.c	    96  		{0x0101, UdsFunc_SID_RDBI_DID_0101_Callback},
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_ReadDataByIdentifier.c	    97  		{0x0102, UdsFunc_SID_RDBI_DID_0102_Callback},
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_ReadDataByIdentifier.c	    98  		{0x0103, UdsFunc_SID_RDBI_DID_0103_Callback},
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_ReadDataByIdentifier.c	    99  		{0x0104, UdsFunc_SID_RDBI_DID_0104_Callback},
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_ReadDataByIdentifier.c	   100  		{0x0106, UdsFunc_SID_RDBI_DID_0106_Callback},
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_ReadDataByIdentifier.c	   101  		{0x0107, UdsFunc_SID_RDBI_DID_0107_Callback},
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_ReadDataByIdentifier.c	   102  		{0x0108, UdsFunc_SID_RDBI_DID_0108_Callback},
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_ReadDataByIdentifier.c	   103  		{0x0109, UdsFunc_SID_RDBI_DID_0109_Callback},
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_ReadDataByIdentifier.c	   104  		{0x010A, UdsFunc_SID_RDBI_DID_010A_Callback},
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_ReadDataByIdentifier.c	   105  		{0x010B, UdsFunc_SID_RDBI_DID_010B_Callback},
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_ReadDataByIdentifier.c	   106  		{0x0110, UdsFunc_SID_RDBI_DID_0110_Callback},
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_ReadDataByIdentifier.c	   107  		{0x0112, UdsFunc_SID_RDBI_DID_0112_Callback},
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_ReadDataByIdentifier.c	   108  		{0x0113, UdsFunc_SID_RDBI_DID_0113_Callback},
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_ReadDataByIdentifier.c	   109  		{0x0114, UdsFunc_SID_RDBI_DID_0114_Callback},
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_ReadDataByIdentifier.c	   110  		{0x0115, UdsFunc_SID_RDBI_DID_0115_Callback},
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_ReadDataByIdentifier.c	   111  		{0x0116, UdsFunc_SID_RDBI_DID_0116_Callback},
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_ReadDataByIdentifier.c	   112  		{0x0117, UdsFunc_SID_RDBI_DID_0117_Callback},
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_ReadDataByIdentifier.c	   113  		{0x0118, UdsFunc_SID_RDBI_DID_0118_Callback},
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_ReadDataByIdentifier.c	   114  		{0x0119, UdsFunc_SID_RDBI_DID_0119_Callback},
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_ReadDataByIdentifier.c	   115  		{0x011A, UdsFunc_SID_RDBI_DID_011A_Callback},
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_ReadDataByIdentifier.c	   116  		{0x011B, UdsFunc_SID_RDBI_DID_011B_Callback},
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_ReadDataByIdentifier.c	   117  		{0x011C, UdsFunc_SID_RDBI_DID_011C_Callback},
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_ReadDataByIdentifier.c	   118  		{0x011D, UdsFunc_SID_RDBI_DID_011D_Callback},
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_ReadDataByIdentifier.c	   119  		{0x011F, UdsFunc_SID_RDBI_DID_011F_Callback},
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_ReadDataByIdentifier.c	   120  		{0x0120, UdsFunc_SID_RDBI_DID_0120_Callback},
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_ReadDataByIdentifier.c	   121  		{0x0121, UdsFunc_SID_RDBI_DID_0121_Callback},
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_ReadDataByIdentifier.c	   122  		{0x0122, UdsFunc_SID_RDBI_DID_0122_Callback},
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_ReadDataByIdentifier.c	   123  		{0x0123, UdsFunc_SID_RDBI_DID_0123_Callback},
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_ReadDataByIdentifier.c	   124  		{0x0125, UdsFunc_SID_RDBI_DID_0125_Callback},
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_ReadDataByIdentifier.c	   125  		{0x0126, UdsFunc_SID_RDBI_DID_0126_Callback},
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_ReadDataByIdentifier.c	   126  		{0x0128, UdsFunc_SID_RDBI_DID_0128_Callback},
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_ReadDataByIdentifier.c	   127  		{0x0129, UdsFunc_SID_RDBI_DID_0129_Callback},
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_ReadDataByIdentifier.c	   128  		{0x0137, UdsFunc_SID_RDBI_DID_0137_Callback},
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_ReadDataByIdentifier.c	   129  		{0x013D, UdsFunc_SID_RDBI_DID_013D_Callback},
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_ReadDataByIdentifier.c	   130  		{0x013F, UdsFunc_SID_RDBI_DID_013F_Callback},
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_ReadDataByIdentifier.c	   131  		{0x0140, UdsFunc_SID_RDBI_DID_0140_Callback},
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_ReadDataByIdentifier.c	   132  		{0x014B, UdsFunc_SID_RDBI_DID_014B_Callback},
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_ReadDataByIdentifier.c	   133  		{0x014C, UdsFunc_SID_RDBI_DID_014C_Callback},
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_ReadDataByIdentifier.c	   134  		{0x014D, UdsFunc_SID_RDBI_DID_014D_Callback},
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_ReadDataByIdentifier.c	   135  		{0x014E, UdsFunc_SID_RDBI_DID_014E_Callback},
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_ReadDataByIdentifier.c	   136  		{0x014F, UdsFunc_SID_RDBI_DID_014F_Callback},
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_ReadDataByIdentifier.c	   137  		{0x0150, UdsFunc_SID_RDBI_DID_0150_Callback},
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_ReadDataByIdentifier.c	   138  		{0x0151, UdsFunc_SID_RDBI_DID_0151_Callback},
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_ReadDataByIdentifier.c	   139  		{0x0153, UdsFunc_SID_RDBI_DID_0153_Callback},
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_ReadDataByIdentifier.c	   140  		{0x0154, UdsFunc_SID_RDBI_DID_0154_Callback},
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_ReadDataByIdentifier.c	   141  		{0x0156, UdsFunc_SID_RDBI_DID_0156_Callback},
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_ReadDataByIdentifier.c	   142  		{0x0157, UdsFunc_SID_RDBI_DID_0157_Callback},
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_ReadDataByIdentifier.c	   143  		{0x0158, UdsFunc_SID_RDBI_DID_0158_Callback},
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_ReadDataByIdentifier.c	   144  		{0x015B, UdsFunc_SID_RDBI_DID_015B_Callback},
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_ReadDataByIdentifier.c	   145  		{0x015C, UdsFunc_SID_RDBI_DID_015C_Callback},
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_ReadDataByIdentifier.c	   146  		{0x015F, UdsFunc_SID_RDBI_DID_015F_Callback},
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_ReadDataByIdentifier.c	   147  		{0x0160, UdsFunc_SID_RDBI_DID_0160_Callback},
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_ReadDataByIdentifier.c	   148  		{0x0163, UdsFunc_SID_RDBI_DID_0163_Callback},
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_ReadDataByIdentifier.c	   149  		{0x0164, UdsFunc_SID_RDBI_DID_0164_Callback},
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_ReadDataByIdentifier.c	   150  		{0x0166, UdsFunc_SID_RDBI_DID_0166_Callback},
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_ReadDataByIdentifier.c	   151  		{0x0168, UdsFunc_SID_RDBI_DID_0168_Callback},
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_ReadDataByIdentifier.c	   152  		{0x0169, UdsFunc_SID_RDBI_DID_0169_Callback},
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_ReadDataByIdentifier.c	   153  		{0x016A, UdsFunc_SID_RDBI_DID_016A_Callback},
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_ReadDataByIdentifier.c	   154  		{0x016B, UdsFunc_SID_RDBI_DID_016B_Callback},
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_ReadDataByIdentifier.c	   155  
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_ReadDataByIdentifier.c	   156  		{0x01A0, UdsFunc_SID_RDBI_DID_01A0_Callback	},            /*动力电池内部总电压*/
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_ReadDataByIdentifier.c	   157  		{0x01A1, UdsFunc_SID_RDBI_DID_01A1_Callback	},            /*动力电池充放电电流*/
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_ReadDataByIdentifier.c	   158  		{0x01A2, UdsFunc_SID_RDBI_DID_01A2_Callback	},            /*动力电池外部总电压*/
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_ReadDataByIdentifier.c	   159  		{0x01A3, UdsFunc_SID_RDBI_DID_01A3_Callback	},            /*动力电池负载端总电压*/
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_ReadDataByIdentifier.c	   160  		{0x01A5, UdsFunc_SID_RDBI_DID_01A5_Callback	},            /*直流母线电压*/
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_ReadDataByIdentifier.c	   161  		{0x01A6, UdsFunc_SID_RDBI_DID_01A6_Callback },            /*KL15*/
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_ReadDataByIdentifier.c	   162  		{0x01A7, UdsFunc_SID_RDBI_DID_01A7_Callback	},        		/*KL30*/
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_ReadDataByIdentifier.c	   163  		{0x01A8, UdsFunc_SID_RDBI_DID_01A8_Callback	},            /*BCU自检计数器*/
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_ReadDataByIdentifier.c	   164  		{0x01A9, UdsFunc_SID_RDBI_DID_01A9_Callback	},            /*整车BCU状态*/
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_ReadDataByIdentifier.c	   165  		{0x01AA, UdsFunc_SID_RDBI_DID_01AA_Callback	},            /*正极对地绝缘电阻*/
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_ReadDataByIdentifier.c	   166  		{0x01AB, UdsFunc_SID_RDBI_DID_01AB_Callback	},            /*负极对地绝缘电阻*/
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_ReadDataByIdentifier.c	   167  		{0x01AC, UdsFunc_SID_RDBI_DID_01AC_Callback	},            /*动力电池允许最大充电电流*/
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_ReadDataByIdentifier.c	   168  		{0x01AD, UdsFunc_SID_RDBI_DID_01AD_Callback	},            /*动力电池允许最高充电端电压*/
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_ReadDataByIdentifier.c	   169  		{0x01AE, UdsFunc_SID_RDBI_DID_01AE_Callback	},            /*当前状态允许最大放电功率*/
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_ReadDataByIdentifier.c	   170  		{0x01AF, UdsFunc_SID_RDBI_DID_01AF_Callback	},            /*当前状态允许最大馈电功率*/
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_ReadDataByIdentifier.c	   171  		{0x01B0, UdsFunc_SID_RDBI_DID_01B0_Callback	},            /*动力电池SOC*/
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_ReadDataByIdentifier.c	   172  		{0x01B1, UdsFunc_SID_RDBI_DID_01B1_Callback	},            /*动力电池可用容量*/
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_ReadDataByIdentifier.c	   173  		{0x01B2, UdsFunc_SID_RDBI_DID_01B2_Callback	},            /*动力电池可用能量*/
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_ReadDataByIdentifier.c	   174  		{0x01B3, UdsFunc_SID_RDBI_DID_01B3_Callback	},            /*单体电芯最高电压*/
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_ReadDataByIdentifier.c	   175  		{0x01B4, UdsFunc_SID_RDBI_DID_01B4_Callback	},            /*最高电压单体序号*/
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_ReadDataByIdentifier.c	   176  		{0x01B5, UdsFunc_SID_RDBI_DID_01B5_Callback	},            /*单体电芯最低电压*/
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_ReadDataByIdentifier.c	   177  		{0x01B6, UdsFunc_SID_RDBI_DID_01B6_Callback	},            /*最低电压单体序号*/
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_ReadDataByIdentifier.c	   178  		{0x01B7, UdsFunc_SID_RDBI_DID_01B7_Callback	},            /*单体电芯最高温度*/
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_ReadDataByIdentifier.c	   179  		{0x01B8, UdsFunc_SID_RDBI_DID_01B8_Callback	},            /*最高温度单体序号*/
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_ReadDataByIdentifier.c	   180  		{0x01B9, UdsFunc_SID_RDBI_DID_01B9_Callback	},            /*单体电芯最低温度*/
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_ReadDataByIdentifier.c	   181  		{0x01BA, UdsFunc_SID_RDBI_DID_01BA_Callback	},            /*最低温度单体序号*/
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_ReadDataByIdentifier.c	   182  		{0x01BB, UdsFunc_SID_RDBI_DID_01BB_Callback	},            /*BSM*/
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_ReadDataByIdentifier.c	   183  		{0x01BC, UdsFunc_SID_RDBI_DID_01BC_Callback	},            /*BST*/
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_ReadDataByIdentifier.c	   184  		{0x01BD, UdsFunc_SID_RDBI_DID_01BD_Callback	},            /*BEM*/
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_ReadDataByIdentifier.c	   185  		{0x01BE, UdsFunc_SID_RDBI_DID_01BE_Callback	},            /*子板故障状态*/
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_ReadDataByIdentifier.c	   186  		{0x01BF, UdsFunc_SID_RDBI_DID_01BF_Callback	},            /*供电电压*/
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_ReadDataByIdentifier.c	   187  		{0x01C0, UdsFunc_SID_RDBI_DID_01C0_Callback	},            /*MCU低压唤醒指令*/
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_ReadDataByIdentifier.c	   188  		{0x01C1, UdsFunc_SID_RDBI_DID_01C1_Callback	},            /*MCU初始化状态*/
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_ReadDataByIdentifier.c	   189  		{0x01C2, UdsFunc_SID_RDBI_DID_01C2_Callback	},            /*MCU软件版本号后两位*/
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_ReadDataByIdentifier.c	   190  #elif ECU_TYPE == ECU_BMS
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_ReadDataByIdentifier.c	   191  		{0xF180, 0x0F, 0x00, UdsFunc_SID_RDBI_DID_F180_Callback	},			  /*Bootloader版本号*/
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_ReadDataByIdentifier.c	   192  		{0xF183, 0x0F, 0x00, UdsFunc_SID_RDBI_DID_F180_Callback	},			  /*Bootloader版本号,测试编号*/
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_ReadDataByIdentifier.c	   193  		{0xF194, 0x0F, 0x00, UdsFunc_SID_RDBI_DID_F194_Callback	},            /*软件编码*/
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_ReadDataByIdentifier.c	   194  		{0xF199, 0x0F, 0x00, UdsFunc_SID_RDBI_DID_F194_Callback	},			  /*测试编号*/
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_ReadDataByIdentifier.c	   195  		{0xF195, 0x0D, 0x00, UdsFunc_SID_RDBI_DID_F195_Callback	},			  /*软件版本号标识符*/
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_ReadDataByIdentifier.c	   196  
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_ReadDataByIdentifier.c	   197  #elif ECU_TYPE == ECU_MCU
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_ReadDataByIdentifier.c	   198  		{0xF183, UdsFunc_SID_RDBI_DID_F183_Callback},     /*Bootloader版本号*/
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_ReadDataByIdentifier.c	   199  		{0xF184, UdsFunc_SID_RDBI_DID_F184_Callback},     /*应用软件指纹*/
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_ReadDataByIdentifier.c	   200  		{0xF187, UdsFunc_SID_RDBI_DID_F187_Callback},     /*零件号*/
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_ReadDataByIdentifier.c	   201  		{0xF18A, UdsFunc_SID_RDBI_DID_F18A_Callback},     /*供应商代码*/
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_ReadDataByIdentifier.c	   202  		{0xF190, UdsFunc_SID_RDBI_DID_F190_Callback},     /*VIN*/
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_ReadDataByIdentifier.c	   203  		{0xF191, UdsFunc_SID_RDBI_DID_F191_Callback},     /*ECU硬件版本号*/
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_ReadDataByIdentifier.c	   204  		{0xF195, UdsFunc_SID_RDBI_DID_F195_Callback},     /*ECU软件版本号*/
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_ReadDataByIdentifier.c	   205  		{0xF199, UdsFunc_SID_RDBI_DID_F199_Callback},     /*编程日期*/
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_ReadDataByIdentifier.c	   206  		{0x02FF, UdsFunc_SID_RDBI_DID_02FF_Callback},     /*电机编码*/
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_ReadDataByIdentifier.c	   207  
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_ReadDataByIdentifier.c	   208  		{0x0202, UdsFunc_SID_RDBI_DID_0202_Callback},      //驱动电机工作模式命令
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_ReadDataByIdentifier.c	   209  		{0x0212, UdsFunc_SID_RDBI_DID_0212_Callback},      //整车行驶状态命令
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_ReadDataByIdentifier.c	   210  		{0x0203, UdsFunc_SID_RDBI_DID_0203_Callback},      //驱动电机控制器工作状态
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_ReadDataByIdentifier.c	   211  		{0x0213, UdsFunc_SID_RDBI_DID_0213_Callback},      //整车State状态
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_ReadDataByIdentifier.c	   212  		{0x0200, UdsFunc_SID_RDBI_DID_0200_Callback},      //直流母线电压
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_ReadDataByIdentifier.c	   213  		{0x0201, UdsFunc_SID_RDBI_DID_0201_Callback},      //直流母线电流
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_ReadDataByIdentifier.c	   214  		{0x0204, UdsFunc_SID_RDBI_DID_0204_Callback},      //驱动电机目标转矩命令
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_ReadDataByIdentifier.c	   215  		{0x0206, UdsFunc_SID_RDBI_DID_0206_Callback},      //驱动电机目标转速命令
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_ReadDataByIdentifier.c	   216  		{0x0205, UdsFunc_SID_RDBI_DID_0205_Callback},      //驱动电机当前转矩
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_ReadDataByIdentifier.c	   217  		{0x0207, UdsFunc_SID_RDBI_DID_0207_Callback},      //驱动电机当前转速
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_ReadDataByIdentifier.c	   218  		{0x0214, UdsFunc_SID_RDBI_DID_0214_Callback},      //MCU IGBT温度（A相）
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_ReadDataByIdentifier.c	   219  		{0x0215, UdsFunc_SID_RDBI_DID_0215_Callback},      //MCU IGBT温度（B相）
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_ReadDataByIdentifier.c	   220  		{0x0216, UdsFunc_SID_RDBI_DID_0216_Callback},      //MCU IGBT温度（C相）
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_ReadDataByIdentifier.c	   221  		{0x0208, UdsFunc_SID_RDBI_DID_0208_Callback},      //MCU温度
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_ReadDataByIdentifier.c	   222  		{0x0209, UdsFunc_SID_RDBI_DID_0209_Callback},      //驱动电机温度
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_ReadDataByIdentifier.c	   223  		{0x0221, UdsFunc_SID_RDBI_DID_0221_Callback},      //驱动板电流
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_ReadDataByIdentifier.c	   224  		{0x020C, UdsFunc_SID_RDBI_DID_020C_Callback},      //Id给定值
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_ReadDataByIdentifier.c	   225  		{0x020E, UdsFunc_SID_RDBI_DID_020E_Callback},      //Id反馈值
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_ReadDataByIdentifier.c	   226  		{0x020D, UdsFunc_SID_RDBI_DID_020D_Callback},      //Iq给定值
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_ReadDataByIdentifier.c	   227  		{0x020F, UdsFunc_SID_RDBI_DID_020F_Callback},      //Iq反馈值
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_ReadDataByIdentifier.c	   228  		{0x020A, UdsFunc_SID_RDBI_DID_020A_Callback},      //Ud
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_ReadDataByIdentifier.c	   229  		{0x020B, UdsFunc_SID_RDBI_DID_020B_Callback},      //Uq
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_ReadDataByIdentifier.c	   230  		{0x0217, UdsFunc_SID_RDBI_DID_0217_Callback},      //转子位置电角度
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_ReadDataByIdentifier.c	   231  		{0x0218, UdsFunc_SID_RDBI_DID_0218_Callback},      //转子位置初始角度
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_ReadDataByIdentifier.c	   232  		{0x0210, UdsFunc_SID_RDBI_DID_0210_Callback},      //MCU低压电源电压
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_ReadDataByIdentifier.c	   233  		{0x0219, UdsFunc_SID_RDBI_DID_0219_Callback},      //MCU相电流有效值
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_ReadDataByIdentifier.c	   234  		{0x021A, UdsFunc_SID_RDBI_DID_021A_Callback},      //油门踏板开度
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_ReadDataByIdentifier.c	   235  		{0x021B, UdsFunc_SID_RDBI_DID_021B_Callback},      //制动踏板信号
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_ReadDataByIdentifier.c	   236  		{0x021C, UdsFunc_SID_RDBI_DID_021C_Callback},      //MCU A相电流
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_ReadDataByIdentifier.c	   237  		{0x021D, UdsFunc_SID_RDBI_DID_021D_Callback},      //MCU B相电流
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_ReadDataByIdentifier.c	   238  		{0x021E, UdsFunc_SID_RDBI_DID_021E_Callback},      //MCU C相电流
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_ReadDataByIdentifier.c	   239  		{0x0222, UdsFunc_SID_RDBI_DID_0222_Callback},      //U相电流采样电压值
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_ReadDataByIdentifier.c	   240  		{0x0223, UdsFunc_SID_RDBI_DID_0223_Callback},      //V相电流采样电压值
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_ReadDataByIdentifier.c	   241  		{0x0224, UdsFunc_SID_RDBI_DID_0224_Callback},      //W相电流采样电压值
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_ReadDataByIdentifier.c	   242  		{0x0225, UdsFunc_SID_RDBI_DID_0225_Callback},      //U相IGBT温度采样电压值
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_ReadDataByIdentifier.c	   243  		{0x0226, UdsFunc_SID_RDBI_DID_0226_Callback},      //V相IGBT温度采样电压值
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_ReadDataByIdentifier.c	   244  		{0x0227, UdsFunc_SID_RDBI_DID_0227_Callback},      //W相IGBT温度采样电压值
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_ReadDataByIdentifier.c	   245  		{0x0228, UdsFunc_SID_RDBI_DID_0228_Callback},      //电机温度采样电压值
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_ReadDataByIdentifier.c	   246  		{0x0229, UdsFunc_SID_RDBI_DID_0229_Callback},      //直流母线电压采样电压值
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_ReadDataByIdentifier.c	   247  		{0x022A, UdsFunc_SID_RDBI_DID_022A_Callback},      //直流母线电流采样电压值
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_ReadDataByIdentifier.c	   248  		{0x022B, UdsFunc_SID_RDBI_DID_022B_Callback},      //电机当前转矩（估算值）
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_ReadDataByIdentifier.c	   249  		{0x022C, UdsFunc_SID_RDBI_DID_022C_Callback},      //电机高压暴露信号1
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_ReadDataByIdentifier.c	   250  		{0x022D, UdsFunc_SID_RDBI_DID_022D_Callback},      //电机高压暴露信号2
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_ReadDataByIdentifier.c	   251  		{0x022E, UdsFunc_SID_RDBI_DID_022E_Callback},      //旋变故障码
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_ReadDataByIdentifier.c	   252  		{0x022F, UdsFunc_SID_RDBI_DID_022F_Callback},      //三相电流传感器供电电源电压
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_ReadDataByIdentifier.c	   253  		{0x0231, UdsFunc_SID_RDBI_DID_0231_Callback},      //旋变供电电源电压
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_ReadDataByIdentifier.c	   254  		{0x0232, UdsFunc_SID_RDBI_DID_0232_Callback},      //驱动板电源模块电压
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_ReadDataByIdentifier.c	   255  		{0x0233, UdsFunc_SID_RDBI_DID_0233_Callback},      //加速踏板信号1电压
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_ReadDataByIdentifier.c	   256  		{0x0234, UdsFunc_SID_RDBI_DID_0234_Callback},      //加速踏板信号2电压
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_ReadDataByIdentifier.c	   257  		{0x0235, UdsFunc_SID_RDBI_DID_0235_Callback},      //加速踏板供电电源电压
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_ReadDataByIdentifier.c	   258  		{0x0236, UdsFunc_SID_RDBI_DID_0236_Callback},      //制动踏板供电电源电压
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_ReadDataByIdentifier.c	   259  
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_ReadDataByIdentifier.c	   260  #elif ECU_TYPE == ECU_BMS_FRWK_3
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_ReadDataByIdentifier.c	   261  		{0xF183, UdsFunc_SID_RDBI_DID_F183_Callback	},			  /*Bootloader版本号*/
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_ReadDataByIdentifier.c	   262  		{0xF184, UdsFunc_SID_RDBI_DID_F184_Callback	},            /*应用软件指纹*/
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_ReadDataByIdentifier.c	   263  		{0xF187, UdsFunc_SID_RDBI_DID_F187_Callback },            /*零件号*/
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_ReadDataByIdentifier.c	   264  		{0xF18A, UdsFunc_SID_RDBI_DID_F18A_Callback },		      /*回调函数*/
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_ReadDataByIdentifier.c	   265  		{0xF190, UdsFunc_SID_RDBI_DID_F190_Callback },            /*VIN*/
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_ReadDataByIdentifier.c	   266  		{0xF191, UdsFunc_SID_RDBI_DID_F191_Callback	},            /*ECU硬件版本号*/
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_ReadDataByIdentifier.c	   267  		{0xF195, UdsFunc_SID_RDBI_DID_F195_Callback	},            /*ECU软件版本号*/
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_ReadDataByIdentifier.c	   268  		{0xF199, UdsFunc_SID_RDBI_DID_F199_Callback	},            /*编程日期*/
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_ReadDataByIdentifier.c	   269  		{0xF19F, UdsFunc_SID_RDBI_DID_F19F_Callback	},
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_ReadDataByIdentifier.c	   270  		{0x01FF, UdsFunc_SID_RDBI_DID_01FF_Callback	},            //电池编码
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_ReadDataByIdentifier.c	   271  		{0xF1A0, UdsFunc_SID_RDBI_DID_F1A0_Callback	},
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_ReadDataByIdentifier.c	   272  		{0xF1A1, UdsFunc_SID_RDBI_DID_F1A1_Callback	},
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_ReadDataByIdentifier.c	   273  		{0xF1A2, UdsFunc_SID_RDBI_DID_F1A2_Callback	},
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_ReadDataByIdentifier.c	   274  		{0xF1A3, UdsFunc_SID_RDBI_DID_F1A3_Callback	},
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_ReadDataByIdentifier.c	   275  		{0x0B7F, UdsFunc_SID_RDBI_DID_0B7F_Callback },            /*流水号*/
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_ReadDataByIdentifier.c	   276  		{0x01A0, UdsFunc_SID_RDBI_DID_01A0_Callback	},            /*动力电池内部总电压*/
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_ReadDataByIdentifier.c	   277  		{0x01A1, UdsFunc_SID_RDBI_DID_01A1_Callback	},            /*动力电池充放电电流*/
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_ReadDataByIdentifier.c	   278  		{0x01A2, UdsFunc_SID_RDBI_DID_01A2_Callback	},            /*动力电池外部总电压*/
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_ReadDataByIdentifier.c	   279  		{0x01A3, UdsFunc_SID_RDBI_DID_01A3_Callback	},            /*动力电池负载端总电压*/
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_ReadDataByIdentifier.c	   280  		{0x01A4, UdsFunc_SID_RDBI_DID_01A4_Callback	},            /*整车STATE状态*/
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_ReadDataByIdentifier.c	   281  		{0x01A5, UdsFunc_SID_RDBI_DID_01A5_Callback	},            /*直流母线电压*/
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_ReadDataByIdentifier.c	   282  		{0x01A6, UdsFunc_SID_RDBI_DID_01A6_Callback },            /*KL15*/
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_ReadDataByIdentifier.c	   283  		{0x01A7, UdsFunc_SID_RDBI_DID_01A7_Callback	},        		/*KL30*/
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_ReadDataByIdentifier.c	   284  		{0x01A8, UdsFunc_SID_RDBI_DID_01A8_Callback	},            /*BCU自检计数器*/
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_ReadDataByIdentifier.c	   285  		{0x01A9, UdsFunc_SID_RDBI_DID_01A9_Callback	},            /*整车BCU状态*/
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_ReadDataByIdentifier.c	   286  		{0x01AA, UdsFunc_SID_RDBI_DID_01AA_Callback	},            /*正极对地绝缘电阻*/
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_ReadDataByIdentifier.c	   287  		{0x01AB, UdsFunc_SID_RDBI_DID_01AB_Callback	},            /*负极对地绝缘电阻*/
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_ReadDataByIdentifier.c	   288  		{0x01AC, UdsFunc_SID_RDBI_DID_01AC_Callback	},            /*动力电池允许最大充电电流*/
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_ReadDataByIdentifier.c	   289  		{0x01AD, UdsFunc_SID_RDBI_DID_01AD_Callback	},            /*动力电池允许最高充电端电压*/
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_ReadDataByIdentifier.c	   290  		{0x01AE, UdsFunc_SID_RDBI_DID_01AE_Callback	},            /*当前状态允许最大放电功率*/
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_ReadDataByIdentifier.c	   291  		{0x01AF, UdsFunc_SID_RDBI_DID_01AF_Callback	},            /*当前状态允许最大馈电功率*/
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_ReadDataByIdentifier.c	   292  		{0x01B0, UdsFunc_SID_RDBI_DID_01B0_Callback	},            /*动力电池SOC*/
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_ReadDataByIdentifier.c	   293  		{0x01B1, UdsFunc_SID_RDBI_DID_01B1_Callback	},            /*动力电池可用容量*/
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_ReadDataByIdentifier.c	   294  		{0x01B2, UdsFunc_SID_RDBI_DID_01B2_Callback	},            /*动力电池可用能量*/
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_ReadDataByIdentifier.c	   295  		{0x01B3, UdsFunc_SID_RDBI_DID_01B3_Callback	},            /*单体电芯最高电压*/
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_ReadDataByIdentifier.c	   296  		{0x01B4, UdsFunc_SID_RDBI_DID_01B4_Callback	},            /*最高电压单体序号*/
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_ReadDataByIdentifier.c	   297  		{0x01B5, UdsFunc_SID_RDBI_DID_01B5_Callback	},            /*单体电芯最低电压*/
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_ReadDataByIdentifier.c	   298  		{0x01B6, UdsFunc_SID_RDBI_DID_01B6_Callback	},            /*最低电压单体序号*/
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_ReadDataByIdentifier.c	   299  		{0x01B7, UdsFunc_SID_RDBI_DID_01B7_Callback	},            /*单体电芯最高温度*/
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_ReadDataByIdentifier.c	   300  		{0x01B8, UdsFunc_SID_RDBI_DID_01B8_Callback	},            /*最高温度单体序号*/
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_ReadDataByIdentifier.c	   301  		{0x01B9, UdsFunc_SID_RDBI_DID_01B9_Callback	},            /*单体电芯最低温度*/
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_ReadDataByIdentifier.c	   302  		{0x01BA, UdsFunc_SID_RDBI_DID_01BA_Callback	},            /*最低温度单体序号*/
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_ReadDataByIdentifier.c	   303  		{0x01BB, UdsFunc_SID_RDBI_DID_01BB_Callback	},            /*BSM*/
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_ReadDataByIdentifier.c	   304  		{0x01BC, UdsFunc_SID_RDBI_DID_01BC_Callback	},            /*BST*/
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_ReadDataByIdentifier.c	   305  		{0x01BD, UdsFunc_SID_RDBI_DID_01BD_Callback	},            /*BEM*/
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_ReadDataByIdentifier.c	   306  		{0x01BE, UdsFunc_SID_RDBI_DID_01BE_Callback	},            /*子板故障状态*/
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_ReadDataByIdentifier.c	   307  		{0x01BF, UdsFunc_SID_RDBI_DID_01BF_Callback	},            /*供电电压*/
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_ReadDataByIdentifier.c	   308  		{0x01C0, UdsFunc_SID_RDBI_DID_01C0_Callback	},            /*MCU低压唤醒指令*/
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_ReadDataByIdentifier.c	   309  		{0x01C1, UdsFunc_SID_RDBI_DID_01C1_Callback	},            /*MCU初始化状态*/
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_ReadDataByIdentifier.c	   310  		{0x01C2, UdsFunc_SID_RDBI_DID_01C2_Callback	},            /*MCU软件版本号后两位*/
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_ReadDataByIdentifier.c	   311  
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_ReadDataByIdentifier.c	   312  #endif
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_ReadDataByIdentifier.c	   313  };
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_ReadDataByIdentifier.c	   314  //此行勿动*************************************************************************
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_ReadDataByIdentifier.c	   315  const uint16 UDS_SID_RDBI_DID_NUMBER = sizeof(st_Uds_SID_RDBI)/sizeof(Struct_Uds_SID_RDBI);
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_ReadDataByIdentifier.c	   316  
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_ReadDataByIdentifier.c	   317  //**********************************************************************************
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_ReadDataByIdentifier.c	   318  /*************************************************************************/
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_ReadDataByIdentifier.c	   319  /*
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_ReadDataByIdentifier.c	   320  Function:		void UdsFunc_SID_RDBI_Analysis(uint8 *ui8_pInd, uint16 ui16_IndLen)
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_ReadDataByIdentifier.c	   321  
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_ReadDataByIdentifier.c	   322  Description: 	此函数用于解析SID_RDBI服务
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_ReadDataByIdentifier.c	   323  
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_ReadDataByIdentifier.c	   324  Parameters: 	ui8_pInd(不含SID)
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_ReadDataByIdentifier.c	   325  				ui16_IndLen(不含SID)
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_ReadDataByIdentifier.c	   326  
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_ReadDataByIdentifier.c	   327  Return:       	void
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_ReadDataByIdentifier.c	   328  
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_ReadDataByIdentifier.c	   329  Return Values:  无
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_ReadDataByIdentifier.c	   330  
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_ReadDataByIdentifier.c	   331  Remarks:
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_ReadDataByIdentifier.c	   332  
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_ReadDataByIdentifier.c	   333  Example:
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_ReadDataByIdentifier.c	   334  */
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_ReadDataByIdentifier.c	   335  void UdsFunc_SID_RDBI_Analysis(uint8 *ui8_pInd, uint16 ui16_IndLen)
+; Function UdsFunc_SID_RDBI_Analysis
+.L32:
+UdsFunc_SID_RDBI_Analysis:	.type	func
+
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_ReadDataByIdentifier.c	   336  {
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_ReadDataByIdentifier.c	   337  	uint8	ui8_Loop_1;		/*循环计数器*/
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_ReadDataByIdentifier.c	   338  	uint8	ui8_Loop_2;		/*循环计数器*/
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_ReadDataByIdentifier.c	   339  	uint8	ui8_Loop_3;		/*循环计数器*/
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_ReadDataByIdentifier.c	   340  	uint16	ui16_DID;		/*DID*/
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_ReadDataByIdentifier.c	   341  	boolean	b_ErrFlag;		/*错误标志*/
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_ReadDataByIdentifier.c	   342  	boolean	b_Neg_78_Flag;	/*Neg 78回应标志*/
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_ReadDataByIdentifier.c	   343  
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_ReadDataByIdentifier.c	   344  	if((ui16_IndLen % 2U) == 0U)	/*判断长度*/
+	mov	d2,#0
+.L80:
+	jnz.t	d4:0,.L2				; predicted not taken
+.L102:
+
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_ReadDataByIdentifier.c	   345  	{
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_ReadDataByIdentifier.c	   346  		b_ErrFlag = FALSE;
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_ReadDataByIdentifier.c	   347  		ui8_Loop_3 = 0U;
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_ReadDataByIdentifier.c	   348  		for(ui8_Loop_1 = 0U; ui8_Loop_1 < UDS_SID_RDBI_DID_NUMBER; ui8_Loop_1++)
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_ReadDataByIdentifier.c	   349  		{
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_ReadDataByIdentifier.c	   350  			ui16_SID_RDBI_DID_Buf[ui8_Loop_1] = 0x00U;	/*清ID Buffer*/
+	mov	d4,d2
+	movh.a	a5,#@his(ui16_SID_RDBI_DID_Buf)
+.L79:
+	lea	a5,[a5]@los(ui16_SID_RDBI_DID_Buf)
+.L103:
+	mov.aa	a15,a5
+.L104:
+	mov.a	a2,#4
+.L3:
+	st.h	[a15+],d2
+.L105:
+	loop	a2,.L3				; predicted taken
+.L106:
+
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_ReadDataByIdentifier.c	   351  		}
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_ReadDataByIdentifier.c	   352  
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_ReadDataByIdentifier.c	   353  		for(ui8_Loop_1 = 0U; ui8_Loop_1 < st_Uds_Indication.ui16_pLength[0U] - 1U; ui8_Loop_1 += 2U)
+	mov	d3,#0
+	movh.a	a15,#@his(st_Uds_Indication+12)
+.L82:
+	ld.a	a6,[a15]@los(st_Uds_Indication+12)
+.L107:
+
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_ReadDataByIdentifier.c	   354  		{
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_ReadDataByIdentifier.c	   355  			ui16_DID = (uint16)ui8_pInd[ui8_Loop_1] * 0x100U + ui8_pInd[ui8_Loop_1 + 1U];	/*从TP层取服务数据ID*/
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_ReadDataByIdentifier.c	   356  
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_ReadDataByIdentifier.c	   357  			for(ui8_Loop_2 = 0U; ui8_Loop_2 < UDS_SID_RDBI_DID_NUMBER; ui8_Loop_2++)
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_ReadDataByIdentifier.c	   358  			{
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_ReadDataByIdentifier.c	   359  				if(ui16_DID == st_Uds_SID_RDBI[ui8_Loop_2].ui16_DID)	/*检查到匹配DID*/
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_ReadDataByIdentifier.c	   360  				{
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_ReadDataByIdentifier.c	   361  					ui16_SID_RDBI_DID_Buf[ui8_Loop_3] = ui16_DID;
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_ReadDataByIdentifier.c	   362  					ui8_Loop_3++;
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_ReadDataByIdentifier.c	   363  					break;
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_ReadDataByIdentifier.c	   364  				}
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_ReadDataByIdentifier.c	   365  			}
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_ReadDataByIdentifier.c	   366  
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_ReadDataByIdentifier.c	   367  			if(ui8_Loop_2 >= UDS_SID_RDBI_DID_NUMBER)	/*未检查到匹配ID*/
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_ReadDataByIdentifier.c	   368  			{
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_ReadDataByIdentifier.c	   369  				b_ErrFlag = TRUE;	/*错误标志有效*/
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_ReadDataByIdentifier.c	   370  				st_Uds_Response.ui8_ResCode = UDS_RES_CODE_ROOR;	/*数据越界错误响应*/
+	movh.a	a7,#@his(st_Uds_Response)
+	lea	a7,[a7]@los(st_Uds_Response)
+.L108:
+	movh.a	a12,#@his(st_Uds_SID_RDBI)
+	lea	a12,[a12]@los(st_Uds_SID_RDBI)
+.L109:
+	j	.L4
+.L5:
+	addsc.a	a15,a4,d3,#0
+.L110:
+	ld.bu	d0,[a15]
+.L111:
+	sh	d0,d0,#8
+	ld.bu	d15,[a15]1
+.L84:
+	add	d0,d15
+	mov.aa	a15,a12
+.L112:
+	mov	d1,#0
+	mov.a	a2,#4
+.L6:
+	ld.hu	d15,[a15]0
+.L113:
+	jne	d15,d0,.L7				; prediction unknown
+.L114:
+	addsc.a	a15,a5,d4,#1
+.L115:
+	st.h	[a15],d0
+.L116:
+	add	d0,d4,#1
+.L85:
+	extr.u	d4,d0,#0,#8
+.L117:
+	j	.L8
+.L7:
+	add	d1,#1
+	lea	a15,[a15]8
+.L118:
+	loop	a2,.L6				; predicted taken
+.L8:
+	jlt.u	d1,#5,.L9				; unsupported prediction taken forward branch
+.L119:
+	mov	d2,#1
+.L120:
+	mov	d15,#49
+	st.b	[a7],d15
+.L121:
+
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_ReadDataByIdentifier.c	   371  				break;
+	j	.L10
+.L9:
+
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_ReadDataByIdentifier.c	   372  			}
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_ReadDataByIdentifier.c	   373  			else										/*查询到匹配的ID*/
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_ReadDataByIdentifier.c	   374  			{
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_ReadDataByIdentifier.c	   375  				/*判断Session是否支持*/
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_ReadDataByIdentifier.c	   376  				if((st_Uds_SID_DSC_Info.ui8_Active_Session & st_Uds_SID_RDBI[ui8_Loop_2].ui8_Session_Support) != 0U)
+	addsc.a	a15,a12,d1,#3
+.L122:
+	movh.a	a2,#@his(st_Uds_SID_DSC_Info)
+	lea	a2,[a2]@los(st_Uds_SID_DSC_Info)
+.L123:
+	ld.bu	d1,[a2]
+.L86:
+	ld.bu	d15,[a15]2
+.L124:
+	and	d1,d15
+	ld.bu	d0,[a7]
+.L125:
+	jeq	d1,#0,.L11				; predicted not taken
+.L126:
+
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_ReadDataByIdentifier.c	   377  				{
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_ReadDataByIdentifier.c	   378  					/*判断服务无需密钥，或密钥已解锁*/
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_ReadDataByIdentifier.c	   379  					if(((st_Uds_SID_RDBI[ui8_Loop_2].b_Security_En & st_Uds_SID_SA_Info.b_Security_Locked) != 0U) || (st_Uds_SID_RDBI[ui8_Loop_2].b_Security_En == 0U))
+	ld.bu	d15,[a15]3
+.L127:
+	movh.a	a15,#@his(st_Uds_SID_SA_Info)
+	lea	a15,[a15]@los(st_Uds_SID_SA_Info)
+.L128:
+	ld.bu	d1,[a15]
+.L129:
+	and	d1,d15
+.L130:
+	jne	d1,#0,.L12				; predicted not taken
+.L131:
+	jeq	d15,#0,.L13				; predicted taken
+.L132:
+
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_ReadDataByIdentifier.c	   380  					{
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_ReadDataByIdentifier.c	   381  						/**/
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_ReadDataByIdentifier.c	   382  					}
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_ReadDataByIdentifier.c	   383  					else
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_ReadDataByIdentifier.c	   384  					{
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_ReadDataByIdentifier.c	   385  						b_ErrFlag = TRUE;	/*错误标志有效*/
+	mov	d2,#1
+.L133:
+
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_ReadDataByIdentifier.c	   386  						st_Uds_Response.ui8_ResCode = UDS_RES_CODE_SAD;	/*服务密钥未解锁响应*/
+	mov	d0,#51
+.L134:
+	j	.L14
+.L11:
+
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_ReadDataByIdentifier.c	   387  					}
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_ReadDataByIdentifier.c	   388  				}
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_ReadDataByIdentifier.c	   389  				else
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_ReadDataByIdentifier.c	   390  				{
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_ReadDataByIdentifier.c	   391  					b_ErrFlag = TRUE;	/*错误标志有效*/
+	mov	d2,#1
+.L135:
+
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_ReadDataByIdentifier.c	   392  					st_Uds_Response.ui8_ResCode = UDS_RES_CODE_SNSIAS;	/*服务在工作Session下不支持响应*/
+	mov	d0,#127
+.L14:
+.L13:
+.L12:
+	add	d3,#2
+	st.b	[a7],d0
+.L83:
+	extr.u	d3,d3,#0,#8
+.L4:
+	ld.hu	d15,[a6]0
+.L136:
+	add	d15,#-1
+.L137:
+	jlt.u	d3,d15,.L5				; predicted taken
+
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_ReadDataByIdentifier.c	   393  				}
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_ReadDataByIdentifier.c	   394  			}
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_ReadDataByIdentifier.c	   395  		}
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_ReadDataByIdentifier.c	   396  
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_ReadDataByIdentifier.c	   397  		if(b_ErrFlag == FALSE)	/*错误标志无效*/
+.L10:
+	jne	d2,#0,.L15				; predicted not taken
+.L138:
+
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_ReadDataByIdentifier.c	   398  		{
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_ReadDataByIdentifier.c	   399  			b_Neg_78_Flag = FALSE;
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_ReadDataByIdentifier.c	   400  			for(ui8_Loop_1 = 0U; ui8_Loop_1 < UDS_SID_RDBI_DID_NUMBER; ui8_Loop_1++)
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_ReadDataByIdentifier.c	   401  			{
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_ReadDataByIdentifier.c	   402  				for(ui8_Loop_2 = 0U; ui8_Loop_2 < UDS_SID_WDBI_DID_NUMBER; ui8_Loop_2++)
+	mov	d0,#0
+	movh.a	a15,#@his(UDS_SID_WDBI_DID_NUMBER)
+.L87:
+	lea	a15,[a15]@los(UDS_SID_WDBI_DID_NUMBER)
+	ld.hu	d2,[a15]0
+.L81:
+	mov.a	a15,#4
+.L16:
+
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_ReadDataByIdentifier.c	   403  				{
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_ReadDataByIdentifier.c	   404  					if(ui16_SID_RDBI_DID_Buf[ui8_Loop_1] == st_Uds_SID_WDBI[ui8_Loop_2].ui16_DID)	/*检查到需要写EEP的ID，首先回应78 Neg*/
+	mov	d1,#0
+	movh.a	a2,#@his(st_Uds_SID_WDBI)
+.L88:
+	lea	a2,[a2]@los(st_Uds_SID_WDBI)
+.L139:
+	mov.aa	a4,a5
+.L140:
+	add.a	a5,#2
+.L141:
+	j	.L17
+.L18:
+	ld.hu	d3,[a4]0
+.L142:
+	ld.hu	d15,[a2]0
+.L143:
+	jne	d15,d3,.L19				; predicted taken
+.L144:
+
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_ReadDataByIdentifier.c	   405  					{
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_ReadDataByIdentifier.c	   406  						b_Neg_78_Flag = TRUE;
+	mov	d0,#1
+.L145:
+
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_ReadDataByIdentifier.c	   407  						break;
+	j	.L20
+.L19:
+	add	d1,#1
+	lea	a2,[a2]12
+.L89:
+	extr.u	d1,d1,#0,#8
+.L17:
+	jlt.u	d1,d2,.L18				; predicted taken
+
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_ReadDataByIdentifier.c	   408  					}
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_ReadDataByIdentifier.c	   409  				}
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_ReadDataByIdentifier.c	   410  			}
+.L20:
+	loop	a15,.L16				; predicted taken
+.L146:
+
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_ReadDataByIdentifier.c	   411  
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_ReadDataByIdentifier.c	   412  			if(b_Neg_78_Flag == TRUE)	/*判断是否回应78*/
+	jeq	d0,#0,.L21				; predicted taken
+.L147:
+
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_ReadDataByIdentifier.c	   413  			{
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_ReadDataByIdentifier.c	   414  				st_Uds_Response.ui8_ResCode = UDS_RES_CODE_RCRRP;	/*请求挂起响应*/
+	movh.a	a15,#@his(st_Uds_Response)
+	lea	a15,[a15]@los(st_Uds_Response)
+.L148:
+	mov	d15,#120
+	st.b	[a15],d15
+.L21:
+
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_ReadDataByIdentifier.c	   415  			}
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_ReadDataByIdentifier.c	   416  			st_Uds_Dcm_Info.ui8_Cur_Task = UDS_TASK_SID_RDBI;	/*当前为 ReadDataByIdentifier任务*/
+	movh.a	a15,#@his(st_Uds_Dcm_Info)
+	lea	a15,[a15]@los(st_Uds_Dcm_Info)
+.L149:
+	mov	d15,#7
+	st.b	[a15]4,d15
+.L15:
+
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_ReadDataByIdentifier.c	   417  		}
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_ReadDataByIdentifier.c	   418  	}
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_ReadDataByIdentifier.c	   419  	else
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_ReadDataByIdentifier.c	   420  	{
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_ReadDataByIdentifier.c	   421  		st_Uds_Response.ui8_ResCode = UDS_RES_CODE_IMLOIF;	/*数据长度错误响应*/
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_ReadDataByIdentifier.c	   422  	}
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_ReadDataByIdentifier.c	   423  }
+	ret
+.L2:
+	movh.a	a15,#@his(st_Uds_Response)
+	lea	a15,[a15]@los(st_Uds_Response)
+.L150:
+	mov	d15,#19
+	st.b	[a15],d15
+.L151:
+	ret
+.L55:
+	
+__UdsFunc_SID_RDBI_Analysis_function_end:
+	.size	UdsFunc_SID_RDBI_Analysis,__UdsFunc_SID_RDBI_Analysis_function_end-UdsFunc_SID_RDBI_Analysis
+.L43:
+	; End of function
+	
+	.sdecl	'.text.Uds_Dcm_ReadDataByIdentifier.UdsFunc_SID_RDBI_Appl_Deal',code,cluster('UdsFunc_SID_RDBI_Appl_Deal')
+	.sect	'.text.Uds_Dcm_ReadDataByIdentifier.UdsFunc_SID_RDBI_Appl_Deal'
+	.align	2
+	
+	.global	UdsFunc_SID_RDBI_Appl_Deal
+
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_ReadDataByIdentifier.c	   424  
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_ReadDataByIdentifier.c	   425  /*************************************************************************/
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_ReadDataByIdentifier.c	   426  /*
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_ReadDataByIdentifier.c	   427  Function:		boolean UdsFunc_SID_RDBI_Appl_Deal
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_ReadDataByIdentifier.c	   428  				(uint8 *ui8_pInd, uint8 *ui8_pRes, uint16 *ui16_pResLen)
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_ReadDataByIdentifier.c	   429  
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_ReadDataByIdentifier.c	   430  Description: 	此函数用于处理SID_RDBI应用层任务
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_ReadDataByIdentifier.c	   431  
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_ReadDataByIdentifier.c	   432  Parameters: 	ui8_pInd(不含SID)
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_ReadDataByIdentifier.c	   433  				ui8_pRes(不含SID)
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_ReadDataByIdentifier.c	   434  				ui16_pResLen
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_ReadDataByIdentifier.c	   435  
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_ReadDataByIdentifier.c	   436  Return:       	boolean
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_ReadDataByIdentifier.c	   437  
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_ReadDataByIdentifier.c	   438  Return Values:  E_OK		任务完成
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_ReadDataByIdentifier.c	   439  				E_NOT_OK	任务未完成
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_ReadDataByIdentifier.c	   440  
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_ReadDataByIdentifier.c	   441  Remarks:
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_ReadDataByIdentifier.c	   442  
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_ReadDataByIdentifier.c	   443  Example:
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_ReadDataByIdentifier.c	   444  */
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_ReadDataByIdentifier.c	   445  boolean UdsFunc_SID_RDBI_Appl_Deal(uint8 *ui8_pInd, uint8 *ui8_pRes, uint16 *ui16_pResLen)
+; Function UdsFunc_SID_RDBI_Appl_Deal
+.L34:
+UdsFunc_SID_RDBI_Appl_Deal:	.type	func
+	sub.a	a10,#8
+.L90:
+	mov.aa	a12,a5
+.L91:
+	mov.aa	a13,a6
+.L92:
+
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_ReadDataByIdentifier.c	   446  {
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_ReadDataByIdentifier.c	   447  	uint8	ui8_Loop_1;	/*循环计数器*/
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_ReadDataByIdentifier.c	   448  	uint8	ui8_Loop_2;	/*循环计数器*/
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_ReadDataByIdentifier.c	   449  	uint16	ui16_Temp_Length;
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_ReadDataByIdentifier.c	   450  	boolean	b_Return;
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_ReadDataByIdentifier.c	   451  
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_ReadDataByIdentifier.c	   452  	b_Return = E_OK;
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_ReadDataByIdentifier.c	   453  	ui16_pResLen[0U] = 0U;
+	mov	d2,#0
+	st.h	[a13],d2
+.L93:
+
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_ReadDataByIdentifier.c	   454  	for(ui8_Loop_1 = 0U; ui8_Loop_1 < UDS_SID_RDBI_DID_NUMBER; ui8_Loop_1++)
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_ReadDataByIdentifier.c	   455  	{
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_ReadDataByIdentifier.c	   456  		for(ui8_Loop_2 = 0U; ui8_Loop_2 < UDS_SID_RDBI_DID_NUMBER; ui8_Loop_2++)
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_ReadDataByIdentifier.c	   457  		{
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_ReadDataByIdentifier.c	   458  			if(ui16_SID_RDBI_DID_Buf[ui8_Loop_1] == st_Uds_SID_RDBI[ui8_Loop_2].ui16_DID)
+	movh.a	a14,#@his(ui16_SID_RDBI_DID_Buf)
+	lea	a14,[a14]@los(ui16_SID_RDBI_DID_Buf)
+.L156:
+	mov.a	a15,#4
+	st.a	[a10]4,a15
+.L23:
+	movh.a	a15,#@his(st_Uds_SID_RDBI)
+	lea	a15,[a15]@los(st_Uds_SID_RDBI)
+.L157:
+	mov.a	a2,#4
+.L24:
+	ld.hu	d15,[a14]0
+.L158:
+	ld.hu	d0,[a15]0
+.L159:
+	jne	d15,d0,.L25				; predicted taken
+.L160:
+
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_ReadDataByIdentifier.c	   459  			{
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_ReadDataByIdentifier.c	   460  				ui16_Temp_Length = 0x22;
+	mov	d15,#34
+	st.h	[a10],d15
+.L161:
+
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_ReadDataByIdentifier.c	   461  				b_Return = st_Uds_SID_RDBI[ui8_Loop_2].pFunc(&(ui8_pRes[ui16_pResLen[0U] + 2U]), &ui16_Temp_Length);
+	ld.a	a15,[a15]4
+.L162:
+	ld.hu	d15,[a13]0
+.L163:
+	addsc.a	a4,a12,d15,#0
+	add.a	a4,#2
+.L164:
+	mov.aa	a5,a10
+	calli	a15
+.L165:
+
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_ReadDataByIdentifier.c	   462  
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_ReadDataByIdentifier.c	   463  				if(st_Uds_Response.ui8_ResCode == UDS_RES_CODE_PR)	/*判断是否正响应*/
+	movh.a	a15,#@his(st_Uds_Response)
+	lea	a15,[a15]@los(st_Uds_Response)
+.L166:
+	ld.bu	d15,[a15]
+.L167:
+	jne	d15,#0,.L26				; predicted not taken
+.L168:
+
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_ReadDataByIdentifier.c	   464  				{
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_ReadDataByIdentifier.c	   465  					ui8_pRes[ui16_pResLen[0U]] = (uint8)(ui16_SID_RDBI_DID_Buf[ui8_Loop_1] / 0x100U);
+	ld.hu	d15,[a13]0
+.L169:
+	addsc.a	a15,a12,d15,#0
+.L170:
+	ld.hu	d15,[a14]0
+.L171:
+	sh	d15,#-8
+	st.b	[a15],d15
+.L172:
+
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_ReadDataByIdentifier.c	   466  					ui8_pRes[ui16_pResLen[0U] + 1U] = (uint8)ui16_SID_RDBI_DID_Buf[ui8_Loop_1];
+	ld.hu	d15,[a13]0
+.L173:
+	addsc.a	a15,a12,d15,#0
+.L174:
+	ld.hu	d15,[a14]0
+.L175:
+	st.b	[a15]1,d15
+.L176:
+
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_ReadDataByIdentifier.c	   467  					ui16_pResLen[0U] += (2U + ui16_Temp_Length);
+	ld.hu	d15,[a13]0
+.L177:
+	ld.hu	d0,[a10]0
+.L178:
+	add	d15,d0
+.L179:
+	add	d15,#2
+	st.h	[a13],d15
+.L180:
+
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_ReadDataByIdentifier.c	   468  				}
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_ReadDataByIdentifier.c	   469  				break;
+	j	.L27
+.L25:
+	lea	a15,[a15]8
+.L181:
+	loop	a2,.L24				; predicted taken
+
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_ReadDataByIdentifier.c	   470  			}
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_ReadDataByIdentifier.c	   471  		}
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_ReadDataByIdentifier.c	   472  
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_ReadDataByIdentifier.c	   473  		if((b_Return != E_OK) || (st_Uds_Response.ui8_ResCode != UDS_RES_CODE_PR))	/*有任务未完成挂起或者发生错误*/
+.L27:
+.L26:
+	jne	d2,#0,.L28				; predicted not taken
+.L182:
+	movh.a	a15,#@his(st_Uds_Response)
+	lea	a15,[a15]@los(st_Uds_Response)
+.L183:
+	ld.bu	d15,[a15]
+.L184:
+	jne	d15,#0,.L29				; predicted not taken
+.L185:
+	add.a	a14,#2
+.L186:
+	ld.a	a15,[a10]4
+	add.a	a15,#-1
+	st.a	[a10]4,a15
+	add.a	a15,#1
+	loop	a15,.L23				; predicted taken
+
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_ReadDataByIdentifier.c	   474  		{
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_ReadDataByIdentifier.c	   475  			break;
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_ReadDataByIdentifier.c	   476  		}
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_ReadDataByIdentifier.c	   477  	}
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_ReadDataByIdentifier.c	   478  
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_ReadDataByIdentifier.c	   479  	return b_Return;
+.L29:
+.L28:
+
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_ReadDataByIdentifier.c	   480  }
+	ret
+.L67:
+	
+__UdsFunc_SID_RDBI_Appl_Deal_function_end:
+	.size	UdsFunc_SID_RDBI_Appl_Deal,__UdsFunc_SID_RDBI_Appl_Deal_function_end-UdsFunc_SID_RDBI_Appl_Deal
+.L48:
+	; End of function
+	
+	.sdecl	'.bss.Uds_Dcm_ReadDataByIdentifier.ui16_SID_RDBI_DID_Buf',data,cluster('ui16_SID_RDBI_DID_Buf')
+	.sect	'.bss.Uds_Dcm_ReadDataByIdentifier.ui16_SID_RDBI_DID_Buf'
+	.global	ui16_SID_RDBI_DID_Buf
+	.align	2
+ui16_SID_RDBI_DID_Buf:	.type	object
+	.size	ui16_SID_RDBI_DID_Buf,400
+	.space	400
+	.sdecl	'.rodata.Uds_Dcm_ReadDataByIdentifier.st_Uds_SID_RDBI',data,rom,cluster('st_Uds_SID_RDBI')
+	.sect	'.rodata.Uds_Dcm_ReadDataByIdentifier.st_Uds_SID_RDBI'
+	.global	st_Uds_SID_RDBI
+	.align	4
+st_Uds_SID_RDBI:	.type	object
+	.size	st_Uds_SID_RDBI,40
+	.half	61824
+	.byte	15
+	.space	1
+	.word	UdsFunc_SID_RDBI_DID_F180_Callback
+	.half	61827
+	.byte	15
+	.space	1
+	.word	UdsFunc_SID_RDBI_DID_F180_Callback
+	.half	61844
+	.byte	15
+	.space	1
+	.word	UdsFunc_SID_RDBI_DID_F194_Callback
+	.half	61849
+	.byte	15
+	.space	1
+	.word	UdsFunc_SID_RDBI_DID_F194_Callback
+	.half	61845
+	.byte	13
+	.space	1
+	.word	UdsFunc_SID_RDBI_DID_F195_Callback
+	.sdecl	'.rodata.Uds_Dcm_ReadDataByIdentifier.UDS_SID_RDBI_DID_NUMBER',data,rom,cluster('UDS_SID_RDBI_DID_NUMBER')
+	.sect	'.rodata.Uds_Dcm_ReadDataByIdentifier.UDS_SID_RDBI_DID_NUMBER'
+	.global	UDS_SID_RDBI_DID_NUMBER
+	.align	2
+UDS_SID_RDBI_DID_NUMBER:	.type	object
+	.size	UDS_SID_RDBI_DID_NUMBER,2
+	.half	5
+	.calls	'__INDIRECT__','UdsFunc_SID_RDBI_DID_F180_Callback'
+	.calls	'__INDIRECT__','UdsFunc_SID_RDBI_DID_F194_Callback'
+	.calls	'__INDIRECT__','UdsFunc_SID_RDBI_DID_F195_Callback'
+	.calls	'UdsFunc_SID_RDBI_Appl_Deal','__INDIRECT__'
+	.calls	'UdsFunc_SID_RDBI_Analysis','',0
+	.extern	st_Uds_SID_DSC_Info
+	.extern	st_Uds_SID_SA_Info
+	.extern	UdsFunc_SID_RDBI_DID_F180_Callback
+	.extern	UdsFunc_SID_RDBI_DID_F194_Callback
+	.extern	UdsFunc_SID_RDBI_DID_F195_Callback
+	.extern	UDS_SID_WDBI_DID_NUMBER
+	.extern	st_Uds_SID_WDBI
+	.extern	st_Uds_Dcm_Info
+	.extern	st_Uds_Indication
+	.extern	st_Uds_Response
+	.extern	__INDIRECT__
+	.calls	'UdsFunc_SID_RDBI_Appl_Deal','',8
+	.sdecl	'.debug_info',debug
+	.sect	'.debug_info'
+.L36:
+	.word	1990
+	.half	3
+	.word	.L37
+	.byte	4
+.L35:
+	.byte	1
+	.byte	'..\\Communication_Files\\Uds\\Dcm\\Uds_Dcm_ReadDataByIdentifier.c',0
+	.byte	'TASKING VX-toolset for TriCore: C compiler',0
+	.byte	'D:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_1.9\\BMU_BOOT\\Debug\\',0,12,1
+	.word	.L38
+.L60:
+	.byte	2
+	.byte	'unsigned char',0,1,8,3
+	.byte	'UdsFunc_SID_RDBI_DID_F180_Callback',0,1,193,1,16
+	.word	179
+	.byte	1,1,1,1
+.L56:
+	.byte	4
+	.word	179
+	.byte	5
+	.byte	'ui8_pRes',0,1,193,1,58
+	.word	244
+.L58:
+	.byte	2
+	.byte	'unsigned short int',0,2,7
+.L70:
+	.byte	4
+	.word	267
+	.byte	5
+	.byte	'ui16_pResLen',0,1,193,1,76
+	.word	289
+	.byte	0,3
+	.byte	'UdsFunc_SID_RDBI_DID_F194_Callback',0,1,195,1,16
+	.word	179
+	.byte	1,1,1,1,5
+	.byte	'ui8_pRes',0,1,195,1,58
+	.word	244
+	.byte	5
+	.byte	'ui16_pResLen',0,1,195,1,76
+	.word	289
+	.byte	0,3
+	.byte	'UdsFunc_SID_RDBI_DID_F195_Callback',0,1,196,1,16
+	.word	179
+	.byte	1,1,1,1,5
+	.byte	'ui8_pRes',0,1,196,1,58
+	.word	244
+	.byte	5
+	.byte	'ui16_pResLen',0,1,196,1,76
+	.word	289
+	.byte	0,6
+	.byte	'__INDIRECT__',0,2,1,1,1,1,1,7
+	.byte	'void',0,4
+	.word	515
+	.byte	8
+	.byte	'__prof_adm',0,2,1,1
+	.word	521
+	.byte	9,1,4
+	.word	545
+	.byte	8
+	.byte	'__codeptr',0,2,1,1
+	.word	547
+	.byte	8
+	.byte	'ubyte',0,3,78,24
+	.word	179
+	.byte	8
+	.byte	'ushort',0,3,80,24
+	.word	267
+	.byte	2
+	.byte	'unsigned int',0,4,7,8
+	.byte	'uword',0,3,82,24
+	.word	599
+	.byte	8
+	.byte	'uint8',0,4,87,29
+	.word	179
+	.byte	8
+	.byte	'uint16',0,4,89,29
+	.word	267
+	.byte	2
+	.byte	'long int',0,4,5,8
+	.byte	'sint32',0,4,90,29
+	.word	658
+	.byte	2
+	.byte	'unsigned long int',0,4,7,8
+	.byte	'uint32',0,4,91,27
+	.word	685
+	.byte	8
+	.byte	'boolean',0,4,102,29
+	.word	179
+	.byte	10,5,10,9,4,11
+	.byte	'ui8_Active_Session',0,1
+	.word	179
+	.byte	2,35,0,11
+	.byte	'ui16_Write_EEROM_Delay',0,2
+	.word	267
+	.byte	2,35,2,0,8
+	.byte	'Struct_Uds_SID_DSC_Info',0,5,14,2
+	.word	737
+	.byte	12
+	.byte	'st_Uds_SID_DSC_Info',0,5,15,32
+	.word	737
+	.byte	1,1,10,6,5,9,8,11
+	.byte	'b_Security_Locked',0,1
+	.word	179
+	.byte	2,35,0,11
+	.byte	'b_RequestSeedFlag',0,1
+	.word	179
+	.byte	2,35,1,11
+	.byte	'SA_Counter',0,1
+	.word	179
+	.byte	2,35,2,11
+	.byte	'SeedKeyFlag',0,1
+	.word	179
+	.byte	2,35,3,11
+	.byte	'ui32_Boot_State255_Delay',0,4
+	.word	685
+	.byte	2,35,4,0,8
+	.byte	'Struct_Uds_SID_SA_Info',0,6,20,2
+	.word	865
+	.byte	12
+	.byte	'st_Uds_SID_SA_Info',0,6,21,31
+	.word	865
+	.byte	1,1
+.L76:
+	.byte	13
+	.word	267
+	.byte	10,7,6,9,8,11
+	.byte	'ui16_DID',0,2
+	.word	267
+	.byte	2,35,0,11
+	.byte	'ui8_Session_Support',0,1
+	.word	179
+	.byte	2,35,2,11
+	.byte	'b_Security_En',0,1
+	.word	179
+	.byte	2,35,3,14
+	.word	179
+	.byte	1,1,4
+	.word	179
+	.byte	15
+	.word	1147
+	.byte	4
+	.word	267
+	.byte	15
+	.word	1157
+	.byte	0,4
+	.word	1140
+	.byte	11
+	.byte	'pFunc',0,4
+	.word	1168
+	.byte	2,35,4,0,8
+	.byte	'Struct_Uds_SID_RDBI',0,7,20,2
+	.word	1065
+	.byte	16,40
+	.word	1065
+	.byte	17,4,0
+.L77:
+	.byte	13
+	.word	1217
+	.byte	13
+	.word	267
+	.byte	12
+	.byte	'UDS_SID_WDBI_DID_NUMBER',0,8,4,21
+	.word	1231
+	.byte	1,1,10,8,6,9,12,11
+	.byte	'ui16_DID',0,2
+	.word	267
+	.byte	2,35,0,11
+	.byte	'ui8_Session_Support',0,1
+	.word	179
+	.byte	2,35,2,11
+	.byte	'b_Security_En',0,1
+	.word	179
+	.byte	2,35,3,11
+	.byte	'ui16_DataLen',0,2
+	.word	267
+	.byte	2,35,4,14
+	.word	179
+	.byte	1,1,15
+	.word	1147
+	.byte	15
+	.word	1147
+	.byte	15
+	.word	1157
+	.byte	0,4
+	.word	1367
+	.byte	11
+	.byte	'pFunc',0,4
+	.word	1390
+	.byte	2,35,8,0,8
+	.byte	'Struct_Uds_SID_WDBI',0,8,21,2
+	.word	1270
+	.byte	18
+	.word	1270
+	.byte	19,0,13
+	.word	1439
+	.byte	12
+	.byte	'st_Uds_SID_WDBI',0,8,23,34
+	.word	1446
+	.byte	1,1,10,9,75,9,6,11
+	.byte	'b_Service_Enable',0,1
+	.word	179
+	.byte	2,35,0,11
+	.byte	'ui16_S3_Timer',0,2
+	.word	267
+	.byte	2,35,2,11
+	.byte	'ui8_Cur_Task',0,1
+	.word	179
+	.byte	2,35,4,0,8
+	.byte	'Struct_Uds_Dcm_Info',0,9,80,2
+	.word	1477
+	.byte	10,9,82,9,20,11
+	.byte	'ui8_pTA_Type',0,4
+	.word	244
+	.byte	2,35,0,11
+	.byte	'ui8_SID',0,1
+	.word	179
+	.byte	2,35,4,11
+	.byte	'ui8_pMsgData',0,4
+	.word	244
+	.byte	2,35,8,11
+	.byte	'ui16_pLength',0,4
+	.word	289
+	.byte	2,35,12,11
+	.byte	'ui8_pResult',0,4
+	.word	244
+	.byte	2,35,16,0,8
+	.byte	'Struct_Uds_Indication',0,9,89,2
+	.word	1582
+	.byte	10,9,91,9,28,11
+	.byte	'ui8_ResCode',0,1
+	.word	179
+	.byte	2,35,0,11
+	.byte	'b_SuppressPosRspBit',0,1
+	.word	179
+	.byte	2,35,1,11
+	.byte	'ui8_pMsgData',0,4
+	.word	244
+	.byte	2,35,4,11
+	.byte	'ui16_pLength',0,4
+	.word	289
+	.byte	2,35,8,16,8
+	.word	179
+	.byte	17,7,0,11
+	.byte	'ui8_Neg78_Buf',0,8
+	.word	1821
+	.byte	2,35,12,11
+	.byte	'ui8_3E_Buf',0,8
+	.word	1821
+	.byte	2,35,20,0,8
+	.byte	'Struct_Uds_Response',0,9,99,2
+	.word	1722
+	.byte	12
+	.byte	'st_Uds_Dcm_Info',0,9,124,29
+	.word	1477
+	.byte	1,1,12
+	.byte	'st_Uds_Indication',0,9,125,30
+	.word	1582
+	.byte	1,1,12
+	.byte	'st_Uds_Response',0,9,126,29
+	.word	1722
+	.byte	1,1
+.L78:
+	.byte	16,144,3
+	.word	267
+	.byte	17,199,1,0,0
+	.sdecl	'.debug_abbrev',debug
+	.sect	'.debug_abbrev'
+.L37:
+	.byte	1,17,1,3,8,37,8,27,8,19,15,128,70,12,16,6,0,0,2,36,0,3,8,11,15,62,15,0,0,3,46,1,3,8,58,15,59,15,57,15
+	.byte	73,19,54,15,39,12,63,12,60,12,0,0,4,15,0,73,19,0,0,5,5,0,3,8,58,15,59,15,57,15,73,19,0,0,6,46,0,3,8,58
+	.byte	15,59,15,57,15,54,15,63,12,60,12,0,0,7,59,0,3,8,0,0,8,22,0,3,8,58,15,59,15,57,15,73,19,0,0,9,21,0,54,15
+	.byte	0,0,10,19,1,58,15,59,15,57,15,11,15,0,0,11,13,0,3,8,11,15,73,19,56,9,0,0,12,52,0,3,8,58,15,59,15,57,15
+	.byte	73,19,63,12,60,12,0,0,13,38,0,73,19,0,0,14,21,1,73,19,54,15,39,12,0,0,15,5,0,73,19,0,0,16,1,1,11,15,73
+	.byte	19,0,0,17,33,0,47,15,0,0,18,1,1,73,19,0,0,19,33,0,0,0,0
+	.sdecl	'.debug_line',debug
+	.sect	'.debug_line'
+.L38:
+	.word	.L95-.L94
+.L94:
+	.half	3
+	.word	.L97-.L96
+.L96:
+	.byte	2,1,-4,9,10,0,1,1,1,1,0,0,0,1
+	.byte	'D:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_1.9\\BMU_BOOT\\Communication_Files\\Uds\\User',0
+	.byte	'D:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_1.9\\BMU_BOOT\\Initiate_Files',0
+	.byte	'D:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_1.9\\BMU_BOOT\\Stand_Header',0
+	.byte	'D:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_1.9\\BMU_BOOT\\Communication_Files\\Uds\\Dcm',0,0
+	.byte	'Uds_User_ReadDataByIdentifierCallback.h',0,1,0,0
+	.byte	'..\\Communication_Files\\Uds\\Dcm\\Uds_Dcm_ReadDataByIdentifier.c',0,0,0,0
+	.byte	'MAIN.h',0,2,0,0
+	.byte	'Platform_Types.h',0,3,0,0
+	.byte	'Uds_User_DiagnosticSessionControlCallback.h',0,1,0,0
+	.byte	'Uds_User_SecurityAccessCallback.h',0,1,0,0
+	.byte	'Uds_Dcm_ReadDataByIdentifier.h',0,4,0,0
+	.byte	'Uds_Dcm_WriteDataByIdentifier.h',0,4,0,0
+	.byte	'Uds_Dcm_Drv.h',0,4,0,0,0
+.L97:
+.L95:
+	.sdecl	'.debug_info',debug,cluster('UdsFunc_SID_RDBI_Analysis')
+	.sect	'.debug_info'
+.L39:
+	.word	433
+	.half	3
+	.word	.L40
+	.byte	4,1
+	.byte	'..\\Communication_Files\\Uds\\Dcm\\Uds_Dcm_ReadDataByIdentifier.c',0
+	.byte	'TASKING VX-toolset for TriCore: C compiler',0
+	.byte	'D:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_1.9\\BMU_BOOT\\Debug\\',0,12,1
+	.word	.L42,.L41
+	.byte	2
+	.word	.L35
+	.byte	3
+	.byte	'UdsFunc_SID_RDBI_Analysis',0,1,207,2,6,1,1,1
+	.word	.L32,.L55,.L31
+	.byte	4
+	.byte	'ui8_pInd',0,1,207,2,39
+	.word	.L56,.L57
+	.byte	4
+	.byte	'ui16_IndLen',0,1,207,2,56
+	.word	.L58,.L59
+	.byte	5
+	.word	.L32,.L55
+	.byte	6
+	.byte	'ui8_Loop_1',0,1,209,2,8
+	.word	.L60,.L61
+	.byte	6
+	.byte	'ui8_Loop_2',0,1,210,2,8
+	.word	.L60,.L62
+	.byte	6
+	.byte	'ui8_Loop_3',0,1,211,2,8
+	.word	.L60,.L63
+	.byte	6
+	.byte	'ui16_DID',0,1,212,2,9
+	.word	.L58,.L64
+	.byte	6
+	.byte	'b_ErrFlag',0,1,213,2,10
+	.word	.L60,.L65
+	.byte	6
+	.byte	'b_Neg_78_Flag',0,1,214,2,10
+	.word	.L60,.L66
+	.byte	0,0,0
+	.sdecl	'.debug_abbrev',debug,cluster('UdsFunc_SID_RDBI_Analysis')
+	.sect	'.debug_abbrev'
+.L40:
+	.byte	1,17,1,3,8,37,8,27,8,19,15,128,70,12,85,6,16,6,0,0,2,61,0,24,16,0,0,3,46,1,3,8,58,15,59,15,57,15,54,15
+	.byte	39,12,63,12,17,1,18,1,64,6,0,0,4,5,0,3,8,58,15,59,15,57,15,73,16,2,6,0,0,5,11,1,17,1,18,1,0,0,6,52,0,3
+	.byte	8,58,15,59,15,57,15,73,16,2,6,0,0,0
+	.sdecl	'.debug_line',debug,cluster('UdsFunc_SID_RDBI_Analysis')
+	.sect	'.debug_line'
+.L41:
+	.word	.L99-.L98
+.L98:
+	.half	3
+	.word	.L101-.L100
+.L100:
+	.byte	2,1,-4,9,10,0,1,1,1,1,0,0,0,1,0
+	.byte	'..\\Communication_Files\\Uds\\Dcm\\Uds_Dcm_ReadDataByIdentifier.c',0,0,0,0,0
+.L101:
+	.byte	5,27,7,0,5,2
+	.word	.L32
+	.byte	3,215,2,1,5,2,9
+	.half	.L80-.L32
+	.byte	1,5,14,7,9
+	.half	.L102-.L80
+	.byte	3,3,1,5,4,3,3,1,5,74,9
+	.half	.L103-.L102
+	.byte	3,126,1,5,60,9
+	.half	.L104-.L103
+	.byte	1,5,38,9
+	.half	.L3-.L104
+	.byte	3,2,1,5,60,9
+	.half	.L105-.L3
+	.byte	3,126,1,5,18,7,9
+	.half	.L106-.L105
+	.byte	3,5,1,5,37,1,5,54,9
+	.half	.L82-.L106
+	.byte	1,5,5,9
+	.half	.L107-.L82
+	.byte	3,17,1,5,20,9
+	.half	.L108-.L107
+	.byte	3,117,1,5,76,9
+	.half	.L109-.L108
+	.byte	3,122,1,5,55,9
+	.half	.L5-.L109
+	.byte	3,2,1,5,31,9
+	.half	.L110-.L5
+	.byte	1,5,15,9
+	.half	.L111-.L110
+	.byte	1,5,63,1,5,53,9
+	.half	.L84-.L111
+	.byte	1,5,75,3,2,1,5,19,9
+	.half	.L112-.L84
+	.byte	1,5,61,1,5,47,9
+	.half	.L6-.L112
+	.byte	3,2,1,5,5,9
+	.half	.L113-.L6
+	.byte	1,5,27,7,9
+	.half	.L114-.L113
+	.byte	3,2,1,5,40,9
+	.half	.L115-.L114
+	.byte	1,5,16,9
+	.half	.L116-.L115
+	.byte	3,1,1,5,6,9
+	.half	.L117-.L116
+	.byte	3,1,1,5,73,9
+	.half	.L7-.L117
+	.byte	3,122,1,5,61,9
+	.half	.L118-.L7
+	.byte	1,5,4,7,9
+	.half	.L8-.L118
+	.byte	3,10,1,5,15,7,9
+	.half	.L119-.L8
+	.byte	3,2,1,5,35,9
+	.half	.L120-.L119
+	.byte	3,1,1,5,33,1,5,5,9
+	.half	.L121-.L120
+	.byte	3,1,1,5,65,9
+	.half	.L9-.L121
+	.byte	3,5,1,5,9,9
+	.half	.L122-.L9
+	.byte	1,5,28,9
+	.half	.L123-.L122
+	.byte	1,5,77,9
+	.half	.L86-.L123
+	.byte	1,5,48,9
+	.half	.L124-.L86
+	.byte	1,5,20,3,122,1,5,5,9
+	.half	.L125-.L124
+	.byte	3,6,1,5,38,7,9
+	.half	.L126-.L125
+	.byte	3,3,1,5,55,9
+	.half	.L127-.L126
+	.byte	1,5,73,9
+	.half	.L128-.L127
+	.byte	1,5,53,9
+	.half	.L129-.L128
+	.byte	1,5,9,9
+	.half	.L130-.L129
+	.byte	1,5,146,1,7,9
+	.half	.L131-.L130
+	.byte	1,5,17,7,9
+	.half	.L132-.L131
+	.byte	3,6,1,5,35,9
+	.half	.L133-.L132
+	.byte	3,1,1,5,6,9
+	.half	.L134-.L133
+	.byte	3,125,1,5,16,9
+	.half	.L11-.L134
+	.byte	3,8,1,5,34,9
+	.half	.L135-.L11
+	.byte	3,1,1,5,89,9
+	.half	.L12-.L135
+	.byte	3,89,1,5,94,1,5,89,9
+	.half	.L83-.L12
+	.byte	1,5,67,9
+	.half	.L4-.L83
+	.byte	1,5,72,9
+	.half	.L136-.L4
+	.byte	1,5,76,9
+	.half	.L137-.L136
+	.byte	1,5,3,7,9
+	.half	.L10-.L137
+	.byte	3,44,1,5,18,7,9
+	.half	.L138-.L10
+	.byte	3,2,1,5,39,3,3,1,5,61,9
+	.half	.L81-.L138
+	.byte	3,126,1,5,20,9
+	.half	.L16-.L81
+	.byte	3,2,1,5,46,3,2,1,5,76,9
+	.half	.L139-.L16
+	.byte	3,126,1,5,73,9
+	.half	.L140-.L139
+	.byte	3,126,1,5,62,9
+	.half	.L141-.L140
+	.byte	3,2,1,5,30,9
+	.half	.L18-.L141
+	.byte	3,2,1,5,73,9
+	.half	.L142-.L18
+	.byte	1,5,6,9
+	.half	.L143-.L142
+	.byte	1,5,21,7,9
+	.half	.L144-.L143
+	.byte	3,2,1,5,7,9
+	.half	.L145-.L144
+	.byte	3,1,1,5,74,9
+	.half	.L19-.L145
+	.byte	3,123,1,5,62,9
+	.half	.L17-.L19
+	.byte	1,5,61,7,9
+	.half	.L20-.L17
+	.byte	3,126,1,5,4,7,9
+	.half	.L146-.L20
+	.byte	3,12,1,5,5,7,9
+	.half	.L147-.L146
+	.byte	3,2,1,5,35,9
+	.half	.L148-.L147
+	.byte	1,5,33,1,5,4,9
+	.half	.L21-.L148
+	.byte	3,2,1,5,35,9
+	.half	.L149-.L21
+	.byte	1,5,33,1,5,1,9
+	.half	.L15-.L149
+	.byte	3,7,1,5,3,7,9
+	.half	.L2-.L15
+	.byte	3,126,1,5,33,9
+	.half	.L150-.L2
+	.byte	1,5,31,1,5,1,9
+	.half	.L151-.L150
+	.byte	3,2,1,7,9
+	.half	.L43-.L151
+	.byte	0,1,1
+.L99:
+	.sdecl	'.debug_ranges',debug,cluster('UdsFunc_SID_RDBI_Analysis')
+	.sect	'.debug_ranges'
+.L42:
+	.word	-1,.L32,0,.L43-.L32,0,0
+	.sdecl	'.debug_info',debug,cluster('UdsFunc_SID_RDBI_Appl_Deal')
+	.sect	'.debug_info'
+.L44:
+	.word	417
+	.half	3
+	.word	.L45
+	.byte	4,1
+	.byte	'..\\Communication_Files\\Uds\\Dcm\\Uds_Dcm_ReadDataByIdentifier.c',0
+	.byte	'TASKING VX-toolset for TriCore: C compiler',0
+	.byte	'D:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_1.9\\BMU_BOOT\\Debug\\',0,12,1
+	.word	.L47,.L46
+	.byte	2
+	.word	.L35
+	.byte	3
+	.byte	'UdsFunc_SID_RDBI_Appl_Deal',0,1,189,3,9
+	.word	.L60
+	.byte	1,1,1
+	.word	.L34,.L67,.L33
+	.byte	4
+	.byte	'ui8_pInd',0,1,189,3,43
+	.word	.L56,.L68
+	.byte	4
+	.byte	'ui8_pRes',0,1,189,3,60
+	.word	.L56,.L69
+	.byte	4
+	.byte	'ui16_pResLen',0,1,189,3,78
+	.word	.L70,.L71
+	.byte	5
+	.word	.L34,.L67
+	.byte	6
+	.byte	'ui8_Loop_1',0,1,191,3,8
+	.word	.L60,.L72
+	.byte	6
+	.byte	'ui8_Loop_2',0,1,192,3,8
+	.word	.L60,.L73
+	.byte	6
+	.byte	'ui16_Temp_Length',0,1,193,3,9
+	.word	.L58,.L74
+	.byte	6
+	.byte	'b_Return',0,1,194,3,10
+	.word	.L60,.L75
+	.byte	0,0,0
+	.sdecl	'.debug_abbrev',debug,cluster('UdsFunc_SID_RDBI_Appl_Deal')
+	.sect	'.debug_abbrev'
+.L45:
+	.byte	1,17,1,3,8,37,8,27,8,19,15,128,70,12,85,6,16,6,0,0,2,61,0,24,16,0,0,3,46,1,3,8,58,15,59,15,57,15,73,16
+	.byte	54,15,39,12,63,12,17,1,18,1,64,6,0,0,4,5,0,3,8,58,15,59,15,57,15,73,16,2,6,0,0,5,11,1,17,1,18,1,0,0,6
+	.byte	52,0,3,8,58,15,59,15,57,15,73,16,2,6,0,0,0
+	.sdecl	'.debug_line',debug,cluster('UdsFunc_SID_RDBI_Appl_Deal')
+	.sect	'.debug_line'
+.L46:
+	.word	.L153-.L152
+.L152:
+	.half	3
+	.word	.L155-.L154
+.L154:
+	.byte	2,1,-4,9,10,0,1,1,1,1,0,0,0,1,0
+	.byte	'..\\Communication_Files\\Uds\\Dcm\\Uds_Dcm_ReadDataByIdentifier.c',0,0,0,0,0
+.L155:
+	.byte	5,9,7,0,5,2
+	.word	.L34
+	.byte	3,188,3,1,5,11,9
+	.half	.L92-.L34
+	.byte	3,7,1,5,19,3,1,1,5,7,9
+	.half	.L93-.L92
+	.byte	3,5,1,5,59,9
+	.half	.L156-.L93
+	.byte	3,124,1,5,44,9
+	.half	.L23-.L156
+	.byte	3,4,1,5,60,9
+	.half	.L157-.L23
+	.byte	3,126,1,5,28,9
+	.half	.L24-.L157
+	.byte	3,2,1,5,71,9
+	.half	.L158-.L24
+	.byte	1,5,4,9
+	.half	.L159-.L158
+	.byte	1,5,24,7,9
+	.half	.L160-.L159
+	.byte	3,2,1,5,22,1,5,43,9
+	.half	.L161-.L160
+	.byte	3,1,1,5,73,9
+	.half	.L162-.L161
+	.byte	1,5,52,9
+	.half	.L163-.L162
+	.byte	1,5,87,9
+	.half	.L164-.L163
+	.byte	1,5,8,9
+	.half	.L165-.L164
+	.byte	3,2,1,5,23,9
+	.half	.L166-.L165
+	.byte	1,5,5,9
+	.half	.L167-.L166
+	.byte	1,5,27,7,9
+	.half	.L168-.L167
+	.byte	3,2,1,5,14,9
+	.half	.L169-.L168
+	.byte	1,5,64,9
+	.half	.L170-.L169
+	.byte	1,5,33,9
+	.half	.L171-.L170
+	.byte	1,5,27,9
+	.half	.L172-.L171
+	.byte	3,1,1,5,6,9
+	.half	.L173-.L172
+	.byte	1,5,68,9
+	.half	.L174-.L173
+	.byte	1,5,38,9
+	.half	.L175-.L174
+	.byte	1,5,18,9
+	.half	.L176-.L175
+	.byte	3,1,1,5,32,9
+	.half	.L177-.L176
+	.byte	1,5,18,9
+	.half	.L178-.L177
+	.byte	1,5,23,9
+	.half	.L179-.L178
+	.byte	1,5,5,9
+	.half	.L180-.L179
+	.byte	3,2,1,5,72,9
+	.half	.L25-.L180
+	.byte	3,115,1,5,60,9
+	.half	.L181-.L25
+	.byte	1,5,6,7,9
+	.half	.L26-.L181
+	.byte	3,17,1,5,29,7,9
+	.half	.L182-.L26
+	.byte	1,5,44,9
+	.half	.L183-.L182
+	.byte	1,5,57,9
+	.half	.L184-.L183
+	.byte	1,5,71,7,9
+	.half	.L185-.L184
+	.byte	3,109,1,5,59,9
+	.half	.L186-.L185
+	.byte	1,5,1,9
+	.half	.L28-.L186
+	.byte	3,26,1,7,9
+	.half	.L48-.L28
+	.byte	0,1,1
+.L153:
+	.sdecl	'.debug_ranges',debug,cluster('UdsFunc_SID_RDBI_Appl_Deal')
+	.sect	'.debug_ranges'
+.L47:
+	.word	-1,.L34,0,.L48-.L34,0,0
+	.sdecl	'.debug_info',debug,cluster('UDS_SID_RDBI_DID_NUMBER')
+	.sect	'.debug_info'
+.L49:
+	.word	217
+	.half	3
+	.word	.L50
+	.byte	4,1
+	.byte	'..\\Communication_Files\\Uds\\Dcm\\Uds_Dcm_ReadDataByIdentifier.c',0
+	.byte	'TASKING VX-toolset for TriCore: C compiler',0
+	.byte	'D:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_1.9\\BMU_BOOT\\Debug\\',0,12,1,2
+	.word	.L35
+	.byte	3
+	.byte	'UDS_SID_RDBI_DID_NUMBER',0,2,187,2,14
+	.word	.L76
+	.byte	1,5,3
+	.word	UDS_SID_RDBI_DID_NUMBER
+	.byte	0
+	.sdecl	'.debug_abbrev',debug,cluster('UDS_SID_RDBI_DID_NUMBER')
+	.sect	'.debug_abbrev'
+.L50:
+	.byte	1,17,1,3,8,37,8,27,8,19,15,128,70,12,0,0,2,61,0,24,16,0,0,3,52,0,3,8,58,15,59,15,57,15,73,16,63,12,2,9
+	.byte	0,0,0
+	.sdecl	'.debug_info',debug,cluster('st_Uds_SID_RDBI')
+	.sect	'.debug_info'
+.L51:
+	.word	208
+	.half	3
+	.word	.L52
+	.byte	4,1
+	.byte	'..\\Communication_Files\\Uds\\Dcm\\Uds_Dcm_ReadDataByIdentifier.c',0
+	.byte	'TASKING VX-toolset for TriCore: C compiler',0
+	.byte	'D:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_1.9\\BMU_BOOT\\Debug\\',0,12,1,2
+	.word	.L35
+	.byte	3
+	.byte	'st_Uds_SID_RDBI',0,2,7,27
+	.word	.L77
+	.byte	1,5,3
+	.word	st_Uds_SID_RDBI
+	.byte	0
+	.sdecl	'.debug_abbrev',debug,cluster('st_Uds_SID_RDBI')
+	.sect	'.debug_abbrev'
+.L52:
+	.byte	1,17,1,3,8,37,8,27,8,19,15,128,70,12,0,0,2,61,0,24,16,0,0,3,52,0,3,8,58,15,59,15,57,15,73,16,63,12,2,9
+	.byte	0,0,0
+	.sdecl	'.debug_info',debug,cluster('ui16_SID_RDBI_DID_Buf')
+	.sect	'.debug_info'
+.L53:
+	.word	214
+	.half	3
+	.word	.L54
+	.byte	4,1
+	.byte	'..\\Communication_Files\\Uds\\Dcm\\Uds_Dcm_ReadDataByIdentifier.c',0
+	.byte	'TASKING VX-toolset for TriCore: C compiler',0
+	.byte	'D:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_1.9\\BMU_BOOT\\Debug\\',0,12,1,2
+	.word	.L35
+	.byte	3
+	.byte	'ui16_SID_RDBI_DID_Buf',0,2,4,8
+	.word	.L78
+	.byte	1,5,3
+	.word	ui16_SID_RDBI_DID_Buf
+	.byte	0
+	.sdecl	'.debug_abbrev',debug,cluster('ui16_SID_RDBI_DID_Buf')
+	.sect	'.debug_abbrev'
+.L54:
+	.byte	1,17,1,3,8,37,8,27,8,19,15,128,70,12,0,0,2,61,0,24,16,0,0,3,52,0,3,8,58,15,59,15,57,15,73,16,63,12,2,9
+	.byte	0,0,0
+	.sdecl	'.debug_loc',debug,cluster('UdsFunc_SID_RDBI_Analysis')
+	.sect	'.debug_loc'
+.L31:
+	.word	-1,.L32,0,.L55-.L32
+	.half	2
+	.byte	138,0
+	.word	0,0
+.L65:
+	.word	-1,.L32,.L80-.L32,.L81-.L32
+	.half	5
+	.byte	144,33,157,32,0
+	.word	.L2-.L32,.L55-.L32
+	.half	5
+	.byte	144,33,157,32,0
+	.word	0,0
+.L66:
+	.word	-1,.L32,.L87-.L32,.L15-.L32
+	.half	5
+	.byte	144,32,157,32,0
+	.word	0,0
+.L64:
+	.word	-1,.L32,.L84-.L32,.L85-.L32
+	.half	5
+	.byte	144,32,157,32,0
+	.word	.L7-.L32,.L8-.L32
+	.half	5
+	.byte	144,32,157,32,0
+	.word	0,0
+.L59:
+	.word	-1,.L32,0,.L79-.L32
+	.half	5
+	.byte	144,34,157,32,0
+	.word	.L2-.L32,.L55-.L32
+	.half	5
+	.byte	144,34,157,32,0
+	.word	0,0
+.L61:
+	.word	-1,.L32,.L82-.L32,.L83-.L32
+	.half	5
+	.byte	144,33,157,32,32
+	.word	.L4-.L32,.L16-.L32
+	.half	5
+	.byte	144,33,157,32,32
+	.word	0,0
+.L62:
+	.word	-1,.L32,.L6-.L32,.L86-.L32
+	.half	5
+	.byte	144,32,157,32,32
+	.word	.L88-.L32,.L89-.L32
+	.half	5
+	.byte	144,32,157,32,32
+	.word	.L17-.L32,.L15-.L32
+	.half	5
+	.byte	144,32,157,32,32
+	.word	0,0
+.L63:
+	.word	-1,.L32,.L79-.L32,.L2-.L32
+	.half	5
+	.byte	144,34,157,32,0
+	.word	0,0
+.L57:
+	.word	-1,.L32,0,.L16-.L32
+	.half	1
+	.byte	100
+	.word	.L2-.L32,.L55-.L32
+	.half	1
+	.byte	100
+	.word	0,0
+	.sdecl	'.debug_loc',debug,cluster('UdsFunc_SID_RDBI_Appl_Deal')
+	.sect	'.debug_loc'
+.L33:
+	.word	-1,.L34,0,.L90-.L34
+	.half	2
+	.byte	138,0
+	.word	.L90-.L34,.L67-.L34
+	.half	2
+	.byte	138,8
+	.word	.L67-.L34,.L67-.L34
+	.half	2
+	.byte	138,0
+	.word	0,0
+.L75:
+	.word	-1,.L34,.L93-.L34,.L67-.L34
+	.half	5
+	.byte	144,33,157,32,0
+	.word	0,0
+.L74:
+	.word	-1,.L34,0,.L67-.L34
+	.half	2
+	.byte	145,120
+	.word	0,0
+.L71:
+	.word	-1,.L34,0,.L23-.L34
+	.half	1
+	.byte	102
+	.word	.L92-.L34,.L67-.L34
+	.half	1
+	.byte	109
+	.word	0,0
+.L72:
+	.word	0,0
+.L73:
+	.word	0,0
+.L68:
+	.word	-1,.L34,0,.L23-.L34
+	.half	1
+	.byte	100
+	.word	0,0
+.L69:
+	.word	-1,.L34,0,.L23-.L34
+	.half	1
+	.byte	101
+	.word	.L91-.L34,.L67-.L34
+	.half	1
+	.byte	108
+	.word	0,0
+	.sdecl	'.debug_frame',debug
+	.sect	'.debug_frame'
+.L187:
+	.word	48
+	.word	-1
+	.byte	3,0,2,1,27,12,26,0,8,26,8,27,8,30,8,29,8,28,8,16,8,17,8,24,8,25,8,31,8,32,8,33,8,34,8,35,8,36,8,37,8,38
+	.byte	8,39
+	.sdecl	'.debug_frame',debug,cluster('UdsFunc_SID_RDBI_Analysis')
+	.sect	'.debug_frame'
+	.word	16
+	.word	.L187,.L32,.L55-.L32
+	.byte	8,19,0,0
+	.sdecl	'.debug_frame',debug,cluster('UdsFunc_SID_RDBI_Appl_Deal')
+	.sect	'.debug_frame'
+	.word	36
+	.word	.L187,.L34,.L67-.L34
+	.byte	4
+	.word	(.L90-.L34)/2
+	.byte	19,8,22,26,3,19,138,8,4
+	.word	(.L67-.L90)/2
+	.byte	19,0,8,26,0,0
+
+; ..\Communication_Files\Uds\Dcm\Uds_Dcm_ReadDataByIdentifier.c	   481  
+
+	; Module end

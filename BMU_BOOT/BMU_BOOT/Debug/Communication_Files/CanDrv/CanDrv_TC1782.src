@@ -1,0 +1,6836 @@
+	; Module start
+	.compiler_version	"TASKING VX-toolset for TriCore: C compiler v4.3r1 Build 759 SN 00641831"
+	.compiler_invocation	"ctc -f cc5024a -c99 --dep-file=Communication_Files\\CanDrv\\.CanDrv_TC1782.o.d -D__CPU__=tc1782 -D__CPU_TC1782__ --core=tc1.3.1 -F -ID:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_1.9\\BMU_BOOT -ID:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_1.9\\BMU_BOOT\\Communication_Files\\CanDrv -ID:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_1.9\\BMU_BOOT\\Communication_Files\\Com -ID:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_1.9\\BMU_BOOT\\Communication_Files\\Com\\Can_Input -ID:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_1.9\\BMU_BOOT\\Communication_Files\\Com\\Can_Output -ID:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_1.9\\BMU_BOOT\\Communication_Files\\Uds\\Dcm -ID:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_1.9\\BMU_BOOT\\Communication_Files\\Uds\\Dem -ID:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_1.9\\BMU_BOOT\\Communication_Files\\Uds\\Tp -ID:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_1.9\\BMU_BOOT\\Communication_Files\\Uds\\User -ID:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_1.9\\BMU_BOOT\\Complex_Files -ID:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_1.9\\BMU_BOOT\\Initiate_Files -ID:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_1.9\\BMU_BOOT\\Nvm_Files\\FlsDrv -ID:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_1.9\\BMU_BOOT\\Stand_Header -g2 --make-target=Communication_Files\\CanDrv\\CanDrv_TC1782.o -t4 --language=-gcc,-volatile,+strings --default-near-size=0 -O2 --default-a1-size=0 --default-a0-size=0 --source --align=0 --compact-max-size=200 --switch=auto -o Communication_Files\\CanDrv\\CanDrv_TC1782.src ..\\Communication_Files\\CanDrv\\CanDrv_TC1782.c"
+	.compiler_name		"ctc"
+	.name	"CanDrv_TC1782"
+
+	
+$TC131
+	
+	.sdecl	'.text.CanDrv_TC1782.CAN_Init',code,cluster('CAN_Init')
+	.sect	'.text.CanDrv_TC1782.CAN_Init'
+	.align	2
+	
+	.global	CAN_Init
+
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	     1  /*----------------------------------------------------------------------------------------------------*/
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	     2  /*
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	     3  File Name：  	CanDrv_TC1782.c
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	     4  Author：        	任智强
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	     5  Version：      	V1.00.0007
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	     6  Comment：  	CAN驱动
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	     7  			MISRA_2004去除:
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	     8  			R1.1：     不允许C语言扩展；
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	     9  			R2.2：     不允许使用”//“；
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	    10  			R5.1：     不允许使用超过31个字符；
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	    11  			R7.1：     不能使用8进制数；
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	    12  			R10.1：	整型数值不应隐式转换；
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	    13  			R10.3：	强制转换到更窄的类型；
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	    14  			R10.5：	位运算符强制转换；
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	    15  			R10.6：   需要定义数值后加”U“；
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	    16  			R12.2：	表达值不同；
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	    17  			R12.7：	不能使用无符号型；
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	    18  			R14.3：	在预处理之前，空语句只能出现在一行上；
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	    19  			R14.8：   应该是复合语句
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	    20  			R17.4：	数组的索引；
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	    21  			R19.4：   宏定义相关；
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	    22  			R19.10： 宏定义相关；
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	    23  			R20.1：   需保留关键字（头文件防止重复调用问题）；
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	    24  History：
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	    25  			V1.00.0000		20140509	初始版本
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	    26  			v1.00.0001		20140611	增加BUSOFF功能，增加CAN ID设置，增加CAN MASK屏蔽
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	    27  			v1.00.0002		20140612	CAN_Read()增加CAN ID参数返回
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	    28  			v1.00.0003		20140618	增加BusOff快速，慢速恢复功能
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	    29  			V1.00.0004		20140621	修改接口函数注释
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	    30  			V1.00.0005		20140624	调整BusOff恢复时间
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	    31  			V1.00.0006		20140713	增加CAN接收发送中断配置，增加通过ID号读取数据函数
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	    32  			V1.00.0007		20150427	修改CAN报文优选级
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	    33  
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	    34  */
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	    35  
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	    36  #include "MAIN.h"
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	    37  
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	    38  
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	    39  //CAN故障
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	    40  Struct_CAN_Error	st_CAN_Error[MAX_NODE_NUM];
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	    41  
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	    42  uint32	ui32_BOFF_Delay_Count[MAX_NODE_NUM];	//BUSOFF Delay计数器
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	    43  uint32	ui32_BOFF_Clear_Count[MAX_NODE_NUM];	//BUSOFF清除计数器
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	    44  uint8	ui8_CallCycle_Count[MAX_OBJECT_NUM];	//收发周期计数器
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	    45  
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	    46  uint32	ui32_MSIMASK_Value[4U];	//MSIMASK寄存器值
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	    47  
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	    48  /*************************************************************************/
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	    49  /*
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	    50  Function:		void CAN_Init(void)
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	    51  
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	    52  Description: 	此函数用于CAN初始化
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	    53  
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	    54  Parameters: 	void
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	    55  
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	    56  Return:       	void
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	    57  
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	    58  Return Values:  无
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	    59  
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	    60  Remarks:		运行时间<1ms
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	    61  				用户在系统初始化时调用此函数初始化CAN模块。
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	    62  
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	    63  Example:		初始化CAN模块
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	    64  				CAN_Init();
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	    65  */
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	    66  void CAN_Init(void)
+; Function CAN_Init
+.L142:
+CAN_Init:	.type	func
+
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	    67  {
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	    68  	volatile uint32	ui32_Temp;
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	    69  	volatile uint8	ui8_Node_Loop;
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	    70  	volatile uint8	ui8_MO_Loop;
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	    71  
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	    72  	MAIN_vResetENDINIT();
+	lea	a15,0xf00005f0
+	ld.w	d15,[a15]
+.L430:
+	insert	d4,d15,#0,#0,#1
+	sub.a	a10,#8
+.L371:
+	call	MAIN_vWriteWDTCON0
+.L2:
+	ld.bu	d15,0xf00005f0
+	jnz.t	d15:0,.L2				; predicted taken
+.L431:
+
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	    73  	CAN_CLC        =  0x00000000;  // 使能CAN模块
+	mov	d8,#0
+	movh.a	a2,#61440
+	lea	a2,[a2]@los(0xf0004000)
+.L432:
+
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	    74  	ui32_Temp      =  CAN_CLC;     // 虚拟读一次避免管道效应
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	    75  	while((CAN_CLC & 0x00000002 )== 0x00000002)
+	mov	d9,#2
+	st.w	[a2],d8
+.L433:
+	ld.w	d15,[a2]
+.L434:
+	st.w	[a10],d15
+.L435:
+	j	.L3
+.L4:
+
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	    76  	{
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	    77  		__nop();  					//等待直到模块使能
+	nop
+.L3:
+	ld.w	d15,[a2]
+.L436:
+	jnz.t	d15:1,.L4				; predicted taken
+.L437:
+
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	    78  	}
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	    79  	CAN_FDR        =  0x000043FF;  // 选择normal分频
+	movh.a	a2,#61440
+.L438:
+	mov	d15,#17407
+	st.w	[a2]@los(0xf000400c),d15
+.L439:
+
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	    80  	ui32_Temp      =  CAN_FDR;     // 虚拟读一次避免管道效应
+	ld.w	d15,[a2]@los(0xf000400c)
+.L440:
+	st.w	[a10],d15
+.L441:
+
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	    81  	MAIN_vSetENDINIT();
+	ld.w	d15,[a15]
+	or	d4,d15,#1
+	call	MAIN_vWriteWDTCON0
+.L442:
+
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	    82  
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	    83  	while(CAN_PANCTR & CAN_PANCTR_BUSY)
+	movh.a	a13,#61440
+	lea	a13,[a13]@los(0xf00041c4)
+.L443:
+	j	.L5
+.L6:
+
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	    84  	{
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	    85  		__nop();					//等待Panel完成初始化
+	nop
+.L5:
+	ld.w	d15,[a13]
+.L444:
+	jnz.t	d15:8,.L6				; predicted taken
+.L445:
+
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	    86  	}
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	    87  
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	    88  	CAN_MCR        =  0x00000000;
+	movh.a	a15,#61440
+.L446:
+	st.w	[a15]@los(0xf00041c8),d8
+.L447:
+
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	    89  	CAN_MCR        =  0x00000000;
+	st.w	[a15]@los(0xf00041c8),d8
+.L448:
+
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	    90  
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	    91  
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	    92  	//配置Node
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	    93  	for(ui8_Node_Loop = 0U; ui8_Node_Loop < MAX_NODE_NUM; ui8_Node_Loop++)
+	mov	d10,#0
+	st.b	[a10]4,d10
+.L449:
+
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	    94  	{
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	    95  		if(st_CAN_Node[ui8_Node_Loop].b_Enable == TRUE)	//判断Node是否使能
+	movh.a	a12,#@his(st_CAN_Node)
+	lea	a12,[a12]@los(st_CAN_Node)
+.L450:
+	mov.a	a14,#2
+.L8:
+	ld.bu	d15,[a10]4
+.L451:
+	mul	d15,d15,#20
+	addsc.a	a15,a12,d15,#0
+.L452:
+	ld.bu	d0,[a15]
+.L453:
+	jne	d0,#1,.L9				; predicted taken
+.L454:
+
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	    96  		{
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	    97  
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	    98  			REG_CAN_NCR(ui8_Node_Loop) =  0x00000049;  	//CAN_NCR 置位INIT，CCE,ALIE
+	ld.bu	d15,[a10]4
+	sh	d0,d15,#8
+	mov	d15,#16896
+	addih	d15,d15,#61440
+	add	d0,d15
+.L455:
+	mov.a	a15,d0
+.L456:
+	mov	d15,#73
+	st.w	[a15],d15
+.L457:
+
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	    99  			REG_CAN_NIPR(ui8_Node_Loop) =  0x00000002;  //CAN_NIPR SRN 2
+	mov	d0,#16904
+	ld.bu	d15,[a10]4
+	sh	d15,d15,#8
+	addih	d0,d0,#61440
+	add	d15,d0
+.L458:
+	mov.a	a15,d15
+.L459:
+
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   100  
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   101  			REG_CAN_NECNT(ui8_Node_Loop) =  0x00600000; //CAN_NECNT warning threshold value 96
+	mov	d0,#16916
+	st.w	[a15],d9
+.L460:
+	addih	d0,d0,#61440
+	ld.bu	d15,[a10]4
+	sh	d15,d15,#8
+	add	d15,d0
+.L461:
+	mov.a	a15,d15
+.L462:
+	movh	d15,#96
+	st.w	[a15],d15
+.L463:
+
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   102  
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   103  			switch(ui8_Node_Loop)	//配置CAN收发管脚
+	ld.bu	d15,[a10]4
+.L464:
+
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   104  			{
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   105  				case NODE_0:
+	jeq	d15,#0,.L10				; prediction unknown
+.L465:
+
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   106  				{
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   107  					REG_CAN_NPCR(ui8_Node_Loop) =  0x00000000;  //CAN_NPCR
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   108  					P3_IOCR12      = (P3_IOCR12 & ~0x000000F0) | 0x00000020; //P3.12管脚作为输入
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   109  					P3_IOCR12      = (P3_IOCR12 & ~0x0000F000) | 0x00009000; //P3.13管脚作为输出
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   110  
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   111  					RESETIO_P1_13;
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   112  					break;
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   113  				}
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   114  
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   115  				case NODE_1:
+	jeq	d15,#1,.L11				; prediction unknown
+.L466:
+
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   116  				{
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   117  					REG_CAN_NPCR(ui8_Node_Loop) =  0x00000000;  //CAN_NPCR
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   118  					P3_IOCR12      = (P3_IOCR12 & ~0x00F00000) | 0x00200000; //P3.14作为输入
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   119  					P3_IOCR12      = (P3_IOCR12 & ~0xF0000000) | 0x90000000; //P3.15作为输出
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   120  					break;
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   121  				}
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   122  
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   123  				case NODE_2:
+	jeq	d15,#2,.L12				; prediction unknown
+.L467:
+	j	.L13
+.L10:
+	mov	d0,#16908
+	ld.bu	d15,[a10]4
+	sh	d15,d15,#8
+	addih	d0,d0,#61440
+	add	d15,d0
+.L468:
+	mov.a	a15,d15
+	st.w	[a15],d8
+.L469:
+	lea	a15,0xf0000f1c
+	ld.w	d15,[a15]
+.L470:
+	insert	d15,d15,#2,#4,#4
+	st.w	[a15],d15
+.L471:
+	ld.w	d15,[a15]
+.L472:
+	insert	d15,d15,#9,#12,#4
+	st.w	[a15],d15
+.L473:
+	movh	d15,#8192
+	st.w	0xf0000d04,d15
+.L474:
+	j	.L14
+.L11:
+	mov	d0,#16908
+	ld.bu	d15,[a10]4
+	sh	d15,d15,#8
+	addih	d0,d0,#61440
+	add	d15,d0
+.L475:
+	mov.a	a15,d15
+	st.w	[a15],d8
+.L476:
+	lea	a15,0xf0000f1c
+	ld.w	d15,[a15]
+.L477:
+	insert	d15,d15,#2,#20,#4
+	st.w	[a15],d15
+.L478:
+	movh	d0,#36864
+	ld.w	d15,[a15]
+.L479:
+	insert	d15,d15,#0,#28,#4
+.L480:
+	or	d15,d0
+.L481:
+	j	.L15
+.L12:
+
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   124  				{
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   125  					REG_CAN_NPCR(ui8_Node_Loop) =  0x00000002;  //CAN_NPCR
+	mov	d0,#16908
+	ld.bu	d15,[a10]4
+	sh	d15,d15,#8
+	addih	d0,d0,#61440
+	add	d15,d0
+.L482:
+	mov.a	a15,d15
+	st.w	[a15],d9
+.L483:
+
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   126  					P4_IOCR0       = (P4_IOCR0 & ~0x000000F0) | 0x00000020; //P4.0作为输入
+	lea	a15,0xf0001010
+	ld.w	d15,[a15]
+.L484:
+	insert	d15,d15,#2,#4,#4
+	st.w	[a15],d15
+.L485:
+
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   127  					P4_IOCR0       = (P4_IOCR0 & ~0x0000F000) | 0x0000B000; //P4.1作为输出
+	ld.w	d15,[a15]
+.L486:
+	insert	d15,d15,#11,#12,#4
+
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   128  					break;
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   129  				}
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   130  
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   131  				default:
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   132  					break;
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   133  			}
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   134  
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   135  			/*更改波特率*/
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   136  			  switch(Boot_Flag[1])
+.L15:
+	st.w	[a15],d15
+.L14:
+.L13:
+	movh.a	a15,#@his(Boot_Flag)
+	lea	a15,[a15]@los(Boot_Flag)
+.L487:
+	ld.bu	d15,[a15]1
+.L488:
+
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   137  			  {
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   138  			  case 0x01:	/*500K*/
+	jeq	d15,#1,.L20				; prediction unknown
+.L489:
+
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   139  				  st_CAN_Node[ui8_Node_Loop].ui32_BaudRate      =  500000U;  // load  node 0 bit timing register
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   140  				  break;
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   141  			  case 0x02:	/*250K*/
+	jeq	d15,#2,.L17				; prediction unknown
+.L490:
+
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   142  				  st_CAN_Node[ui8_Node_Loop].ui32_BaudRate      =  250000U;  // load  node 0 bit timing register
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   143  				  break;
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   144  			  case 0x03:	/*125K*/
+	jeq	d15,#3,.L18				; prediction unknown
+.L491:
+	j	.L19
+.L17:
+	ld.bu	d15,[a10]4
+.L492:
+	mul	d15,d15,#20
+	addsc.a	a15,a12,d15,#0
+.L493:
+	mov	d15,#15625
+	sh	d15,#4
+.L494:
+	j	.L21
+.L18:
+
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   145  				  st_CAN_Node[ui8_Node_Loop].ui32_BaudRate      =  125000U;  // load  node 0 bit timing register
+	ld.bu	d15,[a10]4
+.L495:
+	mul	d15,d15,#20
+	addsc.a	a15,a12,d15,#0
+.L496:
+	mov	d15,#15625
+	sh	d15,#3
+.L497:
+
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   146  				  break;
+	j	.L22
+
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   147  			  default:
+.L19:
+
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   148  				  st_CAN_Node[ui8_Node_Loop].ui32_BaudRate      =  500000U;  // load  node 0 bit timing register
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   149  				  break;
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   150  			  }
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   151  
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   152  			//配置波特率
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   153  			ui32_Temp = (st_CAN_Node[ui8_Node_Loop].ui32_CAN_Clock / st_CAN_Node[ui8_Node_Loop].ui32_BaudRate
+.L20:
+	ld.bu	d15,[a10]4
+.L498:
+	mul	d15,d15,#20
+	addsc.a	a15,a12,d15,#0
+.L499:
+	mov	d15,#15625
+	sh	d15,#5
+.L21:
+.L22:
+	st.w	[+a15]6,d15
+.L500:
+	ld.bu	d15,[a10]4
+.L501:
+	mul	d15,d15,#20
+	addsc.a	a15,a12,d15,#0
+.L502:
+
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   154  					/ (st_CAN_Node[ui8_Node_Loop].ui8_TSEG1 + st_CAN_Node[ui8_Node_Loop].ui8_TSEG2 + 1U)) - 1U;
+	ld.bu	d15,[a10]4
+.L503:
+	mul	d15,d15,#20
+	ld.w	d5,[a15]6
+.L504:
+	addsc.a	a15,a12,d15,#0
+.L505:
+	ld.bu	d15,[a10]4
+.L506:
+	mul	d15,d15,#20
+	ld.bu	d0,[a15]11
+.L507:
+	addsc.a	a15,a12,d15,#0
+.L508:
+	ld.bu	d15,[a15]10
+.L509:
+	add	d15,d0
+.L510:
+	add	d11,d15,#1
+	ld.bu	d15,[a10]4
+.L511:
+	mul	d15,d15,#20
+	addsc.a	a15,a12,d15,#0
+.L512:
+	ld.w	d4,[a15]2
+.L513:
+	call	__rt_udivmod
+.L514:
+	mov	d4,d2
+	mov	d5,d11
+	call	__rt_udivmod
+.L515:
+	add	d2,#-1
+	st.w	[a10],d2
+.L516:
+
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   155  			ui32_Temp += (uint32)(st_CAN_Node[ui8_Node_Loop].ui8_SJW - 1U) << 6U;
+	ld.bu	d15,[a10]4
+.L517:
+	mul	d15,d15,#20
+	ld.w	d0,[a10]
+.L518:
+	addsc.a	a15,a12,d15,#0
+.L519:
+	ld.bu	d15,[a15]12
+.L520:
+	add	d15,#-1
+.L521:
+	sh	d15,#6
+.L522:
+	add	d0,d15
+	st.w	[a10],d0
+.L523:
+
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   156  			ui32_Temp += (uint32)((uint8)(st_CAN_Node[ui8_Node_Loop].ui8_TSEG1 - 1U)) << 8U;
+	ld.bu	d15,[a10]4
+.L524:
+	mul	d15,d15,#20
+	ld.w	d0,[a10]
+.L525:
+	addsc.a	a15,a12,d15,#0
+.L526:
+	ld.bu	d15,[a15]10
+.L527:
+	add	d15,#-1
+.L528:
+	extr.u	d15,d15,#0,#8
+.L529:
+	sh	d15,d15,#8
+.L530:
+	add	d0,d15
+	st.w	[a10],d0
+.L531:
+
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   157  			ui32_Temp += (uint32)((uint8)(st_CAN_Node[ui8_Node_Loop].ui8_TSEG2 - 1U)) << 12U;
+	ld.bu	d15,[a10]4
+.L532:
+	mul	d15,d15,#20
+	ld.w	d0,[a10]
+.L533:
+	addsc.a	a15,a12,d15,#0
+.L534:
+	ld.bu	d15,[a15]11
+.L535:
+	add	d15,#-1
+.L536:
+	extr.u	d15,d15,#0,#8
+.L537:
+	sh	d15,d15,#12
+.L538:
+	add	d0,d15
+	st.w	[a10],d0
+.L539:
+
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   158  			REG_CAN_NBTR(ui8_Node_Loop) =  ui32_Temp;  //CAN_NBTR
+	mov	d0,#16912
+	ld.bu	d15,[a10]4
+	sh	d15,d15,#8
+	addih	d0,d0,#61440
+	add	d15,d0
+.L540:
+	mov.a	a15,d15
+.L541:
+
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   159  
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   160  			REG_CAN_NFCR(ui8_Node_Loop) =  0x00000000; //CAN_NFCR
+	mov	d0,#16920
+	ld.w	d15,[a10]
+.L542:
+	st.w	[a15],d15
+.L543:
+	addih	d0,d0,#61440
+	ld.bu	d15,[a10]4
+	sh	d15,d15,#8
+	add	d15,d0
+.L544:
+	mov.a	a15,d15
+	st.w	[a15],d8
+.L9:
+	ld.bu	d15,[a10]4
+.L545:
+	add	d15,#1
+	st.b	[a10]4,d15
+.L546:
+	loop	a14,.L8				; predicted taken
+.L547:
+
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   161  		}
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   162  	}
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   163  
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   164  	//配置MO
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   165  	ui32_MSIMASK_Value[0U] = 0U;
+	mov	d1,#0
+	movh.a	a4,#@his(ui32_MSIMASK_Value)
+	lea	a4,[a4]@los(ui32_MSIMASK_Value)
+.L548:
+	st.w	[a4],d1
+.L549:
+
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   166  	ui32_MSIMASK_Value[1U] = 0U;
+	lea	a15,[a4]4
+	st.w	[a15+],d1
+.L550:
+
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   167  	ui32_MSIMASK_Value[2U] = 0U;
+	st.w	[a15+],d1
+.L551:
+
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   168  	ui32_MSIMASK_Value[3U] = 0U;
+	st.w	[a15+],d1
+.L552:
+
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   169  	for(ui8_MO_Loop = 0U; ui8_MO_Loop < MAX_OBJECT_NUM; ui8_MO_Loop++)
+	st.b	[a10]5,d10
+.L553:
+
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   170  	{
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   171  		if(st_CAN_Object[ui8_MO_Loop].b_Enable == TRUE)	//判断MO是否使能
+	movh.a	a2,#@his(st_CAN_Object)
+	lea	a2,[a2]@los(st_CAN_Object)
+.L554:
+	lea	a5,127
+.L24:
+	ld.bu	d15,[a10]5
+.L555:
+	mul	d15,d15,#20
+	addsc.a	a15,a2,d15,#0
+.L556:
+	ld.bu	d15,[a15]
+.L557:
+	jne	d15,#1,.L25				; predicted not taken
+.L558:
+
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   172  		{
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   173  			ui32_Temp = (uint32)((uint8)(st_CAN_Object[ui8_MO_Loop].ui8_Node + 1U) )* 0x100U * 0x100U * 0x100U;
+	ld.bu	d15,[a10]5
+.L559:
+	mul	d15,d15,#20
+	addsc.a	a15,a2,d15,#0
+.L560:
+	ld.bu	d15,[a15]1
+.L561:
+	add	d15,#1
+.L562:
+	extr.u	d15,d15,#0,#8
+.L563:
+	sh	d15,d15,#24
+	st.w	[a10],d15
+.L564:
+
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   174  			ui32_Temp += (uint32)ui8_MO_Loop * 0x100U * 0x100U;
+	ld.bu	d15,[a10]5
+.L565:
+	sh	d15,d15,#16
+	ld.w	d0,[a10]
+.L566:
+	add	d0,d15
+	st.w	[a10],d0
+.L567:
+
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   175  			ui32_Temp += 0x02;
+	ld.w	d15,[a10]
+.L568:
+	add	d15,#2
+	st.w	[a10],d15
+.L569:
+
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   176  			SetListCommand(ui32_Temp);  //分配MO到相应Node
+	ld.w	d15,[a10]
+	st.w	[a13],d15
+.L26:
+	ld.w	d15,[a13]
+	jnz.t	d15:8,.L26				; predicted taken
+.L570:
+
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   177  
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   178  			if(st_CAN_Object[ui8_MO_Loop].b_Dir == CAN_RX_DIR)
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   179  			{
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   180  				REG_CAN_MOCTR(ui8_MO_Loop) =  0x00A00000;  //CAN_MOCTR
+	mov	d2,#20508
+.L571:
+	addih	d2,d2,#61440
+	ld.bu	d15,[a10]5
+.L572:
+	mul	d15,d15,#20
+	addsc.a	a15,a2,d15,#0
+.L573:
+	ld.bu	d15,[a15]2
+.L574:
+	jne	d15,#0,.L27				; predicted taken
+.L575:
+	ld.bu	d15,[a10]5
+	sh	d0,d15,#5
+	add	d0,d2
+.L576:
+	mov.a	a15,d0
+.L577:
+	movh	d0,#160
+	st.w	[a15],d0
+	j	.L28
+.L27:
+
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   181  			}
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   182  			else if(st_CAN_Object[ui8_MO_Loop].b_Dir == CAN_TX_DIR)
+	ld.bu	d15,[a10]5
+.L578:
+	mul	d15,d15,#20
+	addsc.a	a15,a2,d15,#0
+.L579:
+	ld.bu	d15,[a15]2
+.L580:
+	jne	d15,#1,.L29				; predicted not taken
+.L581:
+
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   183  			{
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   184  				REG_CAN_MOCTR(ui8_MO_Loop) =  0x0EA80000;  //CAN_MOCTR
+	ld.bu	d15,[a10]5
+	sh	d0,d15,#5
+	add	d0,d2
+.L582:
+	mov.a	a15,d0
+.L583:
+	movh	d15,#3752
+	st.w	[a15],d15
+	j	.L30
+.L29:
+
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   185  			}
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   186  			else
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   187  			{
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   188  				__nop();
+	nop
+.L30:
+.L28:
+
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   189  			}
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   190  
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   191  			if(st_CAN_Object[ui8_MO_Loop].ui8_DLC <= 8U)
+	ld.bu	d15,[a10]5
+.L584:
+	mul	d15,d15,#20
+	addsc.a	a15,a2,d15,#0
+.L585:
+	ld.bu	d15,[a15]5
+.L586:
+	jge.u	d15,#9,.L31				; predicted not taken
+.L587:
+
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   192  			{
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   193  				REG_CAN_MOFCR(ui8_MO_Loop) = (uint32)((uint8)st_CAN_Object[ui8_MO_Loop].ui8_DLC )<< 24U;
+	mov	d3,#20480
+	ld.bu	d15,[a10]5
+.L588:
+	sh	d0,d15,#5
+	ld.bu	d15,[a10]5
+.L589:
+	addih	d3,d3,#61440
+.L590:
+	mul	d15,d15,#20
+	addsc.a	a15,a2,d15,#0
+.L591:
+	add	d0,d3
+	ld.bu	d15,[a15]5
+.L592:
+	mov.a	a6,d0
+.L593:
+	sh	d0,d15,#24
+	st.w	[a6],d0
+.L594:
+
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   194  
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   195  				if(st_CAN_Object[ui8_MO_Loop].b_RxIRQ == TRUE)	//接收中断使能
+	ld.bu	d15,[a10]5
+.L595:
+	mul	d15,d15,#20
+	addsc.a	a15,a2,d15,#0
+.L596:
+	ld.bu	d15,[a15]3
+.L597:
+	jne	d15,#1,.L32				; predicted taken
+.L598:
+
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   196  				{
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   197  					REG_CAN_MOFCR(ui8_MO_Loop) |= 0x10000U;
+	ld.bu	d15,[a10]5
+	sh	d15,#5
+	add	d15,d3
+.L599:
+	mov.a	a15,d15
+	ld.w	d15,[a15]
+	insert	d15,d15,#1,#16,#1
+	st.w	[a15],d15
+.L600:
+
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   198  					ui32_MSIMASK_Value[ui8_MO_Loop / 32U] |= 1 << (ui8_MO_Loop & 0x1FU);
+	ld.bu	d15,[a10]5
+	sh	d15,#-5
+.L601:
+	addsc.a	a15,a4,d15,#2
+.L602:
+	mov	d4,#1
+	ld.bu	d15,[a10]5
+.L603:
+	and	d15,#31
+	ld.w	d0,[a15]
+.L604:
+	sha	d4,d4,d15
+.L605:
+	or	d0,d4
+	st.w	[a15],d0
+.L32:
+
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   199  				}
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   200  
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   201  				if(st_CAN_Object[ui8_MO_Loop].b_TxIRQ == TRUE)	//发送中断使能
+	ld.bu	d15,[a10]5
+.L606:
+	mul	d15,d15,#20
+	addsc.a	a15,a2,d15,#0
+.L607:
+	ld.bu	d15,[a15]4
+.L608:
+	jne	d15,#1,.L33				; predicted taken
+.L609:
+
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   202  				{
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   203  					REG_CAN_MOFCR(ui8_MO_Loop) |= 0x20000U;
+	ld.bu	d15,[a10]5
+	sh	d15,#5
+	add	d3,d15
+.L610:
+	mov.a	a15,d3
+	ld.w	d15,[a15]
+	insert	d15,d15,#1,#17,#1
+	st.w	[a15],d15
+.L611:
+
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   204  					ui32_MSIMASK_Value[ui8_MO_Loop / 32U] |= 1 << (ui8_MO_Loop & 0x1FU);
+	ld.bu	d15,[a10]5
+	sh	d15,#-5
+.L612:
+	addsc.a	a15,a4,d15,#2
+.L613:
+	mov	d3,#1
+	ld.bu	d15,[a10]5
+.L614:
+	and	d15,#31
+	ld.w	d0,[a15]
+.L615:
+	sha	d3,d3,d15
+.L616:
+	or	d0,d3
+	st.w	[a15],d0
+.L33:
+.L31:
+
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   205  				}
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   206  			}
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   207  			REG_CAN_MOFGPR(ui8_MO_Loop) =  0x00000000; //CAN_MOFGPR
+	mov	d0,#20484
+	ld.bu	d15,[a10]5
+	sh	d15,#5
+	addih	d0,d0,#61440
+	add	d15,d0
+.L617:
+	mov.a	a15,d15
+	st.w	[a15],d8
+.L618:
+
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   208  
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   209  			if(st_CAN_Object[ui8_MO_Loop].b_IDE == CAN_STD_ID)	//11位CAN ID
+	ld.bu	d15,[a10]5
+.L619:
+	mul	d15,d15,#20
+	addsc.a	a15,a2,d15,#0
+.L620:
+	ld.bu	d15,[a15]6
+.L621:
+	jne	d15,#0,.L34				; predicted taken
+.L622:
+
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   210  			{
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   211  				REG_CAN_MOAMR(ui8_MO_Loop) =  ((uint32)st_CAN_Object[ui8_MO_Loop].ui32_Mask << 18U) | 0x20000000;  //CAN_MOAMR
+	mov	d0,#20492
+	ld.bu	d15,[a10]5
+	sh	d15,#5
+	addih	d0,d0,#61440
+	add	d15,d0
+.L623:
+	mov.a	a6,d15
+.L624:
+	ld.bu	d15,[a10]5
+.L625:
+	mul	d15,d15,#20
+	addsc.a	a15,a2,d15,#0
+.L626:
+	ld.w	d15,[a15]12
+.L627:
+	sh	d15,d15,#18
+.L628:
+	insert	d15,d15,#1,#29,#1
+	st.w	[a6],d15
+.L629:
+
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   212  				REG_CAN_MOAR(ui8_MO_Loop) =  ((uint32)st_CAN_Object[ui8_MO_Loop].ui32_ID << 18U) | 0x40000000;  //CAN_MOAR
+	mov	d0,#20504
+	ld.bu	d15,[a10]5
+	sh	d15,#5
+	addih	d0,d0,#61440
+	add	d15,d0
+.L630:
+	mov.a	a6,d15
+.L631:
+	ld.bu	d15,[a10]5
+.L632:
+	mul	d15,d15,#20
+	addsc.a	a15,a2,d15,#0
+.L633:
+	ld.w	d15,[a15]8
+.L634:
+	sh	d15,d15,#18
+.L635:
+	insert	d15,d15,#1,#30,#1
+	st.w	[a6],d15
+.L636:
+	j	.L35
+.L34:
+
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   213  			}
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   214  			else if(st_CAN_Object[ui8_MO_Loop].b_IDE == CAN_EXT_ID)	//29位CAN ID
+	ld.bu	d15,[a10]5
+.L637:
+	mul	d15,d15,#20
+	addsc.a	a15,a2,d15,#0
+.L638:
+	ld.bu	d15,[a15]6
+.L639:
+	jne	d15,#1,.L36				; predicted not taken
+.L640:
+
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   215  			{
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   216  				REG_CAN_MOAMR(ui8_MO_Loop) =  (uint32)st_CAN_Object[ui8_MO_Loop].ui32_Mask | 0x20000000;  //CAN_MOAMR
+	mov	d0,#20492
+	ld.bu	d15,[a10]5
+	sh	d15,#5
+	addih	d0,d0,#61440
+	add	d15,d0
+.L641:
+	mov.a	a6,d15
+.L642:
+	ld.bu	d15,[a10]5
+.L643:
+	mul	d15,d15,#20
+	addsc.a	a15,a2,d15,#0
+.L644:
+	ld.w	d15,[a15]12
+.L645:
+	insert	d15,d15,#1,#29,#1
+	st.w	[a6],d15
+.L646:
+
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   217  				REG_CAN_MOAR(ui8_MO_Loop) =  (uint32)st_CAN_Object[ui8_MO_Loop].ui32_ID | 0xA0000000;  //CAN_MOAR
+	mov	d0,#20504
+	ld.bu	d15,[a10]5
+	sh	d15,#5
+	addih	d0,d0,#61440
+	add	d15,d0
+.L647:
+	mov.a	a6,d15
+.L648:
+	ld.bu	d15,[a10]5
+.L649:
+	mul	d15,d15,#20
+	addsc.a	a15,a2,d15,#0
+.L650:
+	movh	d0,#40960
+	ld.w	d15,[a15]8
+.L651:
+	or	d15,d0
+	st.w	[a6],d15
+.L652:
+	j	.L37
+.L36:
+
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   218  			}
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   219  			else
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   220  			{
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   221  				__nop();
+	nop
+.L37:
+.L35:
+
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   222  			}
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   223  
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   224  			ui32_Temp = (((uint32)ui8_MO_Loop) / 32U) << 13U;
+	ld.bu	d15,[a10]5
+.L653:
+	sh	d15,#-5
+.L654:
+	sh	d15,d15,#13
+	st.w	[a10],d15
+.L655:
+
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   225  			ui32_Temp += ((uint32)ui8_MO_Loop & 0x1FU) << 8U;
+	ld.bu	d15,[a10]5
+.L656:
+	and	d15,#31
+	ld.w	d0,[a10]
+.L657:
+	sh	d15,d15,#8
+.L658:
+	add	d0,d15
+	st.w	[a10],d0
+.L659:
+
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   226  			REG_CAN_MOIPR(ui8_MO_Loop) =  ui32_Temp | 0x10U;  //CAN_MOIPR 接收中断分配在INT0，发送中断分配在INT1
+	mov	d0,#20488
+	ld.bu	d15,[a10]5
+	sh	d15,#5
+	addih	d0,d0,#61440
+	add	d15,d0
+.L660:
+	mov.a	a15,d15
+.L661:
+	ld.w	d15,[a10]
+.L662:
+	or	d15,#16
+	st.w	[a15],d15
+.L663:
+
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   227  			REG_CAN_MOCTR(ui8_MO_Loop) =  0x00200000; //CAN_MOCTR set MSGVAL
+	ld.bu	d15,[a10]5
+	sh	d15,#5
+	add	d2,d15
+.L664:
+	mov.a	a15,d2
+.L665:
+	movh	d15,#32
+	st.w	[a15],d15
+.L25:
+	ld.bu	d15,[a10]5
+.L666:
+	add	d15,#1
+	st.b	[a10]5,d15
+.L667:
+	loop	a5,.L24				; predicted taken
+.L668:
+
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   228  		}
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   229  	}
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   230  
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   231  	CAN_SRC0       =  0x00001001;  // set service request control register
+	mov	d15,#4097
+	movh.a	a15,#61440
+	st.w	[a15]@los(0xf00040fc),d15
+.L669:
+
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   232  	CAN_SRC1       =  0x00001002;  // set service request control register
+	mov	d15,#4098
+	st.w	[a15]@los(0xf00040f8),d15
+.L670:
+
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   233  	CAN_SRC2       =  0x00001003;  // set service request control register
+	mov	d15,#4099
+	st.w	[a15]@los(0xf00040f4),d15
+.L671:
+
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   234  
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   235  	//启动Node
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   236  	for(ui8_Node_Loop = 0U; ui8_Node_Loop < MAX_NODE_NUM; ui8_Node_Loop++)
+	st.b	[a10]4,d10
+.L672:
+	movh.a	a4,#@his(st_CAN_Node)
+	lea	a4,[a4]@los(st_CAN_Node)
+.L673:
+	mov.a	a5,#2
+.L39:
+
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   237  	{
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   238  		if(st_CAN_Node[ui8_Node_Loop].b_Enable == TRUE)	//判断Node是否使能
+	ld.bu	d15,[a10]4
+.L674:
+	mul	d15,d15,#20
+	addsc.a	a15,a4,d15,#0
+.L675:
+	ld.bu	d15,[a15]
+.L676:
+	jne	d15,#1,.L40				; predicted taken
+.L677:
+
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   239  		{
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   240  			//使能Node
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   241  			REG_CAN_NCR(ui8_Node_Loop) &= ~0x00000041;  //CAN_NCR reset INIT and CCE
+	mov	d0,#16896
+	ld.bu	d15,[a10]4
+	sh	d15,d15,#8
+	addih	d0,d0,#61440
+	add	d15,d0
+.L678:
+	mov.a	a15,d15
+.L679:
+	mov	d0,#-66
+	ld.w	d15,[a15]
+	and	d15,d0
+	st.w	[a15],d15
+.L40:
+
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   242  		}
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   243  		ui32_BOFF_Delay_Count[ui8_Node_Loop] = st_CAN_Node[ui8_Node_Loop].ui32_BOFF_Dealy;
+	ld.bu	d15,[a10]4
+.L680:
+	movh.a	a15,#@his(ui32_BOFF_Delay_Count)
+	lea	a15,[a15]@los(ui32_BOFF_Delay_Count)
+.L681:
+	addsc.a	a15,a15,d15,#2
+.L682:
+	ld.bu	d15,[a10]4
+.L683:
+	mul	d15,d15,#20
+	addsc.a	a2,a4,d15,#0
+.L684:
+	ld.w	d15,[a2]14
+.L685:
+	st.w	[a15],d15
+.L686:
+
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   244  		ui32_BOFF_Clear_Count[ui8_Node_Loop] = 0U;
+	ld.bu	d15,[a10]4
+.L687:
+	movh.a	a15,#@his(ui32_BOFF_Clear_Count)
+	lea	a15,[a15]@los(ui32_BOFF_Clear_Count)
+.L688:
+	addsc.a	a15,a15,d15,#2
+.L689:
+	st.w	[a15],d1
+.L690:
+
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   245  		ui8_CallCycle_Count[ui8_Node_Loop] = 0U;
+	ld.bu	d15,[a10]4
+.L691:
+	movh.a	a15,#@his(ui8_CallCycle_Count)
+	lea	a15,[a15]@los(ui8_CallCycle_Count)
+.L692:
+	addsc.a	a15,a15,d15,#0
+.L693:
+	st.b	[a15],d10
+.L694:
+	ld.bu	d15,[a10]4
+.L695:
+	add	d15,#1
+	st.b	[a10]4,d15
+.L696:
+	loop	a5,.L39				; predicted taken
+.L697:
+
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   246  	}
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   247  	CAN_Error_Clear();	//初始化清除CAN故障
+	j	CAN_Error_Clear
+.L295:
+	
+__CAN_Init_function_end:
+	.size	CAN_Init,__CAN_Init_function_end-CAN_Init
+.L189:
+	; End of function
+	
+	.sdecl	'.text.CanDrv_TC1782.CAN_Read_By_ID',code,cluster('CAN_Read_By_ID')
+	.sect	'.text.CanDrv_TC1782.CAN_Read_By_ID'
+	.align	2
+	
+	.global	CAN_Read_By_ID
+
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   248  }
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   249  
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   250  /*************************************************************************/
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   251  /*
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   252  Function:		boolean CAN_Read_By_ID(uint32 ui32_ID, uint8 *TargetAddressPtr)
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   253  
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   254  Description: 	此函数用于基于CAN ID号接收CAN消息
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   255  
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   256  Parameters: 	ui32_ID				CAN ID(11位或29位)
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   257  				TargetAddressPtr	数据存放指针(指向8字节buffer)
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   258  
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   259  Return:       	boolean		用户可根据返回值判断CAN消息是否成功接收
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   260  
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   261  Return Values:  TRUE		接收消息成功
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   262  				FALSE		接收消息失败
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   263  
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   264  Remarks:		运行时间<1ms
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   265  				用户在中间层需要接收CAN数据时调用此函数。
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   266  				需保证输入参数CAN的ID号已经配置使能，并且完成过CAN初始化。
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   267  
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   268  Example:		接收ID号0x100的CAN数据存放至buffer数组
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   269  				ret_val = CAN_Read(0x100U, &buffer[0U]);
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   270  */
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   271  boolean CAN_Read_By_ID(uint32 ui32_ID, uint8 *TargetAddressPtr)
+; Function CAN_Read_By_ID
+.L144:
+CAN_Read_By_ID:	.type	func
+
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   272  {
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   273  	uint16	ui16_Loop_1;
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   274  	uint8	ui8_Loop_2;
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   275  	boolean b_Return;
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   276  
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   277  	b_Return = FALSE;
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   278  	for(ui16_Loop_1 = 0U; ui16_Loop_1 < MAX_CAN_RX_BY_ID_NUM; ui16_Loop_1++)	//检查符合输入参数ID的配置
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   279  	{
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   280  		if(st_CAN_Rx_By_ID[ui16_Loop_1].b_Enable == TRUE)
+	mov	d2,#0
+	movh.a	a15,#@his(st_CAN_Rx_By_ID)
+.L372:
+	lea	a15,[a15]@los(st_CAN_Rx_By_ID)
+.L702:
+	mov	d0,#1
+	lea	a2,119
+.L41:
+	ld.bu	d15,[a15]
+.L703:
+	jne	d15,#1,.L42				; predicted not taken
+.L704:
+
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   281  		{
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   282  			if(ui32_ID == st_CAN_Rx_By_ID[ui16_Loop_1].ui32_ID)	//ID相等
+	ld.w	d15,[a15]2
+.L705:
+	jne	d15,d4,.L43				; predicted not taken
+.L706:
+
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   283  			{
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   284  				if(st_CAN_Rx_By_ID[ui16_Loop_1].b_Empty == FALSE)	//数据不为空
+	ld.bu	d15,[a15]6
+.L707:
+	jne	d15,#0,.L44				; predicted not taken
+.L708:
+
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   285  				{
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   286  					st_CAN_Rx_By_ID[ui16_Loop_1].b_Empty = TRUE;
+	st.b	[a15]6,d0
+.L709:
+
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   287  					for(ui8_Loop_2 = 0U; ui8_Loop_2 < 8U; ui8_Loop_2++)
+	mov.aa	a5,a4
+.L710:
+
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   288  					{
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   289  						*(TargetAddressPtr + ui8_Loop_2) = st_CAN_Rx_By_ID[ui16_Loop_1].ui8_Data[ui8_Loop_2];
+	lea	a6,[a15]7
+.L711:
+	mov.a	a7,#7
+.L45:
+	ld.bu	d15,[a6+]
+.L712:
+	st.b	[a5+],d15
+.L713:
+	loop	a7,.L45				; predicted taken
+.L714:
+
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   290  					}
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   291  					b_Return = TRUE;
+	mov	d2,#1
+.L44:
+.L43:
+.L42:
+	lea	a15,[a15]16
+.L715:
+	loop	a2,.L41				; predicted taken
+.L716:
+
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   292  				}
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   293  			}
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   294  		}
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   295  	}
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   296  	return(b_Return);
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   297  }
+	ret
+.L303:
+	
+__CAN_Read_By_ID_function_end:
+	.size	CAN_Read_By_ID,__CAN_Read_By_ID_function_end-CAN_Read_By_ID
+.L194:
+	; End of function
+	
+	.sdecl	'.text.CanDrv_TC1782.CANOBJ_Read',code,cluster('CANOBJ_Read')
+	.sect	'.text.CanDrv_TC1782.CANOBJ_Read'
+	.align	2
+	
+	.global	CANOBJ_Read
+
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   298  boolean CANOBJ_Read(uint8 ui8_Obj, uint8 *TargetAddressPtr)
+; Function CANOBJ_Read
+.L146:
+CANOBJ_Read:	.type	func
+
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   299  {
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   300  	uint8	ui8_Loop;
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   301  	boolean b_Return;
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   302  
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   303  	b_Return = FALSE;
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   304  	if((st_CAN_Object[ui8_Obj].b_Enable == TRUE)
+	mul	d15,d4,#20
+	movh.a	a15,#@his(st_CAN_Object)
+	lea	a15,[a15]@los(st_CAN_Object)
+.L849:
+	addsc.a	a15,a15,d15,#0
+.L850:
+	mov	d2,#0
+	ld.bu	d15,[a15]
+.L374:
+	jne	d15,#1,.L47				; predicted not taken
+.L851:
+
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   305  			&& (st_CAN_Object[ui8_Obj].b_Dir == CAN_RX_DIR))	//判断MO是否使能,并且MO为接收
+	ld.bu	d15,[a15]2
+.L852:
+	jne	d15,#0,.L48				; predicted taken
+.L853:
+
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   306  	{
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   307  		if(ui8_CallCycle_Count[ui8_Obj] > 1U)
+	movh.a	a2,#@his(ui8_CallCycle_Count)
+	lea	a2,[a2]@los(ui8_CallCycle_Count)
+.L854:
+	addsc.a	a2,a2,d4,#0
+	ld.bu	d15,[a2]
+.L855:
+	jlt.u	d15,#2,.L49				; predicted not taken
+.L856:
+
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   308  		{
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   309  			ui8_CallCycle_Count[ui8_Obj]--;
+	add	d15,#-1
+	st.b	[a2],d15
+.L48:
+.L47:
+
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   310  		}
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   311  		else
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   312  		{
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   313  			ui8_CallCycle_Count[ui8_Obj] = st_CAN_Object[ui8_Obj].ui8_CallCycle;
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   314  			if((CAN_HWOBJ[ui8_Obj].uwMOCTR & 0x00000008))    // if NEWDAT
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   315  			{
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   316  				for(ui8_Loop = 0U; ui8_Loop < 8U; ui8_Loop++)
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   317  				{
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   318  					*(TargetAddressPtr + ui8_Loop) = CAN_HWOBJ[ui8_Obj].ubData[ui8_Loop];
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   319  				}
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   320  				CAN_HWOBJ[ui8_Obj].uwMOCTR = 0x00000008;     // reset NEWDAT
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   321  				b_Return = TRUE;
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   322  			}
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   323  		}
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   324  	}
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   325  	return(b_Return);
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   326  }
+	ret
+.L49:
+	sha	d4,#5
+	ld.bu	d15,[a15]16
+.L373:
+	movh.a	a15,#61440
+	lea	a15,[a15]@los(0xf0005000)
+.L857:
+	addsc.a	a15,a15,d4,#0
+.L858:
+	st.b	[a2],d15
+.L859:
+	lea	a2,[a15]28
+	ld.w	d15,[a2]
+.L860:
+	jz.t	d15:3,.L51				; predicted not taken
+.L861:
+	lea	a15,[a15]16
+.L862:
+	mov.a	a5,#7
+.L52:
+	ld.bu	d15,[a15+]
+.L863:
+	st.b	[a4+],d15
+.L864:
+	loop	a5,.L52				; predicted taken
+.L865:
+	mov	d15,#8
+	st.w	[a2],d15
+.L866:
+	mov	d2,#1
+.L51:
+	ret
+.L342:
+	
+__CANOBJ_Read_function_end:
+	.size	CANOBJ_Read,__CANOBJ_Read_function_end-CANOBJ_Read
+.L244:
+	; End of function
+	
+	.sdecl	'.text.CanDrv_TC1782.CAN_Read',code,cluster('CAN_Read')
+	.sect	'.text.CanDrv_TC1782.CAN_Read'
+	.align	2
+	
+	.global	CAN_Read
+
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   327  /*************************************************************************/
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   328  /*
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   329  Function:		boolean CAN_Read(uint8 ui8_Obj, uint32* p_ui32_ID, uint8 *TargetAddressPtr)
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   330  
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   331  Description: 	此函数用于接收CAN消息
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   332  
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   333  Parameters: 	ui8_Obj				CAN的MO号(0~127)
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   334  				p_ui32_ID			CAN ID指针
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   335  				TargetAddressPtr	数据存放指针(指向8字节buffer)
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   336  
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   337  Return:       	boolean		用户可根据返回值判断CAN消息是否成功接收
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   338  
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   339  Return Values:  TRUE		接收消息成功
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   340  				FALSE		接收消息失败
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   341  
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   342  Remarks:		运行时间<1ms
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   343  				用户在中间层需要接收CAN数据时调用此函数。
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   344  				需保证输入参数CAN的MO号已经配置使能，并且完成过CAN初始化。
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   345  
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   346  Example:		接收MO0的CAN数据存放至buffer数组，CAN ID指向p_ID指针
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   347  				ret_val = CAN_Read(0U, p_ID, &buffer[0U]);
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   348  */
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   349  boolean CAN_Read(uint8 ui8_Obj, uint32* p_ui32_ID, uint8 *TargetAddressPtr)
+; Function CAN_Read
+.L148:
+CAN_Read:	.type	func
+
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   350  {
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   351  	boolean b_Return;
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   352  	uint32 ui32_ID;
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   353  	ui32_ID  = * p_ui32_ID ;
+	ld.w	d0,[a4]
+.L377:
+
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   354  //	b_Return = FALSE;
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   355  
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   356  	if(st_CAN_Object[ui8_Obj].b_RxIRQ == FALSE)
+	mul	d15,d4,#20
+	movh.a	a15,#@his(st_CAN_Object)
+	lea	a15,[a15]@los(st_CAN_Object)
+.L721:
+	addsc.a	a15,a15,d15,#0
+.L722:
+	ld.bu	d15,[a15]3
+.L723:
+	jne	d15,#0,.L54				; predicted not taken
+.L724:
+
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   357  	{
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   358  		b_Return = CANOBJ_Read(  ui8_Obj,  TargetAddressPtr);
+	mov.aa	a4,a5
+.L375:
+	j	CANOBJ_Read
+.L54:
+
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   359  	}
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   360  	else
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   361  	{
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   362  		b_Return = CAN_Read_By_ID(  ui32_ID,  TargetAddressPtr);
+	mov	d4,d0
+	mov.aa	a4,a5
+.L376:
+	j	CAN_Read_By_ID
+.L312:
+	
+__CAN_Read_function_end:
+	.size	CAN_Read,__CAN_Read_function_end-CAN_Read
+.L199:
+	; End of function
+	
+	.sdecl	'.text.CanDrv_TC1782.CAN_Write',code,cluster('CAN_Write')
+	.sect	'.text.CanDrv_TC1782.CAN_Write'
+	.align	2
+	
+	.global	CAN_Write
+
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   363  
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   364  	}
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   365  	return(b_Return);
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   366  }
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   367  
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   368  /*************************************************************************/
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   369  /*
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   370  Function:		boolean CAN_Write(uint8 ui8_Obj, uint8 *SourceAddressPtr)
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   371  
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   372  Description: 	此函数用于发送CAN消息
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   373  
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   374  Parameters: 	ui8_Obj				CAN的MO号(0~127)
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   375  				SourceAddressPtr	数据指针(指向8字节buffer)
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   376  
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   377  Return:       	boolean		用户可根据返回值判断CAN消息是否成功发送
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   378  
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   379  Return Values:  TRUE		发送消息成功
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   380  				FALSE		发送消息失败
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   381  
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   382  Remarks:		运行时间<1ms
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   383  				用户在中间层需要发送CAN数据时调用此函数。
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   384  				需保证输入参数CAN的MO号已经配置使能，并且完成过CAN初始化。
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   385  
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   386  Example:		使用MO1发送buffer数组里的数据到CAN总线
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   387  				ret_val = CAN_Write(1U, &buffer[0U]);
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   388  */
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   389  boolean CAN_Write(uint8 ui8_Obj, uint8 *SourceAddressPtr)
+; Function CAN_Write
+.L150:
+CAN_Write:	.type	func
+
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   390  {
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   391  	uint8	ui8_Loop;
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   392  	boolean b_Return;
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   393  
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   394  	b_Return = FALSE;
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   395  	if((st_CAN_Object[ui8_Obj].b_Enable == TRUE)
+	mul	d15,d4,#20
+	movh.a	a2,#@his(st_CAN_Object)
+	lea	a2,[a2]@los(st_CAN_Object)
+.L729:
+	addsc.a	a7,a2,d15,#0
+.L730:
+	mov	d2,#0
+	ld.bu	d15,[a7]
+.L379:
+	mov.aa	a15,a4
+.L380:
+	jne	d15,#1,.L57				; predicted not taken
+.L731:
+
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   396  			&& (st_CAN_Object[ui8_Obj].b_Dir == CAN_TX_DIR))	//判断MO是否使能,并且MO为发送
+	ld.bu	d15,[a7]2
+.L732:
+	jne	d15,#1,.L58				; prediction unknown
+.L733:
+
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   397  	{
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   398  		if((SourceAddressPtr[1] == 0x7F) && (SourceAddressPtr[3] == 0x78))
+	mov	d0,#127
+	ld.bu	d15,[a15]1
+.L734:
+	jne	d15,d0,.L59				; predicted not taken
+.L735:
+	mov	d0,#120
+	ld.bu	d15,[a15]3
+.L736:
+	jne	d15,d0,.L60				; predicted taken
+.L737:
+
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   399  		{
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   400  				ui8_CallCycle_Count[ui8_Obj] = st_CAN_Object[ui8_Obj].ui8_CallCycle;
+	movh.a	a2,#@his(ui8_CallCycle_Count)
+	lea	a2,[a2]@los(ui8_CallCycle_Count)
+.L738:
+	addsc.a	a2,a2,d4,#0
+.L739:
+	ld.bu	d15,[a7]16
+.L740:
+	st.b	[a2],d15
+.L60:
+.L59:
+	movh.a	a2,#@his(ui8_CallCycle_Count)
+	lea	a2,[a2]@los(ui8_CallCycle_Count)
+.L741:
+	addsc.a	a2,a2,d4,#0
+.L742:
+
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   401  		}
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   402  
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   403  		if(ui8_CallCycle_Count[ui8_Obj] > 1U)
+	ld.bu	d15,[a2]
+.L743:
+	jlt.u	d15,#2,.L61				; unsupported prediction taken forward branch
+.L744:
+
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   404  		{
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   405  			ui8_CallCycle_Count[ui8_Obj]--;
+	add	d15,#-1
+	st.b	[a2],d15
+.L745:
+	j	.L62
+.L61:
+
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   406  		}
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   407  		else
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   408  		{
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   409  //			ui8_CallCycle_Count[ui8_Obj] = st_CAN_Object[ui8_Obj].ui8_CallCycle;
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   410  
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   411  			CAN_HWOBJ[ui8_Obj].uwMOCTR = 0x00080000;       // set NEWDAT
+	sha	d4,#5
+	movh.a	a4,#61440
+.L378:
+	lea	a4,[a4]@los(0xf0005000)
+.L746:
+	addsc.a	a4,a4,d4,#0
+.L747:
+	movh	d15,#8
+	lea	a5,[a4]28
+.L748:
+	st.w	[a5],d15
+.L749:
+
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   412  			for(ui8_Loop = 0U; ui8_Loop < 8U; ui8_Loop++)
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   413  			{
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   414  				CAN_HWOBJ[ui8_Obj].ubData[ui8_Loop] = *(SourceAddressPtr++);
+	lea	a6,[a4]16
+.L750:
+	mov.a	a12,#7
+.L63:
+	ld.bu	d15,[a15+]
+.L751:
+	st.b	[a6+],d15
+.L752:
+	loop	a12,.L63				; predicted taken
+.L753:
+
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   415  			}
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   416  			CAN_HWOBJ[ui8_Obj].uwMOCTR = 0x00200040;       // reset RTSEL, set MSGVAL
+	mov.u	d15,#32769
+.L754:
+	sh	d15,#6
+	st.w	[a5],d15
+.L755:
+
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   417  			CAN_HWOBJ[ui8_Obj].uwMOCTR = 0x07000000;  // set TXRQ,TXEN0,TXEN1
+	movh	d15,#1792
+	st.w	[a5],d15
+.L756:
+
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   418  
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   419  			if((CAN_HWOBJ[ui8_Obj].ubData[1] == 0x7F) && (CAN_HWOBJ[ui8_Obj].ubData[3] == 0x78))
+	mov	d15,#127
+	ld.bu	d1,[a4]17
+.L757:
+
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   420  			{
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   421  				ui8_CallCycle_Count[ui8_Obj] = st_CAN_Object[ui8_Obj].ui8_CallCycle*10;
+	ld.bu	d0,[a7]16
+.L758:
+	jne	d15,d1,.L64				; predicted not taken
+.L759:
+	mov	d15,#120
+	ld.bu	d1,[a4]19
+.L760:
+	jne	d15,d1,.L65				; prediction unknown
+.L761:
+	mul	d15,d0,#10
+	st.b	[a2],d15
+.L762:
+	j	.L66
+.L65:
+.L64:
+
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   422  			}
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   423  			else
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   424  			{
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   425  				ui8_CallCycle_Count[ui8_Obj] = st_CAN_Object[ui8_Obj].ui8_CallCycle;
+	st.b	[a2],d0
+.L66:
+
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   426  			}
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   427  
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   428  			b_Return = TRUE;
+	mov	d2,#1
+.L62:
+.L58:
+.L57:
+
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   429  		}
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   430  	}
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   431  
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   432  	Update_Count = 0;			/*发送清零*/
+	movh.a	a15,#@his(Update_Count)
+.L381:
+	mov	d15,#0
+	st.w	[a15]@los(Update_Count),d15
+.L763:
+
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   433  	return(b_Return);
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   434  }
+	ret
+.L319:
+	
+__CAN_Write_function_end:
+	.size	CAN_Write,__CAN_Write_function_end-CAN_Write
+.L204:
+	; End of function
+	
+	.sdecl	'.text.CanDrv_TC1782.CAN_MOs_TXPND_Reset',code,cluster('CAN_MOs_TXPND_Reset')
+	.sect	'.text.CanDrv_TC1782.CAN_MOs_TXPND_Reset'
+	.align	2
+	
+	.global	CAN_MOs_TXPND_Reset
+
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   435  
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   436  /*************************************************************************/
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   437  /*
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   438  Function:		void CAN_MOs_TXPND_Reset(uint8 ui8_Obj)
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   439  
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   440  Description: 	此函数用于清除MO发送完成标志
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   441  
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   442  Parameters: 	void
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   443  
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   444  Return:       	void
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   445  
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   446  Return Values:  无
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   447  
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   448  Remarks:		运行时间<1ms
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   449  
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   450  Example:
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   451  */
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   452  void CAN_MOs_TXPND_Reset(uint8 ui8_Obj)
+; Function CAN_MOs_TXPND_Reset
+.L152:
+CAN_MOs_TXPND_Reset:	.type	func
+
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   453  {
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   454  	REG_CAN_MOCTR(ui8_Obj) = CAN_MOSTAT0_TXPND;  //Reset TXPND
+	sh	d4,#5
+.L382:
+	mov	d15,#20508
+	addih	d15,d15,#61440
+	add	d4,d15
+	mov.a	a15,d4
+.L768:
+	mov	d15,#2
+	st.w	[a15],d15
+.L769:
+
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   455  }
+	ret
+.L324:
+	
+__CAN_MOs_TXPND_Reset_function_end:
+	.size	CAN_MOs_TXPND_Reset,__CAN_MOs_TXPND_Reset_function_end-CAN_MOs_TXPND_Reset
+.L209:
+	; End of function
+	
+	.sdecl	'.text.CanDrv_TC1782.CAN_MOs_Transmit_Status',code,cluster('CAN_MOs_Transmit_Status')
+	.sect	'.text.CanDrv_TC1782.CAN_MOs_Transmit_Status'
+	.align	2
+	
+	.global	CAN_MOs_Transmit_Status
+
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   456  
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   457  /*************************************************************************/
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   458  /*
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   459  Function:		uint8 CAN_MOs_Transmit_Status(uint8 ui8_Obj)
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   460  
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   461  Description: 	此函数用于检查MO是否发送完成
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   462  
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   463  Parameters: 	void
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   464  
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   465  Return:       	void
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   466  
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   467  Return Values:  无
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   468  
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   469  Remarks:		运行时间<1ms
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   470  
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   471  Example:
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   472  */
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   473  uint8 CAN_MOs_Transmit_Status(uint8 ui8_Obj)
+; Function CAN_MOs_Transmit_Status
+.L154:
+CAN_MOs_Transmit_Status:	.type	func
+
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   474  {
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   475  	uint8 b_Return;
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   476  
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   477  	b_Return = E_NOT_OK;
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   478  
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   479      if(REG_CAN_MOCTR(ui8_Obj) & CAN_MOSTAT0_TXPND)   //if TXPND is set
+	mov	d15,#20508
+	sh	d4,#5
+.L383:
+	addih	d15,d15,#61440
+	add	d4,d15
+	mov.a	a15,d4
+.L774:
+	mov	d2,#1
+	ld.w	d15,[a15]
+.L384:
+	jz.t	d15:1,.L68				; predicted not taken
+.L775:
+
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   480      {
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   481      	REG_CAN_MOCTR(ui8_Obj) = CAN_MOSTAT0_TXPND;  //Reset TXPND
+	mov	d15,#2
+	st.w	[a15],d15
+.L776:
+
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   482      	b_Return = E_OK;
+	mov	d2,#0
+.L68:
+
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   483      }
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   484  
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   485      return b_Return;
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   486  }
+	ret
+.L326:
+	
+__CAN_MOs_Transmit_Status_function_end:
+	.size	CAN_MOs_Transmit_Status,__CAN_MOs_Transmit_Status_function_end-CAN_MOs_Transmit_Status
+.L214:
+	; End of function
+	
+	.sdecl	'.text.CanDrv_TC1782.CAN_MOs_Get_DLC',code,cluster('CAN_MOs_Get_DLC')
+	.sect	'.text.CanDrv_TC1782.CAN_MOs_Get_DLC'
+	.align	2
+	
+	.global	CAN_MOs_Get_DLC
+
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   487  
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   488  /*************************************************************************/
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   489  /*
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   490  Function:		uint8 CAN_MOs_Get_DLC(uint8 ui8_Obj)
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   491  
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   492  Description: 	获取CAN MO接收数据长度
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   493  
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   494  Parameters: 	ui8_Obj
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   495  
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   496  Return:       	uint8
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   497  
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   498  Return Values:  无
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   499  
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   500  Remarks:		运行时间<1ms
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   501  
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   502  Example:
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   503  */
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   504  uint8 CAN_MOs_Get_DLC(uint8 ui8_Obj)
+; Function CAN_MOs_Get_DLC
+.L156:
+CAN_MOs_Get_DLC:	.type	func
+
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   505  {
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   506  	uint8 ui8_DLC;
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   507  
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   508  	ui8_DLC = (REG_CAN_MOFCR(ui8_Obj) >> 24U) & 0x0FU;
+	sh	d4,#5
+.L385:
+	mov	d15,#20480
+	addih	d15,d15,#61440
+	add	d4,d15
+	mov.a	a15,d4
+	ld.w	d15,[a15]
+.L781:
+	sh	d15,d15,#-24
+.L782:
+	and	d2,d15,#15
+.L386:
+
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   509  
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   510  	return ui8_DLC;
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   511  }
+	ret
+.L329:
+	
+__CAN_MOs_Get_DLC_function_end:
+	.size	CAN_MOs_Get_DLC,__CAN_MOs_Get_DLC_function_end-CAN_MOs_Get_DLC
+.L219:
+	; End of function
+	
+	.sdecl	'.text.CanDrv_TC1782.CAN_Set_ID',code,cluster('CAN_Set_ID')
+	.sect	'.text.CanDrv_TC1782.CAN_Set_ID'
+	.align	2
+	
+	.global	CAN_Set_ID
+
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   512  
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   513  /*************************************************************************/
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   514  /*
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   515  Function:		void CAN_Set_ID(uint8 ui8_Obj, uint32 ui32_ID)
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   516  
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   517  Description: 	此函数用于设置CAN ID号
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   518  
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   519  Parameters: 	ui8_Obj		CAN的MO号(0~127)
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   520  				ui32_ID		CAN的ID号(11位或29位)
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   521  
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   522  Return:       	void
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   523  
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   524  Return Values:  无
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   525  
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   526  Remarks:		运行时间<1ms
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   527  				用户在中间层需要设置CAN ID号时调用此函数。
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   528  				需保证输入参数CAN的MO号已经配置使能，并且完成过CAN初始化。
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   529  				MO若配置为标准帧，ID参数为11位；MO若配置为扩展帧，ID参数为29位。
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   530  
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   531  Example:		设置MO0的CAN ID号为0x200
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   532  				CAN_Set_ID(0U,0x200U);
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   533  */
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   534  void CAN_Set_ID(uint8 ui8_Obj, uint32 ui32_ID)
+; Function CAN_Set_ID
+.L158:
+CAN_Set_ID:	.type	func
+
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   535  {
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   536  	if(st_CAN_Object[ui8_Obj].b_IDE == CAN_STD_ID)	//11位CAN ID
+	mul	d15,d4,#20
+	movh.a	a15,#@his(st_CAN_Object)
+	lea	a15,[a15]@los(st_CAN_Object)
+.L787:
+	addsc.a	a15,a15,d15,#0
+.L788:
+	ld.bu	d15,[a15]6
+.L789:
+	jne	d15,#0,.L71				; predicted taken
+.L790:
+
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   537  	{
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   538  		REG_CAN_MOAR(ui8_Obj) =  ((uint32)ui32_ID << 18U) + 0x80000000;  //CAN_MOAR
+	sh	d4,#5
+.L387:
+	mov	d15,#20504
+	addih	d15,d15,#61440
+	add	d4,d15
+	mov.a	a15,d4
+.L791:
+	sh	d15,d5,#18
+.L792:
+	movh	d0,#32768
+.L793:
+	add	d15,d0
+	st.w	[a15],d15
+.L794:
+
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   539  	}
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   540  	else if(st_CAN_Object[ui8_Obj].b_IDE == CAN_EXT_ID)	//29位CAN ID
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   541  	{
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   542  		REG_CAN_MOAR(ui8_Obj) =  (uint32)ui32_ID + 0xA0000000;  //CAN_MOAR
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   543  	}
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   544  }
+	ret
+.L71:
+	jne	d15,#1,.L73				; predicted taken
+.L795:
+	sh	d4,#5
+.L388:
+	mov	d15,#20504
+	addih	d15,d15,#61440
+	add	d4,d15
+	mov.a	a15,d4
+.L796:
+	movh	d15,#40960
+.L797:
+	add	d5,d15
+	st.w	[a15],d5
+.L73:
+	ret
+.L332:
+	
+__CAN_Set_ID_function_end:
+	.size	CAN_Set_ID,__CAN_Set_ID_function_end-CAN_Set_ID
+.L224:
+	; End of function
+	
+	.sdecl	'.text.CanDrv_TC1782.CAN_Read_Error',code,cluster('CAN_Read_Error')
+	.sect	'.text.CanDrv_TC1782.CAN_Read_Error'
+	.align	2
+	
+	.global	CAN_Read_Error
+
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   545  
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   546  /*
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   547  Function:		void CAN_Read_Error(void)
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   548  Description: 	读取CAN故障
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   549  Input: 			void
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   550  Output:       	None
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   551  Return:        	void
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   552  Time:
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   553  Others:
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   554  Physical Test：
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   555  */
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   556  void CAN_Read_Error(void)
+; Function CAN_Read_Error
+.L160:
+CAN_Read_Error:	.type	func
+
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   557  {
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   558  	uint32	ui32_Temp;
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   559  	uint8	ui8_Node_Loop;
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   560  
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   561  	for(ui8_Node_Loop = 0U; ui8_Node_Loop < MAX_NODE_NUM; ui8_Node_Loop++)
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   562  	{
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   563  		if(st_CAN_Node[ui8_Node_Loop].b_Enable == TRUE)	//判断Node是否使能
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   564  		{
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   565  			ui32_Temp = REG_CAN_NSR(ui8_Node_Loop);
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   566  			if (ui32_Temp & 0x00000020)      // if ALERT
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   567  			{
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   568  				if (ui32_Temp & 0x00000080)  // if BOFF
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   569  				{
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   570  					st_CAN_Error[ui8_Node_Loop].b_BOFF = TRUE;
+	mov	d8,#0
+	movh.a	a15,#@his(st_CAN_Error)
+.L389:
+	lea	a15,[a15]@los(st_CAN_Error)
+.L871:
+	movh.a	a12,#@his(st_CAN_Node)
+	lea	a12,[a12]@los(st_CAN_Node)
+.L872:
+	mov	d15,#1
+	mov.a	a13,#2
+.L74:
+	ld.bu	d0,[a12]
+.L873:
+	jne	d0,#1,.L75				; predicted taken
+.L874:
+	sh	d0,d8,#8
+	mov	d1,#16900
+	addih	d1,d1,#61440
+	add	d1,d0
+	mov.a	a2,d1
+	ld.w	d2,[a2]
+.L390:
+	jz.t	d2:5,.L76				; predicted not taken
+.L875:
+	jz.t	d2:7,.L77				; unsupported prediction taken forward branch
+.L876:
+	st.b	[a15],d15
+.L77:
+
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   571  				}
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   572  
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   573  				if (ui32_Temp & 0x00000040)  // if EWRN
+	jz.t	d2:6,.L78				; unsupported prediction taken forward branch
+.L877:
+
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   574  				{
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   575  					st_CAN_Error[ui8_Node_Loop].b_EWRN = TRUE;
+	st.b	[a15]1,d15
+.L78:
+
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   576  				}
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   577  
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   578  				if (ui32_Temp & 0x00000100)  // if LLE
+	jz.t	d2:8,.L79				; unsupported prediction taken forward branch
+.L878:
+
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   579  				{
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   580  					st_CAN_Error[ui8_Node_Loop].b_LLE = TRUE;
+	st.b	[a15]2,d15
+.L879:
+
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   581  					REG_CAN_NSR(ui8_Node_Loop) = 0x00000238;    // reset LLE
+	mov.a	a2,d1
+.L880:
+	mov	d3,#568
+	st.w	[a2],d3
+.L79:
+
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   582  				}
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   583  
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   584  				if (ui32_Temp & 0x00000200)  // if LOE
+	jz.t	d2:9,.L80				; unsupported prediction taken forward branch
+.L881:
+
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   585  				{
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   586  					st_CAN_Error[ui8_Node_Loop].b_LOE = TRUE;
+	st.b	[a15]3,d15
+.L882:
+
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   587  					REG_CAN_NSR(ui8_Node_Loop) = 0x00000138;    // reset LOE
+	mov.a	a2,d1
+.L883:
+	mov	d3,#312
+	st.w	[a2],d3
+.L80:
+
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   588  				}
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   589  
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   590  				if (REG_CAN_NCR(ui8_Node_Loop) & 0x00000001) // if INIT
+	mov	d3,#16896
+	addih	d3,d3,#61440
+	add	d0,d3
+	mov.a	a2,d0
+	ld.w	d0,[a2]
+.L884:
+	jz.t	d0:0,.L81				; unsupported prediction taken forward branch
+.L885:
+
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   591  				{
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   592  					st_CAN_Error[ui8_Node_Loop].b_INIT = TRUE;
+	st.b	[a15]4,d15
+.L81:
+
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   593  				}
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   594  
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   595  				REG_CAN_NSR(ui8_Node_Loop) = 0x00000318;    // reset ALERT
+	mov.a	a2,d1
+.L886:
+	mov	d0,#792
+	st.w	[a2],d0
+.L76:
+
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   596  			}
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   597  
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   598  			if (ui32_Temp & 0x00000007)  // if LEC
+	and	d0,d2,#7
+.L887:
+	jeq	d0,#0,.L82				; predicted not taken
+.L888:
+
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   599  			{
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   600  				switch (ui32_Temp & 0x00000007)  // LEC0 (Last Error Code0)
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   601  				{
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   602  					case ERROR_STUFF: // Stuff Error
+	jeq	d0,#1,.L83				; prediction unknown
+.L889:
+
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   603  					{
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   604  						st_CAN_Error[ui8_Node_Loop].b_Stuff = TRUE;
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   605  						break;
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   606  					}
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   607  
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   608  					case ERROR_FORM: // Form Error
+	jeq	d0,#2,.L84				; prediction unknown
+.L890:
+
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   609  					{
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   610  						st_CAN_Error[ui8_Node_Loop].b_Form = TRUE;
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   611  						break;
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   612  					}
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   613  
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   614  					case ERROR_ACK: // Ack Error
+	jeq	d0,#3,.L85				; prediction unknown
+.L891:
+
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   615  					{
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   616  						st_CAN_Error[ui8_Node_Loop].b_Ack = TRUE;
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   617  						break;
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   618  					}
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   619  
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   620  					case ERROR_BIT1: // Bit1 Error
+	jeq	d0,#4,.L86				; prediction unknown
+.L892:
+
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   621  					{
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   622  						st_CAN_Error[ui8_Node_Loop].b_Bit1 = TRUE;
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   623  						break;
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   624  					}
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   625  
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   626  					case ERROR_BIT0: // Bit0 Error
+	jeq	d0,#5,.L87				; prediction unknown
+.L893:
+
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   627  					{
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   628  						if (ui32_Temp & 0x00000080)  // if Busoff status
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   629  						{
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   630  							st_CAN_Error[ui8_Node_Loop].b_Bit0_BOFF = TRUE;
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   631  						}
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   632  						else
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   633  						{
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   634  							st_CAN_Error[ui8_Node_Loop].b_Bit0_Trans = TRUE;
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   635  						}
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   636  						break;
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   637  					}
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   638  
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   639  					case ERROR_CRC: // CRC Error
+	jeq	d0,#6,.L88				; prediction unknown
+.L894:
+	j	.L89
+.L83:
+	st.b	[a15]5,d15
+.L895:
+	j	.L90
+.L84:
+	st.b	[a15]6,d15
+.L896:
+	j	.L91
+.L85:
+	st.b	[a15]7,d15
+.L897:
+	j	.L92
+.L86:
+	st.b	[a15]8,d15
+.L898:
+	j	.L93
+.L87:
+	jz.t	d2:7,.L94				; prediction unknown
+.L899:
+	st.b	[a15]9,d15
+.L900:
+	j	.L95
+.L94:
+	st.b	[a15]10,d15
+.L901:
+	j	.L96
+.L88:
+
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   640  					{
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   641  						st_CAN_Error[ui8_Node_Loop].b_CRC = TRUE;
+	st.b	[a15]11,d15
+
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   642  						break;
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   643  					}
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   644  
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   645  					default:
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   646  					{
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   647  						break;
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   648  					}
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   649  				}
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   650  				REG_CAN_NSR(ui8_Node_Loop) = 0x0000033F;    // reset LEC
+.L96:
+.L95:
+.L93:
+.L92:
+.L91:
+.L90:
+.L89:
+	mov.a	a2,d1
+.L902:
+	mov	d0,#831
+	st.w	[a2],d0
+.L82:
+.L75:
+
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   651  			}
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   652  		}
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   653  		CAN_Error_Callback(ui8_Node_Loop);	//CAN故障回调
+	mov	d4,d8
+.L391:
+	call	CAN_Error_Callback
+.L392:
+	add	d8,#1
+	lea	a15,[a15]12
+	lea	a12,[a12]20
+.L903:
+	loop	a13,.L74				; predicted taken
+.L904:
+
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   654  	}
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   655  }
+	ret
+.L347:
+	
+__CAN_Read_Error_function_end:
+	.size	CAN_Read_Error,__CAN_Read_Error_function_end-CAN_Read_Error
+.L249:
+	; End of function
+	
+	.sdecl	'.text.CanDrv_TC1782.CAN_Error_Clear',code,cluster('CAN_Error_Clear')
+	.sect	'.text.CanDrv_TC1782.CAN_Error_Clear'
+	.align	2
+	
+	.global	CAN_Error_Clear
+
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   656  
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   657  /*************************************************************************/
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   658  /*
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   659  Function:		void CAN_Error_Clear(void)
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   660  
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   661  Description: 	此函数用于清除CAN故障信息
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   662  
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   663  Parameters: 	void
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   664  
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   665  Return:       	void
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   666  
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   667  Return Values:  无
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   668  
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   669  Remarks:		运行时间<1ms
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   670  				用户在中间层需要清除CAN故障信息时调用此函数。
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   671  
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   672  Example:		清除CAN故障
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   673  				CAN_Error_Clear();
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   674  */
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   675  void CAN_Error_Clear(void)
+; Function CAN_Error_Clear
+.L162:
+CAN_Error_Clear:	.type	func
+
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   676  {
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   677  	uint8	ui8_Node_Loop;
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   678  
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   679  	for(ui8_Node_Loop = 0U; ui8_Node_Loop < MAX_NODE_NUM; ui8_Node_Loop++)
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   680  	{
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   681  		//清除CAN故障
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   682  		st_CAN_Error[ui8_Node_Loop].b_BOFF = FALSE;
+	mov	d15,#0
+	movh.a	a15,#@his(st_CAN_Error)
+	lea	a15,[a15]@los(st_CAN_Error)
+.L802:
+	mov.a	a2,#2
+.L97:
+
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   683  		st_CAN_Error[ui8_Node_Loop].b_EWRN = FALSE;
+	st.b	[a15]1,d15
+.L803:
+
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   684  		st_CAN_Error[ui8_Node_Loop].b_LLE = FALSE;
+	st.b	[a15]2,d15
+.L804:
+
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   685  		st_CAN_Error[ui8_Node_Loop].b_LOE = FALSE;
+	st.b	[a15]3,d15
+.L805:
+
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   686  		st_CAN_Error[ui8_Node_Loop].b_INIT = FALSE;
+	st.b	[a15]4,d15
+.L806:
+
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   687  		st_CAN_Error[ui8_Node_Loop].b_Stuff = FALSE;
+	st.b	[a15]5,d15
+.L807:
+
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   688  		st_CAN_Error[ui8_Node_Loop].b_Form = FALSE;
+	st.b	[a15]6,d15
+.L808:
+
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   689  		st_CAN_Error[ui8_Node_Loop].b_Ack = FALSE;
+	st.b	[a15]7,d15
+.L809:
+
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   690  		st_CAN_Error[ui8_Node_Loop].b_Bit1 = FALSE;
+	st.b	[a15]8,d15
+.L810:
+
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   691  		st_CAN_Error[ui8_Node_Loop].b_Bit0_BOFF = FALSE;
+	st.b	[a15]9,d15
+.L811:
+
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   692  		st_CAN_Error[ui8_Node_Loop].b_Bit0_Trans = FALSE;
+	st.b	[a15]10,d15
+.L812:
+
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   693  		st_CAN_Error[ui8_Node_Loop].b_CRC = FALSE;
+	st.b	[a15]11,d15
+.L813:
+	st.b	[a15+]12,d15
+.L814:
+	loop	a2,.L97				; predicted taken
+.L815:
+
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   694  	}
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   695  }
+	ret
+.L335:
+	
+__CAN_Error_Clear_function_end:
+	.size	CAN_Error_Clear,__CAN_Error_Clear_function_end-CAN_Error_Clear
+.L229:
+	; End of function
+	
+	.sdecl	'.text.CanDrv_TC1782.CAN_Read_BusOff',code,cluster('CAN_Read_BusOff')
+	.sect	'.text.CanDrv_TC1782.CAN_Read_BusOff'
+	.align	2
+	
+	.global	CAN_Read_BusOff
+
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   696  
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   697  /*
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   698  Function:		boolean CAN_Read_BusOff(uint8 ui8_Node)
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   699  Description: 	此函数用于读取BUSOFF信息
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   700  Input: 			ui8_Node	CAN Node
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   701  Output:       	None
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   702  Return:        	TRUE		进入BUSOFF
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   703  				FALSE	没有进入BUSOFF
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   704  Time:
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   705  Others:
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   706  Physical Test：
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   707  */
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   708  boolean CAN_Read_BusOff(uint8 ui8_Node)
+; Function CAN_Read_BusOff
+.L164:
+CAN_Read_BusOff:	.type	func
+
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   709  {
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   710  	boolean b_Return;
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   711  
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   712  	b_Return = FALSE;
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   713  	if(st_CAN_Error[ui8_Node].b_BOFF == TRUE)
+	mul	d15,d4,#12
+	movh.a	a15,#@his(st_CAN_Error)
+	lea	a15,[a15]@los(st_CAN_Error)
+.L909:
+	addsc.a	a15,a15,d15,#0
+.L910:
+	mov	d2,#0
+	ld.bu	d15,[a15]
+.L393:
+	eq	d15,d15,#1
+.L911:
+
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   714  	{
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   715  		b_Return = TRUE;
+	cmov	d2,d15,#1
+.L912:
+
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   716  	}
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   717  	return b_Return;
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   718  }
+	ret
+.L350:
+	
+__CAN_Read_BusOff_function_end:
+	.size	CAN_Read_BusOff,__CAN_Read_BusOff_function_end-CAN_Read_BusOff
+.L254:
+	; End of function
+	
+	.sdecl	'.text.CanDrv_TC1782.CAN_BusOff_Clear',code,cluster('CAN_BusOff_Clear')
+	.sect	'.text.CanDrv_TC1782.CAN_BusOff_Clear'
+	.align	2
+	
+	.global	CAN_BusOff_Clear
+
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   719  
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   720  /*
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   721  Function:		void CAN_BusOff_Clear(uint8 ui8_Node)
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   722  Description: 	此函数用于清除BUSOFF
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   723  Input: 			ui8_Node	CAN Node
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   724  Output:       	None
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   725  Return:        	void
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   726  Time:
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   727  Others:
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   728  Physical Test：
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   729  */
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   730  void CAN_BusOff_Clear(uint8 ui8_Node)
+; Function CAN_BusOff_Clear
+.L166:
+CAN_BusOff_Clear:	.type	func
+
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   731  {
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   732  	ui32_BOFF_Clear_Count[ui8_Node]++;
+	movh.a	a15,#@his(ui32_BOFF_Clear_Count)
+	lea	a15,[a15]@los(ui32_BOFF_Clear_Count)
+.L917:
+	addsc.a	a15,a15,d4,#2
+	ld.w	d15,[a15]
+.L918:
+	add	d15,#1
+	st.w	[a15],d15
+.L919:
+
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   733  	if(ui32_BOFF_Clear_Count[ui8_Node] >= BUS_OFF_SLOW_THRESHOLD)	//大于阀值，切换到慢速恢复
+	jlt.u	d15,#10,.L100				; unsupported prediction taken forward branch
+.L920:
+
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   734  	{
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   735  		st_CAN_Node[ui8_Node].ui32_BOFF_Dealy = BUS_OFF_DEALY_SLOW;	//慢速恢复
+	mul	d15,d4,#20
+	movh.a	a15,#@his(st_CAN_Node)
+	lea	a15,[a15]@los(st_CAN_Node)
+.L921:
+	addsc.a	a15,a15,d15,#0
+.L922:
+	mov	d15,#100
+	st.w	[a15]14,d15
+.L100:
+
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   736  	}
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   737  
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   738  	REG_CAN_NCR(ui8_Node) &= ~0x00000041;  //CAN_NCR reset INIT and CCE
+	mov	d0,#16896
+	sh	d15,d4,#8
+	addih	d0,d0,#61440
+	add	d15,d0
+	mov.a	a15,d15
+.L923:
+	mov	d0,#-66
+	ld.w	d15,[a15]
+.L924:
+	and	d15,d0
+	st.w	[a15],d15
+.L925:
+
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   739  	st_CAN_Error[ui8_Node].b_BOFF = FALSE;
+	mul	d15,d4,#12
+	movh.a	a15,#@his(st_CAN_Error)
+	lea	a15,[a15]@los(st_CAN_Error)
+.L926:
+	addsc.a	a15,a15,d15,#0
+.L927:
+	mov	d15,#0
+	st.b	[a15],d15
+.L928:
+
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   740  
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   741  	//根据不同Node号分别处理故障
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   742  	if(ui8_Node == 0U)
+	jeq	d4,#0,.L101				; predicted not taken
+.L929:
+
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   743  	{
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   744  //		b_VbHDD_CAN0MduFlt_flg_Valid = FALSE	;		//CAN0收发器故障清零
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   745  	}
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   746  	else if(ui8_Node == 1U)
+	jeq	d4,#1,.L102				; predicted not taken
+.L930:
+
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   747  	{
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   748  //		b_VbHDD_CAN1MduFlt_flg_Valid = FALSE	;		//CAN1收发器故障清零
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   749  	}
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   750  	else if(ui8_Node == 2U)
+	jeq	d4,#2,.L103				; predicted taken
+.L931:
+
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   751  	{
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   752  //		b_VbHDD_CAN2MduFlt_flg_Valid = FALSE	;		//CAN2收发器故障清零
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   753  	}
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   754  	else
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   755  	{
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   756  		__nop();
+	nop
+.L103:
+.L102:
+.L101:
+
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   757  	}
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   758  
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   759  }
+	ret
+.L353:
+	
+__CAN_BusOff_Clear_function_end:
+	.size	CAN_BusOff_Clear,__CAN_BusOff_Clear_function_end-CAN_BusOff_Clear
+.L259:
+	; End of function
+	
+	.sdecl	'.text.CanDrv_TC1782.CAN_BusOff_Deal',code,cluster('CAN_BusOff_Deal')
+	.sect	'.text.CanDrv_TC1782.CAN_BusOff_Deal'
+	.align	2
+	
+	.global	CAN_BusOff_Deal
+
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   760  
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   761  /*************************************************************************/
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   762  /*
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   763  Function:		void CAN_BusOff_Deal(void)
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   764  
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   765  Description: 	此函数用于busoff恢复处理
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   766  
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   767  Parameters: 	void
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   768  
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   769  Return:       	void
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   770  
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   771  Return Values:  无
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   772  
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   773  Remarks:		运行时间<1ms
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   774  				用户在固定周期(推荐10ms)中调用此函数用来BusOff恢复
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   775  
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   776  Example:		BusOff恢复处理
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   777  				CAN_BusOff_Deal();
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   778  */
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   779  void CAN_BusOff_Deal(void)
+; Function CAN_BusOff_Deal
+.L168:
+CAN_BusOff_Deal:	.type	func
+
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   780  {
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   781  	uint8	ui8_Node_Loop;
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   782  
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   783  	for(ui8_Node_Loop = 0U; ui8_Node_Loop < MAX_NODE_NUM; ui8_Node_Loop++)
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   784  	{
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   785  		if(st_CAN_Node[ui8_Node_Loop].b_Enable == TRUE)	//判断Node是否使能
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   786  		{
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   787  			if((REG_CAN_NSR(ui8_Node_Loop) & 0x00000008U) != 0U)	//判断是否该节点有数据成功发送
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   788  			{
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   789  				REG_CAN_NSR(ui8_Node_Loop) &= 0xFFFFFFF7U;	//清发送完成标志
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   790  				ui32_BOFF_Clear_Count[ui8_Node_Loop] = 0U;	//清除计数器
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   791  				st_CAN_Node[ui8_Node_Loop].ui32_BOFF_Dealy = BUS_OFF_DEALY_FAST;	//快速恢复
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   792  				ui32_BOFF_Delay_Count[ui8_Node_Loop] = st_CAN_Node[ui8_Node_Loop].ui32_BOFF_Dealy;
+	mov	d8,#0
+	movh.a	a15,#@his(ui32_BOFF_Delay_Count)
+.L394:
+	lea	a15,[a15]@los(ui32_BOFF_Delay_Count)
+.L820:
+	movh.a	a12,#@his(st_CAN_Node)
+	lea	a12,[a12]@los(st_CAN_Node)
+.L821:
+	movh.a	a13,#@his(ui32_BOFF_Clear_Count)
+	lea	a13,[a13]@los(ui32_BOFF_Clear_Count)
+.L822:
+	mov.a	a14,#2
+.L104:
+	ld.bu	d15,[a12]
+.L823:
+	jne	d15,#1,.L105				; predicted taken
+.L824:
+	sh	d15,d8,#8
+	mov	d0,#16900
+	addih	d0,d0,#61440
+	add	d15,d0
+	mov.a	a2,d15
+	ld.w	d15,[a2]
+.L825:
+	jz.t	d15:3,.L106				; predicted not taken
+.L826:
+	ld.w	d15,[a2]
+.L827:
+	insert	d15,d15,#0,#3,#1
+	st.w	[a2],d15
+.L828:
+	mov	d15,#0
+	st.w	[a13],d15
+.L829:
+	mov	d15,#5
+	st.w	[a12]14,d15
+.L830:
+	st.w	[a15],d15
+.L106:
+
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   793  			}
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   794  
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   795  			if(CAN_Read_BusOff(ui8_Node_Loop) == TRUE)	//判断是否进入BUSOFF
+	mov	d4,d8
+.L395:
+	call	CAN_Read_BusOff
+.L396:
+	jeq	d2,#0,.L107				; predicted taken
+.L831:
+
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   796  			{
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   797  				if(ui32_BOFF_Delay_Count[ui8_Node_Loop] > 0U)
+	ld.w	d15,[a15]
+.L832:
+	jeq	d15,#0,.L108				; predicted not taken
+.L833:
+
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   798  				{
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   799  					ui32_BOFF_Delay_Count[ui8_Node_Loop]--;
+	add	d15,#-1
+.L834:
+	j	.L109
+.L108:
+
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   800  				}
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   801  				else
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   802  				{	//BUSOFF计数器为0时清除BUSOFF
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   803  					CAN_BusOff_Clear(ui8_Node_Loop);
+	mov	d4,d8
+.L397:
+	call	CAN_BusOff_Clear
+.L398:
+
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   804  					ui32_BOFF_Delay_Count[ui8_Node_Loop] = st_CAN_Node[ui8_Node_Loop].ui32_BOFF_Dealy;
+	ld.w	d15,[a12]14
+.L109:
+	st.w	[a15],d15
+.L107:
+.L105:
+	add	d8,#1
+	add.a	a15,#4
+	lea	a12,[a12]20
+	add.a	a13,#4
+.L835:
+	loop	a14,.L104				; predicted taken
+.L836:
+
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   805  				}
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   806  			}
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   807  		}
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   808  	}
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   809  }
+	ret
+.L337:
+	
+__CAN_BusOff_Deal_function_end:
+	.size	CAN_BusOff_Deal,__CAN_BusOff_Deal_function_end-CAN_BusOff_Deal
+.L234:
+	; End of function
+	
+	.sdecl	'.text.CanDrv_TC1782.CAN_Rx_Interrupt',code,cluster('CAN_Rx_Interrupt')
+	.sect	'.text.CanDrv_TC1782.CAN_Rx_Interrupt'
+	.align	2
+	
+	.global	CAN_Rx_Interrupt
+
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   810  
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   811  /*
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   812  Function:		void CAN_Rx_Interrupt(uint8 ui8_Obj)
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   813  Description: 	CAN接收中断处理
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   814  Input: 			ui8_Obj	CAN MO
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   815  Output:       	None
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   816  Return:        	void
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   817  Time:
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   818  Others:
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   819  Physical Test：
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   820  */
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   821  void CAN_Rx_Interrupt(uint8 ui8_Obj)
+; Function CAN_Rx_Interrupt
+.L170:
+CAN_Rx_Interrupt:	.type	func
+
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   822  {
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   823  	uint16	ui16_Loop_1;
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   824  	uint8	ui8_Loop_2;
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   825  	uint32	ui32_ID;
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   826  	boolean	b_Rx_By_ID;
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   827  
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   828  	if(CAN_HWOBJ[ui8_Obj].uwMOCTR & CAN_MOSTAT_RXPND)        // if message object  receive interrupt
+	sha	d15,d4,#5
+	movh.a	a15,#61440
+	lea	a15,[a15]@los(0xf0005000)
+.L936:
+	addsc.a	a15,a15,d15,#0
+.L937:
+	lea	a12,[a15]28
+	ld.w	d15,[a12]
+.L938:
+	jz.t	d15:0,.L110				; predicted not taken
+.L939:
+
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   829  	{
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   830  		if(CAN_HWOBJ[ui8_Obj].uwMOCTR & CAN_MOSTAT_NEWDAT)     // if NEWDAT is set
+	ld.w	d15,[a12]
+.L940:
+	jz.t	d15:3,.L111				; predicted not taken
+.L941:
+
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   831  		{
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   832  			if (CAN_HWOBJ[ui8_Obj].uwMOCTR & CAN_MOSTAT_MSGLST)  // if MSGLST is set
+	ld.w	d15,[a12]
+.L942:
+	jz.t	d15:4,.L112				; predicted not taken
+.L943:
+
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   833  			{
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   834  				CAN_HWOBJ[ui8_Obj].uwMOCTR = CAN_MOSTAT_MSGLST;    // reset MSGLST
+	mov	d15,#16
+	st.w	[a12],d15
+.L112:
+
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   835  			}
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   836  			//接收CAN ID
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   837  			if(st_CAN_Object[ui8_Obj].b_IDE == CAN_STD_ID)	//11位CAN ID
+	mul	d15,d4,#20
+	movh.a	a2,#@his(st_CAN_Object)
+	lea	a2,[a2]@los(st_CAN_Object)
+.L944:
+	addsc.a	a2,a2,d15,#0
+.L945:
+	mov	d0,#0
+	ld.bu	d15,[a2]6
+.L946:
+	jne	d15,#0,.L113				; predicted taken
+.L947:
+
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   838  			{
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   839  				ui32_ID = (CAN_HWOBJ[ui8_Obj].uwMOAR >> 18U) & 0x7FFU;
+	ld.w	d15,[a15]24
+.L948:
+	extr.u	d1,d15,#18,#11
+.L400:
+	j	.L114
+.L113:
+
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   840  			}
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   841  			else if(st_CAN_Object[ui8_Obj].b_IDE == CAN_EXT_ID)	//29位CAN ID
+	jne	d15,#1,.L115				; predicted not taken
+.L949:
+
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   842  			{
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   843  				ui32_ID = CAN_HWOBJ[ui8_Obj].uwMOAR & 0x1FFFFFFFU;
+	ld.w	d15,[a15]24
+.L950:
+	insert	d1,d15,#0,#29,#3
+.L401:
+	j	.L116
+.L115:
+
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   844  			}
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   845  			else
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   846  			{
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   847  				ui32_ID = 0xFFFFFFFFU;
+	mov	d1,#-1
+.L402:
+
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   848  				__nop();
+	nop
+.L116:
+.L114:
+
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   849  			}
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   850  
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   851  			//根据CAN ID接收数据
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   852  			b_Rx_By_ID = FALSE;
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   853  			for(ui16_Loop_1 = 0U; ui16_Loop_1 < MAX_CAN_RX_BY_ID_NUM; ui16_Loop_1++)
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   854  			{
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   855  				if(st_CAN_Rx_By_ID[ui16_Loop_1].b_Enable == TRUE)
+	movh.a	a2,#@his(st_CAN_Rx_By_ID)
+	lea	a2,[a2]@los(st_CAN_Rx_By_ID)
+.L951:
+
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   856  				{
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   857  					if(ui32_ID == st_CAN_Rx_By_ID[ui16_Loop_1].ui32_ID)	//ID相等
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   858  					{
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   859  						for(ui8_Loop_2 = 0U; ui8_Loop_2 < 8U; ui8_Loop_2++)
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   860  						{
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   861  							st_CAN_Rx_By_ID[ui16_Loop_1].ui8_Data[ui8_Loop_2] = CAN_HWOBJ[ui8_Obj].ubData[ui8_Loop_2];
+	add.a	a15,#0
+.L952:
+	lea	a15,[a15]16
+.L953:
+	lea	a4,119
+.L117:
+	ld.bu	d15,[a2]
+.L954:
+	jne	d15,#1,.L118				; predicted not taken
+.L955:
+	ld.w	d15,[a2]2
+.L956:
+	jne	d15,d1,.L119				; predicted not taken
+.L957:
+	lea	a4,[a2]7
+.L958:
+	mov.a	a5,#7
+.L120:
+	ld.bu	d15,[a15+]
+.L959:
+	st.b	[a4+],d15
+.L960:
+	loop	a5,.L120				; predicted taken
+.L961:
+
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   862  						}
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   863  						st_CAN_Rx_By_ID[ui16_Loop_1].b_Empty = FALSE;
+	st.b	[a2]6,d0
+.L962:
+
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   864  						b_Rx_By_ID = TRUE;
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   865  						break;
+	j	.L121
+.L119:
+.L118:
+	lea	a2,[a2]16
+.L963:
+	loop	a4,.L117				; predicted taken
+
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   866  					}
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   867  				}
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   868  			}
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   869  			if(b_Rx_By_ID == FALSE)	//没有查询到对应ID的配置，报故障
+.L121:
+
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   870  			{
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   871  //				Dem_ReportErrorStatus(DEM_EVENT_ID_Rx_By_ID_FAULT, DEM_EVENT_STATUS_FAILED);
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   872  			}
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   873  
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   874  			CAN_Rx_Interrupt_Callback(ui8_Obj);
+	call	CAN_Rx_Interrupt_Callback
+.L399:
+
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   875  			CAN_HWOBJ[ui8_Obj].uwMOCTR = CAN_MOSTAT_NEWDAT;      // reset NEWDAT
+	mov	d15,#8
+	st.w	[a12],d15
+.L111:
+
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   876  		}
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   877  		CAN_HWOBJ[ui8_Obj].uwMOCTR = CAN_MOSTAT_RXPND;         // reset RXPND
+	mov	d15,#1
+	st.w	[a12],d15
+.L110:
+
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   878  	}  // End of RXPND0
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   879  }
+	ret
+.L355:
+	
+__CAN_Rx_Interrupt_function_end:
+	.size	CAN_Rx_Interrupt,__CAN_Rx_Interrupt_function_end-CAN_Rx_Interrupt
+.L264:
+	; End of function
+	
+	.sdecl	'.text.CanDrv_TC1782.CAN_Tx_Interrupt',code,cluster('CAN_Tx_Interrupt')
+	.sect	'.text.CanDrv_TC1782.CAN_Tx_Interrupt'
+	.align	2
+	
+	.global	CAN_Tx_Interrupt
+
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   880  
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   881  /*
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   882  Function:		void CAN_Tx_Interrupt(uint8 ui8_Obj)
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   883  Description: 	CAN发送完成中断处理
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   884  Input: 			ui8_Obj	CAN MO
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   885  Output:       	None
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   886  Return:        	void
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   887  Time:
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   888  Others:
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   889  Physical Test：
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   890  */
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   891  void CAN_Tx_Interrupt(uint8 ui8_Obj)
+; Function CAN_Tx_Interrupt
+.L172:
+CAN_Tx_Interrupt:	.type	func
+
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   892  {
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   893  	if(CAN_HWOBJ[ui8_Obj].uwMOCTR & CAN_MOSTAT_TXPND)        // if message object  transmit interrupt
+	sha	d15,d4,#5
+	movh.a	a15,#61440
+	lea	a15,[a15]@los(0xf0005000)
+.L968:
+	addsc.a	a15,a15,d15,#0
+.L969:
+	ld.w	d15,[+a15]28
+.L970:
+	jz.t	d15:1,.L122				; predicted taken
+.L971:
+
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   894  	{
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   895  		CAN_Tx_Interrupt_Callback(ui8_Obj);
+	call	CAN_Tx_Interrupt_Callback
+.L403:
+
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   896  		CAN_HWOBJ[ui8_Obj].uwMOCTR = CAN_MOSTAT_NEWDAT;        // reset NEWDAT
+	mov	d15,#8
+	st.w	[a15],d15
+.L972:
+
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   897  		CAN_HWOBJ[ui8_Obj].uwMOCTR = CAN_MOSTAT_TXPND;         // reset TXPND
+	mov	d15,#2
+	st.w	[a15],d15
+.L122:
+
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   898  	}
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   899  }
+	ret
+.L360:
+	
+__CAN_Tx_Interrupt_function_end:
+	.size	CAN_Tx_Interrupt,__CAN_Tx_Interrupt_function_end-CAN_Tx_Interrupt
+.L269:
+	; End of function
+	
+	.sdecl	'.text.intvec.001',code
+	.sect	'.text.intvec.001'
+
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   900  
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   901  void INTERRUPT (CAN_SRN0INT) CAN_viSRN0(void)
+	movh.a	a14,#@his(CAN_viSRN0)
+	lea	a14,[a14]@los(CAN_viSRN0)
+	ji	a14
+	.sdecl	'.text.CanDrv_TC1782.CAN_viSRN0',code,cluster('CAN_viSRN0')
+	.sect	'.text.CanDrv_TC1782.CAN_viSRN0'
+	.align	2
+	
+	.global	CAN_viSRN0
+; Function CAN_viSRN0
+.L174:
+CAN_viSRN0:	.type	func
+	svlcx
+.L977:
+
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   902  {
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   903  	uint8 ui8_Obj;
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   904  
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   905  	CAN_MSIMASK = ui32_MSIMASK_Value[0U];
+	movh.a	a15,#@his(ui32_MSIMASK_Value)
+	lea	a15,[a15]@los(ui32_MSIMASK_Value)
+.L978:
+	movh.a	a14,#61440
+	lea	a14,[a14]@los(0xf00041c0)
+.L979:
+	ld.w	d15,[a15]
+.L980:
+	st.w	[a14],d15
+.L981:
+
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   906  	while (CAN_MSID0 != 0x00000020)
+	movh.a	a12,#61440
+	lea	a12,[a12]@los(0xf0004180)
+.L982:
+
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   907  	{
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   908  		ui8_Obj = (32U * 0U)+ CAN_MSID0;
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   909  		CAN_Rx_Interrupt(ui8_Obj);
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   910  		CAN_MSPND0 =  ~(1 << CAN_MSID0); // reset PND bit
+	movh.a	a13,#61440
+.L983:
+	j	.L123
+.L124:
+	ld.w	d15,[a12]
+.L984:
+	extr.u	d4,d15,#0,#8
+.L404:
+	call	CAN_Rx_Interrupt
+.L405:
+	mov	d15,#1
+	ld.w	d8,[a12]
+.L985:
+	sha	d15,d15,d8
+.L986:
+	mov	d8,#-1
+.L987:
+	xor	d15,d8
+	st.w	[a13]@los(0xf0004140),d15
+.L123:
+	mov	d15,#32
+	ld.w	d8,[a12]
+.L988:
+	jne	d15,d8,.L124				; predicted taken
+.L989:
+
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   911  	}
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   912  
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   913  	CAN_MSIMASK = ui32_MSIMASK_Value[1U];
+	ld.w	d15,[a15]4
+.L990:
+	st.w	[a14],d15
+.L991:
+
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   914  	while (CAN_MSID1 != 0x00000020)
+	movh.a	a12,#61440
+	lea	a12,[a12]@los(0xf0004184)
+.L992:
+
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   915  	{
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   916  		ui8_Obj = (32U * 1U)+ CAN_MSID1;
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   917  		CAN_Rx_Interrupt(ui8_Obj);
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   918  		CAN_MSPND1 =  ~(1 << CAN_MSID1); // reset PND bit
+	movh.a	a13,#61440
+.L993:
+	j	.L125
+.L126:
+	ld.w	d15,[a12]
+.L994:
+	add	d15,d15,#32
+	extr.u	d4,d15,#0,#8
+.L406:
+	call	CAN_Rx_Interrupt
+.L407:
+	mov	d15,#1
+	ld.w	d8,[a12]
+.L995:
+	sha	d15,d15,d8
+.L996:
+	mov	d8,#-1
+.L997:
+	xor	d15,d8
+	st.w	[a13]@los(0xf0004144),d15
+.L125:
+	mov	d15,#32
+	ld.w	d8,[a12]
+.L998:
+	jne	d15,d8,.L126				; predicted taken
+.L999:
+
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   919  	}
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   920  
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   921  	CAN_MSIMASK = ui32_MSIMASK_Value[2U];
+	ld.w	d15,[a15]8
+.L1000:
+	st.w	[a14],d15
+.L1001:
+
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   922  	while (CAN_MSID2 != 0x00000020)
+	movh.a	a12,#61440
+	lea	a12,[a12]@los(0xf0004188)
+.L1002:
+
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   923  	{
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   924  		ui8_Obj = (32U * 2U)+ CAN_MSID2;
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   925  		CAN_Rx_Interrupt(ui8_Obj);
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   926  		CAN_MSPND2 =  ~(1 << CAN_MSID2); // reset PND bit
+	movh.a	a13,#61440
+.L1003:
+	j	.L127
+.L128:
+	ld.w	d15,[a12]
+.L1004:
+	add	d15,d15,#64
+	extr.u	d4,d15,#0,#8
+.L408:
+	call	CAN_Rx_Interrupt
+.L409:
+	mov	d15,#1
+	ld.w	d8,[a12]
+.L1005:
+	sha	d15,d15,d8
+.L1006:
+	mov	d8,#-1
+.L1007:
+	xor	d15,d8
+	st.w	[a13]@los(0xf0004148),d15
+.L127:
+	mov	d15,#32
+	ld.w	d8,[a12]
+.L1008:
+	jne	d15,d8,.L128				; predicted taken
+.L1009:
+
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   927  	}
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   928  
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   929  	CAN_MSIMASK = ui32_MSIMASK_Value[3U];
+	ld.w	d15,[a15]12
+.L1010:
+	st.w	[a14],d15
+.L1011:
+
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   930  	while (CAN_MSID3 != 0x00000020)
+	movh.a	a15,#61440
+	lea	a15,[a15]@los(0xf000418c)
+.L1012:
+
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   931  	{
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   932  		ui8_Obj = (32U * 3U)+ CAN_MSID3;
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   933  		CAN_Rx_Interrupt(ui8_Obj);
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   934  		CAN_MSPND3 =  ~(1 << CAN_MSID3); // reset PND bit
+	movh.a	a12,#61440
+.L1013:
+	j	.L129
+.L130:
+	ld.w	d15,[a15]
+.L1014:
+	add	d15,d15,#96
+	extr.u	d4,d15,#0,#8
+.L410:
+	call	CAN_Rx_Interrupt
+.L411:
+	mov	d15,#1
+	ld.w	d8,[a15]
+.L1015:
+	sha	d15,d15,d8
+.L1016:
+	mov	d8,#-1
+.L1017:
+	xor	d15,d8
+	st.w	[a12]@los(0xf000414c),d15
+.L129:
+	mov	d15,#32
+	ld.w	d8,[a15]
+.L1018:
+	jne	d15,d8,.L130				; predicted taken
+.L1019:
+
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   935  	}
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   936  } //  End of function CAN_viSRN0
+	rslcx
+	rfe
+.L362:
+	
+__CAN_viSRN0_function_end:
+	.size	CAN_viSRN0,__CAN_viSRN0_function_end-CAN_viSRN0
+.L274:
+	; End of function
+	
+	.sdecl	'.text.intvec.002',code
+	.sect	'.text.intvec.002'
+
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   937  
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   938  void INTERRUPT (CAN_SRN1INT) CAN_viSRN1(void)
+	movh.a	a14,#@his(CAN_viSRN1)
+	lea	a14,[a14]@los(CAN_viSRN1)
+	ji	a14
+	.sdecl	'.text.CanDrv_TC1782.CAN_viSRN1',code,cluster('CAN_viSRN1')
+	.sect	'.text.CanDrv_TC1782.CAN_viSRN1'
+	.align	2
+	
+	.global	CAN_viSRN1
+; Function CAN_viSRN1
+.L176:
+CAN_viSRN1:	.type	func
+	svlcx
+.L1024:
+
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   939  {
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   940  	uint8 ui8_Obj;
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   941  
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   942  	CAN_MSIMASK = ui32_MSIMASK_Value[0U];
+	movh.a	a15,#@his(ui32_MSIMASK_Value)
+	lea	a15,[a15]@los(ui32_MSIMASK_Value)
+.L1025:
+	movh.a	a14,#61440
+	lea	a14,[a14]@los(0xf00041c0)
+.L1026:
+	ld.w	d15,[a15]
+.L1027:
+	st.w	[a14],d15
+.L1028:
+
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   943  	while (CAN_MSID0 != 0x00000020)
+	movh.a	a12,#61440
+	lea	a12,[a12]@los(0xf0004180)
+.L1029:
+
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   944  	{
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   945  		ui8_Obj = (32U * 0U)+ CAN_MSID0;
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   946  		CAN_Tx_Interrupt(ui8_Obj);
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   947  		CAN_MSPND0 =  ~(1 << CAN_MSID0); // reset PND bit
+	movh.a	a13,#61440
+.L1030:
+	j	.L131
+.L132:
+	ld.w	d15,[a12]
+.L1031:
+	extr.u	d4,d15,#0,#8
+.L412:
+	call	CAN_Tx_Interrupt
+.L413:
+	mov	d15,#1
+	ld.w	d8,[a12]
+.L1032:
+	sha	d15,d15,d8
+.L1033:
+	mov	d8,#-1
+.L1034:
+	xor	d15,d8
+	st.w	[a13]@los(0xf0004140),d15
+.L131:
+	mov	d15,#32
+	ld.w	d8,[a12]
+.L1035:
+	jne	d15,d8,.L132				; predicted taken
+.L1036:
+
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   948  	}
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   949  
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   950  	CAN_MSIMASK = ui32_MSIMASK_Value[1U];
+	ld.w	d15,[a15]4
+.L1037:
+	st.w	[a14],d15
+.L1038:
+
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   951  	while (CAN_MSID1 != 0x00000020)
+	movh.a	a12,#61440
+	lea	a12,[a12]@los(0xf0004184)
+.L1039:
+
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   952  	{
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   953  		ui8_Obj = (32U * 1U)+ CAN_MSID1;
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   954  		CAN_Tx_Interrupt(ui8_Obj);
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   955  		CAN_MSPND1 =  ~(1 << CAN_MSID1); // reset PND bit
+	movh.a	a13,#61440
+.L1040:
+	j	.L133
+.L134:
+	ld.w	d15,[a12]
+.L1041:
+	add	d15,d15,#32
+	extr.u	d4,d15,#0,#8
+.L414:
+	call	CAN_Tx_Interrupt
+.L415:
+	mov	d15,#1
+	ld.w	d8,[a12]
+.L1042:
+	sha	d15,d15,d8
+.L1043:
+	mov	d8,#-1
+.L1044:
+	xor	d15,d8
+	st.w	[a13]@los(0xf0004144),d15
+.L133:
+	mov	d15,#32
+	ld.w	d8,[a12]
+.L1045:
+	jne	d15,d8,.L134				; predicted taken
+.L1046:
+
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   956  	}
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   957  
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   958  	CAN_MSIMASK = ui32_MSIMASK_Value[2U];
+	ld.w	d15,[a15]8
+.L1047:
+	st.w	[a14],d15
+.L1048:
+
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   959  	while (CAN_MSID2 != 0x00000020)
+	movh.a	a12,#61440
+	lea	a12,[a12]@los(0xf0004188)
+.L1049:
+
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   960  	{
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   961  		ui8_Obj = (32U * 2U)+ CAN_MSID2;
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   962  		CAN_Tx_Interrupt(ui8_Obj);
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   963  		CAN_MSPND2 =  ~(1 << CAN_MSID2); // reset PND bit
+	movh.a	a13,#61440
+.L1050:
+	j	.L135
+.L136:
+	ld.w	d15,[a12]
+.L1051:
+	add	d15,d15,#64
+	extr.u	d4,d15,#0,#8
+.L416:
+	call	CAN_Tx_Interrupt
+.L417:
+	mov	d15,#1
+	ld.w	d8,[a12]
+.L1052:
+	sha	d15,d15,d8
+.L1053:
+	mov	d8,#-1
+.L1054:
+	xor	d15,d8
+	st.w	[a13]@los(0xf0004148),d15
+.L135:
+	mov	d15,#32
+	ld.w	d8,[a12]
+.L1055:
+	jne	d15,d8,.L136				; predicted taken
+.L1056:
+
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   964  	}
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   965  
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   966  	CAN_MSIMASK = ui32_MSIMASK_Value[3U];
+	ld.w	d15,[a15]12
+.L1057:
+	st.w	[a14],d15
+.L1058:
+
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   967  	while (CAN_MSID3 != 0x00000020)
+	movh.a	a15,#61440
+	lea	a15,[a15]@los(0xf000418c)
+.L1059:
+
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   968  	{
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   969  		ui8_Obj = (32U * 3U)+ CAN_MSID3;
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   970  		CAN_Tx_Interrupt(ui8_Obj);
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   971  		CAN_MSPND3 =  ~(1 << CAN_MSID3); // reset PND bit
+	movh.a	a12,#61440
+.L1060:
+	j	.L137
+.L138:
+	ld.w	d15,[a15]
+.L1061:
+	add	d15,d15,#96
+	extr.u	d4,d15,#0,#8
+.L418:
+	call	CAN_Tx_Interrupt
+.L419:
+	mov	d15,#1
+	ld.w	d8,[a15]
+.L1062:
+	sha	d15,d15,d8
+.L1063:
+	mov	d8,#-1
+.L1064:
+	xor	d15,d8
+	st.w	[a12]@los(0xf000414c),d15
+.L137:
+	mov	d15,#32
+	ld.w	d8,[a15]
+.L1065:
+	jne	d15,d8,.L138				; predicted taken
+.L1066:
+
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   972  	}
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   973  } //  End of function CAN_viSRN1
+	rslcx
+	rfe
+.L364:
+	
+__CAN_viSRN1_function_end:
+	.size	CAN_viSRN1,__CAN_viSRN1_function_end-CAN_viSRN1
+.L279:
+	; End of function
+	
+	.sdecl	'.text.intvec.003',code
+	.sect	'.text.intvec.003'
+
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   974  
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   975  void INTERRUPT (CAN_SRN2INT) CAN_viSRN2(void)
+	movh.a	a14,#@his(CAN_viSRN2)
+	lea	a14,[a14]@los(CAN_viSRN2)
+	ji	a14
+	.sdecl	'.text.CanDrv_TC1782.CAN_viSRN2',code,cluster('CAN_viSRN2')
+	.sect	'.text.CanDrv_TC1782.CAN_viSRN2'
+	.align	2
+	
+	.global	CAN_viSRN2
+; Function CAN_viSRN2
+.L178:
+CAN_viSRN2:	.type	func
+	svlcx
+.L1071:
+
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   976  {
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   977  	CAN_Read_Error();
+	call	CAN_Read_Error
+.L1072:
+
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   978  	CAN_BusOff_Clear(0);
+	mov	d4,#0
+	call	CAN_BusOff_Clear
+.L1073:
+
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   979  } //  End of function CAN_viSRN2
+	rslcx
+	rfe
+.L366:
+	
+__CAN_viSRN2_function_end:
+	.size	CAN_viSRN2,__CAN_viSRN2_function_end-CAN_viSRN2
+.L284:
+	; End of function
+	
+	.sdecl	'.text.CanDrv_TC1782.CAN_ubRequestMsgObj',code,cluster('CAN_ubRequestMsgObj')
+	.sect	'.text.CanDrv_TC1782.CAN_ubRequestMsgObj'
+	.align	2
+	
+	.global	CAN_ubRequestMsgObj
+
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   980  
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   981  uint8 CAN_ubRequestMsgObj(uint8 ubObjNr)
+; Function CAN_ubRequestMsgObj
+.L180:
+CAN_ubRequestMsgObj:	.type	func
+
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   982  {
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   983    uint8 ubReturn;
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   984  
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   985    ubReturn = 0;
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   986    if((CAN_HWOBJ[ubObjNr].uwMOCTR & 0x00000100) == 0x00000000)  // if reset TXRQ
+	sha	d4,#5
+	movh.a	a15,#61440
+.L420:
+	lea	a15,[a15]@los(0xf0005000)
+.L841:
+	addsc.a	a15,a15,d4,#0
+.L842:
+	mov	d2,#0
+	ld.w	d15,[+a15]28
+.L421:
+	jnz.t	d15:8,.L139				; predicted not taken
+.L843:
+
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   987    {
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   988      CAN_HWOBJ[ubObjNr].uwMOCTR = 0x00000020;                   // reset MSGVAL
+	mov	d15,#32
+	st.w	[a15],d15
+.L844:
+
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   989      ubReturn = 1;
+	mov	d2,#1
+.L139:
+
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   990    }
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   991    return(ubReturn);
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   992  
+; ..\Communication_Files\CanDrv\CanDrv_TC1782.c	   993  }
+	ret
+.L339:
+	
+__CAN_ubRequestMsgObj_function_end:
+	.size	CAN_ubRequestMsgObj,__CAN_ubRequestMsgObj_function_end-CAN_ubRequestMsgObj
+.L239:
+	; End of function
+	
+	.sdecl	'.bss.CanDrv_TC1782.st_CAN_Error',data,cluster('st_CAN_Error')
+	.sect	'.bss.CanDrv_TC1782.st_CAN_Error'
+	.global	st_CAN_Error
+	.align	4
+st_CAN_Error:	.type	object
+	.size	st_CAN_Error,36
+	.space	36
+	.sdecl	'.bss.CanDrv_TC1782.ui32_BOFF_Delay_Count',data,cluster('ui32_BOFF_Delay_Count')
+	.sect	'.bss.CanDrv_TC1782.ui32_BOFF_Delay_Count'
+	.global	ui32_BOFF_Delay_Count
+	.align	2
+ui32_BOFF_Delay_Count:	.type	object
+	.size	ui32_BOFF_Delay_Count,12
+	.space	12
+	.sdecl	'.bss.CanDrv_TC1782.ui32_BOFF_Clear_Count',data,cluster('ui32_BOFF_Clear_Count')
+	.sect	'.bss.CanDrv_TC1782.ui32_BOFF_Clear_Count'
+	.global	ui32_BOFF_Clear_Count
+	.align	2
+ui32_BOFF_Clear_Count:	.type	object
+	.size	ui32_BOFF_Clear_Count,12
+	.space	12
+	.sdecl	'.bss.CanDrv_TC1782.ui8_CallCycle_Count',data,cluster('ui8_CallCycle_Count')
+	.sect	'.bss.CanDrv_TC1782.ui8_CallCycle_Count'
+	.global	ui8_CallCycle_Count
+ui8_CallCycle_Count:	.type	object
+	.size	ui8_CallCycle_Count,128
+	.space	128
+	.sdecl	'.bss.CanDrv_TC1782.ui32_MSIMASK_Value',data,cluster('ui32_MSIMASK_Value')
+	.sect	'.bss.CanDrv_TC1782.ui32_MSIMASK_Value'
+	.global	ui32_MSIMASK_Value
+	.align	2
+ui32_MSIMASK_Value:	.type	object
+	.size	ui32_MSIMASK_Value,16
+	.space	16
+	.calls	'CAN_Init','__rt_udivmod'
+	.calls	'CAN_Init','MAIN_vWriteWDTCON0'
+	.calls	'CAN_Init','CAN_Error_Clear'
+	.calls	'CAN_Read','CANOBJ_Read'
+	.calls	'CAN_Read','CAN_Read_By_ID'
+	.calls	'CAN_Read_Error','CAN_Error_Callback'
+	.calls	'CAN_BusOff_Deal','CAN_Read_BusOff'
+	.calls	'CAN_BusOff_Deal','CAN_BusOff_Clear'
+	.calls	'CAN_Rx_Interrupt','CAN_Rx_Interrupt_Callback'
+	.calls	'CAN_Tx_Interrupt','CAN_Tx_Interrupt_Callback'
+	.calls	'CAN_viSRN0','CAN_Rx_Interrupt'
+	.calls	'CAN_viSRN1','CAN_Tx_Interrupt'
+	.calls	'CAN_viSRN2','CAN_Read_Error'
+	.calls	'CAN_viSRN2','CAN_BusOff_Clear'
+	.calls	'CAN_Init','',8
+	.calls	'CAN_Read_By_ID','',0
+	.calls	'CANOBJ_Read','',0
+	.calls	'CAN_Read','',0
+	.calls	'CAN_Write','',0
+	.calls	'CAN_MOs_TXPND_Reset','',0
+	.calls	'CAN_MOs_Transmit_Status','',0
+	.calls	'CAN_MOs_Get_DLC','',0
+	.calls	'CAN_Set_ID','',0
+	.calls	'CAN_Read_Error','',0
+	.calls	'CAN_Error_Clear','',0
+	.calls	'CAN_Read_BusOff','',0
+	.calls	'CAN_BusOff_Clear','',0
+	.calls	'CAN_BusOff_Deal','',0
+	.calls	'CAN_Rx_Interrupt','',0
+	.calls	'CAN_Tx_Interrupt','',0
+	.calls	'CAN_viSRN0','',0
+	.calls	'CAN_viSRN1','',0
+	.calls	'CAN_viSRN2','',0
+	.extern	Boot_Flag
+	.extern	MAIN_vWriteWDTCON0
+	.extern	Update_Count
+	.extern	st_CAN_Node
+	.extern	st_CAN_Object
+	.extern	st_CAN_Rx_By_ID
+	.extern	CAN_Error_Callback
+	.extern	CAN_Rx_Interrupt_Callback
+	.extern	CAN_Tx_Interrupt_Callback
+	.extern	__rt_udivmod
+	.calls	'CAN_ubRequestMsgObj','',0
+	.sdecl	'.debug_info',debug
+	.sect	'.debug_info'
+.L182:
+	.word	1574
+	.half	3
+	.word	.L183
+	.byte	4
+.L181:
+	.byte	1
+	.byte	'..\\Communication_Files\\CanDrv\\CanDrv_TC1782.c',0
+	.byte	'TASKING VX-toolset for TriCore: C compiler',0
+	.byte	'D:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_1.9\\BMU_BOOT\\Debug\\',0,12,1
+	.word	.L184
+	.byte	2
+	.byte	'__nop',0,1,1,1,1,3
+	.byte	'MAIN_vWriteWDTCON0',0,1,148,1,6,1,1,1,1,4
+	.byte	'unsigned int',0,4,7,5
+	.byte	'uwValue',0,1,148,1,31
+	.word	202
+	.byte	0
+.L304:
+	.byte	4
+	.byte	'unsigned long int',0,4,7
+.L296:
+	.byte	6
+	.word	236
+.L302:
+	.byte	4
+	.byte	'unsigned char',0,1,8
+.L298:
+	.byte	6
+	.word	262
+.L300:
+	.byte	6
+	.word	262
+.L306:
+	.byte	7
+	.word	262
+.L308:
+	.byte	4
+	.byte	'unsigned short int',0,2,7
+.L314:
+	.byte	7
+	.word	236
+	.byte	3
+	.byte	'CAN_Error_Callback',0,2,32,13,1,1,1,1,5
+	.byte	'ui8_Node',0,2,32,38
+	.word	262
+	.byte	0,3
+	.byte	'CAN_Rx_Interrupt_Callback',0,2,51,13,1,1,1,1,5
+	.byte	'ui8_Obj',0,2,51,45
+	.word	262
+	.byte	0,3
+	.byte	'CAN_Tx_Interrupt_Callback',0,2,70,13,1,1,1,1,5
+	.byte	'ui8_Obj',0,2,70,45
+	.word	262
+	.byte	0,8
+	.byte	'void',0,7
+	.word	468
+	.byte	9
+	.byte	'__prof_adm',0,3,1,1
+	.word	474
+	.byte	10,1,7
+	.word	498
+	.byte	9
+	.byte	'__codeptr',0,3,1,1
+	.word	500
+	.byte	11,128,2
+	.word	262
+	.byte	12,255,1,0,13
+	.byte	'Boot_Flag',0,1,43,22
+	.word	523
+	.byte	1,1,9
+	.byte	'ubyte',0,1,78,24
+	.word	262
+	.byte	9
+	.byte	'ushort',0,1,80,24
+	.word	294
+	.byte	9
+	.byte	'uword',0,1,82,24
+	.word	202
+	.byte	9
+	.byte	'uint8',0,4,87,29
+	.word	262
+	.byte	9
+	.byte	'uint16',0,4,89,29
+	.word	294
+	.byte	4
+	.byte	'long int',0,4,5,9
+	.byte	'sint32',0,4,90,29
+	.word	626
+	.byte	9
+	.byte	'uint32',0,4,91,27
+	.word	236
+	.byte	9
+	.byte	'boolean',0,4,102,29
+	.word	262
+	.byte	13
+	.byte	'Update_Count',0,5,12,15
+	.word	236
+	.byte	1,1,14,6,36,9,20,15
+	.byte	'b_Enable',0,1
+	.word	262
+	.byte	2,35,0,15
+	.byte	'ui32_CAN_Clock',0,4
+	.word	236
+	.byte	2,35,2,15
+	.byte	'ui32_BaudRate',0,4
+	.word	236
+	.byte	2,35,6,15
+	.byte	'ui8_TSEG1',0,1
+	.word	262
+	.byte	2,35,10,15
+	.byte	'ui8_TSEG2',0,1
+	.word	262
+	.byte	2,35,11,15
+	.byte	'ui8_SJW',0,1
+	.word	262
+	.byte	2,35,12,15
+	.byte	'ui32_BOFF_Dealy',0,4
+	.word	236
+	.byte	2,35,14,0,9
+	.byte	'Struct_CAN_Node',0,6,45,2
+	.word	707
+	.byte	11,60
+	.word	707
+	.byte	12,2,0,13
+	.byte	'st_CAN_Node',0,6,46,25
+	.word	882
+	.byte	1,1,14,6,48,9,20,15
+	.byte	'b_Enable',0,1
+	.word	262
+	.byte	2,35,0,15
+	.byte	'ui8_Node',0,1
+	.word	262
+	.byte	2,35,1,15
+	.byte	'b_Dir',0,1
+	.word	262
+	.byte	2,35,2,15
+	.byte	'b_RxIRQ',0,1
+	.word	262
+	.byte	2,35,3,15
+	.byte	'b_TxIRQ',0,1
+	.word	262
+	.byte	2,35,4,15
+	.byte	'ui8_DLC',0,1
+	.word	262
+	.byte	2,35,5,15
+	.byte	'b_IDE',0,1
+	.word	262
+	.byte	2,35,6,15
+	.byte	'ui32_ID',0,4
+	.word	236
+	.byte	2,35,8,15
+	.byte	'ui32_Mask',0,4
+	.word	236
+	.byte	2,35,12,15
+	.byte	'ui8_CallCycle',0,1
+	.word	262
+	.byte	2,35,16,0,9
+	.byte	'Struct_CAN_Object',0,6,60,2
+	.word	913
+	.byte	11,128,20
+	.word	913
+	.byte	12,127,0,16
+	.word	1121
+	.byte	13
+	.byte	'st_CAN_Object',0,6,61,32
+	.word	1131
+	.byte	1,1,14,6,63,9,16,15
+	.byte	'b_Enable',0,1
+	.word	262
+	.byte	2,35,0,15
+	.byte	'ui32_ID',0,4
+	.word	236
+	.byte	2,35,2,15
+	.byte	'b_Empty',0,1
+	.word	262
+	.byte	2,35,6,11,8
+	.word	262
+	.byte	12,7,0,15
+	.byte	'ui8_Data',0,8
+	.word	1217
+	.byte	2,35,7,0,9
+	.byte	'Struct_CAN_Rx_By_ID',0,6,69,2
+	.word	1160
+	.byte	11,128,15
+	.word	1160
+	.byte	12,119,0,13
+	.byte	'st_CAN_Rx_By_ID',0,6,70,28
+	.word	1273
+	.byte	1,1,14,7,85,9,12,15
+	.byte	'b_BOFF',0,1
+	.word	262
+	.byte	2,35,0,15
+	.byte	'b_EWRN',0,1
+	.word	262
+	.byte	2,35,1,15
+	.byte	'b_LLE',0,1
+	.word	262
+	.byte	2,35,2,15
+	.byte	'b_LOE',0,1
+	.word	262
+	.byte	2,35,3,15
+	.byte	'b_INIT',0,1
+	.word	262
+	.byte	2,35,4,15
+	.byte	'b_Stuff',0,1
+	.word	262
+	.byte	2,35,5,15
+	.byte	'b_Form',0,1
+	.word	262
+	.byte	2,35,6,15
+	.byte	'b_Ack',0,1
+	.word	262
+	.byte	2,35,7,15
+	.byte	'b_Bit1',0,1
+	.word	262
+	.byte	2,35,8,15
+	.byte	'b_Bit0_BOFF',0,1
+	.word	262
+	.byte	2,35,9,15
+	.byte	'b_Bit0_Trans',0,1
+	.word	262
+	.byte	2,35,10,15
+	.byte	'b_CRC',0,1
+	.word	262
+	.byte	2,35,11,0,9
+	.byte	'Struct_CAN_Error',0,7,100,2
+	.word	1309
+.L367:
+	.byte	11,36
+	.word	1309
+	.byte	12,2,0
+.L368:
+	.byte	11,12
+	.word	236
+	.byte	12,2,0
+.L369:
+	.byte	11,128,1
+	.word	262
+	.byte	12,127,0
+.L370:
+	.byte	11,16
+	.word	236
+	.byte	12,3,0,0
+	.sdecl	'.debug_abbrev',debug
+	.sect	'.debug_abbrev'
+.L183:
+	.byte	1,17,1,3,8,37,8,27,8,19,15,128,70,12,16,6,0,0,2,46,0,3,8,54,15,39,12,63,12,60,12,0,0,3,46,1,3,8,58,15
+	.byte	59,15,57,15,54,15,39,12,63,12,60,12,0,0,4,36,0,3,8,11,15,62,15,0,0,5,5,0,3,8,58,15,59,15,57,15,73,19,0
+	.byte	0,6,53,0,73,19,0,0,7,15,0,73,19,0,0,8,59,0,3,8,0,0,9,22,0,3,8,58,15,59,15,57,15,73,19,0,0,10,21,0,54,15
+	.byte	0,0,11,1,1,11,15,73,19,0,0,12,33,0,47,15,0,0,13,52,0,3,8,58,15,59,15,57,15,73,19,63,12,60,12,0,0,14,19
+	.byte	1,58,15,59,15,57,15,11,15,0,0,15,13,0,3,8,11,15,73,19,56,9,0,0,16,38,0,73,19,0,0,0
+	.sdecl	'.debug_line',debug
+	.sect	'.debug_line'
+.L184:
+	.word	.L423-.L422
+.L422:
+	.half	3
+	.word	.L425-.L424
+.L424:
+	.byte	2,1,-4,9,10,0,1,1,1,1,0,0,0,1
+	.byte	'D:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_1.9\\BMU_BOOT\\Initiate_Files',0
+	.byte	'D:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_1.9\\BMU_BOOT\\Communication_Files\\CanDrv',0
+	.byte	'D:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_1.9\\BMU_BOOT\\Stand_Header',0
+	.byte	'D:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_1.9\\BMU_BOOT\\Complex_Files',0,0
+	.byte	'MAIN.h',0,1,0,0
+	.byte	'CanDrv_TC1782_Callback.h',0,2,0,0
+	.byte	'..\\Communication_Files\\CanDrv\\CanDrv_TC1782.c',0,0,0,0
+	.byte	'Platform_Types.h',0,3,0,0
+	.byte	'Operating_System.h',0,4,0,0
+	.byte	'CanDrv_TC1782_User.h',0,2,0,0
+	.byte	'CanDrv_TC1782.h',0,2,0,0,0
+.L425:
+.L423:
+	.sdecl	'.debug_info',debug,cluster('CAN_Init')
+	.sect	'.debug_info'
+.L185:
+	.word	280
+	.half	3
+	.word	.L186
+	.byte	4,1
+	.byte	'..\\Communication_Files\\CanDrv\\CanDrv_TC1782.c',0
+	.byte	'TASKING VX-toolset for TriCore: C compiler',0
+	.byte	'D:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_1.9\\BMU_BOOT\\Debug\\',0,12,1
+	.word	.L188,.L187
+	.byte	2
+	.word	.L181
+	.byte	3
+	.byte	'CAN_Init',0,1,66,6,1,1,1
+	.word	.L142,.L295,.L141
+	.byte	4
+	.word	.L142,.L295
+	.byte	5
+	.byte	'ui32_Temp',0,1,68,18
+	.word	.L296,.L297
+	.byte	5
+	.byte	'ui8_Node_Loop',0,1,69,17
+	.word	.L298,.L299
+	.byte	5
+	.byte	'ui8_MO_Loop',0,1,70,17
+	.word	.L300,.L301
+	.byte	0,0,0
+	.sdecl	'.debug_abbrev',debug,cluster('CAN_Init')
+	.sect	'.debug_abbrev'
+.L186:
+	.byte	1,17,1,3,8,37,8,27,8,19,15,128,70,12,85,6,16,6,0,0,2,61,0,24,16,0,0,3,46,1,3,8,58,15,59,15,57,15,54,15
+	.byte	39,12,63,12,17,1,18,1,64,6,0,0,4,11,1,17,1,18,1,0,0,5,52,0,3,8,58,15,59,15,57,15,73,16,2,6,0,0,0
+	.sdecl	'.debug_line',debug,cluster('CAN_Init')
+	.sect	'.debug_line'
+.L187:
+	.word	.L427-.L426
+.L426:
+	.half	3
+	.word	.L429-.L428
+.L428:
+	.byte	2,1,-4,9,10,0,1,1,1,1,0,0,0,1,0
+	.byte	'..\\Communication_Files\\CanDrv\\CanDrv_TC1782.c',0,0,0,0,0
+.L429:
+	.byte	5,2,7,0,5,2
+	.word	.L142
+	.byte	3,199,0,1,5,6,9
+	.half	.L430-.L142
+	.byte	3,122,1,5,2,9
+	.half	.L371-.L430
+	.byte	3,6,1,5,20,9
+	.half	.L431-.L371
+	.byte	3,1,1,5,2,1,5,19,9
+	.half	.L432-.L431
+	.byte	3,2,1,5,17,3,126,1,5,20,9
+	.half	.L433-.L432
+	.byte	3,1,1,5,17,9
+	.half	.L434-.L433
+	.byte	1,5,44,9
+	.half	.L435-.L434
+	.byte	3,1,1,5,8,9
+	.half	.L4-.L435
+	.byte	3,2,1,5,9,9
+	.half	.L3-.L4
+	.byte	3,126,1,5,44,9
+	.half	.L436-.L3
+	.byte	1,5,2,7,9
+	.half	.L437-.L436
+	.byte	3,4,1,5,20,9
+	.half	.L438-.L437
+	.byte	1,5,17,1,5,20,9
+	.half	.L439-.L438
+	.byte	3,1,1,5,17,9
+	.half	.L440-.L439
+	.byte	1,5,2,9
+	.half	.L441-.L440
+	.byte	3,1,1,5,8,9
+	.half	.L442-.L441
+	.byte	3,2,1,5,36,9
+	.half	.L443-.L442
+	.byte	1,5,8,9
+	.half	.L6-.L443
+	.byte	3,2,1,9
+	.half	.L5-.L6
+	.byte	3,126,1,5,36,9
+	.half	.L444-.L5
+	.byte	1,5,2,7,9
+	.half	.L445-.L444
+	.byte	3,5,1,5,17,9
+	.half	.L446-.L445
+	.byte	1,9
+	.half	.L447-.L446
+	.byte	3,1,1,5,22,9
+	.half	.L448-.L447
+	.byte	3,4,1,5,20,1,5,6,9
+	.half	.L449-.L448
+	.byte	3,2,1,5,54,9
+	.half	.L450-.L449
+	.byte	3,126,1,5,18,9
+	.half	.L8-.L450
+	.byte	3,2,1,5,17,9
+	.half	.L451-.L8
+	.byte	1,5,32,9
+	.half	.L452-.L451
+	.byte	1,5,3,9
+	.half	.L453-.L452
+	.byte	1,5,4,7,9
+	.half	.L454-.L453
+	.byte	3,3,1,5,31,9
+	.half	.L455-.L454
+	.byte	1,5,34,9
+	.half	.L456-.L455
+	.byte	1,5,31,1,5,4,9
+	.half	.L457-.L456
+	.byte	3,1,1,5,32,9
+	.half	.L458-.L457
+	.byte	1,5,4,9
+	.half	.L459-.L458
+	.byte	3,2,1,5,32,3,126,1,5,4,9
+	.half	.L460-.L459
+	.byte	3,2,1,5,33,9
+	.half	.L461-.L460
+	.byte	1,5,36,9
+	.half	.L462-.L461
+	.byte	1,5,33,1,5,11,9
+	.half	.L463-.L462
+	.byte	3,2,1,5,10,9
+	.half	.L464-.L463
+	.byte	3,2,1,7,9
+	.half	.L465-.L464
+	.byte	3,10,1,7,9
+	.half	.L466-.L465
+	.byte	3,8,1,7,9
+	.half	.L467-.L466
+	.byte	1,5,6,9
+	.half	.L10-.L467
+	.byte	3,112,1,5,34,9
+	.half	.L468-.L10
+	.byte	1,5,24,9
+	.half	.L469-.L468
+	.byte	3,1,1,5,49,9
+	.half	.L470-.L469
+	.byte	1,5,21,1,5,24,9
+	.half	.L471-.L470
+	.byte	3,1,1,5,49,9
+	.half	.L472-.L471
+	.byte	1,5,21,1,5,6,9
+	.half	.L473-.L472
+	.byte	3,2,1,9
+	.half	.L474-.L473
+	.byte	3,1,1,9
+	.half	.L11-.L474
+	.byte	3,5,1,5,34,9
+	.half	.L475-.L11
+	.byte	1,5,24,9
+	.half	.L476-.L475
+	.byte	3,1,1,5,49,9
+	.half	.L477-.L476
+	.byte	1,5,21,1,5,51,9
+	.half	.L478-.L477
+	.byte	3,1,1,5,24,1,5,34,9
+	.half	.L479-.L478
+	.byte	1,5,49,9
+	.half	.L480-.L479
+	.byte	1,5,6,9
+	.half	.L481-.L480
+	.byte	3,1,1,9
+	.half	.L12-.L481
+	.byte	3,5,1,5,34,9
+	.half	.L482-.L12
+	.byte	1,5,24,9
+	.half	.L483-.L482
+	.byte	3,1,1,5,48,9
+	.half	.L484-.L483
+	.byte	1,5,21,1,5,24,9
+	.half	.L485-.L484
+	.byte	3,1,1,5,48,9
+	.half	.L486-.L485
+	.byte	1,5,21,9
+	.half	.L15-.L486
+	.byte	1,5,13,9
+	.half	.L13-.L15
+	.byte	3,9,1,5,22,9
+	.half	.L487-.L13
+	.byte	1,5,11,9
+	.half	.L488-.L487
+	.byte	3,2,1,7,9
+	.half	.L489-.L488
+	.byte	3,3,1,7,9
+	.half	.L490-.L489
+	.byte	3,3,1,7,9
+	.half	.L491-.L490
+	.byte	1,5,19,9
+	.half	.L17-.L491
+	.byte	3,126,1,5,18,9
+	.half	.L492-.L17
+	.byte	1,5,56,9
+	.half	.L493-.L492
+	.byte	1,5,7,9
+	.half	.L494-.L493
+	.byte	3,1,1,5,19,9
+	.half	.L18-.L494
+	.byte	3,2,1,5,18,9
+	.half	.L495-.L18
+	.byte	1,5,56,9
+	.half	.L496-.L495
+	.byte	1,5,7,9
+	.half	.L497-.L496
+	.byte	3,1,1,5,19,9
+	.half	.L20-.L497
+	.byte	3,2,1,5,18,9
+	.half	.L498-.L20
+	.byte	1,5,56,9
+	.half	.L499-.L498
+	.byte	1,5,53,9
+	.half	.L22-.L499
+	.byte	1,5,73,9
+	.half	.L500-.L22
+	.byte	3,5,1,5,72,9
+	.half	.L501-.L500
+	.byte	1,5,60,9
+	.half	.L502-.L501
+	.byte	3,1,1,5,59,9
+	.half	.L503-.L502
+	.byte	1,5,87,3,127,1,5,59,9
+	.half	.L504-.L503
+	.byte	3,1,1,5,21,9
+	.half	.L505-.L504
+	.byte	1,5,20,9
+	.half	.L506-.L505
+	.byte	1,5,74,1,5,20,9
+	.half	.L507-.L506
+	.byte	1,5,35,9
+	.half	.L508-.L507
+	.byte	1,5,46,9
+	.half	.L509-.L508
+	.byte	1,5,85,9
+	.half	.L510-.L509
+	.byte	1,5,29,3,127,1,5,28,9
+	.half	.L511-.L510
+	.byte	1,5,43,9
+	.half	.L512-.L511
+	.byte	1,5,59,9
+	.half	.L513-.L512
+	.byte	1,5,6,9
+	.half	.L514-.L513
+	.byte	3,1,1,5,92,9
+	.half	.L515-.L514
+	.byte	1,5,14,3,127,1,5,38,9
+	.half	.L516-.L515
+	.byte	3,2,1,5,37,9
+	.half	.L517-.L516
+	.byte	1,5,4,1,5,37,9
+	.half	.L518-.L517
+	.byte	1,5,52,9
+	.half	.L519-.L518
+	.byte	1,5,61,9
+	.half	.L520-.L519
+	.byte	1,5,67,9
+	.half	.L521-.L520
+	.byte	1,5,14,9
+	.half	.L522-.L521
+	.byte	1,5,46,9
+	.half	.L523-.L522
+	.byte	3,1,1,5,45,9
+	.half	.L524-.L523
+	.byte	1,5,4,1,5,45,9
+	.half	.L525-.L524
+	.byte	1,5,60,9
+	.half	.L526-.L525
+	.byte	1,5,71,9
+	.half	.L527-.L526
+	.byte	1,5,26,9
+	.half	.L528-.L527
+	.byte	1,5,78,9
+	.half	.L529-.L528
+	.byte	1,5,14,9
+	.half	.L530-.L529
+	.byte	1,5,46,9
+	.half	.L531-.L530
+	.byte	3,1,1,5,45,9
+	.half	.L532-.L531
+	.byte	1,5,4,1,5,45,9
+	.half	.L533-.L532
+	.byte	1,5,60,9
+	.half	.L534-.L533
+	.byte	1,5,71,9
+	.half	.L535-.L534
+	.byte	1,5,26,9
+	.half	.L536-.L535
+	.byte	1,5,78,9
+	.half	.L537-.L536
+	.byte	1,5,14,9
+	.half	.L538-.L537
+	.byte	1,5,4,9
+	.half	.L539-.L538
+	.byte	3,1,1,5,32,9
+	.half	.L540-.L539
+	.byte	1,5,4,9
+	.half	.L541-.L540
+	.byte	3,2,1,5,35,3,126,1,5,32,9
+	.half	.L542-.L541
+	.byte	1,5,4,9
+	.half	.L543-.L542
+	.byte	3,2,1,5,32,9
+	.half	.L544-.L543
+	.byte	1,5,56,9
+	.half	.L9-.L544
+	.byte	3,189,127,1,5,69,9
+	.half	.L545-.L9
+	.byte	1,5,54,9
+	.half	.L546-.L545
+	.byte	1,5,27,7,9
+	.half	.L547-.L546
+	.byte	3,200,0,1,5,2,1,5,25,9
+	.half	.L548-.L547
+	.byte	1,9
+	.half	.L549-.L548
+	.byte	3,1,1,9
+	.half	.L550-.L549
+	.byte	3,1,1,9
+	.half	.L551-.L550
+	.byte	3,1,1,5,18,9
+	.half	.L552-.L551
+	.byte	3,1,1,5,6,9
+	.half	.L553-.L552
+	.byte	3,2,1,5,52,9
+	.half	.L554-.L553
+	.byte	3,126,1,5,20,9
+	.half	.L24-.L554
+	.byte	3,2,1,5,19,9
+	.half	.L555-.L24
+	.byte	1,5,32,9
+	.half	.L556-.L555
+	.byte	1,5,3,9
+	.half	.L557-.L556
+	.byte	1,5,47,7,9
+	.half	.L558-.L557
+	.byte	3,2,1,5,46,9
+	.half	.L559-.L558
+	.byte	1,5,59,9
+	.half	.L560-.L559
+	.byte	1,5,69,9
+	.half	.L561-.L560
+	.byte	1,5,25,9
+	.half	.L562-.L561
+	.byte	1,5,16,9
+	.half	.L563-.L562
+	.byte	1,5,14,1,5,25,9
+	.half	.L564-.L563
+	.byte	3,1,1,5,17,9
+	.half	.L565-.L564
+	.byte	1,5,4,1,5,14,9
+	.half	.L566-.L565
+	.byte	1,5,4,9
+	.half	.L567-.L566
+	.byte	3,1,1,5,14,9
+	.half	.L568-.L567
+	.byte	1,5,4,9
+	.half	.L569-.L568
+	.byte	3,1,1,5,5,9
+	.half	.L570-.L569
+	.byte	3,4,1,5,21,9
+	.half	.L571-.L570
+	.byte	3,126,1,5,20,9
+	.half	.L572-.L571
+	.byte	1,5,33,9
+	.half	.L573-.L572
+	.byte	1,5,4,9
+	.half	.L574-.L573
+	.byte	1,5,5,7,9
+	.half	.L575-.L574
+	.byte	3,2,1,5,32,9
+	.half	.L576-.L575
+	.byte	1,5,35,9
+	.half	.L577-.L576
+	.byte	1,5,32,1,5,26,9
+	.half	.L27-.L577
+	.byte	3,2,1,5,25,9
+	.half	.L578-.L27
+	.byte	1,5,38,9
+	.half	.L579-.L578
+	.byte	1,5,9,9
+	.half	.L580-.L579
+	.byte	1,5,5,7,9
+	.half	.L581-.L580
+	.byte	3,2,1,5,32,9
+	.half	.L582-.L581
+	.byte	1,5,35,9
+	.half	.L583-.L582
+	.byte	1,5,32,1,5,10,9
+	.half	.L29-.L583
+	.byte	3,4,1,5,21,9
+	.half	.L28-.L29
+	.byte	3,3,1,5,20,9
+	.half	.L584-.L28
+	.byte	1,5,33,9
+	.half	.L585-.L584
+	.byte	1,5,4,9
+	.half	.L586-.L585
+	.byte	1,5,5,7,9
+	.half	.L587-.L586
+	.byte	3,2,1,5,64,9
+	.half	.L588-.L587
+	.byte	1,5,5,9
+	.half	.L589-.L588
+	.byte	1,5,63,9
+	.half	.L590-.L589
+	.byte	1,5,5,9
+	.half	.L591-.L590
+	.byte	1,5,76,1,5,32,9
+	.half	.L592-.L591
+	.byte	1,5,86,9
+	.half	.L593-.L592
+	.byte	1,5,32,1,5,22,9
+	.half	.L594-.L593
+	.byte	3,2,1,5,21,9
+	.half	.L595-.L594
+	.byte	1,5,34,9
+	.half	.L596-.L595
+	.byte	1,5,5,9
+	.half	.L597-.L596
+	.byte	1,5,6,7,9
+	.half	.L598-.L597
+	.byte	3,2,1,5,33,9
+	.half	.L599-.L598
+	.byte	1,5,25,9
+	.half	.L600-.L599
+	.byte	3,1,1,5,24,9
+	.half	.L601-.L600
+	.byte	1,5,47,9
+	.half	.L602-.L601
+	.byte	1,5,53,1,5,65,9
+	.half	.L603-.L602
+	.byte	1,5,44,1,5,49,9
+	.half	.L604-.L603
+	.byte	1,5,44,9
+	.half	.L605-.L604
+	.byte	1,5,22,9
+	.half	.L32-.L605
+	.byte	3,3,1,5,21,9
+	.half	.L606-.L32
+	.byte	1,5,34,9
+	.half	.L607-.L606
+	.byte	1,5,5,9
+	.half	.L608-.L607
+	.byte	1,5,6,7,9
+	.half	.L609-.L608
+	.byte	3,2,1,5,33,9
+	.half	.L610-.L609
+	.byte	1,5,25,9
+	.half	.L611-.L610
+	.byte	3,1,1,5,24,9
+	.half	.L612-.L611
+	.byte	1,5,47,9
+	.half	.L613-.L612
+	.byte	1,5,53,1,5,65,9
+	.half	.L614-.L613
+	.byte	1,5,44,1,5,49,9
+	.half	.L615-.L614
+	.byte	1,5,44,9
+	.half	.L616-.L615
+	.byte	1,5,4,9
+	.half	.L31-.L616
+	.byte	3,3,1,5,32,9
+	.half	.L617-.L31
+	.byte	1,5,21,9
+	.half	.L618-.L617
+	.byte	3,2,1,5,20,9
+	.half	.L619-.L618
+	.byte	1,5,33,9
+	.half	.L620-.L619
+	.byte	1,5,4,9
+	.half	.L621-.L620
+	.byte	1,5,5,7,9
+	.half	.L622-.L621
+	.byte	3,2,1,5,32,9
+	.half	.L623-.L622
+	.byte	1,5,58,9
+	.half	.L624-.L623
+	.byte	1,5,57,9
+	.half	.L625-.L624
+	.byte	1,5,70,9
+	.half	.L626-.L625
+	.byte	1,5,81,9
+	.half	.L627-.L626
+	.byte	1,5,89,9
+	.half	.L628-.L627
+	.byte	1,5,32,1,5,5,9
+	.half	.L629-.L628
+	.byte	3,1,1,5,31,9
+	.half	.L630-.L629
+	.byte	1,5,57,9
+	.half	.L631-.L630
+	.byte	1,5,56,9
+	.half	.L632-.L631
+	.byte	1,5,69,9
+	.half	.L633-.L632
+	.byte	1,5,78,9
+	.half	.L634-.L633
+	.byte	1,5,86,9
+	.half	.L635-.L634
+	.byte	1,5,31,1,5,32,9
+	.half	.L636-.L635
+	.byte	3,127,1,5,26,9
+	.half	.L34-.L636
+	.byte	3,3,1,5,25,9
+	.half	.L637-.L34
+	.byte	1,5,38,9
+	.half	.L638-.L637
+	.byte	1,5,9,9
+	.half	.L639-.L638
+	.byte	1,5,5,7,9
+	.half	.L640-.L639
+	.byte	3,2,1,5,32,9
+	.half	.L641-.L640
+	.byte	1,5,57,9
+	.half	.L642-.L641
+	.byte	1,5,56,9
+	.half	.L643-.L642
+	.byte	1,5,69,9
+	.half	.L644-.L643
+	.byte	1,5,80,9
+	.half	.L645-.L644
+	.byte	1,5,32,1,5,5,9
+	.half	.L646-.L645
+	.byte	3,1,1,5,31,9
+	.half	.L647-.L646
+	.byte	1,5,56,9
+	.half	.L648-.L647
+	.byte	1,5,55,9
+	.half	.L649-.L648
+	.byte	1,5,79,9
+	.half	.L650-.L649
+	.byte	1,5,68,1,5,77,9
+	.half	.L651-.L650
+	.byte	1,5,31,1,5,32,9
+	.half	.L652-.L651
+	.byte	3,127,1,5,10,9
+	.half	.L36-.L652
+	.byte	3,5,1,5,26,9
+	.half	.L35-.L36
+	.byte	3,3,1,5,18,9
+	.half	.L653-.L35
+	.byte	1,5,46,9
+	.half	.L654-.L653
+	.byte	1,5,14,1,5,26,9
+	.half	.L655-.L654
+	.byte	3,1,1,5,38,9
+	.half	.L656-.L655
+	.byte	1,5,4,1,5,47,9
+	.half	.L657-.L656
+	.byte	1,5,14,9
+	.half	.L658-.L657
+	.byte	1,5,4,9
+	.half	.L659-.L658
+	.byte	3,1,1,5,31,9
+	.half	.L660-.L659
+	.byte	1,5,34,9
+	.half	.L661-.L660
+	.byte	1,5,44,9
+	.half	.L662-.L661
+	.byte	1,5,31,1,5,4,9
+	.half	.L663-.L662
+	.byte	3,1,1,5,31,9
+	.half	.L664-.L663
+	.byte	1,5,34,9
+	.half	.L665-.L664
+	.byte	1,5,31,1,5,54,9
+	.half	.L25-.L665
+	.byte	3,70,1,5,65,9
+	.half	.L666-.L25
+	.byte	1,5,52,9
+	.half	.L667-.L666
+	.byte	1,5,20,7,9
+	.half	.L668-.L667
+	.byte	3,62,1,5,17,1,5,20,9
+	.half	.L669-.L668
+	.byte	3,1,1,5,17,1,5,20,9
+	.half	.L670-.L669
+	.byte	3,1,1,5,17,1,5,20,9
+	.half	.L671-.L670
+	.byte	3,3,1,5,6,9
+	.half	.L672-.L671
+	.byte	3,243,126,1,5,54,9
+	.half	.L673-.L672
+	.byte	3,141,1,1,5,18,9
+	.half	.L39-.L673
+	.byte	3,2,1,5,17,9
+	.half	.L674-.L39
+	.byte	1,5,32,9
+	.half	.L675-.L674
+	.byte	1,5,3,9
+	.half	.L676-.L675
+	.byte	1,5,4,7,9
+	.half	.L677-.L676
+	.byte	3,3,1,5,31,9
+	.half	.L678-.L677
+	.byte	1,5,34,9
+	.half	.L679-.L678
+	.byte	1,5,31,1,5,25,9
+	.half	.L40-.L679
+	.byte	3,2,1,5,3,9
+	.half	.L680-.L40
+	.byte	1,5,24,9
+	.half	.L681-.L680
+	.byte	1,5,54,9
+	.half	.L682-.L681
+	.byte	1,5,53,9
+	.half	.L683-.L682
+	.byte	1,5,68,9
+	.half	.L684-.L683
+	.byte	1,5,40,9
+	.half	.L685-.L684
+	.byte	1,5,25,9
+	.half	.L686-.L685
+	.byte	3,1,1,5,3,9
+	.half	.L687-.L686
+	.byte	1,5,24,9
+	.half	.L688-.L687
+	.byte	1,5,40,9
+	.half	.L689-.L688
+	.byte	1,5,23,9
+	.half	.L690-.L689
+	.byte	3,1,1,5,3,9
+	.half	.L691-.L690
+	.byte	1,5,22,9
+	.half	.L692-.L691
+	.byte	1,5,38,9
+	.half	.L693-.L692
+	.byte	1,5,56,9
+	.half	.L694-.L693
+	.byte	3,119,1,5,69,9
+	.half	.L695-.L694
+	.byte	1,5,54,9
+	.half	.L696-.L695
+	.byte	1,5,17,7,9
+	.half	.L697-.L696
+	.byte	3,11,1,5,1,7,9
+	.half	.L189-.L697
+	.byte	3,1,0,1,1
+.L427:
+	.sdecl	'.debug_ranges',debug,cluster('CAN_Init')
+	.sect	'.debug_ranges'
+.L188:
+	.word	-1,.L142,0,.L189-.L142,0,0
+	.sdecl	'.debug_info',debug,cluster('CAN_Read_By_ID')
+	.sect	'.debug_info'
+.L190:
+	.word	341
+	.half	3
+	.word	.L191
+	.byte	4,1
+	.byte	'..\\Communication_Files\\CanDrv\\CanDrv_TC1782.c',0
+	.byte	'TASKING VX-toolset for TriCore: C compiler',0
+	.byte	'D:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_1.9\\BMU_BOOT\\Debug\\',0,12,1
+	.word	.L193,.L192
+	.byte	2
+	.word	.L181
+	.byte	3
+	.byte	'CAN_Read_By_ID',0,1,143,2,9
+	.word	.L302
+	.byte	1,1,1
+	.word	.L144,.L303,.L143
+	.byte	4
+	.byte	'ui32_ID',0,1,143,2,31
+	.word	.L304,.L305
+	.byte	4
+	.byte	'TargetAddressPtr',0,1,143,2,47
+	.word	.L306,.L307
+	.byte	5
+	.word	.L144,.L303
+	.byte	6
+	.byte	'ui16_Loop_1',0,1,145,2,9
+	.word	.L308,.L309
+	.byte	6
+	.byte	'ui8_Loop_2',0,1,146,2,8
+	.word	.L302,.L310
+	.byte	6
+	.byte	'b_Return',0,1,147,2,10
+	.word	.L302,.L311
+	.byte	0,0,0
+	.sdecl	'.debug_abbrev',debug,cluster('CAN_Read_By_ID')
+	.sect	'.debug_abbrev'
+.L191:
+	.byte	1,17,1,3,8,37,8,27,8,19,15,128,70,12,85,6,16,6,0,0,2,61,0,24,16,0,0,3,46,1,3,8,58,15,59,15,57,15,73,16
+	.byte	54,15,39,12,63,12,17,1,18,1,64,6,0,0,4,5,0,3,8,58,15,59,15,57,15,73,16,2,6,0,0,5,11,1,17,1,18,1,0,0,6
+	.byte	52,0,3,8,58,15,59,15,57,15,73,16,2,6,0,0,0
+	.sdecl	'.debug_line',debug,cluster('CAN_Read_By_ID')
+	.sect	'.debug_line'
+.L192:
+	.word	.L699-.L698
+.L698:
+	.half	3
+	.word	.L701-.L700
+.L700:
+	.byte	2,1,-4,9,10,0,1,1,1,1,0,0,0,1,0
+	.byte	'..\\Communication_Files\\CanDrv\\CanDrv_TC1782.c',0,0,0,0,0
+.L701:
+	.byte	5,11,7,0,5,2
+	.word	.L144
+	.byte	3,148,2,1,5,6,3,3,1,5,18,9
+	.half	.L702-.L144
+	.byte	3,125,1,5,58,3,1,1,5,34,9
+	.half	.L41-.L702
+	.byte	3,2,1,5,3,9
+	.half	.L703-.L41
+	.byte	1,5,46,7,9
+	.half	.L704-.L703
+	.byte	3,2,1,5,4,9
+	.half	.L705-.L704
+	.byte	1,5,36,7,9
+	.half	.L706-.L705
+	.byte	3,2,1,5,5,9
+	.half	.L707-.L706
+	.byte	1,5,43,7,9
+	.half	.L708-.L707
+	.byte	3,2,1,5,56,9
+	.half	.L709-.L708
+	.byte	3,1,1,5,70,9
+	.half	.L710-.L709
+	.byte	3,2,1,5,42,9
+	.half	.L711-.L710
+	.byte	3,126,1,5,79,9
+	.half	.L45-.L711
+	.byte	3,2,1,5,40,9
+	.half	.L712-.L45
+	.byte	1,5,42,9
+	.half	.L713-.L712
+	.byte	3,126,1,5,15,7,9
+	.half	.L714-.L713
+	.byte	3,4,1,5,71,9
+	.half	.L42-.L714
+	.byte	3,115,1,5,58,9
+	.half	.L715-.L42
+	.byte	1,5,1,7,9
+	.half	.L716-.L715
+	.byte	3,19,1,7,9
+	.half	.L194-.L716
+	.byte	0,1,1
+.L699:
+	.sdecl	'.debug_ranges',debug,cluster('CAN_Read_By_ID')
+	.sect	'.debug_ranges'
+.L193:
+	.word	-1,.L144,0,.L194-.L144,0,0
+	.sdecl	'.debug_info',debug,cluster('CAN_Read')
+	.sect	'.debug_info'
+.L195:
+	.word	330
+	.half	3
+	.word	.L196
+	.byte	4,1
+	.byte	'..\\Communication_Files\\CanDrv\\CanDrv_TC1782.c',0
+	.byte	'TASKING VX-toolset for TriCore: C compiler',0
+	.byte	'D:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_1.9\\BMU_BOOT\\Debug\\',0,12,1
+	.word	.L198,.L197
+	.byte	2
+	.word	.L181
+	.byte	3
+	.byte	'CAN_Read',0,1,221,2,9
+	.word	.L302
+	.byte	1,1,1
+	.word	.L148,.L312,.L147
+	.byte	4
+	.byte	'ui8_Obj',0,1,221,2,24
+	.word	.L302,.L313
+	.byte	4
+	.byte	'p_ui32_ID',0,1,221,2,41
+	.word	.L314,.L315
+	.byte	4
+	.byte	'TargetAddressPtr',0,1,221,2,59
+	.word	.L306,.L316
+	.byte	5
+	.word	.L148,.L312
+	.byte	6
+	.byte	'b_Return',0,1,223,2,10
+	.word	.L302,.L317
+	.byte	6
+	.byte	'ui32_ID',0,1,224,2,9
+	.word	.L304,.L318
+	.byte	0,0,0
+	.sdecl	'.debug_abbrev',debug,cluster('CAN_Read')
+	.sect	'.debug_abbrev'
+.L196:
+	.byte	1,17,1,3,8,37,8,27,8,19,15,128,70,12,85,6,16,6,0,0,2,61,0,24,16,0,0,3,46,1,3,8,58,15,59,15,57,15,73,16
+	.byte	54,15,39,12,63,12,17,1,18,1,64,6,0,0,4,5,0,3,8,58,15,59,15,57,15,73,16,2,6,0,0,5,11,1,17,1,18,1,0,0,6
+	.byte	52,0,3,8,58,15,59,15,57,15,73,16,2,6,0,0,0
+	.sdecl	'.debug_line',debug,cluster('CAN_Read')
+	.sect	'.debug_line'
+.L197:
+	.word	.L718-.L717
+.L717:
+	.half	3
+	.word	.L720-.L719
+.L719:
+	.byte	2,1,-4,9,10,0,1,1,1,1,0,0,0,1,0
+	.byte	'..\\Communication_Files\\CanDrv\\CanDrv_TC1782.c',0,0,0,0,0
+.L720:
+	.byte	5,13,7,0,5,2
+	.word	.L148
+	.byte	3,224,2,1,5,18,9
+	.half	.L377-.L148
+	.byte	3,3,1,5,5,1,5,18,9
+	.half	.L721-.L377
+	.byte	1,5,27,9
+	.half	.L722-.L721
+	.byte	1,5,2,9
+	.half	.L723-.L722
+	.byte	1,5,38,7,9
+	.half	.L724-.L723
+	.byte	3,2,1,5,41,9
+	.half	.L54-.L724
+	.byte	3,4,1,5,1,9
+	.half	.L199-.L54
+	.byte	3,4,0,1,1
+.L718:
+	.sdecl	'.debug_ranges',debug,cluster('CAN_Read')
+	.sect	'.debug_ranges'
+.L198:
+	.word	-1,.L148,0,.L199-.L148,0,0
+	.sdecl	'.debug_info',debug,cluster('CAN_Write')
+	.sect	'.debug_info'
+.L200:
+	.word	309
+	.half	3
+	.word	.L201
+	.byte	4,1
+	.byte	'..\\Communication_Files\\CanDrv\\CanDrv_TC1782.c',0
+	.byte	'TASKING VX-toolset for TriCore: C compiler',0
+	.byte	'D:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_1.9\\BMU_BOOT\\Debug\\',0,12,1
+	.word	.L203,.L202
+	.byte	2
+	.word	.L181
+	.byte	3
+	.byte	'CAN_Write',0,1,133,3,9
+	.word	.L302
+	.byte	1,1,1
+	.word	.L150,.L319,.L149
+	.byte	4
+	.byte	'ui8_Obj',0,1,133,3,25
+	.word	.L302,.L320
+	.byte	4
+	.byte	'SourceAddressPtr',0,1,133,3,41
+	.word	.L306,.L321
+	.byte	5
+	.word	.L150,.L319
+	.byte	6
+	.byte	'ui8_Loop',0,1,135,3,8
+	.word	.L302,.L322
+	.byte	6
+	.byte	'b_Return',0,1,136,3,10
+	.word	.L302,.L323
+	.byte	0,0,0
+	.sdecl	'.debug_abbrev',debug,cluster('CAN_Write')
+	.sect	'.debug_abbrev'
+.L201:
+	.byte	1,17,1,3,8,37,8,27,8,19,15,128,70,12,85,6,16,6,0,0,2,61,0,24,16,0,0,3,46,1,3,8,58,15,59,15,57,15,73,16
+	.byte	54,15,39,12,63,12,17,1,18,1,64,6,0,0,4,5,0,3,8,58,15,59,15,57,15,73,16,2,6,0,0,5,11,1,17,1,18,1,0,0,6
+	.byte	52,0,3,8,58,15,59,15,57,15,73,16,2,6,0,0,0
+	.sdecl	'.debug_line',debug,cluster('CAN_Write')
+	.sect	'.debug_line'
+.L202:
+	.word	.L726-.L725
+.L725:
+	.half	3
+	.word	.L728-.L727
+.L727:
+	.byte	2,1,-4,9,10,0,1,1,1,1,0,0,0,1,0
+	.byte	'..\\Communication_Files\\CanDrv\\CanDrv_TC1782.c',0,0,0,0,0
+.L728:
+	.byte	5,19,7,0,5,2
+	.word	.L150
+	.byte	3,138,3,1,5,6,1,5,19,9
+	.half	.L729-.L150
+	.byte	1,5,11,9
+	.half	.L730-.L729
+	.byte	3,127,1,5,28,3,1,1,5,9,9
+	.half	.L379-.L730
+	.byte	3,122,1,5,5,9
+	.half	.L380-.L379
+	.byte	3,6,1,5,30,7,9
+	.half	.L731-.L380
+	.byte	3,1,1,5,37,9
+	.half	.L732-.L731
+	.byte	1,5,30,7,9
+	.half	.L733-.L732
+	.byte	3,2,1,5,23,1,5,6,9
+	.half	.L734-.L733
+	.byte	1,5,63,7,9
+	.half	.L735-.L734
+	.byte	1,5,56,1,5,60,9
+	.half	.L736-.L735
+	.byte	1,5,5,7,9
+	.half	.L737-.L736
+	.byte	3,2,1,5,24,9
+	.half	.L738-.L737
+	.byte	1,5,58,9
+	.half	.L739-.L738
+	.byte	1,5,34,9
+	.half	.L740-.L739
+	.byte	1,5,5,9
+	.half	.L59-.L740
+	.byte	1,5,24,9
+	.half	.L741-.L59
+	.byte	1,5,25,9
+	.half	.L742-.L741
+	.byte	3,3,1,5,3,9
+	.half	.L743-.L742
+	.byte	1,5,32,7,9
+	.half	.L744-.L743
+	.byte	3,2,1,5,34,9
+	.half	.L745-.L744
+	.byte	1,5,14,9
+	.half	.L61-.L745
+	.byte	3,6,1,5,4,1,5,13,9
+	.half	.L746-.L61
+	.byte	1,5,33,9
+	.half	.L747-.L746
+	.byte	1,5,22,1,5,31,9
+	.half	.L748-.L747
+	.byte	1,5,23,9
+	.half	.L749-.L748
+	.byte	3,3,1,5,36,9
+	.half	.L750-.L749
+	.byte	3,126,1,5,43,9
+	.half	.L63-.L750
+	.byte	3,2,1,5,41,9
+	.half	.L751-.L63
+	.byte	1,5,36,9
+	.half	.L752-.L751
+	.byte	3,126,1,5,33,7,9
+	.half	.L753-.L752
+	.byte	3,4,1,5,31,9
+	.half	.L754-.L753
+	.byte	1,5,33,9
+	.half	.L755-.L754
+	.byte	3,1,1,5,31,1,5,40,9
+	.half	.L756-.L755
+	.byte	3,2,1,5,33,1,5,58,9
+	.half	.L757-.L756
+	.byte	3,2,1,5,7,9
+	.half	.L758-.L757
+	.byte	3,126,1,5,82,7,9
+	.half	.L759-.L758
+	.byte	1,5,75,1,5,79,9
+	.half	.L760-.L759
+	.byte	1,5,72,7,9
+	.half	.L761-.L760
+	.byte	3,2,1,5,34,1,5,75,9
+	.half	.L762-.L761
+	.byte	1,5,34,9
+	.half	.L64-.L762
+	.byte	3,4,1,5,13,9
+	.half	.L66-.L64
+	.byte	3,3,1,5,2,9
+	.half	.L57-.L66
+	.byte	3,4,1,5,17,9
+	.half	.L381-.L57
+	.byte	1,5,15,1,5,1,9
+	.half	.L763-.L381
+	.byte	3,2,1,7,9
+	.half	.L204-.L763
+	.byte	0,1,1
+.L726:
+	.sdecl	'.debug_ranges',debug,cluster('CAN_Write')
+	.sect	'.debug_ranges'
+.L203:
+	.word	-1,.L150,0,.L204-.L150,0,0
+	.sdecl	'.debug_info',debug,cluster('CAN_MOs_TXPND_Reset')
+	.sect	'.debug_info'
+.L205:
+	.word	240
+	.half	3
+	.word	.L206
+	.byte	4,1
+	.byte	'..\\Communication_Files\\CanDrv\\CanDrv_TC1782.c',0
+	.byte	'TASKING VX-toolset for TriCore: C compiler',0
+	.byte	'D:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_1.9\\BMU_BOOT\\Debug\\',0,12,1
+	.word	.L208,.L207
+	.byte	2
+	.word	.L181
+	.byte	3
+	.byte	'CAN_MOs_TXPND_Reset',0,1,196,3,6,1,1,1
+	.word	.L152,.L324,.L151
+	.byte	4
+	.byte	'ui8_Obj',0,1,196,3,32
+	.word	.L302,.L325
+	.byte	5
+	.word	.L152,.L324
+	.byte	0,0
+	.sdecl	'.debug_abbrev',debug,cluster('CAN_MOs_TXPND_Reset')
+	.sect	'.debug_abbrev'
+.L206:
+	.byte	1,17,1,3,8,37,8,27,8,19,15,128,70,12,85,6,16,6,0,0,2,61,0,24,16,0,0,3,46,1,3,8,58,15,59,15,57,15,54,15
+	.byte	39,12,63,12,17,1,18,1,64,6,0,0,4,5,0,3,8,58,15,59,15,57,15,73,16,2,6,0,0,5,11,0,17,1,18,1,0,0,0
+	.sdecl	'.debug_line',debug,cluster('CAN_MOs_TXPND_Reset')
+	.sect	'.debug_line'
+.L207:
+	.word	.L765-.L764
+.L764:
+	.half	3
+	.word	.L767-.L766
+.L766:
+	.byte	2,1,-4,9,10,0,1,1,1,1,0,0,0,1,0
+	.byte	'..\\Communication_Files\\CanDrv\\CanDrv_TC1782.c',0,0,0,0,0
+.L767:
+	.byte	5,2,7,0,5,2
+	.word	.L152
+	.byte	3,197,3,1,5,27,9
+	.half	.L768-.L152
+	.byte	1,5,25,1,5,1,9
+	.half	.L769-.L768
+	.byte	3,1,1,7,9
+	.half	.L209-.L769
+	.byte	0,1,1
+.L765:
+	.sdecl	'.debug_ranges',debug,cluster('CAN_MOs_TXPND_Reset')
+	.sect	'.debug_ranges'
+.L208:
+	.word	-1,.L152,0,.L209-.L152,0,0
+	.sdecl	'.debug_info',debug,cluster('CAN_MOs_Transmit_Status')
+	.sect	'.debug_info'
+.L210:
+	.word	271
+	.half	3
+	.word	.L211
+	.byte	4,1
+	.byte	'..\\Communication_Files\\CanDrv\\CanDrv_TC1782.c',0
+	.byte	'TASKING VX-toolset for TriCore: C compiler',0
+	.byte	'D:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_1.9\\BMU_BOOT\\Debug\\',0,12,1
+	.word	.L213,.L212
+	.byte	2
+	.word	.L181
+	.byte	3
+	.byte	'CAN_MOs_Transmit_Status',0,1,217,3,7
+	.word	.L302
+	.byte	1,1,1
+	.word	.L154,.L326,.L153
+	.byte	4
+	.byte	'ui8_Obj',0,1,217,3,37
+	.word	.L302,.L327
+	.byte	5
+	.word	.L154,.L326
+	.byte	6
+	.byte	'b_Return',0,1,219,3,8
+	.word	.L302,.L328
+	.byte	0,0,0
+	.sdecl	'.debug_abbrev',debug,cluster('CAN_MOs_Transmit_Status')
+	.sect	'.debug_abbrev'
+.L211:
+	.byte	1,17,1,3,8,37,8,27,8,19,15,128,70,12,85,6,16,6,0,0,2,61,0,24,16,0,0,3,46,1,3,8,58,15,59,15,57,15,73,16
+	.byte	54,15,39,12,63,12,17,1,18,1,64,6,0,0,4,5,0,3,8,58,15,59,15,57,15,73,16,2,6,0,0,5,11,1,17,1,18,1,0,0,6
+	.byte	52,0,3,8,58,15,59,15,57,15,73,16,2,6,0,0,0
+	.sdecl	'.debug_line',debug,cluster('CAN_MOs_Transmit_Status')
+	.sect	'.debug_line'
+.L212:
+	.word	.L771-.L770
+.L770:
+	.half	3
+	.word	.L773-.L772
+.L772:
+	.byte	2,1,-4,9,10,0,1,1,1,1,0,0,0,1,0
+	.byte	'..\\Communication_Files\\CanDrv\\CanDrv_TC1782.c',0,0,0,0,0
+.L773:
+	.byte	5,8,7,0,5,2
+	.word	.L154
+	.byte	3,222,3,1,5,11,9
+	.half	.L774-.L154
+	.byte	3,126,1,5,8,3,2,1,5,5,9
+	.half	.L384-.L774
+	.byte	1,5,31,7,9
+	.half	.L775-.L384
+	.byte	3,2,1,5,29,1,5,15,9
+	.half	.L776-.L775
+	.byte	3,1,1,5,1,9
+	.half	.L68-.L776
+	.byte	3,4,1,7,9
+	.half	.L214-.L68
+	.byte	0,1,1
+.L771:
+	.sdecl	'.debug_ranges',debug,cluster('CAN_MOs_Transmit_Status')
+	.sect	'.debug_ranges'
+.L213:
+	.word	-1,.L154,0,.L214-.L154,0,0
+	.sdecl	'.debug_info',debug,cluster('CAN_MOs_Get_DLC')
+	.sect	'.debug_info'
+.L215:
+	.word	262
+	.half	3
+	.word	.L216
+	.byte	4,1
+	.byte	'..\\Communication_Files\\CanDrv\\CanDrv_TC1782.c',0
+	.byte	'TASKING VX-toolset for TriCore: C compiler',0
+	.byte	'D:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_1.9\\BMU_BOOT\\Debug\\',0,12,1
+	.word	.L218,.L217
+	.byte	2
+	.word	.L181
+	.byte	3
+	.byte	'CAN_MOs_Get_DLC',0,1,248,3,7
+	.word	.L302
+	.byte	1,1,1
+	.word	.L156,.L329,.L155
+	.byte	4
+	.byte	'ui8_Obj',0,1,248,3,29
+	.word	.L302,.L330
+	.byte	5
+	.word	.L156,.L329
+	.byte	6
+	.byte	'ui8_DLC',0,1,250,3,8
+	.word	.L302,.L331
+	.byte	0,0,0
+	.sdecl	'.debug_abbrev',debug,cluster('CAN_MOs_Get_DLC')
+	.sect	'.debug_abbrev'
+.L216:
+	.byte	1,17,1,3,8,37,8,27,8,19,15,128,70,12,85,6,16,6,0,0,2,61,0,24,16,0,0,3,46,1,3,8,58,15,59,15,57,15,73,16
+	.byte	54,15,39,12,63,12,17,1,18,1,64,6,0,0,4,5,0,3,8,58,15,59,15,57,15,73,16,2,6,0,0,5,11,1,17,1,18,1,0,0,6
+	.byte	52,0,3,8,58,15,59,15,57,15,73,16,2,6,0,0,0
+	.sdecl	'.debug_line',debug,cluster('CAN_MOs_Get_DLC')
+	.sect	'.debug_line'
+.L217:
+	.word	.L778-.L777
+.L777:
+	.half	3
+	.word	.L780-.L779
+.L779:
+	.byte	2,1,-4,9,10,0,1,1,1,1,0,0,0,1,0
+	.byte	'..\\Communication_Files\\CanDrv\\CanDrv_TC1782.c',0,0,0,0,0
+.L780:
+	.byte	5,13,7,0,5,2
+	.word	.L156
+	.byte	3,251,3,1,5,36,9
+	.half	.L781-.L156
+	.byte	1,5,44,9
+	.half	.L782-.L781
+	.byte	1,5,1,9
+	.half	.L386-.L782
+	.byte	3,3,1,7,9
+	.half	.L219-.L386
+	.byte	0,1,1
+.L778:
+	.sdecl	'.debug_ranges',debug,cluster('CAN_MOs_Get_DLC')
+	.sect	'.debug_ranges'
+.L218:
+	.word	-1,.L156,0,.L219-.L156,0,0
+	.sdecl	'.debug_info',debug,cluster('CAN_Set_ID')
+	.sect	'.debug_info'
+.L220:
+	.word	252
+	.half	3
+	.word	.L221
+	.byte	4,1
+	.byte	'..\\Communication_Files\\CanDrv\\CanDrv_TC1782.c',0
+	.byte	'TASKING VX-toolset for TriCore: C compiler',0
+	.byte	'D:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_1.9\\BMU_BOOT\\Debug\\',0,12,1
+	.word	.L223,.L222
+	.byte	2
+	.word	.L181
+	.byte	3
+	.byte	'CAN_Set_ID',0,1,150,4,6,1,1,1
+	.word	.L158,.L332,.L157
+	.byte	4
+	.byte	'ui8_Obj',0,1,150,4,23
+	.word	.L302,.L333
+	.byte	4
+	.byte	'ui32_ID',0,1,150,4,39
+	.word	.L304,.L334
+	.byte	5
+	.word	.L158,.L332
+	.byte	0,0
+	.sdecl	'.debug_abbrev',debug,cluster('CAN_Set_ID')
+	.sect	'.debug_abbrev'
+.L221:
+	.byte	1,17,1,3,8,37,8,27,8,19,15,128,70,12,85,6,16,6,0,0,2,61,0,24,16,0,0,3,46,1,3,8,58,15,59,15,57,15,54,15
+	.byte	39,12,63,12,17,1,18,1,64,6,0,0,4,5,0,3,8,58,15,59,15,57,15,73,16,2,6,0,0,5,11,0,17,1,18,1,0,0,0
+	.sdecl	'.debug_line',debug,cluster('CAN_Set_ID')
+	.sect	'.debug_line'
+.L222:
+	.word	.L784-.L783
+.L783:
+	.half	3
+	.word	.L786-.L785
+.L785:
+	.byte	2,1,-4,9,10,0,1,1,1,1,0,0,0,1,0
+	.byte	'..\\Communication_Files\\CanDrv\\CanDrv_TC1782.c',0,0,0,0,0
+.L786:
+	.byte	5,18,7,0,5,2
+	.word	.L158
+	.byte	3,151,4,1,5,5,1,5,18,9
+	.half	.L787-.L158
+	.byte	1,5,27,9
+	.half	.L788-.L787
+	.byte	1,5,2,9
+	.half	.L789-.L788
+	.byte	1,5,3,7,9
+	.half	.L790-.L789
+	.byte	3,2,1,5,45,9
+	.half	.L791-.L790
+	.byte	1,5,55,9
+	.half	.L792-.L791
+	.byte	1,5,53,9
+	.half	.L793-.L792
+	.byte	1,5,25,1,5,1,9
+	.half	.L794-.L793
+	.byte	3,6,1,5,7,7,9
+	.half	.L71-.L794
+	.byte	3,124,1,5,3,7,9
+	.half	.L795-.L71
+	.byte	3,2,1,5,46,9
+	.half	.L796-.L795
+	.byte	1,5,44,9
+	.half	.L797-.L796
+	.byte	1,5,25,1,5,1,9
+	.half	.L73-.L797
+	.byte	3,2,1,7,9
+	.half	.L224-.L73
+	.byte	0,1,1
+.L784:
+	.sdecl	'.debug_ranges',debug,cluster('CAN_Set_ID')
+	.sect	'.debug_ranges'
+.L223:
+	.word	-1,.L158,0,.L224-.L158,0,0
+	.sdecl	'.debug_info',debug,cluster('CAN_Error_Clear')
+	.sect	'.debug_info'
+.L225:
+	.word	243
+	.half	3
+	.word	.L226
+	.byte	4,1
+	.byte	'..\\Communication_Files\\CanDrv\\CanDrv_TC1782.c',0
+	.byte	'TASKING VX-toolset for TriCore: C compiler',0
+	.byte	'D:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_1.9\\BMU_BOOT\\Debug\\',0,12,1
+	.word	.L228,.L227
+	.byte	2
+	.word	.L181
+	.byte	3
+	.byte	'CAN_Error_Clear',0,1,163,5,6,1,1,1
+	.word	.L162,.L335,.L161
+	.byte	4
+	.word	.L162,.L335
+	.byte	5
+	.byte	'ui8_Node_Loop',0,1,165,5,8
+	.word	.L302,.L336
+	.byte	0,0,0
+	.sdecl	'.debug_abbrev',debug,cluster('CAN_Error_Clear')
+	.sect	'.debug_abbrev'
+.L226:
+	.byte	1,17,1,3,8,37,8,27,8,19,15,128,70,12,85,6,16,6,0,0,2,61,0,24,16,0,0,3,46,1,3,8,58,15,59,15,57,15,54,15
+	.byte	39,12,63,12,17,1,18,1,64,6,0,0,4,11,1,17,1,18,1,0,0,5,52,0,3,8,58,15,59,15,57,15,73,16,2,6,0,0,0
+	.sdecl	'.debug_line',debug,cluster('CAN_Error_Clear')
+	.sect	'.debug_line'
+.L227:
+	.word	.L799-.L798
+.L798:
+	.half	3
+	.word	.L801-.L800
+.L800:
+	.byte	2,1,-4,9,10,0,1,1,1,1,0,0,0,1,0
+	.byte	'..\\Communication_Files\\CanDrv\\CanDrv_TC1782.c',0,0,0,0,0
+.L801:
+	.byte	5,22,7,0,5,2
+	.word	.L162
+	.byte	3,166,5,1,5,3,3,3,1,5,54,9
+	.half	.L802-.L162
+	.byte	3,125,1,5,38,9
+	.half	.L97-.L802
+	.byte	3,4,1,5,37,9
+	.half	.L803-.L97
+	.byte	3,1,1,9
+	.half	.L804-.L803
+	.byte	3,1,1,5,38,9
+	.half	.L805-.L804
+	.byte	3,1,1,5,39,9
+	.half	.L806-.L805
+	.byte	3,1,1,5,38,9
+	.half	.L807-.L806
+	.byte	3,1,1,5,37,9
+	.half	.L808-.L807
+	.byte	3,1,1,5,38,9
+	.half	.L809-.L808
+	.byte	3,1,1,5,43,9
+	.half	.L810-.L809
+	.byte	3,1,1,5,44,9
+	.half	.L811-.L810
+	.byte	3,1,1,5,37,9
+	.half	.L812-.L811
+	.byte	3,1,1,5,69,9
+	.half	.L813-.L812
+	.byte	3,114,1,5,54,9
+	.half	.L814-.L813
+	.byte	1,5,1,7,9
+	.half	.L815-.L814
+	.byte	3,16,1,7,9
+	.half	.L229-.L815
+	.byte	0,1,1
+.L799:
+	.sdecl	'.debug_ranges',debug,cluster('CAN_Error_Clear')
+	.sect	'.debug_ranges'
+.L228:
+	.word	-1,.L162,0,.L229-.L162,0,0
+	.sdecl	'.debug_info',debug,cluster('CAN_BusOff_Deal')
+	.sect	'.debug_info'
+.L230:
+	.word	243
+	.half	3
+	.word	.L231
+	.byte	4,1
+	.byte	'..\\Communication_Files\\CanDrv\\CanDrv_TC1782.c',0
+	.byte	'TASKING VX-toolset for TriCore: C compiler',0
+	.byte	'D:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_1.9\\BMU_BOOT\\Debug\\',0,12,1
+	.word	.L233,.L232
+	.byte	2
+	.word	.L181
+	.byte	3
+	.byte	'CAN_BusOff_Deal',0,1,139,6,6,1,1,1
+	.word	.L168,.L337,.L167
+	.byte	4
+	.word	.L168,.L337
+	.byte	5
+	.byte	'ui8_Node_Loop',0,1,141,6,8
+	.word	.L302,.L338
+	.byte	0,0,0
+	.sdecl	'.debug_abbrev',debug,cluster('CAN_BusOff_Deal')
+	.sect	'.debug_abbrev'
+.L231:
+	.byte	1,17,1,3,8,37,8,27,8,19,15,128,70,12,85,6,16,6,0,0,2,61,0,24,16,0,0,3,46,1,3,8,58,15,59,15,57,15,54,15
+	.byte	39,12,63,12,17,1,18,1,64,6,0,0,4,11,1,17,1,18,1,0,0,5,52,0,3,8,58,15,59,15,57,15,73,16,2,6,0,0,0
+	.sdecl	'.debug_line',debug,cluster('CAN_BusOff_Deal')
+	.sect	'.debug_line'
+.L232:
+	.word	.L817-.L816
+.L816:
+	.half	3
+	.word	.L819-.L818
+.L818:
+	.byte	2,1,-4,9,10,0,1,1,1,1,0,0,0,1,0
+	.byte	'..\\Communication_Files\\CanDrv\\CanDrv_TC1782.c',0,0,0,0,0
+.L819:
+	.byte	5,20,7,0,5,2
+	.word	.L168
+	.byte	3,142,6,1,5,5,3,9,1,5,6,9
+	.half	.L820-.L168
+	.byte	3,121,1,5,5,9
+	.half	.L821-.L820
+	.byte	3,5,1,5,54,9
+	.half	.L822-.L821
+	.byte	3,121,1,5,32,9
+	.half	.L104-.L822
+	.byte	3,2,1,5,3,9
+	.half	.L823-.L104
+	.byte	1,5,8,7,9
+	.half	.L824-.L823
+	.byte	3,2,1,5,4,9
+	.half	.L825-.L824
+	.byte	1,5,5,7,9
+	.half	.L826-.L825
+	.byte	3,2,1,5,32,9
+	.half	.L827-.L826
+	.byte	1,5,44,9
+	.half	.L828-.L827
+	.byte	3,1,1,5,42,1,5,50,9
+	.half	.L829-.L828
+	.byte	3,1,1,5,48,1,5,42,9
+	.half	.L830-.L829
+	.byte	3,1,1,5,23,9
+	.half	.L106-.L830
+	.byte	3,3,1,5,4,9
+	.half	.L396-.L106
+	.byte	1,5,29,7,9
+	.half	.L831-.L396
+	.byte	3,2,1,5,5,9
+	.half	.L832-.L831
+	.byte	1,5,42,7,9
+	.half	.L833-.L832
+	.byte	3,2,1,5,44,9
+	.half	.L834-.L833
+	.byte	1,5,23,9
+	.half	.L108-.L834
+	.byte	3,4,1,5,71,9
+	.half	.L398-.L108
+	.byte	3,1,1,5,43,9
+	.half	.L109-.L398
+	.byte	1,5,69,9
+	.half	.L105-.L109
+	.byte	3,107,1,5,54,9
+	.half	.L835-.L105
+	.byte	1,5,1,7,9
+	.half	.L836-.L835
+	.byte	3,26,1,7,9
+	.half	.L234-.L836
+	.byte	0,1,1
+.L817:
+	.sdecl	'.debug_ranges',debug,cluster('CAN_BusOff_Deal')
+	.sect	'.debug_ranges'
+.L233:
+	.word	-1,.L168,0,.L234-.L168,0,0
+	.sdecl	'.debug_info',debug,cluster('CAN_ubRequestMsgObj')
+	.sect	'.debug_info'
+.L235:
+	.word	267
+	.half	3
+	.word	.L236
+	.byte	4,1
+	.byte	'..\\Communication_Files\\CanDrv\\CanDrv_TC1782.c',0
+	.byte	'TASKING VX-toolset for TriCore: C compiler',0
+	.byte	'D:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_1.9\\BMU_BOOT\\Debug\\',0,12,1
+	.word	.L238,.L237
+	.byte	2
+	.word	.L181
+	.byte	3
+	.byte	'CAN_ubRequestMsgObj',0,1,213,7,7
+	.word	.L302
+	.byte	1,1,1
+	.word	.L180,.L339,.L179
+	.byte	4
+	.byte	'ubObjNr',0,1,213,7,33
+	.word	.L302,.L340
+	.byte	5
+	.word	.L180,.L339
+	.byte	6
+	.byte	'ubReturn',0,1,215,7,9
+	.word	.L302,.L341
+	.byte	0,0,0
+	.sdecl	'.debug_abbrev',debug,cluster('CAN_ubRequestMsgObj')
+	.sect	'.debug_abbrev'
+.L236:
+	.byte	1,17,1,3,8,37,8,27,8,19,15,128,70,12,85,6,16,6,0,0,2,61,0,24,16,0,0,3,46,1,3,8,58,15,59,15,57,15,73,16
+	.byte	54,15,39,12,63,12,17,1,18,1,64,6,0,0,4,5,0,3,8,58,15,59,15,57,15,73,16,2,6,0,0,5,11,1,17,1,18,1,0,0,6
+	.byte	52,0,3,8,58,15,59,15,57,15,73,16,2,6,0,0,0
+	.sdecl	'.debug_line',debug,cluster('CAN_ubRequestMsgObj')
+	.sect	'.debug_line'
+.L237:
+	.word	.L838-.L837
+.L837:
+	.half	3
+	.word	.L840-.L839
+.L839:
+	.byte	2,1,-4,9,10,0,1,1,1,1,0,0,0,1,0
+	.byte	'..\\Communication_Files\\CanDrv\\CanDrv_TC1782.c',0,0,0,0,0
+.L840:
+	.byte	5,17,7,0,5,2
+	.word	.L180
+	.byte	3,217,7,1,5,7,1,5,16,9
+	.half	.L841-.L180
+	.byte	1,5,12,9
+	.half	.L842-.L841
+	.byte	3,127,1,5,25,3,1,1,5,3,9
+	.half	.L421-.L842
+	.byte	1,5,34,7,9
+	.half	.L843-.L421
+	.byte	3,2,1,5,32,1,5,14,9
+	.half	.L844-.L843
+	.byte	3,1,1,5,1,9
+	.half	.L139-.L844
+	.byte	3,4,1,7,9
+	.half	.L239-.L139
+	.byte	0,1,1
+.L838:
+	.sdecl	'.debug_ranges',debug,cluster('CAN_ubRequestMsgObj')
+	.sect	'.debug_ranges'
+.L238:
+	.word	-1,.L180,0,.L239-.L180,0,0
+	.sdecl	'.debug_info',debug,cluster('CANOBJ_Read')
+	.sect	'.debug_info'
+.L240:
+	.word	311
+	.half	3
+	.word	.L241
+	.byte	4,1
+	.byte	'..\\Communication_Files\\CanDrv\\CanDrv_TC1782.c',0
+	.byte	'TASKING VX-toolset for TriCore: C compiler',0
+	.byte	'D:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_1.9\\BMU_BOOT\\Debug\\',0,12,1
+	.word	.L243,.L242
+	.byte	2
+	.word	.L181
+	.byte	3
+	.byte	'CANOBJ_Read',0,1,170,2,9
+	.word	.L302
+	.byte	1,1,1
+	.word	.L146,.L342,.L145
+	.byte	4
+	.byte	'ui8_Obj',0,1,170,2,27
+	.word	.L302,.L343
+	.byte	4
+	.byte	'TargetAddressPtr',0,1,170,2,43
+	.word	.L306,.L344
+	.byte	5
+	.word	.L146,.L342
+	.byte	6
+	.byte	'ui8_Loop',0,1,172,2,8
+	.word	.L302,.L345
+	.byte	6
+	.byte	'b_Return',0,1,173,2,10
+	.word	.L302,.L346
+	.byte	0,0,0
+	.sdecl	'.debug_abbrev',debug,cluster('CANOBJ_Read')
+	.sect	'.debug_abbrev'
+.L241:
+	.byte	1,17,1,3,8,37,8,27,8,19,15,128,70,12,85,6,16,6,0,0,2,61,0,24,16,0,0,3,46,1,3,8,58,15,59,15,57,15,73,16
+	.byte	54,15,39,12,63,12,17,1,18,1,64,6,0,0,4,5,0,3,8,58,15,59,15,57,15,73,16,2,6,0,0,5,11,1,17,1,18,1,0,0,6
+	.byte	52,0,3,8,58,15,59,15,57,15,73,16,2,6,0,0,0
+	.sdecl	'.debug_line',debug,cluster('CANOBJ_Read')
+	.sect	'.debug_line'
+.L242:
+	.word	.L846-.L845
+.L845:
+	.half	3
+	.word	.L848-.L847
+.L847:
+	.byte	2,1,-4,9,10,0,1,1,1,1,0,0,0,1,0
+	.byte	'..\\Communication_Files\\CanDrv\\CanDrv_TC1782.c',0,0,0,0,0
+.L848:
+	.byte	5,19,7,0,5,2
+	.word	.L146
+	.byte	3,175,2,1,5,6,1,5,19,9
+	.half	.L849-.L146
+	.byte	1,5,11,9
+	.half	.L850-.L849
+	.byte	3,127,1,5,28,3,1,1,5,5,9
+	.half	.L374-.L850
+	.byte	1,5,30,7,9
+	.half	.L851-.L374
+	.byte	3,1,1,5,37,9
+	.half	.L852-.L851
+	.byte	1,5,6,7,9
+	.half	.L853-.L852
+	.byte	3,2,1,5,25,9
+	.half	.L854-.L853
+	.byte	1,5,3,9
+	.half	.L855-.L854
+	.byte	1,5,32,7,9
+	.half	.L856-.L855
+	.byte	3,2,1,5,1,9
+	.half	.L47-.L856
+	.byte	3,17,1,5,18,7,9
+	.half	.L49-.L47
+	.byte	3,116,1,5,57,3,127,1,5,8,9
+	.half	.L373-.L49
+	.byte	3,1,1,5,17,9
+	.half	.L857-.L373
+	.byte	1,5,33,9
+	.half	.L858-.L857
+	.byte	3,127,1,5,26,9
+	.half	.L859-.L858
+	.byte	3,1,1,5,4,9
+	.half	.L860-.L859
+	.byte	1,5,57,7,9
+	.half	.L861-.L860
+	.byte	3,4,1,5,37,9
+	.half	.L862-.L861
+	.byte	3,126,1,5,64,9
+	.half	.L52-.L862
+	.byte	3,2,1,5,37,9
+	.half	.L863-.L52
+	.byte	1,9
+	.half	.L864-.L863
+	.byte	3,126,1,5,34,7,9
+	.half	.L865-.L864
+	.byte	3,4,1,5,32,1,5,14,9
+	.half	.L866-.L865
+	.byte	3,1,1,5,1,9
+	.half	.L51-.L866
+	.byte	3,5,1,7,9
+	.half	.L244-.L51
+	.byte	0,1,1
+.L846:
+	.sdecl	'.debug_ranges',debug,cluster('CANOBJ_Read')
+	.sect	'.debug_ranges'
+.L243:
+	.word	-1,.L146,0,.L244-.L146,0,0
+	.sdecl	'.debug_info',debug,cluster('CAN_Read_Error')
+	.sect	'.debug_info'
+.L245:
+	.word	265
+	.half	3
+	.word	.L246
+	.byte	4,1
+	.byte	'..\\Communication_Files\\CanDrv\\CanDrv_TC1782.c',0
+	.byte	'TASKING VX-toolset for TriCore: C compiler',0
+	.byte	'D:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_1.9\\BMU_BOOT\\Debug\\',0,12,1
+	.word	.L248,.L247
+	.byte	2
+	.word	.L181
+	.byte	3
+	.byte	'CAN_Read_Error',0,1,172,4,6,1,1,1
+	.word	.L160,.L347,.L159
+	.byte	4
+	.word	.L160,.L347
+	.byte	5
+	.byte	'ui32_Temp',0,1,174,4,9
+	.word	.L304,.L348
+	.byte	5
+	.byte	'ui8_Node_Loop',0,1,175,4,8
+	.word	.L302,.L349
+	.byte	0,0,0
+	.sdecl	'.debug_abbrev',debug,cluster('CAN_Read_Error')
+	.sect	'.debug_abbrev'
+.L246:
+	.byte	1,17,1,3,8,37,8,27,8,19,15,128,70,12,85,6,16,6,0,0,2,61,0,24,16,0,0,3,46,1,3,8,58,15,59,15,57,15,54,15
+	.byte	39,12,63,12,17,1,18,1,64,6,0,0,4,11,1,17,1,18,1,0,0,5,52,0,3,8,58,15,59,15,57,15,73,16,2,6,0,0,0
+	.sdecl	'.debug_line',debug,cluster('CAN_Read_Error')
+	.sect	'.debug_line'
+.L247:
+	.word	.L868-.L867
+.L867:
+	.half	3
+	.word	.L870-.L869
+.L869:
+	.byte	2,1,-4,9,10,0,1,1,1,1,0,0,0,1,0
+	.byte	'..\\Communication_Files\\CanDrv\\CanDrv_TC1782.c',0,0,0,0,0
+.L870:
+	.byte	5,20,7,0,5,2
+	.word	.L160
+	.byte	3,176,4,1,5,6,3,9,1,9
+	.half	.L871-.L160
+	.byte	3,121,1,5,24,9
+	.half	.L872-.L871
+	.byte	3,126,1,5,54,1,5,32,9
+	.half	.L74-.L872
+	.byte	3,2,1,5,3,9
+	.half	.L873-.L74
+	.byte	1,5,16,7,9
+	.half	.L874-.L873
+	.byte	3,2,1,5,4,9
+	.half	.L390-.L874
+	.byte	3,1,1,5,5,7,9
+	.half	.L875-.L390
+	.byte	3,2,1,5,41,7,9
+	.half	.L876-.L875
+	.byte	3,2,1,5,5,9
+	.half	.L77-.L876
+	.byte	3,3,1,5,41,7,9
+	.half	.L877-.L77
+	.byte	3,2,1,5,5,9
+	.half	.L78-.L877
+	.byte	3,3,1,5,40,7,9
+	.half	.L878-.L78
+	.byte	3,2,1,5,6,9
+	.half	.L879-.L878
+	.byte	3,1,1,5,35,9
+	.half	.L880-.L879
+	.byte	1,5,33,1,5,5,9
+	.half	.L79-.L880
+	.byte	3,3,1,5,40,7,9
+	.half	.L881-.L79
+	.byte	3,2,1,5,6,9
+	.half	.L882-.L881
+	.byte	3,1,1,5,35,9
+	.half	.L883-.L882
+	.byte	1,5,33,1,5,9,9
+	.half	.L80-.L883
+	.byte	3,3,1,5,5,9
+	.half	.L884-.L80
+	.byte	1,5,41,7,9
+	.half	.L885-.L884
+	.byte	3,2,1,5,5,9
+	.half	.L81-.L885
+	.byte	3,3,1,5,34,9
+	.half	.L886-.L81
+	.byte	1,5,32,1,5,18,9
+	.half	.L76-.L886
+	.byte	3,3,1,5,4,9
+	.half	.L887-.L76
+	.byte	1,5,11,7,9
+	.half	.L888-.L887
+	.byte	3,4,1,7,9
+	.half	.L889-.L888
+	.byte	3,6,1,7,9
+	.half	.L890-.L889
+	.byte	3,6,1,7,9
+	.half	.L891-.L890
+	.byte	3,6,1,7,9
+	.half	.L892-.L891
+	.byte	3,6,1,7,9
+	.half	.L893-.L892
+	.byte	3,13,1,7,9
+	.half	.L894-.L893
+	.byte	1,5,43,9
+	.half	.L83-.L894
+	.byte	3,93,1,5,7,9
+	.half	.L895-.L83
+	.byte	3,1,1,5,42,9
+	.half	.L84-.L895
+	.byte	3,5,1,5,7,9
+	.half	.L896-.L84
+	.byte	3,1,1,5,41,9
+	.half	.L85-.L896
+	.byte	3,5,1,5,7,9
+	.half	.L897-.L85
+	.byte	3,1,1,5,42,9
+	.half	.L86-.L897
+	.byte	3,5,1,5,7,9
+	.half	.L898-.L86
+	.byte	3,1,1,9
+	.half	.L87-.L898
+	.byte	3,5,1,5,48,7,9
+	.half	.L899-.L87
+	.byte	3,2,1,5,54,9
+	.half	.L900-.L899
+	.byte	1,5,49,9
+	.half	.L94-.L900
+	.byte	3,4,1,5,7,9
+	.half	.L901-.L94
+	.byte	3,2,1,5,41,9
+	.half	.L88-.L901
+	.byte	3,5,1,5,5,9
+	.half	.L89-.L88
+	.byte	3,9,1,5,34,9
+	.half	.L902-.L89
+	.byte	1,5,32,1,5,22,9
+	.half	.L75-.L902
+	.byte	3,3,1,5,69,9
+	.half	.L392-.L75
+	.byte	3,164,127,1,5,54,9
+	.half	.L903-.L392
+	.byte	1,5,1,7,9
+	.half	.L904-.L903
+	.byte	3,222,0,1,7,9
+	.half	.L249-.L904
+	.byte	0,1,1
+.L868:
+	.sdecl	'.debug_ranges',debug,cluster('CAN_Read_Error')
+	.sect	'.debug_ranges'
+.L248:
+	.word	-1,.L160,0,.L249-.L160,0,0
+	.sdecl	'.debug_info',debug,cluster('CAN_Read_BusOff')
+	.sect	'.debug_info'
+.L250:
+	.word	264
+	.half	3
+	.word	.L251
+	.byte	4,1
+	.byte	'..\\Communication_Files\\CanDrv\\CanDrv_TC1782.c',0
+	.byte	'TASKING VX-toolset for TriCore: C compiler',0
+	.byte	'D:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_1.9\\BMU_BOOT\\Debug\\',0,12,1
+	.word	.L253,.L252
+	.byte	2
+	.word	.L181
+	.byte	3
+	.byte	'CAN_Read_BusOff',0,1,196,5,9
+	.word	.L302
+	.byte	1,1,1
+	.word	.L164,.L350,.L163
+	.byte	4
+	.byte	'ui8_Node',0,1,196,5,31
+	.word	.L302,.L351
+	.byte	5
+	.word	.L164,.L350
+	.byte	6
+	.byte	'b_Return',0,1,198,5,10
+	.word	.L302,.L352
+	.byte	0,0,0
+	.sdecl	'.debug_abbrev',debug,cluster('CAN_Read_BusOff')
+	.sect	'.debug_abbrev'
+.L251:
+	.byte	1,17,1,3,8,37,8,27,8,19,15,128,70,12,85,6,16,6,0,0,2,61,0,24,16,0,0,3,46,1,3,8,58,15,59,15,57,15,73,16
+	.byte	54,15,39,12,63,12,17,1,18,1,64,6,0,0,4,5,0,3,8,58,15,59,15,57,15,73,16,2,6,0,0,5,11,1,17,1,18,1,0,0,6
+	.byte	52,0,3,8,58,15,59,15,57,15,73,16,2,6,0,0,0
+	.sdecl	'.debug_line',debug,cluster('CAN_Read_BusOff')
+	.sect	'.debug_line'
+.L252:
+	.word	.L906-.L905
+.L905:
+	.half	3
+	.word	.L908-.L907
+.L907:
+	.byte	2,1,-4,9,10,0,1,1,1,1,0,0,0,1,0
+	.byte	'..\\Communication_Files\\CanDrv\\CanDrv_TC1782.c',0,0,0,0,0
+.L908:
+	.byte	5,17,7,0,5,2
+	.word	.L164
+	.byte	3,200,5,1,5,5,1,5,17,9
+	.half	.L909-.L164
+	.byte	1,5,11,9
+	.half	.L910-.L909
+	.byte	3,127,1,5,27,3,1,1,5,2,9
+	.half	.L393-.L910
+	.byte	1,5,12,9
+	.half	.L911-.L393
+	.byte	3,2,1,5,1,9
+	.half	.L912-.L911
+	.byte	3,3,1,7,9
+	.half	.L254-.L912
+	.byte	0,1,1
+.L906:
+	.sdecl	'.debug_ranges',debug,cluster('CAN_Read_BusOff')
+	.sect	'.debug_ranges'
+.L253:
+	.word	-1,.L164,0,.L254-.L164,0,0
+	.sdecl	'.debug_info',debug,cluster('CAN_BusOff_Clear')
+	.sect	'.debug_info'
+.L255:
+	.word	238
+	.half	3
+	.word	.L256
+	.byte	4,1
+	.byte	'..\\Communication_Files\\CanDrv\\CanDrv_TC1782.c',0
+	.byte	'TASKING VX-toolset for TriCore: C compiler',0
+	.byte	'D:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_1.9\\BMU_BOOT\\Debug\\',0,12,1
+	.word	.L258,.L257
+	.byte	2
+	.word	.L181
+	.byte	3
+	.byte	'CAN_BusOff_Clear',0,1,218,5,6,1,1,1
+	.word	.L166,.L353,.L165
+	.byte	4
+	.byte	'ui8_Node',0,1,218,5,29
+	.word	.L302,.L354
+	.byte	5
+	.word	.L166,.L353
+	.byte	0,0
+	.sdecl	'.debug_abbrev',debug,cluster('CAN_BusOff_Clear')
+	.sect	'.debug_abbrev'
+.L256:
+	.byte	1,17,1,3,8,37,8,27,8,19,15,128,70,12,85,6,16,6,0,0,2,61,0,24,16,0,0,3,46,1,3,8,58,15,59,15,57,15,54,15
+	.byte	39,12,63,12,17,1,18,1,64,6,0,0,4,5,0,3,8,58,15,59,15,57,15,73,16,2,6,0,0,5,11,0,17,1,18,1,0,0,0
+	.sdecl	'.debug_line',debug,cluster('CAN_BusOff_Clear')
+	.sect	'.debug_line'
+.L257:
+	.word	.L914-.L913
+.L913:
+	.half	3
+	.word	.L916-.L915
+.L915:
+	.byte	2,1,-4,9,10,0,1,1,1,1,0,0,0,1,0
+	.byte	'..\\Communication_Files\\CanDrv\\CanDrv_TC1782.c',0,0,0,0,0
+.L916:
+	.byte	5,2,7,0,5,2
+	.word	.L166
+	.byte	3,219,5,1,5,23,9
+	.half	.L917-.L166
+	.byte	1,5,33,9
+	.half	.L918-.L917
+	.byte	1,5,2,9
+	.half	.L919-.L918
+	.byte	3,1,1,5,14,7,9
+	.half	.L920-.L919
+	.byte	3,2,1,5,3,1,5,14,9
+	.half	.L921-.L920
+	.byte	1,5,43,9
+	.half	.L922-.L921
+	.byte	1,5,41,1,5,2,9
+	.half	.L100-.L922
+	.byte	3,3,1,5,27,9
+	.half	.L923-.L100
+	.byte	1,5,2,1,5,24,9
+	.half	.L924-.L923
+	.byte	1,5,14,9
+	.half	.L925-.L924
+	.byte	3,1,1,5,2,1,5,14,9
+	.half	.L926-.L925
+	.byte	1,5,34,9
+	.half	.L927-.L926
+	.byte	1,5,32,1,5,2,9
+	.half	.L928-.L927
+	.byte	3,3,1,5,7,7,9
+	.half	.L929-.L928
+	.byte	3,4,1,7,9
+	.half	.L930-.L929
+	.byte	3,4,1,5,8,7,9
+	.half	.L931-.L930
+	.byte	3,6,1,5,1,9
+	.half	.L101-.L931
+	.byte	3,3,1,7,9
+	.half	.L259-.L101
+	.byte	0,1,1
+.L914:
+	.sdecl	'.debug_ranges',debug,cluster('CAN_BusOff_Clear')
+	.sect	'.debug_ranges'
+.L258:
+	.word	-1,.L166,0,.L259-.L166,0,0
+	.sdecl	'.debug_info',debug,cluster('CAN_Rx_Interrupt')
+	.sect	'.debug_info'
+.L260:
+	.word	308
+	.half	3
+	.word	.L261
+	.byte	4,1
+	.byte	'..\\Communication_Files\\CanDrv\\CanDrv_TC1782.c',0
+	.byte	'TASKING VX-toolset for TriCore: C compiler',0
+	.byte	'D:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_1.9\\BMU_BOOT\\Debug\\',0,12,1
+	.word	.L263,.L262
+	.byte	2
+	.word	.L181
+	.byte	3
+	.byte	'CAN_Rx_Interrupt',0,1,181,6,6,1,1,1
+	.word	.L170,.L355,.L169
+	.byte	4
+	.byte	'ui8_Obj',0,1,181,6,29
+	.word	.L302,.L356
+	.byte	5
+	.word	.L170,.L355
+	.byte	6
+	.byte	'ui16_Loop_1',0,1,183,6,9
+	.word	.L308,.L357
+	.byte	6
+	.byte	'ui8_Loop_2',0,1,184,6,8
+	.word	.L302,.L358
+	.byte	6
+	.byte	'ui32_ID',0,1,185,6,9
+	.word	.L304,.L359
+	.byte	0,0,0
+	.sdecl	'.debug_abbrev',debug,cluster('CAN_Rx_Interrupt')
+	.sect	'.debug_abbrev'
+.L261:
+	.byte	1,17,1,3,8,37,8,27,8,19,15,128,70,12,85,6,16,6,0,0,2,61,0,24,16,0,0,3,46,1,3,8,58,15,59,15,57,15,54,15
+	.byte	39,12,63,12,17,1,18,1,64,6,0,0,4,5,0,3,8,58,15,59,15,57,15,73,16,2,6,0,0,5,11,1,17,1,18,1,0,0,6,52,0,3
+	.byte	8,58,15,59,15,57,15,73,16,2,6,0,0,0
+	.sdecl	'.debug_line',debug,cluster('CAN_Rx_Interrupt')
+	.sect	'.debug_line'
+.L262:
+	.word	.L933-.L932
+.L932:
+	.half	3
+	.word	.L935-.L934
+.L934:
+	.byte	2,1,-4,9,10,0,1,1,1,1,0,0,0,1,0
+	.byte	'..\\Communication_Files\\CanDrv\\CanDrv_TC1782.c',0,0,0,0,0
+.L935:
+	.byte	5,15,7,0,5,2
+	.word	.L170
+	.byte	3,187,6,1,5,5,1,5,14,9
+	.half	.L936-.L170
+	.byte	1,5,23,9
+	.half	.L937-.L936
+	.byte	1,5,2,9
+	.half	.L938-.L937
+	.byte	1,5,24,7,9
+	.half	.L939-.L938
+	.byte	3,2,1,5,3,9
+	.half	.L940-.L939
+	.byte	1,5,26,7,9
+	.half	.L941-.L940
+	.byte	3,2,1,5,4,9
+	.half	.L942-.L941
+	.byte	1,5,34,7,9
+	.half	.L943-.L942
+	.byte	3,2,1,5,32,1,5,20,9
+	.half	.L112-.L943
+	.byte	3,3,1,5,7,1,5,20,9
+	.half	.L944-.L112
+	.byte	1,5,39,9
+	.half	.L945-.L944
+	.byte	1,5,29,1,5,4,9
+	.half	.L946-.L945
+	.byte	1,5,34,7,9
+	.half	.L947-.L946
+	.byte	3,2,1,5,50,9
+	.half	.L948-.L947
+	.byte	1,5,58,9
+	.half	.L400-.L948
+	.byte	1,5,9,9
+	.half	.L113-.L400
+	.byte	3,2,1,5,33,7,9
+	.half	.L949-.L113
+	.byte	3,2,1,5,41,9
+	.half	.L950-.L949
+	.byte	1,5,54,9
+	.half	.L401-.L950
+	.byte	1,5,13,9
+	.half	.L115-.L401
+	.byte	3,4,1,5,10,9
+	.half	.L402-.L115
+	.byte	3,1,1,5,8,9
+	.half	.L114-.L402
+	.byte	3,7,1,5,85,9
+	.half	.L951-.L114
+	.byte	3,6,1,5,78,9
+	.half	.L952-.L951
+	.byte	1,5,60,9
+	.half	.L953-.L952
+	.byte	3,120,1,5,36,9
+	.half	.L117-.L953
+	.byte	3,2,1,5,5,9
+	.half	.L954-.L117
+	.byte	1,5,48,7,9
+	.half	.L955-.L954
+	.byte	3,2,1,5,6,9
+	.half	.L956-.L955
+	.byte	1,5,36,7,9
+	.half	.L957-.L956
+	.byte	3,4,1,5,43,9
+	.half	.L958-.L957
+	.byte	3,126,1,5,85,9
+	.half	.L120-.L958
+	.byte	3,2,1,5,58,9
+	.half	.L959-.L120
+	.byte	1,5,43,9
+	.half	.L960-.L959
+	.byte	3,126,1,5,44,7,9
+	.half	.L961-.L960
+	.byte	3,4,1,5,7,9
+	.half	.L962-.L961
+	.byte	3,2,1,5,73,9
+	.half	.L118-.L962
+	.byte	3,116,1,5,60,9
+	.half	.L963-.L118
+	.byte	1,5,30,7,9
+	.half	.L121-.L963
+	.byte	3,21,1,5,33,9
+	.half	.L399-.L121
+	.byte	3,1,1,5,31,1,5,32,9
+	.half	.L111-.L399
+	.byte	3,2,1,5,30,1,5,1,9
+	.half	.L110-.L111
+	.byte	3,2,1,7,9
+	.half	.L264-.L110
+	.byte	0,1,1
+.L933:
+	.sdecl	'.debug_ranges',debug,cluster('CAN_Rx_Interrupt')
+	.sect	'.debug_ranges'
+.L263:
+	.word	-1,.L170,0,.L264-.L170,0,0
+	.sdecl	'.debug_info',debug,cluster('CAN_Tx_Interrupt')
+	.sect	'.debug_info'
+.L265:
+	.word	237
+	.half	3
+	.word	.L266
+	.byte	4,1
+	.byte	'..\\Communication_Files\\CanDrv\\CanDrv_TC1782.c',0
+	.byte	'TASKING VX-toolset for TriCore: C compiler',0
+	.byte	'D:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_1.9\\BMU_BOOT\\Debug\\',0,12,1
+	.word	.L268,.L267
+	.byte	2
+	.word	.L181
+	.byte	3
+	.byte	'CAN_Tx_Interrupt',0,1,251,6,6,1,1,1
+	.word	.L172,.L360,.L171
+	.byte	4
+	.byte	'ui8_Obj',0,1,251,6,29
+	.word	.L302,.L361
+	.byte	5
+	.word	.L172,.L360
+	.byte	0,0
+	.sdecl	'.debug_abbrev',debug,cluster('CAN_Tx_Interrupt')
+	.sect	'.debug_abbrev'
+.L266:
+	.byte	1,17,1,3,8,37,8,27,8,19,15,128,70,12,85,6,16,6,0,0,2,61,0,24,16,0,0,3,46,1,3,8,58,15,59,15,57,15,54,15
+	.byte	39,12,63,12,17,1,18,1,64,6,0,0,4,5,0,3,8,58,15,59,15,57,15,73,16,2,6,0,0,5,11,0,17,1,18,1,0,0,0
+	.sdecl	'.debug_line',debug,cluster('CAN_Tx_Interrupt')
+	.sect	'.debug_line'
+.L267:
+	.word	.L965-.L964
+.L964:
+	.half	3
+	.word	.L967-.L966
+.L966:
+	.byte	2,1,-4,9,10,0,1,1,1,1,0,0,0,1,0
+	.byte	'..\\Communication_Files\\CanDrv\\CanDrv_TC1782.c',0,0,0,0,0
+.L967:
+	.byte	5,15,7,0,5,2
+	.word	.L172
+	.byte	3,252,6,1,5,5,1,5,14,9
+	.half	.L968-.L172
+	.byte	1,5,23,9
+	.half	.L969-.L968
+	.byte	1,5,2,9
+	.half	.L970-.L969
+	.byte	1,5,29,7,9
+	.half	.L971-.L970
+	.byte	3,2,1,5,32,9
+	.half	.L403-.L971
+	.byte	3,1,1,5,30,1,5,32,9
+	.half	.L972-.L403
+	.byte	3,1,1,5,30,1,5,1,9
+	.half	.L122-.L972
+	.byte	3,2,1,7,9
+	.half	.L269-.L122
+	.byte	0,1,1
+.L965:
+	.sdecl	'.debug_ranges',debug,cluster('CAN_Tx_Interrupt')
+	.sect	'.debug_ranges'
+.L268:
+	.word	-1,.L172,0,.L269-.L172,0,0
+	.sdecl	'.debug_info',debug,cluster('CAN_viSRN0')
+	.sect	'.debug_info'
+.L270:
+	.word	232
+	.half	3
+	.word	.L271
+	.byte	4,1
+	.byte	'..\\Communication_Files\\CanDrv\\CanDrv_TC1782.c',0
+	.byte	'TASKING VX-toolset for TriCore: C compiler',0
+	.byte	'D:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_1.9\\BMU_BOOT\\Debug\\',0,12,1
+	.word	.L273,.L272
+	.byte	2
+	.word	.L181
+	.byte	3
+	.byte	'CAN_viSRN0',0,1,133,7,30,1,1,1
+	.word	.L174,.L362,.L173
+	.byte	4
+	.word	.L174,.L362
+	.byte	5
+	.byte	'ui8_Obj',0,1,135,7,8
+	.word	.L302,.L363
+	.byte	0,0,0
+	.sdecl	'.debug_abbrev',debug,cluster('CAN_viSRN0')
+	.sect	'.debug_abbrev'
+.L271:
+	.byte	1,17,1,3,8,37,8,27,8,19,15,128,70,12,85,6,16,6,0,0,2,61,0,24,16,0,0,3,46,1,3,8,58,15,59,15,57,15,54,15
+	.byte	39,12,63,12,17,1,18,1,64,6,0,0,4,11,1,17,1,18,1,0,0,5,52,0,3,8,58,15,59,15,57,15,73,16,2,6,0,0,0
+	.sdecl	'.debug_line',debug,cluster('CAN_viSRN0')
+	.sect	'.debug_line'
+.L272:
+	.word	.L974-.L973
+.L973:
+	.half	3
+	.word	.L976-.L975
+.L975:
+	.byte	2,1,-4,9,10,0,1,1,1,1,0,0,0,1,0
+	.byte	'..\\Communication_Files\\CanDrv\\CanDrv_TC1782.c',0,0,0,0,0
+.L976:
+	.byte	5,30,7,0,5,2
+	.word	.L174
+	.byte	3,132,7,1,5,16,9
+	.half	.L977-.L174
+	.byte	3,4,1,5,2,9
+	.half	.L978-.L977
+	.byte	1,5,34,9
+	.half	.L979-.L978
+	.byte	1,5,14,9
+	.half	.L980-.L979
+	.byte	1,5,9,9
+	.half	.L981-.L980
+	.byte	3,1,1,5,14,9
+	.half	.L982-.L981
+	.byte	3,4,1,5,32,9
+	.half	.L983-.L982
+	.byte	3,124,1,5,25,9
+	.half	.L124-.L983
+	.byte	3,2,1,5,23,9
+	.half	.L984-.L124
+	.byte	1,5,20,9
+	.half	.L404-.L984
+	.byte	3,1,1,5,19,9
+	.half	.L405-.L404
+	.byte	3,1,1,5,24,1,5,21,9
+	.half	.L985-.L405
+	.byte	1,5,17,9
+	.half	.L986-.L985
+	.byte	1,5,14,9
+	.half	.L987-.L986
+	.byte	1,5,22,9
+	.half	.L123-.L987
+	.byte	3,124,1,5,9,1,5,32,9
+	.half	.L988-.L123
+	.byte	1,5,34,7,9
+	.half	.L989-.L988
+	.byte	3,7,1,5,14,9
+	.half	.L990-.L989
+	.byte	1,5,9,9
+	.half	.L991-.L990
+	.byte	3,1,1,5,14,9
+	.half	.L992-.L991
+	.byte	3,4,1,5,32,9
+	.half	.L993-.L992
+	.byte	3,124,1,5,25,9
+	.half	.L126-.L993
+	.byte	3,2,1,5,23,9
+	.half	.L994-.L126
+	.byte	1,5,20,9
+	.half	.L406-.L994
+	.byte	3,1,1,5,19,9
+	.half	.L407-.L406
+	.byte	3,1,1,5,24,1,5,21,9
+	.half	.L995-.L407
+	.byte	1,5,17,9
+	.half	.L996-.L995
+	.byte	1,5,14,9
+	.half	.L997-.L996
+	.byte	1,5,22,9
+	.half	.L125-.L997
+	.byte	3,124,1,5,9,1,5,32,9
+	.half	.L998-.L125
+	.byte	1,5,34,7,9
+	.half	.L999-.L998
+	.byte	3,7,1,5,14,9
+	.half	.L1000-.L999
+	.byte	1,5,9,9
+	.half	.L1001-.L1000
+	.byte	3,1,1,5,14,9
+	.half	.L1002-.L1001
+	.byte	3,4,1,5,32,9
+	.half	.L1003-.L1002
+	.byte	3,124,1,5,25,9
+	.half	.L128-.L1003
+	.byte	3,2,1,5,23,9
+	.half	.L1004-.L128
+	.byte	1,5,20,9
+	.half	.L408-.L1004
+	.byte	3,1,1,5,19,9
+	.half	.L409-.L408
+	.byte	3,1,1,5,24,1,5,21,9
+	.half	.L1005-.L409
+	.byte	1,5,17,9
+	.half	.L1006-.L1005
+	.byte	1,5,14,9
+	.half	.L1007-.L1006
+	.byte	1,5,22,9
+	.half	.L127-.L1007
+	.byte	3,124,1,5,9,1,5,32,9
+	.half	.L1008-.L127
+	.byte	1,5,34,7,9
+	.half	.L1009-.L1008
+	.byte	3,7,1,5,14,9
+	.half	.L1010-.L1009
+	.byte	1,5,9,9
+	.half	.L1011-.L1010
+	.byte	3,1,1,5,14,9
+	.half	.L1012-.L1011
+	.byte	3,4,1,5,32,9
+	.half	.L1013-.L1012
+	.byte	3,124,1,5,25,9
+	.half	.L130-.L1013
+	.byte	3,2,1,5,23,9
+	.half	.L1014-.L130
+	.byte	1,5,20,9
+	.half	.L410-.L1014
+	.byte	3,1,1,5,19,9
+	.half	.L411-.L410
+	.byte	3,1,1,5,24,1,5,21,9
+	.half	.L1015-.L411
+	.byte	1,5,17,9
+	.half	.L1016-.L1015
+	.byte	1,5,14,9
+	.half	.L1017-.L1016
+	.byte	1,5,22,9
+	.half	.L129-.L1017
+	.byte	3,124,1,5,9,1,5,32,9
+	.half	.L1018-.L129
+	.byte	1,5,1,7,9
+	.half	.L1019-.L1018
+	.byte	3,6,1,9
+	.half	.L274-.L1019
+	.byte	0,1,1
+.L974:
+	.sdecl	'.debug_ranges',debug,cluster('CAN_viSRN0')
+	.sect	'.debug_ranges'
+.L273:
+	.word	-1,.L174,0,.L274-.L174,0,0
+	.sdecl	'.debug_info',debug,cluster('CAN_viSRN1')
+	.sect	'.debug_info'
+.L275:
+	.word	232
+	.half	3
+	.word	.L276
+	.byte	4,1
+	.byte	'..\\Communication_Files\\CanDrv\\CanDrv_TC1782.c',0
+	.byte	'TASKING VX-toolset for TriCore: C compiler',0
+	.byte	'D:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_1.9\\BMU_BOOT\\Debug\\',0,12,1
+	.word	.L278,.L277
+	.byte	2
+	.word	.L181
+	.byte	3
+	.byte	'CAN_viSRN1',0,1,170,7,30,1,1,1
+	.word	.L176,.L364,.L175
+	.byte	4
+	.word	.L176,.L364
+	.byte	5
+	.byte	'ui8_Obj',0,1,172,7,8
+	.word	.L302,.L365
+	.byte	0,0,0
+	.sdecl	'.debug_abbrev',debug,cluster('CAN_viSRN1')
+	.sect	'.debug_abbrev'
+.L276:
+	.byte	1,17,1,3,8,37,8,27,8,19,15,128,70,12,85,6,16,6,0,0,2,61,0,24,16,0,0,3,46,1,3,8,58,15,59,15,57,15,54,15
+	.byte	39,12,63,12,17,1,18,1,64,6,0,0,4,11,1,17,1,18,1,0,0,5,52,0,3,8,58,15,59,15,57,15,73,16,2,6,0,0,0
+	.sdecl	'.debug_line',debug,cluster('CAN_viSRN1')
+	.sect	'.debug_line'
+.L277:
+	.word	.L1021-.L1020
+.L1020:
+	.half	3
+	.word	.L1023-.L1022
+.L1022:
+	.byte	2,1,-4,9,10,0,1,1,1,1,0,0,0,1,0
+	.byte	'..\\Communication_Files\\CanDrv\\CanDrv_TC1782.c',0,0,0,0,0
+.L1023:
+	.byte	5,30,7,0,5,2
+	.word	.L176
+	.byte	3,169,7,1,5,16,9
+	.half	.L1024-.L176
+	.byte	3,4,1,5,2,9
+	.half	.L1025-.L1024
+	.byte	1,5,34,9
+	.half	.L1026-.L1025
+	.byte	1,5,14,9
+	.half	.L1027-.L1026
+	.byte	1,5,9,9
+	.half	.L1028-.L1027
+	.byte	3,1,1,5,14,9
+	.half	.L1029-.L1028
+	.byte	3,4,1,5,32,9
+	.half	.L1030-.L1029
+	.byte	3,124,1,5,25,9
+	.half	.L132-.L1030
+	.byte	3,2,1,5,23,9
+	.half	.L1031-.L132
+	.byte	1,5,20,9
+	.half	.L412-.L1031
+	.byte	3,1,1,5,19,9
+	.half	.L413-.L412
+	.byte	3,1,1,5,24,1,5,21,9
+	.half	.L1032-.L413
+	.byte	1,5,17,9
+	.half	.L1033-.L1032
+	.byte	1,5,14,9
+	.half	.L1034-.L1033
+	.byte	1,5,22,9
+	.half	.L131-.L1034
+	.byte	3,124,1,5,9,1,5,32,9
+	.half	.L1035-.L131
+	.byte	1,5,34,7,9
+	.half	.L1036-.L1035
+	.byte	3,7,1,5,14,9
+	.half	.L1037-.L1036
+	.byte	1,5,9,9
+	.half	.L1038-.L1037
+	.byte	3,1,1,5,14,9
+	.half	.L1039-.L1038
+	.byte	3,4,1,5,32,9
+	.half	.L1040-.L1039
+	.byte	3,124,1,5,25,9
+	.half	.L134-.L1040
+	.byte	3,2,1,5,23,9
+	.half	.L1041-.L134
+	.byte	1,5,20,9
+	.half	.L414-.L1041
+	.byte	3,1,1,5,19,9
+	.half	.L415-.L414
+	.byte	3,1,1,5,24,1,5,21,9
+	.half	.L1042-.L415
+	.byte	1,5,17,9
+	.half	.L1043-.L1042
+	.byte	1,5,14,9
+	.half	.L1044-.L1043
+	.byte	1,5,22,9
+	.half	.L133-.L1044
+	.byte	3,124,1,5,9,1,5,32,9
+	.half	.L1045-.L133
+	.byte	1,5,34,7,9
+	.half	.L1046-.L1045
+	.byte	3,7,1,5,14,9
+	.half	.L1047-.L1046
+	.byte	1,5,9,9
+	.half	.L1048-.L1047
+	.byte	3,1,1,5,14,9
+	.half	.L1049-.L1048
+	.byte	3,4,1,5,32,9
+	.half	.L1050-.L1049
+	.byte	3,124,1,5,25,9
+	.half	.L136-.L1050
+	.byte	3,2,1,5,23,9
+	.half	.L1051-.L136
+	.byte	1,5,20,9
+	.half	.L416-.L1051
+	.byte	3,1,1,5,19,9
+	.half	.L417-.L416
+	.byte	3,1,1,5,24,1,5,21,9
+	.half	.L1052-.L417
+	.byte	1,5,17,9
+	.half	.L1053-.L1052
+	.byte	1,5,14,9
+	.half	.L1054-.L1053
+	.byte	1,5,22,9
+	.half	.L135-.L1054
+	.byte	3,124,1,5,9,1,5,32,9
+	.half	.L1055-.L135
+	.byte	1,5,34,7,9
+	.half	.L1056-.L1055
+	.byte	3,7,1,5,14,9
+	.half	.L1057-.L1056
+	.byte	1,5,9,9
+	.half	.L1058-.L1057
+	.byte	3,1,1,5,14,9
+	.half	.L1059-.L1058
+	.byte	3,4,1,5,32,9
+	.half	.L1060-.L1059
+	.byte	3,124,1,5,25,9
+	.half	.L138-.L1060
+	.byte	3,2,1,5,23,9
+	.half	.L1061-.L138
+	.byte	1,5,20,9
+	.half	.L418-.L1061
+	.byte	3,1,1,5,19,9
+	.half	.L419-.L418
+	.byte	3,1,1,5,24,1,5,21,9
+	.half	.L1062-.L419
+	.byte	1,5,17,9
+	.half	.L1063-.L1062
+	.byte	1,5,14,9
+	.half	.L1064-.L1063
+	.byte	1,5,22,9
+	.half	.L137-.L1064
+	.byte	3,124,1,5,9,1,5,32,9
+	.half	.L1065-.L137
+	.byte	1,5,1,7,9
+	.half	.L1066-.L1065
+	.byte	3,6,1,9
+	.half	.L279-.L1066
+	.byte	0,1,1
+.L1021:
+	.sdecl	'.debug_ranges',debug,cluster('CAN_viSRN1')
+	.sect	'.debug_ranges'
+.L278:
+	.word	-1,.L176,0,.L279-.L176,0,0
+	.sdecl	'.debug_info',debug,cluster('CAN_viSRN2')
+	.sect	'.debug_info'
+.L280:
+	.word	210
+	.half	3
+	.word	.L281
+	.byte	4,1
+	.byte	'..\\Communication_Files\\CanDrv\\CanDrv_TC1782.c',0
+	.byte	'TASKING VX-toolset for TriCore: C compiler',0
+	.byte	'D:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_1.9\\BMU_BOOT\\Debug\\',0,12,1
+	.word	.L283,.L282
+	.byte	2
+	.word	.L181
+	.byte	3
+	.byte	'CAN_viSRN2',0,1,207,7,30,1,1,1
+	.word	.L178,.L366,.L177
+	.byte	4
+	.word	.L178,.L366
+	.byte	0,0
+	.sdecl	'.debug_abbrev',debug,cluster('CAN_viSRN2')
+	.sect	'.debug_abbrev'
+.L281:
+	.byte	1,17,1,3,8,37,8,27,8,19,15,128,70,12,85,6,16,6,0,0,2,61,0,24,16,0,0,3,46,1,3,8,58,15,59,15,57,15,54,15
+	.byte	39,12,63,12,17,1,18,1,64,6,0,0,4,11,0,17,1,18,1,0,0,0
+	.sdecl	'.debug_line',debug,cluster('CAN_viSRN2')
+	.sect	'.debug_line'
+.L282:
+	.word	.L1068-.L1067
+.L1067:
+	.half	3
+	.word	.L1070-.L1069
+.L1069:
+	.byte	2,1,-4,9,10,0,1,1,1,1,0,0,0,1,0
+	.byte	'..\\Communication_Files\\CanDrv\\CanDrv_TC1782.c',0,0,0,0,0
+.L1070:
+	.byte	5,30,7,0,5,2
+	.word	.L178
+	.byte	3,206,7,1,5,16,9
+	.half	.L1071-.L178
+	.byte	3,2,1,5,19,9
+	.half	.L1072-.L1071
+	.byte	3,1,1,5,1,9
+	.half	.L1073-.L1072
+	.byte	3,1,1,9
+	.half	.L284-.L1073
+	.byte	0,1,1
+.L1068:
+	.sdecl	'.debug_ranges',debug,cluster('CAN_viSRN2')
+	.sect	'.debug_ranges'
+.L283:
+	.word	-1,.L178,0,.L284-.L178,0,0
+	.sdecl	'.debug_info',debug,cluster('st_CAN_Error')
+	.sect	'.debug_info'
+.L285:
+	.word	189
+	.half	3
+	.word	.L286
+	.byte	4,1
+	.byte	'..\\Communication_Files\\CanDrv\\CanDrv_TC1782.c',0
+	.byte	'TASKING VX-toolset for TriCore: C compiler',0
+	.byte	'D:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_1.9\\BMU_BOOT\\Debug\\',0,12,1,2
+	.word	.L181
+	.byte	3
+	.byte	'st_CAN_Error',0,3,40,18
+	.word	.L367
+	.byte	1,5,3
+	.word	st_CAN_Error
+	.byte	0
+	.sdecl	'.debug_abbrev',debug,cluster('st_CAN_Error')
+	.sect	'.debug_abbrev'
+.L286:
+	.byte	1,17,1,3,8,37,8,27,8,19,15,128,70,12,0,0,2,61,0,24,16,0,0,3,52,0,3,8,58,15,59,15,57,15,73,16,63,12,2,9
+	.byte	0,0,0
+	.sdecl	'.debug_info',debug,cluster('ui32_BOFF_Delay_Count')
+	.sect	'.debug_info'
+.L287:
+	.word	198
+	.half	3
+	.word	.L288
+	.byte	4,1
+	.byte	'..\\Communication_Files\\CanDrv\\CanDrv_TC1782.c',0
+	.byte	'TASKING VX-toolset for TriCore: C compiler',0
+	.byte	'D:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_1.9\\BMU_BOOT\\Debug\\',0,12,1,2
+	.word	.L181
+	.byte	3
+	.byte	'ui32_BOFF_Delay_Count',0,3,42,8
+	.word	.L368
+	.byte	1,5,3
+	.word	ui32_BOFF_Delay_Count
+	.byte	0
+	.sdecl	'.debug_abbrev',debug,cluster('ui32_BOFF_Delay_Count')
+	.sect	'.debug_abbrev'
+.L288:
+	.byte	1,17,1,3,8,37,8,27,8,19,15,128,70,12,0,0,2,61,0,24,16,0,0,3,52,0,3,8,58,15,59,15,57,15,73,16,63,12,2,9
+	.byte	0,0,0
+	.sdecl	'.debug_info',debug,cluster('ui32_BOFF_Clear_Count')
+	.sect	'.debug_info'
+.L289:
+	.word	198
+	.half	3
+	.word	.L290
+	.byte	4,1
+	.byte	'..\\Communication_Files\\CanDrv\\CanDrv_TC1782.c',0
+	.byte	'TASKING VX-toolset for TriCore: C compiler',0
+	.byte	'D:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_1.9\\BMU_BOOT\\Debug\\',0,12,1,2
+	.word	.L181
+	.byte	3
+	.byte	'ui32_BOFF_Clear_Count',0,3,43,8
+	.word	.L368
+	.byte	1,5,3
+	.word	ui32_BOFF_Clear_Count
+	.byte	0
+	.sdecl	'.debug_abbrev',debug,cluster('ui32_BOFF_Clear_Count')
+	.sect	'.debug_abbrev'
+.L290:
+	.byte	1,17,1,3,8,37,8,27,8,19,15,128,70,12,0,0,2,61,0,24,16,0,0,3,52,0,3,8,58,15,59,15,57,15,73,16,63,12,2,9
+	.byte	0,0,0
+	.sdecl	'.debug_info',debug,cluster('ui8_CallCycle_Count')
+	.sect	'.debug_info'
+.L291:
+	.word	196
+	.half	3
+	.word	.L292
+	.byte	4,1
+	.byte	'..\\Communication_Files\\CanDrv\\CanDrv_TC1782.c',0
+	.byte	'TASKING VX-toolset for TriCore: C compiler',0
+	.byte	'D:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_1.9\\BMU_BOOT\\Debug\\',0,12,1,2
+	.word	.L181
+	.byte	3
+	.byte	'ui8_CallCycle_Count',0,3,44,7
+	.word	.L369
+	.byte	1,5,3
+	.word	ui8_CallCycle_Count
+	.byte	0
+	.sdecl	'.debug_abbrev',debug,cluster('ui8_CallCycle_Count')
+	.sect	'.debug_abbrev'
+.L292:
+	.byte	1,17,1,3,8,37,8,27,8,19,15,128,70,12,0,0,2,61,0,24,16,0,0,3,52,0,3,8,58,15,59,15,57,15,73,16,63,12,2,9
+	.byte	0,0,0
+	.sdecl	'.debug_info',debug,cluster('ui32_MSIMASK_Value')
+	.sect	'.debug_info'
+.L293:
+	.word	195
+	.half	3
+	.word	.L294
+	.byte	4,1
+	.byte	'..\\Communication_Files\\CanDrv\\CanDrv_TC1782.c',0
+	.byte	'TASKING VX-toolset for TriCore: C compiler',0
+	.byte	'D:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_1.9\\BMU_BOOT\\Debug\\',0,12,1,2
+	.word	.L181
+	.byte	3
+	.byte	'ui32_MSIMASK_Value',0,3,46,8
+	.word	.L370
+	.byte	1,5,3
+	.word	ui32_MSIMASK_Value
+	.byte	0
+	.sdecl	'.debug_abbrev',debug,cluster('ui32_MSIMASK_Value')
+	.sect	'.debug_abbrev'
+.L294:
+	.byte	1,17,1,3,8,37,8,27,8,19,15,128,70,12,0,0,2,61,0,24,16,0,0,3,52,0,3,8,58,15,59,15,57,15,73,16,63,12,2,9
+	.byte	0,0,0
+	.sdecl	'.debug_loc',debug,cluster('CANOBJ_Read')
+	.sect	'.debug_loc'
+.L145:
+	.word	-1,.L146,0,.L342-.L146
+	.half	2
+	.byte	138,0
+	.word	0,0
+.L344:
+	.word	-1,.L146,0,.L342-.L146
+	.half	1
+	.byte	100
+	.word	0,0
+.L346:
+	.word	-1,.L146,.L374-.L146,.L342-.L146
+	.half	5
+	.byte	144,33,157,32,0
+	.word	0,0
+.L345:
+	.word	0,0
+.L343:
+	.word	-1,.L146,0,.L373-.L146
+	.half	5
+	.byte	144,34,157,32,0
+	.word	0,0
+	.sdecl	'.debug_loc',debug,cluster('CAN_BusOff_Clear')
+	.sect	'.debug_loc'
+.L165:
+	.word	-1,.L166,0,.L353-.L166
+	.half	2
+	.byte	138,0
+	.word	0,0
+.L354:
+	.word	-1,.L166,0,.L353-.L166
+	.half	5
+	.byte	144,34,157,32,0
+	.word	0,0
+	.sdecl	'.debug_loc',debug,cluster('CAN_BusOff_Deal')
+	.sect	'.debug_loc'
+.L167:
+	.word	-1,.L168,0,.L337-.L168
+	.half	2
+	.byte	138,0
+	.word	0,0
+.L338:
+	.word	-1,.L168,.L394-.L168,.L337-.L168
+	.half	5
+	.byte	144,36,157,32,0
+	.word	.L395-.L168,.L396-.L168
+	.half	5
+	.byte	144,34,157,32,0
+	.word	.L397-.L168,.L398-.L168
+	.half	5
+	.byte	144,34,157,32,0
+	.word	0,0
+	.sdecl	'.debug_loc',debug,cluster('CAN_Error_Clear')
+	.sect	'.debug_loc'
+.L161:
+	.word	-1,.L162,0,.L335-.L162
+	.half	2
+	.byte	138,0
+	.word	0,0
+.L336:
+	.word	0,0
+	.sdecl	'.debug_loc',debug,cluster('CAN_Init')
+	.sect	'.debug_loc'
+.L141:
+	.word	-1,.L142,0,.L371-.L142
+	.half	2
+	.byte	138,0
+	.word	.L371-.L142,.L295-.L142
+	.half	2
+	.byte	138,8
+	.word	.L295-.L142,.L295-.L142
+	.half	2
+	.byte	138,0
+	.word	0,0
+.L297:
+	.word	-1,.L142,0,.L295-.L142
+	.half	2
+	.byte	145,120
+	.word	0,0
+.L301:
+	.word	-1,.L142,0,.L295-.L142
+	.half	2
+	.byte	145,125
+	.word	0,0
+.L299:
+	.word	-1,.L142,0,.L295-.L142
+	.half	2
+	.byte	145,124
+	.word	0,0
+	.sdecl	'.debug_loc',debug,cluster('CAN_MOs_Get_DLC')
+	.sect	'.debug_loc'
+.L155:
+	.word	-1,.L156,0,.L329-.L156
+	.half	2
+	.byte	138,0
+	.word	0,0
+.L331:
+	.word	-1,.L156,.L386-.L156,.L329-.L156
+	.half	5
+	.byte	144,33,157,32,0
+	.word	0,0
+.L330:
+	.word	-1,.L156,0,.L385-.L156
+	.half	5
+	.byte	144,34,157,32,0
+	.word	0,0
+	.sdecl	'.debug_loc',debug,cluster('CAN_MOs_TXPND_Reset')
+	.sect	'.debug_loc'
+.L151:
+	.word	-1,.L152,0,.L324-.L152
+	.half	2
+	.byte	138,0
+	.word	0,0
+.L325:
+	.word	-1,.L152,0,.L382-.L152
+	.half	5
+	.byte	144,34,157,32,0
+	.word	0,0
+	.sdecl	'.debug_loc',debug,cluster('CAN_MOs_Transmit_Status')
+	.sect	'.debug_loc'
+.L153:
+	.word	-1,.L154,0,.L326-.L154
+	.half	2
+	.byte	138,0
+	.word	0,0
+.L328:
+	.word	-1,.L154,.L384-.L154,.L326-.L154
+	.half	5
+	.byte	144,33,157,32,0
+	.word	0,0
+.L327:
+	.word	-1,.L154,0,.L383-.L154
+	.half	5
+	.byte	144,34,157,32,0
+	.word	0,0
+	.sdecl	'.debug_loc',debug,cluster('CAN_Read')
+	.sect	'.debug_loc'
+.L147:
+	.word	-1,.L148,0,.L312-.L148
+	.half	2
+	.byte	138,0
+	.word	0,0
+.L316:
+	.word	-1,.L148,0,.L312-.L148
+	.half	1
+	.byte	101
+	.word	.L375-.L148,.L54-.L148
+	.half	1
+	.byte	100
+	.word	.L376-.L148,.L312-.L148
+	.half	1
+	.byte	100
+	.word	0,0
+.L317:
+	.word	0,0
+.L315:
+	.word	-1,.L148,0,.L375-.L148
+	.half	1
+	.byte	100
+	.word	.L54-.L148,.L376-.L148
+	.half	1
+	.byte	100
+	.word	0,0
+.L318:
+	.word	-1,.L148,.L377-.L148,.L312-.L148
+	.half	5
+	.byte	144,32,157,32,0
+	.word	.L376-.L148,.L312-.L148
+	.half	5
+	.byte	144,34,157,32,0
+	.word	0,0
+.L313:
+	.word	-1,.L148,0,.L376-.L148
+	.half	5
+	.byte	144,34,157,32,0
+	.word	0,0
+	.sdecl	'.debug_loc',debug,cluster('CAN_Read_BusOff')
+	.sect	'.debug_loc'
+.L163:
+	.word	-1,.L164,0,.L350-.L164
+	.half	2
+	.byte	138,0
+	.word	0,0
+.L352:
+	.word	-1,.L164,.L393-.L164,.L350-.L164
+	.half	5
+	.byte	144,33,157,32,0
+	.word	0,0
+.L351:
+	.word	-1,.L164,0,.L350-.L164
+	.half	5
+	.byte	144,34,157,32,0
+	.word	0,0
+	.sdecl	'.debug_loc',debug,cluster('CAN_Read_By_ID')
+	.sect	'.debug_loc'
+.L143:
+	.word	-1,.L144,0,.L303-.L144
+	.half	2
+	.byte	138,0
+	.word	0,0
+.L307:
+	.word	-1,.L144,0,.L303-.L144
+	.half	1
+	.byte	100
+	.word	0,0
+.L311:
+	.word	-1,.L144,.L372-.L144,.L303-.L144
+	.half	5
+	.byte	144,33,157,32,0
+	.word	0,0
+.L309:
+	.word	0,0
+.L305:
+	.word	-1,.L144,0,.L303-.L144
+	.half	5
+	.byte	144,34,157,32,0
+	.word	0,0
+.L310:
+	.word	0,0
+	.sdecl	'.debug_loc',debug,cluster('CAN_Read_Error')
+	.sect	'.debug_loc'
+.L159:
+	.word	-1,.L160,0,.L347-.L160
+	.half	2
+	.byte	138,0
+	.word	0,0
+.L348:
+	.word	-1,.L160,.L390-.L160,.L75-.L160
+	.half	5
+	.byte	144,33,157,32,0
+	.word	0,0
+.L349:
+	.word	-1,.L160,.L389-.L160,.L347-.L160
+	.half	5
+	.byte	144,36,157,32,0
+	.word	.L391-.L160,.L392-.L160
+	.half	5
+	.byte	144,34,157,32,0
+	.word	0,0
+	.sdecl	'.debug_loc',debug,cluster('CAN_Rx_Interrupt')
+	.sect	'.debug_loc'
+.L169:
+	.word	-1,.L170,0,.L355-.L170
+	.half	2
+	.byte	138,0
+	.word	0,0
+.L357:
+	.word	0,0
+.L359:
+	.word	-1,.L170,.L400-.L170,.L113-.L170
+	.half	5
+	.byte	144,32,157,32,32
+	.word	.L401-.L170,.L115-.L170
+	.half	5
+	.byte	144,32,157,32,32
+	.word	.L402-.L170,.L399-.L170
+	.half	5
+	.byte	144,32,157,32,32
+	.word	0,0
+.L358:
+	.word	0,0
+.L356:
+	.word	-1,.L170,0,.L399-.L170
+	.half	5
+	.byte	144,34,157,32,0
+	.word	0,0
+	.sdecl	'.debug_loc',debug,cluster('CAN_Set_ID')
+	.sect	'.debug_loc'
+.L157:
+	.word	-1,.L158,0,.L332-.L158
+	.half	2
+	.byte	138,0
+	.word	0,0
+.L334:
+	.word	-1,.L158,0,.L73-.L158
+	.half	5
+	.byte	144,34,157,32,32
+	.word	0,0
+.L333:
+	.word	-1,.L158,0,.L387-.L158
+	.half	5
+	.byte	144,34,157,32,0
+	.word	.L71-.L158,.L388-.L158
+	.half	5
+	.byte	144,34,157,32,0
+	.word	0,0
+	.sdecl	'.debug_loc',debug,cluster('CAN_Tx_Interrupt')
+	.sect	'.debug_loc'
+.L171:
+	.word	-1,.L172,0,.L360-.L172
+	.half	2
+	.byte	138,0
+	.word	0,0
+.L361:
+	.word	-1,.L172,0,.L403-.L172
+	.half	5
+	.byte	144,34,157,32,0
+	.word	0,0
+	.sdecl	'.debug_loc',debug,cluster('CAN_Write')
+	.sect	'.debug_loc'
+.L149:
+	.word	-1,.L150,0,.L319-.L150
+	.half	2
+	.byte	138,0
+	.word	0,0
+.L321:
+	.word	-1,.L150,0,.L378-.L150
+	.half	1
+	.byte	100
+	.word	.L380-.L150,.L381-.L150
+	.half	1
+	.byte	111
+	.word	0,0
+.L323:
+	.word	-1,.L150,.L379-.L150,.L319-.L150
+	.half	5
+	.byte	144,33,157,32,0
+	.word	0,0
+.L322:
+	.word	0,0
+.L320:
+	.word	-1,.L150,0,.L378-.L150
+	.half	5
+	.byte	144,34,157,32,0
+	.word	0,0
+	.sdecl	'.debug_loc',debug,cluster('CAN_ubRequestMsgObj')
+	.sect	'.debug_loc'
+.L179:
+	.word	-1,.L180,0,.L339-.L180
+	.half	2
+	.byte	138,0
+	.word	0,0
+.L340:
+	.word	-1,.L180,0,.L420-.L180
+	.half	5
+	.byte	144,34,157,32,0
+	.word	0,0
+.L341:
+	.word	-1,.L180,.L421-.L180,.L339-.L180
+	.half	5
+	.byte	144,33,157,32,0
+	.word	0,0
+	.sdecl	'.debug_loc',debug,cluster('CAN_viSRN0')
+	.sect	'.debug_loc'
+.L173:
+	.word	-1,.L174,0,.L362-.L174
+	.half	2
+	.byte	138,0
+	.word	0,0
+.L363:
+	.word	-1,.L174,.L404-.L174,.L405-.L174
+	.half	5
+	.byte	144,34,157,32,0
+	.word	.L406-.L174,.L407-.L174
+	.half	5
+	.byte	144,34,157,32,0
+	.word	.L408-.L174,.L409-.L174
+	.half	5
+	.byte	144,34,157,32,0
+	.word	.L410-.L174,.L411-.L174
+	.half	5
+	.byte	144,34,157,32,0
+	.word	0,0
+	.sdecl	'.debug_loc',debug,cluster('CAN_viSRN1')
+	.sect	'.debug_loc'
+.L175:
+	.word	-1,.L176,0,.L364-.L176
+	.half	2
+	.byte	138,0
+	.word	0,0
+.L365:
+	.word	-1,.L176,.L412-.L176,.L413-.L176
+	.half	5
+	.byte	144,34,157,32,0
+	.word	.L414-.L176,.L415-.L176
+	.half	5
+	.byte	144,34,157,32,0
+	.word	.L416-.L176,.L417-.L176
+	.half	5
+	.byte	144,34,157,32,0
+	.word	.L418-.L176,.L419-.L176
+	.half	5
+	.byte	144,34,157,32,0
+	.word	0,0
+	.sdecl	'.debug_loc',debug,cluster('CAN_viSRN2')
+	.sect	'.debug_loc'
+.L177:
+	.word	-1,.L178,0,.L366-.L178
+	.half	2
+	.byte	138,0
+	.word	0,0
+	.sdecl	'.debug_frame',debug
+	.sect	'.debug_frame'
+.L1074:
+	.word	48
+	.word	-1
+	.byte	3,0,2,1,27,12,26,0,8,26,8,27,8,30,8,29,8,28,8,16,8,17,8,24,8,25,8,31,8,32,8,33,8,34,8,35,8,36,8,37,8,38
+	.byte	8,39
+	.sdecl	'.debug_frame',debug,cluster('CAN_Init')
+	.sect	'.debug_frame'
+	.word	36
+	.word	.L1074,.L142,.L295-.L142
+	.byte	4
+	.word	(.L371-.L142)/2
+	.byte	19,8,22,26,3,19,138,8,4
+	.word	(.L295-.L371)/2
+	.byte	19,0,8,26,0,0
+	.sdecl	'.debug_frame',debug,cluster('CAN_Read_By_ID')
+	.sect	'.debug_frame'
+	.word	16
+	.word	.L1074,.L144,.L303-.L144
+	.byte	8,19,0,0
+	.sdecl	'.debug_frame',debug,cluster('CANOBJ_Read')
+	.sect	'.debug_frame'
+	.word	20
+	.word	.L1074,.L146,.L342-.L146
+	.byte	8,19,8,22,8,23,0,0
+	.sdecl	'.debug_frame',debug,cluster('CAN_Read')
+	.sect	'.debug_frame'
+	.word	12
+	.word	.L1074,.L148,.L312-.L148
+	.sdecl	'.debug_frame',debug,cluster('CAN_Write')
+	.sect	'.debug_frame'
+	.word	16
+	.word	.L1074,.L150,.L319-.L150
+	.byte	8,19,0,0
+	.sdecl	'.debug_frame',debug,cluster('CAN_MOs_TXPND_Reset')
+	.sect	'.debug_frame'
+	.word	24
+	.word	.L1074,.L152,.L324-.L152
+	.byte	8,18,8,19,8,20,8,21,8,22,8,23
+	.sdecl	'.debug_frame',debug,cluster('CAN_MOs_Transmit_Status')
+	.sect	'.debug_frame'
+	.word	24
+	.word	.L1074,.L154,.L326-.L154
+	.byte	8,18,8,19,8,20,8,21,8,22,8,23
+	.sdecl	'.debug_frame',debug,cluster('CAN_MOs_Get_DLC')
+	.sect	'.debug_frame'
+	.word	24
+	.word	.L1074,.L156,.L329-.L156
+	.byte	8,18,8,19,8,20,8,21,8,22,8,23
+	.sdecl	'.debug_frame',debug,cluster('CAN_Set_ID')
+	.sect	'.debug_frame'
+	.word	24
+	.word	.L1074,.L158,.L332-.L158
+	.byte	8,18,8,19,8,20,8,21,8,22,8,23
+	.sdecl	'.debug_frame',debug,cluster('CAN_Read_Error')
+	.sect	'.debug_frame'
+	.word	12
+	.word	.L1074,.L160,.L347-.L160
+	.sdecl	'.debug_frame',debug,cluster('CAN_Error_Clear')
+	.sect	'.debug_frame'
+	.word	24
+	.word	.L1074,.L162,.L335-.L162
+	.byte	8,19,8,20,8,21,8,22,8,23,0,0
+	.sdecl	'.debug_frame',debug,cluster('CAN_Read_BusOff')
+	.sect	'.debug_frame'
+	.word	24
+	.word	.L1074,.L164,.L350-.L164
+	.byte	8,18,8,19,8,20,8,21,8,22,8,23
+	.sdecl	'.debug_frame',debug,cluster('CAN_BusOff_Clear')
+	.sect	'.debug_frame'
+	.word	24
+	.word	.L1074,.L166,.L353-.L166
+	.byte	8,18,8,19,8,20,8,21,8,22,8,23
+	.sdecl	'.debug_frame',debug,cluster('CAN_BusOff_Deal')
+	.sect	'.debug_frame'
+	.word	12
+	.word	.L1074,.L168,.L337-.L168
+	.sdecl	'.debug_frame',debug,cluster('CAN_Rx_Interrupt')
+	.sect	'.debug_frame'
+	.word	12
+	.word	.L1074,.L170,.L355-.L170
+	.sdecl	'.debug_frame',debug,cluster('CAN_Tx_Interrupt')
+	.sect	'.debug_frame'
+	.word	12
+	.word	.L1074,.L172,.L360-.L172
+	.sdecl	'.debug_frame',debug,cluster('CAN_viSRN0')
+	.sect	'.debug_frame'
+	.word	12
+	.word	.L1074,.L174,.L362-.L174
+	.sdecl	'.debug_frame',debug,cluster('CAN_viSRN1')
+	.sect	'.debug_frame'
+	.word	12
+	.word	.L1074,.L176,.L364-.L176
+	.sdecl	'.debug_frame',debug,cluster('CAN_viSRN2')
+	.sect	'.debug_frame'
+	.word	12
+	.word	.L1074,.L178,.L366-.L178
+	.sdecl	'.debug_frame',debug,cluster('CAN_ubRequestMsgObj')
+	.sect	'.debug_frame'
+	.word	24
+	.word	.L1074,.L180,.L339-.L180
+	.byte	8,18,8,19,8,20,8,21,8,22,8,23
+
+
+	; Module end

@@ -1,0 +1,16 @@
+
+**** Build of configuration Debug for project BMU_BOOT ****
+
+"C:\\Program Files (x86)\\TASKING\\TriCore v4.3r1\\ctc\\bin\\amk" -j8 all 
+Compiling Uds_User_RoutineControlCallback.c
+Linking to BMU_BOOT.elf
+
+Time consumed: 3359 ms
+**** End of build ****
+
+Tool info: 
+TASKING program builder v4.3r1 Build 079
+TASKING VX-toolset for TriCore: object linker v4.3r1 Build 248 SN 00641831
+TASKING VX-toolset for TriCore: control program v4.3r1 Build 208
+TASKING VX-toolset for TriCore: assembler v4.3r1 Build 341
+TASKING VX-toolset for TriCore: C compiler v4.3r1 Build 759 SN 00641831

@@ -1,6 +1,6 @@
 	; Module start
 	.compiler_version	"TASKING VX-toolset for TriCore: C compiler v4.3r1 Build 759 SN 00641831"
-	.compiler_invocation	"ctc -f cc10592a -c99 --dep-file=Communication_Files\\Com\\Can_Input\\.CanInputCtrl.o.d -D__CPU__=tc1782 -D__CPU_TC1782__ --core=tc1.3.1 -F -ID:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_1.9\\BMU_BOOT -ID:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_1.9\\BMU_BOOT\\Communication_Files\\CanDrv -ID:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_1.9\\BMU_BOOT\\Communication_Files\\Com -ID:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_1.9\\BMU_BOOT\\Communication_Files\\Com\\Can_Input -ID:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_1.9\\BMU_BOOT\\Communication_Files\\Com\\Can_Output -ID:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_1.9\\BMU_BOOT\\Communication_Files\\Uds\\Dcm -ID:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_1.9\\BMU_BOOT\\Communication_Files\\Uds\\Dem -ID:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_1.9\\BMU_BOOT\\Communication_Files\\Uds\\Tp -ID:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_1.9\\BMU_BOOT\\Communication_Files\\Uds\\User -ID:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_1.9\\BMU_BOOT\\Complex_Files -ID:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_1.9\\BMU_BOOT\\Initiate_Files -ID:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_1.9\\BMU_BOOT\\Nvm_Files\\FlsDrv -ID:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_1.9\\BMU_BOOT\\Stand_Header -g2 --make-target=Communication_Files\\Com\\Can_Input\\CanInputCtrl.o -t4 --language=-gcc,-volatile,+strings --default-near-size=0 -O2 --default-a1-size=0 --default-a0-size=0 --source --align=0 --compact-max-size=200 --switch=auto -o Communication_Files\\Com\\Can_Input\\CanInputCtrl.src ..\\Communication_Files\\Com\\Can_Input\\CanInputCtrl.c"
+	.compiler_invocation	"ctc -f cc5744a -c99 --dep-file=Communication_Files\\Com\\Can_Input\\.CanInputCtrl.o.d -D__CPU__=tc1782 -D__CPU_TC1782__ --core=tc1.3.1 -F -ID:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_2.0\\BMU_BOOT -ID:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_2.0\\BMU_BOOT\\Communication_Files\\CanDrv -ID:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_2.0\\BMU_BOOT\\Communication_Files\\Com -ID:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_2.0\\BMU_BOOT\\Communication_Files\\Com\\Can_Input -ID:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_2.0\\BMU_BOOT\\Communication_Files\\Com\\Can_Output -ID:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_2.0\\BMU_BOOT\\Communication_Files\\Uds\\Dcm -ID:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_2.0\\BMU_BOOT\\Communication_Files\\Uds\\Dem -ID:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_2.0\\BMU_BOOT\\Communication_Files\\Uds\\Tp -ID:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_2.0\\BMU_BOOT\\Communication_Files\\Uds\\User -ID:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_2.0\\BMU_BOOT\\Complex_Files -ID:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_2.0\\BMU_BOOT\\Initiate_Files -ID:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_2.0\\BMU_BOOT\\Nvm_Files\\FlsDrv -ID:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_2.0\\BMU_BOOT\\Stand_Header -g2 --make-target=Communication_Files\\Com\\Can_Input\\CanInputCtrl.o -t4 --language=-gcc,-volatile,+strings --default-near-size=0 -O2 --default-a1-size=0 --default-a0-size=0 --source --align=0 --compact-max-size=200 --switch=auto -o Communication_Files\\Com\\Can_Input\\CanInputCtrl.src ..\\Communication_Files\\Com\\Can_Input\\CanInputCtrl.c"
 	.compiler_name		"ctc"
 	.name	"CanInputCtrl"
 
@@ -313,7 +313,7 @@ __F_Input_Control_function_end:
 	.byte	1
 	.byte	'..\\Communication_Files\\Com\\Can_Input\\CanInputCtrl.c',0
 	.byte	'TASKING VX-toolset for TriCore: C compiler',0
-	.byte	'D:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_1.9\\BMU_BOOT\\Debug\\',0,12,1
+	.byte	'D:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_2.0\\BMU_BOOT\\Debug\\',0,12,1
 	.word	.L25
 	.byte	2
 	.byte	'void',0,3
@@ -376,8 +376,8 @@ __F_Input_Control_function_end:
 	.word	.L71-.L70
 .L70:
 	.byte	2,1,-4,9,10,0,1,1,1,1,0,0,0,1
-	.byte	'D:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_1.9\\BMU_BOOT\\Initiate_Files',0
-	.byte	'D:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_1.9\\BMU_BOOT\\Stand_Header',0,0
+	.byte	'D:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_2.0\\BMU_BOOT\\Initiate_Files',0
+	.byte	'D:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_2.0\\BMU_BOOT\\Stand_Header',0,0
 	.byte	'..\\Communication_Files\\Com\\Can_Input\\CanInputCtrl.c',0,0,0,0
 	.byte	'MAIN.h',0,1,0,0
 	.byte	'Platform_Types.h',0,2,0,0,0
@@ -392,7 +392,7 @@ __F_Input_Control_function_end:
 	.byte	4,1
 	.byte	'..\\Communication_Files\\Com\\Can_Input\\CanInputCtrl.c',0
 	.byte	'TASKING VX-toolset for TriCore: C compiler',0
-	.byte	'D:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_1.9\\BMU_BOOT\\Debug\\',0,12,1
+	.byte	'D:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_2.0\\BMU_BOOT\\Debug\\',0,12,1
 	.word	.L29,.L28
 	.byte	2
 	.word	.L22
@@ -487,7 +487,7 @@ __F_Input_Control_function_end:
 	.byte	4,1
 	.byte	'..\\Communication_Files\\Com\\Can_Input\\CanInputCtrl.c',0
 	.byte	'TASKING VX-toolset for TriCore: C compiler',0
-	.byte	'D:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_1.9\\BMU_BOOT\\Debug\\',0,12,1
+	.byte	'D:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_2.0\\BMU_BOOT\\Debug\\',0,12,1
 	.word	.L34,.L33
 	.byte	2
 	.word	.L22
@@ -532,7 +532,7 @@ __F_Input_Control_function_end:
 	.byte	4,1
 	.byte	'..\\Communication_Files\\Com\\Can_Input\\CanInputCtrl.c',0
 	.byte	'TASKING VX-toolset for TriCore: C compiler',0
-	.byte	'D:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_1.9\\BMU_BOOT\\Debug\\',0,12,1
+	.byte	'D:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_2.0\\BMU_BOOT\\Debug\\',0,12,1
 	.word	.L39,.L38
 	.byte	2
 	.word	.L22
@@ -577,7 +577,7 @@ __F_Input_Control_function_end:
 	.byte	4,1
 	.byte	'..\\Communication_Files\\Com\\Can_Input\\CanInputCtrl.c',0
 	.byte	'TASKING VX-toolset for TriCore: C compiler',0
-	.byte	'D:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_1.9\\BMU_BOOT\\Debug\\',0,12,1
+	.byte	'D:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_2.0\\BMU_BOOT\\Debug\\',0,12,1
 	.word	.L44,.L43
 	.byte	2
 	.word	.L22
@@ -622,7 +622,7 @@ __F_Input_Control_function_end:
 	.byte	4,1
 	.byte	'..\\Communication_Files\\Com\\Can_Input\\CanInputCtrl.c',0
 	.byte	'TASKING VX-toolset for TriCore: C compiler',0
-	.byte	'D:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_1.9\\BMU_BOOT\\Debug\\',0,12,1
+	.byte	'D:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_2.0\\BMU_BOOT\\Debug\\',0,12,1
 	.word	.L49,.L48
 	.byte	2
 	.word	.L22
@@ -667,7 +667,7 @@ __F_Input_Control_function_end:
 	.byte	4,1
 	.byte	'..\\Communication_Files\\Com\\Can_Input\\CanInputCtrl.c',0
 	.byte	'TASKING VX-toolset for TriCore: C compiler',0
-	.byte	'D:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_1.9\\BMU_BOOT\\Debug\\',0,12,1
+	.byte	'D:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_2.0\\BMU_BOOT\\Debug\\',0,12,1
 	.word	.L54,.L53
 	.byte	2
 	.word	.L22
@@ -712,7 +712,7 @@ __F_Input_Control_function_end:
 	.byte	4,1
 	.byte	'..\\Communication_Files\\Com\\Can_Input\\CanInputCtrl.c',0
 	.byte	'TASKING VX-toolset for TriCore: C compiler',0
-	.byte	'D:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_1.9\\BMU_BOOT\\Debug\\',0,12,1
+	.byte	'D:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_2.0\\BMU_BOOT\\Debug\\',0,12,1
 	.word	.L59,.L58
 	.byte	2
 	.word	.L22

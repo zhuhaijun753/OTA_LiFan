@@ -1,6 +1,6 @@
 	; Module start
 	.compiler_version	"TASKING VX-toolset for TriCore: C compiler v4.3r1 Build 759 SN 00641831"
-	.compiler_invocation	"ctc -f cc11224a -c99 --dep-file=Complex_Files\\.Crc_Algorithm.o.d -D__CPU__=tc1782 -D__CPU_TC1782__ --core=tc1.3.1 -F -ID:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_1.9\\BMU_BOOT -ID:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_1.9\\BMU_BOOT\\Communication_Files\\CanDrv -ID:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_1.9\\BMU_BOOT\\Communication_Files\\Com -ID:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_1.9\\BMU_BOOT\\Communication_Files\\Com\\Can_Input -ID:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_1.9\\BMU_BOOT\\Communication_Files\\Com\\Can_Output -ID:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_1.9\\BMU_BOOT\\Communication_Files\\Uds\\Dcm -ID:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_1.9\\BMU_BOOT\\Communication_Files\\Uds\\Dem -ID:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_1.9\\BMU_BOOT\\Communication_Files\\Uds\\Tp -ID:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_1.9\\BMU_BOOT\\Communication_Files\\Uds\\User -ID:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_1.9\\BMU_BOOT\\Complex_Files -ID:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_1.9\\BMU_BOOT\\Initiate_Files -ID:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_1.9\\BMU_BOOT\\Nvm_Files\\FlsDrv -ID:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_1.9\\BMU_BOOT\\Stand_Header -g2 --make-target=Complex_Files\\Crc_Algorithm.o -t4 --language=-gcc,-volatile,+strings --default-near-size=0 -O2 --default-a1-size=0 --default-a0-size=0 --source --align=0 --compact-max-size=200 --switch=auto -o Complex_Files\\Crc_Algorithm.src ..\\Complex_Files\\Crc_Algorithm.c"
+	.compiler_invocation	"ctc -f cc5744a -c99 --dep-file=Complex_Files\\.Crc_Algorithm.o.d -D__CPU__=tc1782 -D__CPU_TC1782__ --core=tc1.3.1 -F -ID:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_2.0\\BMU_BOOT -ID:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_2.0\\BMU_BOOT\\Communication_Files\\CanDrv -ID:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_2.0\\BMU_BOOT\\Communication_Files\\Com -ID:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_2.0\\BMU_BOOT\\Communication_Files\\Com\\Can_Input -ID:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_2.0\\BMU_BOOT\\Communication_Files\\Com\\Can_Output -ID:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_2.0\\BMU_BOOT\\Communication_Files\\Uds\\Dcm -ID:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_2.0\\BMU_BOOT\\Communication_Files\\Uds\\Dem -ID:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_2.0\\BMU_BOOT\\Communication_Files\\Uds\\Tp -ID:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_2.0\\BMU_BOOT\\Communication_Files\\Uds\\User -ID:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_2.0\\BMU_BOOT\\Complex_Files -ID:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_2.0\\BMU_BOOT\\Initiate_Files -ID:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_2.0\\BMU_BOOT\\Nvm_Files\\FlsDrv -ID:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_2.0\\BMU_BOOT\\Stand_Header -g2 --make-target=Complex_Files\\Crc_Algorithm.o -t4 --language=-gcc,-volatile,+strings --default-near-size=0 -O2 --default-a1-size=0 --default-a0-size=0 --source --align=0 --compact-max-size=200 --switch=auto -o Complex_Files\\Crc_Algorithm.src ..\\Complex_Files\\Crc_Algorithm.c"
 	.compiler_name		"ctc"
 	.name	"Crc_Algorithm"
 
@@ -397,7 +397,7 @@ crc:	.type	object
 	.byte	1
 	.byte	'..\\Complex_Files\\Crc_Algorithm.c',0
 	.byte	'TASKING VX-toolset for TriCore: C compiler',0
-	.byte	'D:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_1.9\\BMU_BOOT\\Debug\\',0,12,1
+	.byte	'D:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_2.0\\BMU_BOOT\\Debug\\',0,12,1
 	.word	.L31
 .L57:
 	.byte	2
@@ -469,8 +469,8 @@ crc:	.type	object
 	.word	.L102-.L101
 .L101:
 	.byte	2,1,-4,9,10,0,1,1,1,1,0,0,0,1
-	.byte	'D:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_1.9\\BMU_BOOT\\Initiate_Files',0
-	.byte	'D:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_1.9\\BMU_BOOT\\Stand_Header',0,0
+	.byte	'D:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_2.0\\BMU_BOOT\\Initiate_Files',0
+	.byte	'D:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_2.0\\BMU_BOOT\\Stand_Header',0,0
 	.byte	'..\\Complex_Files\\Crc_Algorithm.c',0,0,0,0
 	.byte	'MAIN.h',0,1,0,0
 	.byte	'Platform_Types.h',0,2,0,0,0
@@ -485,7 +485,7 @@ crc:	.type	object
 	.byte	4,1
 	.byte	'..\\Complex_Files\\Crc_Algorithm.c',0
 	.byte	'TASKING VX-toolset for TriCore: C compiler',0
-	.byte	'D:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_1.9\\BMU_BOOT\\Debug\\',0,12,1
+	.byte	'D:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_2.0\\BMU_BOOT\\Debug\\',0,12,1
 	.word	.L35,.L34
 	.byte	2
 	.word	.L28
@@ -568,7 +568,7 @@ crc:	.type	object
 	.byte	4,1
 	.byte	'..\\Complex_Files\\Crc_Algorithm.c',0
 	.byte	'TASKING VX-toolset for TriCore: C compiler',0
-	.byte	'D:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_1.9\\BMU_BOOT\\Debug\\',0,12,1
+	.byte	'D:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_2.0\\BMU_BOOT\\Debug\\',0,12,1
 	.word	.L40,.L39
 	.byte	2
 	.word	.L28
@@ -686,7 +686,7 @@ crc:	.type	object
 	.byte	4,1
 	.byte	'..\\Complex_Files\\Crc_Algorithm.c',0
 	.byte	'TASKING VX-toolset for TriCore: C compiler',0
-	.byte	'D:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_1.9\\BMU_BOOT\\Debug\\',0,12,1
+	.byte	'D:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_2.0\\BMU_BOOT\\Debug\\',0,12,1
 	.word	.L45,.L44
 	.byte	2
 	.word	.L28
@@ -770,7 +770,7 @@ crc:	.type	object
 	.byte	4,1
 	.byte	'..\\Complex_Files\\Crc_Algorithm.c',0
 	.byte	'TASKING VX-toolset for TriCore: C compiler',0
-	.byte	'D:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_1.9\\BMU_BOOT\\Debug\\',0,12,1
+	.byte	'D:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_2.0\\BMU_BOOT\\Debug\\',0,12,1
 	.word	.L50,.L49
 	.byte	2
 	.word	.L28
@@ -850,7 +850,7 @@ crc:	.type	object
 	.byte	4,1
 	.byte	'..\\Complex_Files\\Crc_Algorithm.c',0
 	.byte	'TASKING VX-toolset for TriCore: C compiler',0
-	.byte	'D:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_1.9\\BMU_BOOT\\Debug\\',0,12,1,2
+	.byte	'D:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_2.0\\BMU_BOOT\\Debug\\',0,12,1,2
 	.word	.L28
 	.byte	3
 	.byte	'crc',0,1,68,15
@@ -872,7 +872,7 @@ crc:	.type	object
 	.byte	4,1
 	.byte	'..\\Complex_Files\\Crc_Algorithm.c',0
 	.byte	'TASKING VX-toolset for TriCore: C compiler',0
-	.byte	'D:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_1.9\\BMU_BOOT\\Debug\\',0,12,1,2
+	.byte	'D:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_2.0\\BMU_BOOT\\Debug\\',0,12,1,2
 	.word	.L28
 	.byte	3
 	.byte	'table',0,1,16,22

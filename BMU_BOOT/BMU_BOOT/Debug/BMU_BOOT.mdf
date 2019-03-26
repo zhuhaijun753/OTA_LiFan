@@ -6,14 +6,14 @@ space	spe:tc:pcp_code	8	16
 space	spe:tc:pcp_data	9	32
 space	spe:tc:abs18	3	8
 # chip <name> <id> <mau size> <size> <type>
-chip	spe:dflash1	2	8	65536	nvram
 chip	spe:dflash0	1	8	65536	nvram
+chip	spe:dflash1	2	8	65536	nvram
+chip	spe:pram	7	8	16384	ram
+chip	spe:pcode	8	8	32768	ram
 chip	spe:ovram	3	8	8192	ram
 chip	spe:brom	4	8	16384	rom
 chip	spe:ldram	5	8	126976	ram
 chip	spe:spram	6	8	24576	ram
-chip	spe:pram	7	8	16384	ram
-chip	spe:pcode	8	8	32768	ram
 chip	spe:pflash	0	8	2560000	rom
 # map <space id> <start in space> <size in space> <chip id> <start on chip>
 map	1	2147483648	2560000	0	0

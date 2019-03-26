@@ -1,6 +1,6 @@
 	; Module start
 	.compiler_version	"TASKING VX-toolset for TriCore: C compiler v4.3r1 Build 759 SN 00641831"
-	.compiler_invocation	"ctc -f cc9136a -c99 --dep-file=.cstart.o.d -D__CPU__=tc1782 -D__CPU_TC1782__ --core=tc1.3.1 -F -ID:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_1.9\\BMU_BOOT -ID:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_1.9\\BMU_BOOT\\Communication_Files\\CanDrv -ID:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_1.9\\BMU_BOOT\\Communication_Files\\Com -ID:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_1.9\\BMU_BOOT\\Communication_Files\\Com\\Can_Input -ID:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_1.9\\BMU_BOOT\\Communication_Files\\Com\\Can_Output -ID:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_1.9\\BMU_BOOT\\Communication_Files\\Uds\\Dcm -ID:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_1.9\\BMU_BOOT\\Communication_Files\\Uds\\Dem -ID:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_1.9\\BMU_BOOT\\Communication_Files\\Uds\\Tp -ID:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_1.9\\BMU_BOOT\\Communication_Files\\Uds\\User -ID:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_1.9\\BMU_BOOT\\Complex_Files -ID:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_1.9\\BMU_BOOT\\Initiate_Files -ID:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_1.9\\BMU_BOOT\\Nvm_Files\\FlsDrv -ID:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_1.9\\BMU_BOOT\\Stand_Header -g2 --make-target=cstart.o -t4 --language=-gcc,-volatile,+strings --default-near-size=0 -O2 --default-a1-size=0 --default-a0-size=0 --source --align=0 --compact-max-size=200 --switch=auto -o cstart.src ..\\cstart.c"
+	.compiler_invocation	"ctc -f cc388a -c99 --dep-file=.cstart.o.d -D__CPU__=tc1782 -D__CPU_TC1782__ --core=tc1.3.1 -F -ID:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_2.0\\BMU_BOOT -ID:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_2.0\\BMU_BOOT\\Communication_Files\\CanDrv -ID:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_2.0\\BMU_BOOT\\Communication_Files\\Com -ID:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_2.0\\BMU_BOOT\\Communication_Files\\Com\\Can_Input -ID:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_2.0\\BMU_BOOT\\Communication_Files\\Com\\Can_Output -ID:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_2.0\\BMU_BOOT\\Communication_Files\\Uds\\Dcm -ID:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_2.0\\BMU_BOOT\\Communication_Files\\Uds\\Dem -ID:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_2.0\\BMU_BOOT\\Communication_Files\\Uds\\Tp -ID:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_2.0\\BMU_BOOT\\Communication_Files\\Uds\\User -ID:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_2.0\\BMU_BOOT\\Complex_Files -ID:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_2.0\\BMU_BOOT\\Initiate_Files -ID:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_2.0\\BMU_BOOT\\Nvm_Files\\FlsDrv -ID:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_2.0\\BMU_BOOT\\Stand_Header -g2 --make-target=cstart.o -t4 --language=-gcc,-volatile,+strings --default-near-size=0 -O2 --default-a1-size=0 --default-a0-size=0 --source --align=0 --compact-max-size=200 --switch=auto -o cstart.src ..\\cstart.c"
 	.compiler_name		"ctc"
 	.name	"cstart"
 
@@ -1488,7 +1488,7 @@ _EBU_BOOTCFG:	.type	object
 	.byte	1
 	.byte	'..\\cstart.c',0
 	.byte	'TASKING VX-toolset for TriCore: C compiler',0
-	.byte	'D:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_1.9\\BMU_BOOT\\Debug\\',0,12,1
+	.byte	'D:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_2.0\\BMU_BOOT\\Debug\\',0,12,1
 	.word	.L20
 .L58:
 	.byte	2
@@ -1696,7 +1696,7 @@ _EBU_BOOTCFG:	.type	object
 	.byte	4,1
 	.byte	'..\\cstart.c',0
 	.byte	'TASKING VX-toolset for TriCore: C compiler',0
-	.byte	'D:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_1.9\\BMU_BOOT\\Debug\\',0,12,1
+	.byte	'D:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_2.0\\BMU_BOOT\\Debug\\',0,12,1
 	.word	.L24,.L23
 	.byte	2
 	.word	.L17
@@ -1747,7 +1747,7 @@ _EBU_BOOTCFG:	.type	object
 	.byte	4,1
 	.byte	'..\\cstart.c',0
 	.byte	'TASKING VX-toolset for TriCore: C compiler',0
-	.byte	'D:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_1.9\\BMU_BOOT\\Debug\\',0,12,1
+	.byte	'D:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_2.0\\BMU_BOOT\\Debug\\',0,12,1
 	.word	.L29,.L28
 	.byte	2
 	.word	.L17
@@ -2027,7 +2027,7 @@ _EBU_BOOTCFG:	.type	object
 	.byte	4,1
 	.byte	'..\\cstart.c',0
 	.byte	'TASKING VX-toolset for TriCore: C compiler',0
-	.byte	'D:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_1.9\\BMU_BOOT\\Debug\\',0,12,1
+	.byte	'D:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_2.0\\BMU_BOOT\\Debug\\',0,12,1
 	.word	.L34,.L33
 	.byte	2
 	.word	.L17
@@ -2103,7 +2103,7 @@ _EBU_BOOTCFG:	.type	object
 	.byte	4,1
 	.byte	'..\\cstart.c',0
 	.byte	'TASKING VX-toolset for TriCore: C compiler',0
-	.byte	'D:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_1.9\\BMU_BOOT\\Debug\\',0,12,1
+	.byte	'D:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_2.0\\BMU_BOOT\\Debug\\',0,12,1
 	.word	.L39,.L38
 	.byte	2
 	.word	.L17
@@ -2179,7 +2179,7 @@ _EBU_BOOTCFG:	.type	object
 	.byte	4,1
 	.byte	'..\\cstart.c',0
 	.byte	'TASKING VX-toolset for TriCore: C compiler',0
-	.byte	'D:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_1.9\\BMU_BOOT\\Debug\\',0,12,1
+	.byte	'D:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_2.0\\BMU_BOOT\\Debug\\',0,12,1
 	.word	.L44,.L43
 	.byte	2
 	.word	.L17
@@ -2224,7 +2224,7 @@ _EBU_BOOTCFG:	.type	object
 	.byte	4,1
 	.byte	'..\\cstart.c',0
 	.byte	'TASKING VX-toolset for TriCore: C compiler',0
-	.byte	'D:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_1.9\\BMU_BOOT\\Debug\\',0,12,1
+	.byte	'D:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_2.0\\BMU_BOOT\\Debug\\',0,12,1
 	.word	.L49,.L48
 	.byte	2
 	.word	.L17
@@ -2303,7 +2303,7 @@ _EBU_BOOTCFG:	.type	object
 	.byte	4,1
 	.byte	'..\\cstart.c',0
 	.byte	'TASKING VX-toolset for TriCore: C compiler',0
-	.byte	'D:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_1.9\\BMU_BOOT\\Debug\\',0,12,1,2
+	.byte	'D:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_2.0\\BMU_BOOT\\Debug\\',0,12,1,2
 	.word	.L17
 	.byte	3
 	.byte	'_EBU_BOOTCFG',0,1,128,1,17
@@ -2445,14 +2445,14 @@ _EBU_BOOTCFG:	.type	object
 	.half	5
 	.byte	144,32,157,32,0
 	.word	0,0
-.L65:
-	.word	-1,.L14,.L16-.L14,.L116-.L14
+.L72:
+	.word	-1,.L14,.L16-.L14,.L50-.L14
 	.half	5
 	.byte	144,32,157,32,0
-	.word	.L118-.L14,.L119-.L14
+	.word	.L123-.L14,.L124-.L14
 	.half	5
 	.byte	144,32,157,32,0
-	.word	.L119-.L14,.L60-.L14
+	.word	.L124-.L14,.L71-.L14
 	.half	5
 	.byte	144,39,157,32,32
 	.word	0,0
@@ -2467,17 +2467,6 @@ _EBU_BOOTCFG:	.type	object
 	.half	5
 	.byte	144,39,157,32,32
 	.word	0,0
-.L72:
-	.word	-1,.L14,.L16-.L14,.L50-.L14
-	.half	5
-	.byte	144,32,157,32,0
-	.word	.L123-.L14,.L124-.L14
-	.half	5
-	.byte	144,32,157,32,0
-	.word	.L124-.L14,.L71-.L14
-	.half	5
-	.byte	144,39,157,32,32
-	.word	0,0
 .L69:
 	.word	-1,.L14,.L16-.L14,.L50-.L14
 	.half	5
@@ -2486,6 +2475,28 @@ _EBU_BOOTCFG:	.type	object
 	.half	5
 	.byte	144,32,157,32,0
 	.word	.L121-.L14,.L68-.L14
+	.half	5
+	.byte	144,39,157,32,32
+	.word	0,0
+.L65:
+	.word	-1,.L14,.L16-.L14,.L116-.L14
+	.half	5
+	.byte	144,32,157,32,0
+	.word	.L118-.L14,.L119-.L14
+	.half	5
+	.byte	144,32,157,32,0
+	.word	.L119-.L14,.L60-.L14
+	.half	5
+	.byte	144,39,157,32,32
+	.word	0,0
+.L73:
+	.word	-1,.L14,.L115-.L14,.L117-.L14
+	.half	5
+	.byte	144,32,157,32,32
+	.word	.L117-.L14,.L50-.L14
+	.half	5
+	.byte	144,39,157,32,32
+	.word	.L125-.L14,.L124-.L14
 	.half	5
 	.byte	144,39,157,32,32
 	.word	0,0
@@ -2508,17 +2519,6 @@ _EBU_BOOTCFG:	.type	object
 	.half	5
 	.byte	144,39,157,32,32
 	.word	.L128-.L14,.L127-.L14
-	.half	5
-	.byte	144,39,157,32,32
-	.word	0,0
-.L73:
-	.word	-1,.L14,.L115-.L14,.L117-.L14
-	.half	5
-	.byte	144,32,157,32,32
-	.word	.L117-.L14,.L50-.L14
-	.half	5
-	.byte	144,39,157,32,32
-	.word	.L125-.L14,.L124-.L14
 	.half	5
 	.byte	144,39,157,32,32
 	.word	0,0

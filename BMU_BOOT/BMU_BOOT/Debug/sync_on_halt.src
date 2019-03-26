@@ -1,6 +1,6 @@
 	; Module start
 	.compiler_version	"TASKING VX-toolset for TriCore: C compiler v4.3r1 Build 759 SN 00641831"
-	.compiler_invocation	"ctc -f cc5556a -c99 --dep-file=.sync_on_halt.o.d -D__CPU__=tc1782 -D__CPU_TC1782__ --core=tc1.3.1 -F -ID:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_1.9\\BMU_BOOT -ID:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_1.9\\BMU_BOOT\\Communication_Files\\CanDrv -ID:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_1.9\\BMU_BOOT\\Communication_Files\\Com -ID:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_1.9\\BMU_BOOT\\Communication_Files\\Com\\Can_Input -ID:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_1.9\\BMU_BOOT\\Communication_Files\\Com\\Can_Output -ID:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_1.9\\BMU_BOOT\\Communication_Files\\Uds\\Dcm -ID:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_1.9\\BMU_BOOT\\Communication_Files\\Uds\\Dem -ID:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_1.9\\BMU_BOOT\\Communication_Files\\Uds\\Tp -ID:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_1.9\\BMU_BOOT\\Communication_Files\\Uds\\User -ID:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_1.9\\BMU_BOOT\\Complex_Files -ID:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_1.9\\BMU_BOOT\\Initiate_Files -ID:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_1.9\\BMU_BOOT\\Nvm_Files\\FlsDrv -ID:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_1.9\\BMU_BOOT\\Stand_Header -g2 --make-target=sync_on_halt.o -t4 --language=-gcc,-volatile,+strings --default-near-size=0 -O2 --default-a1-size=0 --default-a0-size=0 --source --align=0 --compact-max-size=200 --switch=auto -o sync_on_halt.src ..\\sync_on_halt.c"
+	.compiler_invocation	"ctc -f cc6524a -c99 --dep-file=.sync_on_halt.o.d -D__CPU__=tc1782 -D__CPU_TC1782__ --core=tc1.3.1 -F -ID:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_2.0\\BMU_BOOT -ID:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_2.0\\BMU_BOOT\\Communication_Files\\CanDrv -ID:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_2.0\\BMU_BOOT\\Communication_Files\\Com -ID:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_2.0\\BMU_BOOT\\Communication_Files\\Com\\Can_Input -ID:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_2.0\\BMU_BOOT\\Communication_Files\\Com\\Can_Output -ID:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_2.0\\BMU_BOOT\\Communication_Files\\Uds\\Dcm -ID:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_2.0\\BMU_BOOT\\Communication_Files\\Uds\\Dem -ID:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_2.0\\BMU_BOOT\\Communication_Files\\Uds\\Tp -ID:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_2.0\\BMU_BOOT\\Communication_Files\\Uds\\User -ID:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_2.0\\BMU_BOOT\\Complex_Files -ID:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_2.0\\BMU_BOOT\\Initiate_Files -ID:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_2.0\\BMU_BOOT\\Nvm_Files\\FlsDrv -ID:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_2.0\\BMU_BOOT\\Stand_Header -g2 --make-target=sync_on_halt.o -t4 --language=-gcc,-volatile,+strings --default-near-size=0 -O2 --default-a1-size=0 --default-a0-size=0 --source --align=0 --compact-max-size=200 --switch=auto -o sync_on_halt.src ..\\sync_on_halt.c"
 	.compiler_name		"ctc"
 	.name	"sync_on_halt"
 
@@ -560,7 +560,7 @@ _sync_on_halt_ucx:	.type	object
 	.byte	1
 	.byte	'..\\sync_on_halt.c',0
 	.byte	'TASKING VX-toolset for TriCore: C compiler',0
-	.byte	'D:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_1.9\\BMU_BOOT\\Debug\\',0,12,1
+	.byte	'D:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_2.0\\BMU_BOOT\\Debug\\',0,12,1
 	.word	.L13
 	.byte	2
 	.byte	'__cacheiwi',0,1,1,1,1,3
@@ -708,7 +708,7 @@ _sync_on_halt_ucx:	.type	object
 	.byte	4,1
 	.byte	'..\\sync_on_halt.c',0
 	.byte	'TASKING VX-toolset for TriCore: C compiler',0
-	.byte	'D:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_1.9\\BMU_BOOT\\Debug\\',0,12,1
+	.byte	'D:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_2.0\\BMU_BOOT\\Debug\\',0,12,1
 	.word	.L17,.L16
 	.byte	2
 	.word	.L10
@@ -757,7 +757,7 @@ _sync_on_halt_ucx:	.type	object
 	.byte	4,1
 	.byte	'..\\sync_on_halt.c',0
 	.byte	'TASKING VX-toolset for TriCore: C compiler',0
-	.byte	'D:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_1.9\\BMU_BOOT\\Debug\\',0,12,1
+	.byte	'D:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_2.0\\BMU_BOOT\\Debug\\',0,12,1
 	.word	.L22,.L21
 	.byte	2
 	.word	.L10
@@ -867,7 +867,7 @@ _sync_on_halt_ucx:	.type	object
 	.byte	4,1
 	.byte	'..\\sync_on_halt.c',0
 	.byte	'TASKING VX-toolset for TriCore: C compiler',0
-	.byte	'D:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_1.9\\BMU_BOOT\\Debug\\',0,12,1,2
+	.byte	'D:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_2.0\\BMU_BOOT\\Debug\\',0,12,1,2
 	.word	.L10
 	.byte	3
 	.byte	'_sync_on_halt_lcx',0,1,60,41
@@ -889,7 +889,7 @@ _sync_on_halt_ucx:	.type	object
 	.byte	4,1
 	.byte	'..\\sync_on_halt.c',0
 	.byte	'TASKING VX-toolset for TriCore: C compiler',0
-	.byte	'D:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_1.9\\BMU_BOOT\\Debug\\',0,12,1,2
+	.byte	'D:\\work\\Microvast\\OTA\\Boot\\BMU_BOOT_2.0\\BMU_BOOT\\Debug\\',0,12,1,2
 	.word	.L10
 	.byte	3
 	.byte	'_sync_on_halt_ucx',0,1,61,41

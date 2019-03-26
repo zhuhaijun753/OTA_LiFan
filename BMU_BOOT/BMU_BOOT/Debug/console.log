@@ -2,10 +2,10 @@
 **** Build of configuration Debug for project BMU_BOOT ****
 
 "C:\\Program Files (x86)\\TASKING\\TriCore v4.3r1\\ctc\\bin\\amk" -j8 all 
-Compiling Uds_User_RoutineControlCallback.c
+Compiling Uds_Dcm_Drv.c
 Linking to BMU_BOOT.elf
 
-Time consumed: 3359 ms
+Time consumed: 3328 ms
 **** End of build ****
 
 Tool info: 

@@ -1,0 +1,84 @@
+/*----------------------------------------------------------------------------------------------------*/
+/*
+File Name：  	Uds_Tp_DrvCfg.c
+Author：        	任智强
+Company:	G-Pulse
+Version：      	V1.00.0000
+Comment：  	TP驱动配置
+History：   	V1.00.0000      	20141127                            初始版本
+
+*/
+
+/***************************************************************************************/
+/*TP N_TAtype类型定义*/
+#define	TP_ADDR_TYPE_PHY		UDS_ADDR_TYPE_PHY			/*物理地址类型*/
+#define	TP_ADDR_TYPE_FUNC		UDS_ADDR_TYPE_FUNC			/*功能地址类型*/
+
+/***************************************************************************************/
+/*TP帧长度定义*/
+#define	TP_FRAME_DL				8U							/*TP帧长度*/
+#define	TP_APPL_DL_MAX			UDS_APPL_DL_MAX				/*TP应用数据最大长度，ISO15765-2规定最大4095字节*/
+
+/***************************************************************************************/
+/*TP地址格式定义*/
+#define	TP_NORMAL_ADDRESSING		0U						/*normal格式*/
+#define	TP_NORMAL_FIXED_ADDRESSING	1U						/*normal fixed格式*/
+#define	TP_EXTENDED_ADDRESSING		2U						/*extended格式*/
+#define	TP_MIXED_ADDRESSING_29BIT	3U						/*mixed 29位格式*/
+#define	TP_MIXED_ADDRESSING_11BIT	4U						/*mixed 11位格式*/
+
+#define	TP_ADDRESSING_FORMAT		TP_NORMAL_ADDRESSING	/*TP地址格式选择*/
+
+#if(TP_ADDRESSING_FORMAT == TP_NORMAL_ADDRESSING)			/*TP地址格式为normal*/
+	#define	TP_CAN_PHY_ADDR			UDS_CAN_PHY_ADDR		/*物理地址*/
+	#define	TP_CAN_FUNC_ADDR		UDS_CAN_FUNC_ADDR		/*功能地址*/
+
+	#define	TP_SF_DL_MIN			1U						/*单帧准备的数据最小长度*/
+	#define	TP_SF_DL_MAX			7U						/*单帧准备的数据最大长度*/
+	#define	TP_FF_DL_MIN			8U						/*首帧准备的数据最小长度*/
+	#define	TP_FF_DL_MAX			TP_APPL_DL_MAX			/*首帧准备的数据最大长度*/
+
+	#define	TP_SF_DATA_FIELD_OFFSET	1U						/*单帧数据域偏移*/
+	#define	TP_FF_DATA_FIELD_OFFSET	2U						/*首帧数据域偏移*/
+	#define	TP_CF_DATA_FIELD_OFFSET	1U						/*连续帧数据域偏移*/
+
+	#define	TP_FF_DATA_FIELD_BYTES	6U						/*首帧数据域字节数*/
+	#define	TP_CF_DATA_FIELD_BYTES	7U						/*连续帧数据域字节数*/
+
+#elif(TP_ADDRESSING_FORMAT == TP_NORMAL_FIXED_ADDRESSING)
+
+#elif(TP_ADDRESSING_FORMAT == TP_EXTENDED_ADDRESSING)
+
+#elif(TP_ADDRESSING_FORMAT == TP_MIXED_ADDRESSING_29BIT)
+
+#elif(TP_ADDRESSING_FORMAT == TP_MIXED_ADDRESSING_11BIT)
+
+#endif
+
+/***************************************************************************************/
+/*TP时间参数定义*/
+#define	TP_BLOCK_SIZE			0U							/*Block Size*/
+#define	TP_N_WFT_MAX			0U							/*等于0,没有FC.WAIT状态*/
+
+#define	TP_TASK_CYCLE_TIME		UDS_TASK_CYCLE_TIME			/*TASK周期时间10ms*/
+#define	TP_STMIN_MAX			120U							/*最大STmin,12个TASK周期*/
+#define	TP_STMIN				1U//(2U * TP_TASK_CYCLE_TIME)	/*2个TASK周期*/
+#define	TP_TIMING_VALUE_N_AS	70U							/*7个TASK周期*/
+#define	TP_TIMING_VALUE_N_AR	70U							/*7个TASK周期*/
+#define	TP_TIMING_VALUE_N_BS	150U							/*15个TASK周期*/
+#define	TP_TIMING_VALUE_N_BR	70U							/*7个TASK周期*/
+#define	TP_TIMING_VALUE_N_CS	70U							/*7个TASK周期*/
+#define	TP_TIMING_VALUE_N_CR	150U							/*7个TASK周期*/
+
+/***************************************************************************************/
+/*TP双工模式定义*/
+#define	TP_HALF_DUPLEX		0U								/*半双工模式*/
+#define	TP_FULL_DUPLEX		1U								/*全双工模式*/
+
+#define	TP_DUPLEX_MODE		TP_HALF_DUPLEX					/*通讯双工模式选择*/
+
+/***************************************************************************************/
+/*TP CAN MO定义*/
+#define	TP_FRAME_RX_MO			UDS_CMD_RX_MO				/*TP帧接收MO*/
+#define	TP_FRAME_TX_MO			UDS_CMD_TX_MO				/*TP帧发送MO*/
+

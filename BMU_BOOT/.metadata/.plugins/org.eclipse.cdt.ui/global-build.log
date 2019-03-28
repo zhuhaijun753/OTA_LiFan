@@ -78,3 +78,561 @@ Linking to BMU_BOOT.elf
 
 Time consumed: 12922 ms
 **** End of build ****
+
+**** Build of configuration Debug for project BMU_BOOT ****
+
+"C:\\Program Files (x86)\\TASKING\\TriCore v4.3r1\\ctc\\bin\\amk" -j8 all -a 
+Compiling CANbootloader.c
+Compiling cstart.c
+Compiling sync_on_halt.c
+Compiling CanDrv_TC1782.c
+Compiling CanDrv_TC1782_Callback.c
+Compiling CanDrv_TC1782_User.c
+Compiling App_CanFuncAndVars.c
+Compiling CanInputCtrl.c
+Compiling EvBusInput.c
+Compiling InBusInput.c
+Compiling CanOutPutCtrl.c
+Compiling EvBusOutput.c
+Compiling InBusOutput.c
+Compiling Uds_Dcm_CommunicationControl.c
+Compiling Uds_Dcm_ControlDTCSetting.c
+ctc W524: ["..\CANbootloader.c" 263/19] conversion of integer to pointer at assignment
+ctc W524: ["..\CANbootloader.c" 389/18] conversion of integer to pointer at assignment
+ctc W537: ["..\CANbootloader.c" 44/7] unused variable "i"
+ctc W588: ["..\CANbootloader.c" 226/10] dead assignment to "pdwFsr" eliminated
+ctc W588: ["..\CANbootloader.c" 222/10] dead assignment to "pdwFsr" eliminated
+ctc W588: ["..\CANbootloader.c" 381/8] dead assignment to "pdwFsr" eliminated
+0 errors, 6 warnings
+Compiling Uds_Dcm_DiagnosticSessionControl.c
+Compiling Uds_Dcm_Drv.c
+Compiling Uds_Dcm_ECUReset.c
+Compiling Uds_Dcm_ReadDataByIdentifier.c
+Compiling Uds_Dcm_RequestDownload.c
+Compiling Uds_Dcm_RequestTransferExit.c
+Compiling Uds_Dcm_RoutineControl.c
+Compiling Uds_Dcm_SecurityAccess.c
+Compiling Uds_Dcm_TesterPresent.c
+ctc W549: ["..\Communication_Files\Uds\Dcm\Uds_Dcm_ECUReset.c" 62/89] condition is always false
+ctc W549: ["..\Communication_Files\Uds\Dcm\Uds_Dcm_ECUReset.c" 62/140] condition is always true
+0 errors, 2 warnings
+Compiling Uds_Dcm_TransferData.c
+ctc W549: ["..\Communication_Files\Uds\Dcm\Uds_Dcm_RequestDownload.c" 61/144] condition is always false
+0 errors, 1 warnings
+Compiling Uds_Dcm_WriteDataByIdentifier.c
+Compiling Uds_Tp_Drv.c
+ctc W549: ["..\Communication_Files\Uds\Dcm\Uds_Dcm_RequestTransferExit.c" 49/155] condition is always false
+0 errors, 1 warnings
+Compiling Uds_User_CommunicationControlCallback.c
+Compiling Uds_User_ControlDTCSettingCallback.c
+ctc W549: ["..\Communication_Files\Uds\Dcm\Uds_Dcm_RoutineControl.c" 55/89] condition is always false
+ctc W549: ["..\Communication_Files\Uds\Dcm\Uds_Dcm_RoutineControl.c" 55/140] condition is always true
+0 errors, 2 warnings
+Compiling Uds_User_DiagnosticSessionControlCallback.c
+ctc W549: ["..\Communication_Files\Uds\Dcm\Uds_Dcm_TesterPresent.c" 54/89] condition is always false
+ctc W549: ["..\Communication_Files\Uds\Dcm\Uds_Dcm_TesterPresent.c" 54/140] condition is always true
+0 errors, 2 warnings
+Compiling Uds_User_ECUResetCallback.c
+Compiling Uds_User_ReadDataByIdentifierCallback.c
+ctc W549: ["..\Communication_Files\Uds\Dcm\Uds_Dcm_TransferData.c" 49/149] condition is always false
+0 errors, 1 warnings
+Compiling Uds_User_RequestDownloadCallback.c
+Compiling Uds_User_RequestTransferExitCallback.c
+Compiling Uds_User_RoutineControlCallback.c
+ctc W588: ["..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c" 420/11] dead assignment to "b_Return" eliminated
+0 errors, 1 warnings
+Compiling Uds_User_SecurityAccessCallback.c
+Compiling Uds_User_TesterPresentCallback.c
+Compiling Uds_User_TransferDataCallback.c
+Compiling Uds_User_WriteDataByIdentifierCallback.c
+Compiling Crc_Algorithm.c
+Compiling Operating_System.c
+Compiling IO.c
+Compiling MAIN.c
+Compiling SCU.c
+Compiling STM.c
+Compiling Flash_TC1782_Driver.c
+ctc W544: ["..\Initiate_Files\MAIN.c" 563/3] unreachable code
+0 errors, 1 warnings
+Linking to BMU_BOOT.elf
+
+Time consumed: 15100 ms
+**** End of build ****
+
+**** Build of configuration Debug for project BMU_BOOT ****
+
+"C:\\Program Files (x86)\\TASKING\\TriCore v4.3r1\\ctc\\bin\\amk" -j8 all 
+Compiling Uds_User_RoutineControlCallback.c
+Linking to BMU_BOOT.elf
+
+Time consumed: 3313 ms
+**** End of build ****
+
+**** Build of configuration Debug for project BMU_BOOT ****
+
+"C:\\Program Files (x86)\\TASKING\\TriCore v4.3r1\\ctc\\bin\\amk" -j8 all 
+Compiling Uds_User_RoutineControlCallback.c
+Linking to BMU_BOOT.elf
+
+Time consumed: 3438 ms
+**** End of build ****
+
+**** Build of configuration Debug for project BMU_BOOT ****
+
+"C:\\Program Files (x86)\\TASKING\\TriCore v4.3r1\\ctc\\bin\\amk" -j8 all 
+Compiling Uds_User_RoutineControlCallback.c
+Linking to BMU_BOOT.elf
+
+Time consumed: 3344 ms
+**** End of build ****
+
+**** Build of configuration Debug for project BMU_BOOT ****
+
+"C:\\Program Files (x86)\\TASKING\\TriCore v4.3r1\\ctc\\bin\\amk" -j8 all -a 
+Compiling CANbootloader.c
+Compiling cstart.c
+Compiling sync_on_halt.c
+Compiling CanDrv_TC1782.c
+Compiling CanDrv_TC1782_Callback.c
+Compiling CanDrv_TC1782_User.c
+Compiling App_CanFuncAndVars.c
+Compiling CanInputCtrl.c
+Compiling EvBusInput.c
+Compiling InBusInput.c
+Compiling CanOutPutCtrl.c
+Compiling EvBusOutput.c
+Compiling InBusOutput.c
+Compiling Uds_Dcm_CommunicationControl.c
+ctc W524: ["..\CANbootloader.c" 263/19] conversion of integer to pointer at assignment
+ctc W524: ["..\CANbootloader.c" 389/18] conversion of integer to pointer at assignment
+ctc W537: ["..\CANbootloader.c" 44/7] unused variable "i"
+ctc W588: ["..\CANbootloader.c" 226/10] dead assignment to "pdwFsr" eliminated
+ctc W588: ["..\CANbootloader.c" 222/10] dead assignment to "pdwFsr" eliminated
+ctc W588: ["..\CANbootloader.c" 381/8] dead assignment to "pdwFsr" eliminated
+0 errors, 6 warnings
+Compiling Uds_Dcm_ControlDTCSetting.c
+Compiling Uds_Dcm_DiagnosticSessionControl.c
+Compiling Uds_Dcm_Drv.c
+Compiling Uds_Dcm_ECUReset.c
+Compiling Uds_Dcm_ReadDataByIdentifier.c
+Compiling Uds_Dcm_RequestDownload.c
+Compiling Uds_Dcm_RequestTransferExit.c
+Compiling Uds_Dcm_RoutineControl.c
+Compiling Uds_Dcm_SecurityAccess.c
+Compiling Uds_Dcm_TesterPresent.c
+ctc W549: ["..\Communication_Files\Uds\Dcm\Uds_Dcm_ECUReset.c" 62/89] condition is always false
+ctc W549: ["..\Communication_Files\Uds\Dcm\Uds_Dcm_ECUReset.c" 62/140] condition is always true
+0 errors, 2 warnings
+Compiling Uds_Dcm_TransferData.c
+ctc W549: ["..\Communication_Files\Uds\Dcm\Uds_Dcm_RequestDownload.c" 61/144] condition is always false
+0 errors, 1 warnings
+Compiling Uds_Dcm_WriteDataByIdentifier.c
+ctc W549: ["..\Communication_Files\Uds\Dcm\Uds_Dcm_RequestTransferExit.c" 49/155] condition is always false
+0 errors, 1 warnings
+Compiling Uds_Tp_Drv.c
+Compiling Uds_User_CommunicationControlCallback.c
+Compiling Uds_User_ControlDTCSettingCallback.c
+ctc W549: ["..\Communication_Files\Uds\Dcm\Uds_Dcm_RoutineControl.c" 55/89] condition is always false
+ctc W549: ["..\Communication_Files\Uds\Dcm\Uds_Dcm_RoutineControl.c" 55/140] condition is always true
+0 errors, 2 warnings
+Compiling Uds_User_DiagnosticSessionControlCallback.c
+Compiling Uds_User_ECUResetCallback.c
+ctc W549: ["..\Communication_Files\Uds\Dcm\Uds_Dcm_TesterPresent.c" 54/89] condition is always false
+ctc W549: ["..\Communication_Files\Uds\Dcm\Uds_Dcm_TesterPresent.c" 54/140] condition is always true
+0 errors, 2 warnings
+Compiling Uds_User_ReadDataByIdentifierCallback.c
+ctc W549: ["..\Communication_Files\Uds\Dcm\Uds_Dcm_TransferData.c" 49/149] condition is always false
+0 errors, 1 warnings
+Compiling Uds_User_RequestDownloadCallback.c
+Compiling Uds_User_RequestTransferExitCallback.c
+ctc W588: ["..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c" 420/11] dead assignment to "b_Return" eliminated
+0 errors, 1 warnings
+Compiling Uds_User_RoutineControlCallback.c
+Compiling Uds_User_SecurityAccessCallback.c
+Compiling Uds_User_TesterPresentCallback.c
+Compiling Uds_User_TransferDataCallback.c
+Compiling Uds_User_WriteDataByIdentifierCallback.c
+Compiling Crc_Algorithm.c
+Compiling Operating_System.c
+Compiling IO.c
+Compiling MAIN.c
+Compiling SCU.c
+Compiling STM.c
+Compiling Flash_TC1782_Driver.c
+ctc W544: ["..\Initiate_Files\MAIN.c" 563/3] unreachable code
+0 errors, 1 warnings
+Linking to BMU_BOOT.elf
+
+Time consumed: 13406 ms
+**** End of build ****
+
+**** Build of configuration Debug for project BMU_BOOT ****
+
+"C:\\Program Files (x86)\\TASKING\\TriCore v4.3r1\\ctc\\bin\\amk" -j8 all 
+Compiling Uds_User_RoutineControlCallback.c
+Linking to BMU_BOOT.elf
+
+Time consumed: 3344 ms
+**** End of build ****
+
+**** Build of configuration Debug for project BMU_BOOT ****
+
+"C:\\Program Files (x86)\\TASKING\\TriCore v4.3r1\\ctc\\bin\\amk" -j8 all 
+Compiling Uds_User_RoutineControlCallback.c
+Linking to BMU_BOOT.elf
+
+Time consumed: 3312 ms
+**** End of build ****
+
+**** Clean-only build of configuration Debug for project BMU_BOOT ****
+
+"C:\\Program Files (x86)\\TASKING\\TriCore v4.3r1\\ctc\\bin\\amk" -j8 clean 
+Cleaning
+
+Time consumed: 1109 ms
+**** End of build ****
+
+**** Build of configuration Debug for project BMU_BOOT ****
+
+"C:\\Program Files (x86)\\TASKING\\TriCore v4.3r1\\ctc\\bin\\amk" -j8 all -a 
+Compiling CANbootloader.c
+Compiling cstart.c
+Compiling sync_on_halt.c
+Compiling CanDrv_TC1782.c
+Compiling CanDrv_TC1782_Callback.c
+Compiling CanDrv_TC1782_User.c
+Compiling App_CanFuncAndVars.c
+Compiling CanInputCtrl.c
+Compiling EvBusInput.c
+Compiling InBusInput.c
+Compiling CanOutPutCtrl.c
+Compiling EvBusOutput.c
+Compiling InBusOutput.c
+Compiling Uds_Dcm_CommunicationControl.c
+ctc W524: ["..\CANbootloader.c" 263/19] conversion of integer to pointer at assignment
+ctc W524: ["..\CANbootloader.c" 389/18] conversion of integer to pointer at assignment
+ctc W537: ["..\CANbootloader.c" 44/7] unused variable "i"
+ctc W588: ["..\CANbootloader.c" 226/10] dead assignment to "pdwFsr" eliminated
+ctc W588: ["..\CANbootloader.c" 222/10] dead assignment to "pdwFsr" eliminated
+ctc W588: ["..\CANbootloader.c" 381/8] dead assignment to "pdwFsr" eliminated
+0 errors, 6 warnings
+Compiling Uds_Dcm_ControlDTCSetting.c
+Compiling Uds_Dcm_DiagnosticSessionControl.c
+Compiling Uds_Dcm_Drv.c
+Compiling Uds_Dcm_ECUReset.c
+Compiling Uds_Dcm_ReadDataByIdentifier.c
+Compiling Uds_Dcm_RequestDownload.c
+Compiling Uds_Dcm_RequestTransferExit.c
+Compiling Uds_Dcm_RoutineControl.c
+Compiling Uds_Dcm_SecurityAccess.c
+Compiling Uds_Dcm_TesterPresent.c
+ctc W549: ["..\Communication_Files\Uds\Dcm\Uds_Dcm_ECUReset.c" 62/89] condition is always false
+ctc W549: ["..\Communication_Files\Uds\Dcm\Uds_Dcm_ECUReset.c" 62/140] condition is always true
+0 errors, 2 warnings
+Compiling Uds_Dcm_TransferData.c
+ctc W549: ["..\Communication_Files\Uds\Dcm\Uds_Dcm_RequestTransferExit.c" 49/155] condition is always false
+0 errors, 1 warnings
+Compiling Uds_Dcm_WriteDataByIdentifier.c
+ctc W549: ["..\Communication_Files\Uds\Dcm\Uds_Dcm_RequestDownload.c" 61/144] condition is always false
+0 errors, 1 warnings
+Compiling Uds_Tp_Drv.c
+Compiling Uds_User_CommunicationControlCallback.c
+Compiling Uds_User_ControlDTCSettingCallback.c
+ctc W549: ["..\Communication_Files\Uds\Dcm\Uds_Dcm_RoutineControl.c" 55/89] condition is always false
+ctc W549: ["..\Communication_Files\Uds\Dcm\Uds_Dcm_RoutineControl.c" 55/140] condition is always true
+0 errors, 2 warnings
+Compiling Uds_User_DiagnosticSessionControlCallback.c
+Compiling Uds_User_ECUResetCallback.c
+ctc W549: ["..\Communication_Files\Uds\Dcm\Uds_Dcm_TesterPresent.c" 54/89] condition is always false
+ctc W549: ["..\Communication_Files\Uds\Dcm\Uds_Dcm_TesterPresent.c" 54/140] condition is always true
+0 errors, 2 warnings
+Compiling Uds_User_ReadDataByIdentifierCallback.c
+ctc W549: ["..\Communication_Files\Uds\Dcm\Uds_Dcm_TransferData.c" 49/149] condition is always false
+0 errors, 1 warnings
+Compiling Uds_User_RequestDownloadCallback.c
+Compiling Uds_User_RequestTransferExitCallback.c
+ctc W588: ["..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c" 420/11] dead assignment to "b_Return" eliminated
+0 errors, 1 warnings
+Compiling Uds_User_RoutineControlCallback.c
+Compiling Uds_User_SecurityAccessCallback.c
+Compiling Uds_User_TesterPresentCallback.c
+Compiling Uds_User_TransferDataCallback.c
+Compiling Uds_User_WriteDataByIdentifierCallback.c
+Compiling Crc_Algorithm.c
+Compiling Operating_System.c
+Compiling IO.c
+Compiling MAIN.c
+Compiling SCU.c
+Compiling STM.c
+Compiling Flash_TC1782_Driver.c
+ctc W544: ["..\Initiate_Files\MAIN.c" 563/3] unreachable code
+0 errors, 1 warnings
+Linking to BMU_BOOT.elf
+
+Time consumed: 13517 ms
+**** End of build ****
+
+**** Build of configuration Debug for project BMU_BOOT ****
+
+"C:\\Program Files (x86)\\TASKING\\TriCore v4.3r1\\ctc\\bin\\amk" -j8 all 
+Compiling Uds_User_RoutineControlCallback.c
+Linking to BMU_BOOT.elf
+
+Time consumed: 3342 ms
+**** End of build ****
+
+**** Build of configuration Debug for project BMU_BOOT ****
+
+"C:\\Program Files (x86)\\TASKING\\TriCore v4.3r1\\ctc\\bin\\amk" -j8 all 
+Compiling Uds_User_RoutineControlCallback.c
+Linking to BMU_BOOT.elf
+
+Time consumed: 3295 ms
+**** End of build ****
+
+**** Build of configuration Debug for project BMU_BOOT ****
+
+"C:\\Program Files (x86)\\TASKING\\TriCore v4.3r1\\ctc\\bin\\amk" -j8 all 
+Compiling Uds_User_RoutineControlCallback.c
+Linking to BMU_BOOT.elf
+
+Time consumed: 3581 ms
+**** End of build ****
+
+**** Build of configuration Debug for project BMU_BOOT ****
+
+"C:\\Program Files (x86)\\TASKING\\TriCore v4.3r1\\ctc\\bin\\amk" -j8 all -a 
+Compiling CANbootloader.c
+Compiling cstart.c
+Compiling sync_on_halt.c
+Compiling CanDrv_TC1782.c
+Compiling CanDrv_TC1782_Callback.c
+Compiling CanDrv_TC1782_User.c
+Compiling App_CanFuncAndVars.c
+Compiling CanInputCtrl.c
+Compiling EvBusInput.c
+Compiling InBusInput.c
+Compiling CanOutPutCtrl.c
+Compiling EvBusOutput.c
+Compiling InBusOutput.c
+Compiling Uds_Dcm_CommunicationControl.c
+ctc W524: ["..\CANbootloader.c" 263/19] conversion of integer to pointer at assignment
+ctc W524: ["..\CANbootloader.c" 389/18] conversion of integer to pointer at assignment
+ctc W537: ["..\CANbootloader.c" 44/7] unused variable "i"
+ctc W588: ["..\CANbootloader.c" 226/10] dead assignment to "pdwFsr" eliminated
+ctc W588: ["..\CANbootloader.c" 222/10] dead assignment to "pdwFsr" eliminated
+ctc W588: ["..\CANbootloader.c" 381/8] dead assignment to "pdwFsr" eliminated
+0 errors, 6 warnings
+Compiling Uds_Dcm_ControlDTCSetting.c
+Compiling Uds_Dcm_DiagnosticSessionControl.c
+Compiling Uds_Dcm_Drv.c
+Compiling Uds_Dcm_ECUReset.c
+Compiling Uds_Dcm_ReadDataByIdentifier.c
+Compiling Uds_Dcm_RequestDownload.c
+Compiling Uds_Dcm_RequestTransferExit.c
+Compiling Uds_Dcm_RoutineControl.c
+Compiling Uds_Dcm_SecurityAccess.c
+Compiling Uds_Dcm_TesterPresent.c
+ctc W549: ["..\Communication_Files\Uds\Dcm\Uds_Dcm_ECUReset.c" 62/89] condition is always false
+ctc W549: ["..\Communication_Files\Uds\Dcm\Uds_Dcm_ECUReset.c" 62/140] condition is always true
+0 errors, 2 warnings
+Compiling Uds_Dcm_TransferData.c
+ctc W549: ["..\Communication_Files\Uds\Dcm\Uds_Dcm_RequestDownload.c" 61/144] condition is always false
+0 errors, 1 warnings
+Compiling Uds_Dcm_WriteDataByIdentifier.c
+ctc W549: ["..\Communication_Files\Uds\Dcm\Uds_Dcm_RequestTransferExit.c" 49/155] condition is always false
+0 errors, 1 warnings
+Compiling Uds_Tp_Drv.c
+Compiling Uds_User_CommunicationControlCallback.c
+Compiling Uds_User_ControlDTCSettingCallback.c
+ctc W549: ["..\Communication_Files\Uds\Dcm\Uds_Dcm_RoutineControl.c" 55/89] condition is always false
+ctc W549: ["..\Communication_Files\Uds\Dcm\Uds_Dcm_RoutineControl.c" 55/140] condition is always true
+0 errors, 2 warnings
+Compiling Uds_User_DiagnosticSessionControlCallback.c
+Compiling Uds_User_ECUResetCallback.c
+ctc W549: ["..\Communication_Files\Uds\Dcm\Uds_Dcm_TesterPresent.c" 54/89] condition is always false
+ctc W549: ["..\Communication_Files\Uds\Dcm\Uds_Dcm_TesterPresent.c" 54/140] condition is always true
+0 errors, 2 warnings
+Compiling Uds_User_ReadDataByIdentifierCallback.c
+ctc W549: ["..\Communication_Files\Uds\Dcm\Uds_Dcm_TransferData.c" 49/149] condition is always false
+0 errors, 1 warnings
+Compiling Uds_User_RequestDownloadCallback.c
+Compiling Uds_User_RequestTransferExitCallback.c
+ctc W588: ["..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c" 420/11] dead assignment to "b_Return" eliminated
+0 errors, 1 warnings
+Compiling Uds_User_RoutineControlCallback.c
+Compiling Uds_User_SecurityAccessCallback.c
+Compiling Uds_User_TesterPresentCallback.c
+Compiling Uds_User_TransferDataCallback.c
+Compiling Uds_User_WriteDataByIdentifierCallback.c
+Compiling Crc_Algorithm.c
+Compiling Operating_System.c
+Compiling IO.c
+Compiling MAIN.c
+Compiling SCU.c
+Compiling STM.c
+Compiling Flash_TC1782_Driver.c
+ctc W544: ["..\Initiate_Files\MAIN.c" 563/3] unreachable code
+0 errors, 1 warnings
+Linking to BMU_BOOT.elf
+
+Time consumed: 13005 ms
+**** End of build ****
+
+**** Build of configuration Debug for project BMU_BOOT ****
+
+"C:\\Program Files (x86)\\TASKING\\TriCore v4.3r1\\ctc\\bin\\amk" -j8 all -a 
+Compiling CANbootloader.c
+Compiling cstart.c
+Compiling sync_on_halt.c
+Compiling CanDrv_TC1782.c
+Compiling CanDrv_TC1782_Callback.c
+Compiling CanDrv_TC1782_User.c
+Compiling App_CanFuncAndVars.c
+Compiling CanInputCtrl.c
+Compiling EvBusInput.c
+Compiling InBusInput.c
+Compiling CanOutPutCtrl.c
+Compiling EvBusOutput.c
+Compiling InBusOutput.c
+Compiling Uds_Dcm_CommunicationControl.c
+ctc W524: ["..\CANbootloader.c" 263/19] conversion of integer to pointer at assignment
+ctc W524: ["..\CANbootloader.c" 389/18] conversion of integer to pointer at assignment
+ctc W537: ["..\CANbootloader.c" 44/7] unused variable "i"
+ctc W588: ["..\CANbootloader.c" 226/10] dead assignment to "pdwFsr" eliminated
+ctc W588: ["..\CANbootloader.c" 222/10] dead assignment to "pdwFsr" eliminated
+ctc W588: ["..\CANbootloader.c" 381/8] dead assignment to "pdwFsr" eliminated
+0 errors, 6 warnings
+Compiling Uds_Dcm_ControlDTCSetting.c
+Compiling Uds_Dcm_DiagnosticSessionControl.c
+Compiling Uds_Dcm_Drv.c
+Compiling Uds_Dcm_ECUReset.c
+Compiling Uds_Dcm_ReadDataByIdentifier.c
+Compiling Uds_Dcm_RequestDownload.c
+Compiling Uds_Dcm_RequestTransferExit.c
+Compiling Uds_Dcm_RoutineControl.c
+Compiling Uds_Dcm_SecurityAccess.c
+Compiling Uds_Dcm_TesterPresent.c
+ctc W549: ["..\Communication_Files\Uds\Dcm\Uds_Dcm_RequestDownload.c" 61/144] condition is always false
+0 errors, 1 warnings
+ctc W549: ["..\Communication_Files\Uds\Dcm\Uds_Dcm_RequestTransferExit.c" 49/155] condition is always false
+0 errors, 1 warnings
+Compiling Uds_Dcm_TransferData.c
+Compiling Uds_Dcm_WriteDataByIdentifier.c
+ctc W549: ["..\Communication_Files\Uds\Dcm\Uds_Dcm_ECUReset.c" 62/89] condition is always false
+ctc W549: ["..\Communication_Files\Uds\Dcm\Uds_Dcm_ECUReset.c" 62/140] condition is always true
+0 errors, 2 warnings
+Compiling Uds_Tp_Drv.c
+Compiling Uds_User_CommunicationControlCallback.c
+ctc W549: ["..\Communication_Files\Uds\Dcm\Uds_Dcm_RoutineControl.c" 55/89] condition is always false
+ctc W549: ["..\Communication_Files\Uds\Dcm\Uds_Dcm_RoutineControl.c" 55/140] condition is always true
+0 errors, 2 warnings
+Compiling Uds_User_ControlDTCSettingCallback.c
+Compiling Uds_User_DiagnosticSessionControlCallback.c
+Compiling Uds_User_ECUResetCallback.c
+ctc W549: ["..\Communication_Files\Uds\Dcm\Uds_Dcm_TesterPresent.c" 54/89] condition is always false
+ctc W549: ["..\Communication_Files\Uds\Dcm\Uds_Dcm_TesterPresent.c" 54/140] condition is always true
+0 errors, 2 warnings
+Compiling Uds_User_ReadDataByIdentifierCallback.c
+ctc W549: ["..\Communication_Files\Uds\Dcm\Uds_Dcm_TransferData.c" 49/149] condition is always false
+0 errors, 1 warnings
+Compiling Uds_User_RequestDownloadCallback.c
+Compiling Uds_User_RequestTransferExitCallback.c
+ctc W588: ["..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c" 420/11] dead assignment to "b_Return" eliminated
+0 errors, 1 warnings
+Compiling Uds_User_RoutineControlCallback.c
+Compiling Uds_User_SecurityAccessCallback.c
+Compiling Uds_User_TesterPresentCallback.c
+Compiling Uds_User_TransferDataCallback.c
+Compiling Uds_User_WriteDataByIdentifierCallback.c
+Compiling Crc_Algorithm.c
+Compiling Operating_System.c
+Compiling IO.c
+Compiling MAIN.c
+Compiling SCU.c
+Compiling STM.c
+Compiling Flash_TC1782_Driver.c
+ctc W544: ["..\Initiate_Files\MAIN.c" 563/3] unreachable code
+0 errors, 1 warnings
+Linking to BMU_BOOT.elf
+
+Time consumed: 12613 ms
+**** End of build ****
+
+**** Build of configuration Debug for project BMU_BOOT ****
+
+"C:\\Program Files (x86)\\TASKING\\TriCore v4.3r1\\ctc\\bin\\amk" -j8 all 
+Compiling CANbootloader.c
+Compiling CanDrv_TC1782.c
+Compiling CanDrv_TC1782_Callback.c
+Compiling CanDrv_TC1782_User.c
+Compiling App_CanFuncAndVars.c
+Compiling CanInputCtrl.c
+Compiling EvBusInput.c
+Compiling InBusInput.c
+Compiling CanOutPutCtrl.c
+Compiling EvBusOutput.c
+Compiling InBusOutput.c
+Compiling Uds_Dcm_CommunicationControl.c
+Compiling Uds_Dcm_ControlDTCSetting.c
+Compiling Uds_Dcm_DiagnosticSessionControl.c
+ctc W524: ["..\CANbootloader.c" 263/19] conversion of integer to pointer at assignment
+ctc W524: ["..\CANbootloader.c" 389/18] conversion of integer to pointer at assignment
+ctc W537: ["..\CANbootloader.c" 44/7] unused variable "i"
+ctc W588: ["..\CANbootloader.c" 226/10] dead assignment to "pdwFsr" eliminated
+ctc W588: ["..\CANbootloader.c" 222/10] dead assignment to "pdwFsr" eliminated
+ctc W588: ["..\CANbootloader.c" 381/8] dead assignment to "pdwFsr" eliminated
+0 errors, 6 warnings
+Compiling Uds_Dcm_Drv.c
+Compiling Uds_Dcm_ECUReset.c
+Compiling Uds_Dcm_ReadDataByIdentifier.c
+Compiling Uds_Dcm_RequestDownload.c
+Compiling Uds_Dcm_RequestTransferExit.c
+Compiling Uds_Dcm_RoutineControl.c
+Compiling Uds_Dcm_SecurityAccess.c
+Compiling Uds_Dcm_TesterPresent.c
+Compiling Uds_Dcm_TransferData.c
+ctc W549: ["..\Communication_Files\Uds\Dcm\Uds_Dcm_ECUReset.c" 62/89] condition is always false
+ctc W549: ["..\Communication_Files\Uds\Dcm\Uds_Dcm_ECUReset.c" 62/140] condition is always true
+0 errors, 2 warnings
+Compiling Uds_Dcm_WriteDataByIdentifier.c
+ctc W549: ["..\Communication_Files\Uds\Dcm\Uds_Dcm_RequestTransferExit.c" 49/155] condition is always false
+0 errors, 1 warnings
+Compiling Uds_Tp_Drv.c
+ctc W549: ["..\Communication_Files\Uds\Dcm\Uds_Dcm_RequestDownload.c" 61/144] condition is always false
+0 errors, 1 warnings
+Compiling Uds_User_CommunicationControlCallback.c
+Compiling Uds_User_ControlDTCSettingCallback.c
+ctc W549: ["..\Communication_Files\Uds\Dcm\Uds_Dcm_RoutineControl.c" 55/89] condition is always false
+ctc W549: ["..\Communication_Files\Uds\Dcm\Uds_Dcm_RoutineControl.c" 55/140] condition is always true
+0 errors, 2 warnings
+Compiling Uds_User_DiagnosticSessionControlCallback.c
+Compiling Uds_User_ECUResetCallback.c
+ctc W549: ["..\Communication_Files\Uds\Dcm\Uds_Dcm_TesterPresent.c" 54/89] condition is always false
+ctc W549: ["..\Communication_Files\Uds\Dcm\Uds_Dcm_TesterPresent.c" 54/140] condition is always true
+0 errors, 2 warnings
+Compiling Uds_User_ReadDataByIdentifierCallback.c
+ctc W549: ["..\Communication_Files\Uds\Dcm\Uds_Dcm_TransferData.c" 49/149] condition is always false
+0 errors, 1 warnings
+Compiling Uds_User_RequestDownloadCallback.c
+Compiling Uds_User_RequestTransferExitCallback.c
+Compiling Uds_User_RoutineControlCallback.c
+Compiling Uds_User_SecurityAccessCallback.c
+Compiling Uds_User_TesterPresentCallback.c
+ctc W588: ["..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c" 420/11] dead assignment to "b_Return" eliminated
+0 errors, 1 warnings
+Compiling Uds_User_TransferDataCallback.c
+Compiling Uds_User_WriteDataByIdentifierCallback.c
+Compiling Crc_Algorithm.c
+Compiling Operating_System.c
+Compiling IO.c
+Compiling MAIN.c
+Compiling SCU.c
+Compiling STM.c
+Compiling Flash_TC1782_Driver.c
+ctc W544: ["..\Initiate_Files\MAIN.c" 563/3] unreachable code
+0 errors, 1 warnings
+Linking to BMU_BOOT.elf
+
+Time consumed: 12249 ms
+**** End of build ****

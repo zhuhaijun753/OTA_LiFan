@@ -1,0 +1,113 @@
+/*
+ * CAN_message.h
+ *
+ *  Created on: 2017-8-28
+ *      Author: HSNE_LP22E
+ */
+
+#ifndef CAN_MESSAGE_H_
+#define CAN_MESSAGE_H_
+#define PSW_IEN                    (*((uword volatile *) 0xF7E1FE2C))
+
+typedef unsigned char   			BYTE;
+typedef unsigned int    			UINT;
+typedef unsigned short  			WORD;
+typedef unsigned long   			DWORD;
+
+typedef struct
+  {
+     ushort usMOCfg;    // message object configuration register
+     uword  uwID;       // standard (11-bit)/extended (29-bit) identifier
+     uword  uwMask;     // standard (11-bit)/extended (29-bit) mask
+     ubyte  ubData[8];  // 8-bit data bytes
+     ushort usCounter;  // frame counter
+  }CAN_SWObj;
+
+#define PAGE_START_MASK				0x0FF
+#define PFLASH0_FSR 				0xF8002010
+#define FLASHPBUSY       			0x00000001      /* Program Flash Busy */
+#define FLASHD0BUSY      			0x00000004      /* Data Flash Bank 0 Busy */
+#define FLASHD1BUSY      			0x00000008      /* Data Flash Bank 1 Busy */
+
+#define FLASH_MASK_BUSY 			(FLASHPBUSY | FLASHD0BUSY | FLASHD1BUSY)
+#define FLASHPFOPER      			0x00000100      /* Program Flash Operation Error */
+#define FLASHDFOPER      			0x00000200      /* Data Flash Operation Error */
+#define FLASHSQER        			0x00000400      /* Command Sequence Error */
+#define FLASH_MASK_ERROR 			(FLASHPFOPER | FLASHDFOPER | FLASHSQER)
+#define FLASH_PROTECTION_ERROR_MASK 0x00000800 		/* Protection Error */
+#define PAGE_SIZE        			256   			// program FLASH page size
+#define PFLASH_BASE_MASK			(~0x1FFFFF)
+#define DFLASH_BASE_MASK			(~0x0FFFFF)
+#define PFLASH1_FSR 				0xF8004010
+
+#define FLASH_P_START               0xA0000000
+#define TC1798_FLASH_P1_END			0xA09FFFFF
+#define Mcu_PFlash0_End_Address		0xA027FFFF
+/*****************************************/
+#define Sector0_Start_Address	0xa0000000
+#define Sector1_Start_Address	0xa0004000
+#define Sector2_Start_Address	0xa0008000
+#define Sector3_Start_Address	0xa000c000
+#define Sector4_Start_Address	0xa0010000
+#define Sector5_Start_Address	0xa0014000
+#define Sector6_Start_Address	0xa0018000
+#define Sector7_Start_Address	0xa001c000
+#define Sector8_Start_Address	0xa0020000
+#define Sector9_Start_Address	0xa0040000
+#define Sector10_Start_Address	0xa0080000
+#define Sector11_Start_Address	0xa00c0000
+#define Sector12_Start_Address	0xa0100000
+#define Sector13_Start_Address	0xa0140000
+#define Sector14_Start_Address	0xa0180000
+#define Sector15_Start_Address	0xa01c0000
+#define Sector16_Start_Address	0xa0200000
+#define Sector17_Start_Address	0xa0240000
+
+#define Sector0_End_Address		0xa0003fff
+#define Sector1_End_Address		0xa0007fff
+#define Sector2_End_Address		0xa000bfff
+#define Sector3_End_Address		0xa000ffff
+#define Sector4_End_Address		0xa0013fff
+#define Sector5_End_Address		0xa0017fff
+#define Sector6_End_Address		0xa001bfff
+#define Sector7_End_Address		0xa001ffff
+#define Sector8_End_Address		0xa003ffff
+#define Sector9_End_Address		0xa007ffff
+#define Sector10_End_Address	0xa00bffff
+#define Sector11_End_Address	0xa00fffff
+#define Sector12_End_Address	0xa013ffff
+#define Sector13_End_Address	0xa017ffff
+#define Sector14_End_Address	0xa01bffff
+#define Sector15_End_Address	0xa01fffff
+#define Sector16_End_Address	0xa023ffff
+#define Sector17_End_Address	0xa027ffff
+
+
+/*****************************************/
+//Masks used in Erase procedure
+#define PFLASH_MASK1 				0x3FFF
+#define PFLASH_MASK2 				0x1FFFF
+#define PFLASH_MASK3 				0x3FFFF
+#define DFLASH_MASK  				0x7FFF
+
+extern  BYTE ubAddrPrgm[8];
+extern  BYTE ubgCommand;
+extern  BYTE ubgCommand1;
+extern  BYTE ubgCommand2;
+extern  BYTE ubgCommand3;
+extern unsigned int Handflag;
+extern BYTE DataBlock[PAGE_SIZE+16];
+void CAN_receive(void);
+void CAN_transmit(void);
+void CAN_transmit_test(void);
+void CAN_ACK(ubyte ubACK,ubyte ubTmp);
+void delay(void);
+void process_command(void);
+void transmitback_data(void);
+void RemoveProtection(void);
+BYTE ReadFlag(void);
+void ProgramBootFlag(BYTE flag);
+void RunUserCode(void);
+void Delay(unsigned int nDelay);
+void EraseSector(DWORD dwSectorAddr);
+#endif /* CAN_MESSAGE_H_ */

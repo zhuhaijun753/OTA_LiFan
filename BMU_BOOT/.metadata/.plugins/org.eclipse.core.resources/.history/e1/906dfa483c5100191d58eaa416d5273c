@@ -1,0 +1,298 @@
+/*
+ * Operating_System.c
+ *
+ *  Created on: 2018-7-18
+ *      Author: HSNE_WS04
+ */
+
+
+#include "MAIN.h"
+
+unsigned char task_5ms = 0;
+unsigned char task_10ms = 0;
+unsigned char task_20ms = 0;
+unsigned char task_50ms = 0;
+unsigned char task_100ms = 0;
+unsigned char task_500ms = 0;
+
+uint8 Recv_HandShake[8];
+uint8 Boot_App_Flag = 0;
+uint32 Recv_ID;
+uint32 Update_Count = 0;
+
+uword OScounter = 0;
+uint8 HandShake[8] = {0x8F, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00};
+
+void os_init(void) {
+
+	OScounter = 0;
+
+	Fls_Init();									/*FLS初始化*/
+	CAN_Init();									/*CAN模块初始化*/
+	crc32_init();
+
+	UdsFunc_Init();								/*uds初始化*/
+
+}
+void os_schedule(void) {
+
+	if (0 == OScounter % 5) {
+		task_5ms = 1;
+	}
+	if (1 == OScounter % 10) {
+		task_10ms = 1;
+	}
+	if (2 == OScounter % 20) {
+		task_20ms = 1;
+	}
+	if (3 == OScounter % 50) {
+		task_50ms = 1;
+	}
+	if (4 == OScounter % 100) {
+		task_100ms = 1;
+	}
+	if (7 == OScounter % 500) {
+		task_500ms = 1;
+	}
+	if (50000 == OScounter) {   //50s a cycle
+		OScounter = 0;
+	}
+	OScounter++;
+	os_task_1ms();
+}
+
+void os_operate(void) {
+	if (task_5ms) {
+		task_5ms = 0;
+
+		os_task_5ms();
+	}
+
+	if (task_10ms) {
+		task_10ms = 0;
+
+		os_task_10ms();
+	}
+
+	if (task_20ms) {
+		task_20ms = 0;
+
+		os_task_20ms();
+	}
+
+	if (task_50ms) {
+		task_50ms = 0;
+
+		os_task_50ms();
+	}
+
+	if (task_100ms) {
+		task_100ms = 0;
+
+		os_task_100ms();
+	}
+
+	if (task_500ms) {
+		task_500ms = 0;
+
+		os_task_500ms();
+	}
+}
+
+void os_task_1ms(void){
+//	UdsFunc_Receiver_Task();
+	Fls_MainFunction();
+
+}
+void os_task_5ms(void) {
+	Recv_ID = 0xBBU;
+
+	if(CAN_Read(124, &Recv_ID, Recv_HandShake) == TRUE)		/*接收上位机指令*/
+	{
+		ubgCommand = Recv_HandShake[0];
+		ubgCommand1 = Recv_HandShake[5];
+		ubgCommand2 = Recv_HandShake[6];
+		ubgCommand3 = Recv_HandShake[7];
+
+		if(Boot_App_Flag == 0)
+		{
+			if((ubgCommand == 0xAA) && (ubgCommand1 == 0xFF) && (ubgCommand2 == 0xBB) && (ubgCommand3 == 0xAA))
+			{
+				Boot_App_Flag = 1;
+			}
+		}
+
+	}
+
+}
+void os_task_10ms(void) {
+	BSW_SystemService_EcuM_HardReset();
+//	UdsFunc_Receiver_Task();
+
+//	if(CAN_Read(124, &Recv_ID, Recv_HandShake) == TRUE)		/*接收上位机指令*/
+//	{
+//		ubgCommand = Recv_HandShake[0];
+//		ubgCommand1 = Recv_HandShake[5];
+//		ubgCommand2 = Recv_HandShake[6];
+//		ubgCommand3 = Recv_HandShake[7];
+//
+//		process_command();
+//	}
+
+	if(Boot_App_Flag == 1)			/*判断是否有上位机不跳转指令*/
+	{
+		Boot_App_Flag = 2;
+		Fls_Erase(0xA0010000);
+	}
+	else if(Boot_App_Flag == 0)
+	{
+		if(Boot_Flag[0] == 0xfe)
+		{
+			RunUserCode();
+		}
+		Boot_App_Flag = 2;
+	}
+	if(Handflag == 2)
+	{
+		Handflag = 0;
+	}
+
+	process_command();
+}
+
+void os_task_20ms(void) {
+
+}
+void os_task_50ms(void) {
+
+}
+void os_task_100ms(void) {
+	if(Update_Count == 100)
+		st_Uds_SID_RC_Info.b_UpdateFlag = FALSE;
+	else
+		Update_Count++;
+}
+void os_task_500ms(void) {
+	if(Handflag == 0)
+		CAN_Write(125, HandShake);
+}
+
+/*
+Function:		void BSW_SystemService_EcuM_HardReset(void)
+Description: 	此函数用于进行UDS的硬件复位
+Input: 			None
+Output:       	None
+Return:        	Void
+Time:
+Others:
+Physical Test：
+*/
+uint8 ui8_UpdateBackupFlag = 0;
+uint32 ui32_CodeAddressStar = 0;
+void BSW_SystemService_EcuM_HardReset(void)
+{
+
+	if(st_Uds_SID_ER_Info.b_HardResetFlag == TRUE)	//是否复位标志成立，并且诊断仪在线？
+	{
+		if((CAN_MOs_Transmit_Status(ui8_Uds_Cmd_Tx_MO) == E_OK) || (st_Uds_Response.b_SuppressPosRspBit == TRUE))	//MO已发送完成？
+		{
+			MAIN_vResetENDINIT();
+			SCU_RSTCON = 0x000001A2U;
+			SCU_SWRSTCON &= 0xFFFF00FF;
+			SCU_SWRSTCON |= 0x0000C000;
+			SCU_SWRSTCON_SWBOOT = 1;
+			SCU_SWRSTCON_SWRSTREQ = 1;
+			MAIN_vSetENDINIT();
+		}
+	}
+
+	if(((st_Uds_SID_RC_Info.b_BackUpFlag == TRUE) && (ui32_KeepBSLState_Flag == SYS_KEEP_BSL_STATE)) || (ui32_KeepBSLState_Flag == SYS_BSL_RESET))			//备份成功以及是从应用层跳转而来
+	{
+		if((st_Uds_SID_RC_Info.b_UpdateFlag == FALSE) || (ui32_KeepBSLState_Flag == SYS_BSL_RESET))	//如果升级失败，进行回刷服务
+		{
+			if((Fls_GetStatus() == FLS_TASK_IDLE_STATE) && (ui8_UpdateBackupFlag == 0))
+			{
+				if(ui32_KeepBSLState_Flag == SYS_BSL_RESET)
+				{
+					Fls_Erase(0xA0010000);
+				}
+				ui32_CodeAddressStar = 0xA0020000;
+				ui8_UpdateBackupFlag = 1;
+			}
+			else if((Fls_GetStatus() == FLS_TASK_IDLE_STATE) && (ui8_UpdateBackupFlag == 1))
+			{
+				switch(ui32_CodeAddressStar)
+				{
+				case 0xA0020000:
+					Fls_Erase(ui32_CodeAddressStar);
+					ui32_CodeAddressStar = 0xA0040000;
+					ui8_UpdateBackupFlag = 1;
+					break;
+				case 0xA0040000:
+					Fls_Erase(ui32_CodeAddressStar);
+					ui32_CodeAddressStar = 0xA00C0000;
+					ui8_UpdateBackupFlag = 1;
+					break;
+				case 0xA00C0000:
+					Fls_Erase(ui32_CodeAddressStar);
+					ui32_CodeAddressStar = 0xA01C0000;
+					ui8_UpdateBackupFlag = 2;
+					break;
+				}
+			}
+			else if((Fls_GetStatus() == FLS_TASK_IDLE_STATE) && (ui8_UpdateBackupFlag == 2))
+			{
+				memset(Boot_Flash, 0U, 256U);
+				Fls_Read(ui32_CodeAddressStar, &Boot_Flash[0], 256U);
+				if(ui32_CodeAddressStar >= 0xA0240000)
+				{
+					Fls_Write(ui32_CodeAddressStar - 0x180000, &Boot_Flash[0], 256U);
+				}
+				else if(ui32_CodeAddressStar >= 0xA01C0000)
+				{
+					Fls_Write(ui32_CodeAddressStar - 0x1A0000, &Boot_Flash[0], 256U);
+				}
+				ui8_UpdateBackupFlag = 3;
+			}
+			else if((Fls_GetStatus() == FLS_TASK_IDLE_STATE) && (ui8_UpdateBackupFlag == 3))		/*备份完成，进入下一页备份*/
+			{
+				if(ui32_CodeAddressStar == 0xA023FF00)								/*第一块恢复完成*/
+				{
+					ui32_CodeAddressStar = 0xA0240000;
+					ui8_UpdateBackupFlag = 2;
+				}
+				else if(ui32_CodeAddressStar == 0xA027FF00)							/*第二块恢复完成*/
+				{
+					memset(Boot_Flash, 0U, 256U);
+					Boot_Flash[0] = 0xFE;
+					Fls_Write(0xA0010000, &Boot_Flash[0], 256U);
+					ui8_UpdateBackupFlag = 4;
+				}
+				else
+				{
+					ui32_CodeAddressStar = ui32_CodeAddressStar + 256;
+					ui8_UpdateBackupFlag = 2;
+				}
+
+
+			}
+			else if((Fls_GetStatus() == FLS_TASK_IDLE_STATE) && (ui8_UpdateBackupFlag == 4))	/*回刷完成，重启操作*/
+			{
+				st_Uds_SID_ER_Info.b_HardResetFlag = TRUE;
+				ui32_KeepBSLState_Flag = SYS_POWER_ON_RESET;
+				ui8_UpdateBackupFlag = 0;
+				st_Uds_SID_RC_Info.b_UpdateFlag = TRUE;
+			}
+		}
+	}
+}
+
+
+void RunUserCode(void)
+{
+    __asm("movh.a a15,#0xA002\n"			//load flash
+    	"\tlea a15,[a15]0x0000\n"			//base address
+    	"\tji a15");						//au revoir!
+
+}
+

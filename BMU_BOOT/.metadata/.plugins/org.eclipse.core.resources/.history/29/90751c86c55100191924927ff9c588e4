@@ -1,0 +1,186 @@
+/*----------------------------------------------------------------------------------------------------*/
+/*
+File Name：  	Uds_Tp_Drv.h
+Author：        	任智强
+Company:	G-Pulse
+Version：      	V1.00.0000
+Comment：  	TP驱动
+History：   	V1.00.0000      	20141127                            初始版本
+
+*/
+
+
+/***************************************************************************************/
+/*TP N_PDU类型定义*/
+#define	TP_N_PDU_TYPE_SF		0x00U		/*单帧*/
+#define	TP_N_PDU_TYPE_FF		0x10U		/*首帧*/
+#define	TP_N_PDU_TYPE_CF		0x20U		/*连续帧*/
+#define	TP_N_PDU_TYPE_FC		0x30U		/*流控帧*/
+
+/***************************************************************************************/
+/*TP 流控帧状态定义*/
+#define	TP_FC_FS_CTS			0U
+#define	TP_FC_FS_WT				1U
+#define	TP_FC_FS_OVFLW			2U
+
+/***************************************************************************************/
+/*TP N_Result定义*/
+#define	TP_N_PENDING			0U			/*等待结果*/
+#define	TP_N_OK					1U
+#define	TP_N_TIMEOUT_A			2U
+#define	TP_N_TIMEOUT_Bs			3U
+#define	TP_N_TIMEOUT_Cr			4U
+#define	TP_N_WRONG_SN			5U
+#define	TP_N_INVALID_FS			6U
+#define	TP_N_UNEXP_PDU			7U
+#define	TP_N_WFT_OVRN			8U
+#define	TP_N_BUFFER_OVFLW		9U
+#define	TP_N_ERROR				10U
+
+#if(TP_DUPLEX_MODE == TP_HALF_DUPLEX)		/*半双工模式*/
+	#define	TP_TASK_RX_STATE		0U		/*TP任务处于接收状态*/
+	#define	TP_TASK_TX_STATE		1U		/*TP任务处于发送状态*/
+#endif
+
+/***************************************************************************************/
+/*TP任务状态定义*/
+#define	TP_TASK_SF_STATE		0U			/*处理单帧状态*/
+#define	TP_TASK_FF_STATE		1U			/*处理首帧状态*/
+#define	TP_TASK_CF_STATE		2U			/*处理连续帧状态*/
+#define	TP_TASK_FC_STATE		3U			/*处理流控帧状态*/
+
+typedef	struct
+{
+	uint8	ui8_Task_FSM;					/*任务状态机*/
+	boolean	b_Frame_Tx_NewData_Valid;		/*发送新的帧有效标志*/
+	uint8	ui8_Timing_N_Ar;				/*N_Ar计数器*/
+	uint8	ui8_Timing_N_Cr;				/*N_Cr计数器*/
+	uint8	ui8_CF_SN;						/*连续帧SN*/
+	uint8	ui8_BlockSize_Count;			/*Block Size计数器*/
+	uint8	ui8_Frame_Tx_Buf[TP_FRAME_DL];	/*帧发送Buf*/
+	uint16	ui16_N_USData_Ind_Index;		/*Ind数据索引*/
+}Struct_Tp_Receiver;						/*TP Receiver结构体*/
+
+typedef	struct
+{
+	uint8	ui8_Task_FSM;					/*任务状态机*/
+	boolean	b_Frame_Tx_NewData_Valid;		/*发送新的帧有效标志*/
+	uint8	ui8_Timing_N_As;				/*N_As计数器*/
+	uint8	ui8_Timing_N_Bs;				/*N_As计数器*/
+	uint8	ui8_CF_SN;						/*连续帧SN*/
+	uint8	ui8_BlockSize_Count;			/*Block Size计数器*/
+	uint8	ui8_STmin_Count;				/*STmin计数器*/
+	uint8	ui8_Block_Size;					/*Block Size*/
+	uint8	ui8_STmin;						/*STmin*/
+	uint8	ui8_Frame_Tx_Buf[TP_FRAME_DL];	/*帧发送Buf*/
+	uint16	ui16_N_USData_Req_Index;		/*Req数据索引*/
+}Struct_Tp_Sender;							/*TP Sender结构体*/
+
+typedef	struct
+{
+	uint8	ui8_Mtype;				/*消息类型*/
+	uint8	ui8_N_SA;				/*网络源地址*/
+	uint8	ui8_N_TA;				/*网络目标地址*/
+	uint8	ui8_N_TAtype;			/*网络目标地址类型*/
+	uint8	ui8_N_AE;				/*网络扩展地址*/
+	uint8	*ui8_pMsgData;			/*消息指针*/
+	uint16	ui16_Length;			/*消息长度*/
+}Struct_N_USData_Request;			/*数据请求服务结构体*/
+
+typedef	struct
+{
+	uint8	ui8_Mtype;				/*消息类型*/
+	uint8	ui8_N_SA;				/*网络源地址*/
+	uint8	ui8_N_TA;				/*网络目标地址*/
+	uint8	ui8_N_TAtype;			/*网络目标地址类型*/
+	uint8	ui8_N_AE;				/*网络扩展地址*/
+	uint16	ui16_Length;			/*消息长度*/
+}Struct_N_USData_FF_Indication;		/*数据首帧表示服务结构体*/
+
+typedef	struct
+{
+	uint8	ui8_Mtype;				/*消息类型*/
+	uint8	ui8_N_SA;				/*网络源地址*/
+	uint8	ui8_N_TA;				/*网络目标地址*/
+	uint8	ui8_N_TAtype;			/*网络目标地址类型*/
+	uint8	ui8_N_AE;				/*网络扩展地址*/
+	uint8	*ui8_pMsgData;			/*消息指针*/
+	uint16	ui16_Length;			/*消息长度*/
+	uint8	ui8_N_Result;			/*网络结果*/
+}Struct_N_USData_Indication;		/*数据表示服务结构体*/
+
+typedef	struct
+{
+	uint8	ui8_Mtype;				/*消息类型*/
+	uint8	ui8_N_SA;				/*网络源地址*/
+	uint8	ui8_N_TA;				/*网络目标地址*/
+	uint8	ui8_N_TAtype;			/*网络目标地址类型*/
+	uint8	ui8_N_AE;				/*网络扩展地址*/
+	uint8	ui8_N_Result;			/*网络结果*/
+}Struct_N_USData_Confirm;			/*数据请求确认服务结构体*/
+
+typedef	struct
+{
+	uint8	ui8_Mtype;				/*消息类型*/
+	uint8	ui8_N_SA;				/*网络源地址*/
+	uint8	ui8_N_TA;				/*网络目标地址*/
+	uint8	ui8_N_TAtype;			/*网络目标地址类型*/
+	uint8	ui8_N_AE;				/*网络扩展地址*/
+	uint8	ui8_Parameter;			/*参数*/
+	uint8	ui8_Parameter_Value;	/*参数值*/
+}Struct_N_ChangeParameter_Request;	/*参数设置请求服务结构体*/
+
+typedef	struct
+{
+	uint8	ui8_Mtype;					/*消息类型*/
+	uint8	ui8_N_SA;					/*网络源地址*/
+	uint8	ui8_N_TA;					/*网络目标地址*/
+	uint8	ui8_N_TAtype;				/*网络目标地址类型*/
+	uint8	ui8_N_AE;					/*网络扩展地址*/
+	uint8	ui8_Parameter;				/*参数*/
+	uint8	ui8_Result_ChangeParameter;	/*结果变化参数*/
+}Struct_N_ChangeParameter_Confirm;		/*参数设置请求确认服务结构体*/
+
+extern	Struct_N_USData_Request				st_N_USData_Request;			/*数据请求服务结构体*/
+extern	Struct_N_USData_Indication			st_N_USData_Indication;			/*数据表示服务结构体*/
+
+/*************************************************************************/
+/*
+Function:		void TpFunc_Init(void)
+
+Description: 	此函数用于初始化Tp协议
+
+Parameters: 	void
+
+Return:       	void
+
+Return Values:  无
+
+Remarks:
+
+Example:
+*/
+extern	void TpFunc_Init(void);
+
+/*************************************************************************/
+/*
+Function:		void TpFunc_Task(void)
+
+Description: 	此函数用于周期运行TP任务
+
+Parameters: 	void
+
+Return:       	void
+
+Return Values:  无
+
+Remarks:
+
+Example:
+*/
+extern	void TpFunc_Task(void);
+
+extern void Read_EvBus(void);
+extern void Read_EvBus_Fun(void);
+
+

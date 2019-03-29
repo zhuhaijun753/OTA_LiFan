@@ -1,0 +1,186 @@
+/*----------------------------------------------------------------------------------------------------*/
+/*
+File Name：  	CanDrv_TC1782_User.h
+Author：        	任智强
+Version：      	V1.00.0005
+Comment：  	CAN驱动
+History：
+			V1.00.0000		20140509	初始版本
+			v1.00.0001		20140618	增加BusOff快速，慢速恢复功能
+			V1.00.0002		20140621	修改接口函数注释
+			V1.00.0003		20140624	调整BusOff恢复时间
+			V1.00.0004		20140713	增加CAN接收发送中断配置，增加通过ID号读取数据函数
+			V1.00.0005		20150427	修改CAN TSEG1,	TSEG2,	SJW参数配置
+
+*/
+//#include  "VCU_user.h"
+
+#define	MAX_NODE_NUM						3U		//最大CAN Node个数
+#define	MAX_OBJECT_NUM						128U	//最大CAN Object个数
+#define	MAX_CAN_RX_BY_ID_NUM				(120U)	//中断基于CAN ID接收个数
+#define	MAX_CAN_RX_CellVolt_NUM				(6*5)		//cell volt ID接收个数
+#define	MAX_CAN_RX_MaxMinCellVolt_NUM		(2*5)		//Max Min cell volt ID接收个数
+#define	MAX_CAN_RX_Temp_Module_NUM			(3*5)		//Temp module volt ID接收个数
+#define	MAX_CAN_RX_CellFault_NUM			5U		//CellFault ID接收个数
+
+#define	BUS_OFF_DEALY_FAST		5U		//快速Bus Off恢复，5*10ms=50ms
+#define	BUS_OFF_DEALY_SLOW		100U	//慢速Bus Off恢复，100*10ms=1000ms
+#define	BUS_OFF_SLOW_THRESHOLD	10U		//Bus Off切换慢速恢复阀值
+
+//===========================================================
+
+
+
+
+//===========================================================
+typedef	struct
+{
+	boolean	b_Enable;			//FALSE:禁止，TRUE：使能
+	uint32	ui32_CAN_Clock;		//CAN模块时钟
+	uint32	ui32_BaudRate;		//波特率
+	uint8	ui8_TSEG1;			//TSEG1
+	uint8	ui8_TSEG2;			//TSEG2
+	uint8	ui8_SJW;			//SJW
+	uint32	ui32_BOFF_Dealy;	//BUSOFF清除延时	单位10ms
+}Struct_CAN_Node;				//Node结构体
+extern Struct_CAN_Node		st_CAN_Node[MAX_NODE_NUM];
+
+typedef struct
+{
+	boolean	b_Enable;		//FALSE:禁止，TRUE：使能
+	uint8	ui8_Node;		//从属节点号
+	boolean	b_Dir;			//CAN_RX_DIR：接收，CAN_TX_DIR：发送
+	boolean	b_RxIRQ;		//接收中断 FALSE:禁止，TRUE：使能
+	boolean	b_TxIRQ;		//发送中断 FALSE:禁止，TRUE：使能
+	uint8	ui8_DLC;		//数据长度
+	boolean	b_IDE;			//CAN_STD_ID：11位ID，CAN_EXT_ID：29位ID
+	uint32	ui32_ID;		//CAN ID号
+	uint32	ui32_Mask;		//CAN ID Mask
+	uint8	ui8_CallCycle;	//收发周期，单位10ms
+}Struct_CAN_Object;			//MO结构体
+extern const	Struct_CAN_Object	st_CAN_Object[MAX_OBJECT_NUM];
+
+typedef struct
+{
+	boolean	b_Enable;		//FALSE:禁止，TRUE：使能
+	uint32	ui32_ID;		//CAN ID号
+	boolean	b_Empty;		//TRUE:	Buffer为空		FALSE: Buffer不为空
+	uint8	ui8_Data[8U];	//ID接收Buffer
+}Struct_CAN_Rx_By_ID;		//CAN ID接收结构体
+extern	Struct_CAN_Rx_By_ID	st_CAN_Rx_By_ID[MAX_CAN_RX_BY_ID_NUM];
+
+//CCP
+#define	MO_6E0    0U
+#define	MO_6F0    1U
+
+//UDS
+#define	MO_1DFFFFFF    4U	//0x1FFFFFFF
+#define	MO_1EFF000A    5U
+#define	MO_1EFE000A    6U
+
+//wxc20180608
+//#define	MO_7E1    7U
+//#define	MO_7E9    8U
+#define	MO_713    121U
+#define	MO_71B    122U
+#define	MO_7DF    123U
+
+//EV_bus
+#define	MO_10E			10U
+#define	MO_281			11U
+#define	MO_388			12U
+#define	MO_2BB			13U
+#define	MO_2BC			14U
+#define	MO_2CA			15U
+#define	MO_434			16U
+#define	MO_88			17U
+#define	MO_90			18U
+
+///VIN
+/*
+#define	MO_410			19U
+#define	MO_411			20U
+#define	MO_412			21U
+ */
+#define	MO_2F0			19U
+#define	MO_93			20U
+
+#define	MO_2B0			23U
+#define	MO_2B1			24U
+#define	MO_2B2			25U
+#define	MO_2B3			26U
+#define	MO_2B4			27U
+#define	MO_2B5			28U
+#define	MO_2B6			29U
+#define	MO_2B7			30U
+#define	MO_2B8			31U
+#define	MO_2B9			32U
+#define	MO_2C4			33U
+#define	MO_2C2			34U
+#define	MO_2C3			35U
+#define	MO_304			36U
+#define	MO_416			37U
+#define	MO_417			38U
+#define	MO_418			39U
+#define	MO_419			40U
+#define	MO_420			41U
+#define	MO_421			42U
+#define	MO_422			43U
+#define	MO_423			44U
+#define	MO_424			45U
+#define	MO_425			46U
+#define	MO_426			47U
+#define	MO_427			48U
+#define	MO_428			49U
+#define	MO_429			50U
+#define	MO_430			51U
+#define	MO_431			52U
+#define	MO_432			53U
+#define	MO_433			54U
+#define	MO_413			55U
+#define	MO_415			56U
+#define	MO_82			57U
+
+//UDS
+#define	MO_1E1    97U
+#define	MO_1E9    98U
+#define	MO_1DF    99U
+#define MO_BBusToEVBus    74U
+//IB_bus
+#define	MO_18E00000  80U	//0x1FF8FFFF
+#define	MO_18E00001  81U	//0x1FF8FFFF
+#define	MO_18E00002  82U	//0x1FF8FFFF
+#define	MO_18E00003  83U	//0x1FF8FFFF
+#define	MO_18E00004  84U	//0x1FF8FFFF
+#define	MO_18E00005  85U	//0x1FF8FFFF
+#define	MO_18E00006  86U	//0x1FF8FFFF
+#define	MO_18E00007  87U	//0x1FF8FFFF
+#define	MO_18E00008  88U	//0x1FF8FFFF
+#define	MO_18E00009  89U	//0x1FF8FFFF
+#define	MO_18E0000A  90U	//0x1FF8FFFF
+#define	MO_18E0000B  91U	//0x1FF8FFFF
+
+#define	MO_10200001  96U	//0x1FFFFFFF
+
+//FCH_bus
+#define		MO_1CEC56F4		108U	//0x1FFFFFFF
+#define		MO_1CEB56F4		109U	//0x1FFFFFFF
+#define		MO_100956F4		110U	//0x1FFFFFFF
+#define		MO_1CEC56FF		111U	//0x1FFFFFFF
+#define		MO_181056F4		112U	//0x1FFFFFFF
+#define		MO_181356F4		113U	//0x1FFFFFFF
+#define		MO_101956F4		114U	//0x1FFFFFFF
+#define		MO_181C56F4		115U	//0x1FFFFFFF
+#define		MO_081E56F4		116U	//0x1FFFFFFF
+#define		MO_182756F4		117U	//0x1FFFFFFF
+
+#define		MO_1801F456		118U	//0x1FFFFFFF
+#define		MO_1807F456		119U	//0x1FFFFFFF
+#define		MO_1808F456		120U	//0x1FFFFFFF
+#define		MO_100AF456		121U	//0x1FFFFFFF
+#define		MO_1812F456		122U	//0x1FFFFFFF
+#define		MO_101AF456		123U	//0x1FFFFFFF
+#define		MO_181DF456		124U	//0x1FFFFFFF
+#define		MO_081FF456		125U	//0x1FFFFFFF
+#define		MO_1CECF456		126U	//0x1FFFFFFF
+#define		MO_1826F456		127U	//0x1FFFFFFF

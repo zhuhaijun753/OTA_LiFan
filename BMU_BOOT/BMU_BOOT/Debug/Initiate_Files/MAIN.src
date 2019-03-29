@@ -1,6 +1,6 @@
 	; Module start
 	.compiler_version	"TASKING VX-toolset for TriCore: C compiler v4.3r1 Build 759 SN 00641831"
-	.compiler_invocation	"ctc -f cc11768a -c99 --dep-file=Initiate_Files\\.MAIN.o.d -D__CPU__=tc1782 -D__CPU_TC1782__ --core=tc1.3.1 -F -ID:\\work\\Microvast\\OTA\\LiFan\\BMU_BOOT\\BMU_BOOT -ID:\\work\\Microvast\\OTA\\LiFan\\BMU_BOOT\\BMU_BOOT\\Communication_Files\\CanDrv -ID:\\work\\Microvast\\OTA\\LiFan\\BMU_BOOT\\BMU_BOOT\\Communication_Files\\Com -ID:\\work\\Microvast\\OTA\\LiFan\\BMU_BOOT\\BMU_BOOT\\Communication_Files\\Com\\Can_Input -ID:\\work\\Microvast\\OTA\\LiFan\\BMU_BOOT\\BMU_BOOT\\Communication_Files\\Com\\Can_Output -ID:\\work\\Microvast\\OTA\\LiFan\\BMU_BOOT\\BMU_BOOT\\Communication_Files\\Uds\\Dcm -ID:\\work\\Microvast\\OTA\\LiFan\\BMU_BOOT\\BMU_BOOT\\Communication_Files\\Uds\\Dem -ID:\\work\\Microvast\\OTA\\LiFan\\BMU_BOOT\\BMU_BOOT\\Communication_Files\\Uds\\Tp -ID:\\work\\Microvast\\OTA\\LiFan\\BMU_BOOT\\BMU_BOOT\\Communication_Files\\Uds\\User -ID:\\work\\Microvast\\OTA\\LiFan\\BMU_BOOT\\BMU_BOOT\\Complex_Files -ID:\\work\\Microvast\\OTA\\LiFan\\BMU_BOOT\\BMU_BOOT\\Initiate_Files -ID:\\work\\Microvast\\OTA\\LiFan\\BMU_BOOT\\BMU_BOOT\\Nvm_Files\\FlsDrv -ID:\\work\\Microvast\\OTA\\LiFan\\BMU_BOOT\\BMU_BOOT\\Stand_Header -g2 --make-target=Initiate_Files\\MAIN.o -t4 --language=-gcc,-volatile,+strings --default-near-size=0 -O2 --default-a1-size=0 --default-a0-size=0 --source --align=0 --compact-max-size=200 --switch=auto -o Initiate_Files\\MAIN.src ..\\Initiate_Files\\MAIN.c"
+	.compiler_invocation	"ctc -f cc4252a -c99 --dep-file=Initiate_Files\\.MAIN.o.d -D__CPU__=tc1782 -D__CPU_TC1782__ --core=tc1.3.1 -F -ID:\\work\\Microvast\\OTA\\LiFan\\BMU_BOOT\\BMU_BOOT -ID:\\work\\Microvast\\OTA\\LiFan\\BMU_BOOT\\BMU_BOOT\\Communication_Files\\CanDrv -ID:\\work\\Microvast\\OTA\\LiFan\\BMU_BOOT\\BMU_BOOT\\Communication_Files\\Com -ID:\\work\\Microvast\\OTA\\LiFan\\BMU_BOOT\\BMU_BOOT\\Communication_Files\\Com\\Can_Input -ID:\\work\\Microvast\\OTA\\LiFan\\BMU_BOOT\\BMU_BOOT\\Communication_Files\\Com\\Can_Output -ID:\\work\\Microvast\\OTA\\LiFan\\BMU_BOOT\\BMU_BOOT\\Communication_Files\\Uds\\Dcm -ID:\\work\\Microvast\\OTA\\LiFan\\BMU_BOOT\\BMU_BOOT\\Communication_Files\\Uds\\Dem -ID:\\work\\Microvast\\OTA\\LiFan\\BMU_BOOT\\BMU_BOOT\\Communication_Files\\Uds\\Tp -ID:\\work\\Microvast\\OTA\\LiFan\\BMU_BOOT\\BMU_BOOT\\Communication_Files\\Uds\\User -ID:\\work\\Microvast\\OTA\\LiFan\\BMU_BOOT\\BMU_BOOT\\Complex_Files -ID:\\work\\Microvast\\OTA\\LiFan\\BMU_BOOT\\BMU_BOOT\\Initiate_Files -ID:\\work\\Microvast\\OTA\\LiFan\\BMU_BOOT\\BMU_BOOT\\Nvm_Files\\FlsDrv -ID:\\work\\Microvast\\OTA\\LiFan\\BMU_BOOT\\BMU_BOOT\\Stand_Header -g2 --make-target=Initiate_Files\\MAIN.o -t4 --language=-gcc,-volatile,+strings --default-near-size=0 -O2 --default-a1-size=0 --default-a0-size=0 --source --align=0 --compact-max-size=200 --switch=auto -o Initiate_Files\\MAIN.src ..\\Initiate_Files\\MAIN.c"
 	.compiler_name		"ctc"
 	.name	"MAIN"
 
@@ -1152,13 +1152,17 @@ main:	.type	func
 .L55:
 
 ; ..\Initiate_Files\MAIN.c	   557    		  {
-; ..\Initiate_Files\MAIN.c	   558   			  os_operate();
-	call	os_operate
+; ..\Initiate_Files\MAIN.c	   558    			UdsFunc_Receiver_Task();
+	call	UdsFunc_Receiver_Task
 .L290:
 
-; ..\Initiate_Files\MAIN.c	   559    			  __nop();
-	nop
+; ..\Initiate_Files\MAIN.c	   559   			  os_operate();
+	call	os_operate
 .L291:
+
+; ..\Initiate_Files\MAIN.c	   560    			  __nop();
+	nop
+.L292:
 	j	.L55
 .L121:
 	
@@ -1220,6 +1224,7 @@ Test11:	.type	object
 	.calls	'MAIN_vInit','os_init'
 	.calls	'main','Fls_Read'
 	.calls	'main','MAIN_vInit'
+	.calls	'main','UdsFunc_Receiver_Task'
 	.calls	'main','os_operate'
 	.calls	'MAIN_vInit','',0
 	.calls	'MAIN_vWriteWDTCON0','',0
@@ -1232,11 +1237,12 @@ Test11:	.type	object
 	.extern	Fls_Read
 	.extern	st_Uds_SID_DSC_Info
 	.extern	st_Uds_Dcm_Info
+	.extern	UdsFunc_Receiver_Task
 	.calls	'main','',0
 	.sdecl	'.debug_info',debug
 	.sect	'.debug_info'
 .L65:
-	.word	977
+	.word	1007
 	.half	3
 	.word	.L66
 	.byte	4
@@ -1284,17 +1290,18 @@ Test11:	.type	object
 	.byte	8
 	.byte	'ui32_Len',0,5,172,1,66
 	.word	366
-	.byte	0,10
+	.byte	0,6
+	.byte	'UdsFunc_Receiver_Task',0,6,36,13,1,1,1,1,10
 	.byte	'void',0,9
-	.word	446
-	.byte	11
-	.byte	'__prof_adm',0,6,1,1
-	.word	452
-	.byte	12,1,9
 	.word	476
 	.byte	11
-	.byte	'__codeptr',0,6,1,1
-	.word	478
+	.byte	'__prof_adm',0,7,1,1
+	.word	482
+	.byte	12,1,9
+	.word	506
+	.byte	11
+	.byte	'__codeptr',0,7,1,1
+	.word	508
 .L122:
 	.byte	13
 	.word	366
@@ -1305,67 +1312,67 @@ Test11:	.type	object
 	.byte	14,128,2
 	.word	238
 	.byte	15,255,1,0,11
-	.byte	'ubyte',0,7,78,24
+	.byte	'ubyte',0,8,78,24
 	.word	238
 	.byte	3
 	.byte	'unsigned short int',0,2,7,11
-	.byte	'ushort',0,7,80,24
-	.word	536
+	.byte	'ushort',0,8,80,24
+	.word	566
 	.byte	11
-	.byte	'uword',0,7,82,24
+	.byte	'uword',0,8,82,24
 	.word	222
 	.byte	11
-	.byte	'sword',0,7,83,24
+	.byte	'sword',0,8,83,24
 	.word	151
 	.byte	11
-	.byte	'uint8',0,8,87,29
+	.byte	'uint8',0,9,87,29
 	.word	238
 	.byte	11
-	.byte	'uint16',0,8,89,29
-	.word	536
+	.byte	'uint16',0,9,89,29
+	.word	566
 	.byte	3
 	.byte	'long int',0,4,5,11
-	.byte	'sint32',0,8,90,29
-	.word	630
+	.byte	'sint32',0,9,90,29
+	.word	660
 	.byte	11
-	.byte	'uint32',0,8,91,27
+	.byte	'uint32',0,9,91,27
 	.word	366
 	.byte	11
-	.byte	'boolean',0,8,102,29
+	.byte	'boolean',0,9,102,29
 	.word	238
-	.byte	16,9,10,9,4,17
+	.byte	16,10,10,9,4,17
 	.byte	'ui8_Active_Session',0,1
 	.word	238
 	.byte	2,35,0,17
 	.byte	'ui16_Write_EEROM_Delay',0,2
-	.word	536
+	.word	566
 	.byte	2,35,2,0,11
-	.byte	'Struct_Uds_SID_DSC_Info',0,9,14,2
-	.word	688
+	.byte	'Struct_Uds_SID_DSC_Info',0,10,14,2
+	.word	718
 	.byte	18
-	.byte	'st_Uds_SID_DSC_Info',0,9,15,32
-	.word	688
-	.byte	1,1,16,10,75,9,6,17
+	.byte	'st_Uds_SID_DSC_Info',0,10,15,32
+	.word	718
+	.byte	1,1,16,11,75,9,6,17
 	.byte	'b_Service_Enable',0,1
 	.word	238
 	.byte	2,35,0,17
 	.byte	'ui16_S3_Timer',0,2
-	.word	536
+	.word	566
 	.byte	2,35,2,17
 	.byte	'ui8_Cur_Task',0,1
 	.word	238
 	.byte	2,35,4,0,11
-	.byte	'Struct_Uds_Dcm_Info',0,10,80,2
-	.word	816
+	.byte	'Struct_Uds_Dcm_Info',0,11,80,2
+	.word	846
 	.byte	18
-	.byte	'st_Uds_Dcm_Info',0,10,124,29
-	.word	816
+	.byte	'st_Uds_Dcm_Info',0,11,124,29
+	.word	846
 	.byte	1,1,14,4
 	.word	238
 	.byte	15,3,0
 .L125:
 	.byte	13
-	.word	947
+	.word	977
 .L126:
 	.byte	13
 	.word	366
@@ -1396,18 +1403,19 @@ Test11:	.type	object
 	.byte	2,1,-4,9,10,0,1,1,1,1,0,0,0,1
 	.byte	'D:\\work\\Microvast\\OTA\\LiFan\\BMU_BOOT\\BMU_BOOT\\Complex_Files',0
 	.byte	'D:\\work\\Microvast\\OTA\\LiFan\\BMU_BOOT\\BMU_BOOT\\Nvm_Files\\FlsDrv',0
-	.byte	'D:\\work\\Microvast\\OTA\\LiFan\\BMU_BOOT\\BMU_BOOT\\Stand_Header',0
 	.byte	'D:\\work\\Microvast\\OTA\\LiFan\\BMU_BOOT\\BMU_BOOT\\Communication_Files\\Uds\\User',0
+	.byte	'D:\\work\\Microvast\\OTA\\LiFan\\BMU_BOOT\\BMU_BOOT\\Stand_Header',0
 	.byte	'D:\\work\\Microvast\\OTA\\LiFan\\BMU_BOOT\\BMU_BOOT\\Communication_Files\\Uds\\Dcm',0,0
 	.byte	'..\\Initiate_Files\\IO.h',0,0,0,0
 	.byte	'..\\Initiate_Files\\SCU.h',0,0,0,0
 	.byte	'..\\Initiate_Files\\STM.h',0,0,0,0
 	.byte	'Operating_System.h',0,1,0,0
 	.byte	'Flash_TC1782_Driver.h',0,2,0,0
+	.byte	'Uds_User_CallOut.h',0,3,0,0
 	.byte	'..\\Initiate_Files\\MAIN.c',0,0,0,0
 	.byte	'..\\Initiate_Files\\MAIN.h',0,0,0,0
-	.byte	'Platform_Types.h',0,3,0,0
-	.byte	'Uds_User_DiagnosticSessionControlCallback.h',0,4,0,0
+	.byte	'Platform_Types.h',0,4,0,0
+	.byte	'Uds_User_DiagnosticSessionControlCallback.h',0,3,0,0
 	.byte	'Uds_Dcm_Drv.h',0,5,0,0,0
 .L150:
 .L148:
@@ -1963,15 +1971,17 @@ Test11:	.type	object
 	.half	.L288-.L287
 	.byte	3,1,1,5,37,9
 	.half	.L289-.L288
-	.byte	1,5,35,1,5,17,9
+	.byte	1,5,35,1,5,27,9
 	.half	.L55-.L289
-	.byte	3,6,1,5,13,9
+	.byte	3,6,1,5,17,9
 	.half	.L290-.L55
-	.byte	3,1,1,5,14,9
+	.byte	3,1,1,5,13,9
 	.half	.L291-.L290
-	.byte	3,125,1,5,1,9
-	.half	.L87-.L291
-	.byte	3,9,0,1,1
+	.byte	3,1,1,5,14,9
+	.half	.L292-.L291
+	.byte	3,124,1,5,1,9
+	.half	.L87-.L292
+	.byte	3,10,0,1,1
 .L268:
 	.sdecl	'.debug_ranges',debug,cluster('main')
 	.sect	'.debug_ranges'
@@ -1989,7 +1999,7 @@ Test11:	.type	object
 	.byte	'D:\\work\\Microvast\\OTA\\LiFan\\BMU_BOOT\\BMU_BOOT\\Debug\\',0,12,1,2
 	.word	.L64
 	.byte	3
-	.byte	'ui32_KeepBSLState_Flag',0,6,34,17
+	.byte	'ui32_KeepBSLState_Flag',0,7,34,17
 	.word	.L122
 	.byte	1,5,3
 	.word	ui32_KeepBSLState_Flag
@@ -2011,7 +2021,7 @@ Test11:	.type	object
 	.byte	'D:\\work\\Microvast\\OTA\\LiFan\\BMU_BOOT\\BMU_BOOT\\Debug\\',0,12,1,2
 	.word	.L64
 	.byte	3
-	.byte	'uc_Cnt5ms',0,6,90,25
+	.byte	'uc_Cnt5ms',0,7,90,25
 	.word	.L123
 	.byte	1,5,3
 	.word	uc_Cnt5ms
@@ -2033,7 +2043,7 @@ Test11:	.type	object
 	.byte	'D:\\work\\Microvast\\OTA\\LiFan\\BMU_BOOT\\BMU_BOOT\\Debug\\',0,12,1,2
 	.word	.L64
 	.byte	3
-	.byte	'Boot_Flag',0,6,208,3,7
+	.byte	'Boot_Flag',0,7,208,3,7
 	.word	.L124
 	.byte	1,5,3
 	.word	Boot_Flag
@@ -2055,7 +2065,7 @@ Test11:	.type	object
 	.byte	'D:\\work\\Microvast\\OTA\\LiFan\\BMU_BOOT\\BMU_BOOT\\Debug\\',0,12,1,2
 	.word	.L64
 	.byte	3
-	.byte	'ui8_Appl_Start_Magic_Flag',0,6,35,16
+	.byte	'ui8_Appl_Start_Magic_Flag',0,7,35,16
 	.word	.L125
 	.byte	1,5,3
 	.word	ui8_Appl_Start_Magic_Flag
@@ -2077,7 +2087,7 @@ Test11:	.type	object
 	.byte	'D:\\work\\Microvast\\OTA\\LiFan\\BMU_BOOT\\BMU_BOOT\\Debug\\',0,12,1,2
 	.word	.L64
 	.byte	3
-	.byte	'ui32_SysPowerOnOrBSLReset_Flag',0,6,36,17
+	.byte	'ui32_SysPowerOnOrBSLReset_Flag',0,7,36,17
 	.word	.L126
 	.byte	1,5,3
 	.word	ui32_SysPowerOnOrBSLReset_Flag
@@ -2099,7 +2109,7 @@ Test11:	.type	object
 	.byte	'D:\\work\\Microvast\\OTA\\LiFan\\BMU_BOOT\\BMU_BOOT\\Debug\\',0,12,1,2
 	.word	.L64
 	.byte	3
-	.byte	'DummyToForceRead',0,6,87,23
+	.byte	'DummyToForceRead',0,7,87,23
 	.word	.L127
 	.byte	1,5,3
 	.word	DummyToForceRead
@@ -2121,7 +2131,7 @@ Test11:	.type	object
 	.byte	'D:\\work\\Microvast\\OTA\\LiFan\\BMU_BOOT\\BMU_BOOT\\Debug\\',0,12,1,2
 	.word	.L64
 	.byte	3
-	.byte	'Test11',0,6,209,3,7
+	.byte	'Test11',0,7,209,3,7
 	.word	.L128
 	.byte	1,5,3
 	.word	Test11
@@ -2232,7 +2242,7 @@ Test11:	.type	object
 	.word	0,0
 	.sdecl	'.debug_frame',debug
 	.sect	'.debug_frame'
-.L292:
+.L293:
 	.word	48
 	.word	-1
 	.byte	3,0,2,1,27,12,26,0,8,26,8,27,8,30,8,29,8,28,8,16,8,17,8,24,8,25,8,31,8,32,8,33,8,34,8,35,8,36,8,37,8,38
@@ -2240,34 +2250,34 @@ Test11:	.type	object
 	.sdecl	'.debug_frame',debug,cluster('MAIN_vInit')
 	.sect	'.debug_frame'
 	.word	12
-	.word	.L292,.L57,.L119-.L57
+	.word	.L293,.L57,.L119-.L57
 	.sdecl	'.debug_frame',debug,cluster('MAIN_vWriteWDTCON0')
 	.sect	'.debug_frame'
 	.word	24
-	.word	.L292,.L59,.L102-.L59
+	.word	.L293,.L59,.L102-.L59
 	.byte	8,19,8,20,8,21,8,22,8,23,0,0
 	.sdecl	'.debug_frame',debug,cluster('MAIN_vResetCheck')
 	.sect	'.debug_frame'
 	.word	24
-	.word	.L292,.L61,.L107-.L61
+	.word	.L293,.L61,.L107-.L61
 	.byte	8,19,8,20,8,21,8,22,8,23,0,0
 	.sdecl	'.debug_frame',debug,cluster('main')
 	.sect	'.debug_frame'
 	.word	12
-	.word	.L292,.L63,.L121-.L63
+	.word	.L293,.L63,.L121-.L63
 
-; ..\Initiate_Files\MAIN.c	   560    		  }
-; ..\Initiate_Files\MAIN.c	   561           // USER CODE END
-; ..\Initiate_Files\MAIN.c	   562  
-; ..\Initiate_Files\MAIN.c	   563    return(swReturn);
-; ..\Initiate_Files\MAIN.c	   564  
-; ..\Initiate_Files\MAIN.c	   565  } //  End of function main
-; ..\Initiate_Files\MAIN.c	   566  
+; ..\Initiate_Files\MAIN.c	   561    		  }
+; ..\Initiate_Files\MAIN.c	   562           // USER CODE END
+; ..\Initiate_Files\MAIN.c	   563  
+; ..\Initiate_Files\MAIN.c	   564    return(swReturn);
+; ..\Initiate_Files\MAIN.c	   565  
+; ..\Initiate_Files\MAIN.c	   566  } //  End of function main
 ; ..\Initiate_Files\MAIN.c	   567  
 ; ..\Initiate_Files\MAIN.c	   568  
-; ..\Initiate_Files\MAIN.c	   569  // USER CODE BEGIN (MAIN_General,10)
-; ..\Initiate_Files\MAIN.c	   570  
-; ..\Initiate_Files\MAIN.c	   571  // USER CODE END
-; ..\Initiate_Files\MAIN.c	   572  
+; ..\Initiate_Files\MAIN.c	   569  
+; ..\Initiate_Files\MAIN.c	   570  // USER CODE BEGIN (MAIN_General,10)
+; ..\Initiate_Files\MAIN.c	   571  
+; ..\Initiate_Files\MAIN.c	   572  // USER CODE END
+; ..\Initiate_Files\MAIN.c	   573  
 
 	; Module end

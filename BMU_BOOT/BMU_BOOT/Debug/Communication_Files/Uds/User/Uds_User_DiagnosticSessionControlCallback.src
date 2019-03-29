@@ -1,6 +1,6 @@
 	; Module start
 	.compiler_version	"TASKING VX-toolset for TriCore: C compiler v4.3r1 Build 759 SN 00641831"
-	.compiler_invocation	"ctc -f cc12104a -c99 --dep-file=Communication_Files\\Uds\\User\\.Uds_User_DiagnosticSessionControlCallback.o.d -D__CPU__=tc1782 -D__CPU_TC1782__ --core=tc1.3.1 -F -ID:\\work\\Microvast\\OTA\\LiFan\\BMU_BOOT\\BMU_BOOT -ID:\\work\\Microvast\\OTA\\LiFan\\BMU_BOOT\\BMU_BOOT\\Communication_Files\\CanDrv -ID:\\work\\Microvast\\OTA\\LiFan\\BMU_BOOT\\BMU_BOOT\\Communication_Files\\Com -ID:\\work\\Microvast\\OTA\\LiFan\\BMU_BOOT\\BMU_BOOT\\Communication_Files\\Com\\Can_Input -ID:\\work\\Microvast\\OTA\\LiFan\\BMU_BOOT\\BMU_BOOT\\Communication_Files\\Com\\Can_Output -ID:\\work\\Microvast\\OTA\\LiFan\\BMU_BOOT\\BMU_BOOT\\Communication_Files\\Uds\\Dcm -ID:\\work\\Microvast\\OTA\\LiFan\\BMU_BOOT\\BMU_BOOT\\Communication_Files\\Uds\\Dem -ID:\\work\\Microvast\\OTA\\LiFan\\BMU_BOOT\\BMU_BOOT\\Communication_Files\\Uds\\Tp -ID:\\work\\Microvast\\OTA\\LiFan\\BMU_BOOT\\BMU_BOOT\\Communication_Files\\Uds\\User -ID:\\work\\Microvast\\OTA\\LiFan\\BMU_BOOT\\BMU_BOOT\\Complex_Files -ID:\\work\\Microvast\\OTA\\LiFan\\BMU_BOOT\\BMU_BOOT\\Initiate_Files -ID:\\work\\Microvast\\OTA\\LiFan\\BMU_BOOT\\BMU_BOOT\\Nvm_Files\\FlsDrv -ID:\\work\\Microvast\\OTA\\LiFan\\BMU_BOOT\\BMU_BOOT\\Stand_Header -g2 --make-target=Communication_Files\\Uds\\User\\Uds_User_DiagnosticSessionControlCallback.o -t4 --language=-gcc,-volatile,+strings --default-near-size=0 -O2 --default-a1-size=0 --default-a0-size=0 --source --align=0 --compact-max-size=200 --switch=auto -o Communication_Files\\Uds\\User\\Uds_User_DiagnosticSessionControlCallback.src ..\\Communication_Files\\Uds\\User\\Uds_User_DiagnosticSessionControlCallback.c"
+	.compiler_invocation	"ctc -f cc9928a -c99 --dep-file=Communication_Files\\Uds\\User\\.Uds_User_DiagnosticSessionControlCallback.o.d -D__CPU__=tc1782 -D__CPU_TC1782__ --core=tc1.3.1 -F -ID:\\work\\Microvast\\OTA\\LiFan\\BMU_BOOT\\BMU_BOOT -ID:\\work\\Microvast\\OTA\\LiFan\\BMU_BOOT\\BMU_BOOT\\Communication_Files\\CanDrv -ID:\\work\\Microvast\\OTA\\LiFan\\BMU_BOOT\\BMU_BOOT\\Communication_Files\\Com -ID:\\work\\Microvast\\OTA\\LiFan\\BMU_BOOT\\BMU_BOOT\\Communication_Files\\Com\\Can_Input -ID:\\work\\Microvast\\OTA\\LiFan\\BMU_BOOT\\BMU_BOOT\\Communication_Files\\Com\\Can_Output -ID:\\work\\Microvast\\OTA\\LiFan\\BMU_BOOT\\BMU_BOOT\\Communication_Files\\Uds\\Dcm -ID:\\work\\Microvast\\OTA\\LiFan\\BMU_BOOT\\BMU_BOOT\\Communication_Files\\Uds\\Dem -ID:\\work\\Microvast\\OTA\\LiFan\\BMU_BOOT\\BMU_BOOT\\Communication_Files\\Uds\\Tp -ID:\\work\\Microvast\\OTA\\LiFan\\BMU_BOOT\\BMU_BOOT\\Communication_Files\\Uds\\User -ID:\\work\\Microvast\\OTA\\LiFan\\BMU_BOOT\\BMU_BOOT\\Complex_Files -ID:\\work\\Microvast\\OTA\\LiFan\\BMU_BOOT\\BMU_BOOT\\Initiate_Files -ID:\\work\\Microvast\\OTA\\LiFan\\BMU_BOOT\\BMU_BOOT\\Nvm_Files\\FlsDrv -ID:\\work\\Microvast\\OTA\\LiFan\\BMU_BOOT\\BMU_BOOT\\Stand_Header -g2 --make-target=Communication_Files\\Uds\\User\\Uds_User_DiagnosticSessionControlCallback.o -t4 --language=-gcc,-volatile,+strings --default-near-size=0 -O2 --default-a1-size=0 --default-a0-size=0 --source --align=0 --compact-max-size=200 --switch=auto -o Communication_Files\\Uds\\User\\Uds_User_DiagnosticSessionControlCallback.src ..\\Communication_Files\\Uds\\User\\Uds_User_DiagnosticSessionControlCallback.c"
 	.compiler_name		"ctc"
 	.name	"Uds_User_DiagnosticSessionControlCallback"
 
@@ -442,43 +442,36 @@ UdsFunc_SID_DSC_SUBID_PRGS_Callback:	.type	func
 
 ; ..\Communication_Files\Uds\User\Uds_User_DiagnosticSessionControlCallback.c	   317  //	}
 ; ..\Communication_Files\Uds\User\Uds_User_DiagnosticSessionControlCallback.c	   318  
-; ..\Communication_Files\Uds\User\Uds_User_DiagnosticSessionControlCallback.c	   319  	st_Uds_SID_ER_Info.b_HardResetFlag = TRUE;
-	movh.a	a15,#@his(st_Uds_SID_ER_Info)
-.L96:
-	mov	d0,#1
-	lea	a15,[a15]@los(st_Uds_SID_ER_Info)
-.L97:
-
+; ..\Communication_Files\Uds\User\Uds_User_DiagnosticSessionControlCallback.c	   319  //	st_Uds_SID_ER_Info.b_HardResetFlag = TRUE;
 ; ..\Communication_Files\Uds\User\Uds_User_DiagnosticSessionControlCallback.c	   320  
 ; ..\Communication_Files\Uds\User\Uds_User_DiagnosticSessionControlCallback.c	   321  	/*回应数据*/
 ; ..\Communication_Files\Uds\User\Uds_User_DiagnosticSessionControlCallback.c	   322  	ui16_pResLen[0U] = 4U;
 	mov	d15,#4
-	st.b	[a15],d0
-.L98:
+	st.h	[a5],d15
+.L96:
 
 ; ..\Communication_Files\Uds\User\Uds_User_DiagnosticSessionControlCallback.c	   323  	ui8_pRes[0U] = (uint8)(UDS_P2_SERVER_MAX / 0x100U);
-	mov	d1,#0
-	st.h	[a5],d15
-.L99:
+	mov	d0,#0
+	st.b	[a4],d0
+.L97:
 
 ; ..\Communication_Files\Uds\User\Uds_User_DiagnosticSessionControlCallback.c	   324  	ui8_pRes[1U] = (uint8)(UDS_P2_SERVER_MAX);
 	mov	d15,#50
-	st.b	[a4],d1
-.L100:
 	st.b	[a4]1,d15
-.L101:
+.L98:
 
 ; ..\Communication_Files\Uds\User\Uds_User_DiagnosticSessionControlCallback.c	   325  	ui8_pRes[2U] = (uint8)(UDS_P2EX_SERVER_MAX / 10U / 0x100U);
-; ..\Communication_Files\Uds\User\Uds_User_DiagnosticSessionControlCallback.c	   326  	ui8_pRes[3U] = (uint8)(UDS_P2EX_SERVER_MAX / 10U);
-	mov	d15,#244
-	st.b	[a4]2,d0
-.L102:
+	mov	d15,#1
+	st.b	[a4]2,d15
+.L99:
 
+; ..\Communication_Files\Uds\User\Uds_User_DiagnosticSessionControlCallback.c	   326  	ui8_pRes[3U] = (uint8)(UDS_P2EX_SERVER_MAX / 10U);
 ; ..\Communication_Files\Uds\User\Uds_User_DiagnosticSessionControlCallback.c	   327  	st_Uds_Response.ui8_ResCode = UDS_RES_CODE_PR;	/*正响应*/
+	mov	d15,#244
 	movh.a	a15,#@his(st_Uds_Response)
-.L103:
+.L100:
 	st.b	[a4]3,d15
-.L104:
+.L101:
 
 ; ..\Communication_Files\Uds\User\Uds_User_DiagnosticSessionControlCallback.c	   328  
 ; ..\Communication_Files\Uds\User\Uds_User_DiagnosticSessionControlCallback.c	   329  	b_Return = E_OK;
@@ -486,9 +479,9 @@ UdsFunc_SID_DSC_SUBID_PRGS_Callback:	.type	func
 ; ..\Communication_Files\Uds\User\Uds_User_DiagnosticSessionControlCallback.c	   331  	return	b_Return;
 	mov	d2,#0
 	lea	a15,[a15]@los(st_Uds_Response)
-.L105:
-	st.b	[a15],d1
-.L106:
+.L102:
+	st.b	[a15],d0
+.L103:
 
 ; ..\Communication_Files\Uds\User\Uds_User_DiagnosticSessionControlCallback.c	   332  }
 	ret
@@ -529,10 +522,10 @@ UdsFunc_SID_DSC_SUBID_EXTDS_Callback:	.type	func
 ; ..\Communication_Files\Uds\User\Uds_User_DiagnosticSessionControlCallback.c	   343  	st_Uds_SID_DSC_Info.ui8_Active_Session = UDS_EXTENDED_SESSION_ACTIVE;
 	movh.a	a2,#@his(st_Uds_SID_DSC_Info)
 	lea	a2,[a2]@los(st_Uds_SID_DSC_Info)
-.L111:
+.L108:
 	mov	d15,#4
 	st.b	[a2],d15
-.L112:
+.L109:
 
 ; ..\Communication_Files\Uds\User\Uds_User_DiagnosticSessionControlCallback.c	   344  
 ; ..\Communication_Files\Uds\User\Uds_User_DiagnosticSessionControlCallback.c	   345  //	if(st_N_USData_Indication.ui8_N_TAtype == UDS_ADDR_TYPE_PHY)
@@ -540,35 +533,35 @@ UdsFunc_SID_DSC_SUBID_EXTDS_Callback:	.type	func
 ; ..\Communication_Files\Uds\User\Uds_User_DiagnosticSessionControlCallback.c	   347  		/*回应数据*/
 ; ..\Communication_Files\Uds\User\Uds_User_DiagnosticSessionControlCallback.c	   348  		ui16_pResLen[0U] = 4U;
 	st.h	[a12],d15
-.L113:
+.L110:
 
 ; ..\Communication_Files\Uds\User\Uds_User_DiagnosticSessionControlCallback.c	   349  		ui8_pRes[0U] = (uint8)(UDS_P2_SERVER_MAX / 0x100U);
 	mov	d2,#0
 	st.b	[a15],d2
-.L114:
+.L111:
 
 ; ..\Communication_Files\Uds\User\Uds_User_DiagnosticSessionControlCallback.c	   350  		ui8_pRes[1U] = (uint8)(UDS_P2_SERVER_MAX);
 	mov	d15,#50
 	st.b	[a15]1,d15
-.L115:
+.L112:
 
 ; ..\Communication_Files\Uds\User\Uds_User_DiagnosticSessionControlCallback.c	   351  		ui8_pRes[2U] = (uint8)(UDS_P2EX_SERVER_MAX / 10U / 0x100U);
 	mov	d15,#1
 	st.b	[a15]2,d15
-.L116:
+.L113:
 
 ; ..\Communication_Files\Uds\User\Uds_User_DiagnosticSessionControlCallback.c	   352  		ui8_pRes[3U] = (uint8)(UDS_P2EX_SERVER_MAX / 10U);
 	mov	d15,#244
 	st.b	[a15]3,d15
-.L117:
+.L114:
 
 ; ..\Communication_Files\Uds\User\Uds_User_DiagnosticSessionControlCallback.c	   353  		st_Uds_Response.ui8_ResCode = UDS_RES_CODE_PR;	/*正响应*/
 	movh.a	a15,#@his(st_Uds_Response)
 .L59:
 	lea	a15,[a15]@los(st_Uds_Response)
-.L118:
+.L115:
 	st.b	[a15],d2
-.L119:
+.L116:
 
 ; ..\Communication_Files\Uds\User\Uds_User_DiagnosticSessionControlCallback.c	   354  
 ; ..\Communication_Files\Uds\User\Uds_User_DiagnosticSessionControlCallback.c	   355  		b_Return = E_OK;
@@ -601,7 +594,6 @@ st_Uds_SID_DSC_Info:	.type	object
 	.calls	'UdsFunc_SID_DSC_SUBID_DS_Callback','',0
 	.calls	'UdsFunc_SID_DSC_SUBID_PRGS_Callback','',0
 	.extern	ui32_KeepBSLState_Flag
-	.extern	st_Uds_SID_ER_Info
 	.extern	st_Uds_SID_SA_Info
 	.extern	st_Uds_SID_CC_Info
 	.extern	st_Uds_Response
@@ -609,7 +601,7 @@ st_Uds_SID_DSC_Info:	.type	object
 	.sdecl	'.debug_info',debug
 	.sect	'.debug_info'
 .L14:
-	.word	1263
+	.word	1147
 	.half	3
 	.word	.L15
 	.byte	4
@@ -683,19 +675,7 @@ st_Uds_SID_DSC_Info:	.type	object
 	.byte	2,35,2,0,5
 	.byte	'Struct_Uds_SID_DSC_Info',0,4,14,2
 	.word	499
-	.byte	9,5,5,9,2,10
-	.byte	'b_HardResetFlag',0,1
-	.word	190
-	.byte	2,35,0,10
-	.byte	'b_SoftResetFlag',0,1
-	.word	190
-	.byte	2,35,1,0,5
-	.byte	'Struct_Uds_SID_ER_Info',0,5,9,2
-	.word	597
-	.byte	8
-	.byte	'st_Uds_SID_ER_Info',0,5,10,31
-	.word	597
-	.byte	1,1,9,6,5,9,8,10
+	.byte	9,5,5,9,8,10
 	.byte	'b_Security_Locked',0,1
 	.word	190
 	.byte	2,35,0,10
@@ -711,12 +691,12 @@ st_Uds_SID_DSC_Info:	.type	object
 	.byte	'ui32_Boot_State255_Delay',0,4
 	.word	294
 	.byte	2,35,4,0,5
-	.byte	'Struct_Uds_SID_SA_Info',0,6,20,2
-	.word	713
+	.byte	'Struct_Uds_SID_SA_Info',0,5,20,2
+	.word	597
 	.byte	8
-	.byte	'st_Uds_SID_SA_Info',0,6,21,31
-	.word	713
-	.byte	1,1,9,7,14,9,6,10
+	.byte	'st_Uds_SID_SA_Info',0,5,21,31
+	.word	597
+	.byte	1,1,9,6,14,9,6,10
 	.byte	'ui8_CommuCtrlFlag',0,1
 	.word	190
 	.byte	2,35,0,10
@@ -726,12 +706,12 @@ st_Uds_SID_DSC_Info:	.type	object
 	.byte	'ui32_Boot_State255_Delay',0,4
 	.word	294
 	.byte	2,35,2,0,5
-	.byte	'Struct_Uds_SID_CC_Info',0,7,19,2
-	.word	908
+	.byte	'Struct_Uds_SID_CC_Info',0,6,19,2
+	.word	792
 	.byte	8
-	.byte	'st_Uds_SID_CC_Info',0,7,20,31
-	.word	908
-	.byte	1,1,9,8,91,9,28,10
+	.byte	'st_Uds_SID_CC_Info',0,6,20,31
+	.word	792
+	.byte	1,1,9,7,91,9,28,10
 	.byte	'ui8_ResCode',0,1
 	.word	190
 	.byte	2,35,0,10
@@ -747,16 +727,16 @@ st_Uds_SID_DSC_Info:	.type	object
 	.word	190
 	.byte	12,7,0,10
 	.byte	'ui8_Neg78_Buf',0,8
-	.word	1159
+	.word	1043
 	.byte	2,35,12,10
 	.byte	'ui8_3E_Buf',0,8
-	.word	1159
+	.word	1043
 	.byte	2,35,20,0,5
-	.byte	'Struct_Uds_Response',0,8,99,2
-	.word	1060
+	.byte	'Struct_Uds_Response',0,7,99,2
+	.word	944
 	.byte	8
-	.byte	'st_Uds_Response',0,8,126,29
-	.word	1060
+	.byte	'st_Uds_Response',0,7,126,29
+	.word	944
 	.byte	1,1,0
 	.sdecl	'.debug_abbrev',debug
 	.sect	'.debug_abbrev'
@@ -782,7 +762,6 @@ st_Uds_SID_DSC_Info:	.type	object
 	.byte	'MAIN.h',0,1,0,0
 	.byte	'Platform_Types.h',0,2,0,0
 	.byte	'Uds_User_DiagnosticSessionControlCallback.h',0,3,0,0
-	.byte	'Uds_User_ECUResetCallback.h',0,3,0,0
 	.byte	'Uds_User_SecurityAccessCallback.h',0,3,0,0
 	.byte	'Uds_User_CommunicationControlCallback.h',0,3,0,0
 	.byte	'Uds_Dcm_Drv.h',0,4,0,0,0
@@ -971,32 +950,26 @@ st_Uds_SID_DSC_Info:	.type	object
 	.half	.L93-.L92
 	.byte	3,4,1,5,3,1,5,28,9
 	.half	.L94-.L93
-	.byte	1,5,26,1,5,2,9
+	.byte	1,5,26,1,5,21,9
 	.half	.L95-.L94
-	.byte	3,3,1,5,39,9
+	.byte	3,6,1,5,19,1,5,17,9
 	.half	.L96-.L95
-	.byte	1,5,2,1,5,21,9
+	.byte	3,1,1,5,15,1,5,17,9
 	.half	.L97-.L96
-	.byte	3,3,1,5,37,3,125,1,5,17,9
+	.byte	3,1,1,5,15,1,5,17,9
 	.half	.L98-.L97
-	.byte	3,4,1,5,19,3,127,1,5,17,9
+	.byte	3,1,1,5,15,1,5,17,9
 	.half	.L99-.L98
-	.byte	3,2,1,5,15,3,127,1,9
+	.byte	3,1,1,5,2,3,1,1,5,15,9
 	.half	.L100-.L99
-	.byte	3,1,1,5,17,9
-	.half	.L101-.L100
-	.byte	3,2,1,5,15,3,127,1,5,2,9
-	.half	.L102-.L101
-	.byte	3,2,1,5,15,9
-	.half	.L103-.L102
 	.byte	3,127,1,5,9,9
-	.half	.L104-.L103
+	.half	.L101-.L100
 	.byte	3,5,1,5,2,3,124,1,5,30,9
-	.half	.L105-.L104
+	.half	.L102-.L101
 	.byte	1,5,1,9
-	.half	.L106-.L105
+	.half	.L103-.L102
 	.byte	3,5,1,7,9
-	.half	.L31-.L106
+	.half	.L31-.L103
 	.byte	0,1,1
 .L88:
 	.sdecl	'.debug_ranges',debug,cluster('UdsFunc_SID_DSC_SUBID_PRGS_Callback')
@@ -1038,14 +1011,14 @@ st_Uds_SID_DSC_Info:	.type	object
 	.sdecl	'.debug_line',debug,cluster('UdsFunc_SID_DSC_SUBID_EXTDS_Callback')
 	.sect	'.debug_line'
 .L34:
-	.word	.L108-.L107
-.L107:
+	.word	.L105-.L104
+.L104:
 	.half	3
-	.word	.L110-.L109
-.L109:
+	.word	.L107-.L106
+.L106:
 	.byte	2,1,-4,9,10,0,1,1,1,1,0,0,0,1,0
 	.byte	'..\\Communication_Files\\Uds\\User\\Uds_User_DiagnosticSessionControlCallback.c',0,0,0,0,0
-.L110:
+.L107:
 	.byte	5,9,7,0,5,2
 	.word	.L12
 	.byte	3,206,2,1,5,28,9
@@ -1053,27 +1026,27 @@ st_Uds_SID_DSC_Info:	.type	object
 	.byte	3,7,1,5,2,9
 	.half	.L57-.L60
 	.byte	3,1,1,5,43,9
-	.half	.L111-.L57
+	.half	.L108-.L57
 	.byte	1,5,41,1,5,20,9
-	.half	.L112-.L111
+	.half	.L109-.L108
 	.byte	3,5,1,5,18,9
+	.half	.L110-.L109
+	.byte	3,1,1,5,16,1,5,18,9
+	.half	.L111-.L110
+	.byte	3,1,1,5,16,1,5,18,9
+	.half	.L112-.L111
+	.byte	3,1,1,5,16,1,5,18,9
 	.half	.L113-.L112
-	.byte	3,1,1,5,16,1,5,18,9
-	.half	.L114-.L113
-	.byte	3,1,1,5,16,1,5,18,9
-	.half	.L115-.L114
-	.byte	3,1,1,5,16,1,5,18,9
-	.half	.L116-.L115
 	.byte	3,1,1,5,16,1,5,3,9
-	.half	.L117-.L116
+	.half	.L114-.L113
 	.byte	3,1,1,5,31,9
-	.half	.L118-.L117
+	.half	.L115-.L114
 	.byte	1,5,1,9
-	.half	.L119-.L118
+	.half	.L116-.L115
 	.byte	3,10,1,7,9
-	.half	.L36-.L119
+	.half	.L36-.L116
 	.byte	0,1,1
-.L108:
+.L105:
 	.sdecl	'.debug_ranges',debug,cluster('UdsFunc_SID_DSC_SUBID_EXTDS_Callback')
 	.sect	'.debug_ranges'
 .L35:
@@ -1172,7 +1145,7 @@ st_Uds_SID_DSC_Info:	.type	object
 	.word	0,0
 	.sdecl	'.debug_frame',debug
 	.sect	'.debug_frame'
-.L120:
+.L117:
 	.word	48
 	.word	-1
 	.byte	3,0,2,1,27,12,26,0,8,26,8,27,8,30,8,29,8,28,8,16,8,17,8,24,8,25,8,31,8,32,8,33,8,34,8,35,8,36,8,37,8,38
@@ -1180,21 +1153,21 @@ st_Uds_SID_DSC_Info:	.type	object
 	.sdecl	'.debug_frame',debug,cluster('UdsFunc_ChangeSession_Init')
 	.sect	'.debug_frame'
 	.word	24
-	.word	.L120,.L6,.L39-.L6
+	.word	.L117,.L6,.L39-.L6
 	.byte	8,18,8,19,8,20,8,21,8,22,8,23
 	.sdecl	'.debug_frame',debug,cluster('UdsFunc_SID_DSC_SUBID_DS_Callback')
 	.sect	'.debug_frame'
 	.word	12
-	.word	.L120,.L8,.L41-.L8
+	.word	.L117,.L8,.L41-.L8
 	.sdecl	'.debug_frame',debug,cluster('UdsFunc_SID_DSC_SUBID_PRGS_Callback')
 	.sect	'.debug_frame'
 	.word	20
-	.word	.L120,.L10,.L46-.L10
+	.word	.L117,.L10,.L46-.L10
 	.byte	8,18,8,19,8,22,8,23
 	.sdecl	'.debug_frame',debug,cluster('UdsFunc_SID_DSC_SUBID_EXTDS_Callback')
 	.sect	'.debug_frame'
 	.word	12
-	.word	.L120,.L12,.L49-.L12
+	.word	.L117,.L12,.L49-.L12
 
 ; ..\Communication_Files\Uds\User\Uds_User_DiagnosticSessionControlCallback.c	   364  #elif ECU_TYPE == ECU_MCU
 ; ..\Communication_Files\Uds\User\Uds_User_DiagnosticSessionControlCallback.c	   365  boolean UdsFunc_SID_DSC_SUBID_DS_Callback

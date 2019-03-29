@@ -1,0 +1,216 @@
+/*----------------------------------------------------------------------------------------------------*/
+/*
+File Name：  CanDrv_TC1782_Callback.c
+Author：        	任智强
+Version：      	V1.00.0002
+Comment：  	CAN驱动
+			MISRA_2004去除:
+			R1.1：     不允许C语言扩展；
+			R2.2：     不允许使用”//“；
+			R5.1：     不允许使用超过31个字符；
+			R19.4：   宏定义相关；
+			R19.10： 宏定义相关；
+			R20.1：   需保留关键字（头文件防止重复调用问题）；
+History：
+			V1.00.0000		20140504	初始版本
+			V1.00.0001		20140621	修改接口函数注释
+			V1.00.0002		20140713	增加CAN接收发送中断配置，增加通过ID号读取数据函数
+
+*/
+
+#include "MAIN.h"
+
+/*************************************************************************/
+/*
+Function:		void CAN_Error_Callback(uint8 ui8_Node)
+
+Description: 	此函数用于CAN故障处理
+
+Parameters: 	ui8_Node	CAN通道号(0~2)
+
+Return:       	void
+
+Return Values:  无
+
+Remarks:		运行时间<1ms。
+				用户在中间层需要处理CAN故障时调用此函数。
+
+Example:		处理CAN0通道故障
+				CAN_Error_Callback(0U);
+*/
+void CAN_Error_Callback(uint8 ui8_Node)
+{
+	if(st_CAN_Error[ui8_Node].b_BOFF == TRUE)
+	{
+		//根据不同Node号分别处理故障
+		if(ui8_Node == 0U)
+		{
+//			b_VbHDD_CAN0MduFlt_flg_Valid = TRUE	;		//CAN0收发器故障置位
+		}
+		else if(ui8_Node == 1U)
+		{
+//			b_VbHDD_CAN1MduFlt_flg_Valid = TRUE	;		//CAN1收发器故障置位
+		}
+		else if(ui8_Node == 2U)
+		{
+//			b_VbHDD_CAN2MduFlt_flg_Valid = TRUE	;		//CAN2收发器故障置位
+		}
+		else
+		{
+			__nop();
+		}
+
+	}
+
+	if(st_CAN_Error[ui8_Node].b_EWRN == TRUE)
+	{
+		//根据不同Node号分别处理故障
+	}
+
+	if(st_CAN_Error[ui8_Node].b_LLE == TRUE)
+	{
+		//根据不同Node号分别处理故障
+	}
+
+	if(st_CAN_Error[ui8_Node].b_LOE == TRUE)
+	{
+		//根据不同Node号分别处理故障
+	}
+
+	if(st_CAN_Error[ui8_Node].b_INIT == TRUE)
+	{
+		//根据不同Node号分别处理故障
+	}
+
+	if(st_CAN_Error[ui8_Node].b_Stuff == TRUE)
+	{
+		//根据不同Node号分别处理故障
+	}
+
+	if(st_CAN_Error[ui8_Node].b_Form == TRUE)
+	{
+		//根据不同Node号分别处理故障
+	}
+
+	if(st_CAN_Error[ui8_Node].b_Ack == TRUE)
+	{
+		//根据不同Node号分别处理故障
+	}
+
+	if(st_CAN_Error[ui8_Node].b_Bit1 == TRUE)
+	{
+		//根据不同Node号分别处理故障
+	}
+
+	if(st_CAN_Error[ui8_Node].b_Bit0_BOFF == TRUE)
+	{
+		//根据不同Node号分别处理故障
+	}
+
+	if(st_CAN_Error[ui8_Node].b_Bit0_Trans == TRUE)
+	{
+		//根据不同Node号分别处理故障
+	}
+
+	if(st_CAN_Error[ui8_Node].b_CRC == TRUE)
+	{
+		//根据不同Node号分别处理故障
+	}
+}
+
+/*************************************************************************/
+/*
+Function:		void CAN_Rx_Interrupt_Callback(uint8 ui8_Obj)
+
+Description: 	CAN接收中断回调函数
+
+Parameters: 	ui8_Obj		CAN MO(0~127)
+
+Return:       	void
+
+Return Values:  无
+
+Remarks:		运行时间<1ms
+				用户可以在接收中断中处理回调任务
+
+Example:		MO0接收处理
+				CAN_Rx_Interrupt_Callback(0U);
+*/
+uint8 ui8_Test[8];
+void CAN_Rx_Interrupt_Callback(uint8 ui8_Obj)
+{
+	switch(ui8_Obj)
+	{
+		case 121:
+		{
+			Read_EvBus();
+			CAN_Write(125, ui8_Test);
+			break;
+		}
+		case 123:
+		{
+			Read_EvBus_Fun();
+			break;
+		}
+
+		default:
+			break;
+	}
+}
+
+/*************************************************************************/
+/*
+Function:		void CAN_Tx_Interrupt_Callback(uint8 ui8_Obj)
+
+Description: 	CAN发送中断回调函数
+
+Parameters: 	ui8_Obj		CAN MO(0~127)
+
+Return:       	void
+
+Return Values:  无
+
+Remarks:		运行时间<1ms
+				用户可以在发送中断中处理回调任务
+
+Example:		MO1发送处理
+				CAN_Tx_Interrupt_Callback(1U);
+*/
+void CAN_Tx_Interrupt_Callback(uint8 ui8_Obj)
+{
+	switch(ui8_Obj)
+	{
+//	case TxMO:
+//	{
+//		ccpSendCallBack();
+//		break;
+//	}
+/*		case XCP_CMD_TX_MO:
+		{
+			xcp_Send_CallBack(XCP_CMD_TX_MO);
+			break;
+		}
+
+		case XCP_DAQ0_TX_MO:
+		{
+			xcp_Send_CallBack(XCP_DAQ0_TX_MO);
+			break;
+		}
+
+		case XCP_DAQ1_TX_MO:
+		{
+			xcp_Send_CallBack(XCP_DAQ1_TX_MO);
+			break;
+		}
+
+		case XCP_DAQ2_TX_MO:
+		{
+			xcp_Send_CallBack(XCP_DAQ2_TX_MO);
+			break;
+		}*/
+
+		default:
+			break;
+	}
+}
+

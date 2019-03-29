@@ -1,0 +1,358 @@
+/*----------------------------------------------------------------------------------------------------*/
+/*
+File Name：  	CanDrv_TC1782_User.c
+Version：      	V1.00.0005
+Comment：  	CAN驱动
+			MISRA_2004去除:
+			R1.1：     不允许C语言扩展；
+			R2.2：     不允许使用”//“；
+			R5.1：     不允许使用超过31个字符；
+			R7.1：     不能使用8进制数；
+			R10.1：	整型数值不应隐式转换；
+			R10.3：	强制转换到更窄的类型；
+			R10.5：	位运算符强制转换；
+			R10.6：   需要定义数值后加”U“；
+			R12.2：	表达值不同；
+			R12.7：	不能使用无符号型；
+			R14.3：	在预处理之前，空语句只能出现在一行上；
+			R14.8：   应该是复合语句
+			R17.4：	数组的索引；
+			R19.4：   宏定义相关；
+			R19.10： 宏定义相关；
+			R20.1：   需保留关键字（头文件防止重复调用问题）；
+History：
+			V1.00.0000		20140509	初始版本
+			v1.00.0001		20140618	增加BusOff快速，慢速恢复功能
+			V1.00.0002		20140621	修改接口函数注释
+			V1.00.0003		20140624	调整BusOff恢复时间
+			V1.00.0004		20140713	增加CAN接收发送中断配置，增加通过ID号读取数据函数
+			V1.00.0005		20150427	修改CAN TSEG1,	TSEG2,	SJW参数配置
+*/
+
+#include "MAIN.h"
+
+//用户配置Node信息
+Struct_CAN_Node		st_CAN_Node[MAX_NODE_NUM] =
+{
+		//En,   Clock,    	BaudRate,	TSEG1,	TSEG2,	SJW,	BOFFDelay
+		{TRUE, 	40000000,	500000U,	7U,		2U,		2U,		BUS_OFF_DEALY_FAST},		//CAN Node0   EV
+		{FALSE,	40000000,	500000U,	7U,		2U,		2U,		BUS_OFF_DEALY_FAST},		//CAN Node1	  INBUS
+		{FALSE,	40000000,	250000U,	7U,		2U,		2U,		BUS_OFF_DEALY_FAST},		//CAN Node2   FCBUS
+};
+
+//用户配置MO信息
+const Struct_CAN_Object	st_CAN_Object[MAX_OBJECT_NUM] =
+{		//En,		Nodex,	DIR, 		RxIRQ,	TxIRQ,	DLC,	IDE,		CAN ID,		Mask,	CallCycle		MO_n
+		{FALSE, 		0U, 	CAN_RX_DIR, FALSE,	FALSE,	8U,		CAN_STD_ID,	0x6E0U,		0x7FF,	1U},		//Object 0	XCP命令接收
+		{FALSE, 		0U, 	CAN_TX_DIR, FALSE,	TRUE,	8U,		CAN_STD_ID,	0x6F0U,	    0x7FF,	1U},		//Object 1	XCP命令发送
+		{FALSE, 	0U, 	CAN_RX_DIR, TRUE,	FALSE,	8U,		CAN_STD_ID,	0x700U,  	0x7FF,	1U},		//Object 2	XCP DAQ0上传
+		{FALSE, 	0U, 	CAN_TX_DIR, TRUE,	TRUE,	8U,		CAN_STD_ID,	0x6F2U,	    0x7FF,	1U},		//Object 3	XCP DAQ1上传
+
+		{FALSE, 		1U, 	CAN_RX_DIR, FALSE,	FALSE,	8U,		CAN_EXT_ID,	0x1DFFFFFFU,	0x1FFFFFFF,	1U},		//Object 4	UDS接收
+		{FALSE, 		1U, 	CAN_RX_DIR, FALSE,	FALSE,	8U,		CAN_EXT_ID,	0x1EFF000AU,	0x1FFFFFFF,	1U},		//Object 5	UDS接收
+		{FALSE, 		1U, 	CAN_TX_DIR, FALSE,	FALSE,	8U,		CAN_EXT_ID,	0x1EFE000AU,	0x1FFFFFFF,	1U},		//Object 6	UDS发送
+//wxc20180608
+//		{TRUE, 		0U, 	CAN_RX_DIR, FALSE,	FALSE,	8U,		CAN_STD_ID,	0x7E1U,	0x7FF,	1U},		//Object 7
+//		{TRUE, 		0U, 	CAN_TX_DIR, FALSE,	FALSE,	8U,		CAN_STD_ID,	0x7E9U,	0x7FF,	1U},		//Object 8
+		{FALSE, 	0U, 	CAN_RX_DIR, FALSE,	FALSE,	8U,		CAN_STD_ID,	0x713U,	0x7FF,	1U},		//Object 7
+		{FALSE, 	0U, 	CAN_TX_DIR, FALSE,	FALSE,	8U,		CAN_STD_ID,	0x71BU,	0x7FF,	1U},		//Object 8
+		{FALSE,  	0U, 	CAN_RX_DIR, FALSE,	FALSE,	8U,		CAN_STD_ID,	0x7DFU,	0x7FF,	1U},		//Object 9	发送 DIO输入相关内容
+//================================================================================================================================================
+		//----------------------------------EVBUS RX-------------------------------------------------------------------------
+		{FALSE, 	0U, 	CAN_RX_DIR, TRUE,	FALSE,	8U,		CAN_STD_ID,	0x10EU,	0x7FF,	1U},		//Object 10
+		{FALSE, 	0U, 	CAN_RX_DIR, FALSE,	FALSE,	8U,		CAN_STD_ID,	0x281U,	0x7FF,	1U},		//Object 11
+		{FALSE, 	0U, 	CAN_RX_DIR, FALSE,	FALSE,	8U,		CAN_STD_ID,	0x388U,	0x7FF,	1U},		//Object 12
+		{FALSE, 	0U, 	CAN_RX_DIR, FALSE,	FALSE,	8U,		CAN_STD_ID,	0x2BBU,	0x7FF,	1U},		//Object 13
+		{FALSE, 	0U, 	CAN_RX_DIR, FALSE,	FALSE,	8U,		CAN_STD_ID,	0x2BCU,	0x7FF,	1U},		//Object 14
+		{FALSE, 	0U, 	CAN_RX_DIR, FALSE,	FALSE,	8U,		CAN_STD_ID,	0x2CAU,	0x7FF,	1U},		//Object 15
+		{FALSE, 	0U, 	CAN_RX_DIR, FALSE,	FALSE,	8U,		CAN_STD_ID,	0x434U,	0x7FF,	1U},		//Object 16
+		{FALSE, 	0U, 	CAN_RX_DIR, FALSE,	FALSE,	8U,		CAN_STD_ID,	0x88U,	0x7FF,	1U},		//Object 17
+		{FALSE, 	0U, 	CAN_RX_DIR, FALSE,	FALSE,	8U,		CAN_STD_ID,	0x90U,	0x7FF,	1U},		//Object 18
+
+		//----------------------------------useless-------------------------------------------------------------------------
+
+//		{FALSE, 	0U, 	CAN_RX_DIR, FALSE,	FALSE,	8U,		CAN_STD_ID,	0x412U,	0x7FF,	1U},		//Object 19 +623
+//		{FALSE, 	0U, 	CAN_RX_DIR, FALSE,	FALSE,	8U,		CAN_STD_ID,	0x624U,	0x7FF,	1U},		//Object 20
+		{FALSE, 	0U, 	CAN_RX_DIR, FALSE,	FALSE,	8U,		CAN_STD_ID,	0x2F0U,	0x7FF,	1U},		//Object 19 +623
+		{FALSE, 	0U, 	CAN_RX_DIR, FALSE,	FALSE,	8U,		CAN_STD_ID,	0x93U,	0x7FF,	1U},		//Object 20
+		{FALSE,  0U, 	CAN_RX_DIR, FALSE,	FALSE,	8U,		CAN_STD_ID,	0x6A0U,	0x7FF,	1U},		//Object 21
+
+		///VIN
+		/*
+		{TRUE, 	0U, 	CAN_RX_DIR, FALSE,	FALSE,	8U,		CAN_STD_ID,	0x410U,	0x7FF,	1U},		//Object 19
+		{TRUE, 	0U, 	CAN_RX_DIR, FALSE,	FALSE,	8U,		CAN_STD_ID,	0x411U,	0x7FF,	1U},		//Object 20
+		{TRUE, 	0U, 	CAN_RX_DIR, FALSE,	FALSE,	8U,		CAN_STD_ID,	0x412U,	0x7FF,	1U},		//Object 21
+		 */
+
+		{FALSE,  0U, 	CAN_RX_DIR, FALSE,	FALSE,	8U,		CAN_STD_ID,	0x6AFU,	0x7FF,	1U},		//Object 22
+
+		//----------------------------------EVBUS TX------------------------------------------------------------------------
+
+		{FALSE,  0U, 	CAN_TX_DIR, FALSE,	FALSE,	8U,		CAN_STD_ID,	0x2B0U,	0x7FF,	1U},		//Object 23
+		{FALSE,  0U, 	CAN_TX_DIR, FALSE,	FALSE,	8U,		CAN_STD_ID,	0x7B1U,	0x7FF,	1U},		//Object 24
+		{FALSE,  0U, 	CAN_TX_DIR, FALSE,	FALSE,	8U,		CAN_STD_ID,	0x2B2U,	0x7FF,	1U},		//Object 25
+		{FALSE,  0U, 	CAN_TX_DIR, FALSE,	FALSE,	8U,		CAN_STD_ID,	0x2B3U,	0x7FF,	1U},		//Object 26
+		{FALSE,  0U, 	CAN_TX_DIR, FALSE,	FALSE,	8U,		CAN_STD_ID,	0x2B4U,	0x7FF,	1U},		//Object 27
+		{FALSE,  0U, 	CAN_TX_DIR, FALSE,	FALSE,	8U,		CAN_STD_ID,	0x2B5U,	0x7FF,	1U},		//Object 28
+		{FALSE,  0U, 	CAN_TX_DIR, FALSE,	FALSE,	8U,		CAN_STD_ID,	0x2B6U,	0x7FF,	1U},		//Object 29
+		{FALSE,  0U, 	CAN_TX_DIR, FALSE,	FALSE,	8U,		CAN_STD_ID,	0x2B7U,	0x7FF,	1U},		//Object 30
+		{FALSE,  0U, 	CAN_TX_DIR, FALSE,	FALSE,	8U,		CAN_STD_ID,	0x2B8U,	0x7FF,	1U},		//Object 31
+		{FALSE,  0U, 	CAN_TX_DIR, FALSE,	FALSE,	8U,		CAN_STD_ID,	0x2B9U,	0x7FF,	1U},		//Object 32
+		{FALSE,  0U, 	CAN_TX_DIR, FALSE,	FALSE,	8U,		CAN_STD_ID,	0x2C4U,	0x7FF,	1U},		//Object 33
+		{FALSE,  0U, 	CAN_TX_DIR, FALSE,	FALSE,	8U,		CAN_STD_ID,	0x2C2U,	0x7FF,	1U},		//Object 34
+		{FALSE,  0U, 	CAN_TX_DIR, FALSE,	FALSE,	8U,		CAN_STD_ID,	0x2C3U,	0x7FF,	1U},		//Object 35
+		{FALSE,  0U, 	CAN_TX_DIR, FALSE,	FALSE,	8U,		CAN_STD_ID,	0x304U,	0x7FF,	1U},		//Object 36
+		{FALSE,  0U, 	CAN_TX_DIR, FALSE,	FALSE,	8U,		CAN_STD_ID,	0x416U,	0x7FF,	1U},		//Object 37
+		{FALSE,  0U, 	CAN_TX_DIR, FALSE,	FALSE,	8U,		CAN_STD_ID,	0x417U,	0x7FF,	1U},		//Object 38
+		{FALSE,  0U, 	CAN_TX_DIR, FALSE,	FALSE,	8U,		CAN_STD_ID,	0x418U,	0x7FF,	1U},		//Object 39
+		{FALSE,  0U, 	CAN_TX_DIR, FALSE,	FALSE,	8U,		CAN_STD_ID,	0x419U,	0x7FF,	1U},		//Object 40
+		{FALSE,  0U, 	CAN_TX_DIR, FALSE,	FALSE,	8U,		CAN_STD_ID,	0x420U,	0x7FF,	1U},		//Object 41
+		{FALSE,  0U, 	CAN_TX_DIR, FALSE,	FALSE,	8U,		CAN_STD_ID,	0x421U,	0x7FF,	1U},		//Object 42
+		{FALSE,  0U, 	CAN_TX_DIR, FALSE,	FALSE,	8U,		CAN_STD_ID,	0x422U,	0x7FF,	1U},		//Object 43
+		{FALSE,  0U, 	CAN_TX_DIR, FALSE,	FALSE,	8U,		CAN_STD_ID,	0x423U,	0x7FF,	1U},		//Object 44
+		{FALSE,  0U, 	CAN_TX_DIR, FALSE,	FALSE,	8U,		CAN_STD_ID,	0x424U,	0x7FF,	1U},		//Object 45
+		{FALSE,  0U, 	CAN_TX_DIR, FALSE,	FALSE,	8U,		CAN_STD_ID,	0x425U,	0x7FF,	1U},		//Object 46
+		{FALSE,  0U, 	CAN_TX_DIR, FALSE,	FALSE,	8U,		CAN_STD_ID,	0x426U,	0x7FF,	1U},		//Object 47
+		{FALSE,  0U, 	CAN_TX_DIR, FALSE,	FALSE,	8U,		CAN_STD_ID,	0x427U,	0x7FF,	1U},		//Object 48
+		{FALSE,  0U, 	CAN_TX_DIR, FALSE,	FALSE,	8U,		CAN_STD_ID,	0x428U,	0x7FF,	1U},		//Object 49
+		{FALSE,  0U, 	CAN_TX_DIR, FALSE,	FALSE,	8U,		CAN_STD_ID,	0x429U,	0x7FF,	1U},		//Object 50
+		{FALSE,  0U, 	CAN_TX_DIR, FALSE,	FALSE,	8U,		CAN_STD_ID,	0x430U,	0x7FF,	1U},		//Object 51
+		{FALSE,  0U, 	CAN_TX_DIR, FALSE,	FALSE,	8U,		CAN_STD_ID,	0x431U,	0x7FF,	1U},		//Object 52
+		{FALSE,  0U, 	CAN_TX_DIR, FALSE,	FALSE,	8U,		CAN_STD_ID,	0x432U,	0x7FF,	1U},		//Object 53
+		{FALSE,  0U, 	CAN_TX_DIR, FALSE,	FALSE,	8U,		CAN_STD_ID,	0x433U,	0x7FF,	1U},		//Object 54
+		{FALSE,  0U, 	CAN_TX_DIR, FALSE,	FALSE,	8U,		CAN_STD_ID,	0x413U,	0x7FF,	1U},		//Object 55
+		{FALSE,  0U, 	CAN_TX_DIR, FALSE,	FALSE,	8U,		CAN_STD_ID,	0x415U,	0x7FF,	1U},		//Object 56
+		{FALSE,  0U, 	CAN_TX_DIR, FALSE,	FALSE,	8U,		CAN_STD_ID,	0x82U,	0x7FF,	1U},		//Object 57
+
+		//----------------------------------useless-------------------------------------------------------------------------
+
+		{FALSE,  0U, 	CAN_TX_DIR, FALSE,	FALSE,	8U,		CAN_STD_ID,	0x5A2U,	0x7FF,	1U},		//Object 58
+		{FALSE,  0U, 	CAN_TX_DIR, FALSE,	FALSE,	8U,		CAN_STD_ID,	0x5A3U,	0x7FF,	1U},		//Object 59
+		{FALSE,  0U, 	CAN_TX_DIR, FALSE,	FALSE,	8U,		CAN_STD_ID,	0x5A4U,	0x7FF,	1U},		//Object 60
+
+		{FALSE,  0U, 	CAN_TX_DIR, FALSE,	FALSE,	8U,		CAN_STD_ID,	0x5A5U,	0x7FF,	1U},		//Object 61
+		{FALSE,  0U, 	CAN_TX_DIR, FALSE,	FALSE,	8U,		CAN_STD_ID,	0x592U,	0x7FF,	1U},		//Object 62
+		{FALSE,  0U, 	CAN_TX_DIR, FALSE,	FALSE,	8U,		CAN_STD_ID,	0x593U,	0x7FF,	1U},		//Object 63
+
+		{FALSE,  0U, 	CAN_TX_DIR, FALSE,	FALSE,	8U,		CAN_STD_ID,	0x58DU,	0x7FF,	1U},		//Object 64
+		{FALSE,  0U, 	CAN_TX_DIR, FALSE,	FALSE,	8U,		CAN_STD_ID,	0x58EU,	0x7FF,	1U},		//Object 65
+
+		{FALSE,  0U, 	CAN_TX_DIR, FALSE,	FALSE,	8U,		CAN_STD_ID,	0x58FU,	0x7FF,	1U},		//Object 66
+		{FALSE,  0U, 	CAN_TX_DIR, FALSE,	FALSE,	8U,		CAN_STD_ID,	0x590U,	0x7FF,	1U},		//Object 67
+		{FALSE,  0U, 	CAN_TX_DIR, FALSE,	FALSE,	8U,		CAN_STD_ID,	0x591U,	0x7FF,	1U},		//Object 68
+
+		{FALSE,  0U, 	CAN_TX_DIR, FALSE,	FALSE,	8U,		CAN_STD_ID,	0x234U,	0x7FF,	1U},		//Object 69
+		{FALSE,  0U, 	CAN_TX_DIR, FALSE,	FALSE,	8U,		CAN_STD_ID,	0x534U,	0x7FF,	1U},		//Object 70
+		{FALSE,  0U, 	CAN_TX_DIR, FALSE,	FALSE,	8U,		CAN_STD_ID,	0x312U,	0x7FF,	1U},		//Object 71
+		{FALSE,  0U, 	CAN_TX_DIR, FALSE,	FALSE,	8U,		CAN_STD_ID,	0x450U,	0x7FF,	1U},		//Object 72
+		{FALSE,  0U, 	CAN_TX_DIR, FALSE,	FALSE,	8U,		CAN_STD_ID,	0x451U,	0x7FF,	1U},		//Object 73
+
+
+		{FALSE,  0U, 	CAN_TX_DIR, FALSE,	FALSE,	8U,		CAN_STD_ID,	0x7DFU,	0x7FF,	1U},		//Object 74	发送 DIO输入相关内容
+
+		//----------------------------------useless-------------------------------------------------------------------------
+
+		{FALSE, 0U, 	CAN_TX_DIR, FALSE,	FALSE,	8U,		CAN_STD_ID,	0x7FFU,	0x7FF,	1U},		//Object 75
+		{FALSE, 0U, 	CAN_TX_DIR, FALSE,	FALSE,	8U,		CAN_STD_ID,	0x7FFU,	0x7FF,	1U},		//Object 76
+		{FALSE, 0U, 	CAN_TX_DIR, FALSE,	FALSE,	8U,		CAN_STD_ID,	0x7FFU,	0x7FF,	1U},		//Object 77
+		{FALSE, 0U, 	CAN_TX_DIR, FALSE,	FALSE,	8U,		CAN_STD_ID,	0x7FFU,	0x7FF,	1U},		//Object 78
+		{FALSE, 0U, 	CAN_TX_DIR, FALSE,	FALSE,	8U,		CAN_STD_ID,	0x7FFU,	0x7FF,	1U},		//Object 79
+
+		//------------------------------------INBUS ----------------------------------------------------------------------------------------------------
+
+		{FALSE, 	1U, 	CAN_RX_DIR, TRUE,	FALSE,	8U,		CAN_EXT_ID,	0x18E00000U,	0x1FF0FFFF,	1U},		//Object 80
+		{FALSE, 	1U, 	CAN_RX_DIR, TRUE,	FALSE,	8U,		CAN_EXT_ID,	0x18E00001U,	0x1FF0FFFF,	1U},		//Object 81
+		{FALSE, 	1U, 	CAN_RX_DIR, TRUE,	FALSE,	8U,		CAN_EXT_ID,	0x18E00002U,	0x1FF0FFFF,	1U},		//Object 82
+		{FALSE, 	1U, 	CAN_RX_DIR, TRUE,	FALSE,	8U,		CAN_EXT_ID,	0x18E00003U,	0x1FF0FFFF,	1U},		//Object 83
+		{FALSE, 	1U, 	CAN_RX_DIR, TRUE,	FALSE,	8U,		CAN_EXT_ID,	0x18E00004U,	0x1FF0FFFF,	1U},		//Object 84
+		{FALSE, 	1U, 	CAN_RX_DIR, TRUE,	FALSE,	8U,		CAN_EXT_ID,	0x18E00005U,	0x1FF0FFFF,	1U},		//Object 85
+		{FALSE, 	1U, 	CAN_RX_DIR, TRUE,	FALSE,	8U,		CAN_EXT_ID,	0x18E00006U,	0x1FF0FFFF,	1U},		//Object 86
+		{FALSE, 	1U, 	CAN_RX_DIR, TRUE,	FALSE,	8U,		CAN_EXT_ID,	0x18E00007U,	0x1FF0FFFF,	1U},		//Object 87
+		{FALSE, 	1U, 	CAN_RX_DIR, TRUE,	FALSE,	8U,		CAN_EXT_ID,	0x18E00008U,	0x1FF0FFFF,	1U},		//Object 88
+		{FALSE, 	1U, 	CAN_RX_DIR, TRUE,	FALSE,	8U,		CAN_EXT_ID,	0x18E00009U,	0x1FF0FFFF,	1U},		//Object 89
+		{FALSE, 	1U, 	CAN_RX_DIR, TRUE,	FALSE,	8U,		CAN_EXT_ID,	0x18E0000AU,	0x1FF0FFFF,	1U},		//Object 90
+		{FALSE, 	1U, 	CAN_RX_DIR, TRUE,	FALSE,	8U,		CAN_EXT_ID,	0x18E0000BU,	0x1FF0FFFF,	1U},		//Object 91
+		{FALSE, 	1U, 	CAN_RX_DIR, TRUE,	FALSE,	8U,		CAN_EXT_ID,	0x18E0000CU,	0x1FF8FFFF,	1U},		//Object 92
+		{FALSE, 	1U, 	CAN_RX_DIR, TRUE,	FALSE,	8U,		CAN_EXT_ID,	0x18E0000DU,	0x1FF8FFFF,	1U},		//Object 93
+		{FALSE, 	1U, 	CAN_RX_DIR, TRUE,	FALSE,	8U,		CAN_EXT_ID,	0x18E0000EU,	0x1FF8FFFF,	1U},		//Object 94
+		{FALSE, 	1U, 	CAN_RX_DIR, TRUE,	FALSE,	8U,		CAN_EXT_ID,	0x18E0000FU,	0x1FF8FFFF,	1U},		//Object 95
+
+		{FALSE, 	1U, 	CAN_TX_DIR, FALSE,	FALSE,	8U,		CAN_EXT_ID,	0x10200001U,	0x1FFFFFFF,	1U},		//Object 96
+
+		{FALSE, 		1U, 	CAN_RX_DIR, FALSE,	FALSE,	8U,		CAN_STD_ID,	0x1E1U,	0x7FF,	1U},		//Object 97
+		{FALSE, 		1U, 	CAN_TX_DIR, FALSE,	FALSE,	8U,		CAN_STD_ID,	0x1E9U,	0x7FF,	1U},		//Object 98
+		{FALSE,  	1U, 	CAN_RX_DIR, FALSE,	FALSE,	8U,		CAN_STD_ID,	0x1DFU,	0x7FF,	1U},		//Object 99	发送 DIO输入相关内容
+
+		//-----------------------------------FCBUS -------------------------------------------------------------------------------------
+		{FALSE, 	2U, 	CAN_TX_DIR, FALSE,	FALSE,	8U,		CAN_EXT_ID,	0x1FFFFFFF,	0x1FFFFFFF,	1U},		//Object 100
+		{FALSE, 	2U, 	CAN_TX_DIR, FALSE,	FALSE,	8U,		CAN_EXT_ID,	0x1FFFFFFF,	0x1FFFFFFF,	1U},		//Object 101
+		{FALSE, 	2U, 	CAN_TX_DIR, FALSE,	FALSE,	8U,		CAN_EXT_ID,	0x1FFFFFFF,	0x1FFFFFFF,	1U},		//Object 102
+		{FALSE, 	2U, 	CAN_TX_DIR, FALSE,	FALSE,	8U,		CAN_EXT_ID,	0x1FFFFFFF,	0x1FFFFFFF,	1U},		//Object 103
+		{FALSE, 	2U, 	CAN_TX_DIR, FALSE,	FALSE,	8U,		CAN_EXT_ID,	0x1FFFFFFF,	0x1FFFFFFF,	1U},		//Object 104
+		{FALSE, 	2U, 	CAN_TX_DIR, FALSE,	FALSE,	8U,		CAN_EXT_ID,	0x1FFFFFFF,	0x1FFFFFFF,	1U},		//Object 105
+		{FALSE, 	2U, 	CAN_TX_DIR, FALSE,	FALSE,	8U,		CAN_EXT_ID,	0x1FFFFFFF,	0x1FFFFFFF,	1U},		//Object 106
+		{FALSE, 	2U, 	CAN_TX_DIR, FALSE,	FALSE,	8U,		CAN_EXT_ID,	0x1FFFFFFF,	0x1FFFFFFF,	1U},		//Object 107
+
+
+		{FALSE, 	2U, 	CAN_TX_DIR, FALSE,	FALSE,	8U,		CAN_EXT_ID,	0x1CEC56F4U,	0x1FFFFFFF,	1U},		//Object 108
+		{FALSE, 	2U, 	CAN_TX_DIR, FALSE,	FALSE,	8U,		CAN_EXT_ID,	0x1CEB56F4U,	0x1FFFFFFF,	1U},		//Object 109
+		{FALSE, 	2U, 	CAN_TX_DIR, FALSE,	FALSE,	1U,		CAN_EXT_ID,	0x100956F4U,	0x1FFFFFFF,	1U},		//Object 110
+		{FALSE, 	2U, 	CAN_TX_DIR, FALSE,	FALSE,	8U,		CAN_EXT_ID,	0x1CEC56FFU,	0x1FFFFFFF,	1U},		//Object 111
+		{FALSE, 	2U, 	CAN_TX_DIR, FALSE,	FALSE,	5U,		CAN_EXT_ID,	0x181056F4U,	0x1FFFFFFF,	1U},		//Object 112
+		{FALSE, 	2U, 	CAN_TX_DIR, FALSE,	FALSE,	7U,		CAN_EXT_ID,	0x181356F4U,	0x1FFFFFFF,	1U},		//Object 113
+		{FALSE, 	2U, 	CAN_TX_DIR, FALSE,	FALSE,	4U,		CAN_EXT_ID,	0x101956F4U,	0x1FFFFFFF,	1U},		//Object 114
+		{FALSE, 	2U, 	CAN_TX_DIR, FALSE,	FALSE,	7U,		CAN_EXT_ID,	0x181C56F4U,	0x1FFFFFFF,	1U},		//Object 115
+		{FALSE, 	2U, 	CAN_TX_DIR, FALSE,	FALSE,	8U,		CAN_EXT_ID,	0x081E56F4U,	0x1FFFFFFF,	1U},		//Object 116
+		{FALSE, 	2U, 	CAN_TX_DIR, FALSE,	FALSE,	2U,		CAN_EXT_ID,	0x182756F4U,	0x1FFFFFFF,	1U},		//Object 117
+
+		{FALSE, 	2U, 	CAN_RX_DIR, FALSE,	FALSE,	8U,		CAN_EXT_ID,	0x1801F456U,	0x1FFFFFFF,	1U},		//Object 118
+		{FALSE, 	2U, 	CAN_RX_DIR, FALSE,	FALSE,	8U,		CAN_EXT_ID,	0x1807F456U,	0x1FFFFFFF,	1U},		//Object 119
+		{FALSE, 	2U, 	CAN_RX_DIR, FALSE,	FALSE,	8U,		CAN_EXT_ID,	0x1808F456U,	0x1FFFFFFF,	1U},		//Object 120
+		{TRUE, 		0U, 	CAN_RX_DIR, TRUE,	FALSE,	8U,		CAN_STD_ID,	0x781U,	0x7FF,	1U},		//Object 121
+		{TRUE, 		0U, 	CAN_TX_DIR, FALSE,	FALSE,	8U,		CAN_STD_ID,	0x789U,	0x7FF,	1U},		//Object 122
+		{TRUE,  	0U, 	CAN_RX_DIR, FALSE,	FALSE,	8U,		CAN_STD_ID,	0x7DFU,	0x7FF,	1U},		//Object 123	发送 DIO输入相关内容
+
+		{TRUE, 	0U, 	CAN_RX_DIR, FALSE,	FALSE,	8U,		CAN_STD_ID,	0xBBU,	0x7FF,	1U},		//Object 124
+		{TRUE, 	0U, 	CAN_TX_DIR, FALSE,	FALSE,	8U,		CAN_STD_ID,	0xAAU,	0x7FF,	1U},		//Object 125
+		{TRUE, 	0U, 	CAN_TX_DIR, FALSE,	FALSE,	8U,		CAN_STD_ID,	0xCCU,	0x7FF,	1U},		//Object 126
+		{FALSE, 	2U, 	CAN_RX_DIR, FALSE,	FALSE,	8U,		CAN_EXT_ID,	0x1826F456U,	0x1FFFFFFF,	1U},		//Object 127
+};
+
+//用户配置CAN ID接收信息
+Struct_CAN_Rx_By_ID	st_CAN_Rx_By_ID[MAX_CAN_RX_BY_ID_NUM] =
+{
+		//En,	ID,				Empty,	Data,
+//============================0=========================================
+		{TRUE,	0x18E00000U,	TRUE,	{0}},		//1
+		{TRUE,	0x18E10000U,	TRUE,	{0}},		//2
+		{TRUE,	0x18E20000U,	TRUE,	{0}},		//3
+		{TRUE,	0x18E30000U,	TRUE,	{0}},		//4
+		{TRUE,	0x18E40000U,	TRUE,	{0}},		//5
+		{TRUE,	0x18E50000U,	TRUE,	{0}},		//6
+		{TRUE,	0x18E60000U,	TRUE,	{0}},		//7
+		{TRUE,	0x18E70000U,	TRUE,	{0}},		//8
+		{TRUE,	0x18E80000U,	TRUE,	{0}},		//9
+		{TRUE,	0x18E90000U,	TRUE,	{0}},		//10
+//============================1=========================================
+		{TRUE,	0x18E00001U,	TRUE,	{0}},		//1
+		{TRUE,	0x18E10001U,	TRUE,	{0}},		//2
+		{TRUE,	0x18E20001U,	TRUE,	{0}},		//3
+		{TRUE,	0x18E30001U,	TRUE,	{0}},		//4
+		{TRUE,	0x18E40001U,	TRUE,	{0}},		//5
+		{TRUE,	0x18E50001U,	TRUE,	{0}},		//6
+		{TRUE,	0x18E60001U,	TRUE,	{0}},		//7
+		{TRUE,	0x18E70001U,	TRUE,	{0}},		//8
+		{TRUE,	0x18E80001U,	TRUE,	{0}},		//9
+		{TRUE,	0x18E90001U,	TRUE,	{0}},		//10
+//============================2=========================================
+		{TRUE,	0x18E00002U,	TRUE,	{0}},		//1
+		{TRUE,	0x18E10002U,	TRUE,	{0}},		//2
+		{TRUE,	0x18E20002U,	TRUE,	{0}},		//3
+		{TRUE,	0x18E30002U,	TRUE,	{0}},		//4
+		{TRUE,	0x18E40002U,	TRUE,	{0}},		//5
+		{TRUE,	0x18E50002U,	TRUE,	{0}},		//6
+		{TRUE,	0x18E60002U,	TRUE,	{0}},		//7
+		{TRUE,	0x18E70002U,	TRUE,	{0}},		//8
+		{TRUE,	0x18E80002U,	TRUE,	{0}},		//9
+		{TRUE,	0x18E90002U,	TRUE,	{0}},		//10
+//============================3=========================================
+		{TRUE,	0x18E00003U,	TRUE,	{0}},		//1
+		{TRUE,	0x18E10003U,	TRUE,	{0}},		//2
+		{TRUE,	0x18E20003U,	TRUE,	{0}},		//3
+		{TRUE,	0x18E30003U,	TRUE,	{0}},		//4
+		{TRUE,	0x18E40003U,	TRUE,	{0}},		//5
+		{TRUE,	0x18E50003U,	TRUE,	{0}},		//6
+		{TRUE,	0x18E60003U,	TRUE,	{0}},		//7
+		{TRUE,	0x18E70003U,	TRUE,	{0}},		//8
+		{TRUE,	0x18E80003U,	TRUE,	{0}},		//9
+		{TRUE,	0x18E90003U,	TRUE,	{0}},		//10
+//============================4=========================================
+		{TRUE,	0x18E00004U,	TRUE,	{0}},		//1
+		{TRUE,	0x18E10004U,	TRUE,	{0}},		//2
+		{TRUE,	0x18E20004U,	TRUE,	{0}},		//3
+		{TRUE,	0x18E30004U,	TRUE,	{0}},		//4
+		{TRUE,	0x18E40004U,	TRUE,	{0}},		//5
+		{TRUE,	0x18E50004U,	TRUE,	{0}},		//6
+		{TRUE,	0x18E60004U,	TRUE,	{0}},		//7
+		{TRUE,	0x18E70004U,	TRUE,	{0}},		//8
+		{TRUE,	0x18E80004U,	TRUE,	{0}},		//9
+		{TRUE,	0x18E90004U,	TRUE,	{0}},		//10
+//============================5=========================================
+		{TRUE,	0x18E00005U,	TRUE,	{0}},		//1
+		{TRUE,	0x18E10005U,	TRUE,	{0}},		//2
+		{TRUE,	0x18E20005U,	TRUE,	{0}},		//3
+		{TRUE,	0x18E30005U,	TRUE,	{0}},		//4
+		{TRUE,	0x18E40005U,	TRUE,	{0}},		//5
+		{TRUE,	0x18E50005U,	TRUE,	{0}},		//6
+		{TRUE,	0x18E60005U,	TRUE,	{0}},		//7
+		{TRUE,	0x18E70005U,	TRUE,	{0}},		//8
+		{TRUE,	0x18E80005U,	TRUE,	{0}},		//9
+		{TRUE,	0x18E90005U,	TRUE,	{0}},		//10
+//============================6=========================================
+		{TRUE,	0x18E00006U,	TRUE,	{0}},		//1
+		{TRUE,	0x18E10006U,	TRUE,	{0}},		//2
+		{TRUE,	0x18E20006U,	TRUE,	{0}},		//3
+		{TRUE,	0x18E30006U,	TRUE,	{0}},		//4
+		{TRUE,	0x18E40006U,	TRUE,	{0}},		//5
+		{TRUE,	0x18E50006U,	TRUE,	{0}},		//6
+		{TRUE,	0x18E60006U,	TRUE,	{0}},		//7
+		{TRUE,	0x18E70006U,	TRUE,	{0}},		//8
+		{TRUE,	0x18E80006U,	TRUE,	{0}},		//9
+		{TRUE,	0x18E90006U,	TRUE,	{0}},		//10
+//============================7=========================================
+		{TRUE,	0x18E00007U,	TRUE,	{0}},		//1
+		{TRUE,	0x18E10007U,	TRUE,	{0}},		//2
+		{TRUE,	0x18E20007U,	TRUE,	{0}},		//3
+		{TRUE,	0x18E30007U,	TRUE,	{0}},		//4
+		{TRUE,	0x18E40007U,	TRUE,	{0}},		//5
+		{TRUE,	0x18E50007U,	TRUE,	{0}},		//6
+		{TRUE,	0x18E60007U,	TRUE,	{0}},		//7
+		{TRUE,	0x18E70007U,	TRUE,	{0}},		//8
+		{TRUE,	0x18E80007U,	TRUE,	{0}},		//9
+		{TRUE,	0x18E90007U,	TRUE,	{0}},		//10
+//============================8=========================================
+		{TRUE,	0x18E00008U,	TRUE,	{0}},		//1
+		{TRUE,	0x18E10008U,	TRUE,	{0}},		//2
+		{TRUE,	0x18E20008U,	TRUE,	{0}},		//3
+		{TRUE,	0x18E30008U,	TRUE,	{0}},		//4
+		{TRUE,	0x18E40008U,	TRUE,	{0}},		//5
+		{TRUE,	0x18E50008U,	TRUE,	{0}},		//6
+		{TRUE,	0x18E60008U,	TRUE,	{0}},		//7
+		{TRUE,	0x18E70008U,	TRUE,	{0}},		//8
+		{TRUE,	0x18E80008U,	TRUE,	{0}},		//9
+		{TRUE,	0x18E90008U,	TRUE,	{0}},		//10
+//============================9=========================================
+		{TRUE,	0x18E00009U,	TRUE,	{0}},		//1
+		{TRUE,	0x18E10009U,	TRUE,	{0}},		//2
+		{TRUE,	0x18E20009U,	TRUE,	{0}},		//3
+		{TRUE,	0x18E30009U,	TRUE,	{0}},		//4
+		{TRUE,	0x18E40009U,	TRUE,	{0}},		//5
+		{TRUE,	0x18E50009U,	TRUE,	{0}},		//6
+		{TRUE,	0x18E60009U,	TRUE,	{0}},		//7
+		{TRUE,	0x18E70009U,	TRUE,	{0}},		//8
+		{TRUE,	0x18E80009U,	TRUE,	{0}},		//9
+		{TRUE,	0x18E90009U,	TRUE,	{0}},		//10
+//============================A=========================================
+		{TRUE,	0x18E0000AU,	TRUE,	{0}},		//1
+		{TRUE,	0x18E1000AU,	TRUE,	{0}},		//2
+		{TRUE,	0x18E2000AU,	TRUE,	{0}},		//3
+		{TRUE,	0x18E3000AU,	TRUE,	{0}},		//4
+		{TRUE,	0x18E4000AU,	TRUE,	{0}},		//5
+		{TRUE,	0x18E5000AU,	TRUE,	{0}},		//6
+		{TRUE,	0x18E6000AU,	TRUE,	{0}},		//7
+		{TRUE,	0x18E7000AU,	TRUE,	{0}},		//8
+		{TRUE,	0x18E8000AU,	TRUE,	{0}},		//9
+		{TRUE,	0x18E9000AU,	TRUE,	{0}},		//10
+//============================B=========================================
+		{TRUE,	0x18E0000BU,	TRUE,	{0}},		//1
+		{TRUE,	0x18E1000BU,	TRUE,	{0}},		//2
+		{TRUE,	0x18E2000BU,	TRUE,	{0}},		//3
+		{TRUE,	0x18E3000BU,	TRUE,	{0}},		//4
+		{TRUE,	0x18E4000BU,	TRUE,	{0}},		//4
+		{TRUE,	0x18E5000BU,	TRUE,	{0}},		//6
+		{TRUE,	0x18E6000BU,	TRUE,	{0}},		//7
+		{TRUE,	0x18E7000BU,	TRUE,	{0}},		//8
+		{TRUE,	0x18E8000BU,	TRUE,	{0}},		//9
+		{TRUE,	0x18E9000BU,	TRUE,	{0}},		//10
+};
+

@@ -1,0 +1,1030 @@
+/*----------------------------------------------------------------------------------------------------*/
+/*
+File Name：  	Uds_Tp_Drv.c
+Author：        	任智强
+Company:	G-Pulse
+Version：      	V1.00.0000
+Comment：  	TP驱动
+History：   	V1.00.0000      	20141127                            初始版本
+
+*/
+
+#include "MAIN.h"
+
+boolean	b_Tp_Frame_Rx_NewData_Valid;								/*Tp接收新的帧有效标志*/
+uint32	ui32_Tp_Frame_Rx_CAN_ID;									/*TP 帧接收CAN ID*/
+uint8	ui8_Tp_Frame_AddrType;										/*TP 帧地址类型*/
+uint8	ui8_Tp_Frame_Rx_Buf[TP_FRAME_DL];							/*TP 帧接收Buf*/
+
+Struct_Tp_Receiver	st_Tp_Receiver;									/*TP Receiver*/
+Struct_Tp_Sender	st_Tp_Sender;									/*TP Sender*/
+
+#if(TP_DUPLEX_MODE == TP_HALF_DUPLEX)								/*半双工模式*/
+	uint8	ui8_Tp_Task_Dir_FSM;									/*TP任务方向状态机*/
+	uint8	ui8_Tp_Appl_RxTx_Buf[TP_APPL_DL_MAX];					/*TP 应用接收发送Buf*/
+#elif(TP_DUPLEX_MODE == TP_FULL_DUPLEX)								/*全双工模式*/
+	uint8	ui8_Tp_Appl_Rx_Buf[TP_APPL_DL_MAX];						/*TP 应用接收Buf*/
+	uint8	ui8_Tp_Appl_Tx_Buf[TP_APPL_DL_MAX];						/*TP 应用发送Buf*/
+#endif
+
+Struct_N_USData_Request				st_N_USData_Request;			/*数据请求服务结构体*/
+Struct_N_USData_FF_Indication		st_N_USData_FF_Indication;		/*数据首帧表示服务结构体*/
+Struct_N_USData_Indication			st_N_USData_Indication;			/*数据表示服务结构体*/
+Struct_N_USData_Confirm				st_N_USData_Confirm;			/*数据请求确认服务结构体*/
+Struct_N_ChangeParameter_Request	st_N_ChangeParameter_Request;	/*参数设置请求服务结构体*/
+Struct_N_ChangeParameter_Confirm	st_N_ChangeParameter_Confirm;	/*参数设置请求确认服务结构体*/
+
+/*************************************************************************/
+/*
+Function:		void TpFunc_Init(void)
+
+Description: 	此函数用于初始化Tp协议
+
+Parameters: 	void
+
+Return:       	void
+
+Return Values:  无
+
+Remarks:
+
+Example:
+*/
+void TpFunc_Init(void)
+{
+#if(TP_DUPLEX_MODE == TP_HALF_DUPLEX)							/*半双工模式*/
+	ui8_Tp_Task_Dir_FSM = TP_TASK_RX_STATE;					/*TP任务状态标志初始化为接收状态*/
+	st_N_USData_Indication.ui8_pMsgData = &ui8_Tp_Appl_RxTx_Buf[0U];	/*初始化Ind数据指针*/
+	st_N_USData_Request.ui8_pMsgData = &ui8_Tp_Appl_RxTx_Buf[0U];		/*初始化Req数据指针*/
+#elif(TP_DUPLEX_MODE == TP_FULL_DUPLEX)								/*全双工模式*/
+	st_N_USData_Indication.ui8_pMsgData = &ui8_Tp_Appl_Rx_Buf[0U];		/*初始化Ind数据指针*/
+	st_N_USData_Request.ui8_pMsgData = &ui8_Tp_Appl_Tx_Buf[0U];		/*初始化Req数据指针*/
+#endif
+
+	b_Tp_Frame_Rx_NewData_Valid = FALSE;							/*初始化Tp接收新的帧无效*/
+
+	st_Tp_Receiver.ui8_Task_FSM = TP_TASK_SF_STATE;					/*初始化Receiver状态机为单帧状态*/
+	st_Tp_Receiver.b_Frame_Tx_NewData_Valid = FALSE;				/*初始化Receiver发送新的帧无效*/
+	st_Tp_Receiver.ui8_Timing_N_Ar = 0U;							/*初始化N_Ar为0*/
+	st_Tp_Receiver.ui8_Timing_N_Cr = 0U;							/*初始化N_Cr为0*/
+	st_Tp_Receiver.ui16_N_USData_Ind_Index = 0U;					/*初始化Receiver Ind数据索引为0*/
+
+	st_Tp_Sender.ui8_Task_FSM = TP_TASK_SF_STATE;					/*初始化Sender状态机为单帧状态*/
+	st_Tp_Sender.b_Frame_Tx_NewData_Valid = FALSE;					/*初始化Sender发送新的帧无效*/
+	st_Tp_Sender.ui8_Timing_N_As = 0U;								/*初始化N_As为0*/
+	st_Tp_Sender.ui8_Timing_N_Bs = 0U;								/*初始化N_Bs为0*/
+	st_Tp_Sender.ui16_N_USData_Req_Index = 0U;						/*初始化Sender Req数据索引为0*/
+
+	st_N_USData_Request.ui16_Length	= 0U;							/*初始化Req数据长度为0*/
+	st_N_USData_Indication.ui8_N_Result = TP_N_PENDING;				/*初始化Ind结果为等待结果*/
+	st_N_USData_Confirm.ui8_N_Result = TP_N_PENDING;				/*初始化Confirm结果为等待结果*/
+}
+
+/*************************************************************************/
+/*
+Function:		void TpFunc_Receiver_Frame_Tx_Buf_Init(void)
+
+Description: 	此函数用于初始化Receiver帧发送Buf数据
+
+Parameters: 	void
+
+Return:       	void
+
+Return Values:  无
+
+Remarks:
+
+Example:
+*/
+void TpFunc_Receiver_Frame_Tx_Buf_Init(void)
+{
+	st_Tp_Receiver.ui8_Frame_Tx_Buf[0U] = 0x00U;
+	st_Tp_Receiver.ui8_Frame_Tx_Buf[1U] = 0x00U;
+	st_Tp_Receiver.ui8_Frame_Tx_Buf[2U] = 0x00U;
+	st_Tp_Receiver.ui8_Frame_Tx_Buf[3U] = 0x00U;
+	st_Tp_Receiver.ui8_Frame_Tx_Buf[4U] = 0x00U;
+	st_Tp_Receiver.ui8_Frame_Tx_Buf[5U] = 0x00U;
+	st_Tp_Receiver.ui8_Frame_Tx_Buf[6U] = 0x00U;
+	st_Tp_Receiver.ui8_Frame_Tx_Buf[7U] = 0x00U;
+}
+
+/*************************************************************************/
+/*
+Function:		void TpFunc_Sender_Frame_Tx_Buf_Init(void)
+
+Description: 	此函数用于初始化Sender帧发送Buf数据
+
+Parameters: 	void
+
+Return:       	void
+
+Return Values:  无
+
+Remarks:
+
+Example:
+*/
+void TpFunc_Sender_Frame_Tx_Buf_Init(void)
+{
+	st_Tp_Sender.ui8_Frame_Tx_Buf[0U] = 0x00U;
+	st_Tp_Sender.ui8_Frame_Tx_Buf[1U] = 0x00U;
+	st_Tp_Sender.ui8_Frame_Tx_Buf[2U] = 0x00U;
+	st_Tp_Sender.ui8_Frame_Tx_Buf[3U] = 0x00U;
+	st_Tp_Sender.ui8_Frame_Tx_Buf[4U] = 0x00U;
+	st_Tp_Sender.ui8_Frame_Tx_Buf[5U] = 0x00U;
+	st_Tp_Sender.ui8_Frame_Tx_Buf[6U] = 0x00U;
+	st_Tp_Sender.ui8_Frame_Tx_Buf[7U] = 0x00U;
+}
+
+/*************************************************************************/
+/*
+Function:		void TpFunc_Recv_CANMsg(void)
+
+Description: 	此函数用于接收TP CAN消息
+
+Parameters: 	void
+
+Return:       	void
+
+Return Values:
+
+Remarks:
+
+Example:
+*/
+void Read_EvBus(void)
+{
+
+}
+void TpFunc_Recv_CANMsg(void)
+{
+	boolean	b_Return;
+
+	if(b_Tp_Frame_Rx_NewData_Valid != TRUE)	/*TP帧接收到新数据标志无效时才接收，防止覆盖原来的有效帧*/
+	{
+#if ECU_TYPE == ECU_VCU
+		if(CAN_Read(UDS_CMD_RX_MO_EVBUS, &ui32_Tp_Frame_Rx_CAN_ID, &ui8_Tp_Frame_Rx_Buf[0U]) == TRUE)
+		{
+			ui32_Tp_Frame_Rx_CAN_ID = UDS_CAN_PHY_ADDR_EVBUS;
+			ui8_Uds_Cmd_Rx_MO = UDS_CMD_RX_MO_EVBUS;
+			ui8_Uds_Cmd_Tx_MO = UDS_CMD_TX_MO_EVBUS;
+			ui32_Uds_Can_Phy_Addr = UDS_CAN_PHY_ADDR_EVBUS;
+			ui32_Uds_Can_Func_Addr = UDS_CAN_FUNC_ADDR_EVBUS;
+			b_Return = TRUE;
+			__nop();
+			__nop();
+		}
+		else if(CAN_Read(UDS_CMD_RX_MO_EVBUS_FUN, &ui32_Tp_Frame_Rx_CAN_ID, &ui8_Tp_Frame_Rx_Buf[0U]) == TRUE)
+		{
+			ui32_Tp_Frame_Rx_CAN_ID = UDS_CAN_FUNC_ADDR_EVBUS;
+			ui8_Uds_Cmd_Rx_MO = UDS_CMD_RX_MO_EVBUS_FUN;
+			ui8_Uds_Cmd_Tx_MO = UDS_CMD_TX_MO_EVBUS;
+			ui32_Uds_Can_Phy_Addr = UDS_CAN_PHY_ADDR_EVBUS;
+			ui32_Uds_Can_Func_Addr = UDS_CAN_FUNC_ADDR_EVBUS;
+			b_Return = TRUE;
+			__nop();
+			__nop();
+		}
+
+#elif ECU_TYPE == ECU_VBU
+		if(CAN_Read(UDS_CMD_RX_MO_EVBUS, &ui32_Tp_Frame_Rx_CAN_ID, &ui8_Tp_Frame_Rx_Buf[0U]) == TRUE)
+		{
+			ui32_Tp_Frame_Rx_CAN_ID = UDS_CAN_PHY_ADDR_EVBUS;
+			ui8_Uds_Cmd_Rx_MO = UDS_CMD_RX_MO_EVBUS;
+			ui8_Uds_Cmd_Tx_MO = UDS_CMD_TX_MO_EVBUS;
+			ui32_Uds_Can_Phy_Addr = UDS_CAN_PHY_ADDR_EVBUS;
+			ui32_Uds_Can_Func_Addr = UDS_CAN_FUNC_ADDR_EVBUS;
+			b_Return = TRUE;
+			__nop();
+			__nop();
+		}
+		else if(CAN_Read(UDS_CMD_RX_MO_EVBUS_FUN, &ui32_Tp_Frame_Rx_CAN_ID, &ui8_Tp_Frame_Rx_Buf[0U]) == TRUE)
+		{
+			ui32_Tp_Frame_Rx_CAN_ID = UDS_CAN_FUNC_ADDR_EVBUS;
+			ui8_Uds_Cmd_Rx_MO = UDS_CMD_RX_MO_EVBUS_FUN;
+			ui8_Uds_Cmd_Tx_MO = UDS_CMD_TX_MO_EVBUS;
+			ui32_Uds_Can_Phy_Addr = UDS_CAN_PHY_ADDR_EVBUS;
+			ui32_Uds_Can_Func_Addr = UDS_CAN_FUNC_ADDR_EVBUS;
+			b_Return = TRUE;
+			__nop();
+			__nop();
+		}
+
+#elif ECU_TYPE == ECU_BMS
+		if(CAN_Read(UDS_CMD_RX_MO_EVBUS, &ui32_Tp_Frame_Rx_CAN_ID, &ui8_Tp_Frame_Rx_Buf[0U]) == TRUE)
+		{
+			Update_Count = 0;
+			Handflag = 1;
+			ui32_Tp_Frame_Rx_CAN_ID = UDS_CAN_PHY_ADDR_EVBUS;
+			ui8_Uds_Cmd_Rx_MO = UDS_CMD_RX_MO_EVBUS;
+			ui8_Uds_Cmd_Tx_MO = UDS_CMD_TX_MO_EVBUS;
+			ui32_Uds_Can_Phy_Addr = UDS_CAN_PHY_ADDR_EVBUS;
+			ui32_Uds_Can_Func_Addr = UDS_CAN_FUNC_ADDR_EVBUS;
+			b_Return = TRUE;
+		}
+		else if(CAN_Read(UDS_CMD_RX_MO_EVBUS_FUN, &ui32_Tp_Frame_Rx_CAN_ID, &ui8_Tp_Frame_Rx_Buf[0U]) == TRUE)
+		{
+			Update_Count = 0;									/*升级计数*/
+			Handflag = 1;
+			ui32_Tp_Frame_Rx_CAN_ID = UDS_CAN_FUNC_ADDR_EVBUS;
+			ui8_Uds_Cmd_Rx_MO = UDS_CMD_RX_MO_EVBUS;
+			ui8_Uds_Cmd_Tx_MO = UDS_CMD_TX_MO_EVBUS;
+			ui32_Uds_Can_Phy_Addr = UDS_CAN_PHY_ADDR_EVBUS;
+			ui32_Uds_Can_Func_Addr = UDS_CAN_FUNC_ADDR_EVBUS;
+			b_Return = TRUE;
+		}
+#elif ECU_TYPE == ECU_MCU
+		if(CAN_Read(UDS_CMD_RX_MO_EVBUS, &ui32_Tp_Frame_Rx_CAN_ID, &ui8_Tp_Frame_Rx_Buf[0U]) == TRUE)
+		{
+			ui32_Tp_Frame_Rx_CAN_ID = UDS_CAN_PHY_ADDR_EVBUS;
+			ui8_Uds_Cmd_Rx_MO = UDS_CMD_RX_MO_EVBUS;
+			ui8_Uds_Cmd_Tx_MO = UDS_CMD_TX_MO_EVBUS;
+			ui32_Uds_Can_Phy_Addr = UDS_CAN_PHY_ADDR_EVBUS;
+			ui32_Uds_Can_Func_Addr = UDS_CAN_FUNC_ADDR_EVBUS;
+			b_Return = TRUE;
+			__nop();
+			__nop();
+		}
+		else if(CAN_Read(UDS_CMD_RX_MO_EVBUS_FUN, &ui32_Tp_Frame_Rx_CAN_ID, &ui8_Tp_Frame_Rx_Buf[0U]) == TRUE)
+		{
+			ui32_Tp_Frame_Rx_CAN_ID = UDS_CAN_FUNC_ADDR_EVBUS;
+			ui8_Uds_Cmd_Rx_MO = UDS_CMD_RX_MO_EVBUS_FUN;
+			ui8_Uds_Cmd_Tx_MO = UDS_CMD_TX_MO_EVBUS;
+			ui32_Uds_Can_Phy_Addr = UDS_CAN_PHY_ADDR_EVBUS;
+			ui32_Uds_Can_Func_Addr = UDS_CAN_FUNC_ADDR_EVBUS;
+			b_Return = TRUE;
+			__nop();
+			__nop();
+		}
+#elif ECU_TYPE == ECU_BMS_FRWK_3
+		if(CAN_Read(UDS_CMD_RX_MO_INBUS, &ui32_Tp_Frame_Rx_CAN_ID, &ui8_Tp_Frame_Rx_Buf[0U]) == TRUE)
+		{
+			ui32_Tp_Frame_Rx_CAN_ID = UDS_CAN_PHY_ADDR_INBUS;
+			ui8_Uds_Cmd_Rx_MO = UDS_CMD_RX_MO_INBUS;
+			ui8_Uds_Cmd_Tx_MO = UDS_CMD_TX_MO_INBUS;
+			ui32_Uds_Can_Phy_Addr = UDS_CAN_PHY_ADDR_INBUS;
+			ui32_Uds_Can_Func_Addr = UDS_CAN_FUNC_ADDR_INBUS;
+			b_Return = TRUE;
+			__nop();
+			__nop();
+		}
+		else if(CAN_Read(UDS_CMD_RX_MO_INBUS_FUN, &ui32_Tp_Frame_Rx_CAN_ID, &ui8_Tp_Frame_Rx_Buf[0U]) == TRUE)
+		{
+			ui32_Tp_Frame_Rx_CAN_ID = UDS_CAN_FUNC_ADDR_INBUS;
+			ui8_Uds_Cmd_Rx_MO = UDS_CMD_RX_MO_INBUS;
+			ui8_Uds_Cmd_Tx_MO = UDS_CMD_TX_MO_INBUS;
+			ui32_Uds_Can_Phy_Addr = UDS_CAN_PHY_ADDR_INBUS;
+			ui32_Uds_Can_Func_Addr = UDS_CAN_FUNC_ADDR_INBUS;
+			b_Return = TRUE;
+			__nop();
+			__nop();
+		}
+		else if(CAN_Read(UDS_CMD_RX_MO_INBUS_EX, &ui32_Tp_Frame_Rx_CAN_ID, &ui8_Tp_Frame_Rx_Buf[0U]) == TRUE)
+		{
+			ui32_Tp_Frame_Rx_CAN_ID = UDS_CAN_PHY_ADDR_INBUS_EX;
+			ui8_Uds_Cmd_Rx_MO = UDS_CMD_RX_MO_INBUS_EX;
+			ui8_Uds_Cmd_Tx_MO = UDS_CMD_TX_MO_INBUS_EX;
+			ui32_Uds_Can_Phy_Addr = UDS_CAN_PHY_ADDR_INBUS_EX;
+			ui32_Uds_Can_Func_Addr = UDS_CAN_FUNC_ADDR_INBUS_EX;
+			b_Return = TRUE;
+			__nop();
+			__nop();
+		}
+
+		else if(CAN_Read(UDS_CMD_RX_MO_EVBUS, &ui32_Tp_Frame_Rx_CAN_ID, &ui8_Tp_Frame_Rx_Buf[0U]) == TRUE)
+		{
+			ui32_Tp_Frame_Rx_CAN_ID = UDS_CAN_PHY_ADDR_EVBUS;
+			ui8_Uds_Cmd_Rx_MO = UDS_CMD_RX_MO_EVBUS;
+			ui8_Uds_Cmd_Tx_MO = UDS_CMD_TX_MO_EVBUS;
+			ui32_Uds_Can_Phy_Addr = UDS_CAN_PHY_ADDR_EVBUS;
+			ui32_Uds_Can_Func_Addr = UDS_CAN_FUNC_ADDR_EVBUS;
+			b_Return = TRUE;
+			__nop();
+			__nop();
+		}
+		else if(CAN_Read(UDS_CMD_RX_MO_EVBUS_FUN, &ui32_Tp_Frame_Rx_CAN_ID, &ui8_Tp_Frame_Rx_Buf[0U]) == TRUE)
+		{
+			ui32_Tp_Frame_Rx_CAN_ID = UDS_CAN_FUNC_ADDR_EVBUS;
+			ui8_Uds_Cmd_Rx_MO = UDS_CMD_RX_MO_EVBUS;
+			ui8_Uds_Cmd_Tx_MO = UDS_CMD_TX_MO_EVBUS;
+			ui32_Uds_Can_Phy_Addr = UDS_CAN_PHY_ADDR_EVBUS;
+			ui32_Uds_Can_Func_Addr = UDS_CAN_FUNC_ADDR_EVBUS;
+			b_Return = TRUE;
+			__nop();
+			__nop();
+		}
+#endif
+		else
+		{
+			b_Return = FALSE;
+		}
+
+		if(b_Return == TRUE)	/*接收到新数据*/
+		{
+			if(CAN_MOs_Get_DLC(ui8_Uds_Cmd_Rx_MO) == TP_FRAME_DL)	/*判断帧长度是否正确*/
+			{
+				/*3E帧直接响应*/
+				if((ui8_Tp_Frame_Rx_Buf[0U] == 0x02U) && (ui8_Tp_Frame_Rx_Buf[1U] == 0x3EU)
+						&& ((ui8_Tp_Frame_Rx_Buf[2U] & 0x7FU) == 0x00U))
+				{
+					st_Uds_SID_TP_Info.b_TesterPresentFlag = TRUE;		/*诊断仪在线标志有效*/
+					st_Uds_Dcm_Info.ui16_S3_Timer = UDS_S3_SERVER_MAX;	/*重置S3Server计数器值*/
+
+					if(ui8_Tp_Frame_Rx_Buf[2U] == 0x00U)
+					{
+						st_Uds_Response.ui8_3E_Buf[0U] = 0x02U;
+						st_Uds_Response.ui8_3E_Buf[1U] = 0x7EU;
+						st_Uds_Response.ui8_3E_Buf[2U] = 0x00U;
+						st_Uds_Response.ui8_3E_Buf[3U] = 0x00U;
+						st_Uds_Response.ui8_3E_Buf[4U] = 0x00U;
+						st_Uds_Response.ui8_3E_Buf[5U] = 0x00U;
+						st_Uds_Response.ui8_3E_Buf[6U] = 0x00U;
+						st_Uds_Response.ui8_3E_Buf[7U] = 0x00U;
+						CAN_Write(ui8_Uds_Cmd_Tx_MO,&st_Uds_Response.ui8_3E_Buf[0U]);
+					}
+				}
+				else
+				{
+					if(ui32_Tp_Frame_Rx_CAN_ID == ui32_Uds_Can_Phy_Addr)	/*接收的数据CAN ID为物理地址*/
+					{
+						ui8_Tp_Frame_AddrType = TP_ADDR_TYPE_PHY;		/*地址类型为物理地址*/
+						b_Tp_Frame_Rx_NewData_Valid = TRUE;
+						__nop();
+						__nop();
+					}
+					/*接收的数据CAN ID为单帧的功能地址*/
+					else if((ui32_Tp_Frame_Rx_CAN_ID == ui32_Uds_Can_Func_Addr) && ((ui8_Tp_Frame_Rx_Buf[0U] & 0xF0U) == 0x00U))
+					{
+						ui8_Tp_Frame_AddrType = TP_ADDR_TYPE_FUNC;		/*地址类型为功能地址*/
+						b_Tp_Frame_Rx_NewData_Valid = TRUE;
+						__nop();
+						__nop();
+					}
+				}
+			}
+		}
+	}
+}
+
+/*************************************************************************/
+/*
+Function:		void TpFunc_Send_CANMsg(void)
+
+Description: 	此函数用于发送TP CAN消息
+
+Parameters: 	void
+
+Return:       	void
+
+Return Values:
+
+Remarks:
+
+Example:
+*/
+void TpFunc_Send_CANMsg(void)
+{
+	boolean	b_Return;
+
+	if(st_Tp_Receiver.b_Frame_Tx_NewData_Valid == TRUE)
+	{
+		b_Return = CAN_Write(ui8_Uds_Cmd_Tx_MO, &st_Tp_Receiver.ui8_Frame_Tx_Buf[0U]);
+		if(b_Return == TRUE)
+		{
+			st_Tp_Receiver.b_Frame_Tx_NewData_Valid = FALSE;
+		}
+	}
+
+	if(st_Tp_Sender.b_Frame_Tx_NewData_Valid == TRUE)
+	{
+		b_Return = CAN_Write(ui8_Uds_Cmd_Tx_MO, &st_Tp_Sender.ui8_Frame_Tx_Buf[0U]);
+		if(b_Return == TRUE)
+		{
+			st_Tp_Sender.b_Frame_Tx_NewData_Valid = FALSE;
+		}
+	}
+}
+
+#if(TP_DUPLEX_MODE == TP_HALF_DUPLEX)		/*半双工模式*/
+	/*************************************************************************/
+	/*
+	Function:		void TpFunc_Receiver_Task(void)
+
+	Description: 	此函数用于处理Receiver任务
+
+	Parameters: 	void
+
+	Return:       	void
+
+	Return Values:  无
+
+	Remarks:
+
+	Example:
+	*/
+	void TpFunc_Receiver_Task(void)
+	{
+		uint16	ui16_Loop_1;	/*循环计数器*/
+
+		if(st_Tp_Receiver.b_Frame_Tx_NewData_Valid == FALSE)	/*无需N_Ar等待*/
+		{
+			switch(st_Tp_Receiver.ui8_Task_FSM)	/*任务状态机*/
+			{
+				case TP_TASK_SF_STATE:		/*单帧和首帧状态处理方式相同*/
+				case TP_TASK_FF_STATE:
+				{
+					if(b_Tp_Frame_Rx_NewData_Valid == TRUE)	/*接收到新的帧*/
+					{
+						b_Tp_Frame_Rx_NewData_Valid = FALSE;
+						switch(ui8_Tp_Frame_Rx_Buf[0U] & 0xF0U)	/*判断接收帧类型*/
+						{
+							case TP_N_PDU_TYPE_SF:	/*接收到单帧*/
+							{
+								st_N_USData_Indication.ui16_Length =  ui8_Tp_Frame_Rx_Buf[0U] & 0x0FU;	/*取数据长度*/
+								if((st_N_USData_Indication.ui16_Length >= TP_SF_DL_MIN)
+										&& (st_N_USData_Indication.ui16_Length <= TP_SF_DL_MAX))	/*判断长度是否正确*/
+								{
+									for(ui16_Loop_1 = 0U; ui16_Loop_1 < st_N_USData_Indication.ui16_Length; ui16_Loop_1++)
+									{
+										st_N_USData_Indication.ui8_pMsgData[ui16_Loop_1] = ui8_Tp_Frame_Rx_Buf[TP_SF_DATA_FIELD_OFFSET + ui16_Loop_1];
+									}
+									st_N_USData_Indication.ui8_N_TAtype = ui8_Tp_Frame_AddrType;	/*得出目标地址类型*/
+									st_N_USData_Indication.ui8_N_Result = TP_N_OK;		/*处理完成*/
+								}
+								else
+								{
+									st_N_USData_Indication.ui8_N_Result = TP_N_ERROR;	/*其他错误*/
+								}
+								break;
+							}
+
+							case TP_N_PDU_TYPE_FF:	/*接收到首帧*/
+							{
+								st_N_USData_FF_Indication.ui16_Length = ((uint16)(ui8_Tp_Frame_Rx_Buf[0U] & 0x0FU)) * 0x100U + ui8_Tp_Frame_Rx_Buf[1U];	/*取数据长度*/
+								if(st_N_USData_FF_Indication.ui16_Length >= TP_FF_DL_MIN)
+								{
+									st_Tp_Receiver.ui16_N_USData_Ind_Index = 0U;				/*Ind数据从0开始存储*/
+									for(ui16_Loop_1 = 0U; ui16_Loop_1 < TP_FF_DATA_FIELD_BYTES; ui16_Loop_1++)
+									{
+										st_N_USData_Indication.ui8_pMsgData[st_Tp_Receiver.ui16_N_USData_Ind_Index] = ui8_Tp_Frame_Rx_Buf[TP_FF_DATA_FIELD_OFFSET + ui16_Loop_1];
+										st_Tp_Receiver.ui16_N_USData_Ind_Index++;
+									}
+									st_Tp_Receiver.ui8_CF_SN = 1U;
+
+									st_Tp_Receiver.ui8_Task_FSM = TP_TASK_FC_STATE;	/*切换到流控帧状态*/
+									st_N_USData_FF_Indication.ui8_N_TAtype = ui8_Tp_Frame_AddrType;	/*得出目标地址类型*/
+									st_N_USData_Indication.ui8_N_Result = TP_N_PENDING;	/*暂无结果*/
+
+								}
+								else
+								{
+									st_N_USData_Indication.ui8_N_Result = TP_N_ERROR;	/*其他错误*/
+								}
+								break;
+							}
+
+							default:
+							{
+								/*其他帧忽略*/
+								break;
+							}
+						}
+					}
+					break;
+				}
+
+				case TP_TASK_CF_STATE:		/*连续帧状态*/
+				{
+					if(b_Tp_Frame_Rx_NewData_Valid == TRUE)	/*接收到新的帧*/
+					{
+						b_Tp_Frame_Rx_NewData_Valid = FALSE;
+						switch(ui8_Tp_Frame_Rx_Buf[0U] & 0xF0U)
+						{
+							case TP_N_PDU_TYPE_SF:	/*接收到单帧*/
+							{
+								st_N_USData_Indication.ui16_Length =  ui8_Tp_Frame_Rx_Buf[0U] & 0x0FU;	/*取数据长度*/
+								if((st_N_USData_Indication.ui16_Length >= TP_SF_DL_MIN)
+										&& (st_N_USData_Indication.ui16_Length <= TP_SF_DL_MAX))	/*判断长度是否正确*/
+								{
+									for(ui16_Loop_1 = 0U; ui16_Loop_1 < st_N_USData_Indication.ui16_Length; ui16_Loop_1++)
+									{
+										st_N_USData_Indication.ui8_pMsgData[ui16_Loop_1] = ui8_Tp_Frame_Rx_Buf[TP_SF_DATA_FIELD_OFFSET + ui16_Loop_1];
+									}
+									st_N_USData_Indication.ui8_N_TAtype = ui8_Tp_Frame_AddrType;	/*得出目标地址类型*/
+									st_N_USData_Indication.ui8_N_Result = TP_N_OK;		/*处理完成*/
+								}
+								else
+								{
+									st_N_USData_Indication.ui8_N_Result = TP_N_ERROR;	/*其他错误*/
+								}
+								break;
+							}
+
+							case TP_N_PDU_TYPE_FF:	/*接收到首帧*/
+							{
+								st_N_USData_FF_Indication.ui16_Length = ((uint16)(ui8_Tp_Frame_Rx_Buf[0U] & 0x0FU)) * 0x100U + ui8_Tp_Frame_Rx_Buf[1U];	/*取数据长度*/
+								if(st_N_USData_FF_Indication.ui16_Length >= TP_FF_DL_MIN)
+								{
+									st_Tp_Receiver.ui16_N_USData_Ind_Index = 0U;				/*Ind数据从0开始存储*/
+									for(ui16_Loop_1 = 0U; ui16_Loop_1 < TP_FF_DATA_FIELD_BYTES; ui16_Loop_1++)
+									{
+										st_N_USData_Indication.ui8_pMsgData[st_Tp_Receiver.ui16_N_USData_Ind_Index] = ui8_Tp_Frame_Rx_Buf[TP_FF_DATA_FIELD_OFFSET + ui16_Loop_1];
+										st_Tp_Receiver.ui16_N_USData_Ind_Index++;
+									}
+									st_Tp_Receiver.ui8_CF_SN = 1U;
+									st_Tp_Receiver.ui8_Task_FSM = TP_TASK_FC_STATE;	/*切换到流控帧状态*/
+									st_N_USData_FF_Indication.ui8_N_TAtype = ui8_Tp_Frame_AddrType;	/*得出目标地址类型*/
+									st_N_USData_Indication.ui8_N_Result = TP_N_PENDING;	/*暂无结果*/
+								}
+								else
+								{
+									st_N_USData_Indication.ui8_N_Result = TP_N_ERROR;	/*其他错误*/
+								}
+								break;
+							}
+
+							case TP_N_PDU_TYPE_CF:	/*接收到连续帧*/
+							{
+								st_Tp_Receiver.ui8_Timing_N_Cr = TP_TIMING_VALUE_N_CR;	/*N_Cr计数启动*/
+								if((ui8_Tp_Frame_Rx_Buf[0U] & 0x0FU) == st_Tp_Receiver.ui8_CF_SN)	/*判断CF SN是否正确*/
+								{
+									st_Tp_Receiver.ui8_CF_SN++;
+									if(st_Tp_Receiver.ui8_CF_SN > 15U)
+									{
+										st_Tp_Receiver.ui8_CF_SN = 0U;
+									}
+
+									if(TP_BLOCK_SIZE != 0U)	/*Block Size非0*/
+									{
+										st_Tp_Receiver.ui8_BlockSize_Count++;
+										if(st_Tp_Receiver.ui8_BlockSize_Count >= TP_BLOCK_SIZE)	/*CF帧达到BlockSize值，继续发FC帧*/
+										{
+											st_Tp_Receiver.ui8_Task_FSM = TP_TASK_FC_STATE;	/*切换到流控帧状态*/
+										}
+									}
+
+									for(ui16_Loop_1 = 0U; ui16_Loop_1 < TP_CF_DATA_FIELD_BYTES; ui16_Loop_1++)
+									{
+										st_N_USData_Indication.ui8_pMsgData[st_Tp_Receiver.ui16_N_USData_Ind_Index]
+																				 = ui8_Tp_Frame_Rx_Buf[TP_CF_DATA_FIELD_OFFSET + ui16_Loop_1];
+										st_Tp_Receiver.ui16_N_USData_Ind_Index++;
+										if(st_Tp_Receiver.ui16_N_USData_Ind_Index >= st_N_USData_FF_Indication.ui16_Length)
+										{
+											st_N_USData_Indication.ui16_Length = st_N_USData_FF_Indication.ui16_Length;
+											st_N_USData_Indication.ui8_N_TAtype = ui8_Tp_Frame_AddrType;	/*得出目标地址类型*/
+											st_N_USData_Indication.ui8_N_Result = TP_N_OK;		/*处理完成*/
+										}
+									}
+								}
+								else
+								{
+									st_N_USData_Indication.ui8_N_Result = TP_N_WRONG_SN;	/*SN错误*/
+								}
+								break;
+							}
+
+							default:
+							{
+								if(st_Tp_Receiver.ui8_Timing_N_Cr != 0U)
+								{
+									st_Tp_Receiver.ui8_Timing_N_Cr--;
+								}
+
+								if(st_Tp_Receiver.ui8_Timing_N_Cr == 0U)	/*Timing超时*/
+								{
+									st_N_USData_Indication.ui8_N_Result = TP_N_TIMEOUT_Cr;	/*N_TIMEOUT_Cr错误结果*/
+								}
+								break;
+							}
+						}
+					}
+					else
+					{
+						if(st_Tp_Receiver.ui8_Timing_N_Cr != 0U)
+						{
+							st_Tp_Receiver.ui8_Timing_N_Cr--;
+						}
+
+						if(st_Tp_Receiver.ui8_Timing_N_Cr == 0U)	/*Timing超时*/
+						{
+							st_N_USData_Indication.ui8_N_Result = TP_N_TIMEOUT_Cr;	/*N_TIMEOUT_Cr错误结果*/
+						}
+					}
+					break;
+				}
+
+				case TP_TASK_FC_STATE:		/*流控帧状态*/
+				{
+					TpFunc_Receiver_Frame_Tx_Buf_Init();	//初始化CAN 发送Buf
+
+					if(st_N_USData_FF_Indication.ui16_Length > TP_FF_DL_MAX)
+					{
+						st_Tp_Receiver.ui8_Frame_Tx_Buf[0U] = TP_N_PDU_TYPE_FC + TP_FC_FS_OVFLW;
+					}
+					else
+					{
+						st_Tp_Receiver.ui8_Frame_Tx_Buf[0U] = TP_N_PDU_TYPE_FC + TP_FC_FS_CTS;
+					}
+
+					st_Tp_Receiver.ui8_Frame_Tx_Buf[1U] = TP_BLOCK_SIZE;
+					st_Tp_Receiver.ui8_Frame_Tx_Buf[2U] = TP_STMIN;
+					st_Tp_Receiver.b_Frame_Tx_NewData_Valid = TRUE;	//发送数据
+					st_Tp_Receiver.ui8_Timing_N_Ar = TP_TIMING_VALUE_N_AR;	/*N_Ar计时启动*/
+
+					st_Tp_Receiver.ui8_BlockSize_Count = 0U;			/*初始化为0*/
+					st_Tp_Receiver.ui8_Task_FSM = TP_TASK_CF_STATE;	/*切换到连续帧状态*/
+					st_Tp_Receiver.ui8_Timing_N_Cr = TP_TIMING_VALUE_N_CR;	/*N_Cr计数启动*/
+					break;
+				}
+
+				default:
+				{
+					st_Tp_Receiver.ui8_Task_FSM = TP_TASK_SF_STATE;			/*切换到单帧状态*/
+					break;
+				}
+			}
+		}
+		else	/*N_Ar超时处理*/
+		{
+			if(st_Tp_Receiver.ui8_Timing_N_Ar != 0U)
+			{
+				st_Tp_Receiver.ui8_Timing_N_Ar--;
+			}
+
+			if(st_Tp_Receiver.ui8_Timing_N_Ar == 0U)	/*Timing超时*/
+			{
+				st_Tp_Receiver.b_Frame_Tx_NewData_Valid = FALSE;	/*取消发送*/
+				st_N_USData_Indication.ui8_N_Result = TP_N_TIMEOUT_A;	/*N_TIMEOUT_A错误结果*/
+			}
+		}
+
+		if(st_N_USData_Indication.ui8_N_Result != TP_N_PENDING)	/*确认结果*/
+		{
+			st_Tp_Receiver.ui8_Task_FSM = TP_TASK_SF_STATE;			/*切换到单帧状态*/
+		}
+	}
+
+	/*************************************************************************/
+	/*
+	Function:		void TpFunc_Sender_Task(void)
+
+	Description: 	此函数用于处理Sender任务
+
+	Parameters: 	void
+
+	Return:       	void
+
+	Return Values:  无
+
+	Remarks:
+
+	Example:
+	*/
+	void TpFunc_Sender_Task(void)
+	{
+		uint16	ui16_Loop_1;	/*循环计数器*/
+
+		if(st_Tp_Sender.b_Frame_Tx_NewData_Valid == FALSE)	/*无需N_As等待*/
+		{
+			switch(st_Tp_Sender.ui8_Task_FSM)	/*任务状态机*/
+			{
+				case TP_TASK_SF_STATE:		/*单帧和首帧处理方式相同*/
+				case TP_TASK_FF_STATE:
+				{
+					if((st_N_USData_Request.ui16_Length >= TP_SF_DL_MIN) && (st_N_USData_Request.ui16_Length <= TP_SF_DL_MAX))
+					{
+						TpFunc_Sender_Frame_Tx_Buf_Init();	//初始化CAN 发送Buf
+						st_Tp_Sender.ui8_Frame_Tx_Buf[0U] = TP_N_PDU_TYPE_SF + st_N_USData_Request.ui16_Length;
+						for(ui16_Loop_1 = 0U; ui16_Loop_1 < st_N_USData_Request.ui16_Length; ui16_Loop_1++)
+						{
+							st_Tp_Sender.ui8_Frame_Tx_Buf[TP_SF_DATA_FIELD_OFFSET + ui16_Loop_1] = st_N_USData_Request.ui8_pMsgData[ui16_Loop_1];
+						}
+						st_Tp_Sender.b_Frame_Tx_NewData_Valid = TRUE;	//发送数据
+						st_Tp_Sender.ui8_Timing_N_As = TP_TIMING_VALUE_N_AS;	/*N_As计时启动*/
+
+						st_N_USData_Confirm.ui8_N_Result = TP_N_OK;		/*处理完成*/
+					}
+					else if((st_N_USData_Request.ui16_Length >= TP_FF_DL_MIN) && (st_N_USData_Request.ui16_Length <= TP_FF_DL_MAX))
+					{
+						TpFunc_Sender_Frame_Tx_Buf_Init();	//初始化CAN 发送Buf
+						st_Tp_Sender.ui8_Frame_Tx_Buf[0U] = TP_N_PDU_TYPE_FF + (uint8)(st_N_USData_Request.ui16_Length / 0x100U);
+						st_Tp_Sender.ui8_Frame_Tx_Buf[1U] = (uint8)st_N_USData_Request.ui16_Length;
+						st_Tp_Sender.ui16_N_USData_Req_Index = 0U;	/*Req数据从0开始发送*/
+						for(ui16_Loop_1 = 0U; ui16_Loop_1 < TP_FF_DATA_FIELD_BYTES; ui16_Loop_1++)
+						{
+							st_Tp_Sender.ui8_Frame_Tx_Buf[TP_FF_DATA_FIELD_OFFSET + ui16_Loop_1]
+														  = st_N_USData_Request.ui8_pMsgData[st_Tp_Sender.ui16_N_USData_Req_Index];
+							st_Tp_Sender.ui16_N_USData_Req_Index++;
+						}
+						st_Tp_Sender.b_Frame_Tx_NewData_Valid = TRUE;	//发送数据
+						st_Tp_Sender.ui8_Timing_N_As = TP_TIMING_VALUE_N_AS;	/*N_As计时启动*/
+
+						st_Tp_Sender.ui8_CF_SN = 1U;	/*发送CF SN从1开始*/
+						st_Tp_Sender.ui8_Task_FSM = TP_TASK_FC_STATE;			/*切换到流控帧状态*/
+						st_Tp_Sender.ui8_Timing_N_Bs = TP_TIMING_VALUE_N_BS;	/*N_Bs计时启动*/
+						st_N_USData_Confirm.ui8_N_Result = TP_N_PENDING;		/*等待结果*/
+					}
+					else
+					{
+						st_N_USData_Confirm.ui8_N_Result = TP_N_ERROR;	/*其他错误*/
+					}
+					break;
+				}
+
+				case TP_TASK_CF_STATE:		/*连续帧状态*/
+				{
+					if(st_Tp_Sender.ui8_STmin_Count == 0U)	/*计时达到STmin值，发送下一帧CF数据*/
+					{
+						st_Tp_Sender.ui8_STmin_Count = st_Tp_Sender.ui8_STmin;
+
+						TpFunc_Sender_Frame_Tx_Buf_Init();	//初始化CAN 发送Buf
+						st_Tp_Sender.ui8_Frame_Tx_Buf[0U] = TP_N_PDU_TYPE_CF + st_Tp_Sender.ui8_CF_SN;
+						st_Tp_Sender.ui8_CF_SN++;
+						if(st_Tp_Sender.ui8_CF_SN > 15U)
+						{
+							st_Tp_Sender.ui8_CF_SN = 0U;
+						}
+
+						if(TP_BLOCK_SIZE != 0U)	/*Block Size非0*/
+						{
+							st_Tp_Sender.ui8_BlockSize_Count++;
+							if(st_Tp_Sender.ui8_BlockSize_Count >= st_Tp_Sender.ui8_Block_Size)	/*CF帧达到BlockSize值，等待接收FC帧*/
+							{
+								st_Tp_Sender.ui8_Task_FSM = TP_TASK_FC_STATE;			/*切换到流控帧状态*/
+								st_Tp_Sender.ui8_Timing_N_Bs = TP_TIMING_VALUE_N_BS;	/*N_Bs计时启动*/
+							}
+						}
+
+						for(ui16_Loop_1 = 0U; ui16_Loop_1 < TP_CF_DATA_FIELD_BYTES; ui16_Loop_1++)
+						{
+							st_Tp_Sender.ui8_Frame_Tx_Buf[TP_CF_DATA_FIELD_OFFSET + ui16_Loop_1]
+														  = st_N_USData_Request.ui8_pMsgData[st_Tp_Sender.ui16_N_USData_Req_Index];
+							st_Tp_Sender.ui16_N_USData_Req_Index++;
+
+							if(st_Tp_Sender.ui16_N_USData_Req_Index >= st_N_USData_Request.ui16_Length)
+							{
+								st_N_USData_Confirm.ui8_N_Result = TP_N_OK;		/*处理完成*/
+								break;
+							}
+						}
+						st_Tp_Sender.b_Frame_Tx_NewData_Valid = TRUE;	//发送数据
+						st_Tp_Sender.ui8_Timing_N_As = TP_TIMING_VALUE_N_AS;	/*N_As计时启动*/
+					}
+					else
+					{
+						st_Tp_Sender.ui8_STmin_Count--;	/*STmin计数器减值*/
+					}
+					break;
+				}
+
+				case TP_TASK_FC_STATE:		/*流控帧状态*/
+				{
+					if(b_Tp_Frame_Rx_NewData_Valid == TRUE)	/*接收到新的帧*/
+					{
+						b_Tp_Frame_Rx_NewData_Valid = FALSE;
+						switch(ui8_Tp_Frame_Rx_Buf[0U] & 0xF0U)
+						{
+							case TP_N_PDU_TYPE_FC:	/*接收到流控帧*/
+							{
+								switch(ui8_Tp_Frame_Rx_Buf[0U] & 0x0FU)	/*判断FC FS状态*/
+								{
+									case TP_FC_FS_CTS:
+									{
+										st_Tp_Sender.ui8_Block_Size = ui8_Tp_Frame_Rx_Buf[1U];
+										st_Tp_Sender.ui8_STmin = (ui8_Tp_Frame_Rx_Buf[2U] / TP_TASK_CYCLE_TIME);
+										if(st_Tp_Sender.ui8_STmin > TP_STMIN_MAX)	/*超过最大STmin值，STmin设置默认最大值*/
+										{
+											st_Tp_Sender.ui8_STmin = TP_STMIN_MAX;
+										}
+										st_Tp_Sender.ui8_BlockSize_Count = 0U;	/*初始化Block Size计数器*/
+										st_Tp_Sender.ui8_STmin_Count = st_Tp_Sender.ui8_STmin;	/*初始化STmin计数器*/
+
+										st_Tp_Sender.ui8_Task_FSM = TP_TASK_CF_STATE;	/*切换到连续帧状态*/
+										break;
+									}
+
+									case TP_FC_FS_WT:
+									{
+										/*继续等待，并重置Bs计数器*/
+										st_Tp_Sender.ui8_Timing_N_Bs = TP_TIMING_VALUE_N_BS;	/*N_Bs计数启动*/
+										break;
+									}
+
+									case TP_FC_FS_OVFLW:
+									{
+										st_N_USData_Confirm.ui8_N_Result = TP_N_BUFFER_OVFLW;	/*接收端Buf过小错误*/
+										break;
+									}
+
+									default:
+									{
+										st_N_USData_Confirm.ui8_N_Result = TP_N_INVALID_FS;	/*无效FS错误*/
+										break;
+									}
+								}
+								break;
+							}
+
+							default:
+							{
+								/*非FC帧忽略*/
+								if(st_Tp_Sender.ui8_Timing_N_Bs != 0U)
+								{
+									st_Tp_Sender.ui8_Timing_N_Bs--;
+								}
+
+								if(st_Tp_Sender.ui8_Timing_N_Bs == 0U)	/*Timing超时*/
+								{
+									st_N_USData_Confirm.ui8_N_Result = TP_N_TIMEOUT_Bs;	/*N_TIMEOUT_Bs错误结果*/
+								}
+								break;
+							}
+						}
+					}
+					else
+					{
+						if(st_Tp_Sender.ui8_Timing_N_Bs != 0U)
+						{
+							st_Tp_Sender.ui8_Timing_N_Bs--;
+						}
+
+						if(st_Tp_Sender.ui8_Timing_N_Bs == 0U)	/*Timing超时*/
+						{
+							st_N_USData_Confirm.ui8_N_Result = TP_N_TIMEOUT_Bs;	/*N_TIMEOUT_Bs错误结果*/
+						}
+					}
+					break;
+				}
+				default:
+				{
+					st_Tp_Sender.ui8_Task_FSM = TP_TASK_SF_STATE;		/*切换到单帧状态*/
+					break;
+				}
+			}
+		}
+		else	/*N_As超时处理*/
+		{
+			if(st_Tp_Sender.ui8_Timing_N_As != 0U)
+			{
+				st_Tp_Sender.ui8_Timing_N_As--;
+			}
+
+			if(st_Tp_Sender.ui8_Timing_N_As == 0U)	/*Timing超时*/
+			{
+				st_Tp_Sender.b_Frame_Tx_NewData_Valid = FALSE;	/*取消发送*/
+				st_N_USData_Confirm.ui8_N_Result = TP_N_TIMEOUT_A;	/*N_TIMEOUT_A错误结果*/
+			}
+		}
+
+		if(st_N_USData_Confirm.ui8_N_Result != TP_N_PENDING)	/*确认结果*/
+		{
+			st_N_USData_Request.ui16_Length = 0U;				/*Req数据长度清零*/
+			st_Tp_Sender.ui8_Task_FSM = TP_TASK_SF_STATE;		/*切换到单帧状态*/
+		}
+	}
+
+	/*************************************************************************/
+	/*
+	Function:		void TpFunc_Half_Duplex_Task(void)
+
+	Description: 	此函数用于周期运行半双工TP任务
+
+	Parameters: 	void
+
+	Return:       	void
+
+	Return Values:  无
+
+	Remarks:
+
+	Example:
+	*/
+	void TpFunc_Half_Duplex_Task(void)
+	{
+		if(st_N_USData_Request.ui16_Length == 0U)	/*Req数据为0进入接收状态，否则进入发送状态*/
+		{
+			ui8_Tp_Task_Dir_FSM = TP_TASK_RX_STATE;
+		}
+		else
+		{
+			ui8_Tp_Task_Dir_FSM = TP_TASK_TX_STATE;
+		}
+
+		switch(ui8_Tp_Task_Dir_FSM)		/*TP任务方向状态机*/
+		{
+			case TP_TASK_RX_STATE:		/*接收状态*/
+			{
+				TpFunc_Receiver_Task();	/*处理Receiver任务*/
+				break;
+			}
+
+			case TP_TASK_TX_STATE:		/*发送状态*/
+			{
+				TpFunc_Sender_Task();	/*处理Sender任务*/
+				break;
+			}
+
+			default:
+			{
+				ui8_Tp_Task_Dir_FSM = TP_TASK_RX_STATE;	/*进入接收状态*/
+			}
+		}
+	}
+
+#elif(TP_DUPLEX_MODE == TP_FULL_DUPLEX)		/*全双工模式*/
+
+	/*************************************************************************/
+	/*
+	Function:		void TpFunc_Rx_Task(void)
+
+	Description: 	此函数用于处理TP接收任务
+
+	Parameters: 	void
+
+	Return:       	void
+
+	Return Values:  无
+
+	Remarks:
+
+	Example:
+	*/
+	void TpFunc_Rx_Task(void)
+	{
+
+	}
+
+	/*************************************************************************/
+	/*
+	Function:		void TpFunc_Tx_Task(void)
+
+	Description: 	此函数用于处理TP发送任务
+
+	Parameters: 	void
+
+	Return:       	void
+
+	Return Values:  无
+
+	Remarks:
+
+	Example:
+	*/
+	void TpFunc_Tx_Task(void)
+	{
+
+	}
+
+	/*************************************************************************/
+	/*
+	Function:		void TpFunc_Full_Duplex_Task(void)
+
+	Description: 	此函数用于周期运行全双工TP任务
+
+	Parameters: 	void
+
+	Return:       	void
+
+	Return Values:  无
+
+	Remarks:
+
+	Example:
+	*/
+	void TpFunc_Full_Duplex_Task(void)
+	{
+		TpFunc_Receiver_Task();	/*处理Receiver任务*/
+		TpFunc_Sender_Task();	/*处理Sender任务*/
+	}
+#endif
+
+/*************************************************************************/
+/*
+Function:		void TpFunc_Task(void)
+
+Description: 	此函数用于周期运行TP任务
+
+Parameters: 	void
+
+Return:       	void
+
+Return Values:  无
+
+Remarks:
+
+Example:
+*/
+void TpFunc_Task(void)
+{
+	TpFunc_Recv_CANMsg();						/*接收TP CAN消息*/
+	TpFunc_Send_CANMsg();						/*发送TP CAN消息*/
+
+	#if(TP_DUPLEX_MODE == TP_HALF_DUPLEX)		/*半双工模式*/
+		TpFunc_Half_Duplex_Task();
+	#elif(TP_DUPLEX_MODE == TP_FULL_DUPLEX)		/*全双工模式*/
+		TpFunc_Full_Duplex_Task();
+	#endif
+
+}
+
+

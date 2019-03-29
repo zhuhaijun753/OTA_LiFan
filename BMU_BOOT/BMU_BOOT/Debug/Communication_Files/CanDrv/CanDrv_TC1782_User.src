@@ -1,6 +1,6 @@
 	; Module start
 	.compiler_version	"TASKING VX-toolset for TriCore: C compiler v4.3r1 Build 759 SN 00641831"
-	.compiler_invocation	"ctc -f cc8868a -c99 --dep-file=Communication_Files\\CanDrv\\.CanDrv_TC1782_User.o.d -D__CPU__=tc1782 -D__CPU_TC1782__ --core=tc1.3.1 -F -ID:\\work\\Microvast\\OTA\\LiFan\\BMU_BOOT\\BMU_BOOT -ID:\\work\\Microvast\\OTA\\LiFan\\BMU_BOOT\\BMU_BOOT\\Communication_Files\\CanDrv -ID:\\work\\Microvast\\OTA\\LiFan\\BMU_BOOT\\BMU_BOOT\\Communication_Files\\Com -ID:\\work\\Microvast\\OTA\\LiFan\\BMU_BOOT\\BMU_BOOT\\Communication_Files\\Com\\Can_Input -ID:\\work\\Microvast\\OTA\\LiFan\\BMU_BOOT\\BMU_BOOT\\Communication_Files\\Com\\Can_Output -ID:\\work\\Microvast\\OTA\\LiFan\\BMU_BOOT\\BMU_BOOT\\Communication_Files\\Uds\\Dcm -ID:\\work\\Microvast\\OTA\\LiFan\\BMU_BOOT\\BMU_BOOT\\Communication_Files\\Uds\\Dem -ID:\\work\\Microvast\\OTA\\LiFan\\BMU_BOOT\\BMU_BOOT\\Communication_Files\\Uds\\Tp -ID:\\work\\Microvast\\OTA\\LiFan\\BMU_BOOT\\BMU_BOOT\\Communication_Files\\Uds\\User -ID:\\work\\Microvast\\OTA\\LiFan\\BMU_BOOT\\BMU_BOOT\\Complex_Files -ID:\\work\\Microvast\\OTA\\LiFan\\BMU_BOOT\\BMU_BOOT\\Initiate_Files -ID:\\work\\Microvast\\OTA\\LiFan\\BMU_BOOT\\BMU_BOOT\\Nvm_Files\\FlsDrv -ID:\\work\\Microvast\\OTA\\LiFan\\BMU_BOOT\\BMU_BOOT\\Stand_Header -g2 --make-target=Communication_Files\\CanDrv\\CanDrv_TC1782_User.o -t4 --language=-gcc,-volatile,+strings --default-near-size=0 -O2 --default-a1-size=0 --default-a0-size=0 --source --align=0 --compact-max-size=200 --switch=auto -o Communication_Files\\CanDrv\\CanDrv_TC1782_User.src ..\\Communication_Files\\CanDrv\\CanDrv_TC1782_User.c"
+	.compiler_invocation	"ctc -f cc8212a -c99 --dep-file=Communication_Files\\CanDrv\\.CanDrv_TC1782_User.o.d -D__CPU__=tc1782 -D__CPU_TC1782__ --core=tc1.3.1 -F -ID:\\work\\Microvast\\OTA\\LiFan\\BMU_BOOT\\BMU_BOOT -ID:\\work\\Microvast\\OTA\\LiFan\\BMU_BOOT\\BMU_BOOT\\Communication_Files\\CanDrv -ID:\\work\\Microvast\\OTA\\LiFan\\BMU_BOOT\\BMU_BOOT\\Communication_Files\\Com -ID:\\work\\Microvast\\OTA\\LiFan\\BMU_BOOT\\BMU_BOOT\\Communication_Files\\Com\\Can_Input -ID:\\work\\Microvast\\OTA\\LiFan\\BMU_BOOT\\BMU_BOOT\\Communication_Files\\Com\\Can_Output -ID:\\work\\Microvast\\OTA\\LiFan\\BMU_BOOT\\BMU_BOOT\\Communication_Files\\Uds\\Dcm -ID:\\work\\Microvast\\OTA\\LiFan\\BMU_BOOT\\BMU_BOOT\\Communication_Files\\Uds\\Dem -ID:\\work\\Microvast\\OTA\\LiFan\\BMU_BOOT\\BMU_BOOT\\Communication_Files\\Uds\\Tp -ID:\\work\\Microvast\\OTA\\LiFan\\BMU_BOOT\\BMU_BOOT\\Communication_Files\\Uds\\User -ID:\\work\\Microvast\\OTA\\LiFan\\BMU_BOOT\\BMU_BOOT\\Complex_Files -ID:\\work\\Microvast\\OTA\\LiFan\\BMU_BOOT\\BMU_BOOT\\Initiate_Files -ID:\\work\\Microvast\\OTA\\LiFan\\BMU_BOOT\\BMU_BOOT\\Nvm_Files\\FlsDrv -ID:\\work\\Microvast\\OTA\\LiFan\\BMU_BOOT\\BMU_BOOT\\Stand_Header -g2 --make-target=Communication_Files\\CanDrv\\CanDrv_TC1782_User.o -t4 --language=-gcc,-volatile,+strings --default-near-size=0 -O2 --default-a1-size=0 --default-a0-size=0 --source --align=0 --compact-max-size=200 --switch=auto -o Communication_Files\\CanDrv\\CanDrv_TC1782_User.src ..\\Communication_Files\\CanDrv\\CanDrv_TC1782_User.c"
 	.compiler_name		"ctc"
 	.name	"CanDrv_TC1782_User"
 
@@ -885,7 +885,9 @@ st_CAN_Object:	.type	object
 	.byte	1
 	.space	3
 	.byte	1
-	.space	4
+	.space	2
+	.byte	1
+	.space	1
 	.byte	8
 	.space	2
 	.word	1921,2047
@@ -901,7 +903,9 @@ st_CAN_Object:	.type	object
 	.byte	1
 	.space	3
 	.byte	1
-	.space	4
+	.space	2
+	.byte	1
+	.space	1
 	.byte	8
 	.space	2
 	.word	2015,2047
@@ -1986,9 +1990,9 @@ st_CAN_Rx_By_ID:	.type	object
 ; ..\Communication_Files\CanDrv\CanDrv_TC1782_User.c	   208  		{FALSE, 	2U, 	CAN_RX_DIR, FALSE,	FALSE,	8U,		CAN_EXT_ID,	0x1801F456U,	0x1FFFFFFF,	1U},		//Object 118
 ; ..\Communication_Files\CanDrv\CanDrv_TC1782_User.c	   209  		{FALSE, 	2U, 	CAN_RX_DIR, FALSE,	FALSE,	8U,		CAN_EXT_ID,	0x1807F456U,	0x1FFFFFFF,	1U},		//Object 119
 ; ..\Communication_Files\CanDrv\CanDrv_TC1782_User.c	   210  		{FALSE, 	2U, 	CAN_RX_DIR, FALSE,	FALSE,	8U,		CAN_EXT_ID,	0x1808F456U,	0x1FFFFFFF,	1U},		//Object 120
-; ..\Communication_Files\CanDrv\CanDrv_TC1782_User.c	   211  		{TRUE, 		0U, 	CAN_RX_DIR, FALSE,	FALSE,	8U,		CAN_STD_ID,	0x781U,	0x7FF,	1U},		//Object 121
+; ..\Communication_Files\CanDrv\CanDrv_TC1782_User.c	   211  		{TRUE, 		0U, 	CAN_RX_DIR, TRUE,	FALSE,	8U,		CAN_STD_ID,	0x781U,	0x7FF,	1U},		//Object 121
 ; ..\Communication_Files\CanDrv\CanDrv_TC1782_User.c	   212  		{TRUE, 		0U, 	CAN_TX_DIR, FALSE,	FALSE,	8U,		CAN_STD_ID,	0x789U,	0x7FF,	1U},		//Object 122
-; ..\Communication_Files\CanDrv\CanDrv_TC1782_User.c	   213  		{TRUE,  	0U, 	CAN_RX_DIR, FALSE,	FALSE,	8U,		CAN_STD_ID,	0x7DFU,	0x7FF,	1U},		//Object 123	发送 DIO输入相关内容
+; ..\Communication_Files\CanDrv\CanDrv_TC1782_User.c	   213  		{TRUE,  	0U, 	CAN_RX_DIR, TRUE,	FALSE,	8U,		CAN_STD_ID,	0x7DFU,	0x7FF,	1U},		//Object 123	发送 DIO输入相关内容
 ; ..\Communication_Files\CanDrv\CanDrv_TC1782_User.c	   214  
 ; ..\Communication_Files\CanDrv\CanDrv_TC1782_User.c	   215  		{TRUE, 	0U, 	CAN_RX_DIR, FALSE,	FALSE,	8U,		CAN_STD_ID,	0xBBU,	0x7FF,	1U},		//Object 124
 ; ..\Communication_Files\CanDrv\CanDrv_TC1782_User.c	   216  		{TRUE, 	0U, 	CAN_TX_DIR, FALSE,	FALSE,	8U,		CAN_STD_ID,	0xAAU,	0x7FF,	1U},		//Object 125

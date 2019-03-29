@@ -24,6 +24,8 @@ ctc W588: ["..\CANbootloader.c" 222/10] dead assignment to "pdwFsr" eliminated
 ctc W588: ["..\CANbootloader.c" 381/8] dead assignment to "pdwFsr" eliminated
 0 errors, 6 warnings
 Compiling Uds_Dcm_ControlDTCSetting.c
+ctc W588: ["..\Communication_Files\CanDrv\CanDrv_TC1782.c" 353/11] dead assignment to "ui32_ID" eliminated
+0 errors, 1 warnings
 Compiling Uds_Dcm_DiagnosticSessionControl.c
 Compiling Uds_Dcm_Drv.c
 Compiling Uds_Dcm_ECUReset.c
@@ -44,26 +46,28 @@ ctc W549: ["..\Communication_Files\Uds\Dcm\Uds_Dcm_RequestTransferExit.c" 49/155
 0 errors, 1 warnings
 Compiling Uds_Tp_Drv.c
 Compiling Uds_User_CommunicationControlCallback.c
+Compiling Uds_User_ControlDTCSettingCallback.c
 ctc W549: ["..\Communication_Files\Uds\Dcm\Uds_Dcm_RoutineControl.c" 55/89] condition is always false
 ctc W549: ["..\Communication_Files\Uds\Dcm\Uds_Dcm_RoutineControl.c" 55/140] condition is always true
 0 errors, 2 warnings
-Compiling Uds_User_ControlDTCSettingCallback.c
 Compiling Uds_User_DiagnosticSessionControlCallback.c
 Compiling Uds_User_ECUResetCallback.c
 ctc W549: ["..\Communication_Files\Uds\Dcm\Uds_Dcm_TesterPresent.c" 54/89] condition is always false
 ctc W549: ["..\Communication_Files\Uds\Dcm\Uds_Dcm_TesterPresent.c" 54/140] condition is always true
 0 errors, 2 warnings
 Compiling Uds_User_ReadDataByIdentifierCallback.c
-ctc W549: ["..\Communication_Files\Uds\Dcm\Uds_Dcm_TransferData.c" 49/149] condition is always false
-0 errors, 1 warnings
 Compiling Uds_User_RequestDownloadCallback.c
-ctc W588: ["..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c" 420/11] dead assignment to "b_Return" eliminated
+ctc W549: ["..\Communication_Files\Uds\Dcm\Uds_Dcm_TransferData.c" 49/149] condition is always false
 0 errors, 1 warnings
 Compiling Uds_User_RequestTransferExitCallback.c
 Compiling Uds_User_RoutineControlCallback.c
+ctc W588: ["..\Communication_Files\Uds\User\Uds_User_CommunicationControlCallback.c" 420/11] dead assignment to "b_Return" eliminated
+0 errors, 1 warnings
 Compiling Uds_User_SecurityAccessCallback.c
 Compiling Uds_User_TesterPresentCallback.c
 Compiling Uds_User_TransferDataCallback.c
+ctc W537: ["..\Communication_Files\Uds\Tp\Uds_Tp_Drv.c" 189/10] unused variable "b_Return"
+0 errors, 1 warnings
 Compiling Uds_User_WriteDataByIdentifierCallback.c
 Compiling Crc_Algorithm.c
 Compiling Operating_System.c
@@ -76,5 +80,5 @@ ctc W544: ["..\Initiate_Files\MAIN.c" 563/3] unreachable code
 0 errors, 1 warnings
 Linking to BMU_BOOT.elf
 
-Time consumed: 12699 ms
+Time consumed: 14482 ms
 **** End of build ****
